@@ -47,7 +47,8 @@ namespace HuginBase {
                        o_panoramaOptions,
                        *progDisp,
                        o_filename,
-                       o_usedImages);
+                       o_usedImages,
+                       m_ignoreExposure);
            
         delete progDisp;
         

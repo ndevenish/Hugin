@@ -33,16 +33,17 @@ void HuginBase::Nona::stitchPanoGray_32_float(const PanoramaData & pano,
                                  AppBase::MultiProgressDisplay & progress,
                                  const std::string & basename,
                                  const UIntSet & usedImgs,
-                                 const char * pixelType)
+                                 const char * pixelType, 
+                                 bool ignoreExposure)
 {
     if (strcmp(pixelType, "UINT32") == 0 ) {
-        stitchPanoIntern<UInt32Image,BImage>(pano, opts, progress, basename, usedImgs);
+        stitchPanoIntern<UInt32Image,BImage>(pano, opts, progress, basename, usedImgs, ignoreExposure);
     } else if (strcmp(pixelType, "INT32") == 0 ) {
-        stitchPanoIntern<IImage,BImage>(pano, opts, progress, basename, usedImgs);
+        stitchPanoIntern<IImage, BImage>(pano, opts, progress, basename, usedImgs, ignoreExposure);
     } else if (strcmp(pixelType, "FLOAT") == 0 ) {
-        stitchPanoIntern<FImage,BImage>(pano, opts, progress, basename, usedImgs);
+        stitchPanoIntern<FImage, BImage>(pano, opts, progress, basename, usedImgs, ignoreExposure);
     } else if (strcmp(pixelType, "DOUBLE") == 0 ) {
-        stitchPanoIntern<DImage,BImage>(pano, opts, progress, basename, usedImgs);
+        stitchPanoIntern<DImage, BImage>(pano, opts, progress, basename, usedImgs, ignoreExposure);
     } else {
         UTILS_THROW(std::runtime_error, "Unsupported pixel type: " << pixelType );
         return;

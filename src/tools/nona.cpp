@@ -35,9 +35,8 @@
 #include <vigra/error.hxx>
 #include <vigra/impex.hxx>
 
-#ifdef WIN32
 #include <getopt.h>
-#else
+#ifndef WIN32
 #include <unistd.h>
 #endif
 
@@ -100,6 +99,8 @@ static void usage(const char* name)
          << "                   PACKBITS  packbits compression" << std::endl
          << "                   LZW       lzw compression" << std::endl
          << "                   DEFLATE   deflate compression" << std::endl
+         << "      --ignore-exposure  don't correct exposure" << std::endl
+         << "                   (this does not work with -e switch together)" << std::endl
          << std::endl;
 }
 
@@ -121,11 +122,23 @@ int main(int argc, char* argv[])
     PanoramaOptions::OutputMode outputMode = PanoramaOptions::OUTPUT_LDR;
     bool overrideExposure = false;
     double exposure=0;
+    bool ignoreExposure = false;
     int verbose = 0;
     bool useGPU = false;
     string outputPixelType;
 
-    while ((c = getopt (argc, argv, optstring)) != -1)
+    enum
+    {
+        IGNOREEXPOSURE=1000
+    };
+    static struct option longOptions[] =
+    {
+        { "ignore-exposure", no_argument, NULL, IGNOREEXPOSURE },
+        0
+    };
+    
+    int optionIndex = 0;
+    while ((c = getopt_long(argc, argv, optstring, longOptions, &optionIndex)) != -1)
     {
         switch (c)
         {
@@ -164,6 +177,9 @@ int main(int argc, char* argv[])
             case 'e':
                 overrideExposure = true;
                 exposure = atof(optarg);
+                break;
+            case IGNOREEXPOSURE:
+                ignoreExposure = true;
                 break;
             case '?':
             case 'h':
@@ -299,6 +315,12 @@ int main(int argc, char* argv[])
     if (overrideExposure)
     {
         opts.outputExposureValue = exposure;
+        if (ignoreExposure)
+        {
+            ignoreExposure = false;
+            std::cout << "WARNING: Switches --ignore-exposure and -e can't to used together." << std::endl
+                << "         Ignore switch --ignore-exposure." << std::endl;
+        }
     }
 
     if(outputImages.size()==0)
@@ -351,7 +373,7 @@ int main(int argc, char* argv[])
         pano.setOptions(opts);
 
         // stitch panorama
-        NonaFileOutputStitcher(pano, pdisp, opts, outputImages, basename).run();
+        NonaFileOutputStitcher(pano, pdisp, opts, outputImages, basename, ignoreExposure).run();
         // add a final newline, after the last progress message
         if (verbose > 0)
         {

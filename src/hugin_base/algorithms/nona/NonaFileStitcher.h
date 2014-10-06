@@ -49,8 +49,9 @@ namespace HuginBase {
                                AppBase::ProgressDisplay* progressDisplay,
                                const PanoramaOptions& options,
                                const UIntSet& usedImages,
-                               const String& filename)
-            : FileOutputStitcherAlgorithm(panoramaData, progressDisplay, options, usedImages, filename, true)
+                               const String& filename,
+                               bool ignoreExposure)
+            : FileOutputStitcherAlgorithm(panoramaData, progressDisplay, options, usedImages, filename, true), m_ignoreExposure(ignoreExposure)
         {};
         
         ///
@@ -61,6 +62,8 @@ namespace HuginBase {
         ///
         virtual bool runStitcher();  // uses Nona::stitchPanorama()
         
+    private:
+        bool m_ignoreExposure;
     };
 
     

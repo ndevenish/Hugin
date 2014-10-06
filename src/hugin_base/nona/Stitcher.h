@@ -211,7 +211,8 @@ public:
 
     virtual void stitch(const PanoramaOptions & opts, UIntSet & images,
                         const std::string & basename,
-                        SingleImageRemapper<ImageType, AlphaType> & remapper)
+                        SingleImageRemapper<ImageType, AlphaType> & remapper,
+                        bool ignoreExposure)
     {
         Base::stitch(opts, images, basename, remapper);
         DEBUG_ASSERT(opts.outputFormat == PanoramaOptions::TIFF_multilayer
@@ -234,8 +235,13 @@ public:
              it != images.end(); ++it)
         {
             // get a remapped image.
+            PanoramaOptions modOptions(opts);
+            if (ignoreExposure)
+            {
+                modOptions.outputExposureValue = Base::m_pano.getImage(*it).getExposureValue();
+            };
             RemappedPanoImage<ImageType, AlphaType> *
-                remapped = remapper.getRemapped(Base::m_pano, opts, *it, 
+                remapped = remapper.getRemapped(Base::m_pano, modOptions, *it, 
                                                 Base::m_rois[i], Base::m_progress);
             try {
                 saveRemapped(*remapped, *it, Base::m_pano.getNrOfImages(), opts);
@@ -558,7 +564,8 @@ public:
     void stitch(const PanoramaOptions & opts, UIntSet & imgSet,
                         vigra::triple<ImgIter, ImgIter, ImgAccessor> pano,
                         std::pair<AlphaIter, AlphaAccessor> alpha,
-                        SingleImageRemapper<ImageType, AlphaType> & remapper)
+                        SingleImageRemapper<ImageType, AlphaType> & remapper,
+                        bool ignoreExposure = false)
     {
         std::vector<unsigned int> images;
         // calculate stitching order
@@ -577,8 +584,13 @@ public:
         {
             // get a remapped image.
             DEBUG_DEBUG("remapping image: " << *it);
+            PanoramaOptions modOptions(opts);
+            if (ignoreExposure)
+            {
+                modOptions.outputExposureValue = Base::m_pano.getImage(*it).getExposureValue();
+            };
             RemappedPanoImage<ImageType, AlphaType> *
-            remapped = remapper.getRemapped(Base::m_pano, opts, *it,
+                remapped = remapper.getRemapped(Base::m_pano, modOptions, *it,
                                             Base::m_rois[i], Base::m_progress);
             if(iccProfile.size()==0)
             {
@@ -604,7 +616,8 @@ public:
 
     void stitch(const PanoramaOptions & opts, UIntSet & imgSet,
                         const std::string & filename,
-                        SingleImageRemapper<ImageType, AlphaType> & remapper)
+                        SingleImageRemapper<ImageType, AlphaType> & remapper,
+                        bool ignoreExposure = false)
     {
         Base::stitch(opts, imgSet, filename, remapper);
 
@@ -614,7 +627,7 @@ public:
         ImageType pano(opts.getWidth(), opts.getHeight());
         AlphaType panoMask(opts.getWidth(), opts.getHeight());
 
-        stitch(opts, imgSet, vigra::destImageRange(pano), vigra::destImage(panoMask), remapper);
+        stitch(opts, imgSet, vigra::destImageRange(pano), vigra::destImage(panoMask), remapper, ignoreExposure);
 	
 	    std::string ext = opts.getOutputExtension();
         std::string cext = hugin_utils::tolower(hugin_utils::getExtension(basename));
@@ -1167,7 +1180,8 @@ static void stitchPanoIntern(const PanoramaData & pano,
                              const PanoramaOptions & opts,
                              AppBase::MultiProgressDisplay & progress,
                              const std::string & basename,
-                             UIntSet imgs)
+                             UIntSet imgs,
+                             bool ignoreExposure = false)
 {
     using namespace vigra_ext;
     
@@ -1189,8 +1203,7 @@ static void stitchPanoIntern(const PanoramaData & pano,
                 stitcher.stitch(opts, imgs, basename, m, hdrmerge);
             } else {
                 WeightedStitcher<ImageType, AlphaType> stitcher(pano, progress);
-                stitcher.stitch(opts, imgs, basename,
-                                m);
+                stitcher.stitch(opts, imgs, basename, m, ignoreExposure);
             }
             break;
         }
@@ -1201,15 +1214,13 @@ static void stitchPanoIntern(const PanoramaData & pano,
         case PanoramaOptions::EXR_m:
         {
             MultiImageRemapper<ImageType, AlphaType> stitcher(pano, progress);
-            stitcher.stitch(opts, imgs, basename,
-                            m);
+            stitcher.stitch(opts, imgs, basename, m, ignoreExposure);
             break;
         }
         case PanoramaOptions::TIFF_multilayer:
         {
             TiffMultiLayerRemapper<ImageType, AlphaType> stitcher(pano, progress);
-            stitcher.stitch(opts, imgs, basename,
-                            m);
+            stitcher.stitch(opts, imgs, basename, m, ignoreExposure);
             break;
         }
         case PanoramaOptions::TIFF_mask:
@@ -1232,7 +1243,8 @@ IMPEX void stitchPanorama(const PanoramaData & pano,
 		            const PanoramaOptions & opts,
 		            AppBase::MultiProgressDisplay & progress,
 		            const std::string & basename,
-                    const UIntSet & usedImgs);
+                    const UIntSet & usedImgs,
+                    bool ignoreExposure = false);
 
 // the instantiations of the stitching functions have been divided into two .cpp
 // files, because g++ will use too much memory otherwise (> 1.5 GB)
@@ -1242,14 +1254,16 @@ void stitchPanoGray_8_16(const PanoramaData & pano,
                          AppBase::MultiProgressDisplay & progress,
                          const std::string & basename,
                          const UIntSet & usedImgs,
-                         const char * pixelType);
+                         const char * pixelType,
+                         bool ignoreExposure = false);
 
 void stitchPanoGray_32_float(const PanoramaData & pano,
                              const PanoramaOptions & opts,
                              AppBase::MultiProgressDisplay & progress,
                              const std::string & basename,
                              const UIntSet & usedImgs,
-                             const char * pixelType);
+                             const char * pixelType,
+                             bool ignoreExposure = false);
 
 
 void stitchPanoRGB_8_16(const PanoramaData & pano,
@@ -1257,14 +1271,16 @@ void stitchPanoRGB_8_16(const PanoramaData & pano,
                         AppBase::MultiProgressDisplay & progress,
                         const std::string & basename,
                         const UIntSet & usedImgs,
-                        const char * pixelType);
+                        const char * pixelType,
+                        bool ignoreExposure = false);
 
 void stitchPanoRGB_32_float(const PanoramaData & pano,
                             const PanoramaOptions & opts,
                             AppBase::MultiProgressDisplay & progress,
                             const std::string & basename,
                             const UIntSet & usedImgs,
-                            const char * pixelType);
+                            const char * pixelType,
+                            bool ignoreExposure = false);
 
 } // namespace
 } // namespace
