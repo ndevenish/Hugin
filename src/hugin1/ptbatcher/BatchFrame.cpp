@@ -265,7 +265,14 @@ void* BatchFrame::Entry()
         wxFileName aFile(m_batch->GetLastFile());
         if(!aFile.FileExists())
         {
+#if wxCHECK_VERSION(3,0,0)
+            // for thread safety wxWidgets recommends using wxQueueEvent
+            // but this function is not available for older wxWidgets versions
             wxQueueEvent(this, new wxCommandEvent(wxEVT_COMMAND_MENU_SELECTED, wxEVT_COMMAND_RELOAD_BATCH));
+#else
+            wxCommandEvent evt(wxEVT_COMMAND_MENU_SELECTED, wxEVT_COMMAND_RELOAD_BATCH);
+            wxPostEvent(this, evt);
+#endif
         }
         else
         {
@@ -273,11 +280,21 @@ void* BatchFrame::Entry()
             aFile.GetTimes(NULL,NULL,&create);
             if(create.IsLaterThan(m_batch->GetLastFileDate()))
             {
+#if wxCHECK_VERSION(3,0,0)
                 wxQueueEvent(this, new wxCommandEvent(wxEVT_COMMAND_MENU_SELECTED, wxEVT_COMMAND_RELOAD_BATCH));
+#else
+                wxCommandEvent evt(wxEVT_COMMAND_MENU_SELECTED, wxEVT_COMMAND_RELOAD_BATCH);
+                wxPostEvent(this, evt);
+#endif
             };
         };
         //update project list box
+#if wxCHECK_VERSION(3,0,0)
         wxQueueEvent(this, new wxCommandEvent(wxEVT_COMMAND_MENU_SELECTED, wxEVT_COMMAND_UPDATE_LISTBOX));
+#else
+        wxCommandEvent evt(wxEVT_COMMAND_MENU_SELECTED, wxEVT_COMMAND_UPDATE_LISTBOX);
+        wxPostEvent(this, evt);
+#endif
         GetThread()->Sleep(1000);
     }
     return 0;
