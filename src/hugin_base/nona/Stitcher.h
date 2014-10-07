@@ -376,9 +376,9 @@ public:
             exinfo.setCompression(opts.tiffCompression.c_str());
         } else {
             if (ext == "jpg") {
-                char jpgCompr[4];
-                snprintf(jpgCompr, 4, "%d", opts.quality);
-                exinfo.setCompression(jpgCompr);
+                std::ostringstream quality;
+                quality << "JPEG QUALITY=" << opts.quality;
+                exinfo.setCompression(quality.str().c_str());
                 supportsAlpha = false;
             };
         }
@@ -652,9 +652,9 @@ public:
 
         // set compression quality for jpeg images.
         if (opts.outputFormat == PanoramaOptions::JPEG) {
-            char jpgCompr[4];
-            snprintf(jpgCompr,4,"%d", opts.quality);
-            exinfo.setCompression(jpgCompr);
+            std::ostringstream quality;
+            quality << "JPEG QUALITY=" << opts.quality;
+            exinfo.setCompression(quality.str().c_str());
             vigra::exportImage(srcImageRange(pano), exinfo);
         } else if (opts.outputFormat == PanoramaOptions::TIFF) {
             exinfo.setCompression(opts.tiffCompression.c_str());
@@ -786,9 +786,9 @@ public:
         exinfo.setICCProfile(iccProfile);
         // set compression quality for jpeg images.
         if (opts.outputFormat == PanoramaOptions::JPEG) {
-            char jpgCompr[4];
-            snprintf(jpgCompr,4,"%d", opts.quality);
-            exinfo.setCompression(jpgCompr);
+            std::ostringstream quality;
+            quality << "JPEG QUALITY=" << opts.quality;
+            exinfo.setCompression(quality.str().c_str());
             vigra::exportImage(srcImageRange(pano), exinfo);
         } else if (opts.outputFormat == PanoramaOptions::TIFF) {
             exinfo.setCompression(opts.tiffCompression.c_str());
@@ -981,9 +981,9 @@ public:
         exinfo.setICCProfile(iccProfile);
         // set compression quality for jpeg images.
         if (opts.outputFormat == PanoramaOptions::JPEG) {
-            char jpgCompr[4];
-            snprintf(jpgCompr,4,"%d", opts.quality);
-            exinfo.setCompression(jpgCompr);
+            std::ostringstream quality;
+            quality << "JPEG QUALITY=" << opts.quality;
+            exinfo.setCompression(quality.str().c_str());
             vigra::exportImage(srcImageRange(pano), exinfo);
 	} else if (opts.outputFormat == PanoramaOptions::TIFF) {
 	    exinfo.setCompression("DEFLATE");
