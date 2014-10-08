@@ -1,3 +1,43 @@
+2014-08-31 11:25 +0200  tmodes  (3b8da09de661)  
+
+	Updated Danish translation (Thomas Pryds)
+
+	> src/translations/da.po
+
+2014-06-30 17:46 +0200  tmodes  (8822268d82fa)  
+
+	icpfind: Fixes parsing of command line parameters [1276350] (grafted
+	from 740a9316a69d188d251fa4db091076d0a25f4412)
+
+	> src/hugin1/icpfind/icpfind.cpp
+
+2014-06-29 11:03 +0200  Matthieu DESILE <matthieu.desile@gmail.com>  (a86cc0183be3)  
+
+	[OSX] changes to xcode4 project and redefinition of an include in
+	treelistctrl
+
+	wxWidgets changed its numbering scheme (install_name now contains 5
+	numbers) thus the python linking was failing librairies were linked
+	with as c libraries instead of c++ a GLUT dependency is needed in
+	hugin_base
+
+	> mac/Libraries.xcodeproj/project.pbxproj
+	> mac/xcode4-scripts/bundle-python.sh
+	> mac/xcode4-scripts/complete-bundle.sh
+	> src/hugin1/hugin/treelistctrl.cpp
+
+2014-05-31 16:05 +0200  harryvanderwolf <hvdwolf@gmail.com>  (51ff237f209e)  
+
+	Added tag 2014.0.0_rc4 for changeset 26ee710d9faf
+
+	> .hgtags
+
+2014-05-31 16:04 +0200  harryvanderwolf <hvdwolf@gmail.com>  (26ee710d9faf)  2014.0.0_rc4
+
+	Updated ChangeLog 2014.0-rc4
+
+	> ChangeLog
+
 2014-05-25 09:46 +0200  tmodes  (fa075b9df402)  
 
 	Fixed typo in last commit (grafted from
