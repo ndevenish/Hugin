@@ -693,7 +693,9 @@ void PreferencesDialog::UpdateDisplayData(int panel)
         MY_BOOL_VAL("pref_exiftool_gpano", t);
         wxCommandEvent dummy;
         OnExifTool(dummy);
-
+        // number of threads
+        int nThreads = cfg->Read(wxT("/output/NumberOfThreads"), 0l);
+        MY_SPIN_VAL("prefs_output_NumberOfThreads", nThreads);
     }
 
     if (panel==0 || panel == 8)
@@ -842,6 +844,7 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent& e)
             cfg->Write(wxT("/output/CopyArgfile"), wxT(""));
             cfg->Write(wxT("/output/FinalArgfile"), wxT(""));
             cfg->Write(wxT("/output/writeGPano"), HUGIN_EXIFTOOL_CREATE_GPANO);
+            cfg->Write(wxT("/output/NumberOfThreads"), 0l);
         }
         if (noteb->GetSelection() == 7)
         {
@@ -973,6 +976,7 @@ void PreferencesDialog::UpdateConfigData()
     cfg->Write(wxT("/output/CopyArgfile"), MY_G_STR_VAL("pref_exiftool_argfile"));
     cfg->Write(wxT("/output/FinalArgfile"), MY_G_STR_VAL("pref_exiftool_argfile2"));
     cfg->Write(wxT("/output/writeGPano"), MY_G_BOOL_VAL("pref_exiftool_gpano"));
+    cfg->Write(wxT("/output/NumberOfThreads"), MY_G_SPIN_VAL("prefs_output_NumberOfThreads"));
     /////
     /// STITCHING
     cfg->Write(wxT("/Nona/Interpolator"), MY_G_CHOICE_VAL("prefs_nona_interpolator"));
