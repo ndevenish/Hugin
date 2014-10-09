@@ -182,7 +182,7 @@ int main(int argc, char* argv[])
                 output = optarg;
                 break;
             case 'h':
-                usage(argv[0]);
+                usage(hugin_utils::stripPath(argv[0]).c_str());
                 return 0;
             case 'p':
                 //projection
@@ -404,7 +404,7 @@ int main(int argc, char* argv[])
     if (argc - optind != 1)
     {
         cout << "Warning: pano_modify can only work on one project file at one time" << endl << endl;
-        usage(argv[0]);
+        usage(hugin_utils::stripPath(argv[0]).c_str());
         return 1;
     };
 

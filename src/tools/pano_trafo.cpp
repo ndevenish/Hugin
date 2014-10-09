@@ -130,7 +130,7 @@ int main(int argc, char* argv[])
         switch (c)
         {
             case 'h':
-                usage(argv[0]);
+                usage(hugin_utils::stripPath(argv[0]).c_str());
                 return 0;
             case 'r':
                 reverse = true;
@@ -144,7 +144,7 @@ int main(int argc, char* argv[])
 
     if (argc - optind < 1 || argc - optind > 2)
     {
-        usage(argv[0]);
+        usage(hugin_utils::stripPath(argv[0]).c_str());
         return 1;
     }
 

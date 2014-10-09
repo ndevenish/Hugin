@@ -958,7 +958,7 @@ int main(int argc, char* argv[])
         switch (c)
         {
             case 'h':
-                usage(argv[0]);
+                usage(hugin_utils::stripPath(argv[0]).c_str());
                 return 0;
             case 'l':
                 g_param.load = true;
@@ -1022,14 +1022,14 @@ int main(int argc, char* argv[])
                 break;
             default:
                 cerr << "Invalid parameter: '" << argv[optind-1] << " " << optarg << "'" << std::endl;
-                usage(argv[0]);
+                usage(hugin_utils::stripPath(argv[0]).c_str());
                 return 1;
         }
     };
 
     if ((argc - optind) != 1)
     {
-        usage(argv[0]);
+        usage(hugin_utils::stripPath(argv[0]).c_str());
         return 1;
     }
 
@@ -1048,7 +1048,7 @@ int main(int argc, char* argv[])
     if ( g_param.optvars.empty())
     {
         cerr << "No parameters to optimize." << endl;
-        usage(argv[0]);
+        usage(hugin_utils::stripPath(argv[0]).c_str());
         return 1;
     }
 

@@ -1028,7 +1028,7 @@ int main(int argc, char* argv[])
                 g_verbose++;
                 break;
             case 'h':
-                usage(argv[0]);
+                usage(hugin_utils::stripPath(argv[0]).c_str());
                 return 0;
             case 's':
                 param.pyrLevel = atoi(optarg);
@@ -1060,7 +1060,7 @@ int main(int argc, char* argv[])
                 break;
             default:
                 cerr << "Invalid parameter: " << optarg << std::endl;
-                usage(argv[0]);
+                usage(hugin_utils::stripPath(argv[0]).c_str());
                 return 1;
         }
 
@@ -1073,7 +1073,7 @@ int main(int argc, char* argv[])
     if (nFiles < 2)
     {
         std::cerr << std::endl << "Error: at least two files need to be specified" << std::endl <<std::endl;
-        usage(argv[0]);
+        usage(hugin_utils::stripPath(argv[0]).c_str());
         return 1;
     }
 
@@ -1082,7 +1082,7 @@ int main(int argc, char* argv[])
         std::cerr << std::endl
                   << "ERROR: Please specify at least one of the -p, -o or -a options." << std::endl
                   << std::endl;
-        usage(argv[0]);
+        usage(hugin_utils::stripPath(argv[0]).c_str());
         return 1;
     }
 

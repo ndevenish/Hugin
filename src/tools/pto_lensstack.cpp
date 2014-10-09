@@ -183,7 +183,7 @@ int main(int argc, char* argv[])
                 output = optarg;
                 break;
             case 'h':
-                usage(argv[0]);
+                usage(hugin_utils::stripPath(argv[0]).c_str());
                 return 0;
             case SWITCH_NEW_LENS:
                 ParseImageLensStackString(newLensImgs, std::string(optarg), "i(\\d+?)");

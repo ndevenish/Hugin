@@ -315,7 +315,7 @@ int main(int argc, char* argv[])
                 output = optarg;
                 break;
             case 'h':
-                usage(argv[0]);
+                usage(hugin_utils::stripPath(argv[0]).c_str());
                 return 0;
             case 'i':
                 {
@@ -350,7 +350,7 @@ int main(int argc, char* argv[])
     if (argc - optind != 1)
     {
         std::cout << "Warning: " << argv[0] << " can only work on one project file at one time" << std::endl << std::endl;
-        usage(argv[0]);
+        usage(hugin_utils::stripPath(argv[0]).c_str());
         return 1;
     };
 
@@ -428,7 +428,7 @@ int main(int argc, char* argv[])
     PT_setProgressFcn(ptProgress);
     PT_setInfoDlgFcn(ptinfoDlg);
 
-    std::cout << argv[0] << " is searching for vertical lines" << std::endl;
+    std::cout << hugin_utils::stripPath(argv[0]) << " is searching for vertical lines" << std::endl;
 #if _WINDOWS
     //multi threading of image loading results sometime in a race condition
     //try to prevent this by initialisation of codecManager before

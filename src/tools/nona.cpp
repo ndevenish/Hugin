@@ -170,7 +170,7 @@ int main(int argc, char* argv[])
                 }
                 else
                 {
-                    usage(argv[0]);
+                    usage(hugin_utils::stripPath(argv[0]).c_str());
                     return 1;
                 }
                 break;
@@ -183,7 +183,7 @@ int main(int argc, char* argv[])
                 break;
             case '?':
             case 'h':
-                usage(argv[0]);
+                usage(hugin_utils::stripPath(argv[0]).c_str());
                 return 0;
             case 't':
                 std::cout << "WARNING: Switch -t is deprecated. Set environment variable OMP_NUM_THREADS instead" << std::endl;
@@ -202,14 +202,14 @@ int main(int argc, char* argv[])
                 vigra_ext::SetGPUDebugMessages(true);
                 break;
             default:
-                usage(argv[0]);
+                usage(hugin_utils::stripPath(argv[0]).c_str());
                 abort ();
         }
     }
 
     if (basename == "" || argc - optind <1)
     {
-        usage(argv[0]);
+        usage(hugin_utils::stripPath(argv[0]).c_str());
         return 1;
     }
     unsigned nCmdLineImgs = argc -optind -1;

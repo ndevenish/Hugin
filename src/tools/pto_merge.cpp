@@ -77,7 +77,7 @@ int main(int argc, char* argv[])
                 output = optarg;
                 break;
             case 'h':
-                usage(argv[0]);
+                usage(hugin_utils::stripPath(argv[0]).c_str());
                 return 0;
             case '?':
                 break;
@@ -89,7 +89,7 @@ int main(int argc, char* argv[])
     if (argc - optind < 2)
     {
         cout << "Warning: pto_merge requires at least 2 project files" << endl << endl;
-        usage(argv[0]);
+        usage(hugin_utils::stripPath(argv[0]).c_str());
         return 1;
     };
 

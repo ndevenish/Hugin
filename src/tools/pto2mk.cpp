@@ -92,7 +92,7 @@ int main(int argc, char* argv[])
                 prefix = optarg;
                 break;
             case 'h':
-                usage(argv[0]);
+                usage(hugin_utils::stripPath(argv[0]).c_str());
                 return 0;
             case 'a':
                 argfile = optarg;
@@ -101,7 +101,7 @@ int main(int argc, char* argv[])
                 argfile_final = optarg;
                 break;
             default:
-                usage(argv[0]);
+                usage(hugin_utils::stripPath(argv[0]).c_str());
                 abort ();
         }
     }
@@ -109,7 +109,7 @@ int main(int argc, char* argv[])
     if (prefix == "" || mkfile == "")
     {
         std::cerr << "Please specify output makefile and prefix" << std::endl;
-        usage(argv[0]);
+        usage(hugin_utils::stripPath(argv[0]).c_str());
         return 1;
     }
 
@@ -118,7 +118,7 @@ int main(int argc, char* argv[])
     if ( nCmdLineImgs != 1)
     {
         std::cerr << "No project file given" << std::endl;
-        usage(argv[0]);
+        usage(hugin_utils::stripPath(argv[0]).c_str());
         return 1;
     }
 

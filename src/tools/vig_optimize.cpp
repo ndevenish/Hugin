@@ -200,14 +200,14 @@ int main(int argc, char* argv[])
                 verbose++;
                 break;
             case 'h':
-                usage(argv[0]);
+                usage(hugin_utils::stripPath(argv[0]).c_str());
                 return 1;
             case 'w':
                 outputPointsFile = optarg;
                 break;
             default:
                 cerr << "Invalid parameter: " << optarg << std::endl;
-                usage(argv[0]);
+                usage(hugin_utils::stripPath(argv[0]).c_str());
                 return 1;
         }
 
@@ -215,7 +215,7 @@ int main(int argc, char* argv[])
     if (nFiles != 1)
     {
         std::cerr << std::endl << "Error: one pto file needs to be specified" << std::endl <<std::endl;
-        usage(argv[0]);
+        usage(hugin_utils::stripPath(argv[0]).c_str());
         return 1;
     }
 

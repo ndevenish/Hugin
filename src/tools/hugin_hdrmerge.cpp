@@ -280,11 +280,11 @@ int main(int argc, char* argv[])
                 g_verbose++;
                 break;
             case 'h':
-                usage(argv[0]);
+                usage(hugin_utils::stripPath(argv[0]).c_str());
                 return 0;
             default:
                 cerr << "Invalid parameter: " << optarg << std::endl;
-                usage(argv[0]);
+                usage(hugin_utils::stripPath(argv[0]).c_str());
                 return 1;
         }
     }//end while
@@ -293,7 +293,7 @@ int main(int argc, char* argv[])
     if (nFiles == 0)
     {
         std::cerr << std::endl << "Error: at least one input image needed" << std::endl <<std::endl;
-        usage(argv[0]);
+        usage(hugin_utils::stripPath(argv[0]).c_str());
         return 1;
     }
     else if (nFiles == 1)

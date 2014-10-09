@@ -197,7 +197,7 @@ int main(int argc, char* argv[])
                     if (sscanf(optarg, "%lf:%lf:%lf:%lf", &vec4[0], &vec4[1], &vec4[2], &vec4[3]) != 4)
                     {
                         std::cerr << std::endl << "Error: invalid -r argument" << std::endl << std::endl;
-                        usage(argv[0]);
+                        usage(hugin_utils::stripPath(argv[0]).c_str());
                         return 1;
                     }
                     srcImg.setRadialDistortionRed(vec4);
@@ -215,7 +215,7 @@ int main(int argc, char* argv[])
                     if (sscanf(optarg, "%lf:%lf:%lf:%lf", &vec4[0], &vec4[1], &vec4[2], &vec4[3]) != 4)
                     {
                         std::cerr << std::endl << "Error: invalid -g argument" << std::endl << std::endl;
-                        usage(argv[0]);
+                        usage(hugin_utils::stripPath(argv[0]).c_str());
                         return 1;
                     }
                     srcImg.setRadialDistortion(vec4);
@@ -233,7 +233,7 @@ int main(int argc, char* argv[])
                     if (sscanf(optarg, "%lf:%lf:%lf:%lf", &vec4[0], &vec4[1], &vec4[2], &vec4[3]) != 4)
                     {
                         std::cerr << std::endl << "Error: invalid -b argument" << std::endl << std::endl;
-                        usage(argv[0]);
+                        usage(hugin_utils::stripPath(argv[0]).c_str());
                         return 1;
                     }
                     srcImg.setRadialDistortionBlue(vec4);
@@ -277,7 +277,7 @@ int main(int argc, char* argv[])
                     if (sscanf(optarg, "%lf:%lf:%lf:%lf", &vec4[0], &vec4[1], &vec4[2], &vec4[3]) != 4)
                     {
                         std::cerr << std::endl << "Error: invalid -c argument" << std::endl << std::endl;
-                        usage(argv[0]);
+                        usage(hugin_utils::stripPath(argv[0]).c_str());
                         return 1;
                     }
                     srcImg.setRadialVigCorrCoeff(vec4);
@@ -286,7 +286,7 @@ int main(int argc, char* argv[])
                 break;
             case '?':
             case 'h':
-                usage(argv[0]);
+                usage(hugin_utils::stripPath(argv[0]).c_str());
                 return 0;
             case 't':
                 std::cout << "WARNING: Switch --threads is deprecated. Set environment variable OMP_NUM_THREADS instead" << std::endl;
@@ -298,7 +298,7 @@ int main(int argc, char* argv[])
                 if (sscanf(optarg, "%lf:%lf", &shiftX, &shiftY) != 2)
                 {
                     std::cerr << std::endl << "Error: invalid -x argument" << std::endl <<std::endl;
-                    usage(argv[0]);
+                    usage(hugin_utils::stripPath(argv[0]).c_str());
                     return 1;
                 }
                 srcImg.setRadialDistortionCenterShift(FDiff2D(shiftX, shiftY));
@@ -316,7 +316,7 @@ int main(int argc, char* argv[])
     if (doVigRadial && doFlatfield)
     {
         std::cerr << std::endl << "Error: cannot use -f and -c at the same time" << std::endl <<std::endl;
-        usage(argv[0]);
+        usage(hugin_utils::stripPath(argv[0]).c_str());
         return 1;
     }
 
@@ -338,7 +338,7 @@ int main(int argc, char* argv[])
     if (nFiles == 0)
     {
         std::cerr << std::endl << "Error: No input file(s) specified" << std::endl <<std::endl;
-        usage(argv[0]);
+        usage(hugin_utils::stripPath(argv[0]).c_str());
         return 1;
     }
 
