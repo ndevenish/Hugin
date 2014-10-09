@@ -394,7 +394,11 @@ HuginBase::CPVector _getVerticalLines(const HuginBase::Panorama& pano,const unsi
             imgopt.insert("r");
             optVec.push_back(imgopt);
             tempPano.setOptimizeVector(optVec);
-            HuginBase::PTools::optimize(tempPano);
+            // ARGH the panotools optimizer uses global variables is not reentrant
+#pragma omp critical
+            {
+                HuginBase::PTools::optimize(tempPano);
+            }
             //first filter stage
             //we disregard all lines with big error
             //calculate statistic and determine limit
