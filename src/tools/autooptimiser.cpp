@@ -278,33 +278,49 @@ int main(int argc, char* argv[])
     if (chooseProj)
     {
         PanoramaOptions opts = pano.getOptions();
-        double hfov, vfov;
         CalculateFitPanorama fitPano = CalculateFitPanorama(pano);
         fitPano.run();
         opts.setHFOV(fitPano.getResultHorizontalFOV());
         opts.setHeight(roundi(fitPano.getResultHeight()));
-        vfov = opts.getVFOV();
-        hfov = opts.getHFOV();
+        const double vfov = opts.getVFOV();
+        const double hfov = opts.getHFOV();
         // avoid perspective projection if field of view > 100 deg
-        double mf = 100;
+        const double mf = 100;
+        bool changedProjection=false;
         if (vfov < mf)
         {
             // cylindrical or rectilinear
             if (hfov < mf)
             {
-                opts.setProjection(PanoramaOptions::RECTILINEAR);
+                if (opts.getProjection() != PanoramaOptions::RECTILINEAR)
+                {
+                    opts.setProjection(PanoramaOptions::RECTILINEAR);
+                    changedProjection = true;
+                };
             }
             else
             {
-                opts.setProjection(PanoramaOptions::CYLINDRICAL);
+                if (opts.getProjection() != PanoramaOptions::CYLINDRICAL)
+                {
+                    opts.setProjection(PanoramaOptions::CYLINDRICAL);
+                    changedProjection = true;
+                };
             }
         }
+        pano.setOptions(opts);
+        // the projection could be changed, calculate fit again
+        if(changedProjection)
+        {
+            CalculateFitPanorama fitPano2 = CalculateFitPanorama(pano);
+            fitPano2.run();
+            opts.setHFOV(fitPano2.getResultHorizontalFOV());
+            opts.setHeight(roundi(fitPano2.getResultHeight()));
+            pano.setOptions(opts);
+        };
 
         // downscale pano a little
-        double sizeFactor = 0.7;
-
-        pano.setOptions(opts);
-        double w = CalculateOptimalScale::calcOptimalScale(pano);
+        const double sizeFactor = 0.7;
+        const double w = CalculateOptimalScale::calcOptimalScale(pano);
         opts.setWidth(roundi(opts.getWidth()*w*sizeFactor), true);
         pano.setOptions(opts);
     }
