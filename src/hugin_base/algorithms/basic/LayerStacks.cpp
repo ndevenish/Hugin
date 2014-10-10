@@ -52,15 +52,18 @@ vector<UIntSet> getHDRStacks(const PanoramaData & pano, UIntSet allImgs, Panoram
         allImgs.erase(srcImg);
 
         // find all images that have a suitable overlap.
-        for (UIntSet::iterator it = allImgs.begin(); it !=  allImgs.end(); ++it)
+        if (!allImgs.empty())
         {
-            const unsigned srcImg2 = *it;
-            if(overlap.getOverlap(srcImg,srcImg2)>opts.outputStacksMinOverlap)
+            for (UIntSet::iterator it = allImgs.begin(); it != allImgs.end(); ++it)
             {
-                stack.insert(srcImg2);
-                allImgs.erase(srcImg2);
+                const unsigned srcImg2 = *it;
+                if (overlap.getOverlap(srcImg, srcImg2) > opts.outputStacksMinOverlap)
+                {
+                    stack.insert(srcImg2);
+                    allImgs.erase(srcImg2);
+                }
             }
-        }
+        };
         result.push_back(stack);
         stack.clear();
     } while (allImgs.size() > 0);
