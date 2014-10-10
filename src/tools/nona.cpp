@@ -41,6 +41,7 @@
 #endif
 
 #include <hugin_basic.h>
+#include "hugin_base/algorithms/basic/LayerStacks.h"
 #include <hugin_utils/platform.h>
 #include <algorithms/nona/NonaFileStitcher.h>
 #include <vigra_ext/ImageTransformsGPU.h>
@@ -325,11 +326,11 @@ int main(int argc, char* argv[])
 
     if(outputImages.size()==0)
     {
-        outputImages = pano.getActiveImages();
+        outputImages = HuginBase::getImagesinROI(pano, pano.getActiveImages());
     }
     else
     {
-        UIntSet activeImages=pano.getActiveImages();
+        UIntSet activeImages = HuginBase::getImagesinROI(pano, pano.getActiveImages());
         for(UIntSet::const_iterator it=outputImages.begin(); it!=outputImages.end(); ++it)
         {
             if(!set_contains(activeImages,*it))
