@@ -415,7 +415,7 @@ bool initGPU(int *argcp, char **argv)
         return false;
     }
 
-    std::cout << argv[0] << ": using graphics card: " << glGetString(GL_VENDOR) << " " << glGetString(GL_RENDERER) << std::endl;
+    std::cout << hugin_utils::stripPath(argv[0]) << ": using graphics card: " << glGetString(GL_VENDOR) << " " << glGetString(GL_RENDERER) << std::endl;
 
     GLboolean has_arb_fragment_shader = glewGetExtension("GL_ARB_fragment_shader");
     GLboolean has_arb_vertex_shader = glewGetExtension("GL_ARB_vertex_shader");
