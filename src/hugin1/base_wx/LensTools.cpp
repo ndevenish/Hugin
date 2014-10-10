@@ -64,6 +64,39 @@ size_t GetSelectedProjection(wxControlWithItems* list)
     return (size_t)(list->GetClientData(list->GetSelection()));
 };
 
+wxString getProjectionString(const HuginBase::SrcPanoImage& img)
+{
+    wxString ps;
+    switch (img.getProjection())
+    {
+    case HuginBase::SrcPanoImage::RECTILINEAR:          ps << _("Normal (rectilinear)"); break;
+    case HuginBase::SrcPanoImage::PANORAMIC:            ps << _("Panoramic (cylindrical)"); break;
+    case HuginBase::SrcPanoImage::CIRCULAR_FISHEYE:     ps << _("Circular fisheye"); break;
+    case HuginBase::SrcPanoImage::FULL_FRAME_FISHEYE:   ps << _("Full frame fisheye"); break;
+    case HuginBase::SrcPanoImage::EQUIRECTANGULAR:      ps << _("Equirectangular"); break;
+    case HuginBase::SrcPanoImage::FISHEYE_ORTHOGRAPHIC: ps << _("Orthographic"); break;
+    case HuginBase::SrcPanoImage::FISHEYE_STEREOGRAPHIC:ps << _("Stereographic"); break;
+    case HuginBase::SrcPanoImage::FISHEYE_EQUISOLID:    ps << _("Equisolid"); break;
+    case HuginBase::SrcPanoImage::FISHEYE_THOBY:        ps << _("Fisheye Thoby"); break;
+    }
+    return ps;
+};
+
+wxString getResponseString(const HuginBase::SrcPanoImage& img)
+{
+    wxString s;
+    switch (img.getResponseType())
+    {
+    case HuginBase::BaseSrcPanoImage::RESPONSE_EMOR:
+        s = _("custom (EMoR)");
+        break;
+    case HuginBase::BaseSrcPanoImage::RESPONSE_LINEAR:
+        s = _("Linear");
+        break;
+    };
+    return s;
+};
+
 void SaveLensParameters(const wxString filename, HuginBase::Panorama* pano, unsigned int imgNr)
 {
     HuginBase::StandardImageVariableGroups variable_groups(*pano);

@@ -28,6 +28,7 @@
 #include "panoinc.h"
 
 #include "base_wx/wxPlatform.h"
+#include "base_wx/LensTools.h"
 #include "hugin/ImagesTree.h"
 #include "base_wx/wxImageCache.h"
 #include "base_wx/platform.h"
@@ -345,39 +346,6 @@ void ImagesTreeCtrl::panoramaImagesChanged(Panorama &pano, const UIntSet &change
     e.m_itemIndex = -1;
     GetEventHandler()->ProcessEvent(e);
 }
-
-wxString getProjectionString(const SrcPanoImage& img)
-{
-    wxString ps;
-    switch(img.getProjection())
-    {
-        case SrcPanoImage::RECTILINEAR:          ps << _("Normal (rectilinear)"); break;
-        case SrcPanoImage::PANORAMIC:            ps << _("Panoramic (cylindrical)"); break;
-        case SrcPanoImage::CIRCULAR_FISHEYE:     ps << _("Circular fisheye"); break;
-        case SrcPanoImage::FULL_FRAME_FISHEYE:   ps << _("Full frame fisheye"); break;
-        case SrcPanoImage::EQUIRECTANGULAR:      ps << _("Equirectangular"); break;
-        case SrcPanoImage::FISHEYE_ORTHOGRAPHIC: ps << _("Orthographic"); break;
-        case SrcPanoImage::FISHEYE_STEREOGRAPHIC:ps << _("Stereographic"); break;
-        case SrcPanoImage::FISHEYE_EQUISOLID:    ps << _("Equisolid"); break;
-        case SrcPanoImage::FISHEYE_THOBY:        ps << _("Fisheye Thoby"); break;
-    }
-    return ps;
-};
-
-wxString getResponseString(const SrcPanoImage& img)
-{
-    wxString s;
-    switch(img.getResponseType())
-    {
-        case HuginBase::BaseSrcPanoImage::RESPONSE_EMOR:
-            s=_("custom (EMoR)");
-            break;
-        case HuginBase::BaseSrcPanoImage::RESPONSE_LINEAR:
-            s=_("Linear");
-            break;
-    };
-    return s;
-};
 
 void ImagesTreeCtrl::UpdateImageText(wxTreeItemId item)
 {

@@ -39,6 +39,11 @@ WXIMPEX void SelectProjection(wxControlWithItems* list,size_t new_projection);
 /** Returns the selected projection number from list */
 WXIMPEX size_t GetSelectedProjection(wxControlWithItems* list);
 
+/** Returns translated projection for given image */
+WXIMPEX wxString getProjectionString(const HuginBase::SrcPanoImage& img);
+/** Returns translated response type for given SrcPanoImage */
+WXIMPEX wxString getResponseString(const HuginBase::SrcPanoImage& img);
+
 /** save the lens parameters of the image to a lens file named filename */
 WXIMPEX void SaveLensParameters(const wxString filename, HuginBase::Panorama* pano, unsigned int imgNr);
 /** saves the lens parameters to ini files, provides all necessary dialogs */
