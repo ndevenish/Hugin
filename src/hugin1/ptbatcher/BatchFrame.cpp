@@ -702,17 +702,13 @@ void BatchFrame::OnButtonOpenBatch(wxCommandEvent& event)
 
 void BatchFrame::OnButtonOpenWithHugin(wxCommandEvent& event)
 {
-#ifdef __WINDOWS__
-    wxString huginPath = getExePath(wxGetApp().argv[0])+wxFileName::GetPathSeparator();
-#else
-    wxString huginPath = _T("");	//we call hugin directly without path on linux
-#endif
+    const wxFileName exePath(wxStandardPaths::Get().GetExecutablePath());
     if(projListBox->GetSelectedIndex()!=-1)
         if(projListBox->GetText(projListBox->GetSelectedIndex(),0).Cmp(_T(""))!=0)
 #ifdef __WXMAC__
             wxExecute(_T("open -b net.sourceforge.hugin.hugin \"" + projListBox->GetSelectedProject()+_T("\"")));
 #else
-            wxExecute(huginPath+_T("hugin \"" + projListBox->GetSelectedProject()+_T("\" -notips")));
+            wxExecute(exePath.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR)+_T("hugin \"" + projListBox->GetSelectedProject()+_T("\" -notips")));
 #endif
         else
         {
@@ -733,7 +729,7 @@ void BatchFrame::OnButtonOpenWithHugin(wxCommandEvent& event)
 #ifdef __WXMAC__
             wxExecute(_T("open -b net.sourceforge.hugin.hugin"));
 #else
-            wxExecute(huginPath+_T("hugin"));
+            wxExecute(exePath.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR)+_T("hugin"));
 #endif
         }
     }

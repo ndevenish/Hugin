@@ -35,7 +35,6 @@
 
 #include "panoinc.h"
 
-
 #include "hugin/config_defaults.h"
 #include "hugin/huginApp.h"
 #include "hugin/ImagesPanel.h"
@@ -57,8 +56,9 @@
 #include "base_wx/platform.h"
 #include "base_wx/huginConfig.h"
 #ifdef __WXMSW__
-#include "wx/dir.h"
-#include "wx/cshelp.h"
+#include <wx/dir.h>
+#include <wx/cshelp.h>
+#include <wx/stdpaths.h>
 #endif
 
 #include <tiffio.h>
@@ -171,17 +171,15 @@ bool huginApp::OnInit()
     wxHelpControllerHelpProvider* provider = new wxHelpControllerHelpProvider;
     wxHelpProvider::Set(provider);
 
-    wxString huginExeDir = getExePath(argv[0]);
-
-    wxString huginRoot;
-    wxFileName::SplitPath( huginExeDir, &huginRoot, NULL, NULL );
-
-    m_xrcPrefix = huginRoot + wxT("/share/hugin/xrc/");
-	m_DataDir = huginRoot + wxT("/share/hugin/data/");
-    m_utilsBinDir = huginRoot + wxT("/bin/");
+    wxFileName exePath(wxStandardPaths::Get().GetExecutablePath());
+    m_utilsBinDir = exePath.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR);
+    exePath.RemoveLastDir();
+    const wxString huginRoot=exePath.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR);
+    m_xrcPrefix = huginRoot + wxT("share\\hugin\\xrc\\");
+    m_DataDir = huginRoot + wxT("share\\hugin\\data\\");
 
     // locale setup
-    locale.AddCatalogLookupPathPrefix(huginRoot + wxT("/share/locale"));
+    locale.AddCatalogLookupPathPrefix(huginRoot + wxT("share\\locale"));
 
 #elif defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
     // initialize paths

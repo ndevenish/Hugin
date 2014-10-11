@@ -47,6 +47,9 @@
 #include "base_wx/huginConfig.h"
 #include "base_wx/wxPlatform.h"
 #include <wx/utils.h>
+#ifdef __WXMSW__
+#include <wx/stdpaths.h>
+#endif
 
 // somewhere SetDesc gets defined.. this breaks wx/cmdline.h on OSX
 #ifdef SetDesc
@@ -178,7 +181,8 @@ wxString GetProgPath(wxString progName)
     else
     {
         wxPathList pathlist;
-        pathlist.Add(getExePath(wxTheApp->argv[0]));
+        const wxFileName exePath(wxStandardPaths::Get().GetExecutablePath());
+        pathlist.Add(exePath.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR));
         pathlist.AddEnvList(wxT("PATH"));
         return pathlist.FindAbsoluteValidPath(progName);
     };
@@ -203,7 +207,8 @@ bool CanStartProg(wxString progName,wxWindow* parent)
     {
         wxPathList pathlist;
 #ifdef __WXMSW__
-        pathlist.Add(getExePath(wxTheApp->argv[0]));
+        const wxFileName exePath(wxStandardPaths::Get().GetExecutablePath());
+        pathlist.Add(exePath.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR));
 #endif
         pathlist.AddEnvList(wxT("PATH"));
         wxString path = pathlist.FindAbsoluteValidPath(progName);

@@ -26,6 +26,7 @@
 
 #include "panoinc_WX.h"
 #include "panoinc.h"
+#include <wx/stdpaths.h>
 #include "base_wx/platform.h"
 
 #include "LensCalApp.h"
@@ -49,12 +50,11 @@ bool LensCalApp::OnInit()
     registerPTWXDlgFcn();
 
 #if defined __WXMSW__
-    wxString huginExeDir = getExePath(argv[0]);
-    wxString huginRoot;
-    wxFileName::SplitPath( huginExeDir, &huginRoot, NULL, NULL );
-    m_xrcPrefix = huginRoot + wxT("/share/hugin/xrc/");
+    wxFileName exeDir(wxStandardPaths::Get().GetExecutablePath());
+    exeDir.RemoveLastDir();
+    m_xrcPrefix = exeDir.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR) + wxT("share\\hugin\\xrc\\");
     // locale setup
-    locale.AddCatalogLookupPathPrefix(huginRoot + wxT("/share/locale"));
+    locale.AddCatalogLookupPathPrefix(exeDir.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR) + wxT("share\\locale"));
 #elif defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
     // initialize paths
     wxString thePath = MacGetPathToBundledResourceFile(CFSTR("xrc"));

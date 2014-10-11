@@ -30,7 +30,9 @@
 #include "panoinc.h"
 
 #include <wx/wfstream.h>
-
+#ifdef __WXMSW__
+#include <wx/stdpaths.h>
+#endif
 
 #include <fstream>
 #include <sstream>
@@ -282,13 +284,10 @@ bool stitchApp::OnInit()
 
     // setup the environment for the different operating systems
 #if defined __WXMSW__
-    wxString huginExeDir = getExePath(argv[0]);
-
-    wxString huginRoot;
-    wxFileName::SplitPath(huginExeDir, &huginRoot, NULL, NULL);
-	
-	// locale setup
-    m_locale.AddCatalogLookupPathPrefix(huginRoot + wxT("/share/locale"));
+    wxFileName exePath(wxStandardPaths::Get().GetExecutablePath());
+    exePath.RemoveLastDir();
+    // locale setup
+    m_locale.AddCatalogLookupPathPrefix(exePath.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR) + wxT("share\\locale"));
 
     PTPrograms progs = getPTProgramsConfig(huginExeDir, wxConfigBase::Get());
 #else

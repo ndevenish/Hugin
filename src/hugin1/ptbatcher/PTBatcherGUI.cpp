@@ -26,7 +26,8 @@
 
 #include "PTBatcherGUI.h"
 #ifdef __WXMSW__
-#include "wx/cshelp.h"
+#include <wx/cshelp.h>
+#include <wx/stdpaths.h>
 #endif
 #include "lensdb/LensDB.h"
 
@@ -56,15 +57,13 @@ bool PTBatcherGUI::OnInit()
 
     // setup the environment for the different operating systems
 #if defined __WXMSW__
-    wxString huginExeDir = getExePath(argv[0]);
-
-    wxString huginRoot;
-    wxFileName::SplitPath(huginExeDir, &huginRoot, NULL, NULL);
-    m_xrcPrefix = wxString(huginRoot + wxT("/share/hugin/xrc/"));
+    wxFileName exePath(wxStandardPaths::Get().GetExecutablePath());
+    exePath.RemoveLastDir();
+    const wxString huginRoot(exePath.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR));
+    m_xrcPrefix = huginRoot + wxT("share\\hugin\\xrc\\");
 
     // locale setup
-    m_locale.AddCatalogLookupPathPrefix(huginRoot + wxT("/share/locale"));
-
+    m_locale.AddCatalogLookupPathPrefix(huginRoot + wxT("share\\locale"));
 #elif defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
     {
         wxString exec_path = MacGetPathToBundledResourceFile(CFSTR("xrc"));

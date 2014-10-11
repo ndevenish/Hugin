@@ -1244,12 +1244,8 @@ void PanoPanel::DoSendToBatch()
 		}
 		
 #else
-#ifdef __WINDOWS__
-        wxString huginPath = getExePath(wxGetApp().argv[0])+wxFileName::GetPathSeparator();
-#else
-        wxString huginPath = wxT(""); //we call the batch processor directly without path on linux
-#endif
-        wxExecute(huginPath+wxT("PTBatcherGUI")+switches+wxQuoteFilename(projectFile)+wxT(" ")+wxQuoteFilename(dlg.GetPath()));
+        const wxFileName exePath(wxStandardPaths::Get().GetExecutablePath());
+        wxExecute(exePath.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR) + wxT("PTBatcherGUI ")+switches+wxQuoteFilename(projectFile)+wxT(" ")+wxQuoteFilename(dlg.GetPath()));
 #endif
         HuginBase::LensDB::SaveLensDataFromPano(*pano);
     }
