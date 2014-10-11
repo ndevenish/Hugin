@@ -71,8 +71,6 @@ public:
     /** Main constructor */
     Batch(wxFrame* parent);
 
-    /** load settings, especially which programs should be used */
-    void LoadSettings(wxConfigBase* config);
     /** Adds an application entry in the batch list */
     void  AddAppToBatch(wxString app);
     /** Adds a project entry in the batch list */
@@ -183,10 +181,6 @@ private:
 
     //vector, which stores the failed projects and filename of saved logfile
     std::vector<FailedProject> m_failedProjects;
-
-    //external program config
-    PTPrograms progs;
-    AssistantPrograms progsAss;
 
     DECLARE_EVENT_TABLE()
 };

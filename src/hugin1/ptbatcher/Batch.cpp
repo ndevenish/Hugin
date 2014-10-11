@@ -65,26 +65,6 @@ Batch::Batch(wxFrame* parent) : wxFrame(parent, wxID_ANY, _T("Batch"))
     // Required to access the preferences of hugin
     //SetAppName(wxT("hugin"));
 
-    // setup the environment for the different operating systems
-    wxConfigBase* config = wxConfigBase::Get();
-    LoadSettings(config);
-}
-
-void Batch::LoadSettings(wxConfigBase* config)
-{
-#if defined __WXMSW__
-    wxString huginExeDir = getExePath(wxTheApp->argv[0]);
-
-    wxString huginRoot;
-    wxFileName::SplitPath(huginExeDir, &huginRoot, NULL, NULL);
-
-    progs = getPTProgramsConfig(huginExeDir, config);
-    progsAss = getAssistantProgramsConfig(huginExeDir, config);
-#else
-    // add the locale directory specified during configure
-    progs = getPTProgramsConfig(wxT(""), config);
-    progsAss = getAssistantProgramsConfig(wxT(""), config);
-#endif
 }
 
 void Batch::AddAppToBatch(wxString app)
@@ -631,7 +611,6 @@ bool Batch::OnStitch(wxString scriptFile, wxString outname, int id)
     // delete the existing wxConfig to force reloading of settings from file/registy
     delete wxConfigBase::Set((wxConfigBase*)NULL);
     wxConfigBase* config = wxConfigBase::Get();
-    LoadSettings(config);
     if(wxIsEmpty(scriptFile))
     {
         wxString defaultdir = config->Read(wxT("/actualPath"),wxT(""));
@@ -697,7 +676,7 @@ bool Batch::OnStitch(wxString scriptFile, wxString outname, int id)
         stitchFrame->m_stitchPanel->SetOverwrite(true);
     }
 
-    bool n = stitchFrame->StitchProject(scriptFile, outname, progs);
+    bool n = stitchFrame->StitchProject(scriptFile, outname);
     if(n)
     {
         m_stitchFrames.Add(stitchFrame);
@@ -714,7 +693,6 @@ bool Batch::OnDetect(wxString scriptFile, int id)
 {
     // delete the existing wxConfig to force reloading of settings from file/registy
     delete wxConfigBase::Set((wxConfigBase*)NULL);
-    LoadSettings(wxConfigBase::Get());
     RunStitchFrame* stitchFrame = new RunStitchFrame(this, wxT("Hugin Assistant"), wxDefaultPosition, wxSize(640, 600));
     stitchFrame->SetProjectId(id);
     if(verbose)
@@ -726,7 +704,7 @@ bool Batch::OnDetect(wxString scriptFile, int id)
     wxFileName basename(scriptFile);
     stitchFrame->SetTitle(wxString::Format(_("%s - Assistant"), basename.GetName().c_str()));
 
-    bool n = stitchFrame->DetectProject(scriptFile, progsAss);
+    bool n = stitchFrame->DetectProject(scriptFile);
     if(n)
     {
         m_stitchFrames.Add(stitchFrame);

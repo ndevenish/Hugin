@@ -65,9 +65,7 @@ class RunStitchFrame: public wxFrame
 public:
     RunStitchFrame(wxWindow * parent, const wxString& title, const wxPoint& pos, const wxSize& size);
 
-    bool StitchProject(wxString scriptFile, wxString outname,
-                       HuginBase::PanoramaMakefilelibExport::PTPrograms progs,
-                       bool doDeleteOnExit);
+    bool StitchProject(wxString scriptFile, wxString outname, bool doDeleteOnExit);
 
     void OnQuit(wxCommandEvent& event);
     void OnAbout(wxCommandEvent& event);
@@ -201,10 +199,9 @@ void RunStitchFrame::OnProcessTerminate(wxProcessEvent & event)
     }
 }
 
-bool RunStitchFrame::StitchProject(wxString scriptFile, wxString outname,
-                                   HuginBase::PanoramaMakefilelibExport::PTPrograms progs, bool doDeleteOnExit)
+bool RunStitchFrame::StitchProject(wxString scriptFile, wxString outname, bool doDeleteOnExit)
 {
-    if (! m_stitchPanel->StitchProject(scriptFile, outname, progs)) {
+    if (! m_stitchPanel->StitchProject(scriptFile, outname)) {
         return false;
     }
     m_isStitching = true;
@@ -289,11 +286,9 @@ bool stitchApp::OnInit()
     // locale setup
     m_locale.AddCatalogLookupPathPrefix(exePath.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR) + wxT("share\\locale"));
 
-    PTPrograms progs = getPTProgramsConfig(huginExeDir, wxConfigBase::Get());
 #else
     // add the locale directory specified during configure
     m_locale.AddCatalogLookupPathPrefix(wxT(INSTALL_LOCALE_DIR));
-    PTPrograms progs = getPTProgramsConfig(wxT(""), wxConfigBase::Get());
 #endif
 
 #if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
@@ -456,7 +451,7 @@ bool stitchApp::OnInit()
     wxFileName basename(scriptFile);
     frame->SetTitle(wxString::Format(_("%s - Stitching"), basename.GetName().c_str()));
     frame->SetOverwrite(parser.Found(wxT("w")));
-    bool n = frame->StitchProject(scriptFile, outname, progs, parser.Found(wxT("d")));
+    bool n = frame->StitchProject(scriptFile, outname, parser.Found(wxT("d")));
     return n;
 }
 

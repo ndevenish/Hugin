@@ -28,6 +28,7 @@
 #include "panoinc.h"
 
 #include <wx/wfstream.h>
+#include <wx/stdpaths.h>
 
 #include <fstream>
 #include <sstream>
@@ -37,6 +38,10 @@
 #include "base_wx/huginConfig.h"
 #include "base_wx/MyProgressDialog.h"
 #include "base_wx/MyExternalCmdExecDialog.h"
+#include "base_wx/Executor.h"
+#include "base_wx/AssistantExecutor.h"
+#include "base_wx/StitchingExecutor.h"
+
 #include "base_wx/platform.h"
 #include "base_wx/wxPlatform.h"
 
@@ -97,42 +102,7 @@ RunStitchPanel::RunStitchPanel(wxWindow * parent)
 //    topsizer->SetSizeHints( this );   // set size hints to honour minimum size
 }
 
-wxString getGNUMakeCmd(const wxString &args)
-{
-#if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE   
-    wxString cmd = MacGetPathToBundledExecutableFile(CFSTR("gnumake"));  
-    if(cmd != wxT(""))
-    {
-        cmd = wxQuoteString(cmd); 
-    }
-    else
-    {
-        wxMessageBox(wxString::Format(_("External program %s not found in the bundle, reverting to system path"), wxT("gnumake")), _("Error"));
-        cmd = wxT("make");  
-    }
-    cmd += wxT(" ") + args;
-#elif defined __FreeBSD__
-    wxString cmd = wxT("gmake ") + args;  
-#elif defined __WXMSW__
-    wxString cmdExe;
-    if(!wxGetEnv(wxT("ComSpec"),&cmdExe))
-        cmdExe=wxT("cmd");
-    wxString tempDir=wxConfigBase::Get()->Read(wxT("tempDir"),wxT(""));
-    wxString cmd = cmdExe + wxString::Format(wxT(" /C \"chcp %d >NUL && "),GetACP());
-    //explicit set temp path for make, e. g. in case user name contains an ampersand
-    if(tempDir.Len()>0)
-    {
-        cmd=cmd + wxT("set TEMP=")+tempDir + wxT(" && set TMP=") + tempDir + wxT(" && ");
-    };
-    cmd = cmd +  wxT("\"") + getExePath(wxTheApp->argv[0])+wxT("\\make\" ") + args + wxT("\"");
-#else
-    wxString cmd = wxT("make ") + args;  
-#endif
-    return cmd;
-};
-
-bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
-                                   HuginBase::PanoramaMakefilelibExport::PTPrograms progs)
+bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname)
 {
     DEBUG_TRACE("");
     wxFileName fname(scriptFile);
@@ -155,6 +125,11 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
     int ptoVersion = 0;
     if (newPano.loadPTScript(prjfile, ptoVersion, (const char *)pathToPTO.mb_str(HUGIN_CONV_FILENAME))) {
         pano.setMemento(newPano);
+        if (pano.getActiveImages().empty())
+        {
+            wxLogError(wxString::Format(_("Project %s does not contain any active images."), scriptFile.c_str()));
+            return false;
+        }
         HuginBase::PanoramaOptions opts = pano.getOptions();
         if (ptoVersion < 2) {
             // no options stored in file, use default arguments in config
@@ -176,9 +151,6 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
     opts.outputFormat = PanoramaOptions::TIFF_m;
     if (opts.enblendOptions.length() == 0) {
         // no options stored in file, use default arguments in config file
-
-		wxConfig* config = new wxConfig(wxT("hugin"));  //needed for PTBatcher console application
-		wxConfigBase::Set(config);                      //
         opts.enblendOptions = wxConfigBase::Get()->Read(wxT("/Enblend/Args"), wxT(HUGIN_ENBLEND_ARGS)).mb_str(wxConvLocal);
     }
     pano.setOptions(opts);
@@ -194,8 +166,6 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
     wxFileName outputPrefix(outname);
     outpath = outputPrefix.GetPath();
     basename = outputPrefix.GetFullName();
-    // stitch only active images
-    UIntSet activeImgs = pano.getActiveImages();
     //get temp dir from preferences
     wxString tempDir= wxConfigBase::Get()->Read(wxT("tempDir"),wxT(""));
     if(!tempDir.IsEmpty())
@@ -203,12 +173,6 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
             tempDir.Append(wxFileName::GetPathSeparator());
 
     try {
-        PanoramaOptions  opts = pano.getOptions();
-		//preview image generation
-		/*opts.setHeight(150);
-		opts.setWidth(300);
-		opts.setROI(vigra::Rect2D(vigra::Size2D(300,150)));
-		pano.setOptions(opts);*/
         // copy pto file to temporary file
         m_currentPTOfn = wxFileName::CreateTempFileName(tempDir+wxT("huginpto_"));
         if(m_currentPTOfn.size() == 0) {
@@ -218,83 +182,53 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
         // copy is not enough, need to adjust image path names...
         ofstream script(m_currentPTOfn.mb_str(HUGIN_CONV_FILENAME));
         PT::UIntSet all;
-        if (pano.getNrOfImages() > 0) {
-            fill_set(all, 0, pano.getNrOfImages()-1);
-        }
+        fill_set(all, 0, pano.getNrOfImages()-1);
         pano.printPanoramaScript(script, pano.getOptimizeVector(), pano.getOptions(), all, false, "");
         script.close();
-        // produce suitable makefile
-
-        wxFile makeFile;
-        //TODO: change to implementatin with config->Read(wxT("tempDir"),wxT(""))
-        m_currentMakefn = wxFileName::CreateTempFileName(tempDir+wxT("huginmk_"), &makeFile);
-        if(m_currentMakefn.size() == 0) {
-            wxLogError(_("Could not create temporary file"));
-            return false;
-        }
-        DEBUG_DEBUG("makefn file: " << (const char *)m_currentMakefn.mb_str(wxConvLocal));
-        ofstream makeFileStream(m_currentMakefn.mb_str(HUGIN_CONV_FILENAME));
-        makeFile.Close();
-        std::string resultFn(basename.mb_str(HUGIN_CONV_FILENAME));
-        std::string tmpPTOfnC = (const char *) m_currentPTOfn.mb_str(HUGIN_CONV_FILENAME);
-        wxConfigBase* config=wxConfigBase::Get();
-        std::string tmpDir((config->Read(wxT("tempDir"),wxT(""))).mb_str(HUGIN_CONV_FILENAME));
-        bool copyMetadata=config->Read(wxT("/output/useExiftool"), HUGIN_USE_EXIFTOOL)==1l;
-        bool generateGPanoTags=config->Read(wxT("/output/writeGPano"), HUGIN_EXIFTOOL_CREATE_GPANO)==1l;
-        int nrThreads=config->Read(wxT("/output/NumberOfThreads"),0l);
-
-        std::vector<std::string> outputFiles;
-        HuginBase::PanoramaMakefilelibExport::createMakefile(pano,
-                           activeImgs,
-                           tmpPTOfnC,
-                           resultFn,
-                           progs,
-                           "",
-                           outputFiles,
-                           makeFileStream,
-                           tmpDir,
-                           copyMetadata,
-                           generateGPanoTags,
-                           nrThreads);
-        makeFileStream.close();
 
         // cd to output directory, if one is given.
-        wxString oldCWD = wxFileName::GetCwd();
+        m_oldCwd = wxFileName::GetCwd();
         wxFileName::SetCwd(outpath);
+        const wxFileName exePath(wxStandardPaths::Get().GetExecutablePath());
+        wxArrayString outputFiles;
+        wxString statusText;
+        m_tempFiles.clear();
+        HuginQueue::CommandQueue* commands = HuginQueue::GetStitchingCommandQueue(pano, exePath.GetPath(wxPATH_GET_VOLUME|wxPATH_GET_SEPARATOR), m_currentPTOfn, basename, statusText, outputFiles, m_tempFiles);
         // check output directories.
-        //std::vector<std::string> overwrittenFiles;
         wxString overwrittenFiles;
-        for(size_t i=0; i < outputFiles.size(); i++) {
-            wxString fn(outputFiles[i].c_str(), wxConvLocal);
-            if (wxFile::Exists(fn) ) {
-                overwrittenFiles.Append(fn + wxT(" "));
-            }
-        }
-        if (!m_overwrite && overwrittenFiles.size() > 0) {
-            int overwriteret = wxMessageBox(_("Overwrite existing images?\n\n") + overwrittenFiles, _("Overwrite existing images"), wxYES_NO | wxICON_QUESTION);
-            // TODO: change button label ok to overwrite
-            if (overwriteret != wxYES) {
-                DEBUG_DEBUG("Abort, do not overwrite images!");
-                return false;
-            }
-            DEBUG_DEBUG("Overwrite existing images!");
-        }
+        if (!m_overwrite)
+        {
+            for (size_t i = 0; i < outputFiles.size(); i++)
+            {
+                wxString fn(outputFiles[i]);
+                if (wxFile::Exists(fn))
+                {
+                    overwrittenFiles.Append(fn + wxT(" "));
+                };
+            };
 
-#if defined __WXMSW__
-        wxString args = wxT("-f ") + wxQuoteFilename(m_currentMakefn) + wxT(" info test all clean");
-#else
-        wxString args = wxT("-j1 -f ") + wxQuoteString(m_currentMakefn) + wxT(" info test all clean");
-#endif
-
-        wxString caption = wxString::Format(_("Stitching %s"), scriptFile.c_str());
-
-        wxString cmd=getGNUMakeCmd(args);
-        if (m_execPanel->ExecWithRedirect(cmd) == -1) {
-            wxMessageBox(wxString::Format(_("Error while stitching project\n%s"), cmd.c_str()),
-                         _("Error during stitching"),  wxICON_ERROR | wxOK );
-        }
-		wxFileName::SetCwd(oldCWD);
-    } catch (std::exception & e) {
+            if (!overwrittenFiles.IsEmpty())
+            {
+                int overwriteret = wxMessageBox(_("Overwrite existing images?\n\n") + overwrittenFiles, _("Overwrite existing images"), wxYES_NO | wxICON_QUESTION);
+                // TODO: change button label ok to overwrite
+                if (overwriteret != wxYES) {
+                    DEBUG_DEBUG("Abort, do not overwrite images!");
+                    return false;
+                }
+                DEBUG_DEBUG("Overwrite existing images!");
+            };
+        };
+        if (!statusText.empty())
+        {
+            m_execPanel->AddString(statusText);
+        };
+        if (m_execPanel->ExecQueue(commands) == -1)
+        {
+            wxMessageBox(wxString::Format(_("Error while stitching project\n%s"), scriptFile.c_str()),
+                             _("Error during stitching"),  wxICON_ERROR | wxOK );
+        };
+    } catch (std::exception & e)
+    {
         cerr << "caught exception: " << e.what() << std::endl;
         wxMessageBox(wxString(e.what(), wxConvLocal),
                      _("Error during stitching"), wxICON_ERROR | wxOK );
@@ -302,8 +236,7 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
     return true;
 }
 
-bool RunStitchPanel::DetectProject(wxString scriptFile, 
-                                   HuginBase::AssistantMakefilelibExport::AssistantPrograms progs)
+bool RunStitchPanel::DetectProject(wxString scriptFile)
 {
     m_currentPTOfn=wxEmptyString;
     wxFileName fname(scriptFile);
@@ -330,49 +263,25 @@ bool RunStitchPanel::DetectProject(wxString scriptFile,
     pano.setMemento(newPano);
 
     //read settings
-    wxConfig config(wxT("hugin"));
-    bool runCeleste=config.Read(wxT("/Celeste/Auto"), HUGIN_CELESTE_AUTO)!=0;
-    double celesteThreshold;
-    config.Read(wxT("/Celeste/Threshold"), &celesteThreshold, HUGIN_CELESTE_THRESHOLD);
-    bool celesteSmall=config.Read(wxT("/Celeste/Filter"), HUGIN_CELESTE_FILTER)!=0;
-    bool runLinefind=config.Read(wxT("/Assistant/Linefind"), HUGIN_ASS_LINEFIND)!=0;
-    bool runCPClean=config.Read(wxT("/Assistant/AutoCPClean"), HUGIN_ASS_AUTO_CPCLEAN)!=0;
-    double scale;
-    config.Read(wxT("/Assistant/panoDownsizeFactor"), &scale, HUGIN_ASS_PANO_DOWNSIZE_FACTOR);
-    int scalei=roundi(scale*100);
-    wxString tempDir= config.Read(wxT("tempDir"),wxT(""));
-    if(!tempDir.IsEmpty())
-        if(tempDir.Last()!=wxFileName::GetPathSeparator())
+    wxString tempDir= wxConfigBase::Get()->Read(wxT("tempDir"),wxT(""));
+    if (!tempDir.IsEmpty())
+    {
+        if (tempDir.Last() != wxFileName::GetPathSeparator())
+        {
             tempDir.Append(wxFileName::GetPathSeparator());
+        };
+    };
 
     try {
-        //generate makefile
-        m_currentMakefn=wxFileName::CreateTempFileName(tempDir+wxT("ham"));
-        if(m_currentMakefn.size() == 0)
+        // prepare running assistant
+        fname.Normalize();
+        const wxFileName exePath(wxStandardPaths::Get().GetExecutablePath());
+        HuginQueue::CommandQueue* commands = HuginQueue::GetAssistantCommandQueue(pano, exePath.GetPath(wxPATH_GET_VOLUME|wxPATH_GET_SEPARATOR), fname.GetFullPath());
+        if (m_execPanel->ExecQueue(commands) == -1)
         {
-            wxLogError(_("Could not create temporary file"));
-            return false;
-        }
-        std::ofstream makefile(m_currentMakefn.mb_str(HUGIN_CONV_FILENAME));
-        makefile.exceptions( std::ofstream::eofbit | std::ofstream::failbit | std::ofstream::badbit );
-        std::string scriptString(scriptFile.mb_str(HUGIN_CONV_FILENAME));
-        HuginBase::AssistantMakefilelibExport::createMakefile(pano,progs,runLinefind,runCeleste,celesteThreshold,celesteSmall,
-            runCPClean,scale,makefile,scriptString);
-        makefile.close();
-
-        //execute makefile
-        wxString args = wxT("-f ") + wxQuoteFilename(m_currentMakefn) + wxT(" all");
-        wxString cmd=getGNUMakeCmd(args);
-        wxFileName path(scriptFile);
-        path.MakeAbsolute();
-        wxString oldcwd=path.GetCwd();
-        path.SetCwd();
-        if (m_execPanel->ExecWithRedirect(cmd) == -1)
-        {
-            wxMessageBox(wxString::Format(_("Error while running assistant\n%s"), cmd.c_str()),
+            wxMessageBox(wxString::Format(_("Error while running assistant\n%s"), scriptFile.c_str()),
                          _("Error during running assistant"),  wxICON_ERROR | wxOK );
         }
-        wxFileName::SetCwd(oldcwd);
     } 
     catch (std::exception & e)
     {
@@ -386,26 +295,35 @@ bool RunStitchPanel::DetectProject(wxString scriptFile,
 void RunStitchPanel::OnProcessTerminate(wxProcessEvent & event)
 {
     DEBUG_TRACE("");
-	//if(!m_paused)
-	//{
-		// delete temporary files
 #ifndef DEBUG
-    if(!m_currentMakefn.IsEmpty())
-    {
-		wxRemoveFile(m_currentMakefn);
-    };
     if(!m_currentPTOfn.IsEmpty())
     {
-		wxRemoveFile(m_currentPTOfn);
+        wxRemoveFile(m_currentPTOfn);
     };
 #endif
-		// notify parent of exit
-		if (this->GetParent()) {
-			event.SetEventObject( this );
-			DEBUG_TRACE("Sending wxProcess event");   
-			this->GetParent()->GetEventHandler()->ProcessEvent( event );
-		}
-	//}
+    // delete all temp files
+    if (!m_tempFiles.empty())
+    {
+        for (size_t i = 0; i < m_tempFiles.size(); ++i)
+        {
+            if (wxFileExists(m_tempFiles[i]))
+            {
+                wxRemoveFile(m_tempFiles[i]);
+            };
+        };
+    };
+    // restore old working directory, if changed
+    if (!m_oldCwd.IsEmpty())
+    {
+        wxFileName::SetCwd(m_oldCwd);
+    };
+    // notify parent of exit
+    if (this->GetParent())
+    {
+        event.SetEventObject( this );
+        DEBUG_TRACE("Sending wxProcess event");   
+        this->GetParent()->GetEventHandler()->ProcessEvent( event );
+    }
 }
 
 void RunStitchPanel::CancelStitch()

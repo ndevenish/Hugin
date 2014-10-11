@@ -36,36 +36,15 @@
 
 #include <PT/Panorama.h>
 
-#include <algorithms/panorama_makefile/PanoramaMakefilelibExport.h>
-#include <algorithms/assistant_makefile/AssistantMakefilelibExport.h>
-
 #include "MyExternalCmdExecDialog.h"
-
-struct WXIMPEX StitchProjectEntry
-{
-    StitchProjectEntry(wxString script, wxString output)
-    : scriptFile(script), outputPrefix(output), finished(false),
-      error(false)   
-    {
-    }
-
-    wxString scriptFile;
-    wxString outputPrefix;
-    bool finished;
-    bool error;
-};
-
-WXIMPEX wxString getGNUMakeCmd(const wxString& args);
 
 class WXIMPEX RunStitchPanel: public wxPanel
 {
 public:
     RunStitchPanel(wxWindow * parent);
 
-    bool StitchProject(wxString scriptFile, wxString outname,
-                       HuginBase::PanoramaMakefilelibExport::PTPrograms progs);
-    bool DetectProject(wxString scriptFile, 
-                       HuginBase::AssistantMakefilelibExport::AssistantPrograms progs);
+    bool StitchProject(wxString scriptFile, wxString outname);
+    bool DetectProject(wxString scriptFile);
     void CancelStitch();
 	bool IsPaused();
 	void SetOverwrite(bool over = true);
@@ -80,7 +59,8 @@ private:
 	bool m_paused;
 	bool m_overwrite;
     wxString m_currentPTOfn;
-    wxString m_currentMakefn;
+    wxArrayString m_tempFiles;
+    wxString m_oldCwd;
     void OnProcessTerminate(wxProcessEvent & event);
 
     MyExecPanel * m_execPanel;

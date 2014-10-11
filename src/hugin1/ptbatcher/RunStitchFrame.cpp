@@ -132,10 +132,9 @@ void RunStitchFrame::OnProcessTerminate(wxProcessEvent& event)
     }
 }
 
-bool RunStitchFrame::StitchProject(wxString scriptFile, wxString outname,
-                                   HuginBase::PanoramaMakefilelibExport::PTPrograms progs)
+bool RunStitchFrame::StitchProject(wxString scriptFile, wxString outname)
 {
-    if (! m_stitchPanel->StitchProject(scriptFile, outname, progs))
+    if (! m_stitchPanel->StitchProject(scriptFile, outname))
     {
         return false;
     }
@@ -144,10 +143,9 @@ bool RunStitchFrame::StitchProject(wxString scriptFile, wxString outname,
     return true;
 }
 
-bool RunStitchFrame::DetectProject(wxString scriptFile,
-                                   HuginBase::AssistantMakefilelibExport::AssistantPrograms progs)
+bool RunStitchFrame::DetectProject(wxString scriptFile)
 {
-    if (! m_stitchPanel->DetectProject(scriptFile, progs))
+    if (! m_stitchPanel->DetectProject(scriptFile))
     {
         return false;
     }

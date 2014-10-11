@@ -35,6 +35,7 @@
 #include "wx/ffile.h"
 #include "wx/process.h"
 #include "wx/mimetype.h"
+#include <wx/sstream.h>
 
 #ifdef __WINDOWS__
     #include "wx/dde.h"
@@ -75,19 +76,14 @@ END_EVENT_TABLE()
 // frame constructor
 MyExecPanel::MyExecPanel(wxWindow * parent)
        : wxPanel(parent),
-         m_timerIdleWakeUp(this)
+       m_timerIdleWakeUp(this), m_queue(NULL), m_checkReturnCode(true)
 {
     m_pidLast = 0;
 
     wxBoxSizer * topsizer = new wxBoxSizer( wxVERTICAL );
     // create the listbox in which we will show misc messages as they come
-#ifdef HUGIN_EXEC_LISTBOX
-    m_lbox = new wxListBox(this, wxID_ANY);
-    m_lbox->Append(m_currLine);
-#else
     m_textctrl = new wxTextCtrl(this, wxID_ANY, _T(""), wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE|wxTE_READONLY);
     m_lastLineStart = 0;
-#endif
     
 #ifdef __WXMAC__
     wxFont font(10, wxFONTFAMILY_TELETYPE, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
@@ -96,24 +92,11 @@ MyExecPanel::MyExecPanel(wxWindow * parent)
 #endif
     
     if ( font.Ok() ) {
-#ifdef HUGIN_EXEC_LISTBOX
-        m_lbox->SetFont(font);
-#else
         m_textctrl->SetFont(font);
-#endif
     }
 
-#ifdef HUGIN_EXEC_LISTBOX
-    topsizer->Add(m_lbox, 1, wxEXPAND | wxALL, 10);
-#else
     topsizer->Add(m_textctrl, 1, wxEXPAND | wxALL, 10);
-#endif
-
-//    topsizer->Add( new wxButton(this, wxID_CANCEL, _("Cancel")),
-//                  0, wxALL | wxALIGN_RIGHT, 10);
-
     SetSizer( topsizer );
-//    topsizer->SetSizeHints( this );
 }
 
 void MyExecPanel::KillProcess()
@@ -218,34 +201,38 @@ long MyExecPanel::GetPid()
 
 int MyExecPanel::ExecWithRedirect(wxString cmd)
 {
-    if ( !cmd )
+    if (!cmd)
         return -1;
 
-// Slightly reworked fix for BUG_2075064 
+    // Slightly reworked fix for BUG_2075064 
 #if defined __WXMAC__ && defined __ppc__
-	int osVersionMajor;
-	int osVersionMinor;
-	
-	int os = wxGetOsVersion(&osVersionMajor, &osVersionMinor);
-	
-	 cout << "osVersionCheck: os is " << os << "\n"  << endl;
-	 cout << "osVersionCheck: osVersionMajor = " << osVersionMajor << endl;
-	 cout << "osVersionCheck: osVersionMinor = " << osVersionMinor << endl;
-	if ((osVersionMajor == 0x10) && (osVersionMinor >= 0x50))
-	{
-		//let the child process exit without becoming zombie
-    		//may do some harm to internal handling by wxWidgets, but hey it's not working anyway
-    		signal(SIGCHLD,SIG_IGN);
-		cout <<  "osVersionCheck: Leopard loop 1" << endl;
-	}
-	else
-	{
-		cout <<  "osVersionCheck: Tiger loop 1" << endl;
-	}	
+    int osVersionMajor;
+    int osVersionMinor;
+
+    int os = wxGetOsVersion(&osVersionMajor, &osVersionMinor);
+
+    cout << "osVersionCheck: os is " << os << "\n"  << endl;
+    cout << "osVersionCheck: osVersionMajor = " << osVersionMajor << endl;
+    cout << "osVersionCheck: osVersionMinor = " << osVersionMinor << endl;
+    if ((osVersionMajor == 0x10) && (osVersionMinor >= 0x50))
+    {
+        //let the child process exit without becoming zombie
+        //may do some harm to internal handling by wxWidgets, but hey it's not working anyway
+        signal(SIGCHLD,SIG_IGN);
+        cout <<  "osVersionCheck: Leopard loop 1" << endl;
+    }
+    else
+    {
+        cout <<  "osVersionCheck: Tiger loop 1" << endl;
+    }	
 #endif
-    
+
     MyPipedProcess *process = new MyPipedProcess(this, cmd);
-    m_pidLast = wxExecute(cmd, wxEXEC_ASYNC|wxEXEC_MAKE_GROUP_LEADER, process);
+#if wxCHECK_VERSION(3,0,0)
+    m_pidLast = wxExecute(cmd, wxEXEC_ASYNC | wxEXEC_MAKE_GROUP_LEADER, process, &m_executeEnv);
+#else
+    m_pidLast = wxExecute(cmd, wxEXEC_ASYNC | wxEXEC_MAKE_GROUP_LEADER, process);
+#endif
     if ( m_pidLast == 0 )
     {
         wxLogError(_T("Execution of '%s' failed."), cmd.c_str());
@@ -261,9 +248,61 @@ int MyExecPanel::ExecWithRedirect(wxString cmd)
 		setpgid(m_pidLast,m_pidLast);	
 #endif
     }
-    m_cmdLast = cmd;
     return 0;   
 }
+
+int MyExecPanel::ExecQueue(HuginQueue::CommandQueue* queue)
+{
+#if wxCHECK_VERSION(3,0,0)
+    wxConfigBase* config = wxConfigBase::Get();
+    const long threads = config->Read(wxT("/output/NumberOfThreads"), 0l);
+    if (threads > 0)
+    {
+        wxString s;
+        s << threads;
+        m_executeEnv.env["OMP_NUM_THREADS"] = s;
+    };
+    // set temp dir
+    wxString tempDir = config->Read(wxT("tempDir"), wxT(""));
+    if (!tempDir.IsEmpty())
+    {
+#ifdef UNIX_LIKE
+        m_executeEnv.env["TMPDIR"] = tempDir;
+#else
+        m_executeEnv.env["TMP"] = tempDir;
+#endif
+    };
+#endif
+    m_queue = queue;
+    if (m_queue->empty())
+    {
+        return 0;
+    };
+    return ExecNextQueue();
+};
+
+/** execute next command in queue */
+int MyExecPanel::ExecNextQueue()
+{
+    if (m_queue)
+    {
+        // get next command
+        HuginQueue::NormalCommand* cmd = m_queue->front();
+        const wxString cmdString = cmd->GetCommand();
+        // get comment, append line break and display comment in panel
+        AddString(cmd->GetComment());
+        m_checkReturnCode = cmd->CheckReturnCode();
+        // delete command from queue
+        delete cmd;
+        m_queue->erase(m_queue->begin());
+        // now execute command
+        return ExecWithRedirect(cmdString);
+    }
+    else
+    {
+        return -1;
+    };
+};
 
 void MyExecPanel::AddAsyncProcess(MyPipedProcess *process)
 {
@@ -412,14 +451,27 @@ void MyExecPanel::OnProcessTerminated(MyPipedProcess *process, int pid, int stat
     AddToOutput(*(process->GetErrorStream()));
 
     RemoveAsyncProcess(process);
-    // send termination to other parent
-    if (this->GetParent()) {
-        wxProcessEvent event( wxID_ANY, pid, status);
-        event.SetEventObject( this );
-        DEBUG_TRACE("Sending wxProcess event");   
-        this->GetParent()->GetEventHandler()->ProcessEvent( event );
-    }
 
+    if (m_queue && !m_queue->empty())
+    {
+        // queue has further commands
+        // should we check the exit code?
+        if ((m_checkReturnCode && status == 0) || (!m_checkReturnCode))
+        {
+            if (ExecNextQueue() == 0)
+            {
+                return;
+            };
+        };
+    };
+    // send termination to parent
+    if (this->GetParent())
+    {
+        wxProcessEvent event(wxID_ANY, pid, status);
+        event.SetEventObject(this);
+        DEBUG_TRACE("Sending wxProcess event");
+        this->GetParent()->GetEventHandler()->ProcessEvent(event);
+    };
 }
 
 MyExecPanel::~MyExecPanel()
@@ -436,6 +488,15 @@ void MyExecPanel::CopyLogToClipboard()
 {
     m_textctrl->SelectAll();
     m_textctrl->Copy();
+};
+
+void MyExecPanel::AddString(const wxString& s)
+{
+    if (!s.IsEmpty())
+    {
+        m_textctrl->AppendText(s + wxT("\n"));
+        m_lastLineStart = m_textctrl->GetLastPosition();
+    };
 };
 
 // ----------------------------------------------------------------------------
@@ -511,6 +572,20 @@ int MyExecDialog::ExecWithRedirect(wxString cmd)
     return ShowModal();
 }
 
+int MyExecDialog::ExecQueue(HuginQueue::CommandQueue* queue)
+{
+    if (m_execPanel->ExecQueue(queue) == -1)
+    {
+        return -1;
+    }
+    return ShowModal();
+}
+
+void MyExecDialog::AddString(const wxString& s)
+{
+    m_execPanel->AddString(s);
+};
+
 MyExecDialog::~MyExecDialog() {
     delete m_execPanel;
 }
@@ -530,4 +605,24 @@ int MyExecuteCommandOnDialog(wxString command, wxString args, wxWindow* parent,
 #endif
     return dlg.ExecWithRedirect(cmdline);
 }
+
+int MyExecuteCommandQueue(HuginQueue::CommandQueue* queue, wxWindow* parent, const wxString& title, const wxString& comment)
+{
+    MyExecDialog dlg(parent, title, wxDefaultPosition, wxSize(640, 400));
+#ifdef __WXMAC__
+    dlg.CentreOnParent();
+#endif
+    if (!comment.IsEmpty())
+    {
+        dlg.AddString(comment);
+    };
+    int returnValue = dlg.ExecQueue(queue);
+    while (!queue->empty())
+    {
+        delete queue->back();
+        queue->pop_back();
+    };
+    delete queue;
+    return returnValue;
+};
 

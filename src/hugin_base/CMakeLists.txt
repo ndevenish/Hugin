@@ -20,7 +20,6 @@ algorithms/optimizer/ImageGraph.cpp
 algorithms/optimizer/PhotometricOptimizer.cpp
 algorithms/optimizer/PTOptimizer.cpp
 algorithms/panorama_makefile/PanoramaMakefilelibExport.cpp
-algorithms/assistant_makefile/AssistantMakefilelibExport.cpp
 algorithms/point_sampler/PointSampler.cpp
 algorithms/control_points/CleanCP.cpp
 appbase/ProgressDisplay.cpp
@@ -82,7 +81,6 @@ algorithms/optimizer/ImageGraph.h
 algorithms/optimizer/PhotometricOptimizer.h
 algorithms/optimizer/PTOptimizer.h
 algorithms/panorama_makefile/PanoramaMakefilelibExport.h
-algorithms/assistant_makefile/AssistantMakefilelibExport.h
 algorithms/point_sampler/PointSampler.h
 algorithms/control_points/CleanCP.h
 appbase/Command.h

@@ -28,10 +28,16 @@
 #define _MYEXTERNALCMDEXECDIALOG__H
 
 #include <hugin_shared.h>
+#include <wx/utils.h>
+#include "Executor.h"
 
 const int HUGIN_EXIT_CODE_CANCELLED = -255;
 
+/** execute a single command in own dialog, redirect output to frame and allow canceling */
 WXIMPEX int MyExecuteCommandOnDialog(wxString command, wxString args, wxWindow* parent, wxString title, bool isQuoted=false);
+/** execute all commands in queue with redirection of output to frame and allow canceling 
+    the queue will be delete at the end, don't use it further */
+WXIMPEX int MyExecuteCommandQueue(HuginQueue::CommandQueue* queue, wxWindow* parent, const wxString& title, const wxString& comment = wxEmptyString);
 
 // Define an array of process pointers used by MyFrame
 class MyPipedProcess;
@@ -57,6 +63,7 @@ public:
 	long GetPid();
 
     int ExecWithRedirect(wxString command);
+    int ExecQueue(HuginQueue::CommandQueue* queue);
 
     // polling output of async processes
     void OnTimer(wxTimerEvent& event);
@@ -69,7 +76,9 @@ public:
     bool SaveLog(const wxString &filename);
     /** copy the content of the log window into the clipboard */
     void CopyLogToClipboard();
-    
+    /** display the string in the panel */
+    void AddString(const wxString& s);
+
     virtual ~MyExecPanel();
 
 private:
@@ -82,11 +91,10 @@ private:
 
     void RemoveAsyncProcess(MyPipedProcess *process);
 
+    int ExecNextQueue();
+
     // the PID of the last process we launched asynchronously
     long m_pidLast;
-
-    // last command we executed
-    wxString m_cmdLast;
 
     wxTextCtrl *m_textctrl;
     long m_lastLineStart;
@@ -95,7 +103,13 @@ private:
 
     // the idle event wake up timer
     wxTimer m_timerIdleWakeUp;
-
+    // store queue
+    HuginQueue::CommandQueue* m_queue;
+    // if the return code of the process should be checked
+    bool m_checkReturnCode;
+#if wxCHECK_VERSION(3,0,0)
+    wxExecuteEnv m_executeEnv;
+#endif
     // any class wishing to process wxWidgets events must use this macro
     DECLARE_EVENT_TABLE()
 };
@@ -132,7 +146,10 @@ public:
     void OnCancel(wxCommandEvent& event);
 
     int ExecWithRedirect(wxString command);
-    
+    int ExecQueue(HuginQueue::CommandQueue* queue);
+    /** display the string in the panel */
+    void AddString(const wxString& s);
+
     void OnProcessTerminate(wxProcessEvent & event);
     
     virtual ~MyExecDialog();

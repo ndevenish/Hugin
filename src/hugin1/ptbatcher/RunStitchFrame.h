@@ -51,10 +51,9 @@ public:
     RunStitchFrame(wxWindow* parent, const wxString& title, const wxPoint& pos, const wxSize& size);  //ProjectArray projList, wxListBox *projListBox);
 
     /** Starts stitching of project file */
-    bool StitchProject(wxString scriptFile, wxString outname,
-                       HuginBase::PanoramaMakefilelibExport::PTPrograms progs);
+    bool StitchProject(wxString scriptFile, wxString outname);
     /** starts assistant of project file */
-    bool DetectProject(wxString scriptFile, HuginBase::AssistantMakefilelibExport::AssistantPrograms progs);
+    bool DetectProject(wxString scriptFile);
     /** Returns process ID of running process */
     int GetProcessId();
     /** Gets project id from batch */

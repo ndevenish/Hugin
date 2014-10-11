@@ -32,7 +32,6 @@
 #include <hugin_shared.h>
 #include <appbase/DocumentData.h>
 // #include <algorithm/ControlPointCreatorAlgorithm.h>
-#include <algorithms/assistant_makefile/AssistantMakefilelibExport.h>
 #include <algorithms/basic/CalculateCPStatistics.h>
 #include <algorithms/basic/CalculateMeanExposure.h>
 #include <algorithms/basic/CalculateOptimalROI.h>
@@ -254,7 +253,6 @@ using namespace HuginBase;
 // %include <algorithm/ControlPointCreatorAlgorithm.h>
 %include <algorithms/PanoramaAlgorithm.h>
 %include <algorithms/StitcherAlgorithm.h>
-%include <algorithms/assistant_makefile/AssistantMakefilelibExport.h>
 %include <algorithms/basic/CalculateCPStatistics.h>
 %include <algorithms/basic/CalculateMeanExposure.h>
 %include <algorithms/basic/CalculateOptimalROI.h>

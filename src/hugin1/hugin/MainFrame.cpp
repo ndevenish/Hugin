@@ -30,6 +30,7 @@
 #include <exiv2/image.hpp>
 
 #include <wx/dir.h>
+#include <wx/stdpaths.h>
 #include "panoinc_WX.h"
 #include "panoinc.h"
 
@@ -65,6 +66,8 @@
 #include "base_wx/RunStitchPanel.h"
 #include "base_wx/wxImageCache.h"
 #include "base_wx/PTWXDlg.h"
+#include "base_wx/MyExternalCmdExecDialog.h"
+#include "base_wx/AssistantExecutor.h"
 #include "PT/ImageGraph.h"
 
 #include "base_wx/huginConfig.h"
@@ -783,38 +786,6 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
         script.close();
         savedProjectFile=true;
 
-        int createMakefile = 0;
-        wxConfig::Get()->Read(wxT("SaveMakefile"), &createMakefile, 0l);
-        if (createMakefile && pano.getNrOfImages() > 0) {
-            wxString makefn = scriptName.GetFullPath() + wxT(".mk");
-            std::ofstream makefile(makefn.mb_str(HUGIN_CONV_FILENAME));
-            makefile.exceptions ( std::ofstream::eofbit | std::ofstream::failbit | std::ofstream::badbit );
-            wxString ptoFnWX = scriptName.GetFullPath();
-            std::string ptoFn(ptoFnWX.mb_str(HUGIN_CONV_FILENAME));
-            wxString bindir = huginApp::Get()->GetUtilsBinDir();
-            PTPrograms progs = getPTProgramsConfig(bindir, wxConfigBase::Get());
-            std::string resultFn;
-            wxString resultFnwx = scriptName.GetFullPath();
-            resultFn = resultFnwx.mb_str(HUGIN_CONV_FILENAME);
-            resultFn = stripPath(stripExtension(resultFn));
-            wxConfigBase* config=wxConfigBase::Get();
-            std::string tmpDir((config->Read(wxT("tempDir"),wxT(""))).mb_str(HUGIN_CONV_FILENAME));
-            bool copyMetadata=config->Read(wxT("/output/useExiftool"), HUGIN_USE_EXIFTOOL)==1l;
-            bool generateGPanoTags=config->Read(wxT("/output/writeGPano"), HUGIN_EXIFTOOL_CREATE_GPANO)==1l;
-            std::vector<std::string> outputFiles;
-            HuginBase::PanoramaMakefilelibExport::createMakefile(pano,
-                                                              pano.getActiveImages(),
-                                                              ptoFn,
-                                                              resultFn,
-                                                              progs,
-                                                              "",
-                                                              outputFiles,
-                                                              makefile,
-                                                              tmpDir,
-                                                              copyMetadata,
-                                                              generateGPanoTags,
-                                                              0);
-        }
         SetStatusText(wxString::Format(_("saved project %s"), m_filename.c_str()),0);
         if(m_guiLevel==GUI_SIMPLE)
         {
@@ -833,14 +804,7 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
     }
     } catch (std::exception & e) {
         wxString err(e.what(), wxConvLocal);
-        if(savedProjectFile)
-        {
-            wxMessageBox(wxString::Format(_("Could not save project makefile \"%s\".\nBut the project file was saved.\nMaybe the file or the folder is read-only.\n\n(Error code: %s)"),(m_filename+wxT(".mk")).c_str(),err.c_str()),_("Warning"),wxOK|wxICON_INFORMATION);
-        }
-        else
-        {
             wxMessageBox(wxString::Format(_("Could not save project file \"%s\".\nMaybe the file or the folder is read-only.\n\n(Error code: %s)"),m_filename.c_str(),err.c_str()),_("Error"),wxOK|wxICON_ERROR);
-        };
     }
 }
 
@@ -1523,12 +1487,8 @@ void MainFrame::OnOpenPTBatcher(wxCommandEvent & e)
 		wxExecute(_T("open -b net.sourceforge.hugin.PTBatcherGUI"));
 	}	
 #else
-#ifdef __WINDOWS__
-	wxString huginPath = getExePath(wxGetApp().argv[0])+wxFileName::GetPathSeparator();
-#else
-	wxString huginPath = _T("");	//we call the batch processor directly without path on linux
-#endif
-	wxExecute(huginPath+_T("PTBatcherGUI"));
+    const wxFileName exePath(wxStandardPaths::Get().GetExecutablePath());
+	wxExecute(exePath.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR) + _T("PTBatcherGUI"));
 #endif
 }
 
@@ -2169,24 +2129,8 @@ void MainFrame::RunAssistant(wxWindow* mainWin)
         return;
     }
 
-    //generate list of all necessary programs with full path
-    wxString bindir = huginApp::Get()->GetUtilsBinDir();
-    wxConfigBase* config=wxConfigBase::Get();
-    AssistantPrograms progs = getAssistantProgramsConfig(bindir, config);
-
-    //read main settings
-    bool runCeleste=config->Read(wxT("/Celeste/Auto"), HUGIN_CELESTE_AUTO)!=0;
-    double celesteThreshold;
-    config->Read(wxT("/Celeste/Threshold"), &celesteThreshold, HUGIN_CELESTE_THRESHOLD);
-    bool celesteSmall=config->Read(wxT("/Celeste/Filter"), HUGIN_CELESTE_FILTER)==0;
-    bool runLinefind=config->Read(wxT("/Assistant/Linefind"), HUGIN_ASS_LINEFIND)!=0;
-    bool runCPClean=config->Read(wxT("/Assistant/AutoCPClean"), HUGIN_ASS_AUTO_CPCLEAN)!=0;
-    double scale;
-    config->Read(wxT("/Assistant/panoDownsizeFactor"), &scale, HUGIN_ASS_PANO_DOWNSIZE_FACTOR);
-    int scalei=roundi(scale*100);
-
     //save project into temp directory
-    wxString tempDir= config->Read(wxT("tempDir"),wxT(""));
+    wxString tempDir= wxConfig::Get()->Read(wxT("tempDir"),wxT(""));
     if(!tempDir.IsEmpty())
     {
         if(tempDir.Last()!=wxFileName::GetPathSeparator())
@@ -2201,18 +2145,12 @@ void MainFrame::RunAssistant(wxWindow* mainWin)
     fill_set(all, 0, pano.getNrOfImages()-1);
     pano.printPanoramaScript(script, pano.getOptimizeVector(), pano.getOptions(), all, false);
     script.close();
-    //generate makefile
-    wxString makefileName=wxFileName::CreateTempFileName(tempDir+wxT("ham"));
-    std::ofstream makefile(makefileName.mb_str(HUGIN_CONV_FILENAME));
-    makefile.exceptions( std::ofstream::eofbit | std::ofstream::failbit | std::ofstream::badbit );
-    std::string scriptString(scriptFileName.GetFullPath().mb_str(HUGIN_CONV_FILENAME));
-    HuginBase::AssistantMakefilelibExport::createMakefile(pano,progs,runLinefind,runCeleste,celesteThreshold,celesteSmall,
-        runCPClean,scale,makefile,scriptString);
-    makefile.close();
 
-    //execute makefile
-    wxString args = wxT("-f ") + wxQuoteFilename(makefileName) + wxT(" all");
-    int ret=MyExecuteCommandOnDialog(getGNUMakeCmd(args), wxEmptyString, mainWin, _("Running assistant"), true);
+    // get assistant queue
+    const wxFileName exePath(wxStandardPaths::Get().GetExecutablePath());
+    HuginQueue::CommandQueue* commands = HuginQueue::GetAssistantCommandQueue(pano, exePath.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR), scriptFileName.GetFullPath());
+    //execute queue
+    int ret = MyExecuteCommandQueue(commands, mainWin, _("Running assistant"));
 
     //read back panofile
     GlobalCmdHist::getInstance().addCommand(new wxLoadPTProjectCmd(pano,
@@ -2222,8 +2160,7 @@ void MainFrame::RunAssistant(wxWindow* mainWin)
 
     //delete temporary files
     wxRemoveFile(scriptFileName.GetFullPath());
-    wxRemoveFile(makefileName);
-    //if return value is non-zero, an error occured in assistant makefile
+    //if return value is non-zero, an error occured in the assistant
     if(ret!=0)
     {
         //check for unconnected images
@@ -2316,12 +2253,8 @@ void MainFrame::OnSendToAssistantQueue(wxCommandEvent &e)
             return;
         }
 #else
-#ifdef __WINDOWS__
-        wxString huginPath = getExePath(wxGetApp().argv[0])+wxFileName::GetPathSeparator(); 
-#else
-        wxString huginPath = _T("");    //we call the batch processor directly without path on linux
-#endif    
-        wxExecute(huginPath+wxT("PTBatcherGUI -a ")+wxQuoteFilename(projectFile));
+        const wxFileName exePath(wxStandardPaths::Get().GetExecutablePath());
+        wxExecute(exePath.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR) + wxT("PTBatcherGUI -a ")+wxQuoteFilename(projectFile));
 #endif
     }
 };
