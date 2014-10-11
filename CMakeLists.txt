@@ -175,18 +175,20 @@ ENDIF(WIN32)
 SET(wxWidgets_USE_LIBS base core aui xrc html xml adv gl net)
 FIND_PACKAGE(wxWidgets REQUIRED)
 
-# hugin requires wxwidgets 2.7.0 or above
+# hugin requires wxwidgets 2.8.0 or above
 IF (UNIX)
   EXEC_PROGRAM(sh ARGS "${wxWidgets_CONFIG_EXECUTABLE} --version" OUTPUT_VARIABLE wxWidgets_VERSION)
   STRING(REGEX REPLACE "^([0-9]+\\.[0-9]+)\\..*" "\\1"  wxWidgets_VERSION ${wxWidgets_VERSION})
-  IF(wxWidgets_VERSION STREQUAL "2.5")
+  IF(wxWidgets_VERSION VERSION_LESS "2.8")
     SET(wxWidgets_FOUND FALSE)
-    MESSAGE("wxWidgets 2.5.x not supported")
-  ENDIF(wxWidgets_VERSION STREQUAL "2.5")
-  IF(wxWidgets_VERSION STREQUAL "2.6")
+    MESSAGE("At least wxWidgets 2.8 is required")
+  ENDIF()
+  # Ubuntu has 2 different devel packages, we need the GUI version
+  EXEC_PROGRAM(sh ARGS "${wxWidgets_CONFIG_EXECUTABLE} --query-toolkit" OUTPUT_VARIABLE wxWidgets_TOOLKIT)
+  IF(wxWidgets_TOOLKIT STREQUAL "base")
     SET(wxWidgets_FOUND FALSE)
-    MESSAGE("wxWidgets 2.6.x not supported")
-  ENDIF(wxWidgets_VERSION STREQUAL "2.6")
+    MESSAGE("wxWidgets is as non-GUI package configured. Check you wxWidgets installation (maybe wxgtkXX-devel is missing)")
+  ENDIF()
 ENDIF (UNIX)
 
 IF(NOT wxWidgets_FOUND)
