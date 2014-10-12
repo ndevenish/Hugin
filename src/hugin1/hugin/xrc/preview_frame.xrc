@@ -401,7 +401,7 @@
                                   <toggle>1</toggle>
                                   <bitmap platform="unix|win">data/preview_control_point_tool.png</bitmap>
                                   <bitmap platform="mac">data/preview_control_point_tool_small.png</bitmap>
-                                  <tooltip>Delete all control points in selected rectangle.</tooltip>
+                                  <tooltip>Create or delete control points in selected rectangle.</tooltip>
                                   <label>Edit CP</label>
                                 </object>
                                 <bitmapsize>22,22</bitmapsize>
@@ -1241,7 +1241,7 @@
                                   <toggle>1</toggle>
                                   <bitmap platform="unix|win">data/preview_control_point_tool.png</bitmap>
                                   <bitmap platform="mac">data/preview_control_point_tool_small.png</bitmap>
-                                  <tooltip>Delete all control points in selected rectangle.</tooltip>
+                                  <tooltip>Create or delete control points in selected rectangle.</tooltip>
                                   <label>Edit CP</label>
                                 </object>
                                 <bitmapsize>22,22</bitmapsize>
