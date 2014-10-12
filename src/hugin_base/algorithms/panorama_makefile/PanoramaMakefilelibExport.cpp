@@ -49,7 +49,6 @@ along with hugin.  If not, see <http://www.gnu.org/licenses/>.
 #include <algorithms/basic/LayerStacks.h>
 #ifdef _WINDOWS
 #include "windows.h"
-#include <versionhelpers.h>
 #endif
 
 /// Automates an very often occuring sequence
@@ -1206,82 +1205,7 @@ void PanoramaMakefilelibExport::printSystemInfo(Rule& inforule)
     statex.dwLength = sizeof(statex);
     GlobalMemoryStatusEx(&statex);
 
-    infostream << "Windows ";
-    if (IsWindows8Point1OrGreater())
-    {
-        infostream << "8.1";
-    }
-    else
-    {
-        if (IsWindows8OrGreater())
-        {
-            infostream << "8";
-        }
-        else
-        {
-            if (IsWindows7SP1OrGreater())
-            {
-                infostream << "7 SP1";
-            }
-            else
-            {
-                if (IsWindows7OrGreater())
-                {
-                    infostream << "7";
-                }
-                else
-                {
-                    if (IsWindowsVistaSP2OrGreater())
-                    {
-                        infostream << "Vista SP2";
-                    }
-                    else
-                    {
-                        if (IsWindowsVistaSP1OrGreater())
-                        {
-                            infostream << "Vista SP1";
-                        }
-                        else
-                        {
-                            if (IsWindowsVistaOrGreater())
-                            {
-                                infostream << "Vista";
-                            }
-                            else
-                            {
-                                if (IsWindowsXPSP3OrGreater())
-                                {
-                                    infostream << "XP SP3";
-                                }
-                                else
-                                {
-                                    if (IsWindowsXPSP2OrGreater())
-                                    {
-                                        infostream << "XP SP2";
-                                    }
-                                    else
-                                    {
-                                        if (IsWindowsXPSP1OrGreater())
-                                        {
-                                            infostream << "XP SP1";
-                                        }
-                                        else
-                                        {
-                                            if (IsWindowsXPOrGreater())
-                                            {
-                                                infostream << "XP";
-                                            };
-                                        };
-                                    };
-                                };
-                            };
-                        };
-                    };
-                };
-            };
-        };
-    };
-    echoInfo(inforule,"Operating System: "+infostream.str());
+    echoInfo(inforule,"Operating System: Windows");
     switch(siSysInfo.wProcessorArchitecture)
     {
         case PROCESSOR_ARCHITECTURE_INTEL:
