@@ -1,0 +1,64 @@
+// -*- c-basic-offset: 4 -*-
+
+/** @file ProgressStatusBar.cpp
+ *
+ *  @brief declaration of statusbar with progress indicator
+ *
+ *  @author T. Modes
+ *
+ */
+
+/*
+ *  This program is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2 of the License, or (at your option) any later version.
+ *
+ *  This software is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public
+ *  License along with this software; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ */
+
+#include "ProgressStatusBar.h"
+
+// Event table
+BEGIN_EVENT_TABLE(ProgressStatusBar, wxStatusBar)
+EVT_SIZE(ProgressStatusBar::OnSize)
+END_EVENT_TABLE()
+
+ProgressStatusBar::ProgressStatusBar(wxWindow *parent, wxWindowID id, long style, const wxString &name) : wxStatusBar(parent, id, style, name)
+{
+    m_progress = new wxGauge(this, -1, 100, wxDefaultPosition, wxDefaultSize, wxGA_HORIZONTAL);
+    SetProgress(0);
+}
+
+ProgressStatusBar::~ProgressStatusBar()
+{
+    if (m_progress)
+    {
+        delete m_progress;
+    };
+}
+
+void ProgressStatusBar::OnSize(wxSizeEvent& event)
+{
+    if (GetFieldsCount() > 0)
+    {
+        wxRect r;
+        GetFieldRect(GetFieldsCount() - 1, r);
+        r.Deflate(2, 2);
+        m_progress->SetSize(r);
+    };
+}
+
+void ProgressStatusBar::SetProgress(int progress)
+{
+    m_progress->Show(progress >= 0);
+    m_progress->SetValue(progress);
+};

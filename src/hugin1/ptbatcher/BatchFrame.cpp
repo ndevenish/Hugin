@@ -32,6 +32,9 @@
 #ifdef __WXMSW__
 #include <powrprof.h>
 #pragma comment(lib, "PowrProf.lib")
+#if wxCHECK_VERSION(3,1,0)
+#include <wx/taskbarbutton.h>
+#endif
 #endif
 
 /* file drag and drop handler method */
@@ -121,6 +124,7 @@ BEGIN_EVENT_TABLE(BatchFrame, wxFrame)
     EVT_COMMAND(wxID_ANY, EVT_BATCH_FAILED, BatchFrame::OnBatchFailed)
     EVT_COMMAND(wxID_ANY, EVT_INFORMATION, BatchFrame::OnBatchInformation)
     EVT_COMMAND(wxID_ANY, EVT_UPDATE_PARENT, BatchFrame::OnRefillListBox)
+    EVT_COMMAND(wxID_ANY, EVT_QUEUE_PROGRESS, BatchFrame::OnProgress)
     EVT_ICONIZE(BatchFrame::OnMinimize)
 END_EVENT_TABLE()
 
@@ -145,7 +149,9 @@ BatchFrame::BatchFrame(wxLocale* locale, wxString xrc)
     // create tool bar
     SetToolBar(wxXmlResource::Get()->LoadToolBar(this, wxT("batch_toolbar")));
 
-    CreateStatusBar(1);
+    int widths[2] = { -1, 150 };
+    CreateStatusBar(2);
+    SetStatusWidths(2, widths);
     SetStatusText(_("Not doing much..."));
 
     // set the minimize icon
@@ -298,6 +304,13 @@ void* BatchFrame::Entry()
         GetThread()->Sleep(1000);
     }
     return 0;
+}
+
+wxStatusBar* BatchFrame::OnCreateStatusBar(int number, long style, wxWindowID id, const wxString& name)
+{
+    m_progStatusBar = new ProgressStatusBar(this, id, style, name);
+    m_progStatusBar->SetFieldsCount(number);
+    return m_progStatusBar;
 }
 
 bool BatchFrame::IsRunning()
@@ -1293,6 +1306,30 @@ void BatchFrame::SetStatusInformation(wxString status,bool showBalloon)
             balloon->showBalloon(5000);
         };
 #endif
+#endif
+    };
+};
+
+void BatchFrame::OnProgress(wxCommandEvent& e)
+{
+    if (!m_batch->parallel)
+    {
+        // display progress only in sequential mode
+        m_progStatusBar->SetProgress(e.GetInt());
+#if defined __WXMSW__ && wxCHECK_VERSION(3,1,0)
+        // provide also a feedback in task bar if available
+        if (e.GetInt() < 0)
+        {
+            MSWGetTaskBarButton()->Hide();
+        }
+        else
+        {
+            wxTaskBarButton* taskBarButton = MSWGetTaskBarButton();
+            taskBarButton->Show();
+            taskBarButton->SetProgressRange(100);
+            taskBarButton->SetProgressState(wxTASKBAR_BUTTON_NORMAL);
+            taskBarButton->SetProgressValue(e.GetInt());
+        };
 #endif
     };
 };

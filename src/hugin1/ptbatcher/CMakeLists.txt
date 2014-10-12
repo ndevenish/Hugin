@@ -1,9 +1,9 @@
 set(PTBATCHERGUI_SOURCE 
       PTBatcherGUI.cpp Batch.cpp RunStitchFrame.cpp ProjectArray.cpp ProjectListBox.cpp 
-      BatchFrame.cpp FindPanoDialog.cpp FailedProjectsDialog.cpp BatchTrayIcon.cpp )
+      BatchFrame.cpp FindPanoDialog.cpp FailedProjectsDialog.cpp BatchTrayIcon.cpp ProgressStatusBar.cpp)
 set( PTBATCHERGUI_HEADER PTBatcherGUI.h Batch.h RunStitchFrame.h ProjectArray.h ProjectListBox.h
                          BatchFrame.h DirTraverser.h FindPanoDialog.h FailedProjectsDialog.h 
-                         BatchTrayIcon.h PTBatcherGUI_rc.rc)
+                         BatchTrayIcon.h ProgressStatusBar.h PTBatcherGUI_rc.rc)
 IF (WIN32)
   add_executable(PTBatcherGUI WIN32 ${PTBATCHERGUI_SOURCE} ${PTBATCHERGUI_HEADER})
 ELSEIF(APPLE)

@@ -105,6 +105,7 @@ private:
     wxTimer m_timerIdleWakeUp;
     // store queue
     HuginQueue::CommandQueue* m_queue;
+    size_t m_queueLength;
     // if the return code of the process should be checked
     bool m_checkReturnCode;
 #if wxCHECK_VERSION(3,0,0)
@@ -162,5 +163,7 @@ private:
     // any class wishing to process wxWidgets events must use this macro
     DECLARE_EVENT_TABLE()
 };
+
+DECLARE_EVENT_TYPE(EVT_QUEUE_PROGRESS, -1)
 
 #endif

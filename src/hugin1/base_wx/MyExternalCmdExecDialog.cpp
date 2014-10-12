@@ -63,6 +63,8 @@ using namespace std;
 // event tables and other macros for wxWidgets
 // ----------------------------------------------------------------------------
 
+DEFINE_EVENT_TYPE(EVT_QUEUE_PROGRESS)
+
 BEGIN_EVENT_TABLE(MyExecPanel, wxPanel)
     EVT_TIMER(wxID_ANY, MyExecPanel::OnTimer)
 END_EVENT_TABLE()
@@ -76,7 +78,7 @@ END_EVENT_TABLE()
 // frame constructor
 MyExecPanel::MyExecPanel(wxWindow * parent)
        : wxPanel(parent),
-       m_timerIdleWakeUp(this), m_queue(NULL), m_checkReturnCode(true)
+       m_timerIdleWakeUp(this), m_queue(NULL), m_checkReturnCode(true), m_queueLength(0)
 {
     m_pidLast = 0;
 
@@ -274,6 +276,7 @@ int MyExecPanel::ExecQueue(HuginQueue::CommandQueue* queue)
     };
 #endif
     m_queue = queue;
+    m_queueLength = queue->size() + 1;
     if (m_queue->empty())
     {
         return 0;
@@ -295,6 +298,13 @@ int MyExecPanel::ExecNextQueue()
         // delete command from queue
         delete cmd;
         m_queue->erase(m_queue->begin());
+        // notify parent
+        if (this->GetParent())
+        {
+            wxCommandEvent event(EVT_QUEUE_PROGRESS, wxID_ANY);
+            event.SetInt(hugin_utils::roundi((m_queueLength - m_queue->size()) * 100.0f / m_queueLength));
+            this->GetParent()->GetEventHandler()->AddPendingEvent(event);
+        };
         // now execute command
         return ExecWithRedirect(cmdString);
     }
@@ -471,6 +481,10 @@ void MyExecPanel::OnProcessTerminated(MyPipedProcess *process, int pid, int stat
         event.SetEventObject(this);
         DEBUG_TRACE("Sending wxProcess event");
         this->GetParent()->GetEventHandler()->ProcessEvent(event);
+        // notify parent to hide progress 
+        wxCommandEvent event2(EVT_QUEUE_PROGRESS, wxID_ANY);
+        event2.SetInt(-1);
+        this->GetParent()->GetEventHandler()->AddPendingEvent(event2);
     };
 }
 

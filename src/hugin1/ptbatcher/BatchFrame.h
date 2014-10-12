@@ -36,6 +36,7 @@
 #endif
 #include "BatchTrayIcon.h"
 //#include <wx/app.h>
+#include "ProgressStatusBar.h"
 
 /** Simple class that forward the drop to the mainframe */
 class BatchDropTarget : public wxFileDropTarget
@@ -57,6 +58,8 @@ public:
     BatchFrame(wxLocale* locale, wxString xrc);
     //Main thread for all file polling - checking for new projects and updating modified ones.
     void* Entry();
+    // create statusbar with progress control
+    wxStatusBar* OnCreateStatusBar(int number, long style, wxWindowID id, const wxString& name);
 
     void OnUserExit(wxCommandEvent& event);
     void OnButtonAddCommand(wxCommandEvent& event);
@@ -93,7 +96,8 @@ public:
     void OnCheckAutoStitch(wxCommandEvent& event);
     /** event handler called when always save log checkbox was changed */
     void OnCheckSaveLog(wxCommandEvent& event);
-
+    /** event handler for update progress controls */
+    void OnProgress(wxCommandEvent& event);
 
     //Called on window close to take care of the child thread
     void OnClose(wxCloseEvent& event);
@@ -173,6 +177,7 @@ private:
     wxHtmlHelpController* m_help;
 #endif
     BatchTaskBarIcon* m_tray;
+    ProgressStatusBar* m_progStatusBar;
     bool m_startedMinimized;
 
     void OnProcessTerminate(wxProcessEvent& event);
