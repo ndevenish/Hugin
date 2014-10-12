@@ -59,6 +59,9 @@
 #include <wx/dir.h>
 #include <wx/cshelp.h>
 #include <wx/stdpaths.h>
+#if wxCHECK_VERSION(3,1,0)
+#include <wx/taskbarbutton.h>
+#endif
 #endif
 
 #include <tiffio.h>
@@ -326,6 +329,16 @@ bool huginApp::OnInit()
     provider->SetHelpController(&frame->GetHelpController());
     frame->GetHelpController().Initialize(m_xrcPrefix+wxT("data/hugin_help_en_EN.chm"));
     frame->SendSizeEvent();
+#if wxCHECK_VERSION(3,1,0)
+    wxTaskBarJumpList jumpList;
+    wxFileName ptbatcher(wxStandardPaths::Get().GetExecutablePath());
+    ptbatcher.SetName("PTBatcherGUI");
+    wxTaskBarJumpListItem *item1 = new wxTaskBarJumpListItem(
+        NULL, wxTASKBAR_JUMP_LIST_TASK, _("Run Batch Processor"), ptbatcher.GetFullPath(), wxEmptyString, 
+        _("Opens PTBatcher, the batch processor for Hugin's project files"),
+        ptbatcher.GetFullPath(), 0);
+    jumpList.GetTasks().Append(item1);
+#endif
 #endif
 
     // we are closing Hugin, if the top level window is deleted
