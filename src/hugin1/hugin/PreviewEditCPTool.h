@@ -67,8 +67,12 @@ private:
     bool m_menuPopup;
     /** position where the marking starts */
     hugin_utils::FDiff2D m_startPos;
+    /** position where the marking starts in screen coordinates */
+    hugin_utils::FDiff2D m_startPosScreen;
     /** current position of selection */
     hugin_utils::FDiff2D m_currentPos;
+    /** current position of selection in screen coordinates*/
+    hugin_utils::FDiff2D m_currentPosScreen;
     /** contains the found cp */
     HuginBase::UIntSet m_CPinROI;
 };

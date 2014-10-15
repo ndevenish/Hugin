@@ -58,16 +58,16 @@ void PreviewEditCPTool::ReallyAfterDrawImagesEvent()
     if (m_mouseDown)
     {
         glDisable(GL_TEXTURE_2D);
-        hugin_utils::FDiff2D dist = m_currentPos - m_startPos;
+        const hugin_utils::FDiff2D dist(m_currentPosScreen - m_startPosScreen);
         // select color depending on size
-        if (fabs(dist.x) > 100 && fabs(dist.y) > 100)
+        if (fabs(dist.x) > 10 && fabs(dist.y) > 10)
         {
-            glColor3f(1, 1, 0);
+            glColor3f(1.0f, 1.0f, 0.0f);
         }
         else
         {
             // selection is too small, use a gray color
-            glColor3f(0.7, 0.7, 0.7);
+            glColor3f(0.7f, 0.7f, 0.7f);
         }
         glBegin(GL_LINES);
         glVertex2f(m_startPos.x, m_startPos.y);
@@ -89,6 +89,7 @@ void PreviewEditCPTool::MouseMoveEvent(double x, double y, wxMouseEvent & e)
     if (m_mouseDown)
     {
         m_currentPos = helper->GetMousePanoPosition();
+        m_currentPosScreen = helper->GetMouseScreenPosition();
         // force redrawing
         helper->GetVisualizationStatePtr()->ForceRequireRedraw();
         helper->GetVisualizationStatePtr()->Redraw();
@@ -111,6 +112,7 @@ void PreviewEditCPTool::MouseButtonEvent(wxMouseEvent &e)
             // start selecting rectangle
             m_mouseDown = true;
             m_startPos = helper->GetMousePanoPosition();
+            m_startPosScreen = helper->GetMouseScreenPosition();
             m_CPinROI.clear();
         }
         else
@@ -120,8 +122,9 @@ void PreviewEditCPTool::MouseButtonEvent(wxMouseEvent &e)
                 // finish selecting
                 m_mouseDown = false;
                 m_currentPos = helper->GetMousePanoPosition();
-                hugin_utils::FDiff2D dist = m_currentPos - m_startPos;
-                if (fabs(dist.x)>100 && fabs(dist.y)>100)
+                m_currentPosScreen = helper->GetMouseScreenPosition();
+                const hugin_utils::FDiff2D dist (m_currentPosScreen - m_startPosScreen);
+                if (fabs(dist.x)>10 && fabs(dist.y)>10)
                 {
                     // build menu
                     wxMenu menu;
