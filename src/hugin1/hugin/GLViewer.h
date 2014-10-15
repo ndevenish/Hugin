@@ -88,6 +88,7 @@ public:
 protected:
     void OnEraseBackground(wxEraseEvent& e);
     void MouseMotion(wxMouseEvent& e);
+    void MouseEnter(wxMouseEvent & e);
     void MouseLeave(wxMouseEvent & e);
     void MouseButtons(wxMouseEvent& e);
     void MouseWheel(wxMouseEvent& e);

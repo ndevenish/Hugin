@@ -108,6 +108,7 @@ public:
     // tools specify otherwise.
     bool BeforeDrawImageNumber(unsigned int image);
     void AfterDrawImageNumber(unsigned int image);
+    void MouseEnter(int x, int y, wxMouseEvent & e);
     void MouseLeave();
     
     // Get information

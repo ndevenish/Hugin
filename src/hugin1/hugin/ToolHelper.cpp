@@ -224,6 +224,21 @@ void ToolHelper::AfterDrawImageNumber(unsigned int image)
     }
 }
 
+void ToolHelper::MouseEnter(int x, int y, wxMouseEvent &e)
+{
+    // You might expect that this is redundant, because any MouseEnter will be
+    // accompanied by a MouseMove, which will achieve the same ends.  However,
+    // this is not so.  It's possible for the mouse to enter without moving.
+    // Morevover, some environments will trigger a MouseLeave+MouseEnter just
+    // before a MouseButton event; handling this is particularly critical for
+    // such cases.
+    mouse_over_pano = true;
+    mouse_screen_x = x;
+    mouse_screen_y = y;
+    // If the mouse has moved, then we don't know what is underneath it anoymore
+    InvalidateImagesUnderMouse();
+}
+
 void ToolHelper::MouseLeave()
 {
     // if the mouse leaves the preview, there are no images under the mouse

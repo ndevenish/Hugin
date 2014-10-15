@@ -188,6 +188,7 @@ BEGIN_EVENT_TABLE(GLViewer, wxGLCanvas)
     // mouse motion
     EVT_MOTION (GLViewer::MouseMotion)
     // mouse entered or left the preview
+    EVT_ENTER_WINDOW(GLViewer::MouseEnter)
     EVT_LEAVE_WINDOW(GLViewer::MouseLeave)
     // mouse buttons
     EVT_MOUSEWHEEL(GLViewer::MouseWheel)
@@ -512,6 +513,13 @@ void GLViewer::MouseMotion(wxMouseEvent& e)
 {
     if(m_renderer)
         m_tool_helper->MouseMoved((int) e.m_x - offset.x,
+                              (int) e.m_y - offset.y, e);
+}
+
+void GLViewer::MouseEnter(wxMouseEvent & e)
+{
+    if(m_renderer)
+        m_tool_helper->MouseEnter((int) e.m_x - offset.x,
                               (int) e.m_y - offset.y, e);
 }
 
