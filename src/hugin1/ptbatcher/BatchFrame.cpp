@@ -501,7 +501,7 @@ void BatchFrame::AddDirToList(wxString aDir)
         projListBox->AppendProject(proj);
     };
     m_batch->SaveTemp();
-    SetStatusText(_("Added projects from dir ")+aDir);
+    SetStatusText(wxString::Format(_("Added projects from dir %s"), aDir.c_str()));
 };
 
 void BatchFrame::AddToList(wxString aFile,Project::Target target)
@@ -822,7 +822,7 @@ void BatchFrame::OnButtonRemoveFromList(wxCommandEvent& event)
         }
         else
         {
-            SetStatusText(_("Removed project ")+projListBox->GetSelectedProject());
+            SetStatusText(wxString::Format(_("Removed project %s"), projListBox->GetSelectedProject().c_str()));
             projListBox->Deselect(selIndex);
             projListBox->DeleteItem(selIndex);
             m_batch->RemoveProjectAtIndex(selIndex);
@@ -858,7 +858,7 @@ void BatchFrame::OnButtonReset(wxCommandEvent& event)
         else
         {
             m_batch->SetStatus(selIndex,Project::WAITING);
-            SetStatusText(_("Reset project ")+projListBox->GetSelectedProject());
+            SetStatusText(wxString::Format(_("Reset project %s"), projListBox->GetSelectedProject().c_str()));
         }
     }
     else

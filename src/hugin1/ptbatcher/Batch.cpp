@@ -812,7 +812,7 @@ void Batch::RunNextInBatch()
         //execute command line instructions
         if(m_projList.Item(i).id<0)
         {
-            SetStatusText(_("Running command \"")+m_projList.Item(i).path+_T("\""));
+            SetStatusText(wxString::Format(_("Running command \"%s\""), m_projList.Item(i).path.c_str()));
             m_projList.Item(i).status=Project::RUNNING;
             //we create a fake stitchFrame, so program waits for app to complete
             if(wxExecute(m_projList.Item(i).path, wxEXEC_SYNC)==0)
