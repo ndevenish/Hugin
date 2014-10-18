@@ -187,8 +187,8 @@ class HuginExecutor : public APP
     virtual void OnInitCmdLine(wxCmdLineParser &parser)
     {
         parser.AddSwitch(wxT("h"), wxT("help"), _("shows this help message"), wxCMD_LINE_OPTION_HELP);
-        parser.AddSwitch(wxT("a"), wxT("assistant"), _("used setting"));
-        parser.AddSwitch(wxT("s"), wxT("stitching"), _("number of matches"));
+        parser.AddSwitch(wxT("a"), wxT("assistant"), _("execute assistant"));
+        parser.AddSwitch(wxT("s"), wxT("stitching"), _("execute stitching with given project"));
         parser.AddOption(wxT("t"), wxT("threads"), _("number of used threads"), wxCMD_LINE_VAL_NUMBER);
         parser.AddOption(wxT("p"), wxT("prefix"), _("prefix used for stitching"), wxCMD_LINE_VAL_STRING);
         parser.AddSwitch(wxT("d"), wxT("dry-run"), _("only print commands"));

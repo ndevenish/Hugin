@@ -511,7 +511,7 @@ namespace HuginQueue
                     stackedImages.Add(stackImgName);
                     commands->push_back(new NormalCommand(GetExternalProgram(config, ExePath, wxT("enfuse")),
                         enfuseArgsGeneral + enLayersCompressionArgs + wxT(" -o ") + wxEscapeFilename(stackImgName) + wxT(" -- ") + GetQuotedFilenamesString(stackImgs),
-                        wxString::Format(_("Fusing stack number %d"), stackNr)));
+                        wxString::Format(_("Fusing stack number %d..."), stackNr)));
                     if (copyMetadata && opts.outputLDRStacks)
                     {
                         filesForCopyTagsExiftool.Add(stackImgName);
@@ -550,7 +550,7 @@ namespace HuginQueue
                     outputFiles.Add(exposureLayerImgName);
                     commands->push_back(new NormalCommand(GetExternalProgram(config, ExePath, wxT("enblend")),
                         enblendArgsGeneral + enLayersCompressionArgs + wxT(" -o ") + wxEscapeFilename(exposureLayerImgName) + wxT(" -- ") + GetQuotedFilenamesString(exposureLayersImgs),
-                        wxString::Format(_("Blending exposure layer  %d"), exposureLayer))); 
+                        wxString::Format(_("Blending exposure layer %d..."), exposureLayer))); 
                     if (copyMetadata && opts.outputLDRExposureLayers)
                     {
                         filesForCopyTagsExiftool.Add(exposureLayerImgName);
@@ -607,7 +607,7 @@ namespace HuginQueue
                     outputFiles.Add(stackImgName);
                     commands->push_back(new NormalCommand(GetInternalProgram(ExePath, wxT("hugin_hdrmerge")),
                         WXSTRING(opts.hdrmergeOptions) + wxT(" -o ") + wxEscapeFilename(stackImgName) + wxT(" -- ") + GetQuotedFilenamesString(stackImgs),
-                        wxString::Format(_("Merging hdr stack number %d"), stackNr)));
+                        wxString::Format(_("Merging hdr stack number %d..."), stackNr)));
                     if (!opts.outputHDRStacks)
                     {
                         tempFilesDelete.Add(stackImgName);
