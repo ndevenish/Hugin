@@ -207,7 +207,9 @@ IF(WIN32)
     IF(HAVE_FFTW)
       FIND_FILE(FFTW3_DLL 
         NAMES libfftw-3.3.dll
-        PATHS ${SOURCE_BASE_DIR}/fftw-3.3.3/fftw-3.3-libs/x64 
+        PATHS ${SOURCE_BASE_DIR}/fftw-3.3.4/fftw-3.3-libs/x64 
+              ${SOURCE_BASE_DIR}/fftw-3.3.4/fftw-3.3-libs/
+              ${SOURCE_BASE_DIR}/fftw-3.3.3/fftw-3.3-libs/x64 
               ${SOURCE_BASE_DIR}/fftw-3.3.3/fftw-3.3-libs/
           NO_SYSTEM_ENVIRONMENT_PATH)
       INSTALL(FILES ${FFTW3_DLL} DESTINATION ${BINDIR})

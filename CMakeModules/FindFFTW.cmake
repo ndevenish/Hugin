@@ -14,6 +14,7 @@ FIND_PATH(FFTW_INCLUDE_DIR
   NAMES fftw3.h
   PATHS /usr/local/include
         /usr/include
+        ${SOURCE_BASE_DIR}/fftw-3.3.4/api
         ${SOURCE_BASE_DIR}/fftw-3.3.3/api
 )
 
@@ -23,6 +24,8 @@ find_library_with_debug(FFTW_LIBRARIES
   WIN32_DEBUG_POSTFIX d
   NAMES libfftw-3.3 fftw3
   PATHS ${SYSTEM_LIB_DIRS} 
+        ${SOURCE_BASE_DIR}/fftw-3.3.4/fftw-3.3-libs/x64
+        ${SOURCE_BASE_DIR}/fftw-3.3.4/fftw-3.3-libs/
         ${SOURCE_BASE_DIR}/fftw-3.3.3/fftw-3.3-libs/x64
         ${SOURCE_BASE_DIR}/fftw-3.3.3/fftw-3.3-libs/
 )
