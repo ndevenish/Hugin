@@ -25,7 +25,6 @@ along with hugin.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef PANORAMAMAKEFILELIBEXPORT_H_
 #define PANORAMAMAKEFILELIBEXPORT_H_
 
-#include <hugin_shared.h>
 #include <algorithms/PanoramaAlgorithm.h>
 #include <panodata/PanoramaData.h>
 #include <iosfwd>
@@ -40,7 +39,7 @@ along with hugin.  If not, see <http://www.gnu.org/licenses/>.
  */
 namespace HuginBase
 {
-class IMPEX PanoramaMakefilelibExport : public PanoramaAlgorithm
+class PanoramaMakefilelibExport : public PanoramaAlgorithm
 {
 public:
     struct PTPrograms
@@ -185,7 +184,7 @@ public:
  * Simple helper to output stacks for debugging.
  * @param stackdata
  */
-void IMPEX printstacks(const std::vector<UIntSet>& stackdata);
+void printstacks(const std::vector<UIntSet>& stackdata);
 /**
  * Simply calls push_back, convinience function.
  * @param vec
@@ -203,7 +202,7 @@ template<typename T>
 void append(std::vector<T>& dst, const std::vector<T>& src);
 
 /** check if the argfile exists, if not revert to default one */
-void IMPEX CheckExifToolArgfile(HuginBase::PanoramaMakefilelibExport::PTPrograms& progs);
+void CheckExifToolArgfile(HuginBase::PanoramaMakefilelibExport::PTPrograms& progs);
 
 }
 

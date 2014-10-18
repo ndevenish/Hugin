@@ -16,7 +16,7 @@ ELSE (${HUGIN_SHARED_LIBS})
   ADD_LIBRARY(icpfindlib STATIC ${ICPFIND_LIB_SRC} ${ICPFIND_LIB_HEADER})
 ENDIF (${HUGIN_SHARED_LIBS})
 
-TARGET_LINK_LIBRARIES(icpfindlib huginbase makefilelib ${wxWidgets_LIBRARIES} huginbasewx)
+TARGET_LINK_LIBRARIES(icpfindlib huginbase ${wxWidgets_LIBRARIES} huginbasewx)
 
 ADD_EXECUTABLE(icpfind icpfind.h icpfind.cpp)
 

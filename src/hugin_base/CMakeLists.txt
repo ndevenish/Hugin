@@ -19,7 +19,6 @@ algorithms/nona/ComputeImageROI.cpp
 algorithms/optimizer/ImageGraph.cpp
 algorithms/optimizer/PhotometricOptimizer.cpp
 algorithms/optimizer/PTOptimizer.cpp
-algorithms/panorama_makefile/PanoramaMakefilelibExport.cpp
 algorithms/point_sampler/PointSampler.cpp
 algorithms/control_points/CleanCP.cpp
 appbase/ProgressDisplay.cpp
@@ -80,7 +79,6 @@ algorithms/nona/ComputeImageROI.h
 algorithms/optimizer/ImageGraph.h
 algorithms/optimizer/PhotometricOptimizer.h
 algorithms/optimizer/PTOptimizer.h
-algorithms/panorama_makefile/PanoramaMakefilelibExport.h
 algorithms/point_sampler/PointSampler.h
 algorithms/control_points/CleanCP.h
 appbase/Command.h
@@ -145,13 +143,17 @@ ELSE (${HUGIN_SHARED_LIBS})
   add_library(huginbase STATIC ${HUGIN_BASE_SRC} ${HUGIN_BASE_HEADER})
 ENDIF (${HUGIN_SHARED_LIBS})
 
-TARGET_LINK_LIBRARIES(huginbase huginlevmar ${VIGRA_LIBRARIES} makefilelib
+TARGET_LINK_LIBRARIES(huginbase huginlevmar ${VIGRA_LIBRARIES} 
         ${Boost_LIBRARIES} ${EXIV2_LIBRARIES} ${PANO_LIBRARIES}
         ${TIFF_LIBRARIES} ${LAPACK_LIBRARIES} ${GLEW_LIBRARIES}
         ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT}
         ${SQLITE3_LIBRARIES} )
 
 INSTALL(FILES algorithms/panorama_makefile/hugin_exiftool_copy.arg DESTINATION ${INSTALL_DATA_DIR})
-        
+
+OPTION(BUILD_MAKEFILE_STITCHING "Build pto2mk (makefile based stitching engine)" OFF)
+IF(BUILD_MAKEFILE_STITCHING)        
 add_subdirectory(makefilelib)
+ENDIF()
+
 add_subdirectory(lines)

@@ -72,16 +72,18 @@ IF(WIN32)
   INSTALL(FILES ${ENBLEND_EXECUTABLES} DESTINATION ${BINDIR})
   INSTALL(FILES ${ENBLEND_DOC_FILES} DESTINATION doc/enblend)
 
-  # find path to gnu make 
-  FIND_PATH(GNUMake_DIR make.exe
-            ${SOURCE_BASE_DIR}/Make-4.0/x64/Release
-            ${SOURCE_BASE_DIR}/Make-4.0/Release
-            ${SOURCE_BASE_DIR}/Make-3.82/Release
-            ${SOURCE_BASE_DIR}/Make-3.81/Release
-            DOC "Location of gnu make"
-            NO_DEFAULT_PATH)
-  INSTALL(FILES ${GNUMake_DIR}/make.exe
-          DESTINATION ${BINDIR})
+  # find path to gnu make
+  IF(BUILD_MAKEFILE_STITCHING) 
+      FIND_PATH(GNUMake_DIR make.exe
+                ${SOURCE_BASE_DIR}/Make-4.0/x64/Release
+                ${SOURCE_BASE_DIR}/Make-4.0/Release
+                ${SOURCE_BASE_DIR}/Make-3.82/Release
+                ${SOURCE_BASE_DIR}/Make-3.81/Release
+                DOC "Location of gnu make"
+                NO_DEFAULT_PATH)
+      INSTALL(FILES ${GNUMake_DIR}/make.exe
+              DESTINATION ${BINDIR})
+  ENDIF()
  
   # install exiftool
   INSTALL(FILES ${EXIFTOOL_EXE_DIR}/exiftool.exe DESTINATION ${BINDIR})
