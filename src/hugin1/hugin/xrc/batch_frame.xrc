@@ -108,6 +108,9 @@
                       </object>
                       <flag>wxALIGN_CENTRE_VERTICAL</flag>
                     </object>
+                    <object class="spacer">
+                      <size>6,-1</size>
+                    </object>
                     <object class="sizeritem">
                       <object class="wxChoice" name="choice_end"/>
                       <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
