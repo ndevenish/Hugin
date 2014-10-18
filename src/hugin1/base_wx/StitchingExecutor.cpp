@@ -74,17 +74,6 @@ namespace HuginQueue
             };
         };
 
-        /** return a wxString with all files in files quoted */
-        wxString GetQuotedFilenamesString(const wxArrayString& files)
-        {
-            wxString s;
-            for (size_t i = 0; i < files.size(); ++i)
-            {
-                s.Append(wxEscapeFilename(files[i]) + wxT(" "));
-            };
-            return s;
-        };
-
         /** generate the final argfile 
             @return full name of generated argfile 
         */
@@ -485,7 +474,7 @@ namespace HuginQueue
                     wxString finalEnblendArgs(enblendArgsGeneral + enblendArgsLDR);
                     const wxString finalFilename(prefix + wxT(".") + WXSTRING(opts.outputImageType));
                     finalEnblendArgs.Append(wxT(" -o ") + wxEscapeFilename(finalFilename));
-                    finalEnblendArgs.Append(wxT(" -- ") + detail::GetQuotedFilenamesString(remappedImages));
+                    finalEnblendArgs.Append(wxT(" -- ") + GetQuotedFilenamesString(remappedImages));
                     commands->push_back(new NormalCommand(GetExternalProgram(config, ExePath, wxT("enblend")),
                         finalEnblendArgs, _("Blending images...")));
                     outputFiles.Add(finalFilename);
@@ -522,7 +511,7 @@ namespace HuginQueue
                     outputFiles.Add(stackImgName);
                     stackedImages.Add(stackImgName);
                     commands->push_back(new NormalCommand(GetExternalProgram(config, ExePath, wxT("enfuse")),
-                        enfuseArgsGeneral + enLayersCompressionArgs + wxT(" -o ") + wxEscapeFilename(stackImgName) + wxT(" -- ") + detail::GetQuotedFilenamesString(stackImgs),
+                        enfuseArgsGeneral + enLayersCompressionArgs + wxT(" -o ") + wxEscapeFilename(stackImgName) + wxT(" -- ") + GetQuotedFilenamesString(stackImgs),
                         wxString::Format(_("Fusing stack number %d"), stackNr)));
                     if (copyMetadata && opts.outputLDRStacks)
                     {
@@ -538,7 +527,7 @@ namespace HuginQueue
                     wxString finalEnblendArgs(enblendArgsGeneral + enblendArgsLDR);
                     const wxString fusedStacksFilename(prefix + wxT("_fused.") + WXSTRING(opts.outputImageType));
                     finalEnblendArgs.Append(wxT(" -o ") + wxEscapeFilename(fusedStacksFilename));
-                    finalEnblendArgs.Append(wxT(" -- ") + detail::GetQuotedFilenamesString(stackedImages));
+                    finalEnblendArgs.Append(wxT(" -- ") + GetQuotedFilenamesString(stackedImages));
                     commands->push_back(new NormalCommand(GetExternalProgram(config, ExePath, wxT("enblend")),
                         finalEnblendArgs, _("Blending all stacks...")));
                     outputFiles.Add(fusedStacksFilename);
@@ -561,7 +550,7 @@ namespace HuginQueue
                     exposureLayersImages.Add(exposureLayerImgName);
                     outputFiles.Add(exposureLayerImgName);
                     commands->push_back(new NormalCommand(GetExternalProgram(config, ExePath, wxT("enblend")),
-                        enblendArgsGeneral + enLayersCompressionArgs + wxT(" -o ") + wxEscapeFilename(exposureLayerImgName) + wxT(" -- ") + detail::GetQuotedFilenamesString(exposureLayersImgs),
+                        enblendArgsGeneral + enLayersCompressionArgs + wxT(" -o ") + wxEscapeFilename(exposureLayerImgName) + wxT(" -- ") + GetQuotedFilenamesString(exposureLayersImgs),
                         wxString::Format(_("Blending exposure layer  %d"), exposureLayer))); 
                     if (copyMetadata && opts.outputLDRExposureLayers)
                     {
@@ -577,7 +566,7 @@ namespace HuginQueue
                     wxString finalEnfuseArgs(enfuseArgsGeneral + enblendArgsLDR);
                     const wxString fusedExposureLayersFilename(prefix + wxT("_blended_fused.") + WXSTRING(opts.outputImageType));
                     finalEnfuseArgs.Append(wxT(" -o ") + wxEscapeFilename(fusedExposureLayersFilename));
-                    finalEnfuseArgs.Append(wxT(" -- ") + detail::GetQuotedFilenamesString(exposureLayersImages));
+                    finalEnfuseArgs.Append(wxT(" -- ") + GetQuotedFilenamesString(exposureLayersImages));
                     commands->push_back(new NormalCommand(GetExternalProgram(config, ExePath, wxT("enfuse")),
                         finalEnfuseArgs, _("Fusing all exposure layers...")));
                     outputFiles.Add(fusedExposureLayersFilename);
@@ -618,7 +607,7 @@ namespace HuginQueue
                     stackedImages.Add(stackImgName);
                     outputFiles.Add(stackImgName);
                     commands->push_back(new NormalCommand(GetInternalProgram(ExePath, wxT("hugin_hdrmerge")),
-                        WXSTRING(opts.hdrmergeOptions) + wxT(" -o ") + wxEscapeFilename(stackImgName) + wxT(" -- ") + detail::GetQuotedFilenamesString(stackImgs),
+                        WXSTRING(opts.hdrmergeOptions) + wxT(" -o ") + wxEscapeFilename(stackImgName) + wxT(" -- ") + GetQuotedFilenamesString(stackImgs),
                         wxString::Format(_("Merging hdr stack number %d"), stackNr)));
                     if (!opts.outputHDRStacks)
                     {
@@ -630,7 +619,7 @@ namespace HuginQueue
                     wxString finalEnblendArgs(enblendArgsGeneral);
                     const wxString mergedStacksFilename(wxEscapeFilename(prefix + wxT("_hdr.") + WXSTRING(opts.outputImageTypeHDR)));
                     finalEnblendArgs.Append(wxT(" -o ") + mergedStacksFilename);
-                    finalEnblendArgs.Append(wxT(" -- ") + detail::GetQuotedFilenamesString(stackedImages));
+                    finalEnblendArgs.Append(wxT(" -- ") + GetQuotedFilenamesString(stackedImages));
                     commands->push_back(new NormalCommand(GetExternalProgram(config, ExePath, wxT("enblend")),
                         finalEnblendArgs, _("Blending hdr stacks...")));
                     outputFiles.Add(mergedStacksFilename);
@@ -646,16 +635,27 @@ namespace HuginQueue
         if (!filesForCopyTagsExiftool.IsEmpty())
         {
             commands->push_back(new OptionalCommand(GetExternalProgram(config, ExePath, wxT("exiftool")),
-                exiftoolArgs + detail::GetQuotedFilenamesString(filesForCopyTagsExiftool),
+                exiftoolArgs + GetQuotedFilenamesString(filesForCopyTagsExiftool),
                 _("Updating metadata...")));
         };
         if (!filesForFullExiftool.IsEmpty())
         {
             commands->push_back(new OptionalCommand(GetExternalProgram(config, ExePath, wxT("exiftool")),
-                exiftoolArgs + exiftoolArgsFinal + detail::GetQuotedFilenamesString(filesForFullExiftool),
+                exiftoolArgs + exiftoolArgsFinal + GetQuotedFilenamesString(filesForFullExiftool),
                 _("Updating metadata...")));
         };
         return commands;
+    };
+
+    /** return a wxString with all files in files quoted */
+    wxString GetQuotedFilenamesString(const wxArrayString& files)
+    {
+        wxString s;
+        for (size_t i = 0; i < files.size(); ++i)
+        {
+            s.Append(wxEscapeFilename(files[i]) + wxT(" "));
+        };
+        return s;
     };
 
 }; // namespace

@@ -154,15 +154,27 @@ class HuginExecutor : public APP
         };
 
         const bool success = HuginQueue::RunCommandsQueue(commands, m_threads, m_dryRun);
-        if (!tempfiles.IsEmpty() && !m_dryRun)
+        if (!tempfiles.IsEmpty())
         {
-            // short waiting time to write all files to disc
-            wxMilliSleep(100);
-            std::cout << _("Removing temporary files...") << std::endl;
-            for (size_t i = 0; i < tempfiles.size(); ++i)
+            if (m_dryRun)
             {
-                wxRemoveFile(tempfiles[i]);
+#ifdef __WXMSW__
+                std::cout << "del ";
+#else
+                std::cout << "rm ";
+#endif
+                std::cout << HuginQueue::GetQuotedFilenamesString(tempfiles).mb_str(wxConvLocal) << std::endl;
             }
+            else
+            {
+                // short waiting time to write all files to disc
+                wxMilliSleep(100);
+                std::cout << _("Removing temporary files...") << std::endl;
+                for (size_t i = 0; i < tempfiles.size(); ++i)
+                {
+                    wxRemoveFile(tempfiles[i]);
+                };
+            };
         };
         // restore current working dir
         if (!oldCwd.IsEmpty())

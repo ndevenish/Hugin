@@ -43,6 +43,8 @@ namespace HuginQueue
         @return pointer to CommandQueue
         */
     WXIMPEX CommandQueue* GetStitchingCommandQueue(const HuginBase::Panorama & pano, const wxString& ExePath, const wxString& project, const wxString& prefix, wxString& statusText, wxArrayString& outputFiles, wxArrayString& tempFilesDelete);
+    /** return a single string of all given files quoted */
+    WXIMPEX wxString GetQuotedFilenamesString(const wxArrayString& files);
 
 }; // namespace 
 
