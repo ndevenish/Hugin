@@ -24,8 +24,6 @@
  *
  */
 
-#include <hugin_version.h>
-
 #include <fstream>
 #include <sstream>
 #include <getopt.h>
@@ -380,7 +378,7 @@ bool UpdateSingleVar(Panorama& pano, ParseVar parseVar, size_t imgNr)
 static void usage(const char* name)
 {
     cout << name << ": change image variables inside pto files" << endl
-         << name << " version " << DISPLAY_VERSION << endl
+         << name << " version " << hugin_utils::GetHuginVersion() << endl
          << endl
          << "Usage:  " << name << " [options] --opt|--link|--unlink|--set varlist input.pto" << endl
          << endl

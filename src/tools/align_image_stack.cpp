@@ -25,7 +25,6 @@
  */
 
 #include <hugin_config.h>
-#include <hugin_version.h>
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -76,7 +75,7 @@ int g_verbose = 0;
 static void usage(const char* name)
 {
     cerr << name << ": align overlapping images for HDR creation" << std::endl
-         << "align_image_stack version " << DISPLAY_VERSION << std::endl
+         << "align_image_stack version " << hugin_utils::GetHuginVersion() << std::endl
          << std::endl
          << "Usage: " << name  << " [options] input files" << std::endl
          << "Valid options are:" << std::endl

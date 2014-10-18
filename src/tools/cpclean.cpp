@@ -28,8 +28,6 @@
  *
  */
 
-#include <hugin_version.h>
-
 #include <fstream>
 #include <sstream>
 #ifdef WIN32
@@ -49,7 +47,7 @@ using namespace AppBase;
 static void usage(const char* name)
 {
     cout << name << ": remove wrong control points by statistic method" << endl
-         << "cpclean version " << DISPLAY_VERSION << endl
+         << "cpclean version " << hugin_utils::GetHuginVersion() << endl
          << endl
          << "Usage:  " << name << " [options] input.pto" << endl
          << endl

@@ -26,8 +26,6 @@
  *
  */
 
-#include <hugin_version.h>
-
 #include <fstream>
 #include <sstream>
 #include <getopt.h>
@@ -53,7 +51,7 @@ using namespace AppBase;
 static void usage(const char* name)
 {
     cout << name << ": change output parameters of project file" << endl
-         << "pano_modify version " << DISPLAY_VERSION << endl
+         << "pano_modify version " << hugin_utils::GetHuginVersion() << endl
          << endl
          << "Usage:  " << name << " [options] input.pto" << endl
          << endl

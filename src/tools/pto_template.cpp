@@ -24,8 +24,6 @@
  *
  */
 
-#include <hugin_version.h>
-
 #include <fstream>
 #include <sstream>
 #include <getopt.h>
@@ -41,7 +39,7 @@ using namespace AppBase;
 static void usage(const char* name)
 {
     cout << name << ": apply template" << endl
-         << name << " version " << DISPLAY_VERSION << endl
+         << name << " version " << hugin_utils::GetHuginVersion() << endl
          << endl
          << "Usage:  " << name << " [options] input.pto" << endl
          << endl

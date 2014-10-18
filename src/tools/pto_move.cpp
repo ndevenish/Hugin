@@ -25,8 +25,6 @@
  *
  */
 
-#include <hugin_version.h>
-
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -328,7 +326,7 @@ void SearchPTOFilesInDirectory(pathVec& projectFiles, std::string src, bool recu
 static void usage(const char* name)
 {
     std::cout << name << ": move a project file with all images in it" << std::endl
-              << name << " version " << DISPLAY_VERSION << std::endl
+              << name << " version " << hugin_utils::GetHuginVersion() << std::endl
               << std::endl
               << "Usage:  pto_move [options] path1/source.pto path2/dest.pto" << std::endl
               << "             Rename project file path1/source.pto to " << std::endl

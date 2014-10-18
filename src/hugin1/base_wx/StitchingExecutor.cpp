@@ -41,7 +41,6 @@
 #include "base_wx/wxPlatform.h"
 #include "base_wx/LensTools.h"
 #include "hugin/config_defaults.h"
-#include "hugin_version.h"
 
 #if wxCHECK_VERSION(3,0,0)
 #define WXSTRING(s)  s
@@ -119,7 +118,7 @@ namespace HuginQueue
             wxFFileOutputStream outputStream(tempArgfileFinal.GetFullPath());
             wxTextOutputStream outputFile(outputStream);
             // write argfile
-            outputFile << wxT("-Software=Hugin ") << wxString(DISPLAY_VERSION, wxConvLocal) << endl;
+            outputFile << wxT("-Software=Hugin ") << wxString(hugin_utils::GetHuginVersion().c_str(), wxConvLocal) << endl;
             outputFile << wxT("-E") << endl;
             outputFile << wxT("-UserComment<${UserComment}") << linebreak;
             if (readProjectionName)
@@ -199,7 +198,7 @@ namespace HuginQueue
                 << wxT("============================================") << wxEndl
                 << wxEndl
                 << _("Platform:") << wxT(" ") << wxGetOsDescription() << wxEndl
-                << _("Version:") << wxT(" ") << wxString(DISPLAY_VERSION, wxConvLocal) << wxEndl
+                << _("Version:") << wxT(" ") << wxString(hugin_utils::GetHuginVersion().c_str(), wxConvLocal) << wxEndl
                 << _("Working directory:") << wxT(" ") << wxFileName::GetCwd() << wxEndl
                 << _("Output prefix:") << wxT(" ") << prefix << wxEndl
                 << wxEndl;

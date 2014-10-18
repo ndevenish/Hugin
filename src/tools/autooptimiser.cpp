@@ -26,7 +26,6 @@
  */
 
 #include <hugin_config.h>
-#include <hugin_version.h>
 
 #include <fstream>
 #include <sstream>
@@ -58,7 +57,7 @@ using namespace AppBase;
 static void usage(const char* name)
 {
     cerr << name << ": optimize image positions" << endl
-         << "autooptimiser version " << DISPLAY_VERSION << endl
+         << "autooptimiser version " << hugin_utils::GetHuginVersion() << endl
          << endl
          << "Usage:  " << name << " [options] input.pto" << endl
          << "   To read a project from stdio, specify - as input file." << endl

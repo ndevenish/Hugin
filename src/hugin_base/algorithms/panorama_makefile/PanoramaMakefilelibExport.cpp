@@ -45,7 +45,6 @@ along with hugin.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <panodata/PanoramaData.h>
 #include <hugin_utils/utils.h>
-#include <hugin_version.h>
 #include <algorithms/basic/LayerStacks.h>
 #ifdef _WINDOWS
 #include "windows.h"
@@ -649,7 +648,7 @@ bool PanoramaMakefilelibExport::createItems()
     echoInfo(*info,"===========================================================================");
     printSystemInfo(*info);
     infostream.str("");
-    infostream << DISPLAY_VERSION;
+    infostream << hugin_utils::GetHuginVersion();
     echoInfo(*info,"===========================================================================");
     echoInfo(*info,"Output options");
     echoInfo(*info,"===========================================================================");

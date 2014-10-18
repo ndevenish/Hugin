@@ -25,7 +25,6 @@
  *
  */
 
-#include <hugin_version.h>
 #include <hugin_config.h>
 
 #include <fstream>
@@ -46,7 +45,7 @@ using namespace AppBase;
 static void usage(const char* name)
 {
     cout << name << ": report the number of image groups in a project" << endl
-         << name << " version " << DISPLAY_VERSION << endl
+         << name << " version " << hugin_utils::GetHuginVersion() << endl
          << endl
          << "Usage:  " << name << " input.pto" << endl
          << endl
@@ -113,7 +112,7 @@ void GenerateArgfile(const std::string& filename, const Panorama& pano, bool noG
 #else
     std::string linebreak("&\\#xa;");
 #endif
-    infostream << "-Software=Hugin " << DISPLAY_VERSION << std::endl;
+    infostream << "-Software=Hugin " << hugin_utils::GetHuginVersion() << std::endl;
     infostream << "-E" << std::endl;
     infostream << "-UserComment<${UserComment}" << linebreak;
     if(readProjectionName)

@@ -24,7 +24,6 @@
 #include "Celeste.h"
 #include <sys/stat.h> 
 #include "hugin_config.h" 
-#include <hugin_version.h>
 #include <vigra_ext/impexalpha.hxx>
 #include <panodata/Panorama.h>
 #include <hugin_utils/utils.h>
@@ -44,7 +43,7 @@ static void usage(){
 	// Print usage and exit
 	cout << endl << "Celeste: Removes cloud-like control points from Hugin project files and creates image masks" << endl;
 	cout << "using Support Vector Machines." << endl;
-	cout << endl << "Version " << DISPLAY_VERSION << endl;
+    cout << endl << "Version " << hugin_utils::GetHuginVersion() << endl;
 	cout << endl << "Usage: celeste_standalone [options] image1 image2 [..]" << endl << endl;
 	cout << "Options:" << endl << endl;
 	cout << "  -i <filename>   Input Hugin PTO file. Control points over SVM threshold will" << endl;
@@ -299,7 +298,7 @@ int main(int argc, char* argv[])
 	// Print some stuff out
 	cout << endl << "Celeste: Removes cloud-like control points from Hugin project files and creates image masks" << endl;
 	cout << "using Support Vector Machines." << endl;
-	cout << endl << "Version " << DISPLAY_VERSION << endl << endl;
+    cout << endl << "Version " << hugin_utils::GetHuginVersion() << endl << endl;
 	cout << "Arguments:" << endl;
 	cout << "Input Hugin file:\t" << pto_file << endl;
 	cout << "Output Hugin file:\t" << output_pto << endl;

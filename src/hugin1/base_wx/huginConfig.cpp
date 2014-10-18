@@ -25,7 +25,6 @@
  */
 
 #include "huginConfig.h"
-#include "hugin_version.h"
 
 #include "hugin/config_defaults.h"
 #include "platform.h"

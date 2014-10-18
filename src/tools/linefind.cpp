@@ -24,8 +24,6 @@
  *
  */
 
-#include <hugin_version.h>
-
 #include <fstream>
 #include <sstream>
 #include <getopt.h>
@@ -52,7 +50,7 @@ using namespace AppBase;
 static void usage(const char* name)
 {
     std::cout << name << ": find vertical lines in images" << std::endl
-              << name << " version " << DISPLAY_VERSION << std::endl
+              << name << " version " << hugin_utils::GetHuginVersion() << std::endl
               << std::endl
               << "Usage:  " << name << " [options] input.pto" << std::endl
               << std::endl

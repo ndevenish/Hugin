@@ -33,8 +33,6 @@
  *
  */
 
-#include <hugin_version.h>
-
 #include <fstream>
 #include <sstream>
 #ifdef WIN32
@@ -53,7 +51,7 @@ using namespace AppBase;
 static void usage(const char* name)
 {
     cout << name << ": transform pixel coordinates" << endl
-         << "pano_trafo version " << DISPLAY_VERSION << endl
+         << "pano_trafo version " << hugin_utils::GetHuginVersion() << endl
          << endl
          << "Usage:  " << name << " input.pto [ image_nr ]" << endl
          << endl

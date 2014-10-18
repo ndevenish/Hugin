@@ -23,7 +23,6 @@
 #define __detectpano_panodetector_h
 
 #include <hugin_config.h>
-#include <hugin_version.h>
 
 #include "PanoDetectorDefs.h"
 #include <string>

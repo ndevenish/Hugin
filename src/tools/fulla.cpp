@@ -25,7 +25,6 @@
  */
 
 #include <hugin_config.h>
-#include <hugin_version.h>
 #include <fstream>
 #include <sstream>
 
@@ -73,7 +72,7 @@ void correctRGB(SrcPanoImage& src, ImageImportInfo& info, const char* outfile,
 static void usage(const char* name)
 {
     cerr << name << ": correct lens distortion, vignetting and chromatic abberation" << std::endl
-         << "fulla version " << DISPLAY_VERSION << endl
+         << "fulla version " << hugin_utils::GetHuginVersion() << endl
          << std::endl
          << "Usage: " << name  << " [options] inputfile(s) " << std::endl
          << "   option are: " << std::endl

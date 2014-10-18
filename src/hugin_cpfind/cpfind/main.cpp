@@ -33,7 +33,7 @@ using namespace std;
 
 void printVersion()
 {
-    std::cout << "Hugin's cpfind " << DISPLAY_VERSION << endl;
+    std::cout << "Hugin's cpfind " << hugin_utils::GetHuginVersion() << endl;
     std::cout << "based on Pan-o-matic by Anael Orlinski" << endl;
 };
 

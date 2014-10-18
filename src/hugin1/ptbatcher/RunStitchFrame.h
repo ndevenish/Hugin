@@ -26,7 +26,6 @@
 
 #ifndef RUNSTITCHFRAME_H
 #define RUNSTITCHFRAME_H
-#include <hugin_version.h>
 #include "panoinc_WX.h"
 
 #include <wx/wfstream.h>

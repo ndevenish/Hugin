@@ -25,7 +25,6 @@
  */
 
 #include <config.h>
-#include <hugin_version.h>
 #include <exiv2/exif.hpp>
 #include <exiv2/image.hpp>
 
@@ -331,7 +330,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
             dc.SetTextBackground(*wxWHITE);
             int tw, th;
             wxString version;
-            version.Printf(_("Version %s"),wxString(DISPLAY_VERSION, wxConvLocal).c_str());
+            version.Printf(_("Version %s"), wxString(hugin_utils::GetHuginVersion().c_str(), wxConvLocal).c_str());
             dc.GetTextExtent(version, &tw, &th);
             // place text on bitmap.
             dc.DrawText(version, bitmap.GetWidth() - tw - 3, bitmap.GetHeight() - th - 3);

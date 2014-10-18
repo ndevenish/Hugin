@@ -30,7 +30,6 @@
 #include "base_wx/wxPlatform.h"
 #include "panoinc.h"
 #include "hugin/huginApp.h"
-#include <hugin_version.h>
 #include <wx/version.h>
 #include "pano13/version.h"
 #include "boost/version.hpp"
@@ -78,7 +77,7 @@ AboutDialog::AboutDialog(wxWindow *parent)
 
 
     // Version
-    XRCCTRL(*this,"about_version", wxTextCtrl)->ChangeValue(wxString(DISPLAY_VERSION, wxConvLocal));
+    XRCCTRL(*this,"about_version", wxTextCtrl)->ChangeValue(wxString(hugin_utils::GetHuginVersion().c_str(), wxConvLocal));
 
 	#ifdef __WXMAC__
 		wxFont font(10, wxFONTFAMILY_TELETYPE, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
@@ -173,7 +172,7 @@ void AboutDialog::GetSystemInformation(wxFont *font)
         break;
     };
 #endif
-    text=text+wxT("\n\nHugin\n")+wxString::Format(_("Version: %s"),wxString(DISPLAY_VERSION,wxConvLocal).c_str());
+    text = text + wxT("\n\nHugin\n") + wxString::Format(_("Version: %s"), wxString(hugin_utils::GetHuginVersion().c_str(), wxConvLocal).c_str());
     text=text+wxT("\n")+wxString::Format(_("Path to resources: %s"),huginApp::Get()->GetXRCPath().c_str());
     text=text+wxT("\n")+wxString::Format(_("Path to data: %s"),huginApp::Get()->GetDataPath().c_str());
     HuginBase::LensDB::LensDB& lensDB=HuginBase::LensDB::LensDB::GetSingleton();

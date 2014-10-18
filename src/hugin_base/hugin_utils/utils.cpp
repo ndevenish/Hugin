@@ -23,6 +23,7 @@
  */
 
 #include "utils.h"
+#include "hugin_version.h"
 
 #ifdef WIN32
     #define NOMINMAX
@@ -448,5 +449,10 @@ bool wrapupGPU()
     glutDestroyWindow(GlutWindowHandle);
     return true;
 }
+
+std::string GetHuginVersion()
+{
+    return std::string(DISPLAY_VERSION);
+};
 
 } //namespace

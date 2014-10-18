@@ -25,7 +25,6 @@
  */
 
 #include <hugin_config.h>
-#include <hugin_version.h>
 
 #include <fstream>
 #include <sstream>
@@ -195,7 +194,7 @@ static void usage(const char* name)
 {
     cerr << name << ": merge overlapping images" << std::endl
          << std::endl
-         << "hugin_hdrmerge version " << DISPLAY_VERSION << std::endl
+         << "hugin_hdrmerge version " << hugin_utils::GetHuginVersion() << std::endl
          << std::endl
          << "Usage: " << name  << " [options] -o output.exr <input-files>" << std::endl
          << "Valid options are:" << std::endl

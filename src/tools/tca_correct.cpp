@@ -55,8 +55,6 @@
 #include <hugin_utils/openmp_lock.h>
 #include <lensdb/LensDB.h>
 
-#include <hugin_version.h>
-
 #include <getopt.h>
 #ifndef WIN32
 #include <unistd.h>
@@ -434,7 +432,7 @@ void optimize_new(PanoramaData& pano)
 static void usage(const char* name)
 {
     cerr << name << ": Parameter estimation of transverse chromatic abberations" << std::endl
-         << name << " version " << DISPLAY_VERSION << endl
+         << name << " version " << hugin_utils::GetHuginVersion() << endl
          << std::endl
          << "Usage: " << name  << " [options] <inputfile>" << std::endl
          << "  option are: " << std::endl

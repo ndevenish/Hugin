@@ -24,8 +24,6 @@
  *
  */
 
-#include <hugin_version.h>
-
 #include <fstream>
 #include <sstream>
 #include <getopt.h>
@@ -123,7 +121,7 @@ case HuginBase::ImageVariableGroup::IVE_##name:\
 static void usage(const char* name)
 {
     cout << name << ": modify assigned lenses and stack in pto files" << endl
-         << name << " version " << DISPLAY_VERSION << endl
+         << name << " version " << hugin_utils::GetHuginVersion() << endl
          << endl
          << "Usage:  " << name << " [options] --switches imglist input.pto" << endl
          << endl

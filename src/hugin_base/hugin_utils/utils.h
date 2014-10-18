@@ -290,6 +290,8 @@ namespace hugin_utils
     IMPEX bool initGPU(int *argcp, char **argv);
     /** cleanup GPU settings */
     IMPEX bool wrapupGPU();
+    /** return a string with version numbers */
+    IMPEX std::string GetHuginVersion();
 
 } // namespace
 

@@ -24,7 +24,6 @@
 #include <cstdio>
 
 #include <hugin_config.h>
-#include <hugin_version.h>
 // for stripExtension
 #include <hugin_utils/utils.h>
 // for exportImage
@@ -114,7 +113,7 @@ void parseOptions_save(char* optarg) {
 static void usage()
 {
     cerr << "deghosting_mask: creates mask for removing ghosting in images" << endl
-         << "deghosting_mask version " << DISPLAY_VERSION << endl
+         << "deghosting_mask version " << hugin_utils::GetHuginVersion() << endl
          << endl
          << "Usage: deghosting_mask [options] inputfile(s) " << endl
          << "   option are: " << endl

@@ -68,7 +68,6 @@
 
 #include "AboutDialog.h"
 
-#include <hugin_version.h>
 //for natural sorting
 #include "hugin_utils/alphanum.h"
 #include "lensdb/LensDB.h"

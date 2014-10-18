@@ -24,7 +24,6 @@
  *
  */
 
-#include <hugin_version.h>
 #include "icpfind.h"
 
 #include <fstream>

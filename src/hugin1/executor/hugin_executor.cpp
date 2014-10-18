@@ -25,7 +25,6 @@
  *
  */
 
-#include <hugin_version.h>
 #include <hugin_config.h>
 
 #include <fstream>
