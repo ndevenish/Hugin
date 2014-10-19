@@ -1014,7 +1014,7 @@ void BatchFrame::SetCheckboxes()
     i=config->Read(wxT("/BatchFrame/VerboseCheck"), 0l);
     XRCCTRL(*this,"cb_verbose",wxCheckBox)->SetValue(i!=0);
     m_batch->verbose=(i!=0);
-    i=config->Read(wxT("/BatchFrame/AutoRemoveCheck"), 0l);
+    i=config->Read(wxT("/BatchFrame/AutoRemoveCheck"), 1l);
     XRCCTRL(*this,"cb_autoremove",wxCheckBox)->SetValue(i!=0);
     m_batch->autoremove=(i!=0);
     i=config->Read(wxT("/BatchFrame/AutoStitchCheck"), 0l);
