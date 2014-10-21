@@ -125,13 +125,44 @@ void Batch::AppendBatchFile(wxString file)
         //TO-DO: batch file error checking?
         //first line in file is idGenerator, we save it a temp variable, cause it gets set when adding projects
         long idGenTemp = 1;
+        if (fileStream.Eof())
+        {
+            return;
+        };
         textStream.ReadLine().ToLong(&idGenTemp);
         //then for each project: project path, prefix, id, status, skip
+        if (fileStream.Eof())
+        {
+            return;
+        };
         while((projectName = textStream.ReadLine()).Cmp(wxT(""))!=0)
         {
-            //we add project to internal list
+            // read all line, check before reading
+            if (fileStream.Eof())
+            {
+                break;
+            };
             wxString line=textStream.ReadLine();
-            if(line.IsEmpty())
+            if (fileStream.Eof())
+            {
+                break;
+            };
+            long id;
+            textStream.ReadLine().ToLong(&id);
+            long status;
+            if (fileStream.Eof())
+            {
+                break;
+            };
+            textStream.ReadLine().ToLong(&status);
+            if (fileStream.Eof())
+            {
+                break;
+            };
+            const bool skip = textStream.ReadLine().StartsWith(_T("T"));
+
+            //we add project to internal list
+            if (line.IsEmpty())
             {
                 AddProjectToBatch(projectName,wxT(""),Project::DETECTING);
             }
@@ -139,19 +170,22 @@ void Batch::AppendBatchFile(wxString file)
             {
                 AddProjectToBatch(projectName,line);
             };
-            textStream.ReadLine().ToLong(&m_projList.Last().id);
-            long status;
-            textStream.ReadLine().ToLong(&status);
             //if status was RUNNING or PAUSED, we set it to FAILED
             if(status==(long)Project::RUNNING || status==(long)Project::PAUSED)
             {
                 status=(long)Project::FAILED;
             }
+            m_projList.Last().id = id;
             m_projList.Last().status = (Project::Status)status;
-            if(textStream.ReadLine().StartsWith(_T("T")))
+            if(skip)
             {
                 m_projList.Last().skip = true;
-            }
+            };
+
+            if (fileStream.Eof())
+            {
+                break;
+            };
         }
         //we set the id generator we got from file
         Project::idGenerator = idGenTemp;
