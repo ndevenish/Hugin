@@ -1318,17 +1318,20 @@ void BatchFrame::OnProgress(wxCommandEvent& e)
         m_progStatusBar->SetProgress(e.GetInt());
 #if defined __WXMSW__ && wxCHECK_VERSION(3,1,0)
         // provide also a feedback in task bar if available
-        if (e.GetInt() < 0)
+        if (IsShown())
         {
-            MSWGetTaskBarButton()->Hide();
-        }
-        else
-        {
-            wxTaskBarButton* taskBarButton = MSWGetTaskBarButton();
-            taskBarButton->Show();
-            taskBarButton->SetProgressRange(100);
-            taskBarButton->SetProgressState(wxTASKBAR_BUTTON_NORMAL);
-            taskBarButton->SetProgressValue(e.GetInt());
+            if (e.GetInt() < 0)
+            {
+                MSWGetTaskBarButton()->Hide();
+            }
+            else
+            {
+                wxTaskBarButton* taskBarButton = MSWGetTaskBarButton();
+                taskBarButton->Show();
+                taskBarButton->SetProgressRange(100);
+                taskBarButton->SetProgressState(wxTASKBAR_BUTTON_NORMAL);
+                taskBarButton->SetProgressValue(e.GetInt());
+            };
         };
 #endif
     };
