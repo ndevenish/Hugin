@@ -46,27 +46,28 @@ vector<UIntSet> getHDRStacks(const PanoramaData & pano, UIntSet allImgs, Panoram
     CalculateImageOverlap overlap(&pano);
     overlap.calculate(10);  // we are testing 10*10=100 points
     do
-	{
-        unsigned srcImg = *(allImgs.begin());
+    {
+        const unsigned srcImg = *(allImgs.begin());
         stack.insert(srcImg);
         allImgs.erase(srcImg);
 
         // find all images that have a suitable overlap.
-        if (!allImgs.empty())
+        for (UIntSet::const_iterator it = allImgs.begin(); it != allImgs.end(); ++it)
         {
-            for (UIntSet::iterator it = allImgs.begin(); it != allImgs.end(); ++it)
+            const unsigned srcImg2 = *it;
+            if (srcImg == srcImg2)
             {
-                const unsigned srcImg2 = *it;
-                if (overlap.getOverlap(srcImg, srcImg2) > opts.outputStacksMinOverlap)
-                {
-                    stack.insert(srcImg2);
-                    allImgs.erase(srcImg2);
-                }
-            }
+                continue;
+            };
+            if (overlap.getOverlap(srcImg, srcImg2) > opts.outputStacksMinOverlap)
+            {
+                stack.insert(srcImg2);
+                allImgs.erase(srcImg2);
+            };
         };
         result.push_back(stack);
         stack.clear();
-    } while (allImgs.size() > 0);
+    } while (!allImgs.empty());
 
     return result;
 }
@@ -86,29 +87,32 @@ std::vector<UIntSet> getExposureLayers(const PanoramaData & pano, UIntSet allImg
         return result;
     }
 
-    UIntSet stack;
+    UIntSet layer;
 
     do
     {
-        unsigned srcImg = *(allImgs.begin());
-        stack.insert(srcImg);
+        const unsigned srcImg = *(allImgs.begin());
+        layer.insert(srcImg);
         allImgs.erase(srcImg);
 
         // find all images that have a similar exposure values.
-        SrcPanoImage simg = pano.getSrcImage(srcImg);
-        for (UIntSet::iterator it = allImgs.begin(); it !=  allImgs.end(); ++it)
+        const double firstExposureValue = pano.getImage(srcImg).getExposureValue();
+        for (UIntSet::const_iterator it = allImgs.begin(); it !=  allImgs.end(); ++it)
         {
             const unsigned srcImg2 = *it;
-            SrcPanoImage simg2 = pano.getSrcImage(srcImg2);
-            if ( fabs(simg.getExposureValue() - simg2.getExposureValue()) < maxEVDiff )
+            if (srcImg == srcImg2)
             {
-                stack.insert(srcImg2);
+                continue;
+            };
+            if ( fabs(firstExposureValue - pano.getImage(srcImg2).getExposureValue()) < maxEVDiff )
+            {
+                layer.insert(srcImg2);
                 allImgs.erase(srcImg2);
             }
         }
-        result.push_back(stack);
-        stack.clear();
-    } while (allImgs.size() > 0);
+        result.push_back(layer);
+        layer.clear();
+    } while (!allImgs.empty());
 
     return result;
 }
