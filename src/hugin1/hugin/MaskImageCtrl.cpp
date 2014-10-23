@@ -159,8 +159,14 @@ void MaskImageCtrl::setNewMasks(HuginBase::MaskPolygonVector newMasks, HuginBase
 {
     m_imageMask=newMasks;
     m_masksToDraw=masksToDraw;
-    if(m_activeMask>=m_imageMask.size())
+    if (m_activeMask >= m_imageMask.size())
+    {
         setActiveMask(UINT_MAX);
+    }
+    else
+    {
+        setActiveMask(m_activeMask);
+    };
     Refresh(false);
 };
 
