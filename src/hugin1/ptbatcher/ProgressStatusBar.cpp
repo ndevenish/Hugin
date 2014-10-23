@@ -35,7 +35,7 @@ END_EVENT_TABLE()
 ProgressStatusBar::ProgressStatusBar(wxWindow *parent, wxWindowID id, long style, const wxString &name) : wxStatusBar(parent, id, style, name)
 {
     m_progress = new wxGauge(this, -1, 100, wxDefaultPosition, wxDefaultSize, wxGA_HORIZONTAL);
-    SetProgress(0);
+    SetProgress(-1);
 }
 
 ProgressStatusBar::~ProgressStatusBar()
@@ -59,6 +59,12 @@ void ProgressStatusBar::OnSize(wxSizeEvent& event)
 
 void ProgressStatusBar::SetProgress(int progress)
 {
-    m_progress->Show(progress >= 0);
-    m_progress->SetValue(progress);
+    m_progressValue = progress;
+    m_progress->Show(m_progressValue >= 0);
+    m_progress->SetValue(m_progressValue);
+};
+
+int ProgressStatusBar::GetProgress()
+{
+    return m_progressValue;
 };

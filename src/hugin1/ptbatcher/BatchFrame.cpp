@@ -259,6 +259,7 @@ BatchFrame::BatchFrame(wxLocale* locale, wxString xrc)
     //TO-DO: include a batch or project progress gauge?
     projListBox->Fill(m_batch);
     SetDropTarget(new BatchDropTarget());
+    UpdateTaskBarProgressBar();
 }
 
 void* BatchFrame::Entry()
@@ -1316,25 +1317,32 @@ void BatchFrame::OnProgress(wxCommandEvent& e)
     {
         // display progress only in sequential mode
         m_progStatusBar->SetProgress(e.GetInt());
+        UpdateTaskBarProgressBar();
+    };
+};
+
+void BatchFrame::UpdateTaskBarProgressBar()
+{
 #if defined __WXMSW__ && wxCHECK_VERSION(3,1,0)
-        // provide also a feedback in task bar if available
-        if (IsShown())
+    // provide also a feedback in task bar if available
+    if (IsShown())
+    {
+        wxTaskBarButton* taskBarButton = MSWGetTaskBarButton();
+        if (taskBarButton != NULL)
         {
-            if (e.GetInt() < 0)
+            if (m_progStatusBar->GetProgress() < 0)
             {
-                MSWGetTaskBarButton()->Hide();
+                taskBarButton->SetProgressValue(wxTASKBAR_BUTTON_NO_PROGRESS);
             }
             else
             {
-                wxTaskBarButton* taskBarButton = MSWGetTaskBarButton();
-                taskBarButton->Show();
                 taskBarButton->SetProgressRange(100);
                 taskBarButton->SetProgressState(wxTASKBAR_BUTTON_NORMAL);
-                taskBarButton->SetProgressValue(e.GetInt());
+                taskBarButton->SetProgressValue(m_progStatusBar->GetProgress());
             };
         };
-#endif
     };
+#endif
 };
 
 void BatchFrame::OnMinimize(wxIconizeEvent& e)
@@ -1357,11 +1365,21 @@ void BatchFrame::OnMinimize(wxIconizeEvent& e)
         else
         {
             m_batch->verbose=XRCCTRL(*this,"cb_verbose",wxCheckBox)->IsChecked();
+            UpdateTaskBarProgressBar();
         };
         m_batch->ShowOutput(m_batch->verbose);
     }
     else //don't hide window if no tray icon
     {
+#if wxCHECK_VERSION(2,9,0)
+        if (!e.IsIconized())
+#else
+        if (!e.Iconized())
+#endif
+        {
+            // window is restored, update progress indicators
+            UpdateTaskBarProgressBar();
+        };
         e.Skip();
     };
 };

@@ -149,6 +149,8 @@ public:
     };
     /** sets the current verbose status, does not update the checkbox */
     void SetInternalVerbose(bool newVerbose);
+    /** update the progress bar in the task bar */
+    void UpdateTaskBarProgressBar();
 
 #ifdef __WXMSW__
     /** return help controller for open help */

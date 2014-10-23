@@ -44,9 +44,12 @@ public:
     /** update progress bar
         @param progress sets the progress, range 0 - 100, a value of -1 will hide the progress control */
     void SetProgress(int progress);
+    /** return current progress value, should be in range 0 - 100, or -1 if the progress gauge is hidden */
+    int GetProgress();
 
 private:
     wxGauge *m_progress;
+    int m_progressValue;
 
     DECLARE_EVENT_TABLE();
 };
