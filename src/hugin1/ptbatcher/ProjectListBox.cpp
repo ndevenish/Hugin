@@ -286,7 +286,7 @@ wxString ProjectListBox::GetAttributeString(int i, Project* project)
     switch(i)
     {
         case 0:
-            return wxString::Format(_T("%d"),project->id);
+            return wxString::Format(_T("%ld"),project->id);
         case 1:
             return project->path;
         case 2:
