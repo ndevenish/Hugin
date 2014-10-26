@@ -60,7 +60,7 @@ vector<UIntSet> getHDRStacks(const PanoramaData & pano, UIntSet allImgs, Panoram
                 stack.insert(srcImg2);
             };
         };
-        for (UIntSet::const_iterator it = stack.cbegin(); it != stack.cend(); ++it)
+        for (UIntSet::const_iterator it = stack.begin(); it != stack.end(); ++it)
         {
             allImgs.erase(*it);
         };
@@ -104,7 +104,7 @@ std::vector<UIntSet> getExposureLayers(const PanoramaData & pano, UIntSet allImg
                 layer.insert(srcImg2);
             }
         }
-        for (UIntSet::const_iterator it = layer.cbegin(); it != layer.cend(); ++it)
+        for (UIntSet::const_iterator it = layer.begin(); it != layer.end(); ++it)
         {
             allImgs.erase(*it);
         };
