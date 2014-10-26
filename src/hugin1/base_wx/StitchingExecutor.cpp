@@ -99,10 +99,10 @@ namespace HuginQueue
             placeholders.insert(std::make_pair(wxT("%hfov"), wxString::Format(wxT("%.0f"), opts.getHFOV())));
             placeholders.insert(std::make_pair(wxT("%vfov"), wxString::Format(wxT("%.0f"), opts.getVFOV())));
             placeholders.insert(std::make_pair(wxT("%ev"), wxString::Format(wxT("%.2f"), opts.outputExposureValue)));
-            placeholders.insert(std::make_pair(wxT("%nrImages"), wxString::Format(wxT("%d"), images.size())));
-            placeholders.insert(std::make_pair(wxT("%nrAllImages"), wxString::Format(wxT("%d"), pano.getNrOfImages())));
-            placeholders.insert(std::make_pair(wxT("%fullwidth"), wxString::Format(wxT("%d"), opts.getWidth())));
-            placeholders.insert(std::make_pair(wxT("%fullheight"), wxString::Format(wxT("%d"), opts.getHeight())));
+            placeholders.insert(std::make_pair(wxT("%nrImages"), wxString::Format(wxT("%lu"), (unsigned long)images.size())));
+            placeholders.insert(std::make_pair(wxT("%nrAllImages"), wxString::Format(wxT("%lu"), (unsigned long)pano.getNrOfImages())));
+            placeholders.insert(std::make_pair(wxT("%fullwidth"), wxString::Format(wxT("%u"), opts.getWidth())));
+            placeholders.insert(std::make_pair(wxT("%fullheight"), wxString::Format(wxT("%u"), opts.getHeight())));
             placeholders.insert(std::make_pair(wxT("%width"), wxString::Format(wxT("%d"), opts.getROI().width())));
             placeholders.insert(std::make_pair(wxT("%height"), wxString::Format(wxT("%d"), opts.getROI().height())));
             // now open the final argfile
@@ -503,15 +503,15 @@ namespace HuginQueue
                 stacks = getHDRStacks(pano, allActiveImages, opts);
                 wxArrayString stackedImages;
                 // fuse all stacks
-                for (size_t stackNr = 0; stackNr < stacks.size(); ++stackNr)
+                for (unsigned stackNr = 0; stackNr < stacks.size(); ++stackNr)
                 {
                     const wxArrayString stackImgs = detail::GetNumberedFilename(prefix + wxT("_exposure_layers_"), wxT(".tif"), stacks[stackNr]);
-                    const wxString stackImgName = wxString::Format(wxT("%s_stack_ldr_%04d%s"), prefix.c_str(), stackNr, wxT(".tif"));
+                    const wxString stackImgName = wxString::Format(wxT("%s_stack_ldr_%04u%s"), prefix.c_str(), stackNr, wxT(".tif"));
                     outputFiles.Add(stackImgName);
                     stackedImages.Add(stackImgName);
                     commands->push_back(new NormalCommand(GetExternalProgram(config, ExePath, wxT("enfuse")),
                         enfuseArgsGeneral + enLayersCompressionArgs + wxT(" -o ") + wxEscapeFilename(stackImgName) + wxT(" -- ") + GetQuotedFilenamesString(stackImgs),
-                        wxString::Format(_("Fusing stack number %d..."), stackNr)));
+                        wxString::Format(_("Fusing stack number %u..."), stackNr)));
                     if (copyMetadata && opts.outputLDRStacks)
                     {
                         filesForCopyTagsExiftool.Add(stackImgName);
@@ -542,15 +542,15 @@ namespace HuginQueue
                 std::vector<HuginBase::UIntSet> exposureLayers = getExposureLayers(pano, allActiveImages, opts);
                 wxArrayString exposureLayersImages;
                 // fuse all exposure layers
-                for (size_t exposureLayer = 0; exposureLayer < exposureLayers.size(); ++exposureLayer)
+                for (unsigned exposureLayer = 0; exposureLayer < exposureLayers.size(); ++exposureLayer)
                 {
                     const wxArrayString exposureLayersImgs = detail::GetNumberedFilename(prefix + wxT("_exposure_layers_"), wxT(".tif"), exposureLayers[exposureLayer]);
-                    const wxString exposureLayerImgName = wxString::Format(wxT("%s_exposure_%04d%s"), prefix.c_str(), exposureLayer, wxT(".tif"));
+                    const wxString exposureLayerImgName = wxString::Format(wxT("%s_exposure_%04u%s"), prefix.c_str(), exposureLayer, wxT(".tif"));
                     exposureLayersImages.Add(exposureLayerImgName);
                     outputFiles.Add(exposureLayerImgName);
                     commands->push_back(new NormalCommand(GetExternalProgram(config, ExePath, wxT("enblend")),
                         enblendArgsGeneral + enLayersCompressionArgs + wxT(" -o ") + wxEscapeFilename(exposureLayerImgName) + wxT(" -- ") + GetQuotedFilenamesString(exposureLayersImgs),
-                        wxString::Format(_("Blending exposure layer %d..."), exposureLayer))); 
+                        wxString::Format(_("Blending exposure layer %u..."), exposureLayer))); 
                     if (copyMetadata && opts.outputLDRExposureLayers)
                     {
                         filesForCopyTagsExiftool.Add(exposureLayerImgName);
@@ -599,15 +599,15 @@ namespace HuginQueue
                 };
                 wxArrayString stackedImages;
                 // merge all stacks
-                for (size_t stackNr = 0; stackNr < stacks.size(); ++stackNr)
+                for (unsigned stackNr = 0; stackNr < stacks.size(); ++stackNr)
                 {
                     const wxArrayString stackImgs = detail::GetNumberedFilename(prefix + wxT("_hdr_"), wxT(".exr"), stacks[stackNr]);
-                    const wxString stackImgName = wxString::Format(wxT("%s_stack_hdr_%04d%s"), prefix.c_str(), stackNr, wxT(".exr"));
+                    const wxString stackImgName = wxString::Format(wxT("%s_stack_hdr_%04u%s"), prefix.c_str(), stackNr, wxT(".exr"));
                     stackedImages.Add(stackImgName);
                     outputFiles.Add(stackImgName);
                     commands->push_back(new NormalCommand(GetInternalProgram(ExePath, wxT("hugin_hdrmerge")),
                         WXSTRING(opts.hdrmergeOptions) + wxT(" -o ") + wxEscapeFilename(stackImgName) + wxT(" -- ") + GetQuotedFilenamesString(stackImgs),
-                        wxString::Format(_("Merging hdr stack number %d..."), stackNr)));
+                        wxString::Format(_("Merging hdr stack number %u..."), stackNr)));
                     if (!opts.outputHDRStacks)
                     {
                         tempFilesDelete.Add(stackImgName);
