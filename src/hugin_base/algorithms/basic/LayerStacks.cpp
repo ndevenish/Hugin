@@ -55,15 +55,14 @@ vector<UIntSet> getHDRStacks(const PanoramaData & pano, UIntSet allImgs, Panoram
         for (UIntSet::const_iterator it = allImgs.begin(); it != allImgs.end(); ++it)
         {
             const unsigned srcImg2 = *it;
-            if (srcImg == srcImg2)
-            {
-                continue;
-            };
             if (overlap.getOverlap(srcImg, srcImg2) > opts.outputStacksMinOverlap)
             {
                 stack.insert(srcImg2);
-                allImgs.erase(srcImg2);
             };
+        };
+        for (UIntSet::const_iterator it = stack.cbegin(); it != stack.cend(); ++it)
+        {
+            allImgs.erase(*it);
         };
         result.push_back(stack);
         stack.clear();
@@ -100,16 +99,15 @@ std::vector<UIntSet> getExposureLayers(const PanoramaData & pano, UIntSet allImg
         for (UIntSet::const_iterator it = allImgs.begin(); it !=  allImgs.end(); ++it)
         {
             const unsigned srcImg2 = *it;
-            if (srcImg == srcImg2)
-            {
-                continue;
-            };
             if ( fabs(firstExposureValue - pano.getImage(srcImg2).getExposureValue()) < maxEVDiff )
             {
                 layer.insert(srcImg2);
-                allImgs.erase(srcImg2);
             }
         }
+        for (UIntSet::const_iterator it = layer.cbegin(); it != layer.cend(); ++it)
+        {
+            allImgs.erase(*it);
+        };
         result.push_back(layer);
         layer.clear();
     } while (!allImgs.empty());
