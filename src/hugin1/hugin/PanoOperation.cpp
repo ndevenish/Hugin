@@ -90,7 +90,7 @@ bool AddImageDialog(wxWindow* parent, std::vector<std::string>& files)
     wxFileDialog dlg(parent,_("Add images"),
                      path, wxT(""),
                      HUGIN_WX_FILE_IMG_FILTER,
-                     wxFD_OPEN | wxFD_MULTIPLE, wxDefaultPosition);
+                     wxFD_OPEN | wxFD_MULTIPLE | wxFD_FILE_MUST_EXIST | wxFD_PREVIEW, wxDefaultPosition);
     dlg.SetDirectory(path);
 
     // remember the image extension
