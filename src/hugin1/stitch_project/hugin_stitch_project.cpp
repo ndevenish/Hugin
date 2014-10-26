@@ -111,7 +111,11 @@ RunStitchFrame::RunStitchFrame(wxWindow * parent, const wxString& title, const w
     topsizer->Add(m_stitchPanel, 1, wxEXPAND | wxALL, 2);
 
     wxBoxSizer* bottomsizer = new wxBoxSizer(wxHORIZONTAL);
+#if wxCHECK_VERSION(3,1,0)
+    m_progress = new wxGauge(this, wxID_ANY, 100, wxDefaultPosition, wxDefaultSize, wxGA_HORIZONTAL | wxGA_PROGRESS);
+#else
     m_progress = new wxGauge(this, wxID_ANY, 100, wxDefaultPosition, wxDefaultSize, wxGA_HORIZONTAL);
+#endif
     bottomsizer->Add(m_progress, 1, wxEXPAND | wxALL, 10);
     bottomsizer->Add( new wxButton(this, wxID_CANCEL, _("Cancel")),
                    0, wxALL | wxALIGN_RIGHT, 10);
