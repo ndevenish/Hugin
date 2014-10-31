@@ -24,6 +24,7 @@
  */
 
 #include "panoinc_WX.h"
+#include <wx/msgdlg.h>
 #include "panoinc.h"
 #include "LensTools.h"
 #include <algorithm>
@@ -409,4 +410,58 @@ void SaveLensParametersToIni(wxWindow * parent, PT::Panorama *pano, const HuginB
     }
 }
 
+bool CheckLensStacks(HuginBase::Panorama* pano, bool allowCancel)
+{
+    if (pano->getNrOfImages() < 2)
+    {
+        return true;
+    };
+    const size_t nrImages = pano->getNrOfImages();
+    bool stacksCorrectLinked = true;
+    for (size_t i = 0; i < nrImages - 1; ++i)
+    {
+        const HuginBase::SrcPanoImage& image1 = pano->getImage(i);
+        if (image1.YawisLinked())
+        {
+            for (size_t j = i + 1; j < nrImages && stacksCorrectLinked; ++j)
+            {
+                const HuginBase::SrcPanoImage& image2 = pano->getImage(j);
+                if (image1.YawisLinkedWith(image2))
+                {
+                    stacksCorrectLinked = stacksCorrectLinked &
+                        image1.HFOVisLinkedWith(image2) &
+                        image1.RadialDistortionisLinkedWith(image2) &
+                        image1.RadialDistortionCenterShiftisLinkedWith(image2) &
+                        image1.ShearisLinkedWith(image2);
+                };
+            };
+        };
+    };
+    if (stacksCorrectLinked)
+    {
+        return true;
+    }
+    else
+    {
+        int flags = wxICON_EXCLAMATION | wxOK;
+        if (allowCancel)
+        {
+            flags = flags | wxCANCEL;
+        };
+        if (wxMessageBox(_("This project contains stacks with linked positions. But the lens parameters are not linked for these images.\nThis will result in unwanted results.\nPlease check and correct this before proceeding."),
+#ifdef _WINDOWS
+            _("Hugin"),
+#else
+            wxT(""),
+#endif
+            flags)==wxOK)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        };
+    };
+};
 

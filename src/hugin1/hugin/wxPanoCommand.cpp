@@ -29,6 +29,7 @@
 #include "panoinc_WX.h"
 #include "panoinc.h"
 #include "base_wx/wxPlatform.h"
+#include "base_wx/LensTools.h"
 
 #include <base_wx/wxImageCache.h>
 #include <base_wx/platform.h>
@@ -678,6 +679,8 @@ bool wxLoadPTProjectCmd::processPanorama(Panorama& pano)
         pano.setCtrlPoints(goodCPs);
     }
 
+    // check stacks and warn users in case
+    CheckLensStacks(&pano, false);
     // Update control point error values
     HuginBase::PTools::calcCtrlPointErrors(pano);
     if(markAsOptimized)

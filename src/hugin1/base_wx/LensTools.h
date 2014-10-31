@@ -68,5 +68,11 @@ WXIMPEX bool ApplyLensParameters(wxWindow * parent, PT::Panorama *pano, HuginBas
 WXIMPEX bool LoadLensParametersChoose(wxWindow * parent, HuginBase::Lens & lens, 
     bool & cropped, bool & autoCenterCrop, vigra::Rect2D & cropRect);
 
+/** check, if lens and stacks are correctly linked 
+ *   shows message box with short information if not 
+ *  @param pano Panorama which should be checked 
+ *  @param allowCancel if true the message box contains also a Cancel button, if false there is only ok button 
+ *  @returns true, if all conditions are satisfied, false if user selected cancel in dialog box */
+WXIMPEX bool CheckLensStacks(HuginBase::Panorama* pano, bool allowCancel);
 
 #endif // LENSTOOLS_H

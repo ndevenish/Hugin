@@ -40,6 +40,7 @@
 #include "hugin/ImagesTree.h"
 #include "panodata/OptimizerSwitches.h"
 #include "hugin/PanoOperation.h"
+#include "base_wx/LensTools.h"
 
 using namespace std;
 using namespace PT;
@@ -180,7 +181,10 @@ void OptimizePanel::OnOptimizeButton(wxCommandEvent & e)
     {
         fill_set(imgs, 0, m_pano->getNrOfImages()-1);
     }
-    runOptimizer(imgs);
+    if (CheckLensStacks(m_pano, true))
+    {
+        runOptimizer(imgs);
+    };
 }
 
 void OptimizePanel::runOptimizer(const UIntSet & imgs)
