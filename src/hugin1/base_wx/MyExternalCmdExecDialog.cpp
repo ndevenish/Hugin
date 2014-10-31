@@ -477,7 +477,7 @@ void MyExecPanel::OnProcessTerminated(MyPipedProcess *process, int pid, int stat
     // send termination to parent
     if (this->GetParent())
     {
-        wxProcessEvent event(wxID_ANY, pid, status);
+        wxProcessEvent event(wxID_ANY, pid, m_checkReturnCode ? status : 0);
         event.SetEventObject(this);
         DEBUG_TRACE("Sending wxProcess event");
         this->GetParent()->GetEventHandler()->ProcessEvent(event);
