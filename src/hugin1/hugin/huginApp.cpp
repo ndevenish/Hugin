@@ -131,6 +131,9 @@ huginApp::huginApp()
 {
     DEBUG_TRACE("ctor");
     m_this=this;
+#if wxUSE_ON_FATAL_EXCEPTION
+    wxHandleFatalExceptions();
+#endif
 }
 
 huginApp::~huginApp()
@@ -562,6 +565,13 @@ void huginApp::MacOpenFile(const wxString &fileName)
 
     if(frame) frame->MacOnOpenFile(fileName);
 }
+#endif
+
+#if wxUSE_ON_FATAL_EXCEPTION
+void huginApp::OnFatalException()
+{
+    GenerateReport(wxDebugReport::Context_Exception);
+};
 #endif
 
 huginApp * huginApp::m_this = 0;

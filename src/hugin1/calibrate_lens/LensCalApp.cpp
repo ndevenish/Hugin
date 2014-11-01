@@ -45,6 +45,9 @@ END_EVENT_TABLE()
 
 bool LensCalApp::OnInit()
 {
+#if wxUSE_ON_FATAL_EXCEPTION
+    wxHandleFatalExceptions();
+#endif
     SetAppName(wxT("hugin"));
     // register our custom pano tools dialog handlers
     registerPTWXDlgFcn();
@@ -132,6 +135,13 @@ bool LensCalApp::OnInit()
 
     return true;
 }
+
+#if wxUSE_ON_FATAL_EXCEPTION
+void LensCalApp::OnFatalException()
+{
+    GenerateReport(wxDebugReport::Context_Exception);
+};
+#endif
 
 // utility functions
 void RestoreFramePosition(wxTopLevelWindow * frame, const wxString & basename)

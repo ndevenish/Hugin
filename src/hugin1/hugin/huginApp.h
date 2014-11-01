@@ -152,6 +152,14 @@ public:
     void MacOpenFile(const wxString &fileName);
 #endif
 
+#if wxUSE_ON_FATAL_EXCEPTION
+#if wxCHECK_VERSION(3,1,0)
+    virtual void OnFatalException() wxOVERRIDE;
+#else
+    virtual void OnFatalException();
+#endif
+#endif
+
 private:
     /** locale for internationalisation */
     wxLocale locale;

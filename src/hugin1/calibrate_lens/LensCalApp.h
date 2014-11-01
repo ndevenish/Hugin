@@ -43,6 +43,13 @@ class LensCalApp : public wxApp
 {
 public:
     virtual bool OnInit();
+#if wxUSE_ON_FATAL_EXCEPTION
+#if wxCHECK_VERSION(3,1,0)
+    virtual void OnFatalException() wxOVERRIDE;
+#else
+    virtual void OnFatalException();
+#endif
+#endif
 
     /** return currently active locale */
     wxLocale & GetLocale()

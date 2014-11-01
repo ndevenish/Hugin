@@ -84,6 +84,13 @@ public:
      */
     virtual bool OnInit();
     virtual int OnExit();
+#if wxUSE_ON_FATAL_EXCEPTION
+#if wxCHECK_VERSION(3,1,0)
+    virtual void OnFatalException() wxOVERRIDE;
+#else
+    virtual void OnFatalException();
+#endif
+#endif
 
     //Handles some input keys for the frame
     void OnItemActivated(wxListEvent& event);

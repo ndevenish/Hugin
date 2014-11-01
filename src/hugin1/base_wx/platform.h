@@ -30,6 +30,9 @@
 #include <hugin_shared.h>
 #include "panoinc_WX.h"
 #include <config.h>
+#if wxUSE_ON_FATAL_EXCEPTION
+#include <wx/debugrpt.h>
+#endif
 
 #ifdef __WXMSW__
 #define HUGIN_CONV_FILENAME (*wxConvCurrent)
@@ -73,5 +76,10 @@ WXIMPEX const wxString getInvalidCharacters();
 WXIMPEX bool containsInvalidCharacters(const wxString stringToTest);
 /** shows a dialog about filename with invalid characters, all names in filelist will be show in list */
 WXIMPEX void ShowFilenameWarning(wxWindow* parent, const wxArrayString filelist);
+
+#if wxUSE_ON_FATAL_EXCEPTION
+/** shows debug report dialog box from wxWidgets */
+WXIMPEX void GenerateReport(wxDebugReport::Context ctx);
+#endif
 
 #endif

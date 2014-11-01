@@ -473,3 +473,20 @@ void ShowFilenameWarning(wxWindow* parent, const wxArrayString filelist)
     dlg.CenterOnScreen();
     dlg.ShowModal();
 };
+
+#if wxUSE_ON_FATAL_EXCEPTION
+void GenerateReport(wxDebugReport::Context ctx)
+{
+    //from the debugrpt sample inspired
+    wxDebugReportCompress report;
+    report.AddAll(ctx);
+    if (wxDebugReportPreviewStd().Show(report))
+    {
+        if (report.Process())
+        {
+            wxLogMessage(_("Debug report generated in \"%s\"."), report.GetCompressedFileName().c_str());
+            report.Reset();
+        };
+    };
+};
+#endif
