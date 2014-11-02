@@ -194,12 +194,15 @@ IF(WIN32)
     FIND_FILE(WXWIDGETS_DLL8 
               NAMES wxmsw310u_aui_vc_custom.dll wxmsw30u_aui_vc_custom.dll wxmsw295u_aui_vc_custom.dll wxmsw294u_aui_vc_custom.dll wxmsw293u_aui_vc_custom.dll wxmsw292u_aui_vc_custom.dll wxmsw291u_aui_vc_custom.dll wxmsw28u_aui_vc_custom.dll
               PATHS ${wxWidgets_LIB_DIR} NO_SYSTEM_ENVIRONMENT_PATH)
+    FIND_FILE(WXWIDGETS_DLL9 
+              NAMES wxmsw310u_qa_vc_custom.dll wxmsw30u_qa_vc_custom.dll wxmsw295u_qa_vc_custom.dll wxmsw294u_qa_vc_custom.dll wxmsw293u_qa_vc_custom.dll wxmsw292u_qa_vc_custom.dll wxmsw291u_qa_vc_custom.dll wxmsw28u_qa_vc_custom.dll
+              PATHS ${wxWidgets_LIB_DIR} NO_SYSTEM_ENVIRONMENT_PATH)
 
     INSTALL(FILES ${TIFF_DLL} ${JPEG_DLL} ${PNG_DLL} ${ZLIB_DLL} ${OPENEXR_DLL} ${VIGRA_DLL}
         ${BOOST_DLLs} ${EXIV2_DLL} ${LIBEXPAT_DLL} ${GLEW_DLL} ${GLUT_DLL}
         ${WXWIDGETS_DLL1} ${WXWIDGETS_DLL2} ${WXWIDGETS_DLL2} ${WXWIDGETS_DLL3}
         ${WXWIDGETS_DLL3} ${WXWIDGETS_DLL4} ${WXWIDGETS_DLL5} ${WXWIDGETS_DLL6}
-        ${WXWIDGETS_DLL7} ${WXWIDGETS_DLL8}
+        ${WXWIDGETS_DLL7} ${WXWIDGETS_DLL8} ${WXWIDGETS_DLL9}
         DESTINATION ${BINDIR}
     )
     
