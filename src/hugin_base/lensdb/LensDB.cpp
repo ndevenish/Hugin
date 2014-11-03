@@ -210,6 +210,11 @@ public:
         {
             return false;
         };
+        // do some range checking
+        if (cropFactor < 0.01 || cropFactor > 100)
+        {
+            return false;
+        };
         sqlite3_stmt *statement;
         const char *tail;
         int returnValue = 0;
@@ -322,6 +327,11 @@ public:
     bool SaveHFOV(const std::string& lens, const double focallength, const double HFOV, const int weight = 10)
     {
         if (m_db == NULL)
+        {
+            return false;
+        };
+        // range checking
+        if (HFOV < 0.1 || HFOV>360)
         {
             return false;
         };
