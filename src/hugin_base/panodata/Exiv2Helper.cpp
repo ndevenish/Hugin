@@ -453,10 +453,10 @@ namespace HuginBase
             float resolutionUnits= 0;
             switch (exifResolutionUnits)
             {
-                case 3: resolutionUnits = 10.0; break;  //centimeter
-                case 4: resolutionUnits = 1.0; break;   //millimeter
-                case 5: resolutionUnits = .001; break;  //micrometer
-                default: resolutionUnits = 25.4; break; //inches
+                case 3: resolutionUnits = 10.0f; break;  //centimeter
+                case 4: resolutionUnits = 1.0f; break;   //millimeter
+                case 5: resolutionUnits = .001f; break;  //micrometer
+                default: resolutionUnits = 25.4f; break; //inches
             }
 
             DEBUG_DEBUG("Resolution Units: " << resolutionUnits);
