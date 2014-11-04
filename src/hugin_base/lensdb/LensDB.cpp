@@ -200,7 +200,11 @@ public:
             };
         };
         sqlite3_finalize(statement);
-        return cropFactor > 0;
+        if (cropFactor < 0.1 || cropFactor>100)
+        {
+            cropFactor = 0;
+        };
+        return cropFactor > 0.1;
     };
     // saves the crop factor for the given camera in the database
     // returns true, if data were successful saved into db, false if errors occured during saving
@@ -211,7 +215,7 @@ public:
             return false;
         };
         // do some range checking
-        if (cropFactor < 0.01 || cropFactor > 100)
+        if (cropFactor < 0.1 || cropFactor > 100)
         {
             return false;
         };

@@ -479,7 +479,7 @@ bool SrcPanoImage::readEXIF()
     float eFocalLength35 = Exiv2Helper::getExiv2ValueLong(exifData,"Exif.Photo.FocalLengthIn35mmFilm");
     float focalLength=0;
     //The various methods to detmine crop factor
-    if (eFocalLength > 0 && cropFactor > 0)
+    if (eFocalLength > 0 && cropFactor > 0.1)
     {
         // user provided crop factor
         focalLength = eFocalLength;
@@ -502,7 +502,7 @@ bool SrcPanoImage::readEXIF()
             }
             else
             {
-                if (eFocalLength > 0 && cropFactor <= 0)
+                if (eFocalLength > 0 && cropFactor < 0.1)
                 {
                     // need to redo, this time with crop
                     focalLength = eFocalLength;
@@ -574,11 +574,11 @@ bool SrcPanoImage::applyEXIFValues(bool applyEVValue)
     };
     double cropFactor=getExifCropFactor();
     double focalLength=getExifFocalLength();
-    if(cropFactor>0)
+    if(cropFactor>0.1)
     {
         setCropFactor(cropFactor);
     };
-    if (focalLength > 0 && cropFactor > 0)
+    if (focalLength > 0 && cropFactor > 0.1)
     {
         setHFOV(calcHFOV(getProjection(), focalLength, cropFactor, getSize()));
         DEBUG_DEBUG("HFOV:         " << getHFOV());
@@ -593,12 +593,12 @@ bool SrcPanoImage::applyEXIFValues(bool applyEVValue)
 bool SrcPanoImage::readCropfactorFromDB()
 {
     // finally search in lens database
-    if(getCropFactor()<=0 && !getExifMake().empty() && !getExifModel().empty())
+    if(getCropFactor()<0.1 && !getExifMake().empty() && !getExifModel().empty())
     {
         double dbCrop=0;
         if(LensDB::LensDB::GetSingleton().GetCropFactor(getExifMake(),getExifModel(),dbCrop))
         {
-            if(dbCrop>0)
+            if(dbCrop>0.1)
             {
                 setCropFactor(dbCrop);
                 setExifCropFactor(dbCrop);

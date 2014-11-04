@@ -281,10 +281,10 @@ bool wxAddImagesCmd::processPanorama(Panorama& pano)
         applyColorBalanceValue(srcImg, pano);
         double redBal=srcImg.getWhiteBalanceRed();
         double blueBal=srcImg.getWhiteBalanceBlue();
-        if(srcImg.getCropFactor()<=0)
+        if(srcImg.getCropFactor()<0.1)
         {
             srcImg.readCropfactorFromDB();
-            ok=(srcImg.getExifFocalLength()>0 && srcImg.getCropFactor()>0);
+            ok=(srcImg.getExifFocalLength()>0 && srcImg.getCropFactor()>0.1);
         };
         if (! ok ) {
                  // search for image with matching size and exif data

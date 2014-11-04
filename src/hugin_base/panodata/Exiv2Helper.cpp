@@ -520,7 +520,7 @@ namespace HuginBase
                 cropFactor = sqrt(36.0*36.0+24.0*24.0) /
                     sqrt(sensorSize.x*sensorSize.x + sensorSize.y*sensorSize.y);
                 // FIXME: HACK guard against invalid image focal plane definition in EXIF metadata with arbitrarly chosen limits for the crop factor ( 1/100 < crop < 100)
-                if (cropFactor < 0.01 || cropFactor > 100)
+                if (cropFactor < 0.1 || cropFactor > 100)
                 {
                     cropFactor = 0;
                 }
