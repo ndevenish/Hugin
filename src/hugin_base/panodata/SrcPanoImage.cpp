@@ -602,6 +602,10 @@ bool SrcPanoImage::readCropfactorFromDB()
             {
                 setCropFactor(dbCrop);
                 setExifCropFactor(dbCrop);
+                if (getExifFocalLength() > 0)
+                {
+                    setHFOV(calcHFOV(getProjection(), getExifFocalLength(), dbCrop, getSize()));
+                };
                 return true;
             };
         };
