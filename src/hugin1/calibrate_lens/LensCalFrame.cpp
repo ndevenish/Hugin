@@ -375,16 +375,19 @@ void LensCalFrame::AddImages(wxArrayString files)
         };
         m_images.push_back(image);
         SetStatusText(wxString::Format(_("Added %s"),image->GetFilename().c_str()));
-        if(image->GetPanoImage()->getExifFocalLength()>0 && image->GetPanoImage()->getExifCropFactor()>0)
+        if (image->GetPanoImage()->getExifFocalLength() > 0)
         {
-            XRCCTRL(*this,"lenscal_focallength",wxTextCtrl)->SetValue( 
-                hugin_utils::doubleTowxString(image->GetPanoImage()->getExifFocalLength(),2)
+            XRCCTRL(*this, "lenscal_focallength", wxTextCtrl)->SetValue(
+                hugin_utils::doubleTowxString(image->GetPanoImage()->getExifFocalLength(), 2)
                 );
-            XRCCTRL(*this,"lenscal_cropfactor",wxTextCtrl)->SetValue(
-                hugin_utils::doubleTowxString(image->GetPanoImage()->getCropFactor(),2)
-                );
-            SelectProjection(m_choice_projection,image->GetPanoImage()->getProjection());
         };
+        if (image->GetPanoImage()->getExifCropFactor() > 0)
+        {
+            XRCCTRL(*this, "lenscal_cropfactor", wxTextCtrl)->SetValue(
+                hugin_utils::doubleTowxString(image->GetPanoImage()->getCropFactor(), 2)
+                );
+        };
+        SelectProjection(m_choice_projection,image->GetPanoImage()->getProjection());
     }
     UpdateList(false);
     m_images_list->SetSelection(m_images_list->GetCount()-1);
