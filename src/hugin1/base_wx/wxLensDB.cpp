@@ -615,6 +615,11 @@ bool SaveLensParameters(wxWindow * parent, const HuginBase::SrcPanoImage& img, b
         //empty lensname, assuming it is a compact camera
         lensname = camMaker + "|" + camModel;
     };
+    // unknown crop factor, remember it
+    if (img.getExifCropFactor() < 0.1 && !camMaker.empty() && !camModel.empty())
+    {
+        lensDB.SaveCameraCrop(camMaker, camModel, img.getCropFactor());
+    };
     if (lensDlg.GetSaveDistortion())
     {
         const double newFocallength = HuginBase::SrcPanoImage::calcFocalLength(img.getProjection(), img.getHFOV(), img.getCropFactor(), img.getSize());
