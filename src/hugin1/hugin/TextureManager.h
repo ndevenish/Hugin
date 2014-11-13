@@ -42,6 +42,10 @@
 #include <map>
 #include <boost/version.hpp>
 #if BOOST_VERSION>=105400
+#if BOOST_VERSION==105700
+// workaround for missing include in boost/signals2/trackable.hpp in version 1.57
+#include <boost/weak_ptr.hpp>
+#endif
 #include <boost/signals2/trackable.hpp>
 namespace boostSignal=boost::signals2;
 #else
