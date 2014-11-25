@@ -608,7 +608,7 @@ void ImagesPanel::OnMinimumOverlapChanged(wxCommandEvent & e)
     {
         return;
     }
-    if(val<=0 || val>1)
+    if(fabs(val)<0.001 || val>1)
     {
         wxMessageBox(_("The minimum overlap has to be greater than 0 and smaller than 1."),
 #ifdef _WINDOWS
@@ -619,7 +619,11 @@ void ImagesPanel::OnMinimumOverlapChanged(wxCommandEvent & e)
             wxOK | wxICON_INFORMATION, this);
         return;
     };
-    PanoramaOptions opt=m_pano->getOptions();
+    if (val < 0)
+    {
+        val = -1;
+    };
+    PanoramaOptions opt = m_pano->getOptions();
     opt.outputStacksMinOverlap=val;
     GlobalCmdHist::getInstance().addCommand(
         new PT::SetPanoOptionsCmd(*m_pano,opt)

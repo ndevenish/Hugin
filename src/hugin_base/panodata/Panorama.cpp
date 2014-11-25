@@ -2737,6 +2737,10 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
                         {
                             options.outputStacksMinOverlap = val;
                         };
+                        if (val < 0)
+                        {
+                            options.outputStacksMinOverlap = -1;
+                        };
                     } else if (var == "#hugin_outputLayersExposureDiff") {
                         double val=atof(value.c_str());
                         if(val>0.01)

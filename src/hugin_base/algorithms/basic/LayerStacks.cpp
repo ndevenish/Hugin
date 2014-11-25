@@ -24,6 +24,7 @@
 #include "LayerStacks.h"
 
 #include <panodata/PanoramaData.h>
+#include <panodata/StandardImageVariableGroups.h>
 #include <algorithms/basic/CalculateOverlap.h>
 #include <algorithms/nona/ComputeImageROI.h>
 
@@ -40,6 +41,14 @@ vector<UIntSet> getHDRStacks(const PanoramaData & pano, UIntSet allImgs, Panoram
     {
         return result;
     }
+
+    // special case: for a negtive overlap use the assigned stacks and skip
+    // overlap calculation
+    if (opts.outputStacksMinOverlap < 0)
+    {
+        HuginBase::ConstStandardImageVariableGroups variable_groups(pano);
+        return variable_groups.getStacks().getPartsSet();
+    };
 
     UIntSet stack;
 
