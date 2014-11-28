@@ -405,6 +405,10 @@ public:
         flann::Matrix<double> _flann_descriptors;
         flann::Index<flann::L2<double> > * _flann_index;
 
+        ImgData()
+        {
+            _loadFail = false;
+        }
     };
 
     typedef std::map<int, ImgData>					ImgData_t;

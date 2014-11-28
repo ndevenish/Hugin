@@ -865,7 +865,7 @@ bool PanoDetector::loadProject()
 
 bool PanoDetector::checkLoadSuccess()
 {
-    if(_keyPointsIdx.size()!=0)
+    if(!_keyPointsIdx.empty())
     {
         for (unsigned int i = 0; i < _keyPointsIdx.size(); ++i)
         {
