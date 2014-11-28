@@ -1211,8 +1211,8 @@ bool PanoDetector::matchPrealigned(PoolExecutor& aExecutor, Panorama* pano, std:
     // Add detected matches to _panoramaInfo
     BOOST_FOREACH(MatchData& aM, _matchesData)
     BOOST_FOREACH(lfeat::PointMatchPtr& aPM, aM._matches)
-    _panoramaInfo->addCtrlPoint(ControlPoint(imgMap[aM._i1->_number], aPM->_img1_x, aPM->_img1_y,
-                                imgMap[aM._i2->_number], aPM->_img2_x, aPM->_img2_y));
+    _panoramaInfo->addCtrlPoint(ControlPoint(aM._i1->_number, aPM->_img1_x, aPM->_img1_y,
+                                aM._i2->_number, aPM->_img2_x, aPM->_img2_y));
 
     return true;
 };
