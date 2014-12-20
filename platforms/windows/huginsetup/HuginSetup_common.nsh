@@ -157,6 +157,7 @@ SectionGroup /e $(TEXT_SecShortcuts) SecShortcuts
   Section $(TEXT_SecShortcutPrograms) SecShortcutPrograms
     AddSize 1
     ; SetShellVarContext all
+    SetOutPath "$INSTDIR\bin"
     CreateDirectory "$SMPROGRAMS\${APP_NAME}"
     CreateShortCut "$SMPROGRAMS\${APP_NAME}\Uninstall.lnk" "${UNINST_EXE}"
     CreateShortCut "$SMPROGRAMS\${APP_NAME}\Hugin.lnk" "$INSTDIR\bin\hugin.exe"
@@ -173,6 +174,7 @@ SectionGroup /e $(TEXT_SecShortcuts) SecShortcuts
   
   Section $(TEXT_SecShortcutDesktop) SecShortcutDesktop
     AddSize 1
+    SetOutPath "$INSTDIR\bin"
     CreateShortCut "$DESKTOP\Hugin.lnk" "$INSTDIR\bin\hugin.exe" ""
   SectionEnd
 SectionGroupEnd
