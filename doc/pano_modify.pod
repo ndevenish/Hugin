@@ -20,7 +20,29 @@ Output Hugin PTO file. Default: <filename>_mod.pto
 
 =item B<-p>, B<--projection=NUMBER>
 
-Sets the output projection to number x
+Sets the output projection to NUMBER
+    RECTILINEAR = 0,
+    PANORAMA (Circular) = 1,
+    EQUIRECTANGULAR = 2,
+    FISHEYE_FF = 3,
+    STEREOGRAPHIC = 4,
+    MERCATOR = 5,
+    TRANS_MERCATOR = 6,
+    SINUSOIDAL = 7,
+    LAMBERT_EQUAL_AREA_CONIC = 8,
+    LAMBERT_AZIMUTHAL = 9,
+    ALBERS_EQUAL_AREA_CONIC = 10,
+    MILLER_CYLINDRICAL = 11,
+    PANINI = 12,
+    ARCHITECTURAL = 13,
+    ORTHOGRAPHIC = 14,
+    EQUISOLID = 15,
+    EQUI_PANINI = 16,
+    BIPLANE = 17,
+    TRIPLANE = 18,
+    PANINI_GENERAL = 19,
+    THOBY   = 20,
+    HAMMER  = 21,
 
 =item B<--fov=AUTO|HFOV|HFOVxVFOV>
 
