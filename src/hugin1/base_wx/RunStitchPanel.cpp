@@ -193,6 +193,11 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname)
         wxString statusText;
         m_tempFiles.clear();
         HuginQueue::CommandQueue* commands = HuginQueue::GetStitchingCommandQueue(pano, exePath.GetPath(wxPATH_GET_VOLUME|wxPATH_GET_SEPARATOR), m_currentPTOfn, basename, statusText, outputFiles, m_tempFiles);
+        if (commands->empty())
+        {
+            wxMessageBox(_("Queue is empty. This should never happen.") , _("Error during stitching"), wxICON_ERROR | wxOK);
+            return false;
+        };
         // check output directories.
         wxString overwrittenFiles;
         if (!m_overwrite)
@@ -276,6 +281,11 @@ bool RunStitchPanel::DetectProject(wxString scriptFile)
         fname.Normalize();
         const wxFileName exePath(wxStandardPaths::Get().GetExecutablePath());
         HuginQueue::CommandQueue* commands = HuginQueue::GetAssistantCommandQueue(pano, exePath.GetPath(wxPATH_GET_VOLUME|wxPATH_GET_SEPARATOR), fname.GetFullPath());
+        if (commands->empty())
+        {
+            wxMessageBox(_("Queue is empty. This should never happen."), _("Error during running assistant"), wxICON_ERROR | wxOK);
+            return false;
+        };
         if (m_execPanel->ExecQueue(commands) == -1)
         {
             wxMessageBox(wxString::Format(_("Error while running assistant\n%s"), scriptFile.c_str()),

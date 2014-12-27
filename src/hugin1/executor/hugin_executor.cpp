@@ -147,6 +147,12 @@ class HuginExecutor : public APP
             }
         };
 
+        if (commands->empty())
+        {
+            std::cout << "ERROR: Queue is empty." << std::endl;
+            return 1;
+        };
+
         if (m_threads == -1)
         {
             m_threads = wxConfigBase::Get()->Read(wxT("/output/NumberOfThreads"), 0l);
