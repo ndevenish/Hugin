@@ -162,7 +162,8 @@ class IMPEX PanoramaOptions
             PTBLENDER_BLEND=1,
             ENBLEND_BLEND=2,
             SMARTBLEND_BLEND=3,
-            PTMASKER_BLEND=4
+            PTMASKER_BLEND=4,
+            INTERNAL_BLEND=5
         };
 
         ///

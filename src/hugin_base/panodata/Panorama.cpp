@@ -721,6 +721,9 @@ void Panorama::printPanoramaScript(std::ostream & o,
         case PanoramaOptions::PTMASKER_BLEND:
             o << "PTmasker" << endl;
             break;
+        case PanoramaOptions::INTERNAL_BLEND:
+            o << "internal" << endl;
+            break;
         default:
         case PanoramaOptions::ENBLEND_BLEND:
             o << "enblend" << endl;
@@ -2680,6 +2683,8 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
                             options.blendMode = PanoramaOptions::PTMASKER_BLEND;
                         } else if (value == "smartblend") {
                             options.blendMode = PanoramaOptions::SMARTBLEND_BLEND;
+                        } else if (value == "internal") {
+                            options.blendMode = PanoramaOptions::INTERNAL_BLEND;
                         }
 
                     } else if (var == "#hugin_enblendOptions") {
