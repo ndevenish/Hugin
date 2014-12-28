@@ -139,7 +139,8 @@ void stitchPanorama(const PanoramaData & pano,
                         AppBase::MultiProgressDisplay & progress,
                         const std::string & basename,
                         const UIntSet & usedImgs,
-                        bool ignoreExposure)
+                        const bool ignoreExposure,
+                        const bool saveIntermediate)
 {
     DEBUG_ASSERT(pano.getNrOfImages() > 0);
 
@@ -207,18 +208,18 @@ void stitchPanorama(const PanoramaData & pano,
                 pixelType == "INT16" ||
                 pixelType == "UINT16" )
             {
-                stitchPanoGray_8_16(pano, opts, progress, basename, usedImgs, pixelType.c_str(), ignoreExposure);
+                stitchPanoGray_8_16(pano, opts, progress, basename, usedImgs, pixelType.c_str(), ignoreExposure, saveIntermediate);
             } else {
-                stitchPanoGray_32_float(pano, opts, progress, basename, usedImgs, pixelType.c_str(), ignoreExposure);
+                stitchPanoGray_32_float(pano, opts, progress, basename, usedImgs, pixelType.c_str(), ignoreExposure, saveIntermediate);
             }
         } else if (bands == 3 || bands == 4 && extraBands == 1) {
             if (pixelType == "UINT8" ||
                 pixelType == "INT16" ||
                 pixelType == "UINT16" )
             {
-                stitchPanoRGB_8_16(pano, opts, progress, basename, usedImgs, pixelType.c_str(), ignoreExposure);
+                stitchPanoRGB_8_16(pano, opts, progress, basename, usedImgs, pixelType.c_str(), ignoreExposure, saveIntermediate);
             } else {
-                stitchPanoRGB_32_float(pano, opts, progress, basename, usedImgs, pixelType.c_str(), ignoreExposure);
+                stitchPanoRGB_32_float(pano, opts, progress, basename, usedImgs, pixelType.c_str(), ignoreExposure, saveIntermediate);
             }
         }
     }

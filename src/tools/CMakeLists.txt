@@ -85,9 +85,18 @@ target_link_libraries(hugin_hdrmerge ${common_libs} ${image_libs} )
 add_executable(lensdb lensdb.cpp)
 target_link_libraries(lensdb ${common_libs})
 
+add_executable(verdandi verdandi.cpp)
+target_link_libraries(verdandi ${common_libs} ${image_libs})
+
+# for expanding wildcard with MSVC
+if(MSVC)
+  set_target_properties(verdandi PROPERTIES LINK_FLAGS "setargv.obj")
+endif(MSVC)
+
+
 install(TARGETS nona vig_optimize autooptimiser fulla align_image_stack linefind geocpset
         tca_correct cpclean checkpto hugin_hdrmerge pano_trafo pano_modify pto_merge 
-        pto_gen pto_var pto_lensstack pto_template pto_mask pto_move lensdb
+        pto_gen pto_var pto_lensstack pto_template pto_mask pto_move lensdb verdandi
         DESTINATION ${BINDIR})
 
 IF(UNIX)

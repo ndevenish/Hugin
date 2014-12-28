@@ -44,8 +44,7 @@
 #include <vigra_ext/impexalpha.hxx>
 #include <vigra/copyimage.hxx>
 
-#include <vigra_ext/blend.h>
-#include <vigra_ext/NearestFeatureTransform.h>
+#include <vigra_ext/StitchWatershed.h>
 #include <vigra_ext/tiffUtils.h>
 #include <vigra_ext/ImageTransforms.h>
 
@@ -74,67 +73,6 @@ namespace Nona {
  */
 void estimateBlendingOrder(const PanoramaData & pano, UIntSet images,
 	                   std::vector<unsigned int> & blendOrder);
-
-#if 0
-/**
- * remap a single image to a multiple/multilayer tiff files.
- *
- * If tiff already contains tiff files, append to the file
- */
-template <typename ImageType, typename AlphaType>
-bool remapToTiff(const PanoramaData & pano, const PanoramaOptions &opts,
-                 unsigned imgNr, TIFF * tiff
-                 AppBase::MultiProgressDisplay & progress)
-{
-    bool saveRoi = opts.tiff_saveROI;
-
-    const PanoImage & img = pano.getImage(imgNr);
-	vigra::Diff2D srcSize;
-	srcSize.x = img.getWidth();
-	srcSize.y = img.getHeight();
-
-	// create transforms
-	//    SpaceTransform t;
-	//    SpaceTransform invT;
-	PTools::Transform transf;
-	PTools::Transform invTransf;
-	
-	transf.createTransform(pano, imgNr, opts, srcSize);
-	invTransf.createInvTransform(pano, imgNr, opts, srcSize);
-
-	// calculate ROI for this image.
-
-    ImageOptions imgOpts = img.getOptions();
-    vigra::Rect2D imageRect;
-    vigra::BImage miniAlpha;
-    double alphaScale;
-    bool circCrop = pano.getLens(pano.getImage(imgNr).getLensNr()).getProjection() == Lens::CIRCULAR_FISHEYE;
-    estimateImageRect(Size2D(opts.width, opts.getHeight()), srcSize,
-                      imgOpts.docrop, imgOpts.cropRect, circCrop,
-                      transf,
-                      imageRect, miniAlpha, alphaScale);
-
-    /** the scanlines */
-    ImageType img(;
-    AlphaType alpha;
-
-    // write TIFF header
-    if (saveRoi) {
-        vigra_ext::createTiffDirectory(tiff,
-                                       img.getFilename(),
-                                       m_basename,
-                                       opts.tiffCompression,
-                                       imgNr+1, nImg,
-                                       imageRect.upperLeft());
-    } else {
-        vigra_ext::createTiffDirectory(tiff,
-                                       img.getFilename(),
-                                       m_basename,
-                                       opts.tiffCompression,
-                                       imgNr+1, nImg,
-                                       vigra::Diff2D(0,0));
-}
-#endif
 
 /** implements a stitching algorithm */
 template <typename ImageType, typename AlphaType>
@@ -174,9 +112,6 @@ public:
         }
         return ret;
     }
-    //    template<typename ImgIter, typename ImgAccessor>
-
-    //void stitch(const PanoramaOptions & opts, UIntSet & images, vigra::triple<ImgIter, ImgIter, ImgAccessor> output);
 
 protected:
     // calculate ROI's if not already known
@@ -190,6 +125,163 @@ protected:
     UIntSet m_images;
     std::vector<vigra::Rect2D> m_rois;
 };
+
+namespace detail
+{
+    template<typename ImageType, typename AlphaType>
+    void saveRemapped(RemappedPanoImage<ImageType, AlphaType> & remapped,
+        unsigned int imgNr, unsigned int nImg,
+        const PanoramaOptions & opts,
+        const std::string basename,
+        AppBase::MultiProgressDisplay& progress)
+    {
+        ImageType * final_img = 0;
+        AlphaType * alpha_img = 0;
+        ImageType complete;
+        vigra::BImage alpha;
+
+        if (remapped.boundingBox().isEmpty())
+            // do not save empty files...
+            // TODO: need to tell other parts (enblend etc.) about it too!
+            return;
+
+        if (opts.outputMode == PanoramaOptions::OUTPUT_HDR)
+        {
+            // export alpha channel as gray channel (original pixel weights)
+            std::ostringstream greyname;
+            greyname << basename << std::setfill('0') << std::setw(4) << imgNr << "_gray.pgm";
+            vigra::ImageExportInfo exinfo1(greyname.str().c_str());
+            if (!opts.tiff_saveROI)
+            {
+                alpha.resize(opts.getROI().size());
+                vigra::Rect2D newOutRect = remapped.boundingBox() & opts.getROI();
+                vigra::Rect2D newOutArea(newOutRect);
+                newOutRect.moveBy(-opts.getROI().upperLeft());
+                vigra::copyImage(vigra_ext::applyRect(newOutArea,
+                    vigra_ext::srcMaskRange(remapped)),
+                    vigra_ext::applyRect(newOutRect,
+                    destImage(alpha)));
+                vigra::exportImage(srcImageRange(alpha), exinfo1);
+            }
+            else
+            {
+                exinfo1.setPosition(remapped.boundingBox().upperLeft());
+                exinfo1.setCanvasSize(vigra::Size2D(opts.getWidth(), opts.getHeight()));
+                vigra::Rect2D rect = remapped.boundingBox();
+                if (rect.right() > opts.getROI().right())
+                {
+                    rect &= opts.getROI();
+                    rect.moveBy(-rect.upperLeft());
+                    vigra::exportImage(srcImageRange(remapped.m_mask, rect), exinfo1);
+                }
+                else
+                {
+                    vigra::exportImage(srcImageRange(remapped.m_mask), exinfo1);
+                };
+            }
+
+            // calculate real alpha for saving with the image
+            progress.setMessage("Calculating mask");
+            remapped.calcAlpha();
+        }
+
+        vigra::Rect2D subImage;
+        if (!opts.tiff_saveROI)
+        {
+            // FIXME: this is stupid. Should not require space for full image...
+            // but this would need a lower level interface in vigra impex
+            complete.resize(opts.getROI().size());
+            alpha.resize(opts.getROI().size());
+            vigra::Rect2D newOutRect = remapped.boundingBox() & opts.getROI();
+            vigra::Rect2D newOutArea(newOutRect);
+            newOutRect.moveBy(-opts.getROI().upperLeft());
+            vigra::copyImage(vigra_ext::applyRect(newOutArea,
+                vigra_ext::srcImageRange(remapped)),
+                vigra_ext::applyRect(newOutRect,
+                destImage(complete)));
+
+            vigra::copyImage(vigra_ext::applyRect(newOutArea,
+                vigra_ext::srcMaskRange(remapped)),
+                vigra_ext::applyRect(newOutRect,
+                destImage(alpha)));
+            final_img = &complete;
+            alpha_img = &alpha;
+        }
+        else
+        {
+            final_img = &remapped.m_image;
+            alpha_img = &remapped.m_mask;
+            if (remapped.boundingBox().right() > opts.getROI().right())
+            {
+                subImage = remapped.boundingBox() & opts.getROI();
+                subImage.moveBy(-subImage.upperLeft());
+            };
+        }
+
+        std::string ext = opts.getOutputExtension();
+        std::ostringstream filename;
+        filename << basename << std::setfill('0') << std::setw(4) << imgNr << "." + ext;
+
+        progress.setMessage(std::string("saving ") + hugin_utils::stripPath(filename.str()));
+
+        vigra::ImageExportInfo exinfo(filename.str().c_str());
+        exinfo.setXResolution(150);
+        exinfo.setYResolution(150);
+        exinfo.setICCProfile(remapped.m_ICCProfile);
+        if (opts.tiff_saveROI)
+        {
+            exinfo.setPosition(remapped.boundingBox().upperLeft());
+            exinfo.setCanvasSize(vigra::Size2D(opts.getWidth(), opts.getHeight()));
+        }
+        else
+        {
+            exinfo.setPosition(opts.getROI().upperLeft());
+            exinfo.setCanvasSize(vigra::Size2D(opts.getWidth(), opts.getHeight()));
+        }
+        if (opts.outputPixelType.size() > 0)
+        {
+            exinfo.setPixelType(opts.outputPixelType.c_str());
+        }
+        bool supportsAlpha = true;
+        if (ext == "tif")
+        {
+            exinfo.setCompression(opts.tiffCompression.c_str());
+        }
+        else
+        {
+            if (ext == "jpg")
+            {
+                std::ostringstream quality;
+                quality << "JPEG QUALITY=" << opts.quality;
+                exinfo.setCompression(quality.str().c_str());
+                supportsAlpha = false;
+            };
+        }
+
+        if (subImage.area() > 0)
+        {
+            if (supportsAlpha)
+            {
+                vigra::exportImageAlpha(srcImageRange(*final_img, subImage), srcImage(*alpha_img), exinfo);
+            }
+            else
+            {
+                vigra::exportImage(srcImageRange(*final_img, subImage), exinfo);
+            };
+        }
+        else
+        {
+            if (supportsAlpha)
+            {
+                vigra::exportImageAlpha(srcImageRange(*final_img), srcImage(*alpha_img), exinfo);
+            }
+            else
+            {
+                vigra::exportImage(srcImageRange(*final_img), exinfo);
+            };
+        };
+    };
+} // namespace detail
 
 /** remap a set of images, and store the individual remapped files. */
 template <typename ImageType, typename AlphaType>
@@ -268,134 +360,7 @@ public:
                               unsigned int imgNr, unsigned int nImg,
                               const PanoramaOptions & opts)
     {
-        ImageType * final_img = 0;
-        AlphaType * alpha_img = 0;
-        ImageType complete;
-        vigra::BImage alpha;
-
-        if ( remapped.boundingBox().isEmpty() )
-            // do not save empty files...
-            // TODO: need to tell other parts (enblend etc.) about it too!
-            return;
-
-        if (opts.outputMode == PanoramaOptions::OUTPUT_HDR) {
-            // export alpha channel as gray channel (original pixel weights)
-            std::ostringstream greyname;
-            greyname << m_basename << std::setfill('0') << std::setw(4) << imgNr << "_gray.pgm";
-            vigra::ImageExportInfo exinfo1(greyname.str().c_str());
-            if (! opts.tiff_saveROI) {
-                alpha.resize(opts.getROI().size());
-                vigra::Rect2D newOutRect = remapped.boundingBox() & opts.getROI();
-                vigra::Rect2D newOutArea(newOutRect);
-                newOutRect.moveBy(-opts.getROI().upperLeft());
-                vigra::copyImage(vigra_ext::applyRect(newOutArea,
-                                 vigra_ext::srcMaskRange(remapped)),
-                                 vigra_ext::applyRect(newOutRect,
-                                 destImage(alpha)));
-                vigra::exportImage(srcImageRange(alpha), exinfo1);
-            } else {
-                exinfo1.setPosition(remapped.boundingBox().upperLeft());
-                exinfo1.setCanvasSize(vigra::Size2D(opts.getWidth(), opts.getHeight()));
-                vigra::Rect2D rect=remapped.boundingBox();
-                if(rect.right() > opts.getROI().right()) {
-                    rect&=opts.getROI();
-                    rect.moveBy(-rect.upperLeft());
-                    vigra::exportImage(srcImageRange(remapped.m_mask, rect), exinfo1);
-                } else {
-                    vigra::exportImage(srcImageRange(remapped.m_mask), exinfo1);
-                };
-            }
-
-            // calculate real alpha for saving with the image
-            Base::m_progress.setMessage("Calculating mask");
-            remapped.calcAlpha();
-        }
-
-        vigra::Rect2D subImage;
-        if (! opts.tiff_saveROI) {
-            // FIXME: this is stupid. Should not require space for full image...
-            // but this would need a lower level interface in vigra impex
-            complete.resize(opts.getROI().size());
-            alpha.resize(opts.getROI().size());
-            vigra::Rect2D newOutRect = remapped.boundingBox() & opts.getROI();
-            vigra::Rect2D newOutArea(newOutRect);
-            newOutRect.moveBy(-opts.getROI().upperLeft());
-            vigra::copyImage(vigra_ext::applyRect(newOutArea,
-                                 vigra_ext::srcImageRange(remapped)),
-                             vigra_ext::applyRect(newOutRect,
-                                 destImage(complete)));
-
-            vigra::copyImage(vigra_ext::applyRect(newOutArea,
-                                 vigra_ext::srcMaskRange(remapped)),
-                             vigra_ext::applyRect(newOutRect,
-                                 destImage(alpha)));
-            final_img = & complete;
-            alpha_img = & alpha;
-        } else {
-            final_img = &remapped.m_image;
-            alpha_img = &remapped.m_mask;
-            if(remapped.boundingBox().right() > opts.getROI().right()) {
-                subImage=remapped.boundingBox() & opts.getROI();
-                subImage.moveBy(-subImage.upperLeft());
-            };
-        }
-
-/*
-        std::string cext = hugin_utils::getExtension(m_basename);
-        std::transform(cext.begin(),cext.end(), cext.begin(), (int(*)(int))std::tolower);
-        // remove extension only if it specifies the same file type, otherwise
-        // its probably part of the filename.
-        if (cext == ext) {
-            m_basename = hugin_utils::stripExtension(m_basename);
-        }
-*/
-        std::string ext = opts.getOutputExtension();
-        std::ostringstream filename;
-        filename << m_basename << std::setfill('0') << std::setw(4) << imgNr << "." + ext;
-
-
-        Base::m_progress.setMessage(std::string("saving ") +
-                hugin_utils::stripPath(filename.str()));
-
-        vigra::ImageExportInfo exinfo(filename.str().c_str());
-        exinfo.setXResolution(150);
-        exinfo.setYResolution(150);
-        exinfo.setICCProfile(remapped.m_ICCProfile);
-        if (opts.tiff_saveROI) {
-            exinfo.setPosition(remapped.boundingBox().upperLeft());
-            exinfo.setCanvasSize(vigra::Size2D(opts.getWidth(), opts.getHeight()));
-        } else {
-            exinfo.setPosition(opts.getROI().upperLeft());
-            exinfo.setCanvasSize(vigra::Size2D(opts.getWidth(), opts.getHeight()));
-        }
-        if (opts.outputPixelType.size() > 0) {
-            exinfo.setPixelType(opts.outputPixelType.c_str());
-        }
-        bool supportsAlpha = true;
-        if (ext == "tif") {
-            exinfo.setCompression(opts.tiffCompression.c_str());
-        } else {
-            if (ext == "jpg") {
-                std::ostringstream quality;
-                quality << "JPEG QUALITY=" << opts.quality;
-                exinfo.setCompression(quality.str().c_str());
-                supportsAlpha = false;
-            };
-        }
-
-        if(subImage.area()>0) {
-            if (supportsAlpha) {
-                vigra::exportImageAlpha(srcImageRange(*final_img, subImage), srcImage(*alpha_img), exinfo);
-            } else {
-                vigra::exportImage(srcImageRange(*final_img, subImage), exinfo);
-            };
-        } else {
-            if (supportsAlpha) {
-                vigra::exportImageAlpha(srcImageRange(*final_img), srcImage(*alpha_img), exinfo);
-            } else {
-                vigra::exportImage(srcImageRange(*final_img), exinfo);
-            };
-        };
+        detail::saveRemapped(remapped, imgNr, nImg, opts, m_basename, Base::m_progress);
 
         if (opts.saveCoordImgs) {
             vigra::UInt16Image xImg;
@@ -518,33 +483,6 @@ protected:
     vigra::TiffImage * m_tiff;
 };
 
-
-typedef std::vector<std::pair<float, unsigned int> > AlphaVector;
-
-/** functor to calculate the union of two images. also calculates the
- *  size of the union
- */
-struct CalcMaskUnion
-{
-    CalcMaskUnion()
-	: count(0)
-    { }
-
-    template<typename PIXEL>
-    PIXEL operator()(PIXEL const & img1, PIXEL const & img2)
-    {
-	if (img1 > vigra::NumericTraits<PIXEL>::zero() && img2 > vigra::NumericTraits<PIXEL>::zero()) {
-	    count++;
-	    return img1;
-	} else {
-	    return vigra::NumericTraits<PIXEL>::zero();
-	}
-    }
-
-    int count;
-};
-
-
 template <typename ImageType, typename AlphaType>
 class WeightedStitcher : public Stitcher<ImageType, AlphaType>
 {
@@ -559,28 +497,27 @@ public:
 
     virtual ~WeightedStitcher() {};
 
-    template<class ImgIter, class ImgAccessor,
-             class AlphaIter, class AlphaAccessor>
     void stitch(const PanoramaOptions & opts, UIntSet & imgSet,
-                        vigra::triple<ImgIter, ImgIter, ImgAccessor> pano,
-                        std::pair<AlphaIter, AlphaAccessor> alpha,
+                        const std::string & filename,
+                        ImageType& pano,
+                        AlphaType& alpha,
                         SingleImageRemapper<ImageType, AlphaType> & remapper,
-                        bool ignoreExposure = false)
+                        const bool ignoreExposure = false,
+                        const bool saveIntermediate = false)
     {
-        std::vector<unsigned int> images;
+        //std::vector<unsigned int> images;
         // calculate stitching order
-        estimateBlendingOrder(Base::m_pano, imgSet, images);
+        //estimateBlendingOrder(Base::m_pano, imgSet, images);
 
-        unsigned int nImg = images.size();
+        const unsigned int nImg = imgSet.size();
 
         Base::m_progress.pushTask(AppBase::ProgressTask("Stitching", "", 1.0/(nImg)));	
-        // empty ROI
-        vigra::Rect2D panoROI;
 
         int i=0;
+        const bool wrap = (opts.getHFOV() == 360.0) && (opts.getWidth()==opts.getROI().width());
         // remap each image and blend into main pano image
-        for (UIntVector::const_iterator it = images.begin();
-             it != images.end(); ++it)
+        //for (UIntVector::const_iterator it = images.begin(); it != images.end(); ++it)
+        for (UIntSet::const_iterator it = imgSet.begin(); it != imgSet.end(); ++it)
         {
             // get a remapped image.
             DEBUG_DEBUG("remapping image: " << *it);
@@ -596,13 +533,18 @@ public:
             {
                 iccProfile=remapped->m_ICCProfile;
             };
+            if (saveIntermediate)
+            {
+                modOptions.outputFormat = PanoramaOptions::TIFF_m;
+                modOptions.tiff_saveROI = true;
+                detail::saveRemapped(*remapped, *it, nImg, modOptions, filename, Base::m_progress);
+            }
             Base::m_progress.setMessage("blending");
             // add image to pano and panoalpha, adjusts panoROI as well.
             try {
-                vigra_ext::blend(*remapped, pano, alpha, panoROI,
-                                 Base::m_progress);
+                vigra_ext::MergeImages<ImageType, AlphaType>(pano, alpha, remapped->m_image, remapped->m_mask, vigra::Diff2D(remapped->boundingBox().upperLeft()), wrap);
                 // update bounding box of the panorama
-                panoROI = panoROI | remapped->boundingBox();
+                m_panoROI |= remapped->boundingBox();
             } catch (vigra::PreconditionViolation & e) {
                 DEBUG_ERROR("exception during stitching" << e.what());
                 // this can be thrown, if an image
@@ -617,7 +559,8 @@ public:
     void stitch(const PanoramaOptions & opts, UIntSet & imgSet,
                         const std::string & filename,
                         SingleImageRemapper<ImageType, AlphaType> & remapper,
-                        bool ignoreExposure = false)
+                        const bool ignoreExposure = false,
+                        const bool saveIntermediate = false)
     {
         Base::stitch(opts, imgSet, filename, remapper);
 
@@ -627,7 +570,7 @@ public:
         ImageType pano(opts.getWidth(), opts.getHeight());
         AlphaType panoMask(opts.getWidth(), opts.getHeight());
 
-        stitch(opts, imgSet, vigra::destImageRange(pano), vigra::destImage(panoMask), remapper, ignoreExposure);
+        stitch(opts, imgSet, filename, pano, panoMask, remapper, ignoreExposure, saveIntermediate);
 	
 	    std::string ext = opts.getOutputExtension();
         std::string cext = hugin_utils::tolower(hugin_utils::getExtension(basename));
@@ -655,17 +598,19 @@ public:
             std::ostringstream quality;
             quality << "JPEG QUALITY=" << opts.quality;
             exinfo.setCompression(quality.str().c_str());
-            vigra::exportImage(srcImageRange(pano), exinfo);
+            vigra::exportImage(srcImageRange(pano, m_panoROI), exinfo);
         } else if (opts.outputFormat == PanoramaOptions::TIFF) {
             exinfo.setCompression(opts.tiffCompression.c_str());
-            vigra::exportImageAlpha(srcImageRange(pano),
-                                           srcImage(panoMask), exinfo);
+            exinfo.setCanvasSize(pano.size());
+            exinfo.setPosition(m_panoROI.upperLeft());
+            vigra::exportImageAlpha(srcImageRange(pano, m_panoROI),
+                                           srcImage(panoMask, m_panoROI.upperLeft()), exinfo);
         } else if (opts.outputFormat == PanoramaOptions::HDR) {
             exinfo.setPixelType("FLOAT");
             vigra::exportImage(srcImageRange(pano), exinfo);
         } else {
-            vigra::exportImageAlpha(srcImageRange(pano),
-                                           srcImage(panoMask), exinfo);
+            vigra::exportImageAlpha(srcImageRange(pano, m_panoROI),
+                                           srcImage(panoMask, m_panoROI.upperLeft()), exinfo);
         }
         /*
 #ifdef DEBUG
@@ -678,6 +623,7 @@ public:
 
 protected:
     vigra::ImageImportInfo::ICCProfile iccProfile;
+    vigra::Rect2D m_panoROI;
 };
 
 
@@ -1048,29 +994,6 @@ public:
     }
 };
 
-/** seam blender. */
-struct SeamBlender
-{
-public:
-
-    /** blend \p img into \p pano, using \p alpha mask and \p panoROI
-     *
-     *  updates \p pano, \p alpha and \p panoROI
-     */
-    template <typename ImageType, typename AlphaType,
-              typename PanoIter, typename PanoAccessor,
-              typename AlphaIter, typename AlphaAccessor>
-    void operator()(RemappedPanoImage<ImageType, AlphaType> & img,
-                    vigra::triple<PanoIter, PanoIter, PanoAccessor> pano,
-                    std::pair<AlphaIter, AlphaAccessor> alpha,
-                    const vigra::Rect2D & panoROI)
-    {
-        DEBUG_DEBUG("pano roi: " << panoROI << " img roi: " << img.boundingBox());
-        AppBase::MultiProgressDisplay dummy;
-        vigra_ext::blend(img, pano, alpha, panoROI, dummy);
-    }
-};
-
 /** blend by difference */
 struct DifferenceBlender
 {
@@ -1181,7 +1104,8 @@ static void stitchPanoIntern(const PanoramaData & pano,
                              AppBase::MultiProgressDisplay & progress,
                              const std::string & basename,
                              UIntSet imgs,
-                             bool ignoreExposure = false)
+                             const bool ignoreExposure = false,
+                             const bool saveIntermediate = false)
 {
     using namespace vigra_ext;
     
@@ -1203,7 +1127,7 @@ static void stitchPanoIntern(const PanoramaData & pano,
                 stitcher.stitch(opts, imgs, basename, m, hdrmerge);
             } else {
                 WeightedStitcher<ImageType, AlphaType> stitcher(pano, progress);
-                stitcher.stitch(opts, imgs, basename, m, ignoreExposure);
+                stitcher.stitch(opts, imgs, basename, m, ignoreExposure, saveIntermediate);
             }
             break;
         }
@@ -1240,11 +1164,12 @@ static void stitchPanoIntern(const PanoramaData & pano,
  *
  */
 IMPEX void stitchPanorama(const PanoramaData & pano,
-		            const PanoramaOptions & opts,
-		            AppBase::MultiProgressDisplay & progress,
-		            const std::string & basename,
+                    const PanoramaOptions & opts,
+                    AppBase::MultiProgressDisplay & progress,
+                    const std::string & basename,
                     const UIntSet & usedImgs,
-                    bool ignoreExposure = false);
+                    const bool ignoreExposure = false,
+                    const bool saveIntermediate = false);
 
 // the instantiations of the stitching functions have been divided into two .cpp
 // files, because g++ will use too much memory otherwise (> 1.5 GB)
@@ -1255,7 +1180,8 @@ void stitchPanoGray_8_16(const PanoramaData & pano,
                          const std::string & basename,
                          const UIntSet & usedImgs,
                          const char * pixelType,
-                         bool ignoreExposure = false);
+                         const bool ignoreExposure = false,
+                         const bool saveIntermediate = false);
 
 void stitchPanoGray_32_float(const PanoramaData & pano,
                              const PanoramaOptions & opts,
@@ -1263,7 +1189,8 @@ void stitchPanoGray_32_float(const PanoramaData & pano,
                              const std::string & basename,
                              const UIntSet & usedImgs,
                              const char * pixelType,
-                             bool ignoreExposure = false);
+                             const bool ignoreExposure = false,
+                             const bool saveIntermediate = false);
 
 
 void stitchPanoRGB_8_16(const PanoramaData & pano,
@@ -1272,7 +1199,8 @@ void stitchPanoRGB_8_16(const PanoramaData & pano,
                         const std::string & basename,
                         const UIntSet & usedImgs,
                         const char * pixelType,
-                        bool ignoreExposure = false);
+                        const bool ignoreExposure = false,
+                        const bool saveIntermediate = false);
 
 void stitchPanoRGB_32_float(const PanoramaData & pano,
                             const PanoramaOptions & opts,
@@ -1280,7 +1208,8 @@ void stitchPanoRGB_32_float(const PanoramaData & pano,
                             const std::string & basename,
                             const UIntSet & usedImgs,
                             const char * pixelType,
-                            bool ignoreExposure = false);
+                            const bool ignoreExposure = false,
+                            const bool saveIntermediate = false);
 
 } // namespace
 } // namespace

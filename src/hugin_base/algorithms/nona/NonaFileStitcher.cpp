@@ -48,7 +48,8 @@ namespace HuginBase {
                        *progDisp,
                        o_filename,
                        o_usedImages,
-                       m_ignoreExposure);
+                       m_ignoreExposure,
+                       m_saveIntermediate);
            
         delete progDisp;
         

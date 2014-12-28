@@ -32,6 +32,7 @@
 #include <vigra/functorexpression.hxx>
 
 #include <vigra_ext/FunctorAccessor.h>
+#include <hugin_utils/utils.h>
 
 #include <tiffio.h>
 

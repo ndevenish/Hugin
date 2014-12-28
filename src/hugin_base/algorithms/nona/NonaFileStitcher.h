@@ -50,8 +50,9 @@ namespace HuginBase {
                                const PanoramaOptions& options,
                                const UIntSet& usedImages,
                                const String& filename,
-                               bool ignoreExposure)
-            : FileOutputStitcherAlgorithm(panoramaData, progressDisplay, options, usedImages, filename, true), m_ignoreExposure(ignoreExposure)
+                               const bool ignoreExposure,
+                               const bool saveIntermediate)
+                               : FileOutputStitcherAlgorithm(panoramaData, progressDisplay, options, usedImages, filename, true), m_ignoreExposure(ignoreExposure), m_saveIntermediate(saveIntermediate)
         {};
         
         ///
@@ -64,6 +65,7 @@ namespace HuginBase {
         
     private:
         bool m_ignoreExposure;
+        bool m_saveIntermediate;
     };
 
     

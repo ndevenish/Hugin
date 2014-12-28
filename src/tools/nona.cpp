@@ -81,7 +81,7 @@ static void usage(const char* name)
          << "      -i num     remap only image with number num" << std::endl
          << "                   (can be specified multiple times)" << std::endl
          << "      -m str     set output file format (TIFF, TIFF_m, TIFF_multilayer," << std::endl
-         << "                    EXR, EXR_m, JPEG_m, PNG_m)" << std::endl
+         << "                    EXR, EXR_m, JPEG, JPEG_m, PNG, PNG_m)" << std::endl
          << "      -r ldr/hdr set output mode." << std::endl
          << "                   ldr  keep original bit depth and response" << std::endl
          << "                   hdr  merge to hdr" << std::endl
@@ -101,6 +101,8 @@ static void usage(const char* name)
          << "                   DEFLATE   deflate compression" << std::endl
          << "      --ignore-exposure  don't correct exposure" << std::endl
          << "                   (this does not work with -e switch together)" << std::endl
+         << "      --save-intermediate-images  saves also the intermediate" << std::endl
+         << "                   images (only when output is TIFF, PNG or JPEG)" << std::endl
          << std::endl;
 }
 
@@ -123,17 +125,20 @@ int main(int argc, char* argv[])
     bool overrideExposure = false;
     double exposure=0;
     bool ignoreExposure = false;
+    bool saveIntermediateImages = false;
     int verbose = 0;
     bool useGPU = false;
     string outputPixelType;
 
     enum
     {
-        IGNOREEXPOSURE=1000
+        IGNOREEXPOSURE=1000,
+        SAVEINTERMEDIATEIMAGES
     };
     static struct option longOptions[] =
     {
         { "ignore-exposure", no_argument, NULL, IGNOREEXPOSURE },
+        { "save-intermediate-images", no_argument, NULL, SAVEINTERMEDIATEIMAGES },
         0
     };
     
@@ -180,6 +185,9 @@ int main(int argc, char* argv[])
                 break;
             case IGNOREEXPOSURE:
                 ignoreExposure = true;
+                break;
+            case SAVEINTERMEDIATEIMAGES:
+                saveIntermediateImages = true;
                 break;
             case '?':
             case 'h':
@@ -259,48 +267,86 @@ int main(int argc, char* argv[])
     }
     PanoramaOptions  opts = pano.getOptions();
 
-    if (compression.size() > 0)
-    {
-        opts.tiffCompression=compression;
-    }
-
     // save coordinate images, if requested
     opts.saveCoordImgs = doCoord;
     if (outputFormat == "TIFF_m")
     {
         opts.outputFormat = PanoramaOptions::TIFF_m;
+        opts.outputImageType = "tif";
     }
     else if (outputFormat == "JPEG_m")
     {
         opts.outputFormat = PanoramaOptions::JPEG_m;
         opts.tiff_saveROI = false;
+        opts.outputImageType = "jpg";
+    }
+    else if (outputFormat == "JPEG")
+    {
+        opts.outputFormat = PanoramaOptions::JPEG;
+        opts.tiff_saveROI = false;
+        opts.outputImageType = "jpg";
     }
     else if (outputFormat == "PNG_m")
     {
         opts.outputFormat = PanoramaOptions::PNG_m;
         opts.tiff_saveROI = false;
+        opts.outputImageType = "png";
+    }
+    else if (outputFormat == "PNG")
+    {
+        opts.outputFormat = PanoramaOptions::PNG;
+        opts.tiff_saveROI = false;
+        opts.outputImageType = "png";
     }
     else if (outputFormat == "TIFF")
     {
         opts.outputFormat = PanoramaOptions::TIFF;
+        opts.outputImageType = "tif";
     }
     else if (outputFormat == "TIFF_multilayer")
     {
         opts.outputFormat = PanoramaOptions::TIFF_multilayer;
+        opts.outputImageType = "tif";
     }
     else if (outputFormat == "EXR_m")
     {
         opts.outputFormat = PanoramaOptions::EXR_m;
+        opts.outputImageType = "exr";
     }
     else if (outputFormat == "EXR")
     {
         opts.outputFormat = PanoramaOptions::EXR;
+        opts.outputImageType = "exr";
     }
     else if (outputFormat != "")
     {
         cerr << "Error: unknown output format: " << outputFormat << endl;
         return 1;
     }
+
+    if (compression.size() > 0)
+    {
+        if (opts.outputImageType == "tif")
+        {
+            opts.tiffCompression = compression;
+        }
+        else
+        {
+            if (opts.outputImageType == "jpg")
+            {
+                int q = atoi(compression.c_str());
+                if (q > 0 && q <= 100)
+                {
+                    opts.quality = q;
+                }
+                else
+                {
+                    std::cerr << "WARNING: \"" << compression << "\" is not valid compression value for jpeg images." << std::endl
+                        << "         Using value " << opts.quality << " found in pto file." << std::endl;
+                };
+            };
+        };
+    };
 
     if (outputPixelType.size() > 0)
     {
@@ -373,7 +419,7 @@ int main(int argc, char* argv[])
         pano.setOptions(opts);
 
         // stitch panorama
-        NonaFileOutputStitcher(pano, pdisp, opts, outputImages, basename, ignoreExposure).run();
+        NonaFileOutputStitcher(pano, pdisp, opts, outputImages, basename, ignoreExposure, saveIntermediateImages).run();
         // add a final newline, after the last progress message
         if (verbose > 0)
         {

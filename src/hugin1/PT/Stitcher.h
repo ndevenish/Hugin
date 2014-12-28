@@ -36,14 +36,11 @@ namespace PT {
     using HuginBase::Nona::Stitcher;
     using HuginBase::Nona::MultiImageRemapper;
     using HuginBase::Nona::TiffMultiLayerRemapper;
-    using HuginBase::Nona::AlphaVector;
-    using HuginBase::Nona::CalcMaskUnion;
     using HuginBase::Nona::WeightedStitcher;
     using HuginBase::Nona::ReduceToDifferenceFunctor;
     using HuginBase::Nona::ReduceStitcher;
     using HuginBase::Nona::SimpleStitcher;
     using HuginBase::Nona::StackingBlender;
-    using HuginBase::Nona::SeamBlender;
     using HuginBase::Nona::DifferenceBlender;
     using HuginBase::Nona::stitchPanoIntern;
     using HuginBase::Nona::stitchPanorama;

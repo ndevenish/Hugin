@@ -34,14 +34,15 @@ void HuginBase::Nona::stitchPanoRGB_8_16(const PanoramaData & pano,
                             const std::string & basename,
                             const UIntSet & usedImgs,
                             const char * pixelType,
-                            bool ignoreExposure)
+                            const bool ignoreExposure,
+                            const bool saveIntermediate)
 {
     if (strcmp(pixelType, "UINT8") == 0 ) {
-        stitchPanoIntern<BRGBImage, BImage>(pano, opts, progress, basename, usedImgs, ignoreExposure);
+        stitchPanoIntern<BRGBImage, BImage>(pano, opts, progress, basename, usedImgs, ignoreExposure, saveIntermediate);
     } else if (strcmp(pixelType, "INT16") == 0 ) {
-        stitchPanoIntern<SRGBImage, BImage>(pano, opts, progress, basename, usedImgs, ignoreExposure);
+        stitchPanoIntern<SRGBImage, BImage>(pano, opts, progress, basename, usedImgs, ignoreExposure, saveIntermediate);
     } else if (strcmp(pixelType, "UINT16") == 0 ) {
-        stitchPanoIntern<UInt16RGBImage, BImage>(pano, opts, progress, basename, usedImgs, ignoreExposure);
+        stitchPanoIntern<UInt16RGBImage, BImage>(pano, opts, progress, basename, usedImgs, ignoreExposure, saveIntermediate);
     } else {
         UTILS_THROW(std::runtime_error, "Unsupported pixel type: " << pixelType );
         return;
