@@ -34,10 +34,14 @@
 /** Fills a wxControlWithItem with all input projection formats, 
   * the client data contains the associated projection number */
 WXIMPEX void FillLensProjectionList(wxControlWithItems* list);
-/** Selects the given projection in the given list item */
-WXIMPEX void SelectProjection(wxControlWithItems* list,size_t new_projection);
-/** Returns the selected projection number from list */
-WXIMPEX size_t GetSelectedProjection(wxControlWithItems* list);
+/** Fills a wxControlWithItem with all possible blender options,
+* the client data contains the associated blender mod from PanoramaOptions */
+WXIMPEX void FillBlenderList(wxControlWithItems* list);
+
+/** Selects the given value (stored in the client data) in the given list item */
+WXIMPEX void SelectListValue(wxControlWithItems* list,size_t newValue);
+/** Returns the client value of the selected item from list */
+WXIMPEX size_t GetSelectedValue(wxControlWithItems* list);
 
 /** Returns translated projection for given image */
 WXIMPEX wxString getProjectionString(const HuginBase::SrcPanoImage& img);

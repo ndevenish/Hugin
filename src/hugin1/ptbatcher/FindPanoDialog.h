@@ -86,6 +86,7 @@ private:
     wxSpinCtrl* m_sc_minNumberImages;
     wxSpinCtrl* m_sc_maxTimeDiff;
     wxImageList* m_thumbs;
+    wxChoice* m_ch_blender;
 
     std::vector<PossiblePano*> m_panos;
     wxString m_start_dir;
@@ -135,7 +136,7 @@ public:
     const wxString GetFilestring(const wxString BasePath, const bool stripExtension=false) const;
     /** generates the panorama file from this set of images
       * @return the generated project file, or wxEmptyString if generation failed */
-    wxString GeneratePanorama(NamingConvention nc, bool createLinks);
+    wxString GeneratePanorama(NamingConvention nc, bool createLinks, HuginBase::PanoramaOptions::BlendingMechanism defaultBlender);
     /** returns the camera name */
     wxString GetCameraName();
     /** returns the lens name */

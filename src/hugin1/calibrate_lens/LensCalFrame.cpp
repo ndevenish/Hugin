@@ -387,7 +387,7 @@ void LensCalFrame::AddImages(wxArrayString files)
                 hugin_utils::doubleTowxString(image->GetPanoImage()->getCropFactor(), 2)
                 );
         };
-        SelectProjection(m_choice_projection,image->GetPanoImage()->getProjection());
+        SelectListValue(m_choice_projection,image->GetPanoImage()->getProjection());
     }
     UpdateList(false);
     m_images_list->SetSelection(m_images_list->GetCount()-1);
@@ -559,7 +559,7 @@ bool LensCalFrame::ReadInputs(bool readFocalLength,bool readOptions,bool readLen
 {
     if(readFocalLength)
     {
-        m_projection=(SrcPanoImage::Projection)GetSelectedProjection(m_choice_projection);
+        m_projection = (SrcPanoImage::Projection)GetSelectedValue(m_choice_projection);
         if(!str2double(XRCCTRL(*this,"lenscal_focallength",wxTextCtrl)->GetValue(),m_focallength))
             return false;
         if(m_focallength<1)

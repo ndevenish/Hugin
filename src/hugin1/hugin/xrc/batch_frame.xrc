@@ -209,16 +209,16 @@
                             <border>12</border>
                           </object>
                           <object class="spacer">
-                            <size>24,-1</size>
+                            <size>-1,12</size>
                           </object>
                           <object class="sizeritem">
                             <object class="wxButton" name="find_pano_start_stop">
                               <label>Start</label>
                             </object>
-                            <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                            <flag>wxALL|wxALIGN_CENTRE_VERTICAL|wxALIGN_CENTRE_HORIZONTAL</flag>
                             <border>6</border>
                           </object>
-                          <orient>wxHORIZONTAL</orient>
+                          <orient>wxVERTICAL</orient>
                         </object>
                         <flag>wxALL|wxEXPAND</flag>
                         <border>6</border>
@@ -319,11 +319,28 @@
                               <label>Load vignetting data</label>
                               <tooltip>Tries to load vignetting data from lens database if checked.</tooltip>
                             </object>
+                            <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
                             <cellpos>4,1</cellpos>
                           </object>
                           <vgap>6</vgap>
                           <hgap>12</hgap>
                           <growablecols>1</growablecols>
+                          <object class="sizeritem">
+                            <object class="wxStaticText">
+                              <label>Blender:</label>
+                            </object>
+                            <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                            <cellpos>5,0</cellpos>
+                          </object>
+                          <object class="sizeritem">
+                            <object class="wxChoice" name="find_pano_default_blender">
+                              <content>
+                                <item></item>
+                              </content>
+                            </object>
+                            <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                            <cellpos>5,1</cellpos>
+                          </object>
                         </object>
                         <flag>wxALL|wxEXPAND</flag>
                         <border>12</border>

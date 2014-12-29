@@ -78,7 +78,7 @@ HFOVDialog::HFOVDialog(wxWindow * parent, SrcPanoImage & srcImg)
     wxString message;
     message.Printf(_("No or only partial information about field of view was found in image file\n%s\n\nPlease enter the horizontal field of view (HFOV) or the focal length and crop factor."), fn.c_str());
     XRCCTRL(*this, "lensdlg_message", wxStaticText)->SetLabel(message);
-    SelectProjection(m_projChoice,m_srcImg.getProjection());
+    SelectListValue(m_projChoice, m_srcImg.getProjection());
 
     if (m_cropFactor > 0 && m_focalLength > 0) {
         // everything is well known.. compute HFOV
@@ -115,7 +115,7 @@ HFOVDialog::HFOVDialog(wxWindow * parent, SrcPanoImage & srcImg)
 
 void HFOVDialog::OnTypeChanged(wxCommandEvent & e)
 {
-    SrcPanoImage::Projection new_proj=(SrcPanoImage::Projection)(GetSelectedProjection(m_projChoice));
+    SrcPanoImage::Projection new_proj = (SrcPanoImage::Projection)(GetSelectedValue(m_projChoice));
     DEBUG_DEBUG("new type: " << new_proj);
     m_srcImg.setProjection(new_proj);
     if (m_cropFactor > 0 && m_focalLength > 0) {
@@ -348,7 +348,7 @@ void HFOVDialog::OnLoadLensParameters(wxCommandEvent & e)
         m_cropText->SetValue(m_cropFactorStr);
         m_HFOVStr = doubleTowxString(m_HFOV,2);
         m_hfovText->SetValue(m_HFOVStr);
-        SelectProjection(m_projChoice, m_srcImg.getProjection());
+        SelectListValue(m_projChoice, m_srcImg.getProjection());
 
         // update lens type
         m_okButton->Enable();

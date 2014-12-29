@@ -47,11 +47,19 @@ void FillLensProjectionList(wxControlWithItems* list)
     list->SetSelection(0);
 };
 
-void SelectProjection(wxControlWithItems* list,size_t new_projection)
+void FillBlenderList(wxControlWithItems* list)
+{
+    list->Clear();
+    list->Append(_("enblend"), (void*)HuginBase::PanoramaOptions::ENBLEND_BLEND);
+    list->Append(_("builtin"), (void*)HuginBase::PanoramaOptions::INTERNAL_BLEND);
+    list->SetSelection(0);
+};
+
+void SelectListValue(wxControlWithItems* list, size_t newValue)
 {
     for(unsigned int i=0;i<list->GetCount();i++)
     {
-        if((size_t)list->GetClientData(i)==new_projection)
+        if((size_t)list->GetClientData(i)==newValue)
         {
             list->SetSelection(i);
             return;
@@ -60,7 +68,7 @@ void SelectProjection(wxControlWithItems* list,size_t new_projection)
     list->SetSelection(0);
 };
 
-size_t GetSelectedProjection(wxControlWithItems* list)
+size_t GetSelectedValue(wxControlWithItems* list)
 {
     return (size_t)(list->GetClientData(list->GetSelection()));
 };

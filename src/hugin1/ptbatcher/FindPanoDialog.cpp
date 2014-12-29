@@ -37,6 +37,7 @@
 #ifdef _WIN32
 #include <CommCtrl.h>
 #endif
+#include "base_wx/LensTools.h"
 
 BEGIN_EVENT_TABLE(FindPanoDialog,wxDialog)
     EVT_BUTTON(XRCID("find_pano_close"), FindPanoDialog::OnButtonClose)
@@ -85,6 +86,8 @@ FindPanoDialog::FindPanoDialog(BatchFrame* batchframe, wxString xrcPrefix)
     m_cb_loadVignetting=XRCCTRL(*this,"find_pano_load_vignetting",wxCheckBox);
     m_sc_minNumberImages=XRCCTRL(*this, "find_pano_min_number_images", wxSpinCtrl);
     m_sc_maxTimeDiff=XRCCTRL(*this, "find_pano_max_time_diff", wxSpinCtrl);
+    m_ch_blender = XRCCTRL(*this, "find_pano_default_blender", wxChoice);
+    FillBlenderList(m_ch_blender);
 
     //set parameters
     wxConfigBase* config = wxConfigBase::Get();
@@ -146,6 +149,8 @@ FindPanoDialog::FindPanoDialog(BatchFrame* batchframe, wxString xrcPrefix)
     m_sc_minNumberImages->SetValue(i);
     i=config->Read(wxT("/FindPanoDialog/MaxTimeDiff"), 30l);
     m_sc_maxTimeDiff->SetValue(i);
+    i = config->Read(wxT("/FindPanoDialog/DefaultBlender"), static_cast<long>(HuginBase::PanoramaOptions::ENBLEND_BLEND));
+    SelectListValue(m_ch_blender, i);
     m_button_send->Disable();
     m_thumbs = new wxImageList(THUMBSIZE, THUMBSIZE, true, 0);
     wxListCtrl* thumbs_list = XRCCTRL(*this, "find_pano_selected_thumbslist", wxListCtrl);
@@ -183,6 +188,7 @@ FindPanoDialog::~FindPanoDialog()
     config->Write(wxT("/FindPanoDialog/loadVignetting"),m_cb_loadDistortion->GetValue());
     config->Write(wxT("/FindPanoDialog/MinNumberImages"), m_sc_minNumberImages->GetValue());
     config->Write(wxT("/FindPanoDialog/MaxTimeDiff"), m_sc_maxTimeDiff->GetValue());
+    config->Write(wxT("/FindPanoDialog/DefaultBlender"), static_cast<long>(GetSelectedValue(m_ch_blender)));
     CleanUpPanolist();
     delete m_thumbs;
 };
@@ -304,7 +310,8 @@ void FindPanoDialog::OnButtonSend(wxCommandEvent& e)
     {
         if(m_list_pano->IsChecked(i))
         {
-            wxString filename=m_panos[i]->GeneratePanorama((PossiblePano::NamingConvention)(m_ch_naming->GetSelection()),createLinks);
+            wxString filename=m_panos[i]->GeneratePanorama((PossiblePano::NamingConvention)(m_ch_naming->GetSelection()),createLinks, 
+                static_cast<HuginBase::PanoramaOptions::BlendingMechanism>(GetSelectedValue(m_ch_blender)));
             if(!filename.IsEmpty())
             {
                 m_batchframe->AddToList(filename,Project::DETECTING);
@@ -653,7 +660,7 @@ bool PossiblePano::GetNewProjectFilename(NamingConvention nc,const wxString base
     return true;
 };
 
-wxString PossiblePano::GeneratePanorama(NamingConvention nc,bool createLinks)
+wxString PossiblePano::GeneratePanorama(NamingConvention nc, bool createLinks, HuginBase::PanoramaOptions::BlendingMechanism defaultBlender)
 {
     if(m_images.empty())
     {
@@ -749,7 +756,7 @@ wxString PossiblePano::GeneratePanorama(NamingConvention nc,bool createLinks)
             break;
     }
     opts.outputFormat = PanoramaOptions::TIFF_m;
-    opts.blendMode = PanoramaOptions::ENBLEND_BLEND;
+    opts.blendMode = defaultBlender;
     opts.enblendOptions = config->Read(wxT("Enblend/Args"),wxT(HUGIN_ENBLEND_ARGS)).mb_str(wxConvLocal);
     opts.enfuseOptions = config->Read(wxT("Enfuse/Args"),wxT(HUGIN_ENFUSE_ARGS)).mb_str(wxConvLocal);
     opts.interpolator = (vigra_ext::Interpolator)config->Read(wxT("Nona/Interpolator"),HUGIN_NONA_INTERPOLATOR);

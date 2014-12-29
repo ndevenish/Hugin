@@ -54,6 +54,7 @@ extern "C" {
 #include "hugin/config_defaults.h"
 #include "base_wx/platform.h"
 #include "base_wx/huginConfig.h"
+#include "base_wx/LensTools.h"
 #include "algorithms/basic/LayerStacks.h"
 #include "lensdb/LensDB.h"
 
@@ -217,10 +218,7 @@ bool PanoPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, cons
     DEBUG_ASSERT(m_HDRMergeChoice);
     m_BlenderChoice = XRCCTRL(*this, "pano_choice_blender", wxChoice);
     DEBUG_ASSERT(m_BlenderChoice);
-    m_BlenderChoice->Clear();
-    m_BlenderChoice->Append(_("enblend"), (void*)HuginBase::PanoramaOptions::ENBLEND_BLEND);
-    m_BlenderChoice->Append(_("builtin"), (void*)HuginBase::PanoramaOptions::INTERNAL_BLEND);
-    m_BlenderChoice->SetSelection(0);
+    FillBlenderList(m_BlenderChoice);
 
     m_StitchButton = XRCCTRL(*this, "pano_button_stitch", wxButton);
     DEBUG_ASSERT(m_StitchButton);
@@ -473,21 +471,7 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt, const bool hasStacks)
     m_BlenderChoice->Enable(blenderEnabled);
     m_BlenderChoice->Show(m_guiLevel>GUI_SIMPLE);
     // select correct blending mechanism
-    bool selectBlend = false;
-    for (size_t i = 0; i < m_BlenderChoice->GetCount(); ++i)
-    {
-        if ((size_t)opt.blendMode == (size_t)m_BlenderChoice->GetClientData(i))
-        {
-            m_BlenderChoice->SetSelection(i);
-            selectBlend = true;
-            break;
-        };
-    };
-    // fall through, just in case
-    if (!selectBlend)
-    {
-        m_BlenderChoice->SetSelection(0);
-    };
+    SelectListValue(m_BlenderChoice, opt.blendMode);
     XRCCTRL(*this, "pano_button_blender_opts", wxButton)->Enable(blenderEnabled && opt.blendMode!=HuginBase::PanoramaOptions::INTERNAL_BLEND);
     XRCCTRL(*this, "pano_button_blender_opts", wxButton)->Show(m_guiLevel>GUI_SIMPLE);
     XRCCTRL(*this, "pano_text_blender", wxStaticText)->Enable(blenderEnabled);
@@ -838,7 +822,7 @@ void PanoPanel::OnRemapperOptions(wxCommandEvent & e)
 void PanoPanel::BlenderChanged(wxCommandEvent & e)
 {
     PanoramaOptions opt = pano->getOptions();
-    opt.blendMode = static_cast<HuginBase::PanoramaOptions::BlendingMechanism>((size_t)m_BlenderChoice->GetClientData(m_BlenderChoice->GetSelection()));
+    opt.blendMode = static_cast<HuginBase::PanoramaOptions::BlendingMechanism>(GetSelectedValue(m_BlenderChoice));
 
     GlobalCmdHist::getInstance().addCommand(
             new PT::SetPanoOptionsCmd( *pano, opt )

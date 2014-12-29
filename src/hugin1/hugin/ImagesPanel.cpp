@@ -380,7 +380,7 @@ void ImagesPanel::OnSelectionChanged(wxTreeEvent & e)
 
         if(identical_projection)
         {
-            SelectProjection(m_lenstype, proj);
+            SelectListValue(m_lenstype, proj);
         }
         else
         {
@@ -500,7 +500,7 @@ void ImagesPanel::ReloadCPDetectorSettings()
 
 void ImagesPanel::OnLensTypeChanged (wxCommandEvent & e)
 {
-    size_t var = GetSelectedProjection(m_lenstype);
+    size_t var = GetSelectedValue(m_lenstype);
     UIntSet images=m_images_tree->GetSelectedImages();
     if(images.size()>0)
     {
