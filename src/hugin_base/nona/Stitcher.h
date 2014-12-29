@@ -598,6 +598,10 @@ public:
             std::ostringstream quality;
             quality << "JPEG QUALITY=" << opts.quality;
             exinfo.setCompression(quality.str().c_str());
+            // scale down to UInt8 if necessary
+            vigra_ext::ConvertTo8Bit(pano);
+            // force 8 bit depth for jpeg output
+            exinfo.setPixelType("UINT8");
             vigra::exportImage(srcImageRange(pano, m_panoROI), exinfo);
         } else if (opts.outputFormat == PanoramaOptions::TIFF) {
             exinfo.setCompression(opts.tiffCompression.c_str());

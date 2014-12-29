@@ -645,6 +645,28 @@ transformImageSpatial(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAcces
     transformImageSpatial(src.first, src.second, src.third, dest.first, dest.second, f, ul);
 }
 
+/** converts to given image to fit into 0..255 */
+template <class ImageType>
+void ConvertTo8Bit(ImageType& image)
+{
+    typedef vigra::NumericTraits<typename ImageType::PixelType> DestTraits;
+    double maxVal = vigra::NumericTraits<typename DestTraits::ValueType>::max();
+    double minVal = vigra::NumericTraits<typename DestTraits::ValueType>::min();
+    const std::string pixelType = vigra::TypeAsString<typename DestTraits::ValueType>::result();
+    int mapping = 0;
+    if (pixelType == "FLOAT" || pixelType == "DOUBLE")
+    {
+        vigra::FindMinMax<typename ImageType::PixelType> minmax;
+        vigra::inspectImage(srcImageRange(image), minmax);
+        minVal = vigra_ext::getMaxComponent(minmax.min);
+        maxVal = vigra_ext::getMaxComponent(minmax.max);
+        mapping = 1;
+    }
+    if (minVal != 0 || maxVal != 255)
+    {
+        vigra_ext::applyMapping(srcImageRange(image), destImage(image), minVal, maxVal, mapping);
+    };
+};
 
 } // namespace
 

@@ -37,6 +37,22 @@
 #include <hugin_utils/stl_utils.h>
 
 template <class ImageType, class MaskType>
+void SaveImage(ImageType& image, MaskType& mask, vigra::ImageExportInfo& exportImageInfo, std::string filetype, std::string pixelType, const vigra::Rect2D& roi, const int inputNumberBands)
+{
+    exportImageInfo.setPixelType(pixelType.c_str());
+    if (vigra::isBandNumberSupported(filetype, inputNumberBands))
+    {
+        vigra::exportImageAlpha(vigra::srcImageRange(image, roi), vigra::srcImage(mask, roi.upperLeft()), exportImageInfo);
+    }
+    else
+    {
+        std::cout << "Warning: Filetype " << filetype << " does not support alpha channel." << std::endl
+            << "Saving image without alpha channel." << std::endl;
+        vigra::exportImage(vigra::srcImageRange(image, roi), exportImageInfo);
+    };
+};
+
+template <class ImageType, class MaskType>
 void LoadAndMergeImages(std::vector<vigra::ImageImportInfo> imageInfos, const std::string& filename, const std::string& compression, const bool wrap)
 {
     if (imageInfos.empty())
@@ -76,20 +92,49 @@ void LoadAndMergeImages(std::vector<vigra::ImageImportInfo> imageInfos, const st
         exportImageInfo.setYResolution(imageInfos[0].getYResolution());
         exportImageInfo.setPosition(roi.upperLeft());
         exportImageInfo.setCanvasSize(mask.size());
-        exportImageInfo.setPixelType(imageInfos[0].getPixelType());
         exportImageInfo.setICCProfile(imageInfos[0].getICCProfile());
+        const std::string ext(hugin_utils::toupper(hugin_utils::getExtension(filename)));
         if (!compression.empty())
         {
-            exportImageInfo.setCompression(compression.c_str());
+            if (ext == "JPEG" || ext == "JPG")
+            {
+                exportImageInfo.setCompression(std::string("JPEG QUALITY=" + compression).c_str());
+            }
+            else
+            {
+                exportImageInfo.setCompression(compression.c_str());
+            };
         };
-        try
+
+        VIGRA_UNIQUE_PTR<vigra::Encoder> encoder(vigra::encoder(exportImageInfo));
+        if (vigra::isPixelTypeSupported(encoder->getFileType(), imageInfos[0].getPixelType()))
         {
-            vigra::exportImageAlpha(vigra::srcImageRange(image, roi), vigra::srcImage(mask, roi.upperLeft()), exportImageInfo);
+            SaveImage(image, mask, exportImageInfo, encoder->getFileType(), imageInfos[0].getPixelType(), roi, imageInfos[0].numBands());
         }
-        catch (...)
+        else
         {
-            std::cerr << "Warning: Output file format does not support alpha channel. Fall back to export image without alpha channel" << std::endl;
-            vigra::exportImage(vigra::srcImageRange(image, roi), exportImageInfo);
+            if (vigra::isPixelTypeSupported(encoder->getFileType(), "UINT16"))
+            {
+                // transform to UINT16
+                vigra::omp::transformImage(vigra::srcImageRange(image), vigra::destImage(image),
+                    vigra::linearIntensityTransform<ImageType::PixelType>(65535.0 / vigra::NumericTraits<typename vigra::NumericTraits<typename ImageType::PixelType>::ValueType>::max()));
+                SaveImage(image, mask, exportImageInfo, encoder->getFileType(), "UINT16", roi, imageInfos[0].numBands());
+            }
+            else
+            {
+                if (vigra::isPixelTypeSupported(encoder->getFileType(), "UINT8"))
+                {
+                    // transform to UINT8
+                    vigra_ext::ConvertTo8Bit(image);
+                    SaveImage(image, mask, exportImageInfo, encoder->getFileType(), "UINT8", roi, imageInfos[0].numBands());
+                }
+                else
+                {
+                    std::cerr << "ERROR: Output file type " << encoder->getFileType() << " does not support" << std::endl
+                        << "requested pixeltype " << imageInfos[0].getPixelType() << "." << std::endl
+                        << "Save output in other file format." << std::endl;
+                };
+            };
         };
     };
 };
