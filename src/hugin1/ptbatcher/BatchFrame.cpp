@@ -110,7 +110,6 @@ BEGIN_EVENT_TABLE(BatchFrame, wxFrame)
     EVT_BUTTON(XRCID("button_edit"),BatchFrame::OnButtonOpenWithHugin)
     EVT_BUTTON(XRCID("button_move_up"),BatchFrame::OnButtonMoveUp)
     EVT_BUTTON(XRCID("button_move_down"),BatchFrame::OnButtonMoveDown)
-    EVT_CHECKBOX(XRCID("cb_parallel"), BatchFrame::OnCheckParallel)
     EVT_CHECKBOX(XRCID("cb_overwrite"), BatchFrame::OnCheckOverwrite)
     EVT_CHOICE(XRCID("choice_end"), BatchFrame::OnChoiceEnd)
     EVT_CHECKBOX(XRCID("cb_verbose"), BatchFrame::OnCheckVerbose)
@@ -983,9 +982,6 @@ void BatchFrame::SetCheckboxes()
 {
     wxConfigBase* config=wxConfigBase::Get();
     int i;
-    i=config->Read(wxT("/BatchFrame/ParallelCheck"), 0l);
-    XRCCTRL(*this,"cb_parallel",wxCheckBox)->SetValue(i!=0);
-    m_batch->parallel=(i!=0);
     // read older version
 #if defined __WXMAC__ || defined __WXOSX_COCOA__
     i = 0;
@@ -1024,11 +1020,6 @@ void BatchFrame::SetCheckboxes()
     i=config->Read(wxT("/BatchFrame/SaveLog"), 0l);
     XRCCTRL(*this, "cb_savelog",wxCheckBox)->SetValue(i!=0);
     m_batch->saveLog=(i!=0);
-};
-
-bool BatchFrame::GetCheckParallel()
-{
-    return XRCCTRL(*this,"cb_parallel",wxCheckBox)->IsChecked();
 };
 
 Batch::EndTask BatchFrame::GetEndTask()
@@ -1072,20 +1063,6 @@ void BatchFrame::OnCheckOverwrite(wxCommandEvent& event)
     {
         m_batch->overwrite = false;
         wxConfigBase::Get()->Write(wxT("/BatchFrame/OverwriteCheck"), 0l);
-    }
-}
-
-void BatchFrame::OnCheckParallel(wxCommandEvent& event)
-{
-    if(event.IsChecked())
-    {
-        m_batch->parallel = true;
-        wxConfigBase::Get()->Write(wxT("/BatchFrame/ParallelCheck"), 1l);
-    }
-    else
-    {
-        m_batch->parallel = false;
-        wxConfigBase::Get()->Write(wxT("/BatchFrame/ParallelCheck"), 0l);
     }
 }
 
@@ -1202,7 +1179,6 @@ void BatchFrame::OnClose(wxCloseEvent& event)
 
 void BatchFrame::PropagateDefaults()
 {
-    m_batch->parallel=GetCheckParallel();
     m_batch->atEnd = GetEndTask();
     m_batch->overwrite=GetCheckOverwrite();
     m_batch->verbose=GetCheckVerbose();
@@ -1313,12 +1289,8 @@ void BatchFrame::SetStatusInformation(wxString status,bool showBalloon)
 
 void BatchFrame::OnProgress(wxCommandEvent& e)
 {
-    if (!m_batch->parallel)
-    {
-        // display progress only in sequential mode
-        m_progStatusBar->SetProgress(e.GetInt());
-        UpdateTaskBarProgressBar();
-    };
+    m_progStatusBar->SetProgress(e.GetInt());
+    UpdateTaskBarProgressBar();
 };
 
 void BatchFrame::UpdateTaskBarProgressBar()

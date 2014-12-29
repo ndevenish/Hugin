@@ -1148,10 +1148,6 @@ void PanoPanel::DoSendToBatch()
     {
         switches += wxT("-b ");
     }
-    if (wxConfigBase::Get()->Read(wxT("/Processor/parallel"), HUGIN_PROCESSOR_PARALLEL) != 0)
-    {
-        switches += wxT("-p ");
-    }
     if (wxConfigBase::Get()->Read(wxT("/Processor/overwrite"), HUGIN_PROCESSOR_OVERWRITE) != 0)
     {
         switches += wxT("-o ");

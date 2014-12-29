@@ -59,7 +59,6 @@ public:
         SUSPEND = 3,   // only implemented for Windows
         HIBERNATE = 4  // only implemented for Windows
     };
-    bool parallel;
     bool deleteFiles;
     EndTask atEnd;
     bool overwrite;

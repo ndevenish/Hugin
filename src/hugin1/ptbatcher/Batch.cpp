@@ -48,7 +48,6 @@ DEFINE_EVENT_TYPE(EVT_UPDATE_PARENT)
 Batch::Batch(wxFrame* parent) : wxFrame(parent, wxID_ANY, _T("Batch"))
 {
     //default flag settings
-    parallel = false;
     deleteFiles = false;
     atEnd = DO_NOTHING;
     overwrite = true;
@@ -608,24 +607,7 @@ void Batch::OnProcessTerminate(wxProcessEvent& event)
             }
             else
             {
-                if(parallel)	//if we are running in parallel
-                {
-                    //the last executed process in parallel runs next
-                    if(GetRunningCount() == 0)
-                    {
-                        //SetStatusText(_T("Project \""+m_projList.Item(i).path)+_T("\" finished. Running next project..."));
-                        RunNextInBatch();
-                    }
-                    else
-                    {
-                        //SetStatusText(_T("Project \""+m_projList.Item(i).path)+_T("\" finished. Waiting for all in parallel to complete..."));
-                    }
-                }
-                else
-                {
-                    //SetStatusText(_T("Project \""+m_projList.Item(i).path)+_T("\" finished. Running next project..."));
-                    RunNextInBatch();
-                }
+                RunNextInBatch();
             }
         }
         else
@@ -860,67 +842,29 @@ void Batch::RunNextInBatch()
         }
         else
         {
-            //we run in sequence
-            if(!parallel)
+            m_projList.Item(i).status=Project::RUNNING;
+            m_running = true;
+            if(m_projList.Item(i).target==Project::STITCHING)
             {
-                m_projList.Item(i).status=Project::RUNNING;
-                m_running = true;
-                if(m_projList.Item(i).target==Project::STITCHING)
-                {
-                    wxCommandEvent e(EVT_INFORMATION,wxID_ANY);
-                    e.SetString(wxString::Format(_("Now stitching: %s"),m_projList.Item(i).path.c_str()));
-                    GetParent()->GetEventHandler()->AddPendingEvent(e);
-                    value = OnStitch(m_projList.Item(i).path, m_projList.Item(i).prefix, m_projList.Item(i).id);
-                }
-                else
-                {
-                    wxCommandEvent e(EVT_INFORMATION,wxID_ANY);
-                    e.SetString(wxString::Format(_("Now detecting: %s"),m_projList.Item(i).path.c_str()));
-                    GetParent()->GetEventHandler()->AddPendingEvent(e);
-                    value = OnDetect(m_projList.Item(i).path,m_projList.Item(i).id);
-                };
-                if(!value)
-                {
-                    m_projList.Item(i).status=Project::FAILED;
-                }
-                else
-                {
-                    repeat = false;
-                }
+                wxCommandEvent e(EVT_INFORMATION,wxID_ANY);
+                e.SetString(wxString::Format(_("Now stitching: %s"),m_projList.Item(i).path.c_str()));
+                GetParent()->GetEventHandler()->AddPendingEvent(e);
+                value = OnStitch(m_projList.Item(i).path, m_projList.Item(i).prefix, m_projList.Item(i).id);
             }
             else
             {
-                while((i = GetFirstAvailable())!=-1)
-                {
-                    if(m_projList.Item(i).id<0)
-                    {
-                        break;
-                    }
-                    m_projList.Item(i).status=Project::RUNNING;
-                    m_running = true;
-                    if(m_projList.Item(i).target==Project::STITCHING)
-                    {
-                        wxCommandEvent e(EVT_INFORMATION,wxID_ANY);
-                        e.SetString(wxString::Format(_("Now stitching: %s"),m_projList.Item(i).path.c_str()));
-                        GetParent()->GetEventHandler()->AddPendingEvent(e);
-                        value = OnStitch(m_projList.Item(i).path, m_projList.Item(i).prefix, m_projList.Item(i).id);
-                    }
-                    else
-                    {
-                        wxCommandEvent e(EVT_INFORMATION,wxID_ANY);
-                        e.SetString(wxString::Format(_("Now detecting: %s"),m_projList.Item(i).path.c_str()));
-                        GetParent()->GetEventHandler()->AddPendingEvent(e);
-                        value = OnDetect(m_projList.Item(i).path,m_projList.Item(i).id);
-                    };
-                    if(!value)
-                    {
-                        m_projList.Item(i).status=Project::FAILED;
-                    }
-                    else
-                    {
-                        repeat = false;
-                    }
-                }
+                wxCommandEvent e(EVT_INFORMATION,wxID_ANY);
+                e.SetString(wxString::Format(_("Now detecting: %s"),m_projList.Item(i).path.c_str()));
+                GetParent()->GetEventHandler()->AddPendingEvent(e);
+                value = OnDetect(m_projList.Item(i).path,m_projList.Item(i).id);
+            };
+            if(!value)
+            {
+                m_projList.Item(i).status=Project::FAILED;
+            }
+            else
+            {
+                repeat = false;
             }
         }
     }
