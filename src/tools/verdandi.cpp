@@ -117,7 +117,7 @@ void LoadAndMergeImages(std::vector<vigra::ImageImportInfo> imageInfos, const st
             {
                 // transform to UINT16
                 vigra::omp::transformImage(vigra::srcImageRange(image), vigra::destImage(image),
-                    vigra::linearIntensityTransform<ImageType::PixelType>(65535.0 / vigra::NumericTraits<typename vigra::NumericTraits<typename ImageType::PixelType>::ValueType>::max()));
+                    vigra::linearIntensityTransform<typename ImageType::PixelType>(65535.0 / vigra::NumericTraits<typename vigra::NumericTraits<typename ImageType::PixelType>::ValueType>::max()));
                 SaveImage(image, mask, exportImageInfo, encoder->getFileType(), "UINT16", roi, imageInfos[0].numBands());
             }
             else
