@@ -29,6 +29,7 @@
 #include <hugin_math/hugin_math.h>
 #include <vigra/rgbvalue.hxx>
 #include <vigra/transformimage.hxx>
+#include <vigra/codec.hxx>
 #include <cmath>
 
 namespace vigra {
