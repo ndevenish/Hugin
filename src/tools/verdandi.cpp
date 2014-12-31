@@ -36,28 +36,95 @@
 #include <hugin_utils/utils.h>
 #include <hugin_utils/stl_utils.h>
 
+/** save image, when possible with alpha channel, take care of formats which does not support alpha channels */
 template <class ImageType, class MaskType>
-void SaveImage(ImageType& image, MaskType& mask, vigra::ImageExportInfo& exportImageInfo, std::string filetype, std::string pixelType, const vigra::Rect2D& roi, const int inputNumberBands)
+bool SaveImage(ImageType& image, MaskType& mask, vigra::ImageExportInfo& exportImageInfo, std::string filetype, std::string pixelType, const vigra::Rect2D& roi, const int inputNumberBands)
 {
     exportImageInfo.setPixelType(pixelType.c_str());
     if (vigra::isBandNumberSupported(filetype, inputNumberBands))
     {
         vigra::exportImageAlpha(vigra::srcImageRange(image, roi), vigra::srcImage(mask, roi.upperLeft()), exportImageInfo);
+        return true;
     }
     else
     {
-        std::cout << "Warning: Filetype " << filetype << " does not support alpha channel." << std::endl
-            << "Saving image without alpha channel." << std::endl;
-        vigra::exportImage(vigra::srcImageRange(image, roi), exportImageInfo);
+        if (vigra::isBandNumberSupported(filetype, inputNumberBands - 1))
+        {
+            std::cout << "Warning: Filetype " << filetype << " does not support alpha channels." << std::endl
+                << "Saving image without alpha channel." << std::endl;
+            vigra::exportImage(vigra::srcImageRange(image, roi), exportImageInfo);
+            return true;
+        }
+        else
+        {
+            std::cerr << "Error: Output filetype " << filetype << " does not support " << inputNumberBands << " channels." << std::endl
+                << "Can't save image." << std::endl;
+        };
+    };
+    return false;
+};
+
+/** save final image, take care of some supported pixel types and convert when necessary to smaller pixel type */
+template <class ImageType, class MaskType>
+bool SaveFinalImage(ImageType& image, MaskType& mask, const vigra::ImageImportInfo& input, vigra::ImageExportInfo& output, const vigra::Rect2D& roi)
+{
+    VIGRA_UNIQUE_PTR<vigra::Encoder> encoder(vigra::encoder(output));
+    if (vigra::isPixelTypeSupported(encoder->getFileType(), input.getPixelType()))
+    {
+        return SaveImage(image, mask, output, encoder->getFileType(), input.getPixelType(), roi, input.numBands());
+    }
+    else
+    {
+        if (vigra::isPixelTypeSupported(encoder->getFileType(), "UINT16"))
+        {
+            // transform to UINT16
+            vigra::omp::transformImage(vigra::srcImageRange(image), vigra::destImage(image),
+                vigra::linearIntensityTransform<typename ImageType::PixelType>(65535.0 / vigra::NumericTraits<typename vigra::NumericTraits<typename ImageType::PixelType>::ValueType>::max()));
+            return SaveImage(image, mask, output, encoder->getFileType(), "UINT16", roi, input.numBands());
+        }
+        else
+        {
+            if (vigra::isPixelTypeSupported(encoder->getFileType(), "UINT8"))
+            {
+                // transform to UINT8
+                vigra_ext::ConvertTo8Bit(image);
+                return SaveImage(image, mask, output, encoder->getFileType(), "UINT8", roi, input.numBands());
+            }
+            else
+            {
+                std::cerr << "ERROR: Output file type " << encoder->getFileType() << " does not support" << std::endl
+                    << "requested pixeltype " << input.getPixelType() << "." << std::endl
+                    << "Save output in other file format." << std::endl;
+            };
+        };
+    };
+    return false;
+};
+
+/** set compression for jpeg or tiff */
+void SetCompression(vigra::ImageExportInfo& output, const std::string& compression)
+{
+    const std::string ext(hugin_utils::toupper(hugin_utils::getExtension(output.getFileName())));
+    if (!compression.empty())
+    {
+        if (ext == "JPEG" || ext == "JPG")
+        {
+            output.setCompression(std::string("JPEG QUALITY=" + compression).c_str());
+        }
+        else
+        {
+            output.setCompression(compression.c_str());
+        };
     };
 };
 
+/** loads image one by one and merge with all previouly loaded images, saves the final results */
 template <class ImageType, class MaskType>
-void LoadAndMergeImages(std::vector<vigra::ImageImportInfo> imageInfos, const std::string& filename, const std::string& compression, const bool wrap)
+bool LoadAndMergeImages(std::vector<vigra::ImageImportInfo> imageInfos, const std::string& filename, const std::string& compression, const bool wrap)
 {
     if (imageInfos.empty())
     {
-        return;
+        return false;
     };
     vigra::Size2D imageSize(imageInfos[0].getCanvasSize());
     if (imageSize.area() == 0)
@@ -93,52 +160,12 @@ void LoadAndMergeImages(std::vector<vigra::ImageImportInfo> imageInfos, const st
         exportImageInfo.setPosition(roi.upperLeft());
         exportImageInfo.setCanvasSize(mask.size());
         exportImageInfo.setICCProfile(imageInfos[0].getICCProfile());
-        const std::string ext(hugin_utils::toupper(hugin_utils::getExtension(filename)));
-        if (!compression.empty())
-        {
-            if (ext == "JPEG" || ext == "JPG")
-            {
-                exportImageInfo.setCompression(std::string("JPEG QUALITY=" + compression).c_str());
-            }
-            else
-            {
-                exportImageInfo.setCompression(compression.c_str());
-            };
-        };
-
-        VIGRA_UNIQUE_PTR<vigra::Encoder> encoder(vigra::encoder(exportImageInfo));
-        if (vigra::isPixelTypeSupported(encoder->getFileType(), imageInfos[0].getPixelType()))
-        {
-            SaveImage(image, mask, exportImageInfo, encoder->getFileType(), imageInfos[0].getPixelType(), roi, imageInfos[0].numBands());
-        }
-        else
-        {
-            if (vigra::isPixelTypeSupported(encoder->getFileType(), "UINT16"))
-            {
-                // transform to UINT16
-                vigra::omp::transformImage(vigra::srcImageRange(image), vigra::destImage(image),
-                    vigra::linearIntensityTransform<typename ImageType::PixelType>(65535.0 / vigra::NumericTraits<typename vigra::NumericTraits<typename ImageType::PixelType>::ValueType>::max()));
-                SaveImage(image, mask, exportImageInfo, encoder->getFileType(), "UINT16", roi, imageInfos[0].numBands());
-            }
-            else
-            {
-                if (vigra::isPixelTypeSupported(encoder->getFileType(), "UINT8"))
-                {
-                    // transform to UINT8
-                    vigra_ext::ConvertTo8Bit(image);
-                    SaveImage(image, mask, exportImageInfo, encoder->getFileType(), "UINT8", roi, imageInfos[0].numBands());
-                }
-                else
-                {
-                    std::cerr << "ERROR: Output file type " << encoder->getFileType() << " does not support" << std::endl
-                        << "requested pixeltype " << imageInfos[0].getPixelType() << "." << std::endl
-                        << "Save output in other file format." << std::endl;
-                };
-            };
-        };
+        SetCompression(exportImageInfo, compression);
+        return SaveFinalImage(image, mask, imageInfos[0], exportImageInfo, roi);
     };
 };
 
+/** prints help screen */
 static void usage(const char* name)
 {
     std::cout << name << ": stitch images using watershed algorithm" << std::endl
@@ -155,34 +182,35 @@ static void usage(const char* name)
         << std::endl;
 };
 
+/** resave a single image
+ *  LoadAndMergeImage would require the full canvas size for loading, so using this specialized version
+ *  which is using the cropped intermediates images */
 template<class ImageType>
-bool ResaveImage(const vigra::ImageImportInfo& importInfo, const vigra::ImageExportInfo& exportInfo)
+bool ResaveImage(const vigra::ImageImportInfo& importInfo, vigra::ImageExportInfo& exportInfo)
 {
+    ImageType image(importInfo.size());
+    vigra::BImage mask(image.size());
     if (importInfo.numExtraBands() == 0)
     {
-        ImageType image(importInfo.size());
         vigra::importImage(importInfo, vigra::destImage(image));
-        vigra::exportImage(vigra::srcImageRange(image), exportInfo);
-        return true;
+        // init mask
+        vigra::initImage(vigra::destImageRange(mask), 255);
     }
-    if (importInfo.numExtraBands() == 1)
+    else
     {
-        ImageType image(importInfo.size());
-        vigra::BImage mask(importInfo.size());
-        vigra::importImageAlpha(importInfo, vigra::destImage(image), vigra::destImage(mask));
-        try
+        if (importInfo.numExtraBands() == 1)
         {
-            vigra::exportImageAlpha(vigra::srcImageRange(image), vigra::srcImage(mask), exportInfo);
+            vigra::importImageAlpha(importInfo, vigra::destImage(image), vigra::destImage(mask));
         }
-        catch (...)
+        else
         {
-            std::cerr << "Warning: Output file format does not support alpha channel. Fall back to export image without alpha channel" << std::endl;
-            vigra::exportImage(vigra::srcImageRange(image), exportInfo);
+            std::cerr << "ERROR: Images with several alpha channels are not supported." << std::endl;
+            return false;
         };
-        return true;
     };
-    std::cerr << "ERROR: Images with several alpha channels are not supported." << std::endl;
-    return false;
+
+    const vigra::Rect2D roi(vigra::Point2D(0, 0), image.size());
+    return SaveFinalImage(image, mask, importInfo, exportInfo, roi);
 };
 
 int main(int argc, char* argv[])
@@ -265,70 +293,49 @@ int main(int argc, char* argv[])
     {
         output = "final.tif";
     };
+
+    bool success = false;
     if (files.size() == 1)
     {
         //special case, only one image given
         vigra::ImageImportInfo imageInfo(files[0].c_str());
         vigra::ImageExportInfo exportInfo(output.c_str());
-        if (!compression.empty())
-        {
-            exportInfo.setCompression(compression.c_str());
-        };
-        exportInfo.setPixelType(imageInfo.getPixelType());
         exportInfo.setXResolution(imageInfo.getXResolution());
         exportInfo.setYResolution(imageInfo.getYResolution());
         exportInfo.setCanvasSize(imageInfo.getCanvasSize());
         exportInfo.setPosition(imageInfo.getPosition());
         exportInfo.setICCProfile(imageInfo.getICCProfile());
+        SetCompression(exportInfo, compression);
         const std::string pixeltype = imageInfo.getPixelType();
         if (imageInfo.isColor())
         {
             if (pixeltype == "UINT8")
             {
-                if (!ResaveImage<vigra::BRGBImage>(imageInfo, exportInfo))
-                {
-                    return 1;
-                };
+                success = ResaveImage<vigra::BRGBImage>(imageInfo, exportInfo);
             }
             else if (pixeltype == "INT16")
             {
-                if (!ResaveImage<vigra::Int16RGBImage>(imageInfo, exportInfo))
-                {
-                    return 1;
-                };
+                success = ResaveImage<vigra::Int16RGBImage>(imageInfo, exportInfo);
             }
             else if (pixeltype == "UINT16")
             {
-                if (!ResaveImage<vigra::UInt16RGBImage>(imageInfo, exportInfo))
-                {
-                    return 1;
-                };
+                success = ResaveImage<vigra::UInt16RGBImage>(imageInfo, exportInfo);
             }
             else if (pixeltype == "INT32")
             {
-                if (!ResaveImage<vigra::Int32RGBImage>(imageInfo, exportInfo))
-                {
-                    return 1;
-                };
+                success = ResaveImage<vigra::Int32RGBImage>(imageInfo, exportInfo);
             }
             else if (pixeltype == "UINT32")
             {
-                if (!ResaveImage<vigra::UInt32RGBImage>(imageInfo, exportInfo))
-                {
-                    return 1;
-                };
+                success = ResaveImage<vigra::UInt32RGBImage>(imageInfo, exportInfo);
             }
             else if (pixeltype == "FLOAT")
             {
-                if (!ResaveImage<vigra::FRGBImage>(imageInfo, exportInfo))
-                {
-                    return 1;
-                };
+                success = ResaveImage<vigra::FRGBImage>(imageInfo, exportInfo);
             }
             else
             {
                 std::cerr << " ERROR: unsupported pixel type: " << pixeltype << std::endl;
-                return 1;
             };
         }
         else
@@ -336,50 +343,31 @@ int main(int argc, char* argv[])
             //grayscale images
             if (pixeltype == "UINT8")
             {
-                if (!ResaveImage<vigra::BImage>(imageInfo, exportInfo))
-                {
-                    return 1;
-                };
+                success = ResaveImage<vigra::BImage>(imageInfo, exportInfo);
             }
             else if (pixeltype == "INT16")
             {
-                if (!ResaveImage<vigra::Int16Image>(imageInfo, exportInfo))
-                {
-                    return 1;
-                };
+                success = ResaveImage<vigra::Int16Image>(imageInfo, exportInfo);
             }
             else if (pixeltype == "UINT16")
             {
-                if (!ResaveImage<vigra::UInt16Image>(imageInfo, exportInfo))
-                {
-                    return 1;
-                };
+                success = ResaveImage<vigra::UInt16Image>(imageInfo, exportInfo);
             }
             else if (pixeltype == "INT32")
             {
-                if (!ResaveImage<vigra::Int32Image>(imageInfo, exportInfo))
-                {
-                    return 1;
-                };
+                success = ResaveImage<vigra::Int32Image>(imageInfo, exportInfo);
             }
             else if (pixeltype == "UINT32")
             {
-                if (!ResaveImage<vigra::UInt32Image>(imageInfo, exportInfo))
-                {
-                    return 1;
-                };
+                success = ResaveImage<vigra::UInt32Image>(imageInfo, exportInfo);
             }
             else if (pixeltype == "FLOAT")
             {
-                if (!ResaveImage<vigra::FImage>(imageInfo, exportInfo))
-                {
-                    return 1;
-                };
+                success = ResaveImage<vigra::FImage>(imageInfo, exportInfo);
             }
             else
             {
                 std::cerr << " ERROR: unsupported pixel type: " << pixeltype << std::endl;
-                return 1;
             };
         };
     }
@@ -419,40 +407,33 @@ int main(int argc, char* argv[])
                     << "       but image \"" << imageInfos[i].getFileName() << "\" has pixel type " << imageInfos[i].getPixelType() << "." << std::endl;
                 return 1;
             };
-            /*if (GetCanvasSize(imageInfos[0]) != GetCanvasSize(imageInfos[i]))
-            {
-                std::cerr << "ERROR: Dimension of images does not match." << std::endl
-                    << "       Image \"" << imageInfos[0].getFileName() << "\" has dimension " << GetCanvasSize(imageInfos[0]) << "," << std::endl
-                    << "       but image \"" << imageInfos[i].getFileName() << "\" has dimension " << GetCanvasSize(imageInfos[i]) << "." << std::endl;
-                return 1;
-            };*/
         };
 
         if (imageInfos[0].isColor())
         {
             if (pixeltype == "UINT8")
             {
-                LoadAndMergeImages<vigra::BRGBImage, vigra::BImage>(imageInfos, output, compression, wraparound);
+                success = LoadAndMergeImages<vigra::BRGBImage, vigra::BImage>(imageInfos, output, compression, wraparound);
             }
             else if (pixeltype == "INT16")
             {
-                LoadAndMergeImages<vigra::Int16RGBImage, vigra::BImage>(imageInfos, output, compression, wraparound);
+                success = LoadAndMergeImages<vigra::Int16RGBImage, vigra::BImage>(imageInfos, output, compression, wraparound);
             }
             else if (pixeltype == "UINT16")
             {
-                LoadAndMergeImages<vigra::UInt16RGBImage, vigra::BImage>(imageInfos, output, compression, wraparound);
+                success = LoadAndMergeImages<vigra::UInt16RGBImage, vigra::BImage>(imageInfos, output, compression, wraparound);
             }
             else if (pixeltype == "INT32")
             {
-                LoadAndMergeImages<vigra::Int32RGBImage, vigra::BImage>(imageInfos, output, compression, wraparound);
+                success = LoadAndMergeImages<vigra::Int32RGBImage, vigra::BImage>(imageInfos, output, compression, wraparound);
             }
             else if (pixeltype == "UINT32")
             {
-                LoadAndMergeImages<vigra::UInt32RGBImage, vigra::BImage>(imageInfos, output, compression, wraparound);
+                success = LoadAndMergeImages<vigra::UInt32RGBImage, vigra::BImage>(imageInfos, output, compression, wraparound);
             }
             else if (pixeltype == "FLOAT")
             {
-                LoadAndMergeImages<vigra::FRGBImage, vigra::BImage>(imageInfos, output, compression, wraparound);
+                success = LoadAndMergeImages<vigra::FRGBImage, vigra::BImage>(imageInfos, output, compression, wraparound);
             }
             else
             {
@@ -464,27 +445,27 @@ int main(int argc, char* argv[])
             //grayscale images
             if (pixeltype == "UINT8")
             {
-                LoadAndMergeImages<vigra::BImage, vigra::BImage>(imageInfos, output, compression, wraparound);
+                success = LoadAndMergeImages<vigra::BImage, vigra::BImage>(imageInfos, output, compression, wraparound);
             }
             else if (pixeltype == "INT16")
             {
-                LoadAndMergeImages<vigra::Int16Image, vigra::BImage>(imageInfos, output, compression, wraparound);
+                success = LoadAndMergeImages<vigra::Int16Image, vigra::BImage>(imageInfos, output, compression, wraparound);
             }
             else if (pixeltype == "UINT16")
             {
-                LoadAndMergeImages<vigra::UInt16Image, vigra::BImage>(imageInfos, output, compression, wraparound);
+                success = LoadAndMergeImages<vigra::UInt16Image, vigra::BImage>(imageInfos, output, compression, wraparound);
             }
             else if (pixeltype == "INT32")
             {
-                LoadAndMergeImages<vigra::Int32Image, vigra::BImage>(imageInfos, output, compression, wraparound);
+                success = LoadAndMergeImages<vigra::Int32Image, vigra::BImage>(imageInfos, output, compression, wraparound);
             }
             else if (pixeltype == "UINT32")
             {
-                LoadAndMergeImages<vigra::UInt32Image, vigra::BImage>(imageInfos, output, compression, wraparound);
+                success = LoadAndMergeImages<vigra::UInt32Image, vigra::BImage>(imageInfos, output, compression, wraparound);
             }
             else if (pixeltype == "FLOAT")
             {
-                LoadAndMergeImages<vigra::FImage, vigra::BImage>(imageInfos, output, compression, wraparound);
+                success = LoadAndMergeImages<vigra::FImage, vigra::BImage>(imageInfos, output, compression, wraparound);
             }
             else
             {
@@ -493,6 +474,10 @@ int main(int argc, char* argv[])
         };
     };
 
-    std::cout << "Written result to " << output << std::endl;
-    return 0;
+    if (success)
+    {
+        std::cout << "Written result to " << output << std::endl;
+        return 0;
+    };
+    return 1;
 }
