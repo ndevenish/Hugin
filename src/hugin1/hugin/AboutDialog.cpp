@@ -30,8 +30,15 @@
 #include "base_wx/wxPlatform.h"
 #include "panoinc.h"
 #include "hugin/huginApp.h"
+#if wxCHECK_VERSION(3,0,0)
+#include <wx/utils.h>
+#else
 #include <wx/version.h>
-#include "pano13/version.h"
+#endif
+extern "C"
+{
+#include "pano13/queryfeature.h"
+}
 #include "boost/version.hpp"
 #include "exiv2/exiv2.hpp"
 #include "lensdb/LensDB.h"
@@ -178,18 +185,32 @@ void AboutDialog::GetSystemInformation(wxFont *font)
     HuginBase::LensDB::LensDB& lensDB=HuginBase::LensDB::LensDB::GetSingleton();
     text = text + wxT("\n") + wxString::Format(_("Hugins camera and lens database: %s"), wxString(lensDB.GetDBFilename().c_str(), wxConvLocal).c_str());
     text=text+wxT("\n\n")+_("Libraries");
+#if wxCHECK_VERSION(3,0,0)
+    wxVersionInfo info = wxGetLibraryVersionInfo();
+    text = text + wxT("\nwxWidgets: ") + info.GetVersionString();
+    if(info.HasDescription())
+    {
+        text=text+wxT("\n")+info.GetDescription();
+    };
+#else
     text=text+wxT("\n")+wxString::Format(wxT("wxWidgets: %i.%i.%i.%i"),
                                             wxMAJOR_VERSION,
                                             wxMINOR_VERSION,
                                             wxRELEASE_NUMBER,
                                             wxSUBRELEASE_NUMBER
-                                        );
-    text=text+wxT("\nlibpano13: ")+wxT(VERSION);
-    text=text+wxT("\n")+wxString::Format(wxT("Boost: %i.%i.%i"),BOOST_VERSION / 100000, BOOST_VERSION / 100 % 1000, BOOST_VERSION % 100);
-    text=text+wxT("\n")+wxString::Format(wxT("Exiv2: %i.%i.%i"),EXIV2_MAJOR_VERSION,EXIV2_MINOR_VERSION,EXIV2_PATCH_VERSION);
-#ifdef SQLITE_VERSION
-    text = text + wxT("\n") + wxString::Format(wxT("SQLite3: %s"), wxString(SQLITE_VERSION, wxConvLocal).c_str());
+                                            );
 #endif
+    {
+        char panoVersion[255];
+        if (queryFeatureString(PTVERSION_NAME_FILEVERSION, panoVersion, sizeof(panoVersion) / sizeof(panoVersion[0])))
+        {
+            text = text + wxT("\nlibpano13: ") + wxString(panoVersion, wxConvLocal);
+        };
+    }
+
+    text=text+wxT("\n")+wxString::Format(wxT("Boost: %i.%i.%i"),BOOST_VERSION / 100000, BOOST_VERSION / 100 % 1000, BOOST_VERSION % 100);
+    text=text+wxT("\n")+wxString::Format(wxT("Exiv2: %s"), Exiv2::version());
+    text = text + wxT("\n") + wxString::Format(wxT("SQLite3: %s"), sqlite3_libversion());
     text = text + wxT("\n") + wxString::Format(wxT("Vigra: %s"), wxString(VIGRA_VERSION, wxConvLocal).c_str());
     infoText->SetValue(text);
 }
