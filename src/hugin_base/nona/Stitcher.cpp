@@ -139,8 +139,7 @@ void stitchPanorama(const PanoramaData & pano,
                         AppBase::MultiProgressDisplay & progress,
                         const std::string & basename,
                         const UIntSet & usedImgs,
-                        const bool ignoreExposure,
-                        const bool saveIntermediate)
+                        const AdvancedOptions& advOptions)
 {
     DEBUG_ASSERT(pano.getNrOfImages() > 0);
 
@@ -193,9 +192,9 @@ void stitchPanorama(const PanoramaData & pano,
 #if 1
     if (opts.outputMode == PanoramaOptions::OUTPUT_HDR) {
         if (bands == 1 || bands == 2 && extraBands == 1) {
-            stitchPanoIntern<FImage,BImage>(pano, opts, progress, basename, usedImgs);
+            stitchPanoIntern<FImage,BImage>(pano, opts, progress, basename, usedImgs, advOptions);
         } else if (bands == 3 || bands == 4 && extraBands == 1) {
-            stitchPanoIntern<FRGBImage,BImage>(pano, opts, progress, basename, usedImgs);
+            stitchPanoIntern<FRGBImage,BImage>(pano, opts, progress, basename, usedImgs, advOptions);
         } else {
             DEBUG_ERROR("unsupported depth, only images with 1 and 3 channel images are supported");
             throw std::runtime_error("unsupported depth, only images with 1 and 3 channel images are supported");
@@ -208,18 +207,18 @@ void stitchPanorama(const PanoramaData & pano,
                 pixelType == "INT16" ||
                 pixelType == "UINT16" )
             {
-                stitchPanoGray_8_16(pano, opts, progress, basename, usedImgs, pixelType.c_str(), ignoreExposure, saveIntermediate);
+                stitchPanoGray_8_16(pano, opts, progress, basename, usedImgs, pixelType.c_str(), advOptions);
             } else {
-                stitchPanoGray_32_float(pano, opts, progress, basename, usedImgs, pixelType.c_str(), ignoreExposure, saveIntermediate);
+                stitchPanoGray_32_float(pano, opts, progress, basename, usedImgs, pixelType.c_str(), advOptions);
             }
         } else if (bands == 3 || bands == 4 && extraBands == 1) {
             if (pixelType == "UINT8" ||
                 pixelType == "INT16" ||
                 pixelType == "UINT16" )
             {
-                stitchPanoRGB_8_16(pano, opts, progress, basename, usedImgs, pixelType.c_str(), ignoreExposure, saveIntermediate);
+                stitchPanoRGB_8_16(pano, opts, progress, basename, usedImgs, pixelType.c_str(), advOptions);
             } else {
-                stitchPanoRGB_32_float(pano, opts, progress, basename, usedImgs, pixelType.c_str(), ignoreExposure, saveIntermediate);
+                stitchPanoRGB_32_float(pano, opts, progress, basename, usedImgs, pixelType.c_str(), advOptions);
             }
         }
     }

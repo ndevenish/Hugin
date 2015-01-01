@@ -45,6 +45,7 @@
 #include <algorithms/nona/NonaFileStitcher.h>
 #include <vigra_ext/ImageTransformsGPU.h>
 #include "hugin_utils/stl_utils.h"
+#include "nona/StitcherOptions.h"
 
 #include <tiffio.h>
 
@@ -93,16 +94,18 @@ static void usage(const char* name)
          << "                  UINT32  32 bit unsigned integer" << std::endl
          << "                  INT32   32 bit signed integer" << std::endl
          << "                  FLOAT   32 bit floating point" << std::endl
-         << "      -z         set compression type." << std::endl
+         << "      -z|--compression set compression type." << std::endl
          << "                  Possible options for tiff output:" << std::endl
          << "                   NONE      no compression" << std::endl
          << "                   PACKBITS  packbits compression" << std::endl
          << "                   LZW       lzw compression" << std::endl
          << "                   DEFLATE   deflate compression" << std::endl
+         << "                  For jpeg output set quality number" << std::endl
          << "      --ignore-exposure  don't correct exposure" << std::endl
          << "                   (this does not work with -e switch together)" << std::endl
          << "      --save-intermediate-images  saves also the intermediate" << std::endl
          << "                   images (only when output is TIFF, PNG or JPEG)" << std::endl
+         << "      --intermediate-suffix=SUFFIX  suffix for intermediate images" << std::endl
          << std::endl;
 }
 
@@ -124,8 +127,7 @@ int main(int argc, char* argv[])
     PanoramaOptions::OutputMode outputMode = PanoramaOptions::OUTPUT_LDR;
     bool overrideExposure = false;
     double exposure=0;
-    bool ignoreExposure = false;
-    bool saveIntermediateImages = false;
+    HuginBase::Nona::AdvancedOptions advOptions;
     int verbose = 0;
     bool useGPU = false;
     string outputPixelType;
@@ -133,12 +135,15 @@ int main(int argc, char* argv[])
     enum
     {
         IGNOREEXPOSURE=1000,
-        SAVEINTERMEDIATEIMAGES
+        SAVEINTERMEDIATEIMAGES,
+        INTERMEDIATESUFFIX
     };
     static struct option longOptions[] =
     {
         { "ignore-exposure", no_argument, NULL, IGNOREEXPOSURE },
         { "save-intermediate-images", no_argument, NULL, SAVEINTERMEDIATEIMAGES },
+        { "intermediate-suffix", required_argument, NULL, INTERMEDIATESUFFIX },
+        { "compression", required_argument, NULL, 'z' },
         0
     };
     
@@ -184,10 +189,13 @@ int main(int argc, char* argv[])
                 exposure = atof(optarg);
                 break;
             case IGNOREEXPOSURE:
-                ignoreExposure = true;
+                HuginBase::Nona::SetAdvancedOption(advOptions, "ignoreExposure", true);
                 break;
             case SAVEINTERMEDIATEIMAGES:
-                saveIntermediateImages = true;
+                HuginBase::Nona::SetAdvancedOption(advOptions, "saveIntermediateImages", true);
+                break;
+            case INTERMEDIATESUFFIX:
+                HuginBase::Nona::SetAdvancedOption(advOptions, "saveIntermediateImagesSuffix", std::string(optarg));
                 break;
             case '?':
             case 'h':
@@ -361,9 +369,9 @@ int main(int argc, char* argv[])
     if (overrideExposure)
     {
         opts.outputExposureValue = exposure;
-        if (ignoreExposure)
+        if (HuginBase::Nona::GetAdvancedOption(advOptions, "ignoreExosure", false))
         {
-            ignoreExposure = false;
+            HuginBase::Nona::SetAdvancedOption(advOptions, "ignoreExposure", false);
             std::cout << "WARNING: Switches --ignore-exposure and -e can't to used together." << std::endl
                 << "         Ignore switch --ignore-exposure." << std::endl;
         }
@@ -419,7 +427,7 @@ int main(int argc, char* argv[])
         pano.setOptions(opts);
 
         // stitch panorama
-        NonaFileOutputStitcher(pano, pdisp, opts, outputImages, basename, ignoreExposure, saveIntermediateImages).run();
+        NonaFileOutputStitcher(pano, pdisp, opts, outputImages, basename, advOptions).run();
         // add a final newline, after the last progress message
         if (verbose > 0)
         {

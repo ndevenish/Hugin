@@ -52,6 +52,7 @@
 #include <algorithms/nona/ComputeImageROI.h>
 #include <nona/RemappedPanoImage.h>
 #include <nona/ImageRemapper.h>
+#include <nona/StitcherOptions.h>
 
 // calculate distance image for multi file output
 #define STITCHER_CALC_DIST_IMG 0
@@ -65,7 +66,6 @@
 
 namespace HuginBase {
 namespace Nona {
-
 
 /** determine blending order (starting with image 0), and continue to
  *  stitch the image with the biggest overlap area with the real image..
@@ -304,7 +304,7 @@ public:
     virtual void stitch(const PanoramaOptions & opts, UIntSet & images,
                         const std::string & basename,
                         SingleImageRemapper<ImageType, AlphaType> & remapper,
-                        bool ignoreExposure)
+                        const AdvancedOptions& advOptions)
     {
         Base::stitch(opts, images, basename, remapper);
         DEBUG_ASSERT(opts.outputFormat == PanoramaOptions::TIFF_multilayer
@@ -328,7 +328,7 @@ public:
         {
             // get a remapped image.
             PanoramaOptions modOptions(opts);
-            if (ignoreExposure)
+            if (GetAdvancedOption(advOptions, "ignoreExposure", false))
             {
                 modOptions.outputExposureValue = Base::m_pano.getImage(*it).getExposureValue();
             };
@@ -502,8 +502,7 @@ public:
                         ImageType& pano,
                         AlphaType& alpha,
                         SingleImageRemapper<ImageType, AlphaType> & remapper,
-                        const bool ignoreExposure = false,
-                        const bool saveIntermediate = false)
+                        const AdvancedOptions& advOptions)
     {
         //std::vector<unsigned int> images;
         // calculate stitching order
@@ -522,7 +521,7 @@ public:
             // get a remapped image.
             DEBUG_DEBUG("remapping image: " << *it);
             PanoramaOptions modOptions(opts);
-            if (ignoreExposure)
+            if (GetAdvancedOption(advOptions, "ignoreExposure", false))
             {
                 modOptions.outputExposureValue = Base::m_pano.getImage(*it).getExposureValue();
             };
@@ -533,11 +532,17 @@ public:
             {
                 iccProfile=remapped->m_ICCProfile;
             };
-            if (saveIntermediate)
+            if (GetAdvancedOption(advOptions, "saveIntermediateImages", false))
             {
                 modOptions.outputFormat = PanoramaOptions::TIFF_m;
                 modOptions.tiff_saveROI = true;
-                detail::saveRemapped(*remapped, *it, nImg, modOptions, filename, Base::m_progress);
+                std::string finalFilename(filename);
+                const std::string suffix(GetAdvancedOption(advOptions, "saveIntermediateImagesSuffix"));
+                if (!suffix.empty())
+                {
+                    finalFilename.append(suffix);
+                };
+                detail::saveRemapped(*remapped, *it, nImg, modOptions, finalFilename, Base::m_progress);
             }
             Base::m_progress.setMessage("blending");
             // add image to pano and panoalpha, adjusts panoROI as well.
@@ -559,8 +564,7 @@ public:
     void stitch(const PanoramaOptions & opts, UIntSet & imgSet,
                         const std::string & filename,
                         SingleImageRemapper<ImageType, AlphaType> & remapper,
-                        const bool ignoreExposure = false,
-                        const bool saveIntermediate = false)
+                        const AdvancedOptions& advOptions)
     {
         Base::stitch(opts, imgSet, filename, remapper);
 
@@ -570,7 +574,7 @@ public:
         ImageType pano(opts.getWidth(), opts.getHeight());
         AlphaType panoMask(opts.getWidth(), opts.getHeight());
 
-        stitch(opts, imgSet, filename, pano, panoMask, remapper, ignoreExposure, saveIntermediate);
+        stitch(opts, imgSet, filename, pano, panoMask, remapper, advOptions);
 	
 	    std::string ext = opts.getOutputExtension();
         std::string cext = hugin_utils::tolower(hugin_utils::getExtension(basename));
@@ -1108,8 +1112,7 @@ static void stitchPanoIntern(const PanoramaData & pano,
                              AppBase::MultiProgressDisplay & progress,
                              const std::string & basename,
                              UIntSet imgs,
-                             const bool ignoreExposure = false,
-                             const bool saveIntermediate = false)
+                             const AdvancedOptions& advOptions)
 {
     using namespace vigra_ext;
     
@@ -1131,7 +1134,7 @@ static void stitchPanoIntern(const PanoramaData & pano,
                 stitcher.stitch(opts, imgs, basename, m, hdrmerge);
             } else {
                 WeightedStitcher<ImageType, AlphaType> stitcher(pano, progress);
-                stitcher.stitch(opts, imgs, basename, m, ignoreExposure, saveIntermediate);
+                stitcher.stitch(opts, imgs, basename, m, advOptions);
             }
             break;
         }
@@ -1142,13 +1145,13 @@ static void stitchPanoIntern(const PanoramaData & pano,
         case PanoramaOptions::EXR_m:
         {
             MultiImageRemapper<ImageType, AlphaType> stitcher(pano, progress);
-            stitcher.stitch(opts, imgs, basename, m, ignoreExposure);
+            stitcher.stitch(opts, imgs, basename, m, advOptions);
             break;
         }
         case PanoramaOptions::TIFF_multilayer:
         {
             TiffMultiLayerRemapper<ImageType, AlphaType> stitcher(pano, progress);
-            stitcher.stitch(opts, imgs, basename, m, ignoreExposure);
+            stitcher.stitch(opts, imgs, basename, m, advOptions);
             break;
         }
         case PanoramaOptions::TIFF_mask:
@@ -1172,8 +1175,7 @@ IMPEX void stitchPanorama(const PanoramaData & pano,
                     AppBase::MultiProgressDisplay & progress,
                     const std::string & basename,
                     const UIntSet & usedImgs,
-                    const bool ignoreExposure = false,
-                    const bool saveIntermediate = false);
+                    const AdvancedOptions& advOptions = AdvancedOptions());
 
 // the instantiations of the stitching functions have been divided into two .cpp
 // files, because g++ will use too much memory otherwise (> 1.5 GB)
@@ -1184,8 +1186,7 @@ void stitchPanoGray_8_16(const PanoramaData & pano,
                          const std::string & basename,
                          const UIntSet & usedImgs,
                          const char * pixelType,
-                         const bool ignoreExposure = false,
-                         const bool saveIntermediate = false);
+                         const AdvancedOptions& advOptions);
 
 void stitchPanoGray_32_float(const PanoramaData & pano,
                              const PanoramaOptions & opts,
@@ -1193,8 +1194,7 @@ void stitchPanoGray_32_float(const PanoramaData & pano,
                              const std::string & basename,
                              const UIntSet & usedImgs,
                              const char * pixelType,
-                             const bool ignoreExposure = false,
-                             const bool saveIntermediate = false);
+                             const AdvancedOptions& advOptions);
 
 
 void stitchPanoRGB_8_16(const PanoramaData & pano,
@@ -1203,8 +1203,7 @@ void stitchPanoRGB_8_16(const PanoramaData & pano,
                         const std::string & basename,
                         const UIntSet & usedImgs,
                         const char * pixelType,
-                        const bool ignoreExposure = false,
-                        const bool saveIntermediate = false);
+                        const AdvancedOptions& advOptions);
 
 void stitchPanoRGB_32_float(const PanoramaData & pano,
                             const PanoramaOptions & opts,
@@ -1212,8 +1211,7 @@ void stitchPanoRGB_32_float(const PanoramaData & pano,
                             const std::string & basename,
                             const UIntSet & usedImgs,
                             const char * pixelType,
-                            const bool ignoreExposure = false,
-                            const bool saveIntermediate = false);
+                            const AdvancedOptions& advOptions);
 
 } // namespace
 } // namespace

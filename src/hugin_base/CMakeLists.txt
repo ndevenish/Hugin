@@ -40,6 +40,7 @@ nona/Stitcher2.cpp
 nona/Stitcher3.cpp
 nona/Stitcher4.cpp
 nona/Stitcher.cpp
+nona/StitcherOptions.cpp
 panodata/ControlPoint.cpp
 panodata/Lens.cpp
 panodata/Mask.cpp
@@ -100,6 +101,7 @@ nona/ImageRemapper.h
 nona/RemappedPanoImage.h
 nona/SpaceTransform.h
 nona/Stitcher.h
+nona/StitcherOptions.h
 panodata/ControlPoint.h
 panodata/Lens.h
 panodata/Mask.h
