@@ -405,7 +405,7 @@ namespace HuginQueue
             {
                 enblendArgs.Append(wxT(" -w"));
             };
-            vigra::Rect2D roi = opts.getROI();
+            const vigra::Rect2D roi (opts.getROI());
             if (roi.top() != 0 || roi.left() != 0)
             {
                 enblendArgs << wxT(" -f") << roi.width() << wxT("x") << roi.height() << wxT("+") << roi.left() << wxT("+") << roi.top();
@@ -445,7 +445,7 @@ namespace HuginQueue
         {
             enfuseArgs.Append(wxT(" -w"));
         };
-        vigra::Rect2D roi = opts.getROI();
+        const vigra::Rect2D roi (opts.getROI());
         if (roi.top() != 0 || roi.left() != 0)
         {
             enfuseArgs << wxT(" -f") << roi.width() << wxT("x") << roi.height() << wxT("+") << roi.left() << wxT("+") << roi.top();
@@ -570,11 +570,103 @@ namespace HuginQueue
         if (opts.outputLDRExposureRemapped || opts.outputLDRStacks || opts.outputLDRExposureLayers ||
             opts.outputLDRExposureBlended || opts.outputLDRExposureLayersFused)
         {
-            commands->push_back(new NormalCommand(GetInternalProgram(ExePath, wxT("nona")),
-                nonaArgs + wxT("-r ldr -m TIFF_m --ignore-exposure -o ") + wxEscapeFilename(prefix + wxT("_exposure_layers_")) + wxT(" ") + quotedProject,
-                _("Remapping LDR images without exposure correction...")));
             const wxArrayString remappedImages = detail::GetNumberedFilename(prefix + wxT("_exposure_layers_"), wxT(".tif"), allActiveImages);
-            detail::AddToArray(remappedImages, outputFiles);
+            std::vector<HuginBase::UIntSet> exposureLayers;
+            wxArrayString exposureLayersFiles;
+            if (opts.outputLDRExposureLayers || opts.outputLDRExposureLayersFused)
+            {
+                exposureLayers = getExposureLayers(pano, allActiveImages, opts);
+            };
+            if (opts.blendMode == HuginBase::PanoramaOptions::INTERNAL_BLEND &&
+                (opts.outputLDRExposureLayers || opts.outputLDRExposureLayersFused))
+            {
+                // directly export exposure layers by nona
+                wxString finalNonaArgs(nonaArgs);
+                finalNonaArgs.append(wxT("-r ldr --create-exposure-layers --ignore-exposure -o ") + wxEscapeFilename(prefix + wxT("_exposure_")));
+                if (opts.outputLDRExposureRemapped || opts.outputLDRStacks || opts.outputLDRExposureBlended)
+                {
+                    finalNonaArgs.append(wxT(" --save-intermediate-images --intermediate-suffix=layers_"));
+                    detail::AddToArray(remappedImages, outputFiles);
+                    if (!opts.outputLDRExposureRemapped)
+                    {
+                        detail::AddToArray(remappedImages, tempFilesDelete);
+                    }
+                };
+                finalNonaArgs.append(wxT(" "));
+                finalNonaArgs.append(quotedProject);
+                commands->push_back(new NormalCommand(GetInternalProgram(ExePath, wxT("nona")),
+                    finalNonaArgs, _("Remapping LDR images and blending exposure layers...")));
+                HuginBase::UIntSet exposureLayersNumber;
+                fill_set(exposureLayersNumber, 0, exposureLayers.size() - 1);
+                exposureLayersFiles = detail::GetNumberedFilename(prefix + wxT("_exposure_"), wxT(".tif"), exposureLayersNumber);
+                detail::AddToArray(exposureLayersFiles, outputFiles);
+                if (!opts.outputLDRExposureLayers)
+                {
+                    detail::AddToArray(exposureLayersFiles, tempFilesDelete);
+                };
+                if (copyMetadata && opts.outputLDRExposureLayers)
+                {
+                    detail::AddToArray(exposureLayersFiles, filesForCopyTagsExiftool);
+                };
+            }
+            else
+            {
+                commands->push_back(new NormalCommand(GetInternalProgram(ExePath, wxT("nona")),
+                    nonaArgs + wxT("-r ldr -m TIFF_m --ignore-exposure -o ") + wxEscapeFilename(prefix + wxT("_exposure_layers_")) + wxT(" ") + quotedProject,
+                    _("Remapping LDR images without exposure correction...")));
+                detail::AddToArray(remappedImages, outputFiles);
+                if (!opts.outputLDRExposureRemapped)
+                {
+                    detail::AddToArray(remappedImages, tempFilesDelete);
+                };
+                if (opts.outputLDRExposureLayers || opts.outputLDRExposureLayersFused)
+                {
+                    // blending exposure layers, then fusing
+                    // fuse all exposure layers
+                    for (unsigned exposureLayer = 0; exposureLayer < exposureLayers.size(); ++exposureLayer)
+                    {
+                        const wxArrayString exposureLayersImgs = detail::GetNumberedFilename(prefix + wxT("_exposure_layers_"), wxT(".tif"), exposureLayers[exposureLayer]);
+                        const wxString exposureLayerImgName = wxString::Format(wxT("%s_exposure_%04u%s"), prefix.c_str(), exposureLayer, wxT(".tif"));
+                        exposureLayersFiles.Add(exposureLayerImgName);
+                        outputFiles.Add(exposureLayerImgName);
+                        switch (opts.blendMode)
+                        {
+                        case HuginBase::PanoramaOptions::ENBLEND_BLEND:
+                            commands->push_back(new NormalCommand(GetExternalProgram(config, ExePath, wxT("enblend")),
+                                enblendArgs + enLayersCompressionArgs + wxT(" -o ") + wxEscapeFilename(exposureLayerImgName) + wxT(" -- ") + GetQuotedFilenamesString(exposureLayersImgs),
+                                wxString::Format(_("Blending exposure layer %u..."), exposureLayer)));
+                            break;
+                        case HuginBase::PanoramaOptions::INTERNAL_BLEND:
+                            commands->push_back(new NormalCommand(GetInternalProgram(ExePath, wxT("verdandi")),
+                                verdandiArgs + enLayersCompressionArgs + wxT(" -o ") + wxEscapeFilename(exposureLayerImgName) + wxT(" -- ") + GetQuotedFilenamesString(exposureLayersImgs),
+                                wxString::Format(_("Blending exposure layer %u..."), exposureLayer)));
+                            break;
+                        }
+                        if (copyMetadata && opts.outputLDRExposureLayers)
+                        {
+                            filesForCopyTagsExiftool.Add(exposureLayerImgName);
+                        };
+                        if (!opts.outputLDRExposureLayers)
+                        {
+                            tempFilesDelete.Add(exposureLayerImgName);
+                        };
+                    };
+                };
+            };
+            if (opts.outputLDRExposureLayersFused)
+            {
+                wxString finalEnfuseArgs(enfuseArgs + finalCompressionArgs);
+                const wxString fusedExposureLayersFilename(prefix + wxT("_blended_fused.") + WXSTRING(opts.outputImageType));
+                finalEnfuseArgs.Append(wxT(" -o ") + wxEscapeFilename(fusedExposureLayersFilename));
+                finalEnfuseArgs.Append(wxT(" -- ") + GetQuotedFilenamesString(exposureLayersFiles));
+                commands->push_back(new NormalCommand(GetExternalProgram(config, ExePath, wxT("enfuse")),
+                    finalEnfuseArgs, _("Fusing all exposure layers...")));
+                outputFiles.Add(fusedExposureLayersFilename);
+                if (copyMetadata)
+                {
+                    filesForFullExiftool.Add(fusedExposureLayersFilename);
+                };
+            };
             if (opts.outputLDRStacks || opts.outputLDRExposureBlended)
             {
                 // fusing stacks, then blending
@@ -629,59 +721,6 @@ namespace HuginQueue
                         filesForFullExiftool.Add(fusedStacksFilename);
                     };
                 };
-            };
-            if (opts.outputLDRExposureLayers || opts.outputLDRExposureLayersFused)
-            {
-                // blending exposure layers, then fusing
-                std::vector<HuginBase::UIntSet> exposureLayers = getExposureLayers(pano, allActiveImages, opts);
-                wxArrayString exposureLayersImages;
-                // fuse all exposure layers
-                for (unsigned exposureLayer = 0; exposureLayer < exposureLayers.size(); ++exposureLayer)
-                {
-                    const wxArrayString exposureLayersImgs = detail::GetNumberedFilename(prefix + wxT("_exposure_layers_"), wxT(".tif"), exposureLayers[exposureLayer]);
-                    const wxString exposureLayerImgName = wxString::Format(wxT("%s_exposure_%04u%s"), prefix.c_str(), exposureLayer, wxT(".tif"));
-                    exposureLayersImages.Add(exposureLayerImgName);
-                    outputFiles.Add(exposureLayerImgName);
-                    switch (opts.blendMode)
-                    {
-                        case HuginBase::PanoramaOptions::ENBLEND_BLEND:
-                            commands->push_back(new NormalCommand(GetExternalProgram(config, ExePath, wxT("enblend")),
-                                enblendArgs + enLayersCompressionArgs + wxT(" -o ") + wxEscapeFilename(exposureLayerImgName) + wxT(" -- ") + GetQuotedFilenamesString(exposureLayersImgs),
-                                wxString::Format(_("Blending exposure layer %u..."), exposureLayer)));
-                            break;
-                        case HuginBase::PanoramaOptions::INTERNAL_BLEND:
-                            commands->push_back(new NormalCommand(GetInternalProgram(ExePath, wxT("verdandi")),
-                                verdandiArgs + enLayersCompressionArgs + wxT(" -o ") + wxEscapeFilename(exposureLayerImgName) + wxT(" -- ") + GetQuotedFilenamesString(exposureLayersImgs),
-                                wxString::Format(_("Blending exposure layer %u..."), exposureLayer)));
-                            break;
-                    }
-                    if (copyMetadata && opts.outputLDRExposureLayers)
-                    {
-                        filesForCopyTagsExiftool.Add(exposureLayerImgName);
-                    };
-                    if (!opts.outputLDRExposureLayers)
-                    {
-                        tempFilesDelete.Add(exposureLayerImgName);
-                    };
-                };
-                if (opts.outputLDRExposureLayersFused)
-                {
-                    wxString finalEnfuseArgs(enfuseArgs + finalCompressionArgs);
-                    const wxString fusedExposureLayersFilename(prefix + wxT("_blended_fused.") + WXSTRING(opts.outputImageType));
-                    finalEnfuseArgs.Append(wxT(" -o ") + wxEscapeFilename(fusedExposureLayersFilename));
-                    finalEnfuseArgs.Append(wxT(" -- ") + GetQuotedFilenamesString(exposureLayersImages));
-                    commands->push_back(new NormalCommand(GetExternalProgram(config, ExePath, wxT("enfuse")),
-                        finalEnfuseArgs, _("Fusing all exposure layers...")));
-                    outputFiles.Add(fusedExposureLayersFilename);
-                    if (copyMetadata)
-                    {
-                        filesForFullExiftool.Add(fusedExposureLayersFilename);
-                    };
-                };
-            };
-            if (!opts.outputLDRExposureRemapped)
-            {
-                detail::AddToArray(remappedImages, tempFilesDelete);
             };
         };
         // hdr output

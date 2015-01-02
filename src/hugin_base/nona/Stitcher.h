@@ -536,7 +536,7 @@ public:
             {
                 modOptions.outputFormat = PanoramaOptions::TIFF_m;
                 modOptions.tiff_saveROI = true;
-                std::string finalFilename(filename);
+                std::string finalFilename(GetAdvancedOption(advOptions, "basename", filename));
                 const std::string suffix(GetAdvancedOption(advOptions, "saveIntermediateImagesSuffix"));
                 if (!suffix.empty())
                 {

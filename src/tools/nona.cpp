@@ -106,6 +106,8 @@ static void usage(const char* name)
          << "      --save-intermediate-images  saves also the intermediate" << std::endl
          << "                   images (only when output is TIFF, PNG or JPEG)" << std::endl
          << "      --intermediate-suffix=SUFFIX  suffix for intermediate images" << std::endl
+         << "      --create-exposure-layers  create all exposure layers" << std::endl
+         << "                   (this will always use TIFF)" << std::endl
          << std::endl;
 }
 
@@ -131,12 +133,14 @@ int main(int argc, char* argv[])
     int verbose = 0;
     bool useGPU = false;
     string outputPixelType;
+    bool createExposureLayers = false;
 
     enum
     {
         IGNOREEXPOSURE=1000,
         SAVEINTERMEDIATEIMAGES,
-        INTERMEDIATESUFFIX
+        INTERMEDIATESUFFIX,
+        EXPOSURELAYERS
     };
     static struct option longOptions[] =
     {
@@ -144,6 +148,7 @@ int main(int argc, char* argv[])
         { "save-intermediate-images", no_argument, NULL, SAVEINTERMEDIATEIMAGES },
         { "intermediate-suffix", required_argument, NULL, INTERMEDIATESUFFIX },
         { "compression", required_argument, NULL, 'z' },
+        { "create-exposure-layers", no_argument, NULL, EXPOSURELAYERS },
         0
     };
     
@@ -196,6 +201,9 @@ int main(int argc, char* argv[])
                 break;
             case INTERMEDIATESUFFIX:
                 HuginBase::Nona::SetAdvancedOption(advOptions, "saveIntermediateImagesSuffix", std::string(optarg));
+                break;
+            case EXPOSURELAYERS:
+                createExposureLayers = true;
                 break;
             case '?':
             case 'h':
@@ -277,6 +285,21 @@ int main(int argc, char* argv[])
 
     // save coordinate images, if requested
     opts.saveCoordImgs = doCoord;
+    if (createExposureLayers)
+    {
+        if (!outputFormat.empty())
+        {
+            std::cout << "Warning: Ignoring output format " << outputFormat << std::endl
+                << "         Switch --create-exposure-layers will enforce TIFF_m output." << std::endl;
+        };
+        outputFormat = "TIFF";
+        if (!outputImages.empty())
+        {
+            std::cout << "Warning: Ignoring specified output images." << std::endl
+                << "         Switch --create-exposure-layers will always work on all active images." << std::endl;
+            outputImages.clear();
+        };
+    };
     if (outputFormat == "TIFF_m")
     {
         opts.outputFormat = PanoramaOptions::TIFF_m;
@@ -332,7 +355,7 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-    if (compression.size() > 0)
+    if (!compression.empty())
     {
         if (opts.outputImageType == "tif")
         {
@@ -377,7 +400,7 @@ int main(int argc, char* argv[])
         }
     }
 
-    if(outputImages.size()==0)
+    if (outputImages.empty())
     {
         outputImages = HuginBase::getImagesinROI(pano, pano.getActiveImages());
     }
@@ -393,7 +416,7 @@ int main(int argc, char* argv[])
             };
         };
     };
-    if(outputImages.size()==0)
+    if(outputImages.empty())
     {
         std::cout << "Project does not contain active images." << std::endl
                   << "Nothing to do for nona." << std::endl;
@@ -426,8 +449,36 @@ int main(int argc, char* argv[])
         opts.remapUsingGPU = useGPU;
         pano.setOptions(opts);
 
-        // stitch panorama
-        NonaFileOutputStitcher(pano, pdisp, opts, outputImages, basename, advOptions).run();
+        if (createExposureLayers)
+        {
+            HuginBase::UIntSetVector exposureLayers = getExposureLayers(pano, outputImages, opts);
+            if (exposureLayers.empty())
+            {
+                std::cerr << "ERROR: Could not determine exposure layers. Cancel execution." << std::endl;
+            }
+            else
+            {
+                // we need to pass the basename to the stitcher
+                // because NonaFileOutputStitcher get already filename with numbers added
+                HuginBase::Nona::SetAdvancedOption(advOptions, "basename", basename);
+                for (size_t i = 0; i < exposureLayers.size(); ++i)
+                {
+                    HuginBase::PanoramaOptions modOptions(opts);
+                    // set output exposure to exposure value of first image of layers
+                    // normaly this this invoked with --ignore-exposure, so this has no effect
+                    modOptions.outputExposureValue = pano.getImage(*(exposureLayers[i].begin())).getExposureValue();
+                    // build filename
+                    std::ostringstream filename;
+                    filename << basename << std::setfill('0') << std::setw(4) << i;
+                    NonaFileOutputStitcher(pano, pdisp, modOptions, exposureLayers[i], filename.str(), advOptions).run();
+                }
+            }
+        }
+        else
+        {
+            // stitch panorama
+            NonaFileOutputStitcher(pano, pdisp, opts, outputImages, basename, advOptions).run();
+        };
         // add a final newline, after the last progress message
         if (verbose > 0)
         {
