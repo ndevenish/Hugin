@@ -30,9 +30,7 @@
 #include "panoinc.h"
 
 #include <vigra/basicimageview.hxx>
-#include "vigra_ext/blend.h"
 #include "PT/Stitcher.h"
-
 
 #include "base_wx/wxImageCache.h"
 #include "hugin/PreviewPanel.h"
@@ -41,7 +39,6 @@
 #include "hugin/CommandHistory.h"
 #include "hugin/config_defaults.h"
 #include "hugin/huginApp.h"
-//#include "hugin/ImageProcessing.h"
 
 #include <math.h>
 
@@ -54,10 +51,6 @@ using namespace hugin_utils;
 typedef RGBValue<unsigned char> BRGBValue;
 
 BEGIN_EVENT_TABLE(PreviewPanel, wxPanel)
-//    EVT_PAINT(CPImageCtrl::OnPaint)
-//    EVT_LEFT_DOWN(CPImageCtrl::mousePressEvent)
-//    EVT_MOTION(CPImageCtrl::mouseMoveEvent)
-//    EVT_LEFT_UP(CPImageCtrl::mouseReleaseEvent)
     EVT_SIZE(PreviewPanel::OnResize)
     EVT_LEFT_DOWN(PreviewPanel::mousePressLMBEvent)
     EVT_RIGHT_DOWN(PreviewPanel::mousePressRMBEvent)
@@ -70,7 +63,6 @@ PreviewPanel::PreviewPanel()
     m_panoBitmap(0), 
     m_pano2erect(0), m_blendMode(BLEND_COPY), 
     m_state_rendering(false), m_rerender(false), m_imgsDirty(true)
-
 {
 }
 
@@ -172,36 +164,8 @@ void PreviewPanel::panoramaChanged(Panorama &pano)
 void PreviewPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
 {
     DEBUG_TRACE("");
-
-    /*
-    for(PT::UIntSet::const_iterator it = changed.begin(); it != changed.end();
-        ++it)
-    {
-        // TODO: need to check if just the active flag changed and skip invalidate in that case
-        if (pano->getSrcImage(*it) != m_remapCache.getSrcDescription()) {
-            m_remapCache.invalidate(*it);
-        }
-    }
-    */
-
     m_imgsDirty = true;
-    /*
-    if (m_autoPreview) {
-        DEBUG_DEBUG("updating preview after image change");
-        updatePreview();
-    }
-    */
 }
-
-/*
-void PreviewPanel::SetDisplayedImages(const UIntSet & imgs)
-{
-    m_displayedImages = imgs;
-    if (m_autoPreview) {
-        updatePreview();
-    }
-}
-*/
 
 void PreviewPanel::SetBlendMode(BlendMode b)
 {
@@ -272,14 +236,6 @@ void PreviewPanel::updatePreview()
 		}
 	  }
 	}
-//    bool seaming = wxConfigBase::Get()->Read("/PreviewPanel/UseSeaming",0l) != 0;
-
-    // temporary bitmap for our remapped image
-    // calculate the image size from panel widht, height from vfov
-
-//    long cor = wxConfigBase::Get()->Read("/PreviewPanel/correctDistortion",0l);
-//    bool corrLens = cor != 0;
-
     wxBusyCursor wait;
     double finalWidth = pano->getOptions().getWidth();
     double finalHeight = pano->getOptions().getHeight();
@@ -306,7 +262,6 @@ void PreviewPanel::updatePreview()
     opts.remapUsingGPU = false;
     opts.setWidth(m_panoImgSize.x, false);
     opts.setHeight(m_panoImgSize.y);
-    //m_panoImgSize.y = opts.getHeight();
     // always use bilinear for preview.
 
     // reset ROI. The preview needs to draw the parts outside the ROI, too!
@@ -319,8 +274,7 @@ void PreviewPanel::updatePreview()
         vigra::BasicImageView<RGBValue<unsigned char> > panoImg8((RGBValue<unsigned char> *)panoImage.GetData(), panoImage.GetWidth(), panoImage.GetHeight());
         FRGBImage panoImg(m_panoImgSize);
         BImage alpha(m_panoImgSize);
-        // the empty panorama roi
-//        Rect2D panoROI;
+
         DEBUG_DEBUG("about to stitch images, pano size: " << m_panoImgSize);
         UIntSet displayedImages = pano->getActiveImages();
         if (displayedImages.size() > 0) {
@@ -333,18 +287,6 @@ void PreviewPanel::updatePreview()
                                 destImageRange(panoImg), destImage(alpha),
                                 m_remapCache,
                                 hdrmerge);
-                /*
-                std::vector<RemappedPanoImage<FRGBImage, BImage> *> remapped;
-                // get all remapped images
-                for (UIntSet::const_iterator it = displayedImages.begin();
-                     it != displayedImages.end(); ++it)
-                {
-                    remapped.push_back(m_remapCache.getRemapped(pano, opts, *it, *parentWindow));
-                }
-                reduceROIImages(remapped,
-                                destImageRange(panoImg), destImage(alpha),
-                                hdrmerge);
-                */
 #ifdef DEBUG_REMAP
 {
     vigra::ImageExportInfo exi( DEBUG_FILE_PREFIX "hugin04_preview_HDR_Reduce.tif"); \
@@ -363,29 +305,15 @@ void PreviewPanel::updatePreview()
                 double min = std::max(minmax.min, 1e-6f);
                 double max = minmax.max;
 
-#if 0
-                for (int i=0; i<3; i++) {
-                    if (minmax.min[i]> 1e-6 && minmax.min[i] < min)
-                        min = minmax.min[i];
-                }
-                double max = DBL_MIN;
-                for (int i=0; i<3; i++) {
-                    if (minmax.max[i]> 1e-6 && minmax.max[i] > max)
-                        max = minmax.max[i];
-                }
-#endif
-
                 int mapping = wxConfigBase::Get()->Read(wxT("/ImageCache/MappingFloat"), HUGIN_IMGCACHE_MAPPING_FLOAT);
                 applyMapping(srcImageRange(panoImg), destImage(panoImg8), min, max, mapping);
 
             } else {
                     // LDR output
-    //            FileRemapper<BRGBImage, BImage> m;
                 switch (m_blendMode) {
                 case BLEND_COPY:
                 {
                     StackingBlender blender;
-    //                SimpleStitcher<BRGBImage, BImage> stitcher(pano, *(MainFrame::Get()));
                     SimpleStitcher<FRGBImage, BImage> stitcher(*pano, *parentWindow);
                     stitcher.stitch(opts, displayedImages,
                                     destImageRange(panoImg), destImage(alpha),
@@ -402,27 +330,7 @@ void PreviewPanel::updatePreview()
                                     m_remapCache,
                                     func);
                     break;
-    /*
-    
-                    WeightedStitcher<BRGBImage, BImage> stitcher(pano, *(MainFrame::Get()));
-                    stitcher.stitch(opts, m_displayedImages,
-                                    destImageRange(panoImg), destImage(alpha),
-                                    m_remapCache);
-                    break;
-    */
                 }
-    /*
-                case BLEND_DIFFERENCE:
-                {
-                    DifferenceBlender blender;
-                    SimpleStitcher<BRGBImage, BImage> stitcher(pano, *(MainFrame::Get()));
-                    stitcher.stitch(opts, m_displayedImages,
-                                    destImageRange(panoImg), destImage(alpha),
-                                    m_remapCache,
-                                    blender);
-                    break;
-                }
-    */
                 }
 
                 
@@ -525,8 +433,6 @@ void PreviewPanel::DrawPreview(wxDC & dc)
         return;
     }
     DEBUG_TRACE("");
-
-//    bool drawOutlines = wxConfigBase::Get()->Read("/PreviewPanel/drawOutlines",1l) != 0;
 
     int offsetX = 0;
     int offsetY = 0;
@@ -661,18 +567,6 @@ void PreviewPanel::DrawPreview(wxDC & dc)
         }
     }
 
-#if 0
-    // currently disabled
-    if (drawOutlines) {
-        for (UIntSet::iterator it = m_displayedImages.begin();
-             it != m_displayedImages.end();
-             ++it)
-        {
-            dc.SetPen(wxPen(wxT("GREY"), 1, wxSOLID));
-            DrawOutline(m_remapped[*it]->getOutline(), dc, offsetX, offsetY);
-        }
-    }
-#endif
     dc.DestroyClippingRegion();
     dc.SetClippingRegion(offsetX, offsetY,
                     m_panoImgSize.x, m_panoImgSize.y);
@@ -768,25 +662,6 @@ void PreviewPanel::OnMouse(wxMouseEvent & e)
 {
     double yaw, pitch;
     mouse2erect(e.m_x, e.m_y,  yaw, pitch);
-    
-    /*
-    wxSize sz = GetClientSize();
-    int offsetX = 0;
-    int offsetY = 0;
-    if (sz.GetWidth() > m_panoImgSize.x) {
-        offsetX = (sz.GetWidth() - m_panoImgSize.x) / 2;
-    }
-    if (sz.GetHeight() > m_panoImgSize.y) {
-        offsetY = (sz.GetHeight() - m_panoImgSize.y) / 2;
-    }
-    double x = e.m_x - offsetX - m_panoImgSize.x/2;
-    double y = e.m_y - offsetY - m_panoImgSize.y/2;
-
-    int w = pano->getOptions().getWidth();
-    double scale = w/(double)m_panoImgSize.x;
-    x *= scale;
-    y *= scale;
-    */
 
     parentWindow->SetStatusText(_("Left click to define new center point, right click to move point to horizon."),0);
     parentWindow->SetStatusText(wxString::Format(wxT("%.1f %.1f"), yaw, pitch), 1);

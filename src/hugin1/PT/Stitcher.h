@@ -32,7 +32,6 @@
 
 namespace PT {
 
-    using HuginBase::Nona::estimateBlendingOrder;
     using HuginBase::Nona::Stitcher;
     using HuginBase::Nona::MultiImageRemapper;
     using HuginBase::Nona::TiffMultiLayerRemapper;
@@ -41,7 +40,6 @@ namespace PT {
     using HuginBase::Nona::ReduceStitcher;
     using HuginBase::Nona::SimpleStitcher;
     using HuginBase::Nona::StackingBlender;
-    using HuginBase::Nona::DifferenceBlender;
     using HuginBase::Nona::stitchPanoIntern;
     using HuginBase::Nona::stitchPanorama;
     using HuginBase::Nona::stitchPanoGray_8_16;

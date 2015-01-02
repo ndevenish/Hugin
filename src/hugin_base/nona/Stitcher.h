@@ -67,13 +67,6 @@
 namespace HuginBase {
 namespace Nona {
 
-/** determine blending order (starting with image 0), and continue to
- *  stitch the image with the biggest overlap area with the real image..
- *  do everything on a low res version of the masks
- */
-void estimateBlendingOrder(const PanoramaData & pano, UIntSet images,
-	                   std::vector<unsigned int> & blendOrder);
-
 /** implements a stitching algorithm */
 template <typename ImageType, typename AlphaType>
 class Stitcher
@@ -292,8 +285,8 @@ public:
     typedef Stitcher<ImageType, AlphaType> Base;
 
     MultiImageRemapper(const PanoramaData & pano,
-	               AppBase::MultiProgressDisplay & progress)
-	: Stitcher<ImageType,AlphaType>(pano, progress)
+                       AppBase::MultiProgressDisplay & progress)
+    : Stitcher<ImageType,AlphaType>(pano, progress)
     {
     }
 
@@ -504,10 +497,6 @@ public:
                         SingleImageRemapper<ImageType, AlphaType> & remapper,
                         const AdvancedOptions& advOptions)
     {
-        //std::vector<unsigned int> images;
-        // calculate stitching order
-        //estimateBlendingOrder(Base::m_pano, imgSet, images);
-
         const unsigned int nImg = imgSet.size();
 
         Base::m_progress.pushTask(AppBase::ProgressTask("Stitching", "", 1.0/(nImg)));	
@@ -1001,110 +990,6 @@ public:
                            applyRect(overlap, alpha));
     }
 };
-
-/** blend by difference */
-struct DifferenceBlender
-{
-public:
-
-    /** blend \p img into \p pano, using \p alpha mask and \p panoROI
-     *
-     *  updates \p pano, \p alpha and \p panoROI
-     */
-    template <typename ImageType, typename AlphaType,
-              typename PanoIter, typename PanoAccessor,
-              typename AlphaIter, typename AlphaAccessor>
-    void operator()(RemappedPanoImage<ImageType, AlphaType> & img,
-                    vigra::triple<PanoIter, PanoIter, PanoAccessor> pano,
-                    std::pair<AlphaIter, AlphaAccessor> alpha,
-                    const vigra::Rect2D & panoROI)
-    {
-		DEBUG_DEBUG("pano roi: " << panoROI << " img roi: " << img.boundingBox());
-		typedef typename AlphaIter::value_type AlphaValue;
-
-		// check if bounding box of image is outside of panorama...
-		vigra::Rect2D fullPano(vigra::Size2D(pano.second-pano.first));
-        // blend only the intersection (which is inside the pano..)
-        vigra::Rect2D overlap = fullPano & img.boundingBox();
-
-        vigra::combineTwoImagesIf(applyRect(overlap, vigra_ext::srcImageRange(img)),
-                                  applyRect(overlap, std::make_pair(pano.first, pano.third)),
-                                  applyRect(overlap, vigra_ext::srcMask(img)),
-                                  applyRect(overlap, std::make_pair(pano.first, pano.third)),
-                                  abs(vigra::functor::Arg1()-vigra::functor::Arg2()));
-
-        // copy mask
-        vigra::copyImageIf(applyRect(overlap, srcMaskRange(img)),
-                           applyRect(overlap, srcMask(img)),
-                           applyRect(overlap, alpha));
-    }
-};
-
-/*
-template <typename ImageType, typename AlphaImageType>
-class MultiResStitcher : public WeightedSticher<ImageType, AlphaImageType>
-{
-public:
-    MultiResStitcher(const PanoramaData & pano,
-		     AppBase::MultiProgressDisplay & progress)
-	: WeightedStitcher(pano, progress)
-    {
-    }
-
-    template <typename PanoIter, typename PanoAccessor,
-	      typename MaskIter, typename MaskAccessor>
-    virtual void blendOverlap(vigra::triple<PanoIter, PanoIter, PanoAccessor> image,
-		      std::pair<MaskIter, MaskAccessor> imageMask,
-		      std::pair<PanoIter, PanoAccessor> pano,
-		      std::pair<MaskIter, MaskAccessor> panoMask)
-    {
-	vigra::Diff2D size = image.second - image.first;
-
-	// create new blending masks
-	vigra::BasicImage<typename MaskIter::value_type> blendPanoMask(size);
-	vigra::BasicImage<typename MaskIter::value_type> blendImageMask(size);
-
-	// calculate the stitching masks.
-	vigra_ext::nearestFeatureTransform(srcIterRange(panoMask.first, panoMask.first + size),
-                                           imageMask,
-                                           destImage(blendPanoMask),
-                                           destImage(blendImageMask),
-                                           m_progress);
-
-        // calculate the a number of
-
-	// copy the image into the panorama
-	vigra::copyImageIf(image, maskImage(blendImageMask), pano);
-	// copy mask
-	vigra::copyImageIf(srcImageRange(blendImageMask), maskImage(blendImageMask), panoMask);
-    }
-
-private:
-};
-*/
-
-
-#if 0
-/** small convinience function to remap and stitch a HDR image 
- *  Warning, this requires tons of memory, since everything is
- *  hold on disk.
- */
-template <typename Remapper, typename OutputImage, typename Mask>
-void stitchToHDR(Remapper & remappers, OutputImage & panoImg, Mask & mask, 
-                 AppBase::MultiProgressDisplay & progress)
-{
-    std::vector<RemappedPanoImage<OutputImage, Mask> *> remapped;
-    // get all remapped images
-    for (UIntSet::const_iterator it = displayedImages.begin();
-        it != displayedImages.end(); ++it)
-    {
-        remapped.push_back(remapper.getRemapped(pano, opts, *it, progress));
-    }
-    ReduceToHDRFunctor<RGBValue<float> > hdrmerge;
-    reduceROIImages(remapped,
-                    destImageRange(panoImg), destImage(alpha),
-                    hdrmerge);
-#endif
 
 template<typename ImageType, typename AlphaType>
 static void stitchPanoIntern(const PanoramaData & pano,
