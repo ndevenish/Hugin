@@ -107,13 +107,14 @@ http://wiki.panotools.org/Development_of_Open_Source_tools#Dependencies
 
 Users compiling Hugin from source will need:
 
-    The wxWidgets GUI toolkit version >=2.7.0. 2.9/3.0 is supported. 2.8.12 is recommended.
-    boost >=1.44. The following boost libraries are used:
+    The wxWidgets GUI toolkit version >=2.7.0. 2.9/3.0 is supported.
+    boost >=1.47. The following boost libraries are used:
+        date_time
         filesystem
         graph
         iostreams
         regex
-        signals
+        signals (with boost >=1.54 signals2 is used)
         system
         thread
     libtiff the TIFF library with LZW support.
@@ -121,6 +122,7 @@ Users compiling Hugin from source will need:
     libjpg the JPEG library
     libpng the PNG library
     libopenexr the OpenEXR library
+    libvigra the VIGRA libray, header files and impex library
     Exiv2 Image metadata library
     GLEW the OpenGL Extension Wrangler Library
     freeglut or glut, the OpenGL utility toolkit
