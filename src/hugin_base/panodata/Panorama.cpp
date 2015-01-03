@@ -2262,6 +2262,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
     vector<ImgInfo> huginImgInfo;
     // vector with readed masks
     MaskPolygonVector ImgMasks;
+    CPVector loadedCp;
 
     // indicate lines that should be skipped for whatever reason
     bool skipNextLine = false;
@@ -2511,7 +2512,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
             }
 
             point.mode = t;
-            ctrlPoints.push_back(point);
+            loadedCp.push_back(point);
             state = P_CP;
             break;
         }
@@ -3054,6 +3055,25 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
     if (optvec.size() != images.size()) {
         optvec = OptimizeVector(images.size());
     }
+
+    if (!loadedCp.empty())
+    {
+        // check if control points are linked with existing images
+        const size_t nrImg = images.size();
+        for (CPVector::const_iterator it = loadedCp.begin(); it != loadedCp.end(); ++it)
+        {
+            HuginBase::ControlPoint cp = *it;
+            if (cp.image1Nr < nrImg && cp.image2Nr < nrImg)
+            {
+                ctrlPoints.push_back(cp);
+            };
+        };
+        if (loadedCp.size() != ctrlPoints.size())
+        {
+            std::cout << "WARNING: Project file contains control points that are connected with" << std::endl
+                << "  non existing images. Ignoring these control points." << std::endl;
+        };
+    };
 
     // reset locale
     setlocale(LC_NUMERIC,old_locale);
