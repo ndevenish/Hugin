@@ -34,6 +34,7 @@
 #include <panodata/Panorama.h>
 #include "algorithms/optimizer/ImageGraph.h"
 #include "hugin_base/panotools/PanoToolsUtils.h"
+#include "hugin_base/panodata/StandardImageVariableGroups.h"
 #include "algorithms/basic/CalculateCPStatistics.h"
 #include "algorithms/basic/LayerStacks.h"
 #include <boost/algorithm/string.hpp>
@@ -54,6 +55,8 @@ static void usage(const char* name)
          << endl
          << "Further switches:" << endl
          << "  --print-output-info     Print more information about the output" << endl
+         << "  --print-lens-info       Print more information about lenses" << endl
+         << "  --print-stack-info      Print more information about assigned stacks" << endl
          << "  --generate-argfile=file Generate Exiftool argfile" << endl
 #ifdef EXIFTOOL_GPANO_SUPPORT
          << "  --no-gpano              Don't include GPano tags in argfile" << endl
@@ -65,10 +68,14 @@ static void usage(const char* name)
          << endl;
 }
 
-void printImageGroup(const std::vector<HuginBase::UIntSet>& imageGroup)
+void printImageGroup(const std::vector<HuginBase::UIntSet>& imageGroup, const std::string& prefix=std::string())
 {
     for (size_t i=0; i < imageGroup.size(); i++)
     {
+        if (!prefix.empty())
+        {
+            std::cout << prefix << " " << i << ": ";
+        };
         std::cout << "[";
         size_t c=0;
         for (HuginBase::UIntSet::const_iterator it = imageGroup[i].begin(); it != imageGroup[i].end(); ++it)
@@ -81,10 +88,11 @@ void printImageGroup(const std::vector<HuginBase::UIntSet>& imageGroup)
             ++c;
         }
         std::cout << "]";
-        if (i+1 != imageGroup.size())
+        if (prefix.empty() && (i+1 != imageGroup.size()))
         {
-            std::cout << ", " << endl;
+            std::cout << ", ";
         }
+        std::cout << std::endl;
     }
 };
 
@@ -207,11 +215,15 @@ int main(int argc, char* argv[])
         GENERATE_ARGFILE_WITHOUT_GPANO=1002,
 #endif
         APPEND_ARGFILE=1003,
+        PRINT_LENS_INFO=1004,
+        PRINT_STACK_INFO=1005,
     };
     static struct option longOptions[] =
     {
         {"print-output-info", no_argument, NULL, PRINT_OUTPUT_INFO },
-        {"generate-argfile", required_argument, NULL, GENERATE_ARGFILE},
+        { "print-lens-info", no_argument, NULL, PRINT_LENS_INFO },
+        { "print-stack-info", no_argument, NULL, PRINT_STACK_INFO },
+        { "generate-argfile", required_argument, NULL, GENERATE_ARGFILE },
 #ifdef EXIFTOOL_GPANO_SUPPORT
         {"no-gpano", no_argument, NULL, GENERATE_ARGFILE_WITHOUT_GPANO},
 #endif
@@ -222,6 +234,8 @@ int main(int argc, char* argv[])
 
     int c;
     bool printOutputInfo=false;
+    bool printLensInfo = false;
+    bool printStackInfo = false;
 #ifdef EXIFTOOL_GPANO_SUPPORT
     bool withoutGPano=false;
 #else
@@ -239,6 +253,12 @@ int main(int argc, char* argv[])
                 return 0;
             case PRINT_OUTPUT_INFO:
                 printOutputInfo=true;
+                break;
+            case PRINT_LENS_INFO:
+                printLensInfo = true;
+                break;
+            case PRINT_STACK_INFO:
+                printStackInfo = true;
                 break;
             case GENERATE_ARGFILE:
                 argfile=optarg;
@@ -294,10 +314,13 @@ int main(int argc, char* argv[])
         return 0;
     };
 
+    HuginBase::ConstStandardImageVariableGroups variable_groups(pano);
     std::cout << endl
               << "Opened project " << input << endl << endl
               << "Project contains" << endl
               << pano.getNrOfImages() << " images" << endl
+              << variable_groups.getLenses().getNumberOfParts() << " lenses" << endl
+              << variable_groups.getStacks().getNumberOfParts() << " stacks" << endl
               << pano.getNrOfCtrlPoints() << " control points" << endl << endl;
     //cp statistics
     if(pano.getNrOfCtrlPoints()>0)
@@ -357,7 +380,18 @@ int main(int argc, char* argv[])
         }
         returnValue=n;
     };
-    if(printOutputInfo)
+    std::cout << std::endl;
+    if (printLensInfo)
+    {
+        std::cout << std::endl << "Lenses:" << std::endl;
+        printImageGroup(variable_groups.getLenses().getPartsSet(), "Lens");
+    };
+    if (printStackInfo)
+    {
+        std::cout << std::endl << "Stacks:" << std::endl;
+        printImageGroup(variable_groups.getStacks().getPartsSet(), "Stack");
+    };
+    if (printOutputInfo)
     {
         HuginBase::UIntSet outputImages=HuginBase::getImagesinROI(pano, pano.getActiveImages());
         std::vector<HuginBase::UIntSet> stacks=HuginBase::getHDRStacks(pano, outputImages, pano.getOptions());
