@@ -207,10 +207,9 @@ void AboutDialog::GetSystemInformation(wxFont *font)
             text = text + wxT("\nlibpano13: ") + wxString(panoVersion, wxConvLocal);
         };
     }
-
     text=text+wxT("\n")+wxString::Format(wxT("Boost: %i.%i.%i"),BOOST_VERSION / 100000, BOOST_VERSION / 100 % 1000, BOOST_VERSION % 100);
-    text=text+wxT("\n")+wxString::Format(wxT("Exiv2: %s"), Exiv2::version());
-    text = text + wxT("\n") + wxString::Format(wxT("SQLite3: %s"), sqlite3_libversion());
+    text = text + wxT("\n") + wxT("Exiv2: ") + wxString(Exiv2::version(), wxConvLocal);
+    text = text + wxT("\n") + wxT("SQLite3: ") + wxString(sqlite3_libversion(), wxConvLocal);
     text = text + wxT("\n") + wxString::Format(wxT("Vigra: %s"), wxString(VIGRA_VERSION, wxConvLocal).c_str());
     infoText->SetValue(text);
 }
