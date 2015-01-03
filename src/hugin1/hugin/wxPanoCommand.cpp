@@ -635,14 +635,22 @@ bool wxLoadPTProjectCmd::processPanorama(Panorama& pano)
             pano.setSrcImage(i, srcImg);
         }
         // Link image projection across each lens, since it is not saved.
-        for (unsigned int i = 0; i < lenses.getNumberOfParts(); i++)
+        const HuginBase::UIntSetVector imgSetLens = lenses.getPartsSet();
+        for (size_t i = 0; i < imgSetLens.size(); ++i)
         {
-            // link the variables
-            lenses.linkVariablePart(
-                                HuginBase::ImageVariableGroup::IVE_Projection,
-                                i
-                                   );
-        }
+            const HuginBase::UIntSet imgLens = imgSetLens[i];
+            if (imgLens.size()>1)
+            {
+                HuginBase::UIntSet::const_iterator it = imgLens.begin();
+                const size_t img1 = *it;
+                ++it;
+                do
+                {
+                    pano.linkImageVariableProjection(img1, *it);
+                    ++it;
+                } while (it != imgLens.end());
+            };
+        };
     } else {
         DEBUG_ERROR("could not load panotools script");
     }
