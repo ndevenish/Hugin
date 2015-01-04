@@ -799,8 +799,14 @@ void GLPreviewFrame::LoadOpenGLLayout()
 #ifdef __WXGTK__
         if(!GetMenuBar()->FindItem(XRCID("action_show_overview"))->IsChecked())
         {
+            wxAuiPaneInfo &inf = m_mgr->GetPane(wxT("overview"));
+            if (inf.IsOk())
+            {
+                inf.Hide();
+            }
             m_GLOverview->SetActive(false);
         };
+        m_mgr->Update();
         wxShowEvent dummy;
         dummy.SetShow(true);
         OnShowEvent(dummy);
