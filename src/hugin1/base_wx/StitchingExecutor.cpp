@@ -76,10 +76,10 @@ namespace HuginQueue
         /** generate the final argfile 
             @return full name of generated argfile 
         */
-        wxString GenerateFinalArgfile(const HuginBase::Panorama & pano, const wxConfigBase* config, const HuginBase::UIntSet& images)
+        wxString GenerateFinalArgfile(const HuginBase::Panorama & pano, const wxConfigBase* config, const HuginBase::UIntSet& images, const double exifToolVersion)
         {
             wxString argfileInput = config->Read(wxT("/output/FinalArgfile"), wxEmptyString);
-            const bool generateGPanoTags = config->Read(wxT("/output/writeGPano"), HUGIN_EXIFTOOL_CREATE_GPANO) == 1l;
+            const bool generateGPanoTags = (config->Read(wxT("/output/writeGPano"), HUGIN_EXIFTOOL_CREATE_GPANO) == 1l) && (exifToolVersion >= 9.09);
             pano_projection_features proj;
             const HuginBase::PanoramaOptions &opts = pano.getOptions();
             const bool readProjectionName = panoProjectionFeaturesQuery(opts.getProjection(), &proj) != 0;
@@ -128,7 +128,6 @@ namespace HuginQueue
             outputFile << wxT("FOV: ") << placeholders[wxT("%hfov")] << wxT(" x ") << placeholders[wxT("%vfov")] << linebreak;
             outputFile << wxT("Ev: ") << placeholders[wxT("%ev")] << endl;
             outputFile << wxT("-f") << endl;
-#ifdef EXIFTOOL_GPANO_SUPPORT
             if (generateGPanoTags)
             {
                 //GPano tags are only indented for equirectangular images
@@ -164,7 +163,6 @@ namespace HuginQueue
                     outputFile << wxT("-SourcePhotosCount=") << static_cast<wxUint32>(pano.getNrOfImages()) << endl;
                 };
             };
-#endif
             // now open the input file and append it
             if (!argfileInput.IsEmpty())
             {
@@ -188,7 +186,21 @@ namespace HuginQueue
             return tempArgfileFinal.GetFullPath();
         };
 
-        wxString PrintDetailInfo(const HuginBase::Panorama& pano, const HuginBase::PanoramaOptions& opts, const HuginBase::UIntSet& allActiveImages, const wxString& prefix, const wxString& bindir, wxConfigBase* config)
+        double wxStringToCDouble(const wxString& s)
+        {
+            double val;
+#if wxCHECK_VERSION(2,9,1)
+            s.ToCDouble(&val);
+#else
+            wxString s2(s);
+            s2.Replace(wxT("."), wxLocale::GetInfo(wxLOCALE_DECIMAL_POINT, wxLOCALE_CAT_NUMBER));
+            s2.ToDouble(&val);
+            wxLogMessage(wxT("#")+s2+wxT("#"));
+#endif
+            return val;
+        };
+
+        wxString PrintDetailInfo(const HuginBase::Panorama& pano, const HuginBase::PanoramaOptions& opts, const HuginBase::UIntSet& allActiveImages, const wxString& prefix, const wxString& bindir, wxConfigBase* config, double& exiftoolVersion)
         {
             wxString output;
             const wxString wxEndl(wxT("\n"));
@@ -243,10 +255,13 @@ namespace HuginQueue
                 if (wxExecute(wxEscapeFilename(GetExternalProgram(config, bindir, wxT("exiftool"))) + wxT(" -ver"), version, wxEXEC_SYNC) == 0l)
                 {
                     output << _("ExifTool version:") << wxT(" ") << version[0] << wxEndl;
+                    exiftoolVersion = wxStringToCDouble(version[0]);
+                    wxLogMessage(wxString::Format(wxT("Exiftool version %f"), exiftoolVersion));
                 }
                 else
                 {
                     output << _("ExifTool:") << wxT(" ") << _("FAILED") << wxEndl;
+                    exiftoolVersion = 1;
                 };
             };
             output
@@ -374,7 +389,8 @@ namespace HuginQueue
             std::cerr << "ERROR: Only hdr merger HDRMERGE_AVERAGE is currently supported by hugin_executor." << std::endl;
             return commands;
         };
-        statusText=detail::PrintDetailInfo(pano, opts, allActiveImages, prefix, ExePath, config);
+        double exiftoolVersion;
+        statusText=detail::PrintDetailInfo(pano, opts, allActiveImages, prefix, ExePath, config, exiftoolVersion);
         // prepare some often needed variables
         const wxString quotedProject(wxEscapeFilename(project));
         // prepare nona arguments
@@ -474,7 +490,7 @@ namespace HuginQueue
             wxFileName argfile(exiftoolArgfile);
             argfile.Normalize();
             exiftoolArgs.Append(wxT(" -@ ") + wxEscapeFilename(argfile.GetFullPath()) + wxT(" "));
-            wxString finalArgfile = detail::GenerateFinalArgfile(pano, config, allActiveImages);
+            wxString finalArgfile = detail::GenerateFinalArgfile(pano, config, allActiveImages, exiftoolVersion);
             if (!finalArgfile.IsEmpty())
             {
                 exiftoolArgsFinal.Append(wxT(" -@ ") + wxEscapeFilename(finalArgfile) + wxT(" "));
