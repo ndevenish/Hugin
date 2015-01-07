@@ -27,7 +27,12 @@
 #include "ImageCache.h"
 
 #include <iostream>
+#include "hugin_config.h"
+#ifdef USE_CXX11_THREAD
+#include <thread>
+#else
 #include <boost/thread/thread.hpp>
+#endif
 #include <vigra/inspectimage.hxx>
 #include <vigra/accessor.hxx>
 #include <vigra/functorexpression.hxx>
@@ -930,7 +935,12 @@ void ImageCache::spawnAsyncThread()
         {
             DEBUG_DEBUG("Not staring a thread to load an image, since no images are wanted.");
         } else {
+#ifdef USE_CXX11_THREAD
+            std::thread thread(loadSafely, it->second, EntryPtr());
+            thread.detach();
+#else
             boost::thread(loadSafely, it->second, EntryPtr());
+#endif
         }
     } else {
         // got a small image request, check if its larger version has loaded.
@@ -940,10 +950,20 @@ void ImageCache::spawnAsyncThread()
         {
             // the larger one is needed to generate it.
             RequestPtr request(new Request(filename, false));
+#ifdef USE_CXX11_THREAD
+            std::thread thread(loadSafely, request, EntryPtr());
+            thread.detach();
+#else
             boost::thread(loadSafely, request, EntryPtr());
+#endif
         } else {
             // we have the large image.
+#ifdef USE_CXX11_THREAD
+            std::thread thread(loadSafely, it->second, large);
+            thread.detach();
+#else
             boost::thread(loadSafely, it->second, large);
+#endif
         }
     }
     // thread should be processing the image asynchronously now.

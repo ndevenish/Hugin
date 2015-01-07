@@ -29,6 +29,24 @@
 #include <string>
 #include <fstream>
 #define BOOST_FILESYSTEM_VERSION 3
+#ifdef __GNUC__
+  #include "hugin_config.h"
+  #ifdef USE_CXX11_THREAD
+    #include <boost/version.hpp>
+    #if BOOST_VERSION<105700
+      #if BOOST_VERSION>=105100
+        // workaround a bug in boost filesystem
+        // boost filesystem is probably compiled with C++03
+        // but Hugin is compiled with C++11, this results in
+        // conflicts in boost::filesystems at a enum
+        // see https://svn.boost.org/trac/boost/ticket/6779
+        #define BOOST_NO_CXX11_SCOPED_ENUMS
+      #else
+        #define BOOST_NO_SCOPED_ENUMS
+      #endif
+    #endif
+  #endif
+#endif
 #include <boost/filesystem.hpp>
 #include <getopt.h>
 #include <panodata/Panorama.h>

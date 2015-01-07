@@ -5,7 +5,7 @@ IF (MSVC)
   include_directories( ${CMAKE_SOURCE_DIR}/src/foreign/getopt/include )
 ELSE (MSVC)
   # need to specify boost thread library
-  SET(common_libs huginbase ${Boost_LIBRARIES} ${PANO_LIBRARIES} ${GLEW_LIBRARIES} huginlevmar)
+  SET(common_libs huginbase ${Boost_LIBRARIES} ${PANO_LIBRARIES} ${GLEW_LIBRARIES} huginlevmar ${CXX11_THREAD_ADDITIONAL_LIB})
 ENDIF (MSVC)
 IF(LAPACK_FOUND)
   SET(common_libs ${common_libs} ${LAPACK_LIBRARIES})
