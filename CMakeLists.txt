@@ -463,30 +463,6 @@ ENDIF(ENABLE_LAPACK)
 #INCLUDE_DIRECTORIES( ${VIPSCC_INCLUDE_DIRS} )
 #LINK_DIRECTORIES( ${VIPSCC_LIBRARY_DIRS} )
 
-#Check exiftool version
-IF(WIN32)
-  FIND_PATH(EXIFTOOL_EXE_DIR exiftool.exe
-        ${SOURCE_BASE_DIR}/tools
-        ${SOURCE_BASE_DIR}/exiftool
-        DOC "Location of exiftool.exe"
-        NO_DEFAULT_PATH)
-  EXECUTE_PROCESS(COMMAND ${EXIFTOOL_EXE_DIR}/exiftool.exe -ver OUTPUT_VARIABLE _exiftool_version OUTPUT_STRIP_TRAILING_WHITESPACE)
-ELSE()
-  EXECUTE_PROCESS(COMMAND exiftool -ver RESULT_VARIABLE _exiftool_result OUTPUT_VARIABLE _exiftool_version OUTPUT_STRIP_TRAILING_WHITESPACE)
-  IF(NOT _exiftool_result EQUAL 0) 
-    MESSAGE(FATAL_ERROR "Could not execute ExifTool. Check if ExifTool is installed correctly.")
-  ENDIF()
-ENDIF()
-
-MESSAGE(STATUS "Found Exiftool version ${_exiftool_version}")
-IF(${_exiftool_version} VERSION_LESS 9.09)
-  MESSAGE(WARNING "Support for GPano tags is disabled. For these tags ExifTool version 9.09 is required.")
-  SET(EXIFTOOL_GPANO_SUPPORT FALSE)
-ELSE()
-  MESSAGE(STATUS "ExifTool version is recent enough. Activating support for GPano tags.")
-  SET(EXIFTOOL_GPANO_SUPPORT TRUE)
-ENDIF()
-
 #
 # Check build type and set options accordingly
 # 

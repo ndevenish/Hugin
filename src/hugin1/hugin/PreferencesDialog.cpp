@@ -243,11 +243,6 @@ PreferencesDialog::PreferencesDialog(wxWindow* parent)
     cfg->Write(wxT("/Enfuse/Custom"), HUGIN_ENFUSE_EXE_CUSTOM);
 #endif
 
-#ifndef EXIFTOOL_GPANO_SUPPORT
-    //hide GPano tags checkbox if ExifTool is too old
-    XRCCTRL(*this, "pref_exiftool_gpano", wxCheckBox)->Hide();
-#endif
-
     RestoreFramePosition(this, wxT("PreferencesDialog"));
 }
 

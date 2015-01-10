@@ -37,7 +37,6 @@
 #include "hugin_base/panodata/StandardImageVariableGroups.h"
 #include "algorithms/basic/CalculateCPStatistics.h"
 #include "algorithms/basic/LayerStacks.h"
-#include <boost/algorithm/string.hpp>
 
 using namespace std;
 using namespace HuginBase;
@@ -57,11 +56,6 @@ static void usage(const char* name)
          << "  --print-output-info     Print more information about the output" << endl
          << "  --print-lens-info       Print more information about lenses" << endl
          << "  --print-stack-info      Print more information about assigned stacks" << endl
-         << "  --generate-argfile=file Generate Exiftool argfile" << endl
-#ifdef EXIFTOOL_GPANO_SUPPORT
-         << "  --no-gpano              Don't include GPano tags in argfile" << endl
-#endif
-         << "  --append-argfile=file   Append the argfile to the generated argfile" << endl
          << "                          spaceholders will be replaced with real values" << endl
          << endl
          << name << " is used by the assistant and by the stitching makefiles" << endl
@@ -96,113 +90,6 @@ void printImageGroup(const std::vector<HuginBase::UIntSet>& imageGroup, const st
     }
 };
 
-std::string GetStringFromValue(const double value, const int precision)
-{
-    std::stringstream valueStream;
-    valueStream.imbue(std::locale("C"));
-    valueStream << fixed;
-    valueStream << setprecision(precision) << value;
-    return valueStream.str();
-};
-
-void GenerateArgfile(const std::string& filename, const Panorama& pano, bool noGPano, const std::string& appendedArgfile)
-{
-    pano_projection_features proj;
-    const PanoramaOptions &opts=pano.getOptions();
-    bool readProjectionName=panoProjectionFeaturesQuery(opts.getProjection(), &proj)!=0;
-
-    std::ofstream infostream(filename.c_str(), std::ofstream::out);
-    infostream.imbue(std::locale("C"));
-    infostream << fixed;
-    std::map<std::string, std::string> placeholders;
-#ifdef _WIN32
-    std::string linebreak("&\\#xd;&\\#xa;");
-#else
-    std::string linebreak("&\\#xa;");
-#endif
-    infostream << "-Software=Hugin " << hugin_utils::GetHuginVersion() << std::endl;
-    infostream << "-E" << std::endl;
-    infostream << "-UserComment<${UserComment}" << linebreak;
-    if(readProjectionName)
-    {
-        placeholders.insert(std::make_pair("%projection", std::string(proj.name)));
-        placeholders.insert(std::make_pair("%projectionNumber", GetStringFromValue(opts.getProjection(), 0)));
-        infostream << "Projection: " << proj.name << " (" << opts.getProjection() << ")" << linebreak;
-    };
-    // fill in some placeholders
-    placeholders.insert(std::make_pair("%hfov", GetStringFromValue(opts.getHFOV(), 0)));
-    placeholders.insert(std::make_pair("%vfov", GetStringFromValue(opts.getVFOV(), 0)));
-    placeholders.insert(std::make_pair("%ev", GetStringFromValue(opts.outputExposureValue, 2)));
-    placeholders.insert(std::make_pair("%nrImages", GetStringFromValue(pano.getActiveImages().size(), 0)));
-    placeholders.insert(std::make_pair("%nrAllImages", GetStringFromValue(pano.getNrOfImages(), 0)));
-    placeholders.insert(std::make_pair("%fullwidth", GetStringFromValue(opts.getWidth(), 0)));
-    placeholders.insert(std::make_pair("%fullheight", GetStringFromValue(opts.getHeight(), 0)));
-    placeholders.insert(std::make_pair("%width", GetStringFromValue(opts.getROI().width(), 0)));
-    placeholders.insert(std::make_pair("%height", GetStringFromValue(opts.getROI().height(), 0)));
-    infostream << "FOV: " << placeholders["%hfov"] << " x " << placeholders["%vfov"] << linebreak;
-    infostream << "Ev: " << placeholders["%ev"] << std::endl;
-    infostream << "-f" << std::endl;
-    if(!noGPano)
-    {
-        //GPano tags are only indented for equirectangular images
-        if(opts.getProjection()==PanoramaOptions::EQUIRECTANGULAR)
-        {
-            vigra::Rect2D roi=opts.getROI();
-            int left=roi.left();
-            int top=roi.top();
-            int width=roi.width();
-            int height=roi.height();
-
-            int fullWidth=opts.getWidth();
-            if(opts.getHFOV()<360)
-            {
-                fullWidth=static_cast<int>(opts.getWidth() * 360.0 / opts.getHFOV());
-                left += (fullWidth - opts.getWidth())/2;
-            };
-            int fullHeight=opts.getHeight();
-            if(opts.getVFOV()<180)
-            {
-                fullHeight=static_cast<int>(opts.getHeight() * 180.0 / opts.getVFOV());
-                top += (fullHeight - opts.getHeight())/2;
-            };
-            infostream << "-UsePanoramaViewer=True" << std::endl;
-            infostream << "-StitchingSoftware=Hugin" << std::endl;
-            infostream << "-ProjectionType=equirectangular"  << std::endl;
-            infostream << "-CroppedAreaLeftPixels=" << left << std::endl;
-            infostream << "-CroppedAreaTopPixels=" << top  << std::endl;
-            infostream << "-CroppedAreaImageWidthPixels="  << width << std::endl;
-            infostream << "-CroppedAreaImageHeightPixels=" << height << std::endl;
-            infostream << "-FullPanoWidthPixels=" << fullWidth << std::endl;
-            infostream << "-FullPanoHeightPixels=" << fullHeight << std::endl;;
-            infostream << "-SourcePhotosCount=" << pano.getNrOfImages()  << std::endl;
-        };
-    };
-    if (!appendedArgfile.empty())
-    {
-        std::ifstream inputArgfile(appendedArgfile.c_str());
-        if (inputArgfile.is_open())
-        {
-            std::ostringstream contents;
-            contents << inputArgfile.rdbuf();
-            inputArgfile.close();
-            std::string s(contents.str());
-            // replace all placeholders
-            for (std::map<std::string, std::string>::const_iterator it = placeholders.begin(); it != placeholders.end(); ++it)
-            {
-                boost::algorithm::replace_all(s, it->first, it->second);
-            }
-            // now append to existing argfile
-            infostream << s << std::endl;
-        }
-        else
-        {
-            cerr << "ERROR: Could not open file \"" << appendedArgfile << "\"." << endl
-                << "       Ignoring content of file." << endl;
-        };
-    };
-    infostream.close();
-};
-
 int main(int argc, char* argv[])
 {
     // parse arguments
@@ -210,25 +97,15 @@ int main(int argc, char* argv[])
     enum
     {
         PRINT_OUTPUT_INFO=1000,
-        GENERATE_ARGFILE=1001,
-#if EXIFTOOL_GPANO_SUPPORT
-        GENERATE_ARGFILE_WITHOUT_GPANO=1002,
-#endif
-        APPEND_ARGFILE=1003,
         PRINT_LENS_INFO=1004,
         PRINT_STACK_INFO=1005,
     };
     static struct option longOptions[] =
     {
-        {"print-output-info", no_argument, NULL, PRINT_OUTPUT_INFO },
+        { "print-output-info", no_argument, NULL, PRINT_OUTPUT_INFO },
         { "print-lens-info", no_argument, NULL, PRINT_LENS_INFO },
         { "print-stack-info", no_argument, NULL, PRINT_STACK_INFO },
-        { "generate-argfile", required_argument, NULL, GENERATE_ARGFILE },
-#ifdef EXIFTOOL_GPANO_SUPPORT
-        {"no-gpano", no_argument, NULL, GENERATE_ARGFILE_WITHOUT_GPANO},
-#endif
-        {"append-argfile", required_argument, NULL, APPEND_ARGFILE},
-        {"help", no_argument, NULL, 'h' },
+        { "help", no_argument, NULL, 'h' },
         0
     };
 
@@ -236,13 +113,6 @@ int main(int argc, char* argv[])
     bool printOutputInfo=false;
     bool printLensInfo = false;
     bool printStackInfo = false;
-#ifdef EXIFTOOL_GPANO_SUPPORT
-    bool withoutGPano=false;
-#else
-    bool withoutGPano=true;
-#endif
-    std::string argfile;
-    std::string appendedArgfile;
     int optionIndex = 0;
     while ((c = getopt_long (argc, argv, optstring, longOptions,&optionIndex)) != -1)
     {
@@ -259,23 +129,6 @@ int main(int argc, char* argv[])
                 break;
             case PRINT_STACK_INFO:
                 printStackInfo = true;
-                break;
-            case GENERATE_ARGFILE:
-                argfile=optarg;
-                break;
-#ifdef EXIFTOOL_GPANO_SUPPORT
-            case GENERATE_ARGFILE_WITHOUT_GPANO:
-                withoutGPano=true;
-                break;
-#endif
-            case APPEND_ARGFILE:
-                appendedArgfile = optarg;
-                if (!hugin_utils::FileExists(appendedArgfile))
-                {
-                    std::cerr << "WARNING: File \"" << appendedArgfile << "\" not found." << endl
-                        << "         Ignoring parameter." << endl;
-                    appendedArgfile = "";
-                };
                 break;
             case '?':
                 break;
@@ -307,12 +160,6 @@ int main(int argc, char* argv[])
         cerr << "DocumentData::ReadWriteError code: " << err << endl;
         return -1;
     }
-
-    if(!argfile.empty())
-    {
-        GenerateArgfile(argfile, pano, withoutGPano, appendedArgfile);
-        return 0;
-    };
 
     HuginBase::ConstStandardImageVariableGroups variable_groups(pano);
     std::cout << endl
