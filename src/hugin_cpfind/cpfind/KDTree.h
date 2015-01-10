@@ -23,6 +23,7 @@
 
 #include <vector>
 #include <list>
+#include <functional>  // for std::greater
 
 #include <localfeatures/BoundedSet.h>
 

@@ -20,7 +20,6 @@
 
 #include <vector>
 
-#include <boost/shared_ptr.hpp>
 #include <vigra/stdimage.hxx>
 #include <vigra/transformimage.hxx>
 

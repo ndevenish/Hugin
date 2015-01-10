@@ -22,8 +22,7 @@
 #define __lfeat_keypoint_h
 
 #include <hugin_shared.h>
-
-#include <boost/shared_ptr.hpp>
+#include "hugin_utils/shared_ptr.h"
 #include <vector>
 
 namespace lfeat
@@ -107,7 +106,7 @@ inline bool operator < (const KeyPoint& iA, const KeyPoint& iB)
 
 
 
-typedef boost::shared_ptr<KeyPoint> 		KeyPointPtr;
+typedef sharedPtrNamespace::shared_ptr<KeyPoint> 		KeyPointPtr;
 typedef std::vector<KeyPointPtr>			KeyPointVect_t;
 typedef std::vector<KeyPointPtr>::iterator	KeyPointVectIt_t;
 

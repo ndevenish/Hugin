@@ -63,6 +63,9 @@
 /* if compiler supports OpenMP */
 #cmakedefine HAVE_OPENMP 1
 
+/* if we are compiling in C++11 mode */
+#cmakedefine HAVE_CXX11
+
 /* if compiler supports C++11 threads */
 #cmakedefine USE_CXX11_THREAD
 

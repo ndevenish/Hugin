@@ -38,6 +38,7 @@
 #include "vigra/stdimage.hxx"
 #include "vigra/resizeimage.hxx"
 #include <boost/bind.hpp>
+#include "hugin_utils/shared_ptr.h"
 #include "base_wx/wxImageCache.h"
 #include "photometric/ResponseTransform.h"
 #include "panodata/Mask.h"
@@ -732,8 +733,8 @@ void TextureManager::TextureInfo::DefineLevels(int min,
     // forget the request if we made one before.
     m_imageRequest = ImageCache::RequestPtr();
     DEBUG_INFO("Converting to 8 bits");
-    boost::shared_ptr<vigra::BRGBImage> img = entry->get8BitImage();
-    boost::shared_ptr<vigra::BImage> mask = entry->mask;
+    sharedPtrNamespace::shared_ptr<vigra::BRGBImage> img = entry->get8BitImage();
+    sharedPtrNamespace::shared_ptr<vigra::BImage> mask = entry->mask;
     // first make the biggest mip level.
     int wo = 1 << (width_p - min), ho = 1 << (height_p - min);
     if (wo < 1) wo = 1; if (ho < 1) ho = 1;

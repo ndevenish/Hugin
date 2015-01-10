@@ -32,7 +32,7 @@
     #include <stdint.h>
 #endif
 
-#include <boost/shared_ptr.hpp>
+#include "hugin_utils/shared_ptr.h"
 #include <vigra/stdimage.hxx>
 #include <vigra/imageinfo.hxx>
 
@@ -58,8 +58,8 @@ namespace deghosting {
             }
     };
     
-    typedef boost::shared_ptr<vigra::BImage> BImagePtr;
-    typedef boost::shared_ptr<vigra::FImage> FImagePtr;
+    typedef sharedPtrNamespace::shared_ptr<vigra::BImage> BImagePtr;
+    typedef sharedPtrNamespace::shared_ptr<vigra::FImage> FImagePtr;
     // type for camera response
     typedef std::vector<float> EMoR;
 

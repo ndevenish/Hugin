@@ -8,8 +8,8 @@ INCLUDE(FindPackageHandleStandardArgs)
 
 SET(CXX11_FLAG_CANDIDATES
   " "
-  "--std=gnu++11"
   "--std=c++11"
+  "--std=gnu++11"
   "--std=gnu++0x"
 )
 

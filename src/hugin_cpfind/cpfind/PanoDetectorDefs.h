@@ -24,8 +24,6 @@
 #include <vector>
 #include <iostream>
 
-
-#include <boost/shared_ptr.hpp>
 #include <localfeatures/KeyPoint.h>
 #include "KDTree.h"
 #include "Utils.h"

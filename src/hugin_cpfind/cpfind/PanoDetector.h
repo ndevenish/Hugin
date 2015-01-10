@@ -25,6 +25,7 @@
 #include <hugin_config.h>
 
 #include "PanoDetectorDefs.h"
+#include "hugin_utils/shared_ptr.h"
 #include <string>
 #include <map>
 #include <localfeatures/Image.h>
@@ -50,7 +51,7 @@ public:
     typedef std::vector<std::string>						FileNameList_t;
     typedef std::vector<std::string>::iterator				FileNameListIt_t;
     typedef KDTreeSpace::KDTree<KDElemKeyPoint, double>		KPKDTree;
-    typedef boost::shared_ptr<KPKDTree >					KPKDTreePtr;
+    typedef sharedPtrNamespace::shared_ptr<KPKDTree>        KPKDTreePtr;
 
     typedef lfeat::KeyPointDetector KeyPointDetector;
 

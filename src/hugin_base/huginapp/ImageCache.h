@@ -27,7 +27,7 @@
 #include <hugin_shared.h>
 #include <map>
 #include <boost/version.hpp>
-#include <boost/shared_ptr.hpp>
+#include "hugin_utils/shared_ptr.h"
 #if BOOST_VERSION>=105400
 #include <boost/signals2.hpp>
 #else
@@ -57,10 +57,10 @@ class IMPEX ImageCache
 
     public:
         /// use reference counted pointers
-        typedef boost::shared_ptr<vigra::BRGBImage> ImageCacheRGB8Ptr;
-        typedef boost::shared_ptr<vigra::UInt16RGBImage> ImageCacheRGB16Ptr;
-        typedef boost::shared_ptr<vigra::FRGBImage> ImageCacheRGBFloatPtr;
-        typedef boost::shared_ptr<vigra::BImage> ImageCache8Ptr;
+        typedef sharedPtrNamespace::shared_ptr<vigra::BRGBImage> ImageCacheRGB8Ptr;
+        typedef sharedPtrNamespace::shared_ptr<vigra::UInt16RGBImage> ImageCacheRGB16Ptr;
+        typedef sharedPtrNamespace::shared_ptr<vigra::FRGBImage> ImageCacheRGBFloatPtr;
+        typedef sharedPtrNamespace::shared_ptr<vigra::BImage> ImageCache8Ptr;
 
         /** information about an image inside the cache */
         struct IMPEX Entry
@@ -106,7 +106,7 @@ class IMPEX ImageCache
         };
 
         /** a shared pointer to the entry */
-        typedef boost::shared_ptr<Entry> EntryPtr;
+        typedef sharedPtrNamespace::shared_ptr<Entry> EntryPtr;
         
         /** Request for an image to load
          *  Connect to the ready signal so when the image loads you can respond.
@@ -149,7 +149,7 @@ class IMPEX ImageCache
          *
          * It is reference counted, so you can freely copy and delete it.
          */
-        typedef boost::shared_ptr<Request> RequestPtr;
+        typedef sharedPtrNamespace::shared_ptr<Request> RequestPtr;
 
     private:
         // ctor. private, nobody execpt us can create an instance.

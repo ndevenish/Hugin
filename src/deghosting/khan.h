@@ -59,18 +59,18 @@ namespace deghosting
     class ImageTypes {
         public:
             typedef vigra::FImage ImageType;
-            typedef boost::shared_ptr<ImageType> ImagePtr;
+            typedef sharedPtrNamespace::shared_ptr<ImageType> ImagePtr;
             typedef BasicImage<float> ProcessImageType;
-            typedef boost::shared_ptr<ProcessImageType> ProcessImageTypePtr;
+            typedef sharedPtrNamespace::shared_ptr<ProcessImageType> ProcessImageTypePtr;
     };
 
     template <class PixelType>
     class ImageTypes<RGBValue<PixelType> > {
         public:
             typedef vigra::FRGBImage ImageType;
-            typedef boost::shared_ptr<ImageType> ImagePtr;
+            typedef sharedPtrNamespace::shared_ptr<ImageType> ImagePtr;
             typedef BasicImage<AlgTinyVector<float, 3> > ProcessImageType;
-            typedef boost::shared_ptr<ProcessImageType> ProcessImageTypePtr;
+            typedef sharedPtrNamespace::shared_ptr<ProcessImageType> ProcessImageTypePtr;
     };
 
     template <class PixelType>

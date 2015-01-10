@@ -31,7 +31,7 @@
 #include <cmath>
 #include <algorithm>
 
-#include <boost/shared_ptr.hpp>
+#include "hugin_utils/shared_ptr.h"
 
 #include <vigra/error.hxx>
 #include <vigra/functorexpression.hxx>
@@ -67,8 +67,7 @@ using namespace deghosting;
 typedef vigra::FRGBImage ImageType;
 
 // smart pointers to the images.
-typedef boost::shared_ptr<ImageType> ImagePtr;
-//typedef boost::shared_ptr<vigra::BImage> BImagePtr;
+typedef sharedPtrNamespace::shared_ptr<ImageType> ImagePtr;
 
 static int g_verbose = 0;
 

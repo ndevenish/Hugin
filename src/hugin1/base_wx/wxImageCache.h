@@ -29,8 +29,6 @@
 #include <panoinc_WX.h>
 #include <PT/RemappedPanoImage.h>
 
-#include <boost/shared_ptr.hpp>
-
 #include <huginapp/ImageCache.h>
 #include <huginapp/CachedImageRemapper.h>
 

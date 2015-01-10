@@ -28,15 +28,9 @@
 #include <nona/ImageRemapper.h>
 
 #include <map>
-#include <boost/shared_ptr.hpp>
 #include <huginapp/ImageCache.h>
 
-//#include <common/utils.h>
-
-
-
 namespace HuginBase {
-    
 
 /** class to cache remapped images, loaded from the hugin small
  *  image cache.

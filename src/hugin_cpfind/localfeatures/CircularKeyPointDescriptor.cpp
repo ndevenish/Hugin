@@ -28,6 +28,7 @@
 #include <vector>
 #include <map>
 #include <fstream>
+#include <cassert>
 
 #include <string.h>
 
