@@ -33,7 +33,6 @@
 #include <panodata/Panorama.h>
 #include <panodata/StandardImageVariableGroups.h>
 #include <boost/algorithm/string.hpp>
-#include <boost/regex.hpp>
 #include <boost/lexical_cast.hpp>
 
 using namespace std;
@@ -44,60 +43,67 @@ struct ParsedImg
 {
     int imgNr;
     int lensStackNr;
+    ParsedImg(): imgNr(-1), lensStackNr(-1) {};
 };
 
 typedef std::vector<ParsedImg> ParseImgVec;
 
 // parse a single variable and put result in struct ParseVar
-void ParseSingleImage(ParseImgVec& varVec, std::string s, std::string regExpression)
+void ParseSingleImage(ParseImgVec& varVec, const std::string& s)
 {
-    boost::regex reg(regExpression);
-    boost::smatch matches;
-    if(boost::regex_match(s, matches, reg))
+    std::string text(s);
+    if (text[0] == 'i')
     {
-        bool valid=true;
-        if(matches.size()>1)
+        text.erase(0, 1);
+        ParsedImg var;
+        // search =
+        const std::size_t pos = text.find_first_of("=", 0);
+        if (pos == std::string::npos)
         {
-            ParsedImg var;
-            // parse image number
-            std::string temp(matches[1].first, matches[1].second);
+            // no =, try to convert to number
             try
             {
-                var.imgNr=boost::lexical_cast<int>(temp);
+                var.imgNr = boost::lexical_cast<int>(text);
             }
             catch (boost::bad_lexical_cast)
             {
-                var.imgNr=-1;
+                return;
             };
-            // read lens/stack number
-            if(matches.size()>2)
+        }
+        else
+        {
+            if (pos > 0 && pos < text.length() - 1)
             {
-                temp=std::string(matches[2].first, matches[2].second);
+                std::string tempString(text.substr(0, pos));
                 try
                 {
-                    var.lensStackNr=boost::lexical_cast<int>(temp);
+                    var.imgNr = boost::lexical_cast<int>(tempString);
+                    tempString = text.substr(pos + 1, text.length() - pos - 1);
+                    var.lensStackNr = boost::lexical_cast<int>(tempString);
                 }
                 catch (boost::bad_lexical_cast)
                 {
-                    valid=false;
-                };
-            };
-            if(valid)
+                    return;
+                }
+            }
+            else
             {
-                varVec.push_back(var);
+                // = at first or last position of string
+                return;
             };
         };
+        varVec.push_back(var);
     };
 };
 
 //parse complete variables string
-void ParseImageLensStackString(ParseImgVec& parseVec, std::string input, std::string regExpression)
+void ParseImageLensStackString(ParseImgVec& parseVec, std::string input)
 {
     std::vector<std::string> splitResult;
     boost::algorithm::split(splitResult, input, boost::algorithm::is_any_of(", "), boost::algorithm::token_compress_on);
     for(size_t i=0; i<splitResult.size(); i++)
     {
-        ParseSingleImage(parseVec, splitResult[i], regExpression);
+        ParseSingleImage(parseVec, splitResult[i]);
     };
 };
 
@@ -184,16 +190,16 @@ int main(int argc, char* argv[])
                 usage(hugin_utils::stripPath(argv[0]).c_str());
                 return 0;
             case SWITCH_NEW_LENS:
-                ParseImageLensStackString(newLensImgs, std::string(optarg), "i(\\d+?)");
+                ParseImageLensStackString(newLensImgs, std::string(optarg));
                 break;
             case SWITCH_NEW_STACK:
-                ParseImageLensStackString(newStackImgs, std::string(optarg), "i(\\d+?)");
+                ParseImageLensStackString(newStackImgs, std::string(optarg));
                 break;
             case SWITCH_CHANGE_LENS:
-                ParseImageLensStackString(changeLensImgs, std::string(optarg), "i(\\d+?)=(\\d+?)");
+                ParseImageLensStackString(changeLensImgs, std::string(optarg));
                 break;
             case SWITCH_CHANGE_STACK:
-                ParseImageLensStackString(changeStackImgs, std::string(optarg), "i(\\d+?)=(\\d+?)");
+                ParseImageLensStackString(changeStackImgs, std::string(optarg));
                 break;
             case ':':
                 cerr <<"Option " << longOptions[optionIndex].name << " requires a parameter" << endl;
