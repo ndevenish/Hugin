@@ -169,7 +169,6 @@ SET(hsi_wrappees
   "${HUGIN_BASE_DIR}/algorithms/nona/NonaFileStitcher.h"
   "${HUGIN_BASE_DIR}/algorithms/optimizer/PhotometricOptimizer.h"
   "${HUGIN_BASE_DIR}/algorithms/optimizer/PTOptimizer.h"
-  "${HUGIN_BASE_DIR}/algorithms/panorama_makefile/PanoramaMakefilelibExport.h"
   "${HUGIN_BASE_DIR}/algorithms/point_sampler/PointSampler.h"
 )
 
