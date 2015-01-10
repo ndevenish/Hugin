@@ -25,7 +25,7 @@
 #include <vector>
 #include <string>
 
-#ifdef _WIN32
+#if _MSC_VER<1800
     #include <boost/cstdint.hpp>
     using namespace boost;
 #else
