@@ -35,13 +35,6 @@ target_link_libraries(geocpset ${common_libs})
 add_executable(tca_correct tca_correct.cpp)
 target_link_libraries(tca_correct ${common_libs} ${image_libs})
 
-IF(BUILD_MAKEFILE_STITCHING)
-add_executable(pto2mk pto2mk.cpp ../hugin_base/algorithms/panorama_makefile/PanoramaMakefilelibExport.cpp
-   ../hugin_base/algorithms/panorama_makefile/PanoramaMakefilelibExport.h)
-target_link_libraries(pto2mk ${common_libs} ${image_libs} makefilelib)
-install(TARGETS pto2mk DESTINATION ${BINDIR})
-ENDIF()
-
 add_executable(cpclean cpclean.cpp)
 target_link_libraries(cpclean ${common_libs} )
 

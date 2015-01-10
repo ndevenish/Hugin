@@ -151,11 +151,4 @@ TARGET_LINK_LIBRARIES(huginbase huginlevmar ${VIGRA_LIBRARIES}
         ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT}
         ${SQLITE3_LIBRARIES} )
 
-INSTALL(FILES algorithms/panorama_makefile/hugin_exiftool_copy.arg DESTINATION ${INSTALL_DATA_DIR})
-
-OPTION(BUILD_MAKEFILE_STITCHING "Build pto2mk (makefile based stitching engine)" OFF)
-IF(BUILD_MAKEFILE_STITCHING)        
-add_subdirectory(makefilelib)
-ENDIF()
-
 add_subdirectory(lines)
