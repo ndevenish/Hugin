@@ -72,19 +72,6 @@ IF(WIN32)
   INSTALL(FILES ${ENBLEND_EXECUTABLES} DESTINATION ${BINDIR})
   INSTALL(FILES ${ENBLEND_DOC_FILES} DESTINATION doc/enblend)
 
-  # find path to gnu make
-  IF(BUILD_MAKEFILE_STITCHING) 
-      FIND_PATH(GNUMake_DIR make.exe
-                ${SOURCE_BASE_DIR}/Make-4.0/x64/Release
-                ${SOURCE_BASE_DIR}/Make-4.0/Release
-                ${SOURCE_BASE_DIR}/Make-3.82/Release
-                ${SOURCE_BASE_DIR}/Make-3.81/Release
-                DOC "Location of gnu make"
-                NO_DEFAULT_PATH)
-      INSTALL(FILES ${GNUMake_DIR}/make.exe
-              DESTINATION ${BINDIR})
-  ENDIF()
- 
   # install exiftool
   INSTALL(FILES ${EXIFTOOL_EXE_DIR}/exiftool.exe DESTINATION ${BINDIR})
 
@@ -138,10 +125,6 @@ IF(WIN32)
     FILE(GLOB BOOST_SYSTEM_DLL ${Boost_LIBRARY_DIRS}/boost_system*.dll)
     FILE(GLOB BOOST_FILESYSTEM_DLL ${Boost_LIBRARY_DIRS}/boost_filesystem*.dll)
     LIST(APPEND BOOST_DLLs ${BOOST_SYSTEM_DLL} ${BOOST_FILESYSTEM_DLL})
-    IF(BUILD_MAKEFILE_STITCHING)
-      FILE(GLOB BOOST_REGEX_DLL ${Boost_LIBRARY_DIRS}/boost_regex*.dll)
-      LIST(APPEND BOOST_DLLs ${BOOST_REGEX_DLL})
-    ENDIF()
     IF(NOT CXX11_THREAD)
       FILE(GLOB BOOST_THREAD_DLL ${Boost_LIBRARY_DIRS}/boost_thread*.dll)
       FILE(GLOB BOOST_DATE_TIME_DLL ${Boost_LIBRARY_DIRS}/boost_date_time*.dll)
