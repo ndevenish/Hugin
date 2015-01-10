@@ -195,7 +195,6 @@ namespace HuginQueue
             wxString s2(s);
             s2.Replace(wxT("."), wxLocale::GetInfo(wxLOCALE_DECIMAL_POINT, wxLOCALE_CAT_NUMBER));
             s2.ToDouble(&val);
-            wxLogMessage(wxT("#")+s2+wxT("#"));
 #endif
             return val;
         };
@@ -256,7 +255,6 @@ namespace HuginQueue
                 {
                     output << _("ExifTool version:") << wxT(" ") << version[0] << wxEndl;
                     exiftoolVersion = wxStringToCDouble(version[0]);
-                    wxLogMessage(wxString::Format(wxT("Exiftool version %f"), exiftoolVersion));
                 }
                 else
                 {
