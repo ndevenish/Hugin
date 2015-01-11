@@ -1,0 +1,47 @@
+=head1 NAME
+
+hugin_executor: stitch a hugin project
+
+=head1 SYNOPSIS
+
+B<hugin_executor> [-h] [-a] [-s] [-t <num>] [-p <str>] [-d] input.pto
+
+=head1 DESCRIPTION
+
+B<hugin_executor> is a command line tool, useful for stitching projects in shell scripts
+
+
+=head1 OPTIONS
+
+=over
+
+=item B<-h, --help>
+
+Shows help message
+
+
+=item B<-a, --assistant>
+
+Execute assistant
+
+=item B<-s, --stitching>
+
+Execute stitching with given project
+
+=item B<-t, --threads=num>
+
+Number of used threads
+
+=item B<-p, --prefix=str>
+
+Prefix used for stitching. If not provided the stitched image will have the name of the input project file.
+
+=item B<-d, --dry-run>
+
+Only print commands
+
+=back
+
+=head1 AUTHORS
+
+Thomas Modes
