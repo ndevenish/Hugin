@@ -253,6 +253,36 @@ std::string doubleToString(double d, int digits)
     return number;
 }
 
+bool stringToInt(const std::string& s, int& val)
+{
+    if (StrTrim(s) == "0")
+    {
+        val = 0;
+        return true;
+    };
+    int x = atoi(s.c_str());
+    if (x != 0)
+    {
+        val = x;
+        return true;
+    };
+    return false;
+};
+
+bool stringToUInt(const std::string&s, unsigned int& val)
+{
+    int x;
+    if (stringToInt(s, x))
+    {
+        if (x >= 0)
+        {
+            val = static_cast<unsigned int>(x);
+            return true;
+        };
+    };
+    return false;
+};
+
     void ControlPointErrorColour(const double cperr, 
         double &r,double &g, double &b)
     {

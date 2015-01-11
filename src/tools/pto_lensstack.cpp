@@ -33,7 +33,7 @@
 #include <panodata/Panorama.h>
 #include <panodata/StandardImageVariableGroups.h>
 #include <boost/algorithm/string.hpp>
-#include <boost/lexical_cast.hpp>
+#include "hugin_utils/utils.h"
 
 using namespace std;
 using namespace HuginBase;
@@ -61,30 +61,25 @@ void ParseSingleImage(ParseImgVec& varVec, const std::string& s)
         if (pos == std::string::npos)
         {
             // no =, try to convert to number
-            try
-            {
-                var.imgNr = boost::lexical_cast<int>(text);
-            }
-            catch (boost::bad_lexical_cast)
+            if (!hugin_utils::stringToInt(text, var.imgNr))
             {
                 return;
-            };
+            }
         }
         else
         {
             if (pos > 0 && pos < text.length() - 1)
             {
                 std::string tempString(text.substr(0, pos));
-                try
-                {
-                    var.imgNr = boost::lexical_cast<int>(tempString);
-                    tempString = text.substr(pos + 1, text.length() - pos - 1);
-                    var.lensStackNr = boost::lexical_cast<int>(tempString);
-                }
-                catch (boost::bad_lexical_cast)
+                if (!hugin_utils::stringToInt(tempString, var.imgNr))
                 {
                     return;
-                }
+                };
+                tempString = text.substr(pos + 1, text.length() - pos - 1);
+                if(!hugin_utils::stringToInt(tempString, var.lensStackNr))
+                {
+                    return;
+                };
             }
             else
             {

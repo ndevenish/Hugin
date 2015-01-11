@@ -35,7 +35,7 @@
 #include <panodata/ImageVariableGroup.h>
 #include <panodata/StandardImageVariableGroups.h>
 #include <boost/algorithm/string.hpp>
-#include <boost/lexical_cast.hpp>
+#include "hugin_utils/utils.h"
 #include "ParseExp.h"
 
 using namespace std;
@@ -69,12 +69,7 @@ bool ParseVarNumber(const std::string&s, ParseVar& var)
             return false;
         };
         varName = s.substr(0, pos);
-        const std::string imgNumber = s.substr(pos, s.length() - pos);
-        try
-        {
-            var.imgNr = boost::lexical_cast<int>(imgNumber);
-        }
-        catch (boost::bad_lexical_cast)
+        if (!hugin_utils::stringToInt(s.substr(pos, s.length() - pos), var.imgNr))
         {
             return false;
         };

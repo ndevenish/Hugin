@@ -384,8 +384,7 @@ class IMPEX ImageCache
                   : filename(str), level(lv)
                 {};
             
-                std::string toString()
-                    { return filename + hugin_utils::lexical_cast<std::string>(level); }
+                std::string toString();
         };
         
         std::map<std::string, vigra::BImage *> pyrImages;

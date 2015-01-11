@@ -167,7 +167,10 @@ bool getPTDoubleParam(double & value, int & link,
         DEBUG_ASSERT(line.size() > 0);
         DEBUG_DEBUG(var << ":" <<val);
         if (val[0] == '=') {
-            link = hugin_utils::lexical_cast<int>(val.substr(1));
+            if (!hugin_utils::stringToInt(val.substr(1), link))
+            {
+                return false;
+            };
         } else {
             link = -1;
             if (!hugin_utils::stringToDouble(val, value)) {
@@ -187,7 +190,10 @@ bool readVar(Variable & var, int & link, const std::string & line)
         DEBUG_ASSERT(line.size() > 0);
         DEBUG_DEBUG(var.getName() << ":" <<val);
         if (val[0] == '=') {
-            link = hugin_utils::lexical_cast<int>(val.substr(1));
+            if (!hugin_utils::stringToInt(val.substr(1), link))
+            {
+                return false;
+            };
         } else {
             link = -1;
             double dest = 0;

@@ -190,6 +190,12 @@ namespace hugin_utils
         }
     }
 
+    /** convert string to integer value, returns true, if sucessful */
+    IMPEX bool stringToInt(const std::string& s, int& val);
+
+    /** convert string to unsigned integer value, returns true, if sucessful */
+    IMPEX bool stringToUInt(const std::string& s, unsigned int& val);
+
     /** Get the path to a filename */
     IMPEX std::string getPathPrefix(const std::string & filename);
 
@@ -206,26 +212,6 @@ namespace hugin_utils
 
     /** remove trailing and leading white spaces and tabs */
     IMPEX std::string StrTrim(const std::string& str);
-    template <typename Target, typename Source>
-    Target lexical_cast(Source arg) {
-
-        std::stringstream interpreter;
-
-        Target result;
-
-        if (!(interpreter << arg) ||
-            !(interpreter >> result) ||
-            !(interpreter >> std::ws).eof()) {
-
-            DEBUG_ERROR("lexical cast error");
-            // cast error.  handle it somehow
-            // boost guys throw an exception here
-        };
-
-        return result;
-
-    }; // lexical cast
-
 
     template <class str>
     str QuoteStringInternal(const str & arg, const str & quotechar,

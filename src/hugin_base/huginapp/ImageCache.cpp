@@ -159,6 +159,12 @@ void ImageCache::removeImage(const std::string & filename)
     } while (found);
 }
 
+std::string ImageCache::PyramidKey::toString()
+{
+    std::ostringstream s;
+    s << filename << level;
+    return s.str();
+};
 
 void ImageCache::flush()
 {

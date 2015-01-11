@@ -2480,8 +2480,12 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
                         continue;
                     }
                     std::string name=var.substr(0,np);
-                    std::string number = var.substr(np);
-                    unsigned int nr = hugin_utils::lexical_cast<unsigned int>(number);
+                    unsigned int nr;
+                    if (!hugin_utils::stringToUInt(var.substr(np), nr))
+                    {
+                        // invalid, continue
+                        continue;
+                    };
                     DEBUG_ASSERT(nr < optvec.size());
                     if(nr < optvec.size())
                     {
@@ -2627,13 +2631,21 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
                 // arghhh. I like string processing without regexps.
                 int b = line.find_first_not_of(" ",9);
                 int e = line.find_first_of(" ",b);
-                DEBUG_DEBUG(" width:" << line.substr(b,e-b)<<":")
-                int nextWidth = hugin_utils::lexical_cast<int,string>(line.substr(b,e-b));
+                DEBUG_DEBUG(" width:" << line.substr(b, e - b) << ":")
+                int nextWidth;
+                if (!hugin_utils::stringToInt(line.substr(b, e - b), nextWidth))
+                {
+                    continue;
+                };
                 DEBUG_DEBUG("next width " << nextWidth);
                 b = line.find_first_not_of(" ",e);
                 e = line.find_first_of(" ",b);
-                DEBUG_DEBUG(" height:" << line.substr(b,e-b)<<":")
-                int nextHeight = hugin_utils::lexical_cast<int, string>(line.substr(b,e-b));
+                DEBUG_DEBUG(" height:" << line.substr(b, e - b) << ":")
+                int nextHeight;
+                if (!hugin_utils::stringToInt(line.substr(b, e - b), nextHeight))
+                {
+                    continue;
+                };
                 DEBUG_DEBUG("next height " << nextHeight);
 
                 string nextFilename;
