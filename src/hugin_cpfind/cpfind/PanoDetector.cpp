@@ -23,7 +23,6 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <boost/foreach.hpp>
 
 #include <time.h>
 
@@ -715,15 +714,23 @@ bool PanoDetector::match(std::vector<HuginBase::UIntSet> &checkedPairs)
     }
     // 4. find matches
     TRACE_INFO(endl<< "--- Find pair-wise matches ---" << endl);
-    BOOST_FOREACH(MatchData& aMD, matchesData)
-        queue.push_back(new MatchDataRunnable(aMD, *this));
+    for (size_t i = 0; i < matchesData.size(); ++i)
+    {
+        queue.push_back(new MatchDataRunnable(matchesData[i], *this));
+    };
     RunQueue(queue);
 
     // Add detected matches to _panoramaInfo
-    BOOST_FOREACH(MatchData& aM, matchesData)
-    BOOST_FOREACH(lfeat::PointMatchPtr& aPM, aM._matches)
-    _panoramaInfo->addCtrlPoint(ControlPoint(aM._i1->_number, aPM->_img1_x, aPM->_img1_y,
-                                aM._i2->_number, aPM->_img2_x, aPM->_img2_y));
+    for (size_t i = 0; i < matchesData.size(); ++i)
+    {
+        const MatchData& aM = matchesData[i];
+        for (size_t j = 0; j < aM._matches.size(); ++j)
+        {
+            const lfeat::PointMatchPtr& aPM = aM._matches[j];
+            _panoramaInfo->addCtrlPoint(ControlPoint(aM._i1->_number, aPM->_img1_x, aPM->_img1_y,
+                aM._i2->_number, aPM->_img2_x, aPM->_img2_y));
+        };
+    };
     return true;
 };
 
@@ -994,15 +1001,23 @@ bool PanoDetector::matchMultiRow()
         };
     };
     TRACE_INFO(endl<< "--- Find matches ---" << endl);
-    BOOST_FOREACH(MatchData& aMD, matchesData)
-        queue.push_back(new MatchDataRunnable(aMD, *this));
+    for (size_t i = 0; i < matchesData.size(); ++i)
+    {
+        queue.push_back(new MatchDataRunnable(matchesData[i], *this));
+    };
     RunQueue(queue);
 
     // Add detected matches to _panoramaInfo
-    BOOST_FOREACH(MatchData& aM, matchesData)
-    BOOST_FOREACH(lfeat::PointMatchPtr& aPM, aM._matches)
-    _panoramaInfo->addCtrlPoint(ControlPoint(aM._i1->_number, aPM->_img1_x, aPM->_img1_y,
-                                aM._i2->_number, aPM->_img2_x, aPM->_img2_y));
+    for (size_t i = 0; i < matchesData.size(); ++i)
+    {
+        const MatchData& aM = matchesData[i];
+        for (size_t j = 0; j < aM._matches.size(); ++j)
+        {
+            const lfeat::PointMatchPtr& aPM = aM._matches[j];
+            _panoramaInfo->addCtrlPoint(ControlPoint(aM._i1->_number, aPM->_img1_x, aPM->_img1_y,
+                aM._i2->_number, aPM->_img2_x, aPM->_img2_y));
+        };
+    };
 
     // step 2: connect all image groups
     queue.clear();
@@ -1055,14 +1070,22 @@ bool PanoDetector::matchMultiRow()
             };
         };
         TRACE_INFO(endl<< "--- Find matches in images groups ---" << endl);
-        BOOST_FOREACH(MatchData& aMD, matchesData)
-            queue.push_back(new MatchDataRunnable(aMD, *this));
+        for (size_t i = 0; i < matchesData.size(); ++i)
+        {
+            queue.push_back(new MatchDataRunnable(matchesData[i], *this));
+        };
         RunQueue(queue);
 
-        BOOST_FOREACH(MatchData& aM, matchesData)
-        BOOST_FOREACH(lfeat::PointMatchPtr& aPM, aM._matches)
-        _panoramaInfo->addCtrlPoint(ControlPoint(aM._i1->_number, aPM->_img1_x, aPM->_img1_y,
-                                    aM._i2->_number, aPM->_img2_x, aPM->_img2_y));
+        for (size_t i = 0; i < matchesData.size(); ++i)
+        {
+            const MatchData& aM = matchesData[i];
+            for (size_t j = 0; j < aM._matches.size(); ++j)
+            {
+                const lfeat::PointMatchPtr& aPM = aM._matches[j];
+                _panoramaInfo->addCtrlPoint(ControlPoint(aM._i1->_number, aPM->_img1_x, aPM->_img1_y,
+                    aM._i2->_number, aPM->_img2_x, aPM->_img2_y));
+            };
+        };
     };
     // step 3: now connect all overlapping images
     queue.clear();
@@ -1202,15 +1225,23 @@ bool PanoDetector::matchPrealigned(Panorama* pano, std::vector<HuginBase::UIntSe
     };
 
     TRACE_INFO(endl<< "--- Find matches for overlapping images ---" << endl);
-    BOOST_FOREACH(MatchData& aMD, matchesData)
-        queue.push_back(new MatchDataRunnable(aMD, *this));
+    for (size_t i = 0; i < matchesData.size(); ++i)
+    {
+        queue.push_back(new MatchDataRunnable(matchesData[i], *this));
+    };
     RunQueue(queue);
 
     // Add detected matches to _panoramaInfo
-    BOOST_FOREACH(MatchData& aM, matchesData)
-    BOOST_FOREACH(lfeat::PointMatchPtr& aPM, aM._matches)
-    _panoramaInfo->addCtrlPoint(ControlPoint(aM._i1->_number, aPM->_img1_x, aPM->_img1_y,
-                                aM._i2->_number, aPM->_img2_x, aPM->_img2_y));
+    for (size_t i = 0; i < matchesData.size(); ++i)
+    {
+        const MatchData& aM = matchesData[i];
+        for (size_t j = 0; j < aM._matches.size(); ++j)
+        {
+            const lfeat::PointMatchPtr& aPM = aM._matches[j];
+            _panoramaInfo->addCtrlPoint(ControlPoint(aM._i1->_number, aPM->_img1_x, aPM->_img1_y,
+                aM._i2->_number, aPM->_img2_x, aPM->_img2_y));
+        };
+    };
 
     return true;
 };

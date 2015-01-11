@@ -24,7 +24,6 @@
 #include "PanoDetector.h"
 #include <iostream>
 #include <fstream>
-#include <boost/foreach.hpp>
 #include <vigra/distancetransform.hxx>
 #include "vigra/impex.hxx"   // debug image save
 
@@ -445,9 +444,10 @@ bool PanoDetector::FilterKeyPointsInImage(ImgData& ioImgInfo, const PanoDetector
     double aXF = (double)iPanoDetector.getSieve1Width() / (double)ioImgInfo._detectWidth;
     double aYF = (double)iPanoDetector.getSieve1Height() / (double)ioImgInfo._detectHeight;
 
-    bool distmap_valid=(ioImgInfo._distancemap.width()>0 && ioImgInfo._distancemap.height()>0);
-    BOOST_FOREACH(KeyPointPtr& aK, ioImgInfo._kp)
+    const bool distmap_valid=(ioImgInfo._distancemap.width()>0 && ioImgInfo._distancemap.height()>0);
+    for (size_t i = 0; i < ioImgInfo._kp.size(); ++i)
     {
+        KeyPointPtr& aK = ioImgInfo._kp[i];
         if(distmap_valid)
         {
             if(aK->_x > 0 && aK->_x < ioImgInfo._distancemap.width() && aK->_y > 0 && aK->_y < ioImgInfo._distancemap.height()
@@ -485,8 +485,9 @@ bool PanoDetector::MakeKeyPointDescriptorsInImage(ImgData& ioImgInfo, const Pano
 
     // vector for keypoints with more than one orientation
     KeyPointVect_t kp_new_ori;
-    BOOST_FOREACH(KeyPointPtr& aK, ioImgInfo._kp)
+    for (size_t j = 0; j < ioImgInfo._kp.size(); ++j)
     {
+        KeyPointPtr& aK = ioImgInfo._kp[j];
         double angles[4];
         int nAngles = aKPD.assignOrientation(*aK, angles);
         for (int i=0; i < nAngles; i++)
@@ -499,9 +500,9 @@ bool PanoDetector::MakeKeyPointDescriptorsInImage(ImgData& ioImgInfo, const Pano
     }
     ioImgInfo._kp.insert(ioImgInfo._kp.end(), kp_new_ori.begin(), kp_new_ori.end());
 
-    BOOST_FOREACH(KeyPointPtr& aK, ioImgInfo._kp)
+    for (size_t i = 0; i < ioImgInfo._kp.size(); ++i)
     {
-        aKPD.makeDescriptor(*aK);
+        aKPD.makeDescriptor(*(ioImgInfo._kp[i]));
     }
     // store the descriptor length
     ioImgInfo._descLength = aKPD.getDescriptorLength();
@@ -517,8 +518,9 @@ bool PanoDetector::RemapBackKeypoints(ImgData& ioImgInfo, const PanoDetector& iP
     {
         if(scale != 1.0)
         {
-            BOOST_FOREACH(KeyPointPtr& aK, ioImgInfo._kp)
+            for (size_t i = 0; i < ioImgInfo._kp.size(); ++i)
             {
+                KeyPointPtr& aK = ioImgInfo._kp[i];
                 aK->_x *= scale;
                 aK->_y *= scale;
                 aK->_scale *= scale;
@@ -535,8 +537,9 @@ bool PanoDetector::RemapBackKeypoints(ImgData& ioImgInfo, const PanoDetector& iP
         int dx1 = ioImgInfo._projOpts.getROI().left();
         int dy1 = ioImgInfo._projOpts.getROI().top();
 
-        BOOST_FOREACH(KeyPointPtr& aK, ioImgInfo._kp)
+        for (size_t i = 0; i < ioImgInfo._kp.size(); ++i)
         {
+            KeyPointPtr& aK = ioImgInfo._kp[i];
             double xout, yout;
             if(trafo1.transformImgCoord(xout, yout, aK->_x + dx1, aK->_y+ dy1))
             {
@@ -564,10 +567,9 @@ bool PanoDetector::BuildKDTreesInImage(ImgData& ioImgInfo, const PanoDetector& i
     // create feature vector matrix for flann
     ioImgInfo._flann_descriptors = flann::Matrix<double>(new double[ioImgInfo._kp.size()*ioImgInfo._descLength],
                                    ioImgInfo._kp.size(), ioImgInfo._descLength);
-    int i = 0;
-    BOOST_FOREACH(KeyPointPtr& aK, ioImgInfo._kp)
+    for (size_t i = 0; i < ioImgInfo._kp.size(); ++i)
     {
-        memcpy(ioImgInfo._flann_descriptors[i++], aK->_vec, sizeof(double)*ioImgInfo._descLength);
+        memcpy(ioImgInfo._flann_descriptors[i], ioImgInfo._kp[i]->_vec, sizeof(double)*ioImgInfo._descLength);
     }
 
     // build query structure
@@ -649,8 +651,9 @@ bool PanoDetector::FindMatchesInPair(MatchData& ioMatchData, const PanoDetector&
     }
 
     // now filter and fill the vector of matches
-    BOOST_FOREACH(TmpPair_t& aP, aUnfilteredMatches)
+    for (size_t i = 0; i < aUnfilteredMatches.size(); ++i)
     {
+        TmpPair_t& aP = aUnfilteredMatches[i];
         // if the image2 match number is in the badmatch set, skip it.
         if (aBadMatch.find(aP.second) != aBadMatch.end())
         {
@@ -723,12 +726,11 @@ bool PanoDetector::RansacMatchesInPairCam(MatchData& ioMatchData, const PanoDete
 
         // create control point vector
         CPVector controlPoints(ioMatchData._matches.size());
-        int i=0;
-        BOOST_FOREACH(PointMatchPtr& aM, ioMatchData._matches)
+        for (size_t i = 0; i < ioMatchData._matches.size(); ++i)
         {
+            PointMatchPtr& aM=ioMatchData._matches[i];
             controlPoints[i] = ControlPoint(pano_local_i1, aM->_img1_x, aM->_img1_y,
                                             pano_local_i2, aM->_img2_x, aM->_img2_y);
-            i++;
         }
         panoSubset->setCtrlPoints(controlPoints);
 
@@ -769,9 +771,9 @@ bool PanoDetector::RansacMatchesInPairCam(MatchData& ioMatchData, const PanoDete
     PointMatchVector_t aInlierMatches;
     aInlierMatches.reserve(inliers.size());
 
-    BOOST_FOREACH(int idx, inliers)
+    for (size_t i = 0; i < inliers.size(); ++i)
     {
-        aInlierMatches.push_back(ioMatchData._matches[idx]);
+        aInlierMatches.push_back(ioMatchData._matches[inliers[i]]);
     }
     ioMatchData._matches = aInlierMatches;
 
@@ -852,8 +854,9 @@ bool PanoDetector::FilterMatchesInPair(MatchData& ioMatchData, const PanoDetecto
     double aMaxX = -numeric_limits<double>::max();
     double aMaxY = -numeric_limits<double>::max();
 
-    BOOST_FOREACH(PointMatchPtr& aM, ioMatchData._matches)
+    for (size_t i = 0; i < ioMatchData._matches.size(); ++i)
     {
+        PointMatchPtr& aM = ioMatchData._matches[i];
         if (aM->_img1_x < aMinX)
         {
             aMinX = aM->_img1_x;
@@ -885,11 +888,10 @@ bool PanoDetector::FilterMatchesInPair(MatchData& ioMatchData, const PanoDetecto
     // insert the points in the Sieve
     double aXF = (double)iPanoDetector.getSieve2Width() / aSizeX;
     double aYF = (double)iPanoDetector.getSieve2Height() / aSizeY;
-    int aCount = 0;
-    BOOST_FOREACH(PointMatchPtr& aM, ioMatchData._matches)
+    for (size_t i = 0; i < ioMatchData._matches.size(); ++i)
     {
+        PointMatchPtr& aM = ioMatchData._matches[i];
         aSieve.insert(aM, (int)((aM->_img1_x - aMinX) * aXF), (int)((aM->_img1_y - aMinY) * aYF));
-        aCount++;
     }
 
     // pull remaining values from the sieve
@@ -941,8 +943,9 @@ void PanoDetector::writeKeyfile(ImgData& imgInfo)
 
     writer.writeHeader ( img_info, imgInfo._kp.size(), imgInfo._descLength );
 
-    BOOST_FOREACH ( KeyPointPtr& aK, imgInfo._kp )
+    for(size_t i=0; i<imgInfo._kp.size(); ++i)
     {
+        KeyPointPtr& aK=imgInfo._kp[i];
         writer.writeKeypoint ( aK->_x, aK->_y, aK->_scale, aK->_ori, aK->_score,
                                imgInfo._descLength, aK->_vec );
     }

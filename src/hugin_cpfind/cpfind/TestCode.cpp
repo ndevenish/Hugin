@@ -22,10 +22,6 @@
 #include "TestCode.h"
 #include <localfeatures/RansacFiltering.h>
 
-#include <boost/foreach.hpp>
-
-
-
 using namespace vigra;
 using namespace lfeat;
 
@@ -180,8 +176,9 @@ void TestCode::drawRansacMatches(std::string& i1, std::string& i2,
                          DImage::Accessor());
     }
 
-    BOOST_FOREACH(PointMatchPtr& aV, iOK)
+    for (size_t i = 0; i < iOK.size(); ++i)
     {
+        PointMatchPtr& aV = iOK[i];
         vigra::RGBValue<int> color(gen127(), 255 , gen127());
         drawLine(out1,  aDoubleFactor * aV->_img1_x,
                  aDoubleFactor * aV->_img1_y,
@@ -220,8 +217,9 @@ void TestCode::drawRansacMatches(std::string& i1, std::string& i2,
 
     }
 
-    BOOST_FOREACH(PointMatchPtr& aV, iNOK)
+    for(size_t i=0; i<iNOK.size(); ++i)
     {
+        PointMatchPtr& aV = iNOK[i];
         vigra::RGBValue<int> color(255, gen127() , gen127());
         drawLine(out1,  aDoubleFactor * aV->_img1_x,
                  aDoubleFactor * aV->_img1_y,

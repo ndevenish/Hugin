@@ -24,7 +24,6 @@
 //#include "Tracer.h"
 
 #include "Homography.h"
-#include <boost/foreach.hpp>
 
 using namespace std;
 
@@ -97,8 +96,9 @@ void Homography::initMatchesNormalization(PointMatchVector_t& iMatches)
     _v2y = 0;
 
     //estimate the center of gravity
-    BOOST_FOREACH(PointMatchPtr& aMatchIt, iMatches)
+    for (size_t i = 0; i < iMatches.size(); ++i)
     {
+        PointMatchPtr& aMatchIt = iMatches[i];
         //aMatchIt->print();
 
         _v1x += aMatchIt->_img1_x;
@@ -190,11 +190,9 @@ bool Homography::estimate(PointMatchVector_t& iMatches)
     }
 
     // fill the matrices and vectors with points
-    int aFillRow = 0;
-    BOOST_FOREACH(PointMatchPtr aPM, iMatches)
+    for (size_t aFillRow = 0; aFillRow < iMatches.size(); ++aFillRow)
     {
-        addMatch(aFillRow, *aPM);
-        aFillRow++;
+        addMatch(aFillRow, *(iMatches[aFillRow]));
     }
 
     // solve the system

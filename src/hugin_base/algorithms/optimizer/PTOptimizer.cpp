@@ -25,7 +25,6 @@
  *
  */
 
-#include <boost/foreach.hpp>
 #include "PTOptimizer.h"
 
 #include "ImageGraph.h"
@@ -94,11 +93,14 @@ public:
 	// get control points
 	m_cps  = m_localPano->getCtrlPoints();
 	// only use 2D control points
-	BOOST_FOREACH(ControlPoint & kp, m_cps) {
-	    if (kp.mode == ControlPoint::X_Y) {
-		m_xy_cps.push_back(kp);
-	    }
-	}
+    for (size_t i = 0; i < m_cps.size();++i)
+    {
+        const ControlPoint& kp=m_cps[i];
+        if (kp.mode == ControlPoint::X_Y)
+        {
+            m_xy_cps.push_back(kp);
+        }
+    }
 	
 	if (optHFOV)
 	    m_optvars.push_back(OptVarSpec(0,std::string("v")));
@@ -132,15 +134,12 @@ public:
 			    
 	// extract initial parameters from pano
 	m_initParams.resize(m_optvars.size());
-	int i=0;
-	BOOST_FOREACH(OptVarSpec & v, m_optvars) {
-	    m_initParams[i] = v.get(*m_localPano);
-	    DEBUG_DEBUG("get init var: " << v.m_name << ", " << v.m_img << ": " << m_initParams[i]);
-	    i++;
-	}
-     }
-
-			    
+    for (size_t i = 0; i < m_optvars.size(); ++i)
+    {
+        m_initParams[i] = m_optvars[i].get(*m_localPano);
+        DEBUG_DEBUG("get init var: " << m_optvars[i].m_name << ", " << m_optvars[i].m_img << ": " << m_initParams[i]);
+    }
+}
 
     /** Perform exact estimate. 
      *
@@ -170,12 +169,11 @@ public:
 
 	PanoramaData * pano = const_cast<PanoramaData *>(m_localPano);
 	// set parameters in pano object
-	int i=0;
-	BOOST_FOREACH(const OptVarSpec & v, m_optvars) {
-	    v.set(*pano, p[i]);
-	    DEBUG_DEBUG("Initial " << v.m_name <<  ": i1:" << pano->getImage(m_li1).getVar(v.m_name) << ", i2: " << pano->getImage(m_li2).getVar(v.m_name));
-	    i++;
-	}
+    for (size_t i = 0; i < m_optvars.size(); ++i)
+    {
+        m_optvars[i].set(*pano, p[i]);
+        DEBUG_DEBUG("Initial " << m_optvars[i].m_name << ": i1:" << pano->getImage(m_li1).getVar(m_optvars[i].m_name) << ", i2: " << pano->getImage(m_li2).getVar(m_optvars[i].m_name));
+    }
 
 	m_localPano->setOptimizeVector(m_opt_first_pass);
 	// optimize parameters using panotools (or use a custom made optimizer here?)
@@ -198,12 +196,11 @@ public:
 	}
 
 	// get optimized parameters
-	i=0;
-	BOOST_FOREACH(const OptVarSpec & v, m_optvars) {
-	    p[i] = v.get(*pano);
-	    DEBUG_DEBUG("Optimized " << v.m_name <<  ": i1:" << pano->getImage(m_li1).getVar(v.m_name) << ", i2: " << pano->getImage(m_li2).getVar(v.m_name));
-	    i++;
-	}
+    for (size_t i = 0; i < m_optvars.size(); ++i)
+    {
+        p[i] = m_optvars[i].get(*pano);
+        DEBUG_DEBUG("Optimized " << m_optvars[i].m_name << ": i1:" << pano->getImage(m_li1).getVar(m_optvars[i].m_name) << ", i2: " << pano->getImage(m_li2).getVar(m_optvars[i].m_name));
+    }
 	return true;
     }
 
@@ -212,11 +209,10 @@ public:
     {
 	PanoramaData * pano = const_cast<PanoramaData *>(m_localPano);
 	// set parameters in pano object
-	int i=0;
-	BOOST_FOREACH(const OptVarSpec & v, m_optvars) {
-	    v.set(*pano, p[i]);
-	    i++;
-	}
+    for (size_t i = 0; i < m_optvars.size(); ++i)
+    {
+        m_optvars[i].set(*pano, p[i]);
+    }
 	// TODO: argh, this is slow, we should really construct this only once
 	// and reuse it for all calls...
 	PTools::Transform trafo_i1_to_pano;
@@ -301,11 +297,10 @@ std::vector<int> RANSACOptimizer::findInliers(PanoramaData & pano, int i1, int i
     DEBUG_DEBUG("Number of inliers:" << inliers.size() << "optimized parameter[0]" << parameters[0]);
 
     // set parameters in pano object
-    int i=0;
-    BOOST_FOREACH(const OptVarSpec & v, estimator.m_optvars) {
-	// TODO: check when to use i1..
-	pano.updateVariable(i2, Variable(v.m_name, parameters[i]));
-	i++;
+    for (size_t i = 0; i < estimator.m_optvars.size(); ++i)
+    {
+        // TODO: check when to use i1..
+        pano.updateVariable(i2, Variable(estimator.m_optvars[i].m_name, parameters[i]));
     }
     
     

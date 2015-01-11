@@ -22,7 +22,6 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <boost/foreach.hpp>
 #include "Utils.h"
 #include <getopt.h>
 #include "hugin_utils/stl_utils.h"

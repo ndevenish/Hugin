@@ -21,8 +21,6 @@
 #include "RansacFiltering.h"
 #include "Homography.h"
 
-#include <boost/foreach.hpp>
-
 using namespace std;
 
 static int genint(int x)
@@ -91,8 +89,9 @@ void Ransac::filter(PointMatchVector_t& ioMatches, PointMatchVector_t& ioRemoved
         }
 
         // for every point remaining in aMatches, add them to aInliers if they fit the model well.
-        BOOST_FOREACH(PointMatchPtr aMatchesIter2, aMatches)
+        for (size_t i = 0; i < aMatches.size(); ++i)
         {
+            PointMatchPtr aMatchesIter2 = aMatches[i];
             if (calcError(&aCurrentModel, *aMatchesIter2) < aErrorDistSq)
             {
                 aInliers.push_back(aMatchesIter2);
