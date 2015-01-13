@@ -34,7 +34,6 @@
 #include <panodata/ImageVariableTranslate.h>
 #include <panodata/ImageVariableGroup.h>
 #include <panodata/StandardImageVariableGroups.h>
-#include <boost/algorithm/string.hpp>
 #include "hugin_utils/utils.h"
 #include "ParseExp.h"
 
@@ -131,8 +130,7 @@ void ParseSingleVar(ParseVarVec& varVec, const std::string& s)
 //parse complete variables string
 void ParseVariableString(ParseVarVec& parseVec, const std::string& input, void (*func)(ParseVarVec&, const std::string&))
 {
-    std::vector<std::string> splitResult;
-    boost::algorithm::split(splitResult, input, boost::algorithm::is_any_of(", "), boost::algorithm::token_compress_on);
+    std::vector<std::string> splitResult = hugin_utils::SplitString(input, ", ");
     for(size_t i=0; i<splitResult.size(); i++)
     {
         (*func)(parseVec, splitResult[i]);
@@ -429,7 +427,7 @@ int main(int argc, char* argv[])
                         contents << ifs.rdbuf();
                         ifs.close();
                         string s(contents.str());
-                        boost::algorithm::replace_all(s, "\n", ",");
+                        hugin_utils::ReplaceAll(s, "\n", ',');
                         ParseVariableString(setVars, s, ParseSingleVar);
                     }
                     else

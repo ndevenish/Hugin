@@ -42,7 +42,7 @@
 #include <algorithms/basic/CalculateOptimalROI.h>
 #include <algorithms/basic/LayerStacks.h>
 #include <algorithms/basic/CalculateMeanExposure.h>
-#include <boost/algorithm/string.hpp>
+#include "hugin_utils/utils.h"
 
 using namespace std;
 using namespace HuginBase;
@@ -482,8 +482,7 @@ int main(int argc, char* argv[])
         // exposure layers
         opt.outputLDRExposureLayers = false;
         // now parse string and set corresponding options
-        std::vector<std::string> tokens;
-        boost::algorithm::split(tokens, outputType, boost::is_any_of(","), boost::algorithm::token_compress_on);
+        std::vector<std::string> tokens = hugin_utils::SplitString(outputType, ",");
         size_t counter = 0;
         for (size_t i = 0; i < tokens.size(); i++)
         {

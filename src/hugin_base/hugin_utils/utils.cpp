@@ -283,6 +283,47 @@ bool stringToUInt(const std::string&s, unsigned int& val)
     return false;
 };
 
+std::vector<std::string> SplitString(const std::string& s, const std::string& sep)
+{
+    std::vector<std::string> result;
+    std::size_t pos = s.find_first_of(sep, 0);
+    std::size_t pos2 = 0;
+    while (pos != std::string::npos)
+    {
+        if (pos - pos2 > 0)
+        {
+            std::string t(s.substr(pos2, pos - pos2));
+            t=StrTrim(t);
+            if (!t.empty())
+            {
+                result.push_back(t);
+            };
+        };
+        pos2 = pos + 1;
+        pos = s.find_first_of(sep, pos2);
+    }
+    if (pos2 < s.length())
+    {
+        std::string t(s.substr(pos2));
+        t = StrTrim(t);
+        if (!t.empty())
+        {
+            result.push_back(t);
+        };
+    };
+    return result;
+};
+
+void ReplaceAll(std::string& s, const std::string& oldChar, char newChar)
+{
+    std::size_t found = s.find_first_of(oldChar);
+    while (found != std::string::npos)
+    {
+        s[found] = newChar;
+        found = s.find_first_of(oldChar, found + 1);
+    };
+};
+
     void ControlPointErrorColour(const double cperr, 
         double &r,double &g, double &b)
     {

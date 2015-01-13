@@ -213,6 +213,12 @@ namespace hugin_utils
     /** remove trailing and leading white spaces and tabs */
     IMPEX std::string StrTrim(const std::string& str);
 
+    /** split string s at given sep, returns vector of strings */
+    IMPEX std::vector<std::string> SplitString(const std::string& s, const std::string& sep);
+
+    /** replace all characters oldChar in s with newChar */
+    IMPEX void ReplaceAll(std::string& s, const std::string& oldChar, char newChar);
+
     template <class str>
     str QuoteStringInternal(const str & arg, const str & quotechar,
                             const str & replacements)
@@ -235,23 +241,7 @@ namespace hugin_utils
         }
         return ret;
     }
-    
-    ///
-    template <class str>
-    str replaceAll(const str& arg, const str& target, const str& replacement)
-    {
-        str ret(arg);
-        typename str::size_type pos = ret.find(target, 0);
-        
-        for ( typename str::size_type n = 0 ;  pos != str::npos ;  pos = ret.find(target, n) )
-        {
-            ret.replace(pos, target.size(), replacement);
-            n = pos + replacement.size();
-        }
-        
-        return ret;
-    }
-    
+
     IMPEX void ControlPointErrorColour(const double cperr, 
         double &r,double &g, double &b);
 
