@@ -37,7 +37,11 @@
 
 #include "vigra/stdimage.hxx"
 #include "vigra/resizeimage.hxx"
+#ifdef HAVE_CXX11
+#include <functional>  // std::bind
+#else
 #include <boost/bind.hpp>
+#endif
 #include "hugin_utils/shared_ptr.h"
 #include "base_wx/wxImageCache.h"
 #include "photometric/ResponseTransform.h"
@@ -704,12 +708,24 @@ void TextureManager::TextureInfo::DefineLevels(int min,
         m_imageRequest = ImageCache::getInstance().requestAsyncImage(img_name);
         // call this function with the same parameters after the image loads
         m_imageRequest->ready.connect(0, 
+#ifdef HAVE_CXX11
+            std::bind(&TextureManager::TextureInfo::DefineLevels, this,
+                      min, max, photometric_correct, dest_img, src_img)
+#else
             boost::bind(&TextureManager::TextureInfo::DefineLevels, this,
-                        min, max, photometric_correct, dest_img, src_img));
+                        min, max, photometric_correct, dest_img, src_img)
+#endif
+        );
         // After that, redraw the preview.
         m_imageRequest->ready.connect(1,
+#ifdef HAVE_CXX11
+            std::bind(&GLPreviewFrame::redrawPreview,
+                      huginApp::getMainFrame()->getGLPreview())
+#else
             boost::bind(&GLPreviewFrame::redrawPreview,
-                        huginApp::getMainFrame()->getGLPreview()));
+                        huginApp::getMainFrame()->getGLPreview())
+#endif
+        );
         
         // make a temporary placeholder image.
         GLubyte placeholder_image[64][64][4];
