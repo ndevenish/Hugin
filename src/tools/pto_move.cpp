@@ -31,7 +31,7 @@
 #define BOOST_FILESYSTEM_VERSION 3
 #ifdef __GNUC__
   #include "hugin_config.h"
-  #ifdef USE_CXX11_THREAD
+  #ifdef HAVE_CXX11
     #include <boost/version.hpp>
     #if BOOST_VERSION<105700
       #if BOOST_VERSION>=105100
