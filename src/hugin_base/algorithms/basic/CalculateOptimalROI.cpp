@@ -124,7 +124,7 @@ bool CalculateOptimalROI::stackPixel(int i, int j, UIntSet &stack)
 
 bool CalculateOptimalROI::imgPixel(int i, int j)
 {
-    if(testedPixels[j*o_optimalSize.x+i]==0)
+    if(!testedPixels[j*o_optimalSize.x+i])
     {
         bool inside;
         
@@ -148,8 +148,8 @@ bool CalculateOptimalROI::imgPixel(int i, int j)
             }
         }
 
-        testedPixels[j*o_optimalSize.x+i]=1;
-        pixels[j*o_optimalSize.x+i]=inside;
+        testedPixels[j*o_optimalSize.x + i] = true;
+        pixels[j*o_optimalSize.x + i] = inside;
         
         return inside;
     }

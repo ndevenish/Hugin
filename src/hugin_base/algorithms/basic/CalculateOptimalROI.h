@@ -29,7 +29,7 @@
 #include <algorithms/PanoramaAlgorithm.h>
 #include <panodata/PanoramaData.h>
 
-#include <boost/dynamic_bitset.hpp>
+#include <vector>
 
 namespace HuginBase {
 
@@ -105,8 +105,8 @@ class IMPEX CalculateOptimalROI : public PanoramaAlgorithm
         UIntSet activeImages;
         std::map<unsigned int,PTools::Transform*> transfMap;
         //map for storing already tested pixels
-        boost::dynamic_bitset<> testedPixels;
-        boost::dynamic_bitset<> pixels;
+        std::vector<bool> testedPixels;
+        std::vector<bool> pixels;
         
         bool imgPixel(int i, int j);
         bool stackPixel(int i, int j, UIntSet &stack);
