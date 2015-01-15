@@ -26,6 +26,11 @@
 
 #include <vector>
 #include <functional>
+#include "hugin_config.h"
+#ifdef HAVE_CXX11
+#include <random>
+#define RANDOMGENERATOR std::mt19937
+#else
 #include <boost/version.hpp>
 #if BOOST_VERSION>104700
 #include <boost/random/taus88.hpp>
@@ -33,6 +38,7 @@
 #else
 #include <boost/random/mersenne_twister.hpp>
 #define RANDOMGENERATOR boost::mt19937
+#endif
 #endif
 
 #include <vigra/stdimage.hxx>

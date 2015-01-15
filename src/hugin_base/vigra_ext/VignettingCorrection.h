@@ -26,6 +26,7 @@
 
 #include <vector>
 #include <functional>
+#include "hugin_config.h"
 
 #include <vigra/stdimage.hxx>
 #include <vigra/transformimage.hxx>
@@ -35,8 +36,11 @@
 
 #include <vigra_ext/utils.h>
 
+#ifdef HAVE_CXX11
+#include <random>
+#else
 #include <boost/random/mersenne_twister.hpp>
-
+#endif
 
 //#define DEBUG_WRITE_FILES
 
@@ -231,7 +235,11 @@ bool ditheringNeeded(T const &)
 template <class T>
 struct DitherFunctor
 {
+#ifdef HAVE_CXX11
+    std::mt19937 Twister;
+#else
     boost::mt19937 Twister;
+#endif
 
     typedef T result_type;
 
@@ -242,7 +250,11 @@ struct DitherFunctor
     // Such regions are especially objectionable in the green channel of 8-bit images.
     double dither(const double &v) const
     {
+#ifdef HAVE_CXX11
+        std::mt19937 &mt = const_cast<std::mt19937 &>(Twister);
+#else
         boost::mt19937 &mt = const_cast<boost::mt19937 &>(Twister);
+#endif
         double vFraction = v - floor(v);
         // Only dither values within a certain range of the rounding cutoff point.
         if (vFraction > 0.25 && vFraction <= 0.75) {

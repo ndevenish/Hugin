@@ -27,9 +27,16 @@
 #include <ctime>
 
 #include <hugin_shared.h>
+#include <hugin_config.h>
+
 #include <algorithms/PanoramaAlgorithm.h>
 
+#ifdef HAVE_CXX11
+#include <random>
+#include <functional>
+#else
 #include <boost/random.hpp>
+#endif
 #include <vigra/impex.hxx>
 #include <vigra_ext/utils.h>
 #include <appbase/ProgressReporterOld.h>
@@ -256,13 +263,9 @@ namespace HuginBase
 //==============================================================================
 //  templated methods
 
-
-#include <boost/random.hpp>
 #include <panotools/PanoToolsInterface.h>
 
-
 namespace HuginBase {
-
 
 template<class PointPairClass>
 void PointSampler::sampleRadiusUniform(const std::vector<std::multimap<double, PointPairClass> >& radiusHist,
@@ -482,6 +485,14 @@ void RandomPointSampler::sampleRandomPanoPoints(const std::vector<Img>& imgs,
         maxr[i] = sqrt(((double)srcSize.x)*srcSize.x + ((double)srcSize.y)*srcSize.y) / 2.0;
     }
     // init random number generator
+#ifdef HAVE_CXX11
+    std::mt19937 rng(static_cast<unsigned int>(std::time(0)));
+    std::uniform_int_distribution<unsigned int> distribx(dest.getROI().left(), dest.getROI().right()-1);
+    std::uniform_int_distribution<unsigned int> distriby(dest.getROI().top(), dest.getROI().bottom()-1);
+
+    auto randX = std::bind(distribx, rng);
+    auto randY = std::bind(distriby, rng);
+#else
     boost::mt19937 rng;
     // start with a different seed every time.
     rng.seed(static_cast<unsigned int>(std::time(0)));
@@ -493,6 +504,7 @@ void RandomPointSampler::sampleRandomPanoPoints(const std::vector<Img>& imgs,
             randX(rng, distribx);             // glues randomness with mapping
     boost::variate_generator<boost::mt19937&, boost::uniform_int<> >
             randY(rng, distriby);             // glues randomness with mapping
+#endif
 
     double percentReported = 0.0;
     

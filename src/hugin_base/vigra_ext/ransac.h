@@ -35,9 +35,15 @@
 #include <math.h>
 #include <ctime>
 
+#include "hugin_config.h"
+#ifdef HAVE_CXX11
+#include <random>
+#include <functional>
+#else
 #include <boost/random/mersenne_twister.hpp>
 #include <boost/random/uniform_int.hpp>
 #include <boost/random/variate_generator.hpp>
+#endif
 
 //#include "ParameterEsitmator.h"
 
@@ -207,14 +213,20 @@ std::vector<const T *> Ransac::compute(S &parameters,
     numVotesForBest = 0; //initalize with 0 so that the first computation which gives any type of fit will be set to best
     
     // intialize random generator
+    maxIndex = numDataObjects - 1;
+#ifdef HAVE_CXX11
+    std::mt19937 rng(static_cast<unsigned int>(std::time(0)));
+    std::uniform_int_distribution<> distribIndex(0, maxIndex);
+    auto randIndex=std::bind(distribIndex, rng);
+#else
     boost::mt19937 rng;
     // start with a different seed every time.
     rng.seed(static_cast<unsigned int>(std::time(0)));
     // randomly sample points.
-    maxIndex = numDataObjects-1;
     boost::uniform_int<> distribIndex(0, maxIndex);
     boost::variate_generator<boost::mt19937&, boost::uniform_int<> >
                              randIndex(rng, distribIndex);  // glues randomness with mapping
+#endif
 
 //    srand((unsigned)time(NULL)); //seed random number generator
     numTries = (int)(numerator/denominator + 0.5);
