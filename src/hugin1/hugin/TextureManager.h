@@ -40,18 +40,7 @@
 
 #include <string>
 #include <map>
-#include <boost/version.hpp>
-#if BOOST_VERSION>=105400
-#if BOOST_VERSION==105700
-// workaround for missing include in boost/signals2/trackable.hpp in version 1.57
-#include <boost/weak_ptr.hpp>
-#endif
-#include <boost/signals2/trackable.hpp>
-namespace boostSignal=boost::signals2;
-#else
-#include <boost/signals/trackable.hpp>
-namespace boostSignal=boost::signals;
-#endif
+#include "hugin_utils/shared_ptr.h"
 #include <huginapp/ImageCache.h>
 #include "PT/Panorama.h"
 
@@ -81,6 +70,11 @@ public:
     void BindTexture(unsigned int image_number);
     // disables the image textures
     void DisableTexture(bool maskOnly=false);
+    // update the texture when image cache has finished loading
+    void LoadingImageFinished(int min, int max,
+        bool texture_photometric_correct,
+        const HuginBase::PanoramaOptions &dest_img,
+        const HuginBase::SrcPanoImage &state);
 
 protected:
     PT::Panorama  * m_pano;
@@ -89,10 +83,6 @@ protected:
     // remove textures for deleted images.
     void CleanTextures();
     class TextureInfo
-        // If the TextureInfo is deleted while the image is loading, we want to
-        // avoid a segfault when the image loaded event happens. So we let the
-        // signal react to destruction of a TextureInfo.
-        : public boostSignal::trackable
     {
     public:
         TextureInfo(ViewState *new_view_state);
@@ -145,7 +135,7 @@ protected:
     {
     public:
         TextureKey();
-        TextureKey(HuginBase::SrcPanoImage * source, bool *photometric_correct_ptr);
+        TextureKey(const HuginBase::SrcPanoImage * source, bool *photometric_correct_ptr);
             
         // TODO all of this lot should probably be made read only
         std::string filename;
@@ -170,11 +160,12 @@ protected:
         // we need to be able to order the keys
         const bool operator<(const TextureKey& comp) const;
     private:
-        void SetOptions(HuginBase::SrcPanoImage *source);
+        void SetOptions(const HuginBase::SrcPanoImage *source);
     };
     // we map filenames to TexturesInfos, so we can keep track of
     // images' textures when the numbers change.
-    std::map<TextureKey, TextureInfo> textures;
+    typedef std::map<TextureKey, sharedPtrNamespace::shared_ptr<TextureInfo> > TexturesMap;
+    TexturesMap textures;
     // Our pixel budget for all textures.
     unsigned int GetMaxTotalTexels();
     // this is the maximum size a single texture is supported on the hardware.

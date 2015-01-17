@@ -134,10 +134,6 @@ IF(WIN32)
         LIST(APPEND BOOST_DLLs ${BOOST_CHRONO_DLL})
       ENDIF()
     ENDIF()
-    IF(Boost_VERSION<105400)
-      FILE(GLOB BOOST_SIGNALS_DLL ${Boost_LIBRARY_DIRS}/boost_signals*.dll)
-      LIST(APPEND BOOST_DLLs ${BOOST_SIGNALS_DLL})
-    ENDIF()
     FIND_FILE(EXIV2_DLL 
       NAMES exiv2.dll 
       PATHS ${SOURCE_BASE_DIR}/exiv2/msvc2012/exiv2lib/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/bin/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/bin/Win32/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.22/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.21.1/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.20/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.19/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.18.2/msvc/bin/ReleaseDLL

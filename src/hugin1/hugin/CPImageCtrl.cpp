@@ -923,7 +923,7 @@ void CPImageCtrl::setImage(const std::string & file, ImageRotation imgRot)
         } else {
             // load the image in the background.
             m_imgRequest = ImageCache::getInstance().requestAsyncImage(imageFilename);
-            m_imgRequest->ready.connect(
+            m_imgRequest->ready.push_back(
 #ifdef HAVE_CXX11
                 std::bind(&CPImageCtrl::OnImageLoaded, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3)
 #else

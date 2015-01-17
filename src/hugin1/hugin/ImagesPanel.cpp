@@ -462,7 +462,7 @@ void ImagesPanel::UpdatePreviewImage()
         thumbnail_request = ImageCache::getInstance().requestAsyncSmallImage(
                 m_pano->getImage(m_showImgNr).getFilename());
         // When the image is ready, try this function again.
-        thumbnail_request->ready.connect(
+        thumbnail_request->ready.push_back(
 #ifdef HAVE_CXX11
             std::bind(&ImagesPanel::UpdatePreviewImage, this)
 #else

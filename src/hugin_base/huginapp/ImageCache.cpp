@@ -900,7 +900,11 @@ void ImageCache::postEvent(RequestPtr request, EntryPtr entry)
         } else if (getSmallImageIfAvailable(it->first).get()) {
             // already loaded.
             // signal to anything waiting and remove from the list.
-            it->second->ready(getSmallImage(it->first), it->first, true);
+            while (!it->second->ready.empty())
+            {
+                it->second->ready.front()(getSmallImage(it->first), it->first, true);
+                it->second->ready.erase(it->second->ready.begin());
+            };
             m_smallRequests.erase(it);
         }
         it = next_it;
@@ -918,7 +922,11 @@ void ImageCache::postEvent(RequestPtr request, EntryPtr entry)
         } else if (getImageIfAvailable(it->first).get()) {
             // already loaded.
             // Signal to anything waiting.
-            it->second->ready(getImage(it->first), it->first, false);
+            while (!it->second->ready.empty())
+            {
+                it->second->ready.front()(getImage(it->first), it->first, false);
+                it->second->ready.erase(it->second->ready.begin());
+            };
             m_requests.erase(it);
         }
         it = next_it;

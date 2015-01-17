@@ -42,7 +42,6 @@
 #else
 #include <boost/bind.hpp>
 #endif
-#include "hugin_utils/shared_ptr.h"
 #include "base_wx/wxImageCache.h"
 #include "photometric/ResponseTransform.h"
 #include "panodata/Mask.h"
@@ -80,14 +79,14 @@ void TextureManager::DrawImage(unsigned int image_number,
                                unsigned int display_list)
 {
     // bind the texture that represents the given image number.
-    std::map<TextureKey, TextureInfo>::iterator it;
+    TexturesMap::iterator it;
     HuginBase::SrcPanoImage *img_p = view_state->GetSrcImage(image_number);
     TextureKey key(img_p, &photometric_correct);
     it = textures.find(key);
     DEBUG_ASSERT(it != textures.end());
-    it->second.Bind();
+    it->second->Bind();
     glColor4f(1.0,1.0,1.0,1.0);
-    if (it->second.GetUseAlpha() || it->second.GetHasActiveMasks())
+    if (it->second->GetUseAlpha() || it->second->GetHasActiveMasks())
     {
         // use an alpha blend if there is a alpha channel or a mask for this image.
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -150,7 +149,7 @@ void TextureManager::DrawImage(unsigned int image_number,
     } else {
         // we've already corrected all the photometrics, just draw once normally
         glCallList(display_list);
-        if (it->second.GetUseAlpha() || it->second.GetHasActiveMasks())
+        if (it->second->GetUseAlpha() || it->second->GetHasActiveMasks())
         {
             glDisable(GL_BLEND);
         }
@@ -160,23 +159,23 @@ void TextureManager::DrawImage(unsigned int image_number,
 unsigned int TextureManager::GetTextureName(unsigned int image_number)
 {
     // bind the texture that represents the given image number.
-    std::map<TextureKey, TextureInfo>::iterator it;
+    TexturesMap::iterator it;
     HuginBase::SrcPanoImage *img_p = view_state->GetSrcImage(image_number);
     TextureKey key(img_p, &photometric_correct);
     it = textures.find(key);
     DEBUG_ASSERT(it != textures.end());
-    return it->second.GetNumber();
+    return it->second->GetNumber();
 }
 
 void TextureManager::BindTexture(unsigned int image_number)
 {
     // bind the texture that represents the given image number.
-    std::map<TextureKey, TextureInfo>::iterator it;
+    TexturesMap::iterator it;
     HuginBase::SrcPanoImage *img_p = view_state->GetSrcImage(image_number);
     TextureKey key(img_p, &photometric_correct);
     it = textures.find(key);
     DEBUG_ASSERT(it != textures.end());
-    it->second.Bind();
+    it->second->Bind();
 }
 
 void TextureManager::DisableTexture(bool maskOnly)
@@ -255,7 +254,7 @@ void TextureManager::CheckUpdate()
     {    
         // find this texture
         // if it has not been created before, it will be created now.
-        std::map<TextureKey, TextureInfo>::iterator it;
+        TexturesMap::iterator it;
         HuginBase::SrcPanoImage *img_p = view_state->GetSrcImage(image_index);
         TextureKey key(img_p, &photometric_correct);
         it = textures.find(key);
@@ -405,8 +404,8 @@ void TextureManager::CheckUpdate()
         // we have a nice size
         texels_used += 1 << (tex_width_p + tex_height_p);
         if (   it == textures.end()
-            || (it->second).width_p != tex_width_p
-            || (it->second).height_p != tex_height_p)
+            || (it->second)->width_p != tex_width_p
+            || (it->second)->height_p != tex_height_p)
         {
             // Either: 1. We haven't seen this image before
             //     or: 2. Our texture for this is image is the wrong size
@@ -419,15 +418,15 @@ void TextureManager::CheckUpdate()
                 textures.erase(checkKey);
             }
 
-            std::pair<std::map<TextureKey, TextureInfo>::iterator, bool> ins;
-            ins = textures.insert(std::pair<TextureKey, TextureInfo>
+            std::pair<TexturesMap::iterator, bool> ins;
+            ins = textures.insert(std::pair<TextureKey, sharedPtrNamespace::shared_ptr<TextureInfo> >
                                  (TextureKey(img_p, &photometric_correct),
                 // the key is used to identify the image with (or without)
                 // photometric correction parameters.
-                              TextureInfo(view_state, tex_width_p, tex_height_p)
+                              sharedPtrNamespace::make_shared<TextureInfo>(view_state, tex_width_p, tex_height_p)
                             ));
            // create and upload the texture image
-           texinfo = &((ins.first)->second);
+           texinfo = (ins.first)->second.get();
            texinfo->DefineLevels(0, // minimum mip level
                                  // maximum mip level
                         tex_width_p > tex_height_p ? tex_width_p : tex_height_p,
@@ -441,7 +440,7 @@ void TextureManager::CheckUpdate()
             if(view_state->RequireRecalculateMasks(image_index))
             {
                 //mask for this image has changed, also update only mask
-                (*it).second.UpdateMask(*view_state->GetSrcImage(image_index));
+                it->second->UpdateMask(*view_state->GetSrcImage(image_index));
             };
         }
     }
@@ -515,7 +514,7 @@ void TextureManager::CleanTextures()
     // TODO can this be more efficient?
     unsigned int num_images = m_pano->getNrOfImages();
     bool retry = true;
-    std::map<TextureKey, TextureInfo>::iterator tex;
+    TexturesMap::iterator tex;
     while (retry)
     {
       retry = false;
@@ -544,6 +543,24 @@ void TextureManager::CleanTextures()
       }
     }
 }
+
+// helper class for the image cache
+// this procedure is called when a image was sucessfull loaded
+// we check if we still need the image and if so prepare the texture with DefineLevels
+void TextureManager::LoadingImageFinished(int min, int max,
+    bool texture_photometric_correct,
+    const HuginBase::PanoramaOptions &dest_img,
+    const HuginBase::SrcPanoImage &state)
+{
+    TexturesMap::iterator it = textures.find(TextureKey(&state, &texture_photometric_correct));
+    // check if image is still there
+    if (it != textures.end())
+    {
+        // new shared pointer to keep class alive
+        sharedPtrNamespace::shared_ptr<TextureInfo> tex(it->second);
+        tex->DefineLevels(min, max, texture_photometric_correct, dest_img, state);
+    };
+};
 
 TextureManager::TextureInfo::TextureInfo(ViewState *new_view_state)
 {
@@ -707,17 +724,21 @@ void TextureManager::TextureInfo::DefineLevels(int min,
         // Image isn't loaded yet. Request it for later.
         m_imageRequest = ImageCache::getInstance().requestAsyncImage(img_name);
         // call this function with the same parameters after the image loads
-        m_imageRequest->ready.connect(0, 
+        // it would be easier to call DefineLevels directly
+        // but this fails if the TextureInfo object is destroyed during loading of the image
+        // this can happen if a new project is opened during the loading cycling
+        // so we go about LoadingImageFinished to check if the texture is still needed
+        m_imageRequest->ready.push_back(
 #ifdef HAVE_CXX11
-            std::bind(&TextureManager::TextureInfo::DefineLevels, this,
+            std::bind(&TextureManager::LoadingImageFinished, m_viewState->GetTextureManager(),
                       min, max, photometric_correct, dest_img, src_img)
 #else
-            boost::bind(&TextureManager::TextureInfo::DefineLevels, this,
+            boost::bind(&TextureManager::LoadingImageFinished, m_viewState->GetTextureManager(),
                         min, max, photometric_correct, dest_img, src_img)
 #endif
         );
         // After that, redraw the preview.
-        m_imageRequest->ready.connect(1,
+        m_imageRequest->ready.push_back(
 #ifdef HAVE_CXX11
             std::bind(&GLPreviewFrame::redrawPreview,
                       huginApp::getMainFrame()->getGLPreview())
@@ -968,7 +989,7 @@ void TextureManager::TextureInfo::SetMaxLevel(int level)
     }
 }
 
-TextureManager::TextureKey::TextureKey(HuginBase::SrcPanoImage *source,
+TextureManager::TextureKey::TextureKey(const HuginBase::SrcPanoImage *source,
                                        bool *photometric_correct_ptr)
 {
     SetOptions(source);
@@ -1017,7 +1038,7 @@ const bool TextureManager::TextureKey::operator<(const TextureKey& comp) const
     return false;
 }
 
-void TextureManager::TextureKey::SetOptions(HuginBase::SrcPanoImage *source)
+void TextureManager::TextureKey::SetOptions(const HuginBase::SrcPanoImage *source)
 {
     filename = source->getFilename();
     // Record the masks. Images with different masks require different
