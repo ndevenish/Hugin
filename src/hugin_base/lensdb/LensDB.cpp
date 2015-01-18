@@ -22,8 +22,6 @@
  */
 
 #include "LensDB.h"
-#define BOOST_FILESYSTEM_VERSION 3
-#include <boost/filesystem.hpp>
 #include <iostream>
 #include <sstream>
 #include <hugin_utils/stl_utils.h>
@@ -77,8 +75,7 @@ public:
     //constructor, open database
     Database(const std::string& filename) : m_filename(filename), m_runningTransaction(false)
     {
-        boost::filesystem::path dbFile(m_filename);
-        bool newDB = (!boost::filesystem::exists(dbFile));
+        bool newDB = (!hugin_utils::FileExists(m_filename));
         int error = sqlite3_open(m_filename.c_str(), &m_db);
         if (error)
         {
