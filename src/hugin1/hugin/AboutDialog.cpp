@@ -44,6 +44,7 @@ extern "C"
 #include "lensdb/LensDB.h"
 #include "sqlite3.h"
 #include "vigra/config.hxx"
+#include "hugin_config.h"
 
 BEGIN_EVENT_TABLE(AboutDialog, wxDialog)
     EVT_NOTEBOOK_PAGE_CHANGED(XRCID("about_notebook"), AboutDialog::OnChangedTab)
@@ -184,6 +185,11 @@ void AboutDialog::GetSystemInformation(wxFont *font)
     text=text+wxT("\n")+wxString::Format(_("Path to data: %s"),huginApp::Get()->GetDataPath().c_str());
     HuginBase::LensDB::LensDB& lensDB=HuginBase::LensDB::LensDB::GetSingleton();
     text = text + wxT("\n") + wxString::Format(_("Hugins camera and lens database: %s"), wxString(lensDB.GetDBFilename().c_str(), wxConvLocal).c_str());
+#ifdef USE_CXX11_THREAD
+    text = text + wxT("\n") + _("Multi-threading using C++11 std::thread and OpenMP");
+#else
+    text = text + wxT("\n") + _("Multi-threading using boost::thread and OpenMP");
+#endif
     text=text+wxT("\n\n")+_("Libraries");
 #if wxCHECK_VERSION(3,0,0)
     wxVersionInfo info = wxGetLibraryVersionInfo();
