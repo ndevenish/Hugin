@@ -62,6 +62,11 @@
 #include <GL/glu.h>
 #endif
 
+// for loading preview images
+#include "wx/mstream.h"
+#include "exiv2/exiv2.hpp"
+#include "exiv2/preview.hpp"
+
 TextureManager::TextureManager(PT::Panorama *pano, ViewState *view_state_in)
 {
     m_pano = pano;
@@ -749,22 +754,84 @@ void TextureManager::TextureInfo::DefineLevels(int min,
         );
         
         // make a temporary placeholder image.
-        GLubyte placeholder_image[64][64][4];
-        for (int i = 0; i < 64; i++) {
-            for (int j = 0; j < 64; j++) {
-                // checkboard pattern
-                GLubyte c = (i/8+j/8)%2 ? 63 : 191;
-                placeholder_image[i][j][0] = c;
-                placeholder_image[i][j][1] = c;
-                placeholder_image[i][j][2] = c;
-                // alpha is low, so the placeholder is mostly transparent.
-                placeholder_image[i][j][3] = 63;
-            }
+        GLubyte* placeholder_image;
+        size_t placeholderWidth = 64;
+        size_t placeholderHeight = 64;
+        Exiv2::Image::AutoPtr image;
+        bool hasPreview = false;
+        try
+        {
+            image = Exiv2::ImageFactory::open(img_name.c_str());
+            hasPreview = true;
         }
-        gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGBA8, 64, 64,
+        catch (...)
+        {
+            std::cerr << __FILE__ << " " << __LINE__ << " Error opening file" << std::endl;
+        }
+        if (hasPreview)
+        {
+            image->readMetadata();
+            // read all thumbnails
+            Exiv2::PreviewManager previews(*image);
+            Exiv2::PreviewPropertiesList lists = previews.getPreviewProperties();
+            if (lists.empty())
+            {
+                // no preview found
+                hasPreview = false;
+            }
+            else
+            {
+                // select a preview with matching size
+                int previewIndex = 0;
+                while (previewIndex < lists.size() - 1 && lists[previewIndex].width_ < 200 && lists[previewIndex].height_ < 200)
+                {
+                    ++previewIndex;
+                };
+                // load preview image to wxImage
+                wxImage rawImage;
+                Exiv2::PreviewImage previewImage = previews.getPreviewImage(lists[previewIndex]);
+                wxMemoryInputStream stream(previewImage.pData(), previewImage.size());
+                rawImage.LoadFile(stream, wxString(previewImage.mimeType().c_str(), wxConvLocal), -1);
+                placeholderWidth = rawImage.GetWidth();
+                placeholderHeight = rawImage.GetHeight();
+                placeholder_image = new GLubyte[placeholderWidth * placeholderHeight * 4];
+                size_t index = 0;
+                for (size_t y = 0; y < placeholderHeight; ++y)
+                {
+                    for (size_t x = 0; x < placeholderWidth; ++x)
+                    {
+                        placeholder_image[index++] = rawImage.GetRed(x, y);
+                        placeholder_image[index++] = rawImage.GetGreen(x, y);
+                        placeholder_image[index++] = rawImage.GetBlue(x, y);
+                        placeholder_image[index++] = 63;
+                    };
+                };
+            };
+        };
+        if (!hasPreview)
+        {
+            // no preview, create checker board
+            placeholder_image = new GLubyte[placeholderWidth * placeholderHeight * 4];
+            size_t index = 0;
+            for (int i = 0; i < placeholderHeight; i++)
+            {
+                for (int j = 0; j < placeholderWidth; j++)
+                {
+                    // checkboard pattern
+                    GLubyte c = (i / 8 + j / 8) % 2 ? 63 : 191;
+                    placeholder_image[index++] = c;
+                    placeholder_image[index++] = c;
+                    placeholder_image[index++] = c;
+                    // alpha is low, so the placeholder is mostly transparent.
+                    placeholder_image[index++] = 63;
+                }
+            }
+        };
+        gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGBA8, placeholderWidth, placeholderHeight,
                                GL_RGBA, GL_UNSIGNED_BYTE,
                                placeholder_image);
         SetParameters();
+        delete[] placeholder_image;
         return;
     }
     // forget the request if we made one before.
