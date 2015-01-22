@@ -33,7 +33,7 @@ This package contains the following programs:
  - tca_correct a tool to automatically generate chromatic 
    aberration correction parameters for use with fulla.
    
- - pto2mk generation of Makefiles for command-line stitching.
+ - hugin_executor for command-line stitching or running assistant.
  
  - pto_gen command line tool to generate project file from images.
  
@@ -87,6 +87,7 @@ This package contains the following programs:
  
  - lensdb Maintenance tool for Hugins camera and lens database 
 
+ - verdandi Merges images using watershed algorithm
  
 These programs are built on top of the pano13 library,
 http://panotools.sourceforge.net/
@@ -107,16 +108,26 @@ http://wiki.panotools.org/Development_of_Open_Source_tools#Dependencies
 
 Users compiling Hugin from source will need:
 
+    A C++compiler which supports OpenMP and C++11.
+        * OpenMP support is not required. But when compiling
+          without OpenMP nona and cpfind (and some other
+          algorithm) are running only with one thread, 
+          which is slower.
+        * C++11 support by the compiler is optional.
+          Otherwise the corrosponding Boost libraries are
+          use. Then you will need the following boost libraries:
+              date_time
+              iostreams
+              thread
+          Boost have to be at least version 1.47
+          This behaviour can be forced by setting the CMake variable
+          USE_BOOST to true.
+    
     The wxWidgets GUI toolkit version >=2.7.0. 2.9/3.0 is supported.
-    boost >=1.47. The following boost libraries are used:
-        date_time
+    boost >=1.47. The following boost libraries are needed:
         filesystem
-        graph
-        iostreams
-        regex
-        signals (with boost >=1.54 signals2 is used)
         system
-        thread
+        (see also comment to C++11 above)
     libtiff the TIFF library with LZW support.
     libpano13 version >=2.9.19
     libjpg the JPEG library
@@ -128,7 +139,6 @@ Users compiling Hugin from source will need:
     freeglut or glut, the OpenGL utility toolkit
     gettext
     sqlite3, the SQL database backend for the lens database
-    Exiftool, only with >=9.09 all features are compiled
     optionally, lapack
     optionally, libfftw3
     on Unix you need also
@@ -147,6 +157,8 @@ Users compiling Hugin from source will need:
 3.2. At runtime
 
     enblend >= 3.2 is required.
+    Exiftool, version >=9.09 is required to support GPano tags. Otherwise they are ignored.
+    
     Starting with Hugin 2010.3 and newer, Hugin ships with its own control points generator cpfind. Prior to 2010.3 another optional but recommended runtime dependency was a control points generator.
     Optionally Python argparse command-line parsing library for the Python scripts. 
 
