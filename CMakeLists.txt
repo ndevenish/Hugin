@@ -263,10 +263,11 @@ INCLUDE_DIRECTORIES(${PANO_INCLUDE_DIR})
 
 # Check CXX11 compiler
 
-OPTION(PREFER_BOOST_THREAD "Set to true to prefer Boost Thread instead of C++11 std::thread" OFF)
+OPTION(USE_BOOST "Set to true to use Boost instead of C++11 features" OFF)
 
-IF(PREFER_BOOST_THREAD)
+IF(USE_BOOST)
   UNSET(USE_CXX11_THREAD)
+  UNSET(HAVE_CXX11)
   MESSAGE(STATUS "Using Boost Thread")
 ELSE()
   FIND_PACKAGE(CXX11Compiler)
