@@ -74,7 +74,6 @@ IF(APPLE)
 			        ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.jpg
 			        ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.png
 			        ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.txt
-			        ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.mk
 			        ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.pl)
 
     set( ICON_FILES ${MACOSX_BUNDLE_ICON_FILE} ${MACOSX_BUNDLE_TYPE_ICON_FILE} )
@@ -147,9 +146,6 @@ ELSE(APPLE)
     INSTALL(FILES hugin.desktop DESTINATION ${DATADIR}/applications)
     INSTALL(FILES gnome-mime-application-x-ptoptimizer-script.png DESTINATION ${DATADIR}/icons/gnome/48x48/mimetypes)
     INSTALL(FILES hugin.xml DESTINATION ${DATADIR}/mime/packages)
-    IF(BUILD_MAKEFILE_STITCHING)
-      INSTALL(FILES Makefile.equirect.mk DESTINATION ${HUGINDATADIR})
-    ENDIF()
   ENDIF(UNIX)
 ENDIF(APPLE)
 

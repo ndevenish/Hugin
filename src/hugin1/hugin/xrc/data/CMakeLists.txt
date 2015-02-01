@@ -2,11 +2,6 @@
 FILE(GLOB DATAFILES *.htm *.html *.ico *.jpg *.png tips.txt upstream.txt)
 INSTALL(FILES ${DATAFILES} DESTINATION ${HUGINDATADIR}/xrc/data)
 
-IF(BUILD_MAKEFILE_STITCHING)
-    FILE(GLOB MAKEFILES *.mk)
-    INSTALL(FILES ${MAKEFILES} DESTINATION ${HUGINDATADIR}/xrc/data)
-ENDIF()
-
 # parse contributors list
 file(READ "${PROJECT_SOURCE_DIR}/authors.txt" AUTHORS_LIST)
 
