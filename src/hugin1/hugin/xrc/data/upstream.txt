@@ -3,7 +3,6 @@ Hugin's source package also contains the following
 back to the upstream developers, if possible. Hugin would not have been
 possible without them. Many thanks.
 
-VIGRA: http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/
 levmar by Manolis Lourakis http://www.ics.forth.gr/~lourakis/levmar
 FLANN by Marius Muja and David G. Lowe, http://www.cs.ubc.ca/~mariusm/index.php/FLANN/FLANN (used unmodified)
 
@@ -20,6 +19,8 @@ Libpano is critically important for Hugin. Many thanks to its original developer
 http://panotools.sourceforge.net/
 
 Enblend-Enfuse originally by Andrew Mihal http://enblend.sourceforge.net/
+
+VIGRA: http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/ 
 
 Many thanks to the whole Hugin-PTX mailing list, for great feedback and interesting discussions.
 
