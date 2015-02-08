@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2014-09-11 09:48+0200\n"
+"POT-Creation-Date: 2015-02-08 14:34+0100\n"
 "PO-Revision-Date: 2014-07-12 13:32+0200\n"
 "Last-Translator: Kornel Benko <kornel@lyx.org>\n"
 "Language-Team: Slovak <sk@li.org>\n"
@@ -2955,6 +2955,10 @@ msgstr "Systémové nastavenie"
 msgid "Basque"
 msgstr "Baskičtina"
 
+#: hugin1/hugin/PreferencesDialog.cpp:130
+msgid "Catalan"
+msgstr "Katalánčina"
+
 #: hugin1/hugin/PreferencesDialog.cpp:133
 msgid "Chinese (Simplified)"
 msgstr "Čínština (zjednodušená)"
@@ -3026,6 +3030,10 @@ msgstr "Švédčina"
 #: hugin1/hugin/PreferencesDialog.cpp:199
 msgid "Finnish"
 msgstr "Fínčina"
+
+#: hugin1/hugin/PreferencesDialog.cpp:202
+msgid "Valencian (Southern Catalan)"
+msgstr "Valentínčina (Južné Katalánsko)"
 
 #: hugin1/hugin/PreferencesDialog.cpp:294
 msgid "Select Enblend"
@@ -7558,12 +7566,6 @@ msgstr ""
 #~ msgid "Sorry. But this system does not support the suspend mode."
 #~ msgstr "Ľutujem. Ale tento systém nepodporuje stav prerušenia."
 
-#~ msgid "x"
-#~ msgstr "x"
-
-#~ msgid "y"
-#~ msgstr "y"
-
 #~ msgid ""
 #~ "Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All "
 #~ "files (*)|*"
@@ -7729,9 +7731,6 @@ msgstr ""
 #~ msgid "Bulgarian"
 #~ msgstr "Bulharčina"
 
-#~ msgid "Catalan"
-#~ msgstr "Katalánčina"
-
 #~ msgid "Korean"
 #~ msgstr "Kórejčina"
 
@@ -7812,9 +7811,6 @@ msgstr ""
 #~ msgid "Open final panorama in external editor"
 #~ msgstr "Otvoriť výslednú panorámu v externom editore"
 
-#~ msgid "Editor:"
-#~ msgstr "Editor:"
-
 #~ msgid ""
 #~ "The The following patterns will be substituted before running:\n"
 #~ "%f  -- final panorama\n"
@@ -7832,12 +7828,6 @@ msgstr ""
 
 #~ msgid "Name of the temporary script file used by Panotools"
 #~ msgstr "Názov dočasného skriptovacieho súboru pre Panotools"
-
-#~ msgid "Panotools:"
-#~ msgstr "Panotools:"
-
-#~ msgid "Panotools"
-#~ msgstr "Panotools"
 
 #~ msgid "Details"
 #~ msgstr "Detaily"
@@ -7862,36 +7852,6 @@ msgstr ""
 
 #~ msgid "Stack Number"
 #~ msgstr "Číslo štósu"
-
-#~ msgid "X (TrX)"
-#~ msgstr "X (TrX)"
-
-#~ msgid "Y (TrY)"
-#~ msgstr "Y (TrY)"
-
-#~ msgid "Z (TrZ)"
-#~ msgstr "Z (TrZ)"
-
-#~ msgid "a"
-#~ msgstr "a"
-
-#~ msgid "b"
-#~ msgstr "b"
-
-#~ msgid "c"
-#~ msgstr "c"
-
-#~ msgid "d"
-#~ msgstr "d"
-
-#~ msgid "e"
-#~ msgstr "e"
-
-#~ msgid "g"
-#~ msgstr "g"
-
-#~ msgid "t"
-#~ msgstr "t"
 
 #~ msgid "EV"
 #~ msgstr "EV:"
@@ -7931,9 +7891,6 @@ msgstr ""
 
 #~ msgid "Please load images by pressing on the \"Load images\" button."
 #~ msgstr "Nahrajte prosím obrázky stlačením tlačidla Načítať obrázky."
-
-#~ msgid "0"
-#~ msgstr "0"
 
 #~ msgid "Removed %u control points"
 #~ msgstr "Odstránených %u kontrolných bodov"
@@ -8411,9 +8368,6 @@ msgstr ""
 #~ msgid "Division ( I=I/c )"
 #~ msgstr "Delenie ( I=I/c )"
 
-#~ msgid "Flatfield"
-#~ msgstr "Flatfield"
-
 #~ msgid "Image file:"
 #~ msgstr "Súbor obrázku:"
 
@@ -8590,99 +8544,8 @@ msgstr ""
 #~ "najvyššej kvalite, použite tlačidlo Vypočítať optimálnu\n"
 #~ "veľkosť na paneli Nastavenie panorámy."
 
-#~ msgid "mm"
-#~ msgstr "mm"
-
-#~ msgid ""
-#~ "a0123456789012345678901234567890123456789\n"
-#~ "b\n"
-#~ "c\n"
-#~ "d\n"
-#~ "e"
-#~ msgstr ""
-#~ "a0123456789012345678901234567890123456789\n"
-#~ "b\n"
-#~ "c\n"
-#~ "d\n"
-#~ "e"
-
-#~ msgid "x:"
-#~ msgstr "x:"
-
-#~ msgid "y:"
-#~ msgstr "y:"
-
-#~ msgid "100%"
-#~ msgstr "100%"
-
-#~ msgid "200%"
-#~ msgstr "200%"
-
-#~ msgid "150%"
-#~ msgstr "150%"
-
-#~ msgid "75%"
-#~ msgstr "75%"
-
-#~ msgid "50%"
-#~ msgstr "50%"
-
-#~ msgid "25%"
-#~ msgstr "25%"
-
-#~ msgid "* r^2"
-#~ msgstr "* r^2"
-
-#~ msgid "* r^4"
-#~ msgstr "* r^4"
-
-#~ msgid "* r^6"
-#~ msgstr "* r^6"
-
 #~ msgid "&Import Project..."
 #~ msgstr "Pridať projekt..."
-
-#~ msgid "Nona"
-#~ msgstr "Nona"
-
-#~ msgid "TIFF"
-#~ msgstr "TIFF"
-
-#~ msgid "JPEG"
-#~ msgstr "JPEG"
-
-#~ msgid "PNG"
-#~ msgstr "PNG"
-
-#~ msgid "Packbits"
-#~ msgstr "Packbits"
-
-#~ msgid "LZW"
-#~ msgstr "LZW"
-
-#~ msgid "Deflate"
-#~ msgstr "Deflate"
-
-#~ msgid "EXR"
-#~ msgstr "EXR"
-
-#~ msgid "MB"
-#~ msgstr "MB"
-
-#~ msgid "PTStitcher:"
-#~ msgstr "PTStitcher:"
-
-#~ msgid "..."
-#~ msgstr "..."
-
-#~ msgid "c = "
-#~ msgstr "c = "
-
-#~ msgid " + "
-#~ msgstr " + "
-
-#~ msgid "*r^6"
-#~ msgstr "*r^6"
 
 #~ msgid "Select Autopano program"
 #~ msgstr "Vyberte program Autopano"
@@ -8695,40 +8558,6 @@ msgstr ""
 
 #~ msgid "Finetune"
 #~ msgstr "Doladenie"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "0123456789012345678901234567890123456789012345\n"
-#~ "\n"
-#~ "\n"
-#~ "\n"
-#~ "\n"
-#~ msgstr ""
-#~ "0123456789012345678901234567890123456789012345\n"
-#~ "\n"
-#~ "\n"
-#~ "\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "0123456789012345678901234567890123456789012345\n"
-#~ "\n"
-#~ "\n"
-#~ msgstr ""
-#~ "0123456789012345678901234567890123456789012345\n"
-#~ "\n"
-#~ "\n"
-
-#~ msgid "Autopano-SIFT"
-#~ msgstr "Autopano-SIFT"
 
 #~ msgid "tries to remove control points from clouds."
 #~ msgstr "Pokúsi sa odstrániť kontrolné body z oblakov."
@@ -8903,9 +8732,6 @@ msgstr ""
 #~ msgid "Choose which autopano program should be used\n"
 #~ msgstr "Vyberte, ktorý autopano program má byť použitý\n"
 
-#~ msgid "Autopano"
-#~ msgstr "Autopano"
-
 #~ msgid ""
 #~ "These are the default arguments. They can be changed for individal "
 #~ "projects in the Stitcher tab.\n"
@@ -8986,12 +8812,6 @@ msgstr ""
 
 #~ msgid "Autopano-SIFT (by S. Nowozin)"
 #~ msgstr "Autopano-SIFT (autor S. Nowozin)"
-
-#~ msgid "Autopano-SIFT:"
-#~ msgstr "Autopano-SIFT:"
-
-#~ msgid "Autopano:"
-#~ msgstr "Autopano:"
 
 #~ msgid "Batch"
 #~ msgstr "Dávková úloha"
@@ -9101,41 +8921,17 @@ msgstr ""
 #~ msgid "image format:"
 #~ msgstr "formát obrázku:"
 
-#~ msgid "JPG"
-#~ msgstr "JPG"
-
 #~ msgid "Multiple TIFF"
 #~ msgstr "niekoľko TIFFov"
 
 #~ msgid "Multiple TIFF with masks"
 #~ msgstr "Viac TIFFov s maskami"
 
-#~ msgid "PICT"
-#~ msgstr "PICT"
-
-#~ msgid "PSD"
-#~ msgstr "PSD"
-
 #~ msgid "Layered PSD"
 #~ msgstr "Vrstvené PSD"
 
 #~ msgid "Layered PSD with masks"
 #~ msgstr "Vrstvené PSD s maskami"
-
-#~ msgid "PAN"
-#~ msgstr "PAN"
-
-#~ msgid "IVR"
-#~ msgstr "IVR"
-
-#~ msgid "Java IVR"
-#~ msgstr "Java IVR"
-
-#~ msgid "VRML"
-#~ msgstr "VRML"
-
-#~ msgid "QTVR"
-#~ msgstr "QTVR"
 
 #~ msgid "edit script before stitching"
 #~ msgstr "editovať skript pred zlepením"
@@ -9167,39 +8963,14 @@ msgstr ""
 #~ msgid "Use alternative Autopano program"
 #~ msgstr "Použiť alternatívu k programu Autopano"
 
-#~ msgid "Enblend:"
-#~ msgstr "Enblend:"
-
 #~ msgid "Additional Arguments:"
 #~ msgstr "Ďalšie argumenty:"
 
 #~ msgid "Do not set -w and -o arguments, they are set by hugin"
 #~ msgstr "Nenastavujte argumenty -w a -o, tie budú nastavené huginom"
 
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "\n"
-#~ "\n"
-
 #~ msgid "Select autopano program / frontend script"
 #~ msgstr "Vyberte program autopano / rozhranie skriptu"
-
-#~ msgid ""
-#~ "a\n"
-#~ "b\n"
-#~ "c\n"
-#~ "d"
-#~ msgstr ""
-#~ "a\n"
-#~ "b\n"
-#~ "c\n"
-#~ "d"
 
 #~ msgid ""
 #~ "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
@@ -9224,9 +8995,6 @@ msgstr ""
 #~ "Všetky súbory obrázkov|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;"
 #~ "*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff|JPEG súbory (*.jpg)|*."
 #~ "jpg;*.JPG;*.jpeg;*.JPEG;*.jpg|Všetky súbory (*)|*"
-
-#~ msgid "PTmender"
-#~ msgstr "PTmender"
 
 #~ msgid "Basic Settings"
 #~ msgstr "Základné nastavenia"
@@ -9264,9 +9032,6 @@ msgstr ""
 
 #~ msgid "program finished"
 #~ msgstr "program bol ukončený"
-
-#~ msgid "ExecuteProcess"
-#~ msgstr "ExecuteProcess"
 
 #~ msgid ""
 #~ "External program %s not found as specified in preferences, reverting to "
@@ -9326,9 +9091,6 @@ msgstr ""
 
 #~ msgid "Stitching engine:"
 #~ msgstr "Zlepovacie jadro:"
-
-#~ msgid "nona"
-#~ msgstr "nona"
 
 #~ msgid "Could not locate the hugin directory / bundle, exiting"
 #~ msgstr "Nepodarilo sa nájsť adresár huginu/balíku, ukončujem"
@@ -9421,9 +9183,6 @@ msgstr ""
 
 #~ msgid "Vignetting curve estimation"
 #~ msgstr "Odhad charakteristickej krivky"
-
-#~ msgid "0.1"
-#~ msgstr "0.1"
 
 #~ msgid ""
 #~ "Vignetting curve estimation results:\n"
