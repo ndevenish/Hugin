@@ -393,8 +393,8 @@ std::string GetDataDir()
 #if _WINDOWS
     char buffer[MAX_PATH];//always use MAX_PATH for filepaths
     GetModuleFileName(NULL,buffer,sizeof(buffer));
-    std::string working_path=(buffer);
-    std::string data_path="";
+    std::string working_path(buffer);
+    std::string data_path("");
     //remove filename
     std::string::size_type pos=working_path.rfind("\\");
     if(pos!=std::string::npos)
