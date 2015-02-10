@@ -336,7 +336,7 @@ bool huginApp::OnInit()
     wxFileName ptbatcher(wxStandardPaths::Get().GetExecutablePath());
     ptbatcher.SetName("PTBatcherGUI");
     wxTaskBarJumpListItem *item1 = new wxTaskBarJumpListItem(
-        NULL, wxTASKBAR_JUMP_LIST_TASK, _("Run Batch Processor"), ptbatcher.GetFullPath(), wxEmptyString, 
+        NULL, wxTASKBAR_JUMP_LIST_TASK, _("Open Batch Processor"), ptbatcher.GetFullPath(), wxEmptyString, 
         _("Opens PTBatcher, the batch processor for Hugin's project files"),
         ptbatcher.GetFullPath(), 0);
     jumpList.GetTasks().Append(item1);
