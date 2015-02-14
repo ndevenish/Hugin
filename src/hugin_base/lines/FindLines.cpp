@@ -41,7 +41,7 @@ namespace HuginLines
 {
 
 template <class SrcImageIterator, class SrcAccessor, class DestImage>
-double resize_image(triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src, DestImage& dest, int resize_dimension)
+double resize_image(const triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src, DestImage& dest, int resize_dimension)
 {
     // Re-size to max dimension
     double sizefactor=1.0;
@@ -78,7 +78,7 @@ double resize_image(triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src,
     return 1.0/sizefactor;
 }
 
-vigra::BImage* detectEdges(UInt8RGBImage& input, const double scale, const double threshold, const unsigned int resize_dimension, double& size_factor)
+vigra::BImage* detectEdges(const UInt8RGBImage& input, const double scale, const double threshold, const unsigned int resize_dimension, double& size_factor)
 {
     // Resize image
     UInt8Image scaled;
@@ -90,7 +90,7 @@ vigra::BImage* detectEdges(UInt8RGBImage& input, const double scale, const doubl
     return image;
 };
 
-vigra::BImage* detectEdges(BImage& input, const double scale, const double threshold, const unsigned int resize_dimension, double& size_factor)
+vigra::BImage* detectEdges(const BImage& input, const double scale, const double threshold, const unsigned int resize_dimension, double& size_factor)
 {
     // Resize image
     UInt8Image scaled;
