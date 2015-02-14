@@ -43,8 +43,8 @@ namespace HuginLines
      *  @param size_factor contains the scale factor for transform from edge image to input image
      *  @return image with the marked edges
      */
-    LINESIMPEX vigra::BImage* detectEdges(vigra::UInt8RGBImage input,double scale,double threshold,unsigned int resize_dimension, double &size_factor);
-    LINESIMPEX vigra::BImage* detectEdges(vigra::BImage input,double scale,double threshold,unsigned int resize_dimension, double &size_factor);
+    LINESIMPEX vigra::BImage* detectEdges(vigra::UInt8RGBImage& input, const double scale, const double threshold, const unsigned int resize_dimension, double& size_factor);
+    LINESIMPEX vigra::BImage* detectEdges(vigra::BImage& input, const double scale, const double threshold, const unsigned int resize_dimension, double& size_factor);
     /** @brief find straightish non-crossing lines 
      *  find straightish non-crossing lines in an edge map
      *  using 8-neighborhood operations. (Points on the edges

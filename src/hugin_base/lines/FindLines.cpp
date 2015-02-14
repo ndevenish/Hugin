@@ -39,66 +39,62 @@ using namespace std;
 
 namespace HuginLines
 {
-template <class ImageType>
-double resize_image(ImageType& in, ImageType& out, int resize_dimension)
+
+template <class SrcImageIterator, class SrcAccessor, class DestImage>
+double resize_image(triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src, DestImage& dest, int resize_dimension)
 {
     // Re-size to max dimension
     double sizefactor=1.0;
-    if (in.width() > resize_dimension || in.height() > resize_dimension)
+    const vigra::Size2D inputSize(src.second - src.first);
+    if (inputSize.width() > resize_dimension || inputSize.height() > resize_dimension)
     {
         int nw;
         int nh;
-        if (in.width() >= in.height())
+        if (inputSize.width() >= inputSize.height())
         {
-            sizefactor = (double)resize_dimension/in.width();
+            sizefactor = (double)resize_dimension / inputSize.width();
             // calculate new image size
             nw = resize_dimension;
-            nh = static_cast<int>(0.5 + (sizefactor*in.height()));
+            nh = static_cast<int>(0.5 + (sizefactor*inputSize.height()));
         }
         else
         {
-            sizefactor = (double)resize_dimension/in.height();
+            sizefactor = (double)resize_dimension / inputSize.height();
             // calculate new image size
-            nw = static_cast<int>(0.5 + (sizefactor*in.width()));
+            nw = static_cast<int>(0.5 + (sizefactor*inputSize.width()));
             nh = resize_dimension;
         }
 
         // create an image of appropriate size
-        out.resize(nw, nh);
+        dest.resize(nw, nh);
         // resize the image, using a bi-cubic spline algorithm
-        resizeImageNoInterpolation(srcImageRange(in),destImageRange(out));
+        resizeImageNoInterpolation(src, destImageRange(dest));
     }
     else
     {
-        out.resize(in.size());
-        copyImage(srcImageRange(in),destImage(out));
+        dest.resize(inputSize);
+        copyImage(src, destImage(dest));
     };
     return 1.0/sizefactor;
 }
 
-vigra::BImage* detectEdges(UInt8RGBImage input,double scale,double threshold,unsigned int resize_dimension, double& size_factor)
-{
-    // Resize image
-    UInt8RGBImage scaled;
-    size_factor=resize_image(input, scaled, resize_dimension);
-    input.resize(0,0);
-
-    // Convert to greyscale
-    BImage grey(scaled.width(), scaled.height());
-    copyImage(srcImageRange(scaled, RGBToGrayAccessor<RGBValue<UInt8> >()), destImage(grey));
-
-    // Run Canny edge detector
-    BImage* image=new BImage(grey.width(), grey.height(), 255);
-    cannyEdgeImage(srcImageRange(grey), destImage(*image), scale, threshold, 0);
-    return image;
-};
-
-vigra::BImage* detectEdges(BImage input,double scale,double threshold,unsigned int resize_dimension, double& size_factor)
+vigra::BImage* detectEdges(UInt8RGBImage& input, const double scale, const double threshold, const unsigned int resize_dimension, double& size_factor)
 {
     // Resize image
     UInt8Image scaled;
-    size_factor=resize_image(input, scaled, resize_dimension);
-    input.resize(0,0);
+    size_factor=resize_image(vigra::srcImageRange(input, vigra::RGBToGrayAccessor<RGBValue<UInt8> >()), scaled, resize_dimension);
+
+    // Run Canny edge detector
+    BImage* image = new BImage(scaled.width(), scaled.height(), 255);
+    cannyEdgeImage(srcImageRange(scaled), destImage(*image), scale, threshold, 0);
+    return image;
+};
+
+vigra::BImage* detectEdges(BImage& input, const double scale, const double threshold, const unsigned int resize_dimension, double& size_factor)
+{
+    // Resize image
+    UInt8Image scaled;
+    size_factor=resize_image(vigra::srcImageRange(input), scaled, resize_dimension);
 
     // Run Canny edge detector
     BImage* image=new BImage(scaled.width(), scaled.height(), 255);
