@@ -124,10 +124,10 @@ PreferencesDialog::PreferencesDialog(wxWindow* parent)
     lp = new long;
     *lp = wxLANGUAGE_BULGARIAN;
     lang_choice->Append(_("Bulgarian"), lp);
+    */
     lp = new long;
     *lp = wxLANGUAGE_CATALAN;
     lang_choice->Append(_("Catalan"), lp);
-    */
     lp = new long;
     *lp = wxLANGUAGE_CHINESE_SIMPLIFIED;
     lang_choice->Append(_("Chinese (Simplified)"), lp);
@@ -197,6 +197,9 @@ PreferencesDialog::PreferencesDialog(wxWindow* parent)
     lp = new long;
     *lp = wxLANGUAGE_FINNISH;
     lang_choice->Append(_("Finnish"), lp);
+    lp = new long;
+    *lp = wxLANGUAGE_VALENCIAN;
+    lang_choice->Append(_("Valencian (Southern Catalan)"), lp);
     lang_choice->SetSelection(0);
 
 #if wxCHECK_VERSION(2,9,1)
