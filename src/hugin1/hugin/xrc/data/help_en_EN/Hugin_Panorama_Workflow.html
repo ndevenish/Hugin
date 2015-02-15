@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" class="client-nojs">
 <head>
-<title>Hugin Panorama Workflow - PanoTools.org Wiki</title>
 <meta charset="UTF-8" />
-<meta name="generator" content="MediaWiki 1.19.0" />
+<title>Hugin Panorama Workflow - PanoTools.org Wiki</title>
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<meta name="generator" content="MediaWiki 1.23.6" />
 
 
 
@@ -12,68 +13,81 @@
 
 <style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 
-<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
-
-/* cache key: pt_wikidb:resourceloader:filter:minify-css:7:c88e2bcd56513749bec09a7e29cb3ffa */
-</style>
-
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: panotools_wiki:resourceloader:filter:minify-css:7:90730a7865ba4b50e0b837e1821ff0a3 */</style>
 
 
 
 <!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
-<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Hugin_Panorama_Workflow skin-vector action-view">
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Hugin_Panorama_Workflow skin-vector action-view vector-animateLayout">
 		
 		
-		<!-- content -->
-		<div id="content" class="mw-body">
+		<div id="content" class="mw-body" role="main">
 			<a id="top"></a>
 			
-						<!-- firstHeading -->
-			<h1 id="firstHeading" class="firstHeading">
-				<span dir="auto">Hugin Panorama Workflow</span>
-			</h1>
-			<!-- /firstHeading -->
-			<!-- bodyContent -->
-			<div id="bodyContent">
-								<!-- tagline -->
-				<div id="siteSub">From PanoTools.org Wiki</div>
-				<!-- /tagline -->
-								<!-- subtitle -->
-				
-				<!-- /subtitle -->
-																<!-- jumpto -->
-				
-				<!-- /jumpto -->
-								<!-- bodycontent -->
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Hugin Panorama Workflow</span></h1>
+						<div id="bodyContent">
+								<div id="siteSub">From PanoTools.org Wiki</div>
+								
+												
 				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>Hugin provides different work flows for generating panoramas. This page will list some possibility and give you some suggestions for your own work flow.
 </p><p>This is not a step by step instruction. Not all projects will need all steps. It will give you some ideas for your own projects.
 </p><p>The panorama creating consists of two major steps: 
 </p>
-<ol><li> generating project file and align images
-</li><li> stitching of project file
-</li></ol>
+<ol>
+<li> generating project file and align images
+</li>
+<li> stitching of project file
+</li>
+</ol>
 <p>The following chapters will give you some details for both steps. You can combine both steps as you like. You can run all full automatic, or you can run all manual, or you can generate the project on the command line and stitch with PTBatcherGUI<a class="external" href="http://wiki.panotools.org/PTBatcherGUI">[*]</a>, or you can all do on the command line, or or or...
 </p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Hugin_Panorama_Workflow.html#Generating_project_file"><span class="tocnumber">1</span> <span class="toctext">Generating project file</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="Hugin_Panorama_Workflow.html#Fully_automatic_generation"><span class="tocnumber">1.1</span> <span class="toctext">Fully automatic generation</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="Hugin_Panorama_Workflow.html#Manual_generation"><span class="tocnumber">1.2</span> <span class="toctext">Manual generation</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="Hugin_Panorama_Workflow.html#Scripting"><span class="tocnumber">1.3</span> <span class="toctext">Scripting</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="Hugin_Panorama_Workflow.html#Stitching"><span class="tocnumber">2</span> <span class="toctext">Stitching</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="Hugin_Panorama_Workflow.html#PTBatcherGUI"><span class="tocnumber">2.1</span> <span class="toctext">PTBatcherGUI</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="Hugin_Panorama_Workflow.html#Hugin_stitch_project"><span class="tocnumber">2.2</span> <span class="toctext">Hugin_stitch_project</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="Hugin_Panorama_Workflow.html#Scripting_2"><span class="tocnumber">2.3</span> <span class="toctext">Scripting</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
 
-<h2> <span class="mw-headline" id="Generating_project_file"> Generating project file </span></h2>
-<h3> <span class="mw-headline" id="Fully_automatic_generation"> Fully automatic generation </span></h3>
+<h2><span class="mw-headline" id="Generating_project_file">Generating project file</span></h2>
+<h3><span class="mw-headline" id="Fully_automatic_generation">Fully automatic generation</span></h3>
 <p>PTBatcherGUI<a class="external" href="http://wiki.panotools.org/PTBatcherGUI">[*]</a> provides an option to create a project file and run the assistant on these generated project files.
 Go to <b>File&gt;Search directory for...&gt;Images</b> and select the path to your images. After pressing <b>Start</b> PTBatcherGUI will search for possible projects depending on the <a href="EXIF.html" title="EXIF">EXIF</a> information in the images. When the search is finished, the bottom list box displays all found panoramas. Select the panoramas you want to process and then click <b>Send selected panoramas to queue</b> to send these panoramas to the assistant queue. When you now start the batch processing, the assistant is running on all project files.
 </p><p>If you tick the option <b>Automatic stitch after assistant</b> the panoramas will be stitched after running the assistant. This will give you a full automatic panorama processing from the input images to the final panorama.
 </p><p>Also in <a href="Hugin.html" title="Hugin">Hugin</a> an automatic alignment can be achieved. After adding the images (and checking projections and focal length) run the assistant on this project. You can also send the projects to the assistant queue and process the project files later (e.g. during night).
 </p>
-<h3> <span class="mw-headline" id="Manual_generation"> Manual generation </span></h3>
+<h3><span class="mw-headline" id="Manual_generation">Manual generation</span></h3>
 <p>Project file can be generated and aligned in <a href="Hugin.html" title="Hugin">Hugin</a>. A possible work flow would be
 </p>
-<ol><li> Add images.
-</li><li> Assign lens and stacks.
-</li><li> Find control points, e.g. with <a href="Cpfind.html" title="Cpfind">cpfind</a>.
-</li><li> Control point checking (<a href="Celeste_standalone.html" title="Celeste standalone">celeste</a>, <a href="Cpclean.html" title="Cpclean">cpclean</a>, manual)
-</li><li> Geometric optimisation (<a href="Yaw.html" title="Yaw">yaw</a>, <a href="Pitch.html" title="Pitch">pitch</a>, <a href="Roll.html" title="Roll">roll</a>, <a href="Lens_distortion.html" title="Lens distortion">lens parameters</a>).
-</li><li> Photometric optimisation (exposure values, <a href="Vignetting.html" title="Vignetting">vignetting</a>, white balance<a class="external" href="http://wiki.panotools.org/White_balance">[*]</a>).
-</li><li> Select output parameters (projection, canvas size, ...)
-</li></ol>
-<h3> <span class="mw-headline" id="Scripting"> Scripting </span></h3>
+<ol>
+<li> Add images.
+</li>
+<li> Assign lens and stacks.
+</li>
+<li> Find control points, e.g. with <a href="Cpfind.html" title="Cpfind">cpfind</a>.
+</li>
+<li> Control point checking (<a href="Celeste_standalone.html" title="Celeste standalone">celeste</a>, <a href="Cpclean.html" title="Cpclean">cpclean</a>, manual)
+</li>
+<li> Geometric optimisation (<a href="Yaw.html" title="Yaw">yaw</a>, <a href="Pitch.html" title="Pitch">pitch</a>, <a href="Roll.html" title="Roll">roll</a>, <a href="Lens_distortion.html" title="Lens distortion">lens parameters</a>).
+</li>
+<li> Photometric optimisation (exposure values, <a href="Vignetting.html" title="Vignetting">vignetting</a>, white balance<a class="external" href="http://wiki.panotools.org/White_balance">[*]</a>).
+</li>
+<li> Select output parameters (projection, canvas size, ...)
+</li>
+</ol>
+<h3><span class="mw-headline" id="Scripting">Scripting</span></h3>
 <p>The project can also be created and aligned with command line tools (see <a href="Panorama_scripting_in_a_nutshell.html#Creating_hugin_projects_on_the_command-line" title="Panorama scripting in a nutshell">here</a> for more details).
 </p><p>A work flow similar to the assistant would be like:
 </p>
@@ -94,32 +108,28 @@ Go to <b>File&gt;Search directory for...&gt;Images</b> and select the path to yo
     autooptimiser -a -m -l -s -o project.pto project.pto
     pano_modify --canvas=AUTO --crop=AUTO -o project.pto project.pto
 </pre>
-<h2> <span class="mw-headline" id="Stitching"> Stitching </span></h2>
+<h2><span class="mw-headline" id="Stitching">Stitching</span></h2>
 <p>All stitching engines use the same code base. So there is no preference for one or the other. It is a matter of taste, which one you use.
 </p>
-<h3> <span class="mw-headline" id="PTBatcherGUI"> PTBatcherGUI </span></h3>
+<h3><span class="mw-headline" id="PTBatcherGUI">PTBatcherGUI</span></h3>
 <p>The default stitching engine is PTBatcherGUI<a class="external" href="http://wiki.panotools.org/PTBatcherGUI">[*]</a>. You can add different projects to a queue and process the queue later without control. But it can also be configured to start immediately.
 </p><p>You can also stitch all project files in a given directory: After select the directory in <b>File&gt;Search directory for...&gt;Project</b> all project files in the given folder will be added to the queue.
 </p>
-<h3> <span class="mw-headline" id="Hugin_stitch_project"> Hugin_stitch_project </span></h3>
+<h3><span class="mw-headline" id="Hugin_stitch_project">Hugin_stitch_project</span></h3>
 <p><a href="Hugin_stitch_project.html" title="Hugin stitch project">Hugin_stitch_project</a> can only stitch a single project. The processing starts immediately.
 </p>
-<h3> <span class="mw-headline" id="Scripting_2"> Scripting </span></h3>
+<h3><span class="mw-headline" id="Scripting_2">Scripting</span></h3>
 <p>The stitching can also be started from the command line:
 </p>
 <pre>    pto2mk -o project.mk -p prefix project.pto
     make -f project.mk all
 </pre>
-<p>Attention: <a href="Pto2mk.html" title="Pto2mk">pto2mk</a> does not use the preferences from <a href="Hugin_Preferences.html" title="Hugin Preferences">Hugin</a>. See <a href="Panorama_scripting_in_a_nutshell.html#Makefile_stitching_system" title="Panorama scripting in a nutshell">here</a> how to set these parameters in this use case.
+<p>Attention: pto2mk<a class="external" href="http://wiki.panotools.org/Pto2mk">[*]</a> does not use the preferences from <a href="Hugin_Preferences.html" title="Hugin Preferences">Hugin</a>. See <a href="Panorama_scripting_in_a_nutshell.html#Makefile_stitching_system" title="Panorama scripting in a nutshell">here</a> how to set these parameters in this use case.
 </p><p>The makefile can also created during project save in Hugin, if you select <b>Create makefile automatically during project save</b> in the <a href="Hugin_Preferences.html" title="Hugin Preferences">Hugin preferences</a>.
 </p>
 
 
 
-</div>				<!-- /bodycontent -->
-								<!-- printfooter -->
-				<div class="printfooter">
+</div>								<div class="printfooter">
 				Retrieved from "http://wiki.panotools.org/index.php?title=Hugin_Panorama_Workflow&amp;oldid=15590<a class="external" href="http://wiki.panotools.org/index.php?title=Hugin_Panorama_Workflow&amp;oldid=15590">[*]</a>"				</div>
-				<!-- /printfooter -->
-												<!-- catlinks -->
-				</div></div></body></html>
+												</div></div></body></html>

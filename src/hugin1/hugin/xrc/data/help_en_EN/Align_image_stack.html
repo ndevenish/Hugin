@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" class="client-nojs">
 <head>
-<title>Align image stack - PanoTools.org Wiki</title>
 <meta charset="UTF-8" />
-<meta name="generator" content="MediaWiki 1.19.15" />
+<title>Align image stack - PanoTools.org Wiki</title>
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<meta name="generator" content="MediaWiki 1.23.6" />
 
 
 
@@ -12,81 +13,65 @@
 
 <style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 
-<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
-
-/* cache key: pt_wikidb:resourceloader:filter:minify-css:7:c88e2bcd56513749bec09a7e29cb3ffa */
-</style>
-
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: panotools_wiki:resourceloader:filter:minify-css:7:90730a7865ba4b50e0b837e1821ff0a3 */</style>
 
 
 
 <!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
-<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Align_image_stack skin-vector action-view">
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Align_image_stack skin-vector action-view vector-animateLayout">
 		
 		
-		<!-- content -->
-		<div id="content" class="mw-body">
+		<div id="content" class="mw-body" role="main">
 			<a id="top"></a>
 			
-						<!-- firstHeading -->
-			<h1 id="firstHeading" class="firstHeading">
-				<span dir="auto">Align image stack</span>
-			</h1>
-			<!-- /firstHeading -->
-			<!-- bodyContent -->
-			<div id="bodyContent">
-								<!-- tagline -->
-				<div id="siteSub">From PanoTools.org Wiki</div>
-				<!-- /tagline -->
-								<!-- subtitle -->
-				
-				<!-- /subtitle -->
-																<!-- jumpto -->
-				
-				<!-- /jumpto -->
-								<!-- bodycontent -->
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Align image stack</span></h1>
+						<div id="bodyContent">
+								<div id="siteSub">From PanoTools.org Wiki</div>
+								
+												
 				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>align_image_stack is a command-line tool available in the development version of <a href="Hugin.html" title="Hugin">hugin</a> to align overlapping images to facilitate <a href="HDR.html" title="HDR">HDR</a> creation, Exposure blending<a class="external" href="http://wiki.panotools.org/Exposure_blending">[*]</a>, extended <a href="Depth_of_Field.html" title="Depth of Field">Depth of Field</a>, and Stereoscopic<a class="external" href="http://wiki.panotools.org/index.php?title=Stereoscopic&amp;action=edit&amp;redlink=1">[*]</a> images.
 </p>
-<h2> <span class="mw-headline" id="Usage"> Usage </span></h2>
+<h2><span class="mw-headline" id="Usage">Usage</span></h2>
 <pre>align_image_stack [options] input_files
 </pre>
-<h3> <span class="mw-headline" id="Options:_modes_of_operation"> Options: modes of operation </span></h3>
+<h3><span class="mw-headline" id="Options:_modes_of_operation">Options: modes of operation</span></h3>
 <pre>-p file   
 </pre>
-<p>Output .pto file (useful for debugging, or further refinement)
+<p>Output .pto file. (Useful for debugging, or further refinement.)
 </p>
 <pre>-a prefix 
 </pre>
-<p>Align images, output as prefix_xxxx.tif
+<p>Align images, output as prefix_xxxx.tif.
 </p>
 <pre>-o output 
 </pre>
-<p>Merge images to HDR, generate output.hdr
+<p>Merge images to HDR, generate output.hdr.
 </p>
-<h3> <span class="mw-headline" id="Options:_modifiers"> Options: modifiers </span></h3>
+<h3><span class="mw-headline" id="Options:_modifiers">Options: modifiers</span></h3>
 <pre>-v        
 </pre>
-<p>Verbose, print progress messages
+<p>Verbose, print progress messages.
 </p>
 <pre>-e
 </pre>
-<p>Assume input images are full frame <a href="Fisheye_Projection.html" title="Fisheye Projection">fish eye</a> (default: <a href="Rectilinear_Projection.html" title="Rectilinear Projection">rectilinear</a>)
+<p>Assume input images are full frame <a href="Fisheye_Projection.html" title="Fisheye Projection">fish eye</a> (default: <a href="Rectilinear_Projection.html" title="Rectilinear Projection">rectilinear</a>).
 </p>
 <pre>-t num    
 </pre>
-<p>Remove all control points with an error higher than num pixels (default: 3)
+<p>Remove all control points with an error higher than num pixels (default: 3).
 </p>
 <pre>--corr=num
 </pre>
-<p>Correlation threshold for identifying control points (default: 0.9) 
+<p>Correlation threshold for identifying control points (default: 0.9).
 </p>
 <pre>-f HFOV   
 </pre>
-<p>Approximate horizontal field of view<a class="external" href="http://wiki.panotools.org/Field_of_view">[*]</a> of input images, use if <a href="EXIF.html" title="EXIF">EXIF</a> info not complete
+<p>Approximate horizontal field of view<a class="external" href="http://wiki.panotools.org/Field_of_view">[*]</a> of input images. Use if <a href="EXIF.html" title="EXIF">EXIF</a> info not complete.
 </p>
 <pre>-m        
 </pre>
-<p>Optimize field of view for all images, except for first. Useful for aligning focus stacks with slightly different magnification
+<p>Optimize field of view for all images, except for first. Useful for aligning focus stacks with slightly different magnification.
 </p>
 <pre>-d
 </pre>
@@ -114,11 +99,11 @@
 </p>
 <pre>-A
 </pre>
-<p>Align stereo window - assumes -S.  Adds one "normal" control point that is the nearest point so everything will appear behind the display plane.
+<p>Align stereo window - assumes -S.  Adds one "normal" control point that is the nearest point, so that everything will appear behind the display plane.
 </p>
 <pre>-P
 </pre>
-<p>Align stereo window with pop-out effect - assumes -S.  Adds one "normal" control point that is the nearest point from the border areas so the center of the image may appear in front of the display plane.
+<p>Align stereo window with pop-out effect - assumes -S.  Adds one "normal" control point that is the nearest point from the border areas, so that the center of the image may appear in front of the display plane.
 </p>
 <pre>-C
 </pre>
@@ -126,35 +111,35 @@
 </p>
 <pre>-c num    
 </pre>
-<p>Number of <a href="Control_points.html" title="Control points">control points</a> to create between adjacent images (default: 8)
+<p>Number of <a href="Control_points.html" title="Control points">control points</a> to create between adjacent images (default: 8).
 </p>
 <pre>-l
 </pre>
-<p>Assume linear input files
+<p>Assume linear input files.
 </p>
 <pre>-s scale
 </pre>
-<p>Scale down image by 2^scale (default: 1 [2x downsampling]). Scaling down images will improve speed at the cost of accuracy.
+<p>Scale down image by 2<sup>scale</sup> (default: 1 [2x downsampling]). Scaling down images will improve speed at the cost of accuracy.
 </p>
-<pre>-g gsize  
+<pre>-g gsize
 </pre>
 <p>Break image into a rectangular grid (gsize x gsize) and attempt to find num control points in each section (default: 5 [5x5 grid] )
 </p>
 <pre>--distortion
 </pre>
-<p>Try to load distortion information from lens database
+<p>Try to load distortion information from lens database.
 </p>
 <pre>--use-given-order  
 </pre>
-<p>Use the image order as given from command line (By default images will be sorted by exposure values as found in EXIF data.)
+<p>Use the image order as given from command line. (By default images will be sorted by exposure values as found in EXIF data.)
 </p>
 <pre>--threads=NUM 
 </pre>
-<p>Use NUM threads (by default it uses as much threads as cores)
+<p>Use NUM threads. (By default it uses as many threads as cores.)
 </p>
 <pre>--gpu     
 </pre>
-<p>Use GPU for remapping
+<p>Use GPU for remapping.
 </p>
 <pre>-h        
 </pre>
@@ -174,10 +159,6 @@
 
 
 
-</div>				<!-- /bodycontent -->
-								<!-- printfooter -->
-				<div class="printfooter">
-				Retrieved from "http://wiki.panotools.org/index.php?title=Align_image_stack&amp;oldid=15613<a class="external" href="http://wiki.panotools.org/index.php?title=Align_image_stack&amp;oldid=15613">[*]</a>"				</div>
-				<!-- /printfooter -->
-												<!-- catlinks -->
-				</div></div></body></html>
+</div>								<div class="printfooter">
+				Retrieved from "http://wiki.panotools.org/index.php?title=Align_image_stack&amp;oldid=15638<a class="external" href="http://wiki.panotools.org/index.php?title=Align_image_stack&amp;oldid=15638">[*]</a>"				</div>
+												</div></div></body></html>

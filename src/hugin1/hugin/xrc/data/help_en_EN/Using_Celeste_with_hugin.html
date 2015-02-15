@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" class="client-nojs">
 <head>
-<title>Using Celeste with hugin - PanoTools.org Wiki</title>
 <meta charset="UTF-8" />
-<meta name="generator" content="MediaWiki 1.19.0" />
+<title>Using Celeste with hugin - PanoTools.org Wiki</title>
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<meta name="generator" content="MediaWiki 1.23.6" />
 
 
 
@@ -12,39 +13,23 @@
 
 <style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 
-<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
-
-/* cache key: pt_wikidb:resourceloader:filter:minify-css:7:c88e2bcd56513749bec09a7e29cb3ffa */
-</style>
-
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: panotools_wiki:resourceloader:filter:minify-css:7:90730a7865ba4b50e0b837e1821ff0a3 */</style>
 
 
 
 <!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
-<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Using_Celeste_with_hugin skin-vector action-view">
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Using_Celeste_with_hugin skin-vector action-view vector-animateLayout">
 		
 		
-		<!-- content -->
-		<div id="content" class="mw-body">
+		<div id="content" class="mw-body" role="main">
 			<a id="top"></a>
 			
-						<!-- firstHeading -->
-			<h1 id="firstHeading" class="firstHeading">
-				<span dir="auto">Using Celeste with hugin</span>
-			</h1>
-			<!-- /firstHeading -->
-			<!-- bodyContent -->
-			<div id="bodyContent">
-								<!-- tagline -->
-				<div id="siteSub">From PanoTools.org Wiki</div>
-				<!-- /tagline -->
-								<!-- subtitle -->
-				
-				<!-- /subtitle -->
-																<!-- jumpto -->
-				
-				<!-- /jumpto -->
-								<!-- bodycontent -->
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Using Celeste with hugin</span></h1>
+						<div id="bodyContent">
+								<div id="siteSub">From PanoTools.org Wiki</div>
+								
+												
 				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>Celeste is program used to remove cloud-like control points and can be run from within Hugin or from the command line. It was developed by Tim Nugent during Google's Summer of Code 2008.
 </p><p>The problem is this: photo stitching software relies on objects within different images remaining in the same place. Control points are then used to match corresponding positons in each photo. However, panoramas are often captured over a number of minutes. During this time frame, non-static features such as clouds, water, and other objects (usually influenced by wind) may move significantly thus creating problems for automatic alignment tools. Should a control point be added to a cloud in photo A, the same cloud may have moved by the time photo B is taken, so the corresponding control point on the same cloud in photo B will actually be in the wrong position.
 </p><p>To implement a solution to this problem, a classification algorithm called a w:Support vector machine<a class="external" href="http://www.wikipedia.org/wiki/Support_vector_machine">[*]</a> was used. SVMs are binary classifiers, so the objective is to use one to make a simple call: is this control point on a cloud, or not. The SVM uses textural and colour information around the control point to make this judgement, based on what it has been trained to recognise. The training process involves providing labeled example of each category (cloud/non-cloud) so the SVM can learn to discrminate between them.
@@ -66,10 +51,6 @@ Select a pair of images. For these two in the example, there are 15 control poin
 
 
 
-</div>				<!-- /bodycontent -->
-								<!-- printfooter -->
-				<div class="printfooter">
+</div>								<div class="printfooter">
 				Retrieved from "http://wiki.panotools.org/index.php?title=Using_Celeste_with_hugin&amp;oldid=11381<a class="external" href="http://wiki.panotools.org/index.php?title=Using_Celeste_with_hugin&amp;oldid=11381">[*]</a>"				</div>
-				<!-- /printfooter -->
-												<!-- catlinks -->
-				</div></div></body></html>
+												</div></div></body></html>

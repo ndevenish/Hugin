@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" class="client-nojs">
 <head>
-<title>Interpolation - PanoTools.org Wiki</title>
 <meta charset="UTF-8" />
-<meta name="generator" content="MediaWiki 1.19.0" />
+<title>Interpolation - PanoTools.org Wiki</title>
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<meta name="generator" content="MediaWiki 1.23.6" />
 
 
 
@@ -12,53 +13,49 @@
 
 <style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 
-<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
-
-/* cache key: pt_wikidb:resourceloader:filter:minify-css:7:c88e2bcd56513749bec09a7e29cb3ffa */
-</style>
-
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: panotools_wiki:resourceloader:filter:minify-css:7:90730a7865ba4b50e0b837e1821ff0a3 */</style>
 
 
 
 <!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
-<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Interpolation skin-vector action-view">
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Interpolation skin-vector action-view vector-animateLayout">
 		
 		
-		<!-- content -->
-		<div id="content" class="mw-body">
+		<div id="content" class="mw-body" role="main">
 			<a id="top"></a>
 			
-						<!-- firstHeading -->
-			<h1 id="firstHeading" class="firstHeading">
-				<span dir="auto">Interpolation</span>
-			</h1>
-			<!-- /firstHeading -->
-			<!-- bodyContent -->
-			<div id="bodyContent">
-								<!-- tagline -->
-				<div id="siteSub">From PanoTools.org Wiki</div>
-				<!-- /tagline -->
-								<!-- subtitle -->
-				
-				<!-- /subtitle -->
-																<!-- jumpto -->
-				
-				<!-- /jumpto -->
-								<!-- bodycontent -->
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Interpolation</span></h1>
+						<div id="bodyContent">
+								<div id="siteSub">From PanoTools.org Wiki</div>
+								
+												
 				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><br />
 </p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Interpolation.html#Definition"><span class="tocnumber">1</span> <span class="toctext">Definition</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Interpolation.html#Types"><span class="tocnumber">2</span> <span class="toctext">Types</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Interpolation.html#Issues"><span class="tocnumber">3</span> <span class="toctext">Issues</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="Interpolation.html#Aliasing"><span class="tocnumber">3.1</span> <span class="toctext">Aliasing</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="Interpolation.html#Echos"><span class="tocnumber">3.2</span> <span class="toctext">Echos</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
 
-<h3> <span class="mw-headline" id="Definition"> Definition </span></h3>
+<h3><span class="mw-headline" id="Definition">Definition</span></h3>
 <p>For panorama creation images have to be changed in geometry, they have to be remapped. Since image content is rastered in pixels it has to be moved to different pixels. In most cases a destination pixel does not correspond exactly with the location of a source pixel, it lies somewhere in between. The process of getting the best image content from in between some pixels is called interpolation.
 </p>
-<h3> <span class="mw-headline" id="Types"> Types </span></h3>
+<h3><span class="mw-headline" id="Types">Types</span></h3>
 <p>There are several types of interpolation used in Panotools, from fast but not so good ones to very slow but precise ones. There is a comparison of the different types by Helmut Dersch: <a rel="nofollow" class="external autonumber" href="http://www.panotools.org/dersch/interpolator/interpolator.html">[1]</a> Jim Watters extended this test to some interpolators that where introduced later and added some timing information: <a rel="nofollow" class="external autonumber" href="http://photocreations.ca/interpolator/index.html">[2]</a>
 </p>
-<h3> <span class="mw-headline" id="Issues"> Issues </span></h3>
-<h4> <span class="mw-headline" id="Aliasing"> Aliasing </span></h4>
+<h3><span class="mw-headline" id="Issues">Issues</span></h3>
+<h4><span class="mw-headline" id="Aliasing">Aliasing</span></h4>
 <p>If the image content is reduced significantly in size such that original image detail will be smaller than pixel size in the result image an effect called aliasing occures. Better image processors use an anti aliasing filter to prevent this. Panotools prior to version 2.7.0.11 do not use such a filter and hence should not be used to downsample images. Newer versions have additional anti-aliasing filters - the old filters still cause aliasing. See <a href="Aliasing.html" title="Aliasing">Aliasing</a> article for details.
 </p>
-<h4> <span class="mw-headline" id="Echos"> Echos </span></h4>
+<h4><span class="mw-headline" id="Echos">Echos</span></h4>
 <p>Although the large kernel sinc interpolators (sinc256 and sinc1024) are far superior if you have small regular details that most likely will cause moiré with less sophisticated interpolators there is some drawback using the sinc versions if you have hard edges. They cause some echos of the edge in either direction. The example images below (enlarged to 400%) have been only interpolated twice - one rotation 5 degrees to the left and one rotation 5 degrees to the right.
 </p>
 <div class="thumb tleft"><div class="thumbinner" style="width:242px;"><img alt="" src="Interpolate_none.jpg" width="240" height="136" class="thumbimage" /><a class="external" href="http://wiki.panotools.org/File:Interpolate_none.jpg">[*]</a>  <div class="thumbcaption">Original</div></div></div><div class="thumb tleft"><div class="thumbinner" style="width:242px;"><img alt="" src="Interpolate_poly3.jpg" width="240" height="136" class="thumbimage" /><a class="external" href="http://wiki.panotools.org/File:Interpolate_poly3.jpg">[*]</a>  <div class="thumbcaption">Poly 3 interpolator</div></div></div><div class="thumb tleft"><div class="thumbinner" style="width:242px;"><img alt="" src="Interpolate_sinc256.jpg" width="240" height="136" class="thumbimage" /><a class="external" href="http://wiki.panotools.org/File:Interpolate_sinc256.jpg">[*]</a>  <div class="thumbcaption">Sinc 256 interpolator</div></div></div>
@@ -68,10 +65,6 @@
 
 
 
-</div>				<!-- /bodycontent -->
-								<!-- printfooter -->
-				<div class="printfooter">
+</div>								<div class="printfooter">
 				Retrieved from "http://wiki.panotools.org/index.php?title=Interpolation&amp;oldid=14397<a class="external" href="http://wiki.panotools.org/index.php?title=Interpolation&amp;oldid=14397">[*]</a>"				</div>
-				<!-- /printfooter -->
-												<!-- catlinks -->
-				</div></div></body></html>
+												</div></div></body></html>

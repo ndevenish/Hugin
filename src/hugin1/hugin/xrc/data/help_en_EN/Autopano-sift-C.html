@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" class="client-nojs">
 <head>
-<title>Autopano-sift-C - PanoTools.org Wiki</title>
 <meta charset="UTF-8" />
-<meta name="generator" content="MediaWiki 1.19.0" />
+<title>Autopano-sift-C - PanoTools.org Wiki</title>
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<meta name="generator" content="MediaWiki 1.23.6" />
 
 
 
@@ -12,45 +13,29 @@
 
 <style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 
-<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
-
-/* cache key: pt_wikidb:resourceloader:filter:minify-css:7:c88e2bcd56513749bec09a7e29cb3ffa */
-</style>
-
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: panotools_wiki:resourceloader:filter:minify-css:7:90730a7865ba4b50e0b837e1821ff0a3 */</style>
 
 
 
 <!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
-<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Autopano-sift-C skin-vector action-view">
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Autopano-sift-C skin-vector action-view vector-animateLayout">
 		
 		
-		<!-- content -->
-		<div id="content" class="mw-body">
+		<div id="content" class="mw-body" role="main">
 			<a id="top"></a>
 			
-						<!-- firstHeading -->
-			<h1 id="firstHeading" class="firstHeading">
-				<span dir="auto">Autopano-sift-C</span>
-			</h1>
-			<!-- /firstHeading -->
-			<!-- bodyContent -->
-			<div id="bodyContent">
-								<!-- tagline -->
-				<div id="siteSub">From PanoTools.org Wiki</div>
-				<!-- /tagline -->
-								<!-- subtitle -->
-				
-				<!-- /subtitle -->
-																<!-- jumpto -->
-				
-				<!-- /jumpto -->
-								<!-- bodycontent -->
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Autopano-sift-C</span></h1>
+						<div id="bodyContent">
+								<div id="siteSub">From PanoTools.org Wiki</div>
+								
+												
 				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><b>autopano-sift-C</b> can be used to find control points in overlapping image pairs and is a C port of the C# software <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a>. It is somewhat faster and doesn't require a C# runtime - Installing the <i>mono</i> C# runtime on OS X has proved to be problematic on some systems.
 </p><p>Additionally, autopano-sift-C has experimental modifications to perform feature identification in conformal image space, this helps with wide angle or <a href="Fisheye_Projection.html" title="Fisheye Projection">fisheye Projection</a> photographs.
 </p><p>autopano-sift-C is available from the <a href="Hugin.html" title="Hugin">hugin</a> project and can only be used within hugin as an optional installation due to patent issues: the use of the Scale-invariant feature transform<a class="external" href="http://www.wikipedia.org/wiki/SIFT">[*]</a> algorithm is restricted by US Patent 6,711,293, awarded March 23, 2004 to the University of British Columbia.
 </p><p>The current version 2.5.1 (autopano-sift-C-2.5.1) is available since the release of hugin 0.7 in October 2008.
 </p>
-<h2> <span class="mw-headline" id="Installation_on_Mac_OS_X"> Installation on Mac OS X </span></h2>
+<h2><span class="mw-headline" id="Installation_on_Mac_OS_X">Installation on Mac OS X</span></h2>
 <p>On Mac OS X, autopano-sift-c can be installed via <a rel="nofollow" class="external text" href="http://www.macports.org/">MacPorts</a>:
 </p>
 <pre>
@@ -61,8 +46,10 @@ $ sudo port install autopano-sift-c
 </p><p><img alt="Autopano-prefs.png" src="Autopano-prefs.png" width="719" height="258" /><a class="external" href="http://wiki.panotools.org/File:Autopano-prefs.png">[*]</a>
 </p><p>Now you're ready to use the control point alignment assistant in Hugin. Load up your images, then hit the 'Align' button:
 </p>
-<dl><dd><img alt="Autopano-align.png" src="Autopano-align.png" width="304" height="72" /><a class="external" href="http://wiki.panotools.org/File:Autopano-align.png">[*]</a>
-</dd></dl>
+<dl>
+<dd><img alt="Autopano-align.png" src="Autopano-align.png" width="304" height="72" /><a class="external" href="http://wiki.panotools.org/File:Autopano-align.png">[*]</a>
+</dd>
+</dl>
 <p>At this point you'll either see a big fat error dialog, or if everything's working you'll see a dialog like this while autopano-sift-c does its thing. This may take a few minutes...
 </p><p><img alt="Autopano-searching.png" src="Autopano-searching.png" width="720" height="480" /><a class="external" href="http://wiki.panotools.org/File:Autopano-searching.png">[*]</a>
 </p><p>When it's done, Hugin's panorama preview should show you something decent now!
@@ -72,10 +59,6 @@ $ sudo port install autopano-sift-c
 
 
 
-</div>				<!-- /bodycontent -->
-								<!-- printfooter -->
-				<div class="printfooter">
+</div>								<div class="printfooter">
 				Retrieved from "http://wiki.panotools.org/index.php?title=Autopano-sift-C&amp;oldid=12367<a class="external" href="http://wiki.panotools.org/index.php?title=Autopano-sift-C&amp;oldid=12367">[*]</a>"				</div>
-				<!-- /printfooter -->
-												<!-- catlinks -->
-				</div></div></body></html>
+												</div></div></body></html>

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" class="client-nojs">
 <head>
-<title>Parallax - PanoTools.org Wiki</title>
 <meta charset="UTF-8" />
-<meta name="generator" content="MediaWiki 1.19.0" />
+<title>Parallax - PanoTools.org Wiki</title>
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<meta name="generator" content="MediaWiki 1.23.6" />
 
 
 
@@ -12,63 +13,56 @@
 
 <style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 
-<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
-
-/* cache key: pt_wikidb:resourceloader:filter:minify-css:7:c88e2bcd56513749bec09a7e29cb3ffa */
-</style>
-
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: panotools_wiki:resourceloader:filter:minify-css:7:90730a7865ba4b50e0b837e1821ff0a3 */</style>
 
 
 
 <!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
-<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Parallax skin-vector action-view">
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Parallax skin-vector action-view vector-animateLayout">
 		
 		
-		<!-- content -->
-		<div id="content" class="mw-body">
+		<div id="content" class="mw-body" role="main">
 			<a id="top"></a>
 			
-						<!-- firstHeading -->
-			<h1 id="firstHeading" class="firstHeading">
-				<span dir="auto">Parallax</span>
-			</h1>
-			<!-- /firstHeading -->
-			<!-- bodyContent -->
-			<div id="bodyContent">
-								<!-- tagline -->
-				<div id="siteSub">From PanoTools.org Wiki</div>
-				<!-- /tagline -->
-								<!-- subtitle -->
-				
-				<!-- /subtitle -->
-																<!-- jumpto -->
-				
-				<!-- /jumpto -->
-								<!-- bodycontent -->
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Parallax</span></h1>
+						<div id="bodyContent">
+								<div id="siteSub">From PanoTools.org Wiki</div>
+								
+												
 				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><br />
 </p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Parallax.html#Intro"><span class="tocnumber">1</span> <span class="toctext">Intro</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Parallax.html#Calculation"><span class="tocnumber">2</span> <span class="toctext">Calculation</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Parallax.html#Examples"><span class="tocnumber">3</span> <span class="toctext">Examples</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Parallax.html#See_also"><span class="tocnumber">4</span> <span class="toctext">See also</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="Parallax.html#External_Links"><span class="tocnumber">5</span> <span class="toctext">External Links</span></a></li>
+</ul>
+</div>
 
-<h2> <span class="mw-headline" id="Intro"> Intro </span></h2>
+<h2><span class="mw-headline" id="Intro">Intro</span></h2>
 <div class="thumb tright"><div class="thumbinner" style="width:322px;"><img alt="" src="Parallax.gif" width="320" height="320" class="thumbimage" /><a class="external" href="http://wiki.panotools.org/File:Parallax.gif">[*]</a>  <div class="thumbcaption">Parallax demo &#169; Bernhard Vogl <small>(<a href="GIF.html" title="GIF">GIF</a> animation must be turned on)</small></div></div></div>
 <p>If you shoot the same scene from a slightly different point of view, the foreground will be shifted in relation to the background, as in this example image.
 </p><p>Parallax occures in panoramic photography if camera and lens are not rotated around the <a href="Entrance_pupil.html" title="Entrance pupil" class="mw-redirect">Entrance pupil</a> of the lens. A difference caused by parallax will be visible in the overlap between two adjacent images. 
 </p><p>Parallax errors are sometimes very hard to retouch, since necessary background details might be obscured by foreground details. A useful way to fix these kinds of errors is to 'invent' some background details.
 </p>
-<h2> <span class="mw-headline" id="Calculation"> Calculation </span></h2>
+<h2><span class="mw-headline" id="Calculation">Calculation</span></h2>
 <p>Parallax depends on 
-the object distance <img class="tex" alt="d\," src="3d6de401d007ea0cffc99610ad623239.png" />, the displacement of the no-parallax-point <img class="tex" alt="r\," src="5f558fa7e9b1567daca23dc3433f5cec.png" /> and 
-half the rotation angle between two shots, the off axis angle <img class="tex" alt="\alpha\," src="b27abc434a11d07b390df859d7aa782a.png" />. Then the half parallax angle <img class="tex" alt="\beta\," src="81b4c8dd7cbec41cae5ef37da5644e99.png" /> will be: 
-<img class="tex" alt="\beta = atan\frac {r*sin(\alpha)} {d - r*cos(\alpha)}" src="7a62f58ab1c3f78523eee522e71a9416.png" />
-</p><p>Since <img class="tex" alt="d\," src="3d6de401d007ea0cffc99610ad623239.png" /> usually is far larger than <img class="tex" alt="r\," src="5f558fa7e9b1567daca23dc3433f5cec.png" /> this could be abbreviated to <img class="tex" alt="\beta = atan\frac {r*sin(\alpha)} {d}" src="687431209ed4a8feab0c151b622ef1e0.png" />
-</p><p><img class="tex" alt="\beta\," src="81b4c8dd7cbec41cae5ef37da5644e99.png" /> applies in both images that overlap in opposite directions, hence the value must be doubled to get the actual parallax error. Now the maximum error in pixels for the ready stitched panorama can be calculated: For a 360° panorama (and <img class="tex" alt="\beta\," src="81b4c8dd7cbec41cae5ef37da5644e99.png" /> in degree) this is simply <img class="tex" alt="PixelError=\frac{2*\beta*PanoramaWidth}{360}" src="98dda29ec0838b4a60698e962d90cd03.png" />
+the object distance <img class="mwe-math-fallback-png-inline tex" alt="d\," src="3d6de401d007ea0cffc99610ad623239.png" />, the displacement of the no-parallax-point <img class="mwe-math-fallback-png-inline tex" alt="r\," src="5f558fa7e9b1567daca23dc3433f5cec.png" /> and 
+half the rotation angle between two shots, the off axis angle <img class="mwe-math-fallback-png-inline tex" alt="\alpha \," src="b27abc434a11d07b390df859d7aa782a.png" />. Then the half parallax angle <img class="mwe-math-fallback-png-inline tex" alt="\beta \," src="81b4c8dd7cbec41cae5ef37da5644e99.png" /> will be: 
+<img class="mwe-math-fallback-png-inline tex" alt="\beta =atan{\frac  {r*sin(\alpha )}{d-r*cos(\alpha )}}" src="7a62f58ab1c3f78523eee522e71a9416.png" />
+</p><p>Since <img class="mwe-math-fallback-png-inline tex" alt="d\," src="3d6de401d007ea0cffc99610ad623239.png" /> usually is far larger than <img class="mwe-math-fallback-png-inline tex" alt="r\," src="5f558fa7e9b1567daca23dc3433f5cec.png" /> this could be abbreviated to <img class="mwe-math-fallback-png-inline tex" alt="\beta =atan{\frac  {r*sin(\alpha )}{d}}" src="687431209ed4a8feab0c151b622ef1e0.png" />
+</p><p><img class="mwe-math-fallback-png-inline tex" alt="\beta \," src="81b4c8dd7cbec41cae5ef37da5644e99.png" /> applies in both images that overlap in opposite directions, hence the value must be doubled to get the actual parallax error. Now the maximum error in pixels for the ready stitched panorama can be calculated: For a 360° panorama (and <img class="mwe-math-fallback-png-inline tex" alt="\beta \," src="81b4c8dd7cbec41cae5ef37da5644e99.png" /> in degree) this is simply <img class="mwe-math-fallback-png-inline tex" alt="PixelError={\frac  {2*\beta *PanoramaWidth}{360}}" src="98dda29ec0838b4a60698e962d90cd03.png" />
 </p>
-<h2> <span class="mw-headline" id="Examples"> Examples </span></h2>
-<p>If you shoot 4 images around, <img class="tex" alt="\alpha\," src="b27abc434a11d07b390df859d7aa782a.png" /> is 45°. Given an object 1m from the lens the maximum (relative to infinity) parallax error will be for a displacement <img class="tex" alt="r\," src="5f558fa7e9b1567daca23dc3433f5cec.png" /> of the no-parallax-point:
+<h2><span class="mw-headline" id="Examples">Examples</span></h2>
+<p>If you shoot 4 images around, <img class="mwe-math-fallback-png-inline tex" alt="\alpha \," src="b27abc434a11d07b390df859d7aa782a.png" /> is 45°. Given an object 1m from the lens the maximum (relative to infinity) parallax error will be for a displacement <img class="mwe-math-fallback-png-inline tex" alt="r\," src="5f558fa7e9b1567daca23dc3433f5cec.png" /> of the no-parallax-point:
 </p>
 <table border="2" cellspacing="0" cellpadding="5" rules="all" class="rahmenfarbe1" style="margin:1em 1em 1em 0; border-style:solid; border-width:1px; border-collapse:collapse; empty-cells:show">
 
 <tr>
-<th><img class="tex" alt="r\," src="5f558fa7e9b1567daca23dc3433f5cec.png" />
+<th><img class="mwe-math-fallback-png-inline tex" alt="r\," src="5f558fa7e9b1567daca23dc3433f5cec.png" />
 </th>
 <th>8000px width
 </th>
@@ -102,12 +96,12 @@ half the rotation angle between two shots, the off axis angle <img class="tex" a
 </td>
 <td>55px
 </td></tr></table>
-<p>If you shoot 6 images around, <img class="tex" alt="\alpha\," src="b27abc434a11d07b390df859d7aa782a.png" /> is 30°. Given an object 2m from the lens the maximum (relative to infinity) parallax error will be for a displacement <img class="tex" alt="r\," src="5f558fa7e9b1567daca23dc3433f5cec.png" /> of the no-parallax-point:
+<p>If you shoot 6 images around, <img class="mwe-math-fallback-png-inline tex" alt="\alpha \," src="b27abc434a11d07b390df859d7aa782a.png" /> is 30°. Given an object 2m from the lens the maximum (relative to infinity) parallax error will be for a displacement <img class="mwe-math-fallback-png-inline tex" alt="r\," src="5f558fa7e9b1567daca23dc3433f5cec.png" /> of the no-parallax-point:
 </p>
 <table border="2" cellspacing="0" cellpadding="5" rules="all" class="rahmenfarbe1" style="margin:1em 1em 1em 0; border-style:solid; border-width:1px; border-collapse:collapse; empty-cells:show">
 
 <tr>
-<th><img class="tex" alt="r\," src="5f558fa7e9b1567daca23dc3433f5cec.png" />
+<th><img class="mwe-math-fallback-png-inline tex" alt="r\," src="5f558fa7e9b1567daca23dc3433f5cec.png" />
 </th>
 <th>8000px width
 </th>
@@ -141,22 +135,23 @@ half the rotation angle between two shots, the off axis angle <img class="tex" a
 </td>
 <td>19px
 </td></tr></table>
-<h2> <span class="mw-headline" id="See_also"> See also </span></h2>
-<ul><li> <a href="No-parallax_point.html" title="No-parallax point">No-parallax point</a>
-</li><li> Mending parallax errors with the shear tool<a class="external" href="http://wiki.panotools.org/Mending_parallax_errors_with_the_shear_tool">[*]</a>
-</li><li> Entrance Pupil Database<a class="external" href="http://wiki.panotools.org/Entrance_Pupil_Database">[*]</a>
-</li><li> Heads<a class="external" href="http://wiki.panotools.org/Heads">[*]</a>
-</li></ul>
-<h2> <span class="mw-headline" id="External_Links"> External Links </span></h2>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li> <a href="No-parallax_point.html" title="No-parallax point">No-parallax point</a>
+</li>
+<li> Mending parallax errors with the shear tool<a class="external" href="http://wiki.panotools.org/Mending_parallax_errors_with_the_shear_tool">[*]</a>
+</li>
+<li> Entrance Pupil Database<a class="external" href="http://wiki.panotools.org/Entrance_Pupil_Database">[*]</a>
+</li>
+<li> Heads<a class="external" href="http://wiki.panotools.org/Heads">[*]</a>
+</li>
+</ul>
+<h2><span class="mw-headline" id="External_Links">External Links</span></h2>
 <p>Max Lyon's <a rel="nofollow" class="external text" href="http://www.tawbaware.com/maxlyons/calc.htm">panoramic parallax error calculator</a>.
 </p>
 
 
 
-</div>				<!-- /bodycontent -->
-								<!-- printfooter -->
-				<div class="printfooter">
+</div>								<div class="printfooter">
 				Retrieved from "http://wiki.panotools.org/index.php?title=Parallax&amp;oldid=13154<a class="external" href="http://wiki.panotools.org/index.php?title=Parallax&amp;oldid=13154">[*]</a>"				</div>
-				<!-- /printfooter -->
-												<!-- catlinks -->
-				</div></div></body></html>
+												</div></div></body></html>

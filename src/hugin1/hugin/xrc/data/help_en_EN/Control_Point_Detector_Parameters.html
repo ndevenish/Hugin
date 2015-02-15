@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" class="client-nojs">
 <head>
-<title>Control Point Detector Parameters - PanoTools.org Wiki</title>
 <meta charset="UTF-8" />
-<meta name="generator" content="MediaWiki 1.19.0" />
+<title>Control Point Detector Parameters - PanoTools.org Wiki</title>
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<meta name="generator" content="MediaWiki 1.23.6" />
 
 
 
@@ -12,50 +13,47 @@
 
 <style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 
-<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
-
-/* cache key: pt_wikidb:resourceloader:filter:minify-css:7:c88e2bcd56513749bec09a7e29cb3ffa */
-</style>
-
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: panotools_wiki:resourceloader:filter:minify-css:7:90730a7865ba4b50e0b837e1821ff0a3 */</style>
 
 
 
 <!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
-<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Control_Point_Detector_Parameters skin-vector action-view">
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Control_Point_Detector_Parameters skin-vector action-view vector-animateLayout">
 		
 		
-		<!-- content -->
-		<div id="content" class="mw-body">
+		<div id="content" class="mw-body" role="main">
 			<a id="top"></a>
 			
-						<!-- firstHeading -->
-			<h1 id="firstHeading" class="firstHeading">
-				<span dir="auto">Control Point Detector Parameters</span>
-			</h1>
-			<!-- /firstHeading -->
-			<!-- bodyContent -->
-			<div id="bodyContent">
-								<!-- tagline -->
-				<div id="siteSub">From PanoTools.org Wiki</div>
-				<!-- /tagline -->
-								<!-- subtitle -->
-				
-				<!-- /subtitle -->
-																<!-- jumpto -->
-				
-				<!-- /jumpto -->
-								<!-- bodycontent -->
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Control Point Detector Parameters</span></h1>
+						<div id="bodyContent">
+								<div id="siteSub">From PanoTools.org Wiki</div>
+								
+												
 				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This site will give you an overview about the different control point detectors and their main options to use with <a href="Hugin.html" title="Hugin">hugin</a>. This settings can be changed in <a href="Hugin_Preferences.html#Control_Point_Detectors" title="Hugin Preferences">preferences dialog</a>.
 A detailed description of the individual settings can be found <a href="Hugin_Parameters_for_Control_Point_Detectors_dialog.html" title="Hugin Parameters for Control Point Detectors dialog">here</a>
 </p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Control_Point_Detector_Parameters.html#Cpfind"><span class="tocnumber">1</span> <span class="toctext">Cpfind</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Control_Point_Detector_Parameters.html#Panomatic"><span class="tocnumber">2</span> <span class="toctext">Panomatic</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Control_Point_Detector_Parameters.html#Autopano-sift-C"><span class="tocnumber">3</span> <span class="toctext">Autopano-sift-C</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Control_Point_Detector_Parameters.html#Autopano_by_Alexandre_Jenny"><span class="tocnumber">4</span> <span class="toctext">Autopano by Alexandre Jenny</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="Control_Point_Detector_Parameters.html#Align_image_stack"><span class="tocnumber">5</span> <span class="toctext">Align_image_stack</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="Control_Point_Detector_Parameters.html#Linefind"><span class="tocnumber">6</span> <span class="toctext">Linefind</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="Control_Point_Detector_Parameters.html#Geocpset"><span class="tocnumber">7</span> <span class="toctext">Geocpset</span></a></li>
+</ul>
+</div>
 
-<h1> <span class="mw-headline" id="Cpfind"> <a href="Cpfind.html" title="Cpfind">Cpfind</a> </span></h1>
-<ul><li> For outdoor projects, single and multi-row panorama
-</li></ul>
-<table class="wikitable" style="width: 70%;">
+<h1><span class="mw-headline" id="Cpfind"><a href="Cpfind.html" title="Cpfind">Cpfind</a></span></h1>
+<ul>
+<li> For outdoor projects, single and multi-row panorama
+</li>
+</ul>
+<table class="wikitable" width="70%">
 
 <tr valign="top">
-<th style="width: 20%; padding:5px; text-align:left"> Detector Type
+<th style="padding:5px; text-align:left" width="20%"> Detector Type
 </th>
 <th style="padding:5px; text-align:left"> All images at once
 </th></tr>
@@ -74,12 +72,14 @@ A detailed description of the individual settings can be found <a href="Hugin_Pa
 </td>
 <td style="padding:5px; text-align:left"> <tt>--multirow --celeste -o&#160;%o&#160;%s </tt>
 </td></tr></table>
-<ul><li> For indoor projects, single and multi-row panorama
-</li></ul>
-<table class="wikitable" style="width: 70%;">
+<ul>
+<li> For indoor projects, single and multi-row panorama
+</li>
+</ul>
+<table class="wikitable" width="70%">
 
 <tr valign="top">
-<th style="width: 20%; padding:5px; text-align:left"> Detector Type
+<th style="padding:5px; text-align:left" width="20%"> Detector Type
 </th>
 <th style="padding:5px; text-align:left"> All images at once
 </th></tr>
@@ -98,12 +98,14 @@ A detailed description of the individual settings can be found <a href="Hugin_Pa
 </td>
 <td style="padding:5px; text-align:left"> <tt>--multirow -o&#160;%o&#160;%s </tt>
 </td></tr></table>
-<ul><li> For prealigned panoramas (e.g. when using a template or script)
-</li></ul>
-<table class="wikitable" style="width: 70%;">
+<ul>
+<li> For prealigned panoramas (e.g. when using a template or script)
+</li>
+</ul>
+<table class="wikitable" width="70%">
 
 <tr valign="top">
-<th style="width: 20%; padding:5px; text-align:left"> Detector Type
+<th style="padding:5px; text-align:left" width="20%"> Detector Type
 </th>
 <th style="padding:5px; text-align:left"> All images at once
 </th></tr>
@@ -122,12 +124,14 @@ A detailed description of the individual settings can be found <a href="Hugin_Pa
 </td>
 <td style="padding:5px; text-align:left"> <tt>--prealigned -o&#160;%o&#160;%s </tt>
 </td></tr></table>
-<ul><li> For very big outdoor projects, single and multi-row panorama, with caching to disc
-</li></ul>
-<table class="wikitable" style="width: 70%;">
+<ul>
+<li> For very big outdoor projects, single and multi-row panorama, with caching to disc
+</li>
+</ul>
+<table class="wikitable" width="70%">
 
 <tr valign="top">
-<th style="width: 20%; padding:5px; text-align:left"> Detector Type
+<th style="padding:5px; text-align:left" width="20%"> Detector Type
 </th>
 <th style="padding:5px; text-align:left"> Multi-row panoramas
 </th></tr>
@@ -153,15 +157,19 @@ A detailed description of the individual settings can be found <a href="Hugin_Pa
 </td></tr></table>
 <p>Hints:
 </p>
-<ul><li> MacOSX: Both in the bundle version as in the cmake version you need to add cpfind without browsing for it and without adding a pathname, just cpfind.
-</li></ul>
-<h1> <span class="mw-headline" id="Panomatic"> <a href="Panomatic.html" title="Panomatic">Panomatic</a> </span></h1>
-<ul><li> For general projects
-</li></ul>
-<table class="wikitable" style="width: 70%;">
+<ul>
+<li> MacOSX: Both in the bundle version as in the cmake version you need to add cpfind without browsing for it and without adding a pathname, just cpfind.
+</li>
+</ul>
+<h1><span class="mw-headline" id="Panomatic"><a href="Panomatic.html" title="Panomatic">Panomatic</a></span></h1>
+<ul>
+<li> For general projects
+</li>
+</ul>
+<table class="wikitable" width="70%">
 
 <tr valign="top">
-<th style="width: 20%; padding:5px; text-align:left"> Detector Type
+<th style="padding:5px; text-align:left" width="20%"> Detector Type
 </th>
 <th style="padding:5px; text-align:left"> All images at once <br /> or Multi-row panorama
 </th></tr>
@@ -180,12 +188,14 @@ A detailed description of the individual settings can be found <a href="Hugin_Pa
 </td>
 <td style="padding:5px; text-align:left"> <tt>-o&#160;%o&#160;%i </tt>
 </td></tr></table>
-<ul><li> For single-row projects
-</li></ul>
-<table class="wikitable" style="width: 70%;">
+<ul>
+<li> For single-row projects
+</li>
+</ul>
+<table class="wikitable" width="70%">
 
 <tr valign="top">
-<th style="width: 20%; padding:5px; text-align:left"> Detector Type
+<th style="padding:5px; text-align:left" width="20%"> Detector Type
 </th>
 <th style="padding:5px; text-align:left"> All images at once
 </th></tr>
@@ -204,13 +214,15 @@ A detailed description of the individual settings can be found <a href="Hugin_Pa
 </td>
 <td style="padding:5px; text-align:left"> <tt>--linearmatch -o&#160;%o&#160;%i </tt>
 </td></tr></table>
-<h1> <span class="mw-headline" id="Autopano-sift-C"> <a href="Autopano-sift-C.html" title="Autopano-sift-C">Autopano-sift-C</a> </span></h1>
-<ul><li> For general projects
-</li></ul>
-<table class="wikitable" style="width: 70%;">
+<h1><span class="mw-headline" id="Autopano-sift-C"><a href="Autopano-sift-C.html" title="Autopano-sift-C">Autopano-sift-C</a></span></h1>
+<ul>
+<li> For general projects
+</li>
+</ul>
+<table class="wikitable" width="70%">
 
 <tr valign="top">
-<th style="width: 20%; padding:5px; text-align:left"> Detector Type
+<th style="padding:5px; text-align:left" width="20%"> Detector Type
 </th>
 <th style="padding:5px; text-align:left"> All images at once
 </th></tr>
@@ -229,12 +241,14 @@ A detailed description of the individual settings can be found <a href="Hugin_Pa
 </td>
 <td style="padding:5px; text-align:left"> <tt>--maxmatches&#160;%p --projection&#160;%f,%v&#160;%o&#160;%i </tt> <br /> in version in Mercurial the parameter --projection is broken, use instead <tt>--maxmatches&#160;%p&#160;%o&#160;%i</tt> or <tt>--maxmatches&#160;%p&#160;%o&#160;%s</tt> (the latter works also for bigger projects)
 </td></tr></table>
-<ul><li> For multi-row projects
-</li></ul>
-<table class="wikitable" style="width: 70%;">
+<ul>
+<li> For multi-row projects
+</li>
+</ul>
+<table class="wikitable" width="70%">
 
 <tr valign="top">
-<th style="width: 20%; padding:5px; text-align:left"> Detector Type
+<th style="padding:5px; text-align:left" width="20%"> Detector Type
 </th>
 <th style="padding:5px; text-align:left"> Multi-row panorama
 </th></tr>
@@ -263,11 +277,11 @@ A detailed description of the individual settings can be found <a href="Hugin_Pa
 </td>
 <td style="padding:5px; text-align:left"> <tt>--maxmatches&#160;%p&#160;%o&#160;%k</tt>
 </td></tr></table>
-<h1> <span class="mw-headline" id="Autopano_by_Alexandre_Jenny"> <a href="Autopano.html" title="Autopano">Autopano</a> by Alexandre Jenny </span></h1>
-<table class="wikitable" style="width: 70%;">
+<h1><span class="mw-headline" id="Autopano_by_Alexandre_Jenny"><a href="Autopano.html" title="Autopano">Autopano</a> by Alexandre Jenny</span></h1>
+<table class="wikitable" width="70%">
 
 <tr valign="top">
-<th style="width: 20%; padding:5px; text-align:left"> Detector Type
+<th style="padding:5px; text-align:left" width="20%"> Detector Type
 </th>
 <th style="padding:5px; text-align:left"> Autopano (by A. Jenny)
 </th></tr>
@@ -288,16 +302,21 @@ A detailed description of the individual settings can be found <a href="Hugin_Pa
 </td></tr></table>
 <p>Hints:
 </p>
-<ul><li> Autopano runs only on Windows and Linux. There is no MacOS version.
-</li><li> Don't mix autopano by A. Jenny with autopano from autopano-sift-C package.
-</li></ul>
-<h1> <span class="mw-headline" id="Align_image_stack"> <a href="Align_image_stack.html" title="Align image stack">Align_image_stack</a> </span></h1>
-<ul><li> As standalone detector for HDR images
-</li></ul>
-<table class="wikitable" style="width: 70%;">
+<ul>
+<li> Autopano runs only on Windows and Linux. There is no MacOS version.
+</li>
+<li> Don't mix autopano by A. Jenny with autopano from autopano-sift-C package.
+</li>
+</ul>
+<h1><span class="mw-headline" id="Align_image_stack"><a href="Align_image_stack.html" title="Align image stack">Align_image_stack</a></span></h1>
+<ul>
+<li> As standalone detector for HDR images
+</li>
+</ul>
+<table class="wikitable" width="70%">
 
 <tr valign="top">
-<th style="width: 20%; padding:5px; text-align:left"> Detector Type
+<th style="padding:5px; text-align:left" width="20%"> Detector Type
 </th>
 <th style="padding:5px; text-align:left"> All images at once
 </th></tr>
@@ -319,17 +338,21 @@ A detailed description of the individual settings can be found <a href="Hugin_Pa
 <p>Align_image_stack can also be used in conjugation with the above mentioned detector as special case for stacks. For this use case set Detector Type to <b>Panorama with stacks</b> or <b>Multi-row panorama with stacks</b> and set the options for align_image_stack on the tab <b>Detector for stacks</b>
 </p><p>Hints:
 </p>
-<ul><li> MacOSX: Both in the bundle version as in the cmake version you need to add align_image_stack without browsing for it and without adding a pathname, just align-image_stack.
-</li></ul>
+<ul>
+<li> MacOSX: Both in the bundle version as in the cmake version you need to add align_image_stack without browsing for it and without adding a pathname, just align-image_stack.
+</li>
+</ul>
 <p><br />
 </p>
-<h1> <span class="mw-headline" id="Linefind"> <a href="Linefind.html" title="Linefind">Linefind</a> </span></h1>
-<ul><li> Vertical features autodetector
-</li></ul>
-<table class="wikitable" style="width: 70%;">
+<h1><span class="mw-headline" id="Linefind"><a href="Linefind.html" title="Linefind">Linefind</a></span></h1>
+<ul>
+<li> Vertical features autodetector
+</li>
+</ul>
+<table class="wikitable" width="70%">
 
 <tr valign="top">
-<th style="width: 20%; padding:5px; text-align:left"> Detector Type
+<th style="padding:5px; text-align:left" width="20%"> Detector Type
 </th>
 <th style="padding:5px; text-align:left"> All images at once
 </th></tr>
@@ -348,15 +371,19 @@ A detailed description of the individual settings can be found <a href="Hugin_Pa
 </td>
 <td style="padding:5px; text-align:left"> <tt>-o&#160;%o&#160;%s</tt>
 </td></tr></table>
-<h1> <span class="mw-headline" id="Geocpset"> <a href="Geocpset.html" title="Geocpset">Geocpset</a> </span></h1>
-<ul><li> Add <b>geometric</b> control points to images without features. This add control points based on the current position of the images.
-</li><li> Usecase: projects containing images without features (e. g. images with only sky) 
-</li><li> <b>Attention</b>: You need to assign the position to the images before running this control point detector. Use the <a href="Hugin_move_drag_tab.html" title="Hugin move drag tab">drag feature</a> in the <a href="Hugin_Main_window.html" title="Hugin Main window">preview window</a>, enter numeric values for yaw, pitch and roll in the <a href="Hugin_Photos_tab.html" title="Hugin Photos tab">Photos tab</a> or use <a href="Pto_var.html" title="Pto var">pto_var</a> to assign the position. Running on a not aligned images will create wrong control points.
-</li></ul>
-<table class="wikitable" style="width: 70%;">
+<h1><span class="mw-headline" id="Geocpset"><a href="Geocpset.html" title="Geocpset">Geocpset</a></span></h1>
+<ul>
+<li> Add <b>geometric</b> control points to images without features. This add control points based on the current position of the images.
+</li>
+<li> Usecase: projects containing images without features (e. g. images with only sky) 
+</li>
+<li> <b>Attention</b>: You need to assign the position to the images before running this control point detector. Use the <a href="Hugin_move_drag_tab.html" title="Hugin move drag tab">drag feature</a> in the <a href="Hugin_Main_window.html" title="Hugin Main window">preview window</a>, enter numeric values for yaw, pitch and roll in the <a href="Hugin_Photos_tab.html" title="Hugin Photos tab">Photos tab</a> or use <a href="Pto_var.html" title="Pto var">pto_var</a> to assign the position. Running on a not aligned images will create wrong control points.
+</li>
+</ul>
+<table class="wikitable" width="70%">
 
 <tr valign="top">
-<th style="width: 20%; padding:5px; text-align:left"> Detector Type
+<th style="padding:5px; text-align:left" width="20%"> Detector Type
 </th>
 <th style="padding:5px; text-align:left"> All images at once
 </th></tr>
@@ -379,10 +406,6 @@ A detailed description of the individual settings can be found <a href="Hugin_Pa
 
 
 
-</div>				<!-- /bodycontent -->
-								<!-- printfooter -->
-				<div class="printfooter">
+</div>								<div class="printfooter">
 				Retrieved from "http://wiki.panotools.org/index.php?title=Control_Point_Detector_Parameters&amp;oldid=15451<a class="external" href="http://wiki.panotools.org/index.php?title=Control_Point_Detector_Parameters&amp;oldid=15451">[*]</a>"				</div>
-				<!-- /printfooter -->
-												<!-- catlinks -->
-				</div></div></body></html>
+												</div></div></body></html>

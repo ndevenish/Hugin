@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" class="client-nojs">
 <head>
-<title>Pto gen - PanoTools.org Wiki</title>
 <meta charset="UTF-8" />
-<meta name="generator" content="MediaWiki 1.19.15" />
+<title>Pto gen - PanoTools.org Wiki</title>
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<meta name="generator" content="MediaWiki 1.23.6" />
 
 
 
@@ -12,39 +13,23 @@
 
 <style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 
-<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
-
-/* cache key: pt_wikidb:resourceloader:filter:minify-css:7:c88e2bcd56513749bec09a7e29cb3ffa */
-</style>
-
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: panotools_wiki:resourceloader:filter:minify-css:7:90730a7865ba4b50e0b837e1821ff0a3 */</style>
 
 
 
 <!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
-<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Pto_gen skin-vector action-view">
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Pto_gen skin-vector action-view vector-animateLayout">
 		
 		
-		<!-- content -->
-		<div id="content" class="mw-body">
+		<div id="content" class="mw-body" role="main">
 			<a id="top"></a>
 			
-						<!-- firstHeading -->
-			<h1 id="firstHeading" class="firstHeading">
-				<span dir="auto">Pto gen</span>
-			</h1>
-			<!-- /firstHeading -->
-			<!-- bodyContent -->
-			<div id="bodyContent">
-								<!-- tagline -->
-				<div id="siteSub">From PanoTools.org Wiki</div>
-				<!-- /tagline -->
-								<!-- subtitle -->
-				
-				<!-- /subtitle -->
-																<!-- jumpto -->
-				
-				<!-- /jumpto -->
-								<!-- bodycontent -->
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Pto gen</span></h1>
+						<div id="bodyContent">
+								<div id="siteSub">From PanoTools.org Wiki</div>
+								
+												
 				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><b>pto_gen</b> assembles a <a href="Hugin.html" title="Hugin">Hugin</a> .pto project file that is suitable as input for
 further tools such as the <a href="Cpfind.html" title="Cpfind">cpfind</a> control-point generator, or for opening
 with the Hugin panorama GUI itself.  Functionality is similar to
@@ -56,35 +41,49 @@ match-n-shift<a class="external" href="http://wiki.panotools.org/index.php?title
 <p>This creates a project file from all jpg images, in the same folder as the first photo.
 The project file is named <i>first_file</i>-<i>last_file</i>.pto using the same convention as the Hugin GUI.
 </p>
-<h2> <span class="mw-headline" id="Options"> Options </span></h2>
-<ul><li> <b>-o | --output output.pto</b> Output a pto file with the given filename (instead of the default).
-</li></ul>
-<ul><li> <b>-p | --projection number</b> Sets the projection type for all images (0 - rectilinear, 2 - equirectangular, 3 - full-frame fisheye, ...).
-</li></ul>
-<ul><li> <b>-f | --fov number</b> Sets the horizontal field of view for all images. Useful if your lens does not store the focal length and/or crop factor correctly in the EXIF data.
-</li></ul>
-<ul><li> <b>-c | --crop left,right,top,bottom</b> Sets the input images crop to the given values.
-</li></ul>
-<ul><li> <b>-s | --stacklength number</b> Sets the number of images in each stack (default: 1, meaning no stacks).
-</li></ul>
-<ul><li> <b>-l | --linkstacks</b> When given links the image positions in stacks.
-</li></ul>
-<ul><li> <b>--distortion</b> Tries to load distortion data for the images from the lens database.
-</li></ul>
-<ul><li> <b>--vignetting</b> Tries to load vignetting data for the images from the lens database.
-</li></ul>
-<ul><li> <b>-h | --help</b> Display help.
-</li></ul>
-<h2> <span class="mw-headline" id="Related_links"> Related links </span></h2>
+<h2><span class="mw-headline" id="Options">Options</span></h2>
+<ul>
+<li> <b>-o | --output output.pto</b> Output a pto file with the given filename (instead of the default).
+</li>
+</ul>
+<ul>
+<li> <b>-p | --projection number</b> Sets the projection type for all images (0 - rectilinear, 2 - equirectangular, 3 - full-frame fisheye, ...).
+</li>
+</ul>
+<ul>
+<li> <b>-f | --fov number</b> Sets the horizontal field of view for all images. Useful if your lens does not store the focal length and/or crop factor correctly in the EXIF data.
+</li>
+</ul>
+<ul>
+<li> <b>-c | --crop left,right,top,bottom</b> Sets the input images crop to the given values.
+</li>
+</ul>
+<ul>
+<li> <b>-s | --stacklength number</b> Sets the number of images in each stack (default: automatic detection of stacks).
+</li>
+</ul>
+<ul>
+<li> <b>-l | --linkstacks</b> When given links the image positions in stacks.
+</li>
+</ul>
+<ul>
+<li> <b>--distortion</b> Tries to load distortion data for the images from the lens database.
+</li>
+</ul>
+<ul>
+<li> <b>--vignetting</b> Tries to load vignetting data for the images from the lens database.
+</li>
+</ul>
+<ul>
+<li> <b>-h | --help</b> Display help.
+</li>
+</ul>
+<h2><span class="mw-headline" id="Related_links">Related links</span></h2>
 <p><a href="Panorama_scripting_in_a_nutshell.html" title="Panorama scripting in a nutshell">Panorama scripting in a nutshell</a> - pto_gen is useful in stitching panoramas from the command-line
 </p>
 
 
 
-</div>				<!-- /bodycontent -->
-								<!-- printfooter -->
-				<div class="printfooter">
-				Retrieved from "http://wiki.panotools.org/index.php?title=Pto_gen&amp;oldid=15611<a class="external" href="http://wiki.panotools.org/index.php?title=Pto_gen&amp;oldid=15611">[*]</a>"				</div>
-				<!-- /printfooter -->
-												<!-- catlinks -->
-				</div></div></body></html>
+</div>								<div class="printfooter">
+				Retrieved from "http://wiki.panotools.org/index.php?title=Pto_gen&amp;oldid=15625<a class="external" href="http://wiki.panotools.org/index.php?title=Pto_gen&amp;oldid=15625">[*]</a>"				</div>
+												</div></div></body></html>

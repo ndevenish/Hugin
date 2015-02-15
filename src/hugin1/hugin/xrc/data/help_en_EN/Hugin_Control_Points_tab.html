@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" class="client-nojs">
 <head>
-<title>Hugin Control Points tab - PanoTools.org Wiki</title>
 <meta charset="UTF-8" />
-<meta name="generator" content="MediaWiki 1.19.0" />
+<title>Hugin Control Points tab - PanoTools.org Wiki</title>
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<meta name="generator" content="MediaWiki 1.23.6" />
 
 
 
@@ -12,47 +13,45 @@
 
 <style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 
-<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
-
-/* cache key: pt_wikidb:resourceloader:filter:minify-css:7:c88e2bcd56513749bec09a7e29cb3ffa */
-</style>
-
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: panotools_wiki:resourceloader:filter:minify-css:7:90730a7865ba4b50e0b837e1821ff0a3 */</style>
 
 
 
 <!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
-<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Hugin_Control_Points_tab skin-vector action-view">
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Hugin_Control_Points_tab skin-vector action-view vector-animateLayout">
 		
 		
-		<!-- content -->
-		<div id="content" class="mw-body">
+		<div id="content" class="mw-body" role="main">
 			<a id="top"></a>
 			
-						<!-- firstHeading -->
-			<h1 id="firstHeading" class="firstHeading">
-				<span dir="auto">Hugin Control Points tab</span>
-			</h1>
-			<!-- /firstHeading -->
-			<!-- bodyContent -->
-			<div id="bodyContent">
-								<!-- tagline -->
-				<div id="siteSub">From PanoTools.org Wiki</div>
-				<!-- /tagline -->
-								<!-- subtitle -->
-				
-				<!-- /subtitle -->
-																<!-- jumpto -->
-				
-				<!-- /jumpto -->
-								<!-- bodycontent -->
-				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr">
-<h2> <span class="mw-headline" id="About_Control_points"> About Control points </span></h2>
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Hugin Control Points tab</span></h1>
+						<div id="bodyContent">
+								<div id="siteSub">From PanoTools.org Wiki</div>
+								
+												
+				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Hugin_Control_Points_tab.html#About_Control_points"><span class="tocnumber">1</span> <span class="toctext">About Control points</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Hugin_Control_Points_tab.html#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Hugin_Control_Points_tab.html#Control_point_modes"><span class="tocnumber">3</span> <span class="toctext">Control point modes</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="Hugin_Control_Points_tab.html#normal_control_points"><span class="tocnumber">3.1</span> <span class="toctext">normal control points</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="Hugin_Control_Points_tab.html#vertical_line_and_horizontal_line_control_points"><span class="tocnumber">3.2</span> <span class="toctext">vertical line and horizontal line control points</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="Hugin_Control_Points_tab.html#Straight_line_control_points"><span class="tocnumber">3.3</span> <span class="toctext">Straight line control points</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="Hugin_Control_Points_tab.html#Keyboard_shortcuts"><span class="tocnumber">4</span> <span class="toctext">Keyboard shortcuts</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="About_Control_points">About Control points</span></h2>
 <p><a href="Control_points.html" title="Control points">Control points</a> are central to Panorama Tools<a class="external" href="http://wiki.panotools.org/Panorama_Tools">[*]</a> and <a href="Hugin.html" title="Hugin">hugin</a>, because they are used to estimate the position of image position and lens parameters described above.
 A control point specifies a corresponding point between two images. Using these corresponding points, the <a href="Hugin_Optimiser_tab.html" title="Hugin Optimiser tab">Optimiser tab</a> can estimate the image position and lens parameters.
 It is therefore important that the control points are accurate and usually at least 3 well distributed control points should be used to estimate the image position (<a href="Yaw.html" title="Yaw">yaw</a>, <a href="Roll.html" title="Roll">roll</a> and <a href="Pitch.html" title="Pitch">pitch</a>) and maybe the <a href="Field_of_View.html" title="Field of View">HFOV</a>.
 For accurate estimation of the a,b,c distortion parameters, many well distributed control points, and a large overlap (up to 50%) are required.
 </p>
-<h2> <span class="mw-headline" id="Description"> Description </span></h2>
+<h2><span class="mw-headline" id="Description">Description</span></h2>
 <p>The Tab consists of two image displays and associated pull-down lists to switch images to be edited.
 The bottom contains a list view where Points can be selected and some fields to edit a selected point.
 Points can also be selected by clicking or dragging on them in the images.
@@ -78,23 +77,27 @@ If the <b>shift</b> key is pressed instead, both images will be scrolled.
 This is very useful if <a href="Control_points.html" title="Control points">control points</a> are set using the 100% zoom level.
 </p><p>Control point creation is also influenced by the following check boxes:
 </p>
-<ul><li> <b>auto fine tune</b> <a href="Hugin.html" title="Hugin">hugin</a> helps you to find the second point by looking for it in a search region (shown by a rectangle around the cursor). This might not always work, but usually is reliable, if the image distortions are not too big. Try and play with it.
-</li><li> <b>auto add</b> A control point is automatically added when both points are known. You won't have time to refine the selection before adding the point.
-</li><li> <b>auto estimate</b> Tries to estimate the position of the second point by estimating the translation between the two images. This is very crude and probably only works for single row panoramas created from <a href="Rectilinear_Projection.html" title="Rectilinear Projection">Rectilinear Projection</a> images.
-</li></ul>
+<ul>
+<li> <b>auto fine tune</b> <a href="Hugin.html" title="Hugin">hugin</a> helps you to find the second point by looking for it in a search region (shown by a rectangle around the cursor). This might not always work, but usually is reliable, if the image distortions are not too big. Try and play with it.
+</li>
+<li> <b>auto add</b> A control point is automatically added when both points are known. You won't have time to refine the selection before adding the point.
+</li>
+<li> <b>auto estimate</b> Tries to estimate the position of the second point by estimating the translation between the two images. This is very crude and probably only works for single row panoramas created from <a href="Rectilinear_Projection.html" title="Rectilinear Projection">Rectilinear Projection</a> images.
+</li>
+</ul>
 <p>All these flags can be combined. I typically use <b>auto fine tune</b> and <b>auto estimate</b> at the same time.
 Then <a href="Hugin.html" title="Hugin">hugin</a> usually automatically selects the second point correctly, at least for normal, <a href="Rectilinear_Projection.html" title="Rectilinear Projection">Rectilinear Projection</a> images that are not rotated too much.
 </p><p><a href="Hugin.html" title="Hugin">hugin</a> also includes an experimental <a href="Control_points.html" title="Control points">control points</a> creation algorithm.
 It can be invoked by pressing the <b>g</b> key. Corners in the currently selected image are detected, and corresponding control points are set based on the current relative positions of the two images.  The images need to be approximately aligned already for this to be useful. Note that these points then need to be aligned by eye, with the <b>Fine-tune</b> button or with the <b>Fine-tune all Points</b> function in the Edit menu of the <a href="Panorama_Editor_window.html" title="Panorama Editor window" class="mw-redirect">Panorama editor</a>.
 </p>
-<h2> <span class="mw-headline" id="Control_point_modes"> Control point modes </span></h2>
+<h2><span class="mw-headline" id="Control_point_modes">Control point modes</span></h2>
 <p>Use the <b>mode</b> pull down menu to change the type of an existing pair of <a href="Control_points.html" title="Control points">control points</a>.
 </p>
-<h3> <span class="mw-headline" id="normal_control_points"> normal control points </span></h3>
+<h3><span class="mw-headline" id="normal_control_points">normal control points</span></h3>
 <p>The <b>normal</b> control point mode is used to align pairs of overlapping photos by matching
 identical features in both photos.
 </p>
-<h3> <span class="mw-headline" id="vertical_line_and_horizontal_line_control_points"> vertical line and horizontal line control points </span></h3>
+<h3><span class="mw-headline" id="vertical_line_and_horizontal_line_control_points">vertical line and horizontal line control points</span></h3>
 <p>Pairs of <a href="Vertical_control_points.html" title="Vertical control points">vertical control points</a> and <a href="Horizontal_control_points.html" title="Horizontal control points">horizontal control points</a> are different from
 <b>normal</b> control points since they are used to align input images to particular alignments
 in the output panorama rather than simply stitching images together.
@@ -104,17 +107,22 @@ trying to create <i>horizontal</i> or <i>vertical</i> control points and set the
 if they are in different photos then you will need to set the mode manually.  To put two control points in the same image, select that image in both the left and right viewing panes.
 </p><p>To manually create <a href="Vertical_control_points.html" title="Vertical control points">vertical control points</a> or <a href="Horizontal_control_points.html" title="Horizontal control points">horizontal control points</a>, 
 </p>
-<ol><li> Click on one image to create a control point, and put it at one end of the line (eg, the top of the line or the left hand end of the line).  
-</li><li> Create a point in the other image, but don't put it in the location that corresponds to the first control point.  Instead, put it at the other end of the line (eg, the bottom of the line, or its right hand end).  
-</li><li> Click "Add" to add the pair of control points.
-</li><li> In the list of control points, select the pair that you just created, and use the <b>mode</b> pull down menu to select either "Horizontal Line" or "Vertical Line".
-</li></ol>
+<ol>
+<li> Click on one image to create a control point, and put it at one end of the line (eg, the top of the line or the left hand end of the line).  
+</li>
+<li> Create a point in the other image, but don't put it in the location that corresponds to the first control point.  Instead, put it at the other end of the line (eg, the bottom of the line, or its right hand end).  
+</li>
+<li> Click "Add" to add the pair of control points.
+</li>
+<li> In the list of control points, select the pair that you just created, and use the <b>mode</b> pull down menu to select either "Horizontal Line" or "Vertical Line".
+</li>
+</ol>
 <p>If the same image is shown on both side, vertical and horizontal control points can
 be added by dragging a line with pressed alt key. The line is automatically added, the <b>auto add</b> option is ignored in this case.
 </p><p>Typically <i>horizontal</i> and <i>vertical</i> points are used either to level a spherical panorama<a class="external" href="http://wiki.panotools.org/Leveling_a_Finished_Panorama">[*]</a>
 or to <a href="Perspective_correction.html" title="Perspective correction">correct perspective</a>.
 </p>
-<h3> <span class="mw-headline" id="Straight_line_control_points"> Straight line control points </span></h3>
+<h3><span class="mw-headline" id="Straight_line_control_points">Straight line control points</span></h3>
 <p>Adding <a href="Straight_line_control_points.html" title="Straight line control points">straight line control points</a> is basically the same as
 creating <b>horizontal control points</b> and <b>vertical control points</b>, except that you
 need more than just one pair to make up a straight line.
@@ -123,42 +131,58 @@ need more than just one pair to make up a straight line.
 <b>Line 3</b>, you can assign more pairs of points to it using the same
 <b>mode</b> pull-down.
 </p>
-<h2> <span class="mw-headline" id="Keyboard_shortcuts"> Keyboard shortcuts </span></h2>
+<h2><span class="mw-headline" id="Keyboard_shortcuts">Keyboard shortcuts</span></h2>
 <p>Here is a summary of the keyboard shortcuts available in the Control Point tab:
 </p><p>Key 	Function
 </p>
-<ul><li> <b>a</b> 	add a new point that has been selected in both images, and the <b>auto add</b> is switched off.
-</li><li> <b>f</b> 	fine tune currently selected control point pair. Same as the <b>Fine Tune</b> button
-</li><li> <b>g</b> 	experimental control point generation algorithm.
-</li><li> <b>Del</b> 	Remove currently selected control point.
-</li><li> <b>0</b> 	Zoom out to full view.
-</li><li> <b>1</b> 	100% view.
-</li><li> <b>2</b>       200% view.
-</li><li> <b>arrow keys</b> nudge a selection point or selected control point around pixel-by-pixel.
-</li><li> <b>shift + arrow keys</b> scroll both images at the same time.
-</li><li> <b>Ctrl + left arrow</b> and <b>Ctrl + right arrow</b> switch to the next pair of photos.
-</li></ul>
+<ul>
+<li> <b>a</b> 	add a new point that has been selected in both images, and the <b>auto add</b> is switched off.
+</li>
+<li> <b>f</b> 	fine tune currently selected control point pair. Same as the <b>Fine Tune</b> button
+</li>
+<li> <b>g</b> 	experimental control point generation algorithm.
+</li>
+<li> <b>Del</b> 	Remove currently selected control point.
+</li>
+<li> <b>0</b> 	Zoom out to full view.
+</li>
+<li> <b>1</b> 	100% view.
+</li>
+<li> <b>2</b>       200% view.
+</li>
+<li> <b>arrow keys</b> nudge a selection point or selected control point around pixel-by-pixel.
+</li>
+<li> <b>shift + arrow keys</b> scroll both images at the same time.
+</li>
+<li> <b>Ctrl + left arrow</b> and <b>Ctrl + right arrow</b> switch to the next pair of photos.
+</li>
+</ul>
 <p>Mouse function 	Function
 </p>
-<ul><li> <b>control key + mouse movement</b> 	Scroll image under cursor
-</li><li> <b>shift key + mouse movement</b> 	Scroll both images
-</li><li> <b>left button</b> 	Use left mouse button to select new points or drag existing points.
-</li><li> <b>right mouse button</b> 	Add control point, if <b>auto add</b> is switched off
-</li><li> <b>middle mouse button</b> 	Scroll image under cursor
-</li><li> <b>shift key + middle mouse button</b> 	Scroll both images
-</li><li> <b>control key + right mouse button</b> 	Remove control points in selected rectangle
-</li><li> <b>alt key + drag left mouse button</b>        Add line control point (only if the same image is displayed on both sides)
-</li></ul>
+<ul>
+<li> <b>control key + mouse movement</b> 	Scroll image under cursor
+</li>
+<li> <b>shift key + mouse movement</b> 	Scroll both images
+</li>
+<li> <b>left button</b> 	Use left mouse button to select new points or drag existing points.
+</li>
+<li> <b>right mouse button</b> 	Add control point, if <b>auto add</b> is switched off
+</li>
+<li> <b>middle mouse button</b> 	Scroll image under cursor
+</li>
+<li> <b>shift key + middle mouse button</b> 	Scroll both images
+</li>
+<li> <b>control key + right mouse button</b> 	Remove control points in selected rectangle
+</li>
+<li> <b>alt key + drag left mouse button</b>        Add line control point (only if the same image is displayed on both sides)
+</li>
+</ul>
 <p><br />
 </p><p>On <b>Mac OS</b> use the command key instead of the control key.
 </p>
 
 
 
-</div>				<!-- /bodycontent -->
-								<!-- printfooter -->
-				<div class="printfooter">
+</div>								<div class="printfooter">
 				Retrieved from "http://wiki.panotools.org/index.php?title=Hugin_Control_Points_tab&amp;oldid=15450<a class="external" href="http://wiki.panotools.org/index.php?title=Hugin_Control_Points_tab&amp;oldid=15450">[*]</a>"				</div>
-				<!-- /printfooter -->
-												<!-- catlinks -->
-				</div></div></body></html>
+												</div></div></body></html>

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" class="client-nojs">
 <head>
-<title>Fulla - PanoTools.org Wiki</title>
 <meta charset="UTF-8" />
-<meta name="generator" content="MediaWiki 1.19.0" />
+<title>Fulla - PanoTools.org Wiki</title>
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<meta name="generator" content="MediaWiki 1.23.6" />
 
 
 
@@ -12,135 +13,137 @@
 
 <style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 
-<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
-
-/* cache key: pt_wikidb:resourceloader:filter:minify-css:7:c88e2bcd56513749bec09a7e29cb3ffa */
-</style>
-
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: panotools_wiki:resourceloader:filter:minify-css:7:90730a7865ba4b50e0b837e1821ff0a3 */</style>
 
 
 
 <!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
-<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Fulla skin-vector action-view">
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Fulla skin-vector action-view vector-animateLayout">
 		
 		
-		<!-- content -->
-		<div id="content" class="mw-body">
+		<div id="content" class="mw-body" role="main">
 			<a id="top"></a>
 			
-						<!-- firstHeading -->
-			<h1 id="firstHeading" class="firstHeading">
-				<span dir="auto">Fulla</span>
-			</h1>
-			<!-- /firstHeading -->
-			<!-- bodyContent -->
-			<div id="bodyContent">
-								<!-- tagline -->
-				<div id="siteSub">From PanoTools.org Wiki</div>
-				<!-- /tagline -->
-								<!-- subtitle -->
-				
-				<!-- /subtitle -->
-																<!-- jumpto -->
-				
-				<!-- /jumpto -->
-								<!-- bodycontent -->
-				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><b>fulla</b> is a command-line tool distributed with <a href="Hugin.html" title="Hugin">hugin</a> 0.6 and later. It can correct chromatic aberration, lens distortion, and vignetting.
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Fulla</span></h1>
+						<div id="bodyContent">
+								<div id="siteSub">From PanoTools.org Wiki</div>
+								
+												
+				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><b>fulla</b> is a command-line tool distributed with <a href="Hugin.html" title="Hugin">hugin</a>. It can correct chromatic aberration, lens distortion, and vignetting.
 </p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Fulla.html#About_fulla"><span class="tocnumber">1</span> <span class="toctext">About fulla</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Fulla.html#Command-line_usage"><span class="tocnumber">2</span> <span class="toctext">Command-line usage</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Fulla.html#Notes"><span class="tocnumber">3</span> <span class="toctext">Notes</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Fulla.html#Windows_batch_usage"><span class="tocnumber">4</span> <span class="toctext">Windows batch usage</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="Fulla.html#External_links"><span class="tocnumber">5</span> <span class="toctext">External links</span></a></li>
+</ul>
+</div>
 
-<h2> <span class="mw-headline" id="About_fulla"> About fulla </span></h2>
+<h2><span class="mw-headline" id="About_fulla">About fulla</span></h2>
 <p>fulla is suitable for batch correction of:
 </p>
-<dl><dt><a href="Chromatic_aberration.html" title="Chromatic aberration">Chromatic aberration</a></dt><dd> See tutorial in <a href="Fulla.html#External_links">external links</a>.
-</dd><dt><a href="Lens_correction_model.html" title="Lens correction model">Lens distortion</a></dt><dd> <a href="Barrel_distortion.html" title="Barrel distortion">Barrel</a> or <a href="Pincushion_distortion.html" title="Pincushion distortion">pincushion distortion</a> can be corrected using the same a, b, c and d parameters as other Panorama Tools<a class="external" href="http://wiki.panotools.org/Panorama_Tools">[*]</a> derived programs.
-</dd><dt><a href="Vignetting.html" title="Vignetting">Vignetting</a></dt><dd> Polynomial correction by division, addition or flatfield images. <a href="Hugin.html" title="Hugin">hugin</a> contains a vignetting calculator that can use a series of overlapping photographs to determine the likely polynomial required to correct common vignetting problems.
-</dd></dl>
+<dl>
+<dt><a href="Chromatic_aberration.html" title="Chromatic aberration">Chromatic aberration</a></dt>
+<dd> See tutorial in <a href="Fulla.html#External_links">external links</a>.
+</dd>
+<dt><a href="Lens_correction_model.html" title="Lens correction model">Lens distortion</a></dt>
+<dd> <a href="Barrel_distortion.html" title="Barrel distortion">Barrel</a> or <a href="Pincushion_distortion.html" title="Pincushion distortion">pincushion distortion</a> can be corrected using the same a, b, c and d parameters as other Panorama Tools<a class="external" href="http://wiki.panotools.org/Panorama_Tools">[*]</a> derived programs.
+</dd>
+<dt><a href="Vignetting.html" title="Vignetting">Vignetting</a></dt>
+<dd> Polynomial correction by division, addition or flatfield images. <a href="Hugin.html" title="Hugin">hugin</a> contains a vignetting calculator that can use a series of overlapping photographs to determine the likely polynomial required to correct common vignetting problems.
+</dd>
+</dl>
 <p>fulla can work with the same range of image types as <a href="Nona.html" title="Nona">nona</a>, including 8bit and 16bit <a href="TIFF.html" title="TIFF">TIFF</a> and 32bit floating-point <a href="HDR.html" title="HDR">HDR</a> TIFF data.
 </p>
-<h2> <span class="mw-headline" id="Command-line_usage"> Command-line usage </span></h2>
+<h2><span class="mw-headline" id="Command-line_usage">Command-line usage</span></h2>
 <pre> Usage: fulla [options] inputfile(s)
   option are:
-     -g a:b:c:d       Radial distortion coefficient for all channels, (a, b, c, d)
-     -b a:b:c:d       Radial distortion coefficients for blue channel, (a, b, c, d)
-                       this is applied on top of the -g distortion coefficients,
-                       use for TCA corr
-     -r a:b:c:d       Radial distortion coefficients for red channel, (a, b, c, d)
-                       this is applied on top of the -g distortion coefficients,
-                       use for TCA corr
-     -p               Try to read radial distortion coefficients for green
-                        channel from PTLens database
-     -m Canon         Camera manufacturer, for PTLens database query
-     -n Camera        Camera name, for PTLens database query
-     -l Lens          Lens name, for PTLens database query
-                       if not specified, a list of possible lenses is displayed
-     -d 50            specify focal length in mm, for PTLens database query
-     -s               do not rescale the image to avoid black borders.
-     -f filename      Vignetting correction by flatfield division
-                       I = I / c,    c = flatfield / mean(flatfield)
-     -c a:b:c:d       radial vignetting correction by division:
-                       I = I / c,    c = a + b*r^2 + c*r^4 + d*r^6
-     -a               Correct vignetting by addition, rather than by division
-                       I = I + c
-     -i value         gamma of input data. used for gamma correction
-                       before and after flatfield correction
-     -t n             Number of threads that should be used during processing
-     -h               Display help (this text)
-     -o name          set output filename. If more than one image is given,
-                       the name will be uses as suffix (default suffix: _corr)
-     -v               Verbose
+     --green=db|a:b:c:d  Correct radial distortion for all channels
+                           Specifiy 'db' for database lookup or
+                           the 4 coefficients a:b:c:d
+     --blue=db|a:b:c:d   Correct radial distortion for blue channel,
+                           this is applied on top of the --green
+                           distortion coefficients, use for TCA corr
+                           Specifiy 'db' for database lookup or
+                           the 4 coefficients a:b:c:d
+     --red=db|a:b:c:d    Correct radial distortion for red channel,
+                           this is applied on top of the --green
+                           distortion coefficients, use for TCA corr
+                           Specifiy 'db' for database lookup or
+                           the 4 coefficients a:b:c:d
+     --camera-maker=Maker Camera manufacturer, for database query
+     --camera-model=Cam Camera name, for database query
+     --lensname=Lens    Lens name, for database query
+                           Specify --camera-maker and --camera-model
+                           for fixed lens cameras or --lensname
+                           for interchangeable lenses.
+     --focallength=50   Specify focal length in mm, for database query
+     --aperture=3.5     Specify aperture for vignetting data database query
+     --dont-rescale     Do not rescale the image to avoid black borders.
+     
+     --flatfield=filename  Vignetting correction by flatfield division
+                             I = I / c, c = flatfield / mean(flatfield)
+     --vignetting=db|a:b:c:d  Correct vignetting (by division)
+                           Specify db for database look up or the
+                           the 4 coefficients a:b:c:d
+                             I = I / ( a + b*r^2 + c*r^4 + d*r^6)
+     --linear           Do vignetting correction in linear color space
+     --gamma=value      Gamma of input data. used for gamma correction
+                          before and after flatfield correction
+     --threads=n        Number of threads that should be used
+     --help             Display help (this text)
+     --output=name      Set output filename. If more than one image is given,
+                           the name will be uses as suffix
+                           (default suffix: _corr)
+     --compression=value Compression of the output files
+                           For jpeg output: 0-100
+                           For tiff output: PACKBITS, DEFLATE, LZW
+     --offset=X:Y       Horizontal and vertical shift
+     --verbose          Verbose
 </pre>
-<h2> <span class="mw-headline" id="Status"> Status </span></h2>
-<p>As of Hugin 2010.0.0, vignetting correction seems to be <a rel="nofollow" class="external text" href="http://sourceforge.net/tracker/?func=detail&amp;aid=3057742&amp;group_id=77506&amp;atid=550441">broken</a>. Resizing during correction is <a rel="nofollow" class="external text" href="http://sourceforge.net/tracker/?func=detail&amp;aid=3057758&amp;group_id=77506&amp;atid=550444">not available</a> - this may cause important image parts to get cropped. Few changes have been committed to fulla since the beginning of 2008. If you want to correct individual images, best use a <a rel="nofollow" class="external text" href="http://lensfun.berlios.de/">lensfun</a>-based program (e.g., <a rel="nofollow" class="external text" href="http://ufraw.sourceforge.net/">UFRaw</a> or <a rel="nofollow" class="external text" href="http://www.digikam.org/drupal/node/319">digiKam</a>) these days. Lensfun also comes with a more up to date lens correction parameters database.
-</p>
-<h2> <span class="mw-headline" id="Notes"> Notes </span></h2>
+<h2><span class="mw-headline" id="Notes">Notes</span></h2>
 <p>Finding the correct lens correction parameters can be done using several approaches (see <a href="Lens_correction_model.html" title="Lens correction model">Lens correction model</a> and external links for details). Note parameter d for radial distortion (default 1.0) is not available in GUI frontends - the d mentioned in frontends is typically a different parameter related to image shift.
 </p>
-<h2> <span class="mw-headline" id="Windows_batch_usage"> Windows batch usage </span></h2>
+<h2><span class="mw-headline" id="Windows_batch_usage">Windows batch usage</span></h2>
 <p>Once you have calculated fulla parameters as described above, you can create a custom <i>droplet</i>
 for batch correcting photos like so:
 </p>
-<ul><li> Create a <i>Shortcut to fulla.exe</i> by dragging the <i>fulla</i> icon to another directory in Windows explorer
-</li><li> Edit <i>properties</i>
-</li><li> Change the <i>target</i> to include your correction parameters:
-</li></ul>
-<pre> "C:\Program Files\hugin\fulla.exe" -r 0:0:0.00056:1.00015 -b 0:0:-0.00026:1.0011 -c 1:0.20:-0.51:0.2
+<ul>
+<li> Create a <i>Shortcut to fulla.exe</i> by dragging the <i>fulla</i> icon to another directory in Windows explorer
+</li>
+<li> Edit <i>properties</i>
+</li>
+<li> Change the <i>target</i> to include your correction parameters:
+</li>
+</ul>
+<pre> "C:\Program Files\hugin\fulla.exe" --red=0:0:0.00056:1.00015 --blue=0:0:-0.00026:1.0011 --vignetting=1:0.20:-0.51:0.2
 </pre>
-<ul><li> Rename the shortcut to something descriptive like <i>fulla-peleng</i>
-</li><li> Now you can correct photos by dragging and dropping them onto the icon
-</li></ul>
-<p>Expanding on the above example is to create a batchfile in the hugin directory called "fulla.bat" containing the line:
-</p>
-<pre>FOR&#160;%%I IN (%1) DO C:\Program Files\hugin\fulla.exe -p -v -l Standard&#160;%%1
-</pre>
-<p>Assuming the name of the lens in the PTLens Database (see below) is "Standard" (as most are). Now, upon calling from any directory containing pics you can run "C:\Program Files\hugin\fulla.bat *.jpg" having fulla correcting all pics using the parameters retrieved from the PTLens Database mentioned below (don't forget to SET PTLENS_PROFILE)
-</p>
-<h2> <span class="mw-headline" id="PTLens_database_lookup"> PTLens database lookup </span></h2>
-<p>fulla will look-up your camera in a PTLens<a class="external" href="http://wiki.panotools.org/PTLens">[*]</a> database and try to automatically determine <a href="Lens_correction_model.html" title="Lens correction model">Lens correction parameters</a> for your pictures. An older free version of the database is required which can be downloaded from sourceforge (see <a href="Fulla.html#External_links">external links</a>).
-</p><p>Use the PTLENS_PROFILE environment variable to specify the location of the PTLens database, for example on Linux or OS X:
-</p>
-<pre> PTLENS_PROFILE=$HOME/.ptlens/profile.txt
-</pre>
-<p>On Windows something like this should work for a PTLens standard install:
-</p>
-<pre> set PTLENS_PROFILE=%ProgramFiles%\PTLens\profile.txt
-</pre>
-<p>otherwise enter the full path.
-</p>
-<h2> <span class="mw-headline" id="External_links"> External links </span></h2>
-<ul><li> <a rel="nofollow" class="external text" href="http://hugin.sourceforge.net/tutorials/tca/en.shtml">Correcting TCA with hugin and fulla</a>
-</li><li> <a rel="nofollow" class="external text" href="http://sourceforge.net/project/showfiles.php?group_id=77506&amp;package_id=187932">PTLens database download</a> (April 2006)
-<ul><li> <a rel="nofollow" class="external text" href="http://lensfun.berlios.de/">Lensfun</a> <a rel="nofollow" class="external text" href="http://svn.berlios.de/wsvn/lensfun/trunk/data/db/">SVN</a> includes parameters for many more lenses
-</li></ul>
-</li><li> <a rel="nofollow" class="external text" href="http://lensfun.berlios.de/lens-calibration/lens-calibration.html">How to determine lens correction parameters</a> - from Lensfun documentation
-</li></ul>
+<ul>
+<li> Rename the shortcut to something descriptive like <i>fulla-peleng</i>
+</li>
+<li> Now you can correct photos by dragging and dropping them onto the icon
+</li>
+</ul>
+<h2><span class="mw-headline" id="External_links">External links</span></h2>
+<ul>
+<li> <a rel="nofollow" class="external text" href="http://hugin.sourceforge.net/tutorials/tca/en.shtml">Correcting TCA with hugin and fulla</a>
+</li>
+<li> <a rel="nofollow" class="external text" href="http://sourceforge.net/project/showfiles.php?group_id=77506&amp;package_id=187932">PTLens database download</a> (April 2006)
+<ul>
+<li> <a rel="nofollow" class="external text" href="http://lensfun.berlios.de/">Lensfun</a> <a rel="nofollow" class="external text" href="http://svn.berlios.de/wsvn/lensfun/trunk/data/db/">SVN</a> includes parameters for many more lenses
+</li>
+</ul>
+</li>
+<li> <a rel="nofollow" class="external text" href="http://lensfun.berlios.de/lens-calibration/lens-calibration.html">How to determine lens correction parameters</a> - from Lensfun documentation
+</li>
+</ul>
 
 
 
 
-</div>				<!-- /bodycontent -->
-								<!-- printfooter -->
-				<div class="printfooter">
-				Retrieved from "http://wiki.panotools.org/index.php?title=Fulla&amp;oldid=12650<a class="external" href="http://wiki.panotools.org/index.php?title=Fulla&amp;oldid=12650">[*]</a>"				</div>
-				<!-- /printfooter -->
-												<!-- catlinks -->
-				</div></div></body></html>
+</div>								<div class="printfooter">
+				Retrieved from "http://wiki.panotools.org/index.php?title=Fulla&amp;oldid=15622<a class="external" href="http://wiki.panotools.org/index.php?title=Fulla&amp;oldid=15622">[*]</a>"				</div>
+												</div></div></body></html>

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" class="client-nojs">
 <head>
-<title>16bit workflow with hugin - PanoTools.org Wiki</title>
 <meta charset="UTF-8" />
-<meta name="generator" content="MediaWiki 1.19.0" />
+<title>16bit workflow with hugin - PanoTools.org Wiki</title>
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<meta name="generator" content="MediaWiki 1.23.6" />
 
 
 
@@ -12,44 +13,28 @@
 
 <style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 
-<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
-
-/* cache key: pt_wikidb:resourceloader:filter:minify-css:7:c88e2bcd56513749bec09a7e29cb3ffa */
-</style>
-
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: panotools_wiki:resourceloader:filter:minify-css:7:90730a7865ba4b50e0b837e1821ff0a3 */</style>
 
 
 
 <!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
-<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-16bit_workflow_with_hugin skin-vector action-view">
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-16bit_workflow_with_hugin skin-vector action-view vector-animateLayout">
 		
 		
-		<!-- content -->
-		<div id="content" class="mw-body">
+		<div id="content" class="mw-body" role="main">
 			<a id="top"></a>
 			
-						<!-- firstHeading -->
-			<h1 id="firstHeading" class="firstHeading">
-				<span dir="auto">16bit workflow with hugin</span>
-			</h1>
-			<!-- /firstHeading -->
-			<!-- bodyContent -->
-			<div id="bodyContent">
-								<!-- tagline -->
-				<div id="siteSub">From PanoTools.org Wiki</div>
-				<!-- /tagline -->
-								<!-- subtitle -->
-				
-				<!-- /subtitle -->
-																<!-- jumpto -->
-				
-				<!-- /jumpto -->
-								<!-- bodycontent -->
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">16bit workflow with hugin</span></h1>
+						<div id="bodyContent">
+								<div id="siteSub">From PanoTools.org Wiki</div>
+								
+												
 				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This tutorial doesn't cover reasons why you might want to shoot with <a href="RAW.html" title="RAW">RAW</a> and
 stitch in 16bit format.  It is a simple HOWTO listing the tools available and how
 to use them with hugin.
 </p>
-<h2> <span class="mw-headline" id="Preparing_the_16bit_images"> Preparing the 16bit images </span></h2>
+<h2><span class="mw-headline" id="Preparing_the_16bit_images">Preparing the 16bit images</span></h2>
 <p>Start by using dcraw<a class="external" href="http://wiki.panotools.org/Dcraw">[*]</a> to read the <a href="RAW.html" title="RAW">RAW</a> files and batch convert them into portable 16bit per
 channel PPM<a class="external" href="http://wiki.panotools.org/index.php?title=PPM&amp;action=edit&amp;redlink=1">[*]</a> files.  RAW pictures from my Nikon 8700 have a <i>.nef</i> extension, so the
 command looks something like this:
@@ -74,7 +59,7 @@ and difficult to view without <a href="Colour_profile.html" title="Colour profil
 </p><p>Alternatively UFRaw<a class="external" href="http://wiki.panotools.org/UFRaw">[*]</a> can be used for the entire conversion from <a href="RAW.html" title="RAW">RAW</a>.
 </p><p>If necessary, correct <a href="Chromatic_aberration.html" title="Chromatic aberration">chromatic aberration</a> with <a href="Fulla.html" title="Fulla">fulla</a> at this stage.
 </p>
-<h2> <span class="mw-headline" id="Stitching_with_hugin"> Stitching with hugin </span></h2>
+<h2><span class="mw-headline" id="Stitching_with_hugin">Stitching with hugin</span></h2>
 <p>The <a href="TIFF.html" title="TIFF">TIFF</a> images can be loaded into <a href="Hugin.html" title="Hugin">hugin</a> as per usual except:
 </p><p><a href="EXIF.html" title="EXIF">EXIF</a> information about the <a href="Field_of_View.html" title="Field of View">Field of View</a> was lost during the PPM<a class="external" href="http://wiki.panotools.org/index.php?title=PPM&amp;action=edit&amp;redlink=1">[*]</a> stage, so the field of view will need to be re-entered manually, re-optimised with <a href="PTOptimizer.html" title="PTOptimizer">PTOptimizer</a> or transferred from the RAW file using exiftool<a class="external" href="http://wiki.panotools.org/Exiftool">[*]</a>:
 </p>
@@ -87,7 +72,7 @@ remapped images after stitching with nona but before running <a href="Enblend.ht
 </p>
 <pre> mogrify -gamma 2.2 myproject_*.tif
 </pre>
-<h2> <span class="mw-headline" id="Post_processing"> Post processing </span></h2>
+<h2><span class="mw-headline" id="Post_processing">Post processing</span></h2>
 <p>This <a href="TIFF.html" title="TIFF">TIFF</a> file is in 16bit per channel RGBA format, which is not viewable in most image
 viewers or web-browsers, so there is an extra step needed to create portable images:
 </p><p>Open the file in a 16bit aware image editor such as cinepaint<a class="external" href="http://wiki.panotools.org/Cinepaint">[*]</a> or krita<a class="external" href="http://wiki.panotools.org/Krita">[*]</a>, tweak the
@@ -102,10 +87,6 @@ for doing just this:
 
 
 
-</div>				<!-- /bodycontent -->
-								<!-- printfooter -->
-				<div class="printfooter">
+</div>								<div class="printfooter">
 				Retrieved from "http://wiki.panotools.org/index.php?title=16bit_workflow_with_hugin&amp;oldid=8954<a class="external" href="http://wiki.panotools.org/index.php?title=16bit_workflow_with_hugin&amp;oldid=8954">[*]</a>"				</div>
-				<!-- /printfooter -->
-												<!-- catlinks -->
-				</div></div></body></html>
+												</div></div></body></html>

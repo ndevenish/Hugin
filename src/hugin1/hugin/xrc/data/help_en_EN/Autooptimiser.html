@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" class="client-nojs">
 <head>
-<title>Autooptimiser - PanoTools.org Wiki</title>
 <meta charset="UTF-8" />
-<meta name="generator" content="MediaWiki 1.19.0" />
+<title>Autooptimiser - PanoTools.org Wiki</title>
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<meta name="generator" content="MediaWiki 1.23.6" />
 
 
 
@@ -12,73 +13,70 @@
 
 <style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 
-<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
-
-/* cache key: pt_wikidb:resourceloader:filter:minify-css:7:c88e2bcd56513749bec09a7e29cb3ffa */
-</style>
-
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: panotools_wiki:resourceloader:filter:minify-css:7:90730a7865ba4b50e0b837e1821ff0a3 */</style>
 
 
 
 <!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
-<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Autooptimiser skin-vector action-view">
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Autooptimiser skin-vector action-view vector-animateLayout">
 		
 		
-		<!-- content -->
-		<div id="content" class="mw-body">
+		<div id="content" class="mw-body" role="main">
 			<a id="top"></a>
 			
-						<!-- firstHeading -->
-			<h1 id="firstHeading" class="firstHeading">
-				<span dir="auto">Autooptimiser</span>
-			</h1>
-			<!-- /firstHeading -->
-			<!-- bodyContent -->
-			<div id="bodyContent">
-								<!-- tagline -->
-				<div id="siteSub">From PanoTools.org Wiki</div>
-				<!-- /tagline -->
-								<!-- subtitle -->
-				
-				<!-- /subtitle -->
-																<!-- jumpto -->
-				
-				<!-- /jumpto -->
-								<!-- bodycontent -->
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Autooptimiser</span></h1>
+						<div id="bodyContent">
+								<div id="siteSub">From PanoTools.org Wiki</div>
+								
+												
 				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><b>autooptimiser</b> is a smart optimiser replacement for <a href="PTOptimizer.html" title="PTOptimizer">PTOptimizer</a> and <a href="Vig_optimize.html" title="Vig optimize">vig_optimize</a>, it is part of the <a href="Hugin.html" title="Hugin">hugin</a> suite of tools for panoramic imaging.
 </p><p>It is not a 100% drop-in replacement for <b>PTOptimizer</b> as it has a slightly different interface and some extra features:
 </p>
-<ul><li> <b>PTOptimizer</b> will write the output of the optimisation into the input script file as 'o' lines, deleting any that already exist.  This behaviour is a little strange, so <b>autooptimiser</b> writes the result to STDOUT or a new file, as is more usual for a command-line tool.
-</li><li> Not clobbering the original file means that there is no need to create 'o' lines, the output file is in the same format as the input with optimised values applied to the 'i' lines.
-</li><li> <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a> requires 'o' lines, so the output of <b>autooptimiser</b> isn't suitable for stitching with <b>PTStitcher</b> without further processing - Stitch these files with <a href="Nona.html" title="Nona">nona</a> instead.
-</li></ul>
+<ul>
+<li> <b>PTOptimizer</b> will write the output of the optimisation into the input script file as 'o' lines, deleting any that already exist.  This behaviour is a little strange, so <b>autooptimiser</b> writes the result to STDOUT or a new file, as is more usual for a command-line tool.
+</li>
+<li> Not clobbering the original file means that there is no need to create 'o' lines, the output file is in the same format as the input with optimised values applied to the 'i' lines.
+</li>
+<li> <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a> requires 'o' lines, so the output of <b>autooptimiser</b> isn't suitable for stitching with <b>PTStitcher</b> without further processing - Stitch these files with <a href="Nona.html" title="Nona">nona</a> instead.
+</li>
+</ul>
 <p>Additional features:
 </p>
-<ul><li> <b>autooptimiser</b> can perform <i>pairwise</i> optimisation instead of trying to optimise all rotation parameters at the same time, this means that there is no need to pre-position images before optimisation.
-</li><li> <i>levelling</i> the horizon in a set of images can be performed, this is the same functionality as the <b>Straighten</b> button in the <a href="Hugin_Preview_window.html" title="Hugin Preview window">hugin Preview window</a>.
-</li><li> <i>auto-align</i> mode will pick an optimisation scheme suited to the distribution of <a href="Control_points.html" title="Control points">control points</a> in the project so there is no need to specify parameters to optimise.
-</li><li> <b>autooptimiser</b> can adjust the panorama field of view<a class="external" href="http://wiki.panotools.org/Field_of_view">[*]</a>, dimensions and <a href="Projections.html" title="Projections">projection</a> to suit the input images.
-</li><li> the <b>field of view</b> of input images can be specified, this is useful as the project files created by <a href="Autopano.html" title="Autopano">autopano</a> and <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a> don't specify the <b>field of view</b> of the input photos.
-</li><li> <b>autooptimiser</b> can also perform photometric optimisation like the <a href="Vig_optimize.html" title="Vig optimize">vig_optimize</a> tool. Depending on the input images it selects automaticly these photometric parameters (exposure, white balance, <a href="Vignetting.html" title="Vignetting">vignetting</a>, <a href="Camera_response_curve.html" title="Camera response curve">camera response curve</a>) which should be optimised.
-</li></ul>
-<h2> <span class="mw-headline" id="Usage"> Usage </span></h2>
+<ul>
+<li> <b>autooptimiser</b> can perform <i>pairwise</i> optimisation instead of trying to optimise all rotation parameters at the same time, this means that there is no need to pre-position images before optimisation.
+</li>
+<li> <i>levelling</i> the horizon in a set of images can be performed, this is the same functionality as the <b>Straighten</b> button in the <a href="Hugin_Preview_window.html" title="Hugin Preview window">hugin Preview window</a>.
+</li>
+<li> <i>auto-align</i> mode will pick an optimisation scheme suited to the distribution of <a href="Control_points.html" title="Control points">control points</a> in the project so there is no need to specify parameters to optimise.
+</li>
+<li> <b>autooptimiser</b> can adjust the panorama field of view<a class="external" href="http://wiki.panotools.org/Field_of_view">[*]</a>, dimensions and <a href="Projections.html" title="Projections">projection</a> to suit the input images.
+</li>
+<li> the <b>field of view</b> of input images can be specified, this is useful as the project files created by <a href="Autopano.html" title="Autopano">autopano</a> and <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a> don't specify the <b>field of view</b> of the input photos.
+</li>
+<li> <b>autooptimiser</b> can also perform photometric optimisation like the <a href="Vig_optimize.html" title="Vig optimize">vig_optimize</a> tool. Depending on the input images it selects automaticly these photometric parameters (exposure, white balance, <a href="Vignetting.html" title="Vignetting">vignetting</a>, <a href="Camera_response_curve.html" title="Camera response curve">camera response curve</a>) which should be optimised.
+</li>
+</ul>
+<h2><span class="mw-headline" id="Usage">Usage</span></h2>
 <pre>      autooptimiser [options] project.pto
 </pre>
 <p>(- can be specified to read the project from stdio.)
 </p>
-<h3> <span class="mw-headline" id="Description"> Description </span></h3>
+<h3><span class="mw-headline" id="Description">Description</span></h3>
 <p><b>autooptimiser</b> works similarly to <b>PToptimizer</b> but with extra command-
 line options.
 </p><p>It is also different in that PToptimizer appends its output onto the
 input file in the form of ’o’ lines which need further processing.
 autooptimiser simply updates the project and writes it to a new file.
 </p>
-<h3> <span class="mw-headline" id="Options"> Options </span></h3>
+<h3><span class="mw-headline" id="Options">Options</span></h3>
 <p><tt>-o file.pto</tt> Output file. If omitted, stdout is used.
 </p><p><br />
 </p>
-<ul><li> Optimisation options (if not specified, no optimisation takes place):
-</li></ul>
+<ul>
+<li> Optimisation options (if not specified, no optimisation takes place):
+</li>
+</ul>
 <p><tt>-a</tt>  Auto align mode, includes various optimisation stages, depending on
 the amount and distribution of the control points
 </p><p><tt>-p</tt>  Pairwise optimisation of yaw, pitch and roll, starting from first
@@ -87,13 +85,17 @@ image
 </p><p><tt>-m</tt>  Optimize photometric parameters (the optimized parameters are automatically selected depending on project settings)
 </p><p><br />
 </p>
-<ul><li> Post-processing options:
-</li></ul>
+<ul>
+<li> Post-processing options:
+</li>
+</ul>
 <p><tt>-l</tt>  Level horizon (works best for horizontal panoramas)
 </p><p><tt>-s</tt>  Automatically select a suitable output projection and size
 </p>
-<ul><li> Other options:
-</li></ul>
+<ul>
+<li> Other options:
+</li>
+</ul>
 <p><tt>-q</tt>  Quiet operation (no progress is reported)
 </p><p><tt>-v HFOV</tt>           Specify horizontal field of view of input images. Used if the .pto
 file contains invalid HFOV values (autopano-SIFT writes .pto files
@@ -104,10 +106,6 @@ the one of the "Align" button in hugin is performed.
 
 
 
-</div>				<!-- /bodycontent -->
-								<!-- printfooter -->
-				<div class="printfooter">
+</div>								<div class="printfooter">
 				Retrieved from "http://wiki.panotools.org/index.php?title=Autooptimiser&amp;oldid=13134<a class="external" href="http://wiki.panotools.org/index.php?title=Autooptimiser&amp;oldid=13134">[*]</a>"				</div>
-				<!-- /printfooter -->
-												<!-- catlinks -->
-				</div></div></body></html>
+												</div></div></body></html>

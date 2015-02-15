@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" class="client-nojs">
 <head>
-<title>Align a stack of photos - PanoTools.org Wiki</title>
 <meta charset="UTF-8" />
-<meta name="generator" content="MediaWiki 1.19.0" />
+<title>Align a stack of photos - PanoTools.org Wiki</title>
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<meta name="generator" content="MediaWiki 1.23.6" />
 
 
 
@@ -12,57 +13,36 @@
 
 <style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 
-<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
-
-/* cache key: pt_wikidb:resourceloader:filter:minify-css:7:c88e2bcd56513749bec09a7e29cb3ffa */
-</style>
-
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: panotools_wiki:resourceloader:filter:minify-css:7:90730a7865ba4b50e0b837e1821ff0a3 */</style>
 
 
 
 <!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
-<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Align_a_stack_of_photos skin-vector action-view">
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Align_a_stack_of_photos skin-vector action-view vector-animateLayout">
 		
 		
-		<!-- content -->
-		<div id="content" class="mw-body">
+		<div id="content" class="mw-body" role="main">
 			<a id="top"></a>
 			
-						<!-- firstHeading -->
-			<h1 id="firstHeading" class="firstHeading">
-				<span dir="auto">Align a stack of photos</span>
-			</h1>
-			<!-- /firstHeading -->
-			<!-- bodyContent -->
-			<div id="bodyContent">
-								<!-- tagline -->
-				<div id="siteSub">From PanoTools.org Wiki</div>
-				<!-- /tagline -->
-								<!-- subtitle -->
-				
-				<!-- /subtitle -->
-																<!-- jumpto -->
-				
-				<!-- /jumpto -->
-								<!-- bodycontent -->
-				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><table style="margin: 1em auto 1em 1em;background:#FFFF99;color:#FF0000;text-align:left;border: solid #FF3300;">
-
-<tr valign="top">
-<th> <b>2013-02-10:</b>
-</th>
-<th> This page is rewritten to reflect the state of the new designed GUI of the 2013.0 version.
-<p>This 2013.0 version will be released in Quarter 1 of 2013.
-</p>
-</th></tr></table>
-<p><i>(<b>These instructions but then for the current stable release version 2012.0 can also be read in this wiki as an <a rel="nofollow" class="external text" href="http://wiki.panotools.org/index.php?title=Align_a_stack_of_photos&amp;oldid=15021">older version</a></b>)</i> 
-</p><p>There are occasions where it is necessary to align a set of otherwise identical
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Align a stack of photos</span></h1>
+						<div id="bodyContent">
+								<div id="siteSub">From PanoTools.org Wiki</div>
+								
+												
+				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>There are occasions where it is necessary to align a set of otherwise identical
 pictures:
 </p>
-<ul><li> Aligning red, green and blue channels to correct <a href="Chromatic_aberration.html" title="Chromatic aberration">chromatic aberration</a>.
-</li><li> Aligning photos taken over a period of time to create a time-lapse movie.
-</li><li> Aligning <a href="Bracketing.html" title="Bracketing">bracketed</a> shots to create a single <a href="HDR.html" title="HDR">HDR</a> or contrast blended<a class="external" href="http://wiki.panotools.org/Contrast_Blending">[*]</a> image.
-</li><li> Aligning photos taken at different focus distances to merge into a single extended <a href="Depth_of_Field.html" title="Depth of Field">Depth of Field</a> image.
-</li></ul>
+<ul>
+<li> Aligning red, green and blue channels to correct <a href="Chromatic_aberration.html" title="Chromatic aberration">chromatic aberration</a>.
+</li>
+<li> Aligning photos taken over a period of time to create a time-lapse movie.
+</li>
+<li> Aligning <a href="Bracketing.html" title="Bracketing">bracketed</a> shots to create a single <a href="HDR.html" title="HDR">HDR</a> or contrast blended<a class="external" href="http://wiki.panotools.org/Contrast_Blending">[*]</a> image.
+</li>
+<li> Aligning photos taken at different focus distances to merge into a single extended <a href="Depth_of_Field.html" title="Depth of Field">Depth of Field</a> image.
+</li>
+</ul>
 <p><a href="Panorama_tools.html" title="Panorama tools">Panorama tools</a> is particularly useful for this process since it allows
 sub-pixel alignment and has a sophisticated <a href="Lens_correction_model.html" title="Lens correction model">lens correction model</a> for
 applying distortion - Even photos taken years apart with different cameras
@@ -71,23 +51,26 @@ can be aligned perfectly.
 automatic alignment, so this may be sufficient for most purposes.  Otherwise the <a rel="nofollow" class="external text" href="http://www.luxal.eu/resources/hdr/hdrprep/index.shtml">hdrprep</a> perl script
 automates the process described below:
 </p>
-<h2> <span class="mw-headline" id="Aligning_with_hugin"> Aligning with hugin </span></h2>
-<ul><li> Start up a new <a href="Hugin.html" title="Hugin">hugin</a> project for each series and load the images.  Set the <a href="Field_of_View.html" title="Field of View">Field of View</a>, <a href="Lens_correction_model.html" title="Lens correction model">lens parameters</a> and <a href="Projections.html" title="Projections">projection</a> type, ie. if your lens is a <a href="Fisheye_Projection.html" title="Fisheye Projection">fisheye</a>, set this for both the input and output projection.
-</li><li> Create control points via the <a href="Hugin_Photos_tab.html" title="Hugin Photos tab">Photos tab</a>.  <a href="Align_image_stack.html" title="Align image stack">Align_image_stack</a> is specialized for this task. But also <a href="Panomatic.html" title="Panomatic">Panomatic</a> or <a href="Cpfind.html" title="Cpfind">Cpfind</a> work for this use case.
-</li><li> Select "Positions (y,p,r)" and "Optimise now!" in the <a href="Hugin_Photos_tab.html" title="Hugin Photos tab">Photos tab</a>.
-</li><li> If necessary, fine tune the control points in the <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">Control Points tab</a> and optimise again.
-</li><li> In the <a href="Hugin_Main_window.html" title="Hugin Main window">fast panorama preview</a>, the images will be on top of each other.  Select "Move/Drag" and "Fit", then select "Crop" and "HDR Autocrop".
-</li><li> In the <a href="Hugin_Stitcher_tab.html" title="Hugin Stitcher tab">Stitcher tab</a>, select "Calculate Optimal Size", then deselect the default panorama outputs and select "No exposure correction, low dynamic range" in the "Remapped images" section.  Select "Stitch!".
-</li></ul>
+<h2><span class="mw-headline" id="Aligning_with_hugin">Aligning with hugin</span></h2>
+<ul>
+<li> Start up a new <a href="Hugin.html" title="Hugin">hugin</a> project for each series and load the images.  Set the <a href="Field_of_View.html" title="Field of View">Field of View</a>, <a href="Lens_correction_model.html" title="Lens correction model">lens parameters</a> and <a href="Projections.html" title="Projections">projection</a> type, ie. if your lens is a <a href="Fisheye_Projection.html" title="Fisheye Projection">fisheye</a>, set this for both the input and output projection.
+</li>
+<li> Create control points via the <a href="Hugin_Photos_tab.html" title="Hugin Photos tab">Photos tab</a>.  <a href="Align_image_stack.html" title="Align image stack">Align_image_stack</a> is specialized for this task. But also <a href="Panomatic.html" title="Panomatic">Panomatic</a> or <a href="Cpfind.html" title="Cpfind">Cpfind</a> work for this use case.
+</li>
+<li> Select "Positions (y,p,r)" and "Optimise now!" in the <a href="Hugin_Photos_tab.html" title="Hugin Photos tab">Photos tab</a>.
+</li>
+<li> If necessary, fine tune the control points in the <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">Control Points tab</a> and optimise again.
+</li>
+<li> In the <a href="Hugin_Main_window.html" title="Hugin Main window">fast panorama preview</a>, the images will be on top of each other.  Select "Move/Drag" and "Fit", then select "Crop" and "HDR Autocrop".
+</li>
+<li> In the <a href="Hugin_Stitcher_tab.html" title="Hugin Stitcher tab">Stitcher tab</a>, select "Calculate Optimal Size", then deselect the default panorama outputs and select "No exposure correction, low dynamic range" in the "Remapped images" section.  Select "Stitch!".
+</li>
+</ul>
 <p>See a more detailed view of this article <a rel="nofollow" class="external text" href="http://www.lemis.com/grog/photography/aligning-with-Hugin.php">here</a>.
 </p>
 
 
 
-</div>				<!-- /bodycontent -->
-								<!-- printfooter -->
-				<div class="printfooter">
-				Retrieved from "http://wiki.panotools.org/index.php?title=Align_a_stack_of_photos&amp;oldid=15031<a class="external" href="http://wiki.panotools.org/index.php?title=Align_a_stack_of_photos&amp;oldid=15031">[*]</a>"				</div>
-				<!-- /printfooter -->
-												<!-- catlinks -->
-				</div></div></body></html>
+</div>								<div class="printfooter">
+				Retrieved from "http://wiki.panotools.org/index.php?title=Align_a_stack_of_photos&amp;oldid=15690<a class="external" href="http://wiki.panotools.org/index.php?title=Align_a_stack_of_photos&amp;oldid=15690">[*]</a>"				</div>
+												</div></div></body></html>

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" class="client-nojs">
 <head>
-<title>TIFF - PanoTools.org Wiki</title>
 <meta charset="UTF-8" />
-<meta name="generator" content="MediaWiki 1.19.0" />
+<title>TIFF - PanoTools.org Wiki</title>
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<meta name="generator" content="MediaWiki 1.23.6" />
 
 
 
@@ -12,106 +13,117 @@
 
 <style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 
-<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
-
-/* cache key: pt_wikidb:resourceloader:filter:minify-css:7:c88e2bcd56513749bec09a7e29cb3ffa */
-</style>
-
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: panotools_wiki:resourceloader:filter:minify-css:7:90730a7865ba4b50e0b837e1821ff0a3 */</style>
 
 
 
 <!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
-<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-TIFF skin-vector action-view">
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-TIFF skin-vector action-view vector-animateLayout">
 		
 		
-		<!-- content -->
-		<div id="content" class="mw-body">
+		<div id="content" class="mw-body" role="main">
 			<a id="top"></a>
 			
-						<!-- firstHeading -->
-			<h1 id="firstHeading" class="firstHeading">
-				<span dir="auto">TIFF</span>
-			</h1>
-			<!-- /firstHeading -->
-			<!-- bodyContent -->
-			<div id="bodyContent">
-								<!-- tagline -->
-				<div id="siteSub">From PanoTools.org Wiki</div>
-				<!-- /tagline -->
-								<!-- subtitle -->
-				
-				<!-- /subtitle -->
-																<!-- jumpto -->
-				
-				<!-- /jumpto -->
-								<!-- bodycontent -->
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">TIFF</span></h1>
+						<div id="bodyContent">
+								<div id="siteSub">From PanoTools.org Wiki</div>
+								
+												
 				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>The
 <b>Tagged Image File Format</b> (TIFF) is a widely used and open image format<a class="external" href="http://wiki.panotools.org/Image_format">[*]</a> used to store and exchange digital images of all kinds. For general information see the w:TIFF<a class="external" href="http://www.wikipedia.org/wiki/TIFF">[*]</a> Wikipedia page
 </p><p>TIFF is a very versatile file format with many flavors. TIFF files typically have a <i>.tif</i> file extension. If you can't see file extensions, you may want to enable windows file extensions<a class="external" href="http://wiki.panotools.org/Enable_windows_file_extensions">[*]</a> as you will have great difficulty editing and manipulating image files otherwise.
 </p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="TIFF.html#Compression_issues"><span class="tocnumber">1</span> <span class="toctext">Compression issues</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="TIFF.html#Bit_depth"><span class="tocnumber">2</span> <span class="toctext">Bit depth</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="TIFF.html#Alpha_channels_and_masks"><span class="tocnumber">3</span> <span class="toctext">Alpha channels and masks</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="TIFF.html#Layers"><span class="tocnumber">4</span> <span class="toctext">Layers</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="TIFF.html#Non-image_data"><span class="tocnumber">5</span> <span class="toctext">Non-image data</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="TIFF.html#Tools_and_sources"><span class="tocnumber">6</span> <span class="toctext">Tools and sources</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="TIFF.html#BigTiff"><span class="tocnumber">7</span> <span class="toctext">BigTiff</span></a></li>
+</ul>
+</div>
 
-<h2> <span class="mw-headline" id="Compression_issues"> Compression issues </span></h2>
+<h2><span class="mw-headline" id="Compression_issues">Compression issues</span></h2>
 <p>TIFF can contain almost any image data. However, there are some common forms of image data compression found inside a TIFF file:
 </p>
-<ul><li> <b>No compression</b> is the most compatible form but results in the largest files.
-</li><li> <b>JPEG</b> Simply a <a href="JPEG.html" title="JPEG">JPEG</a> file stored inside a TIFF tag, lossy compression.
-</li><li> <b>LZW</b> is a very common, lossless compression scheme resulting in smaller 8 bit files. LZW was patented in most countries until 2004 and hence was not found in many freeware distributions. This compression method is not useful for 16 bit TIFFs.
-</li><li> <b>ZIP</b> (<b>Deflate</b>) is lossless too but not very common although it usually results in smaller files than LZW and was not patented.
-</li><li> <b>PackBits</b> A not very common, lossless compression scarcely supported by image editing software. Photoshop<a class="external" href="http://wiki.panotools.org/Photoshop">[*]</a> for example can read PackBits compressed TIFFs but not write them.
-</li><li> <b>G3</b> and <b>G4</b> compression is used for 1-bit FAX documents only.
-</li></ul>
+<ul>
+<li> <b>No compression</b> is the most compatible form but results in the largest files.
+</li>
+<li> <b>JPEG</b> Simply a <a href="JPEG.html" title="JPEG">JPEG</a> file stored inside a TIFF tag, lossy compression.
+</li>
+<li> <b>LZW</b> is a very common, lossless compression scheme resulting in smaller 8 bit files. LZW was patented in most countries until 2004 and hence was not found in many freeware distributions. This compression method is not useful for 16 bit TIFFs.
+</li>
+<li> <b>ZIP</b> (<b>Deflate</b>) is lossless too but not very common although it usually results in smaller files than LZW and was not patented.
+</li>
+<li> <b>PackBits</b> A not very common, lossless compression scarcely supported by image editing software. Photoshop<a class="external" href="http://wiki.panotools.org/Photoshop">[*]</a> for example can read PackBits compressed TIFFs but not write them.
+</li>
+<li> <b>G3</b> and <b>G4</b> compression is used for 1-bit FAX documents only.
+</li>
+</ul>
 <p>PTStitcher (and hence all the GUI front-ends<a class="external" href="http://wiki.panotools.org/GUI_front-ends">[*]</a> that use it) outputs PackBits compressed image files if the output format is TIFF. There is a bug in Photoshop<a class="external" href="http://wiki.panotools.org/Photoshop">[*]</a> prior to Version 9 (CS2) that prevents to open PackBits compressed files beyond a certain size. See opening large TIFFs with Photoshop<a class="external" href="http://wiki.panotools.org/Photoshop_limitations#opening_large_TIFFs_with_Photoshop">[*]</a> for details.
 </p>
-<h2> <span class="mw-headline" id="Bit_depth"> Bit depth </span></h2>
+<h2><span class="mw-headline" id="Bit_depth">Bit depth</span></h2>
 <p>TIFF can contain data of varying bit depth but for photographic purpose only 8-bit or 16-bit per channel are of interest. However, there is a specification that contains 32-bit data per channel floating point format for high <a href="Dynamic_range.html" title="Dynamic range">dynamic range</a> images.
 </p><p>There can be any number of channels. Common examples are
 </p>
-<ul><li> a single channel specifying a black-and-white image
-</li><li> three channels specifying a color image in RGB<a class="external" href="http://wiki.panotools.org/index.php?title=RGB&amp;action=edit&amp;redlink=1">[*]</a> color space
-</li><li> four channels specifying a color image in CMYK<a class="external" href="http://wiki.panotools.org/index.php?title=CMYK&amp;action=edit&amp;redlink=1">[*]</a> color space.
-</li><li> any number of additional channels (called alpha channels) specifying masks, selections, additional color channels or what ever.
-</li></ul>
+<ul>
+<li> a single channel specifying a black-and-white image
+</li>
+<li> three channels specifying a color image in RGB<a class="external" href="http://wiki.panotools.org/index.php?title=RGB&amp;action=edit&amp;redlink=1">[*]</a> color space
+</li>
+<li> four channels specifying a color image in CMYK<a class="external" href="http://wiki.panotools.org/index.php?title=CMYK&amp;action=edit&amp;redlink=1">[*]</a> color space.
+</li>
+<li> any number of additional channels (called alpha channels) specifying masks, selections, additional color channels or what ever.
+</li>
+</ul>
 <p>All channels in an image have the same bit depth, hence a RGB<a class="external" href="http://wiki.panotools.org/index.php?title=RGB&amp;action=edit&amp;redlink=1">[*]</a> image with 16-bit per channel often is reffered to as a 48-bit image, with 8-bit per channel as a 24-bit image.
 </p><p>The Panotools main applications process 8-bit as well as 16-bit per channel images. Details see Full 16 bit workflow<a class="external" href="http://wiki.panotools.org/Full_16_bit_workflow">[*]</a>
 </p>
-<h2> <span class="mw-headline" id="Alpha_channels_and_masks"> Alpha channels and masks </span></h2>
+<h2><span class="mw-headline" id="Alpha_channels_and_masks">Alpha channels and masks</span></h2>
 <p><a href="Alpha_channel.html" title="Alpha channel">Alpha channels</a> are used by panotools to store masks. A mask contains information to which extent the  image should be used. For this purpose the alpha channel contains a black-and-white image where the   pixel value determines the transparency of the corresponding image pixel. 
 </p><p>A white alpha channel pixel causes the corresponding image pixel to be seen to 100%, a black alpha channel pixel indicates a totally transparent image pixel. A alpha channel pixel with 50% gray indicates 50% transparency.
 </p><p>This is particularily useful to blend between images. <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a>, the main stitching application of the Panorama Tools<a class="external" href="http://wiki.panotools.org/Panorama_Tools">[*]</a>, is capable of reading and writing masked TIFF image files in RGB color space. A mask in the source image is treated as image border and remapped to the output image accordingly. 
 </p>
-<ul><li> If the output type 'without feather' (TIFF_m) is used, a mask is created that reflects the remapped input image borders. 
-</li><li> For the 'with feather' (TIFF_mask) output the mask is calculated to give a seam between adjacent images that lies more or less in the middle of the overlap area. There is a 'feather' parameter to control the width of a grayscale gradient to allow for smooth blending between the images. See PTStitcher sample script on Jim Watters page for details: <a rel="nofollow" class="external autonumber" href="http://photocreations.ca/panotools/stitch.txt">[1]</a>
-</li></ul>
+<ul>
+<li> If the output type 'without feather' (TIFF_m) is used, a mask is created that reflects the remapped input image borders. 
+</li>
+<li> For the 'with feather' (TIFF_mask) output the mask is calculated to give a seam between adjacent images that lies more or less in the middle of the overlap area. There is a 'feather' parameter to control the width of a grayscale gradient to allow for smooth blending between the images. See PTStitcher sample script on Jim Watters page for details: <a rel="nofollow" class="external autonumber" href="http://photocreations.ca/panotools/stitch.txt">[1]</a>
+</li>
+</ul>
 <p>In any case there is a problem to use this alpha channels as intended in Photoshop<a class="external" href="http://wiki.panotools.org/Photoshop">[*]</a>, since Photoshop does not know about the intended use. It loads the alpha channel but doesn't use it to control transparency. This can be achieved manually by loading the alpha channel as selection and creating a mask with 'reveal selection'. Erik Krause provides a Photoshop action set on his page that can be used to automate this for all images in a panorama: Stitching actions<a class="external" href="http://wiki.panotools.org/Stitching_actions">[*]</a>
 </p>
-<h2> <span class="mw-headline" id="Layers"> Layers </span></h2>
+<h2><span class="mw-headline" id="Layers">Layers</span></h2>
 <p>Standard TIFF doesn't support layers. If a Photoshop<a class="external" href="http://wiki.panotools.org/Photoshop">[*]</a> document with layers is saved as TIFF Photoshop creates a flat TIFF image file (for compatibility) and the layer data in a separate TIFF tag. This separate TIFF tag can be compressed using RLE (run length encoding) or ZIP compression. ZIP usually results in smaller files, smaller even as if saved as <a href="PSD.html" title="PSD">PSD</a> (where you can't choose the compression format).
 </p><p>Some applications (like for example <a href="Nona.html" title="Nona">nona</a>, the <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a> replacement in the <a href="Hugin.html" title="Hugin">hugin</a> package) can write single files that contain multiple TIFF images. If these TIFF files are loaded into Photoshop<a class="external" href="http://wiki.panotools.org/Photoshop">[*]</a> only the first image will be visible. They can be split into single images with <b>tiffsplit</b> from the TIFF tools package or ImageMagick<a class="external" href="http://wiki.panotools.org/ImageMagick">[*]</a> (See <a href="TIFF.html#Tools_and_sources">Tools section</a>). 
 </p><p>Current versions of the Gimp<a class="external" href="http://wiki.panotools.org/Gimp">[*]</a> image editor can read these TIFF files with multiple images, though they are flattened to one image when saved - A workaround is to save these layers as separate files using the save-layers-tiff<a class="external" href="http://wiki.panotools.org/Multi-Layer_TIFF_editing_with_the_Gimp">[*]</a> plug-in.
 </p><p><a href="Nona.html" title="Nona">nona</a> and <a href="PTmender.html" title="PTmender">PTmender</a> can create <a href="Cropped_TIFF.html" title="Cropped TIFF">cropped TIFF</a> output where the image data is just a small area within the final image dimensions.  This is a useful way to save resources when assembling many images into a final panorama.  Cropped TIFF input files are also supported by <a href="Enblend.html" title="Enblend">enblend</a>.
 </p>
-<h2> <span class="mw-headline" id="Non-image_data"> Non-image data </span></h2>
+<h2><span class="mw-headline" id="Non-image_data">Non-image data</span></h2>
 <p>Since TIFF is a tagged format it can contain additional non-image data either comparable to the <a href="EXIF.html" title="EXIF">EXIF</a> data in <a href="JPEG.html" title="JPEG">JPEG</a> files or other. Photoshop<a class="external" href="http://wiki.panotools.org/Photoshop">[*]</a> for example inserts XML formatted data that causes warning messages in some programs based on the common TIFF libraries. At least some of the EXIF tools can be used to view and/or manipulate the corresponding data in TIFF files, too.
 </p><p>TIFF supports embedded color profiles<a class="external" href="http://wiki.panotools.org/Color_profile">[*]</a>. Unfortunately <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a> discards the profile information when it saves TIFF files (the <a href="Nona.html" title="Nona">nona</a> stitcher doesn't have this bug). Hence the appropriate profile should be assigned to PTStitcher result images when loaded into a color management aware image editor.
 </p>
-<h2> <span class="mw-headline" id="Tools_and_sources"> Tools and sources </span></h2>
+<h2><span class="mw-headline" id="Tools_and_sources">Tools and sources</span></h2>
 <p>Although the major image processors and viewers cope very well with TIFF it might be necessary from time to time to use some other tools - for batch processing, for conversion of scarcely supported TIFF flavors or simply to get enhanced information. 
 </p>
-<ul><li> <b>TIFF tools</b> - A free package available from libtiff.org: <a rel="nofollow" class="external autonumber" href="http://libtiff.org/">[2]</a> Windows executables at the Gnu Win32 Project: <a rel="nofollow" class="external autonumber" href="http://gnuwin32.sourceforge.net/packages/libtiff.htm">[3]</a>
-</li><li> <b>ImageMagick<a class="external" href="http://wiki.panotools.org/ImageMagick">[*]</a></b> command line image processing package.
-</li><li> <b>TIFF libraries</b> and specification from libtiff.org: <a rel="nofollow" class="external autonumber" href="http://libtiff.org/">[4]</a>
-</li><li> <b>Little CMS<a class="external" href="http://wiki.panotools.org/index.php?title=Lcms&amp;action=edit&amp;redlink=1">[*]</a></b> provides a tool called <b>tifficc</b> for applying an ICC <a href="Colour_profile.html" title="Colour profile">colour profile</a> to a TIFF file: wikipedia: LittleCMS<a class="external" href="http://www.wikipedia.org/wiki/LittleCMS">[*]</a>
-</li></ul>
-<h2> <span class="mw-headline" id="BigTiff"> BigTiff </span></h2>
+<ul>
+<li> <b>TIFF tools</b> - A free package available from libtiff.org: <a rel="nofollow" class="external autonumber" href="http://libtiff.org/">[2]</a> Windows executables at the Gnu Win32 Project: <a rel="nofollow" class="external autonumber" href="http://gnuwin32.sourceforge.net/packages/libtiff.htm">[3]</a>
+</li>
+<li> <b>ImageMagick<a class="external" href="http://wiki.panotools.org/ImageMagick">[*]</a></b> command line image processing package.
+</li>
+<li> <b>TIFF libraries</b> and specification from libtiff.org: <a rel="nofollow" class="external autonumber" href="http://libtiff.org/">[4]</a>
+</li>
+<li> <b>Little CMS<a class="external" href="http://wiki.panotools.org/index.php?title=Lcms&amp;action=edit&amp;redlink=1">[*]</a></b> provides a tool called <b>tifficc</b> for applying an ICC <a href="Colour_profile.html" title="Colour profile">colour profile</a> to a TIFF file: wikipedia: LittleCMS<a class="external" href="http://www.wikipedia.org/wiki/LittleCMS">[*]</a>
+</li>
+</ul>
+<h2><span class="mw-headline" id="BigTiff">BigTiff</span></h2>
 <p>One approach to overcome the current file size limitations of the format is a <a rel="nofollow" class="external text" href="http://www.remotesensing.org/libtiff/BigTIFFProposal.html">proposal</a> for a new TIFF specification called <i>BigTiff</i> for the free libTIFF library. Thanks to <a rel="nofollow" class="external text" href="http://www.remotesensing.org/libtiff/bigtiffpr.html">sponsors like Leica Geosystems</a> developers of open source software like PanoTools can plan to use LibTiff 4.0 from August 2007. More information is available from <a rel="nofollow" class="external text" href="http://www.awaresystems.be/imaging/tiff.html">AWare Systems</a>. An unofficial release of libtiff which enables BigTIFF is available from <a rel="nofollow" class="external text" href="http://www.aperio.com/bigtiff/">Aperio</a>.
 </p>
 
 
 
-</div>				<!-- /bodycontent -->
-								<!-- printfooter -->
-				<div class="printfooter">
+</div>								<div class="printfooter">
 				Retrieved from "http://wiki.panotools.org/index.php?title=TIFF&amp;oldid=12184<a class="external" href="http://wiki.panotools.org/index.php?title=TIFF&amp;oldid=12184">[*]</a>"				</div>
-				<!-- /printfooter -->
-												<!-- catlinks -->
-				</div></div></body></html>
+												</div></div></body></html>

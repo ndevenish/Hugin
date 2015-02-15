@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" class="client-nojs">
 <head>
-<title>Aliasing - PanoTools.org Wiki</title>
 <meta charset="UTF-8" />
-<meta name="generator" content="MediaWiki 1.19.0" />
+<title>Aliasing - PanoTools.org Wiki</title>
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<meta name="generator" content="MediaWiki 1.23.6" />
 
 
 
@@ -12,42 +13,26 @@
 
 <style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 
-<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
-
-/* cache key: pt_wikidb:resourceloader:filter:minify-css:7:c88e2bcd56513749bec09a7e29cb3ffa */
-</style>
-
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: panotools_wiki:resourceloader:filter:minify-css:7:90730a7865ba4b50e0b837e1821ff0a3 */</style>
 
 
 
 <!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
-<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Aliasing skin-vector action-view">
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Aliasing skin-vector action-view vector-animateLayout">
 		
 		
-		<!-- content -->
-		<div id="content" class="mw-body">
+		<div id="content" class="mw-body" role="main">
 			<a id="top"></a>
 			
-						<!-- firstHeading -->
-			<h1 id="firstHeading" class="firstHeading">
-				<span dir="auto">Aliasing</span>
-			</h1>
-			<!-- /firstHeading -->
-			<!-- bodyContent -->
-			<div id="bodyContent">
-								<!-- tagline -->
-				<div id="siteSub">From PanoTools.org Wiki</div>
-				<!-- /tagline -->
-								<!-- subtitle -->
-				
-				<!-- /subtitle -->
-																<!-- jumpto -->
-				
-				<!-- /jumpto -->
-								<!-- bodycontent -->
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Aliasing</span></h1>
+						<div id="bodyContent">
+								<div id="siteSub">From PanoTools.org Wiki</div>
+								
+												
 				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><br />
 </p>
-<h3> <span class="mw-headline" id="Definition_and_Background"> Definition and Background </span></h3>
+<h3><span class="mw-headline" id="Definition_and_Background">Definition and Background</span></h3>
 <p><i><b>Aliasing</b></i> is a process that results in "jaggies" or Moire effects when an image is sampled or resampled.
 </p><p>The word "aliasing" comes from frequency-domain analysis.  Slow periodic sampling of a signal causes high frequency components to be "aliased" into low frequency ones that corrupt the sampled signal.
 </p><p>To avoid aliasing, a signal must not contain frequencies that are higher than one half the sample rate.  Likewise, an input image must not contain details that are smaller than one pixel in the output image.  
@@ -56,10 +41,10 @@
 </p><p>When using older versions of Panorama Tools<a class="external" href="http://wiki.panotools.org/Panorama_Tools">[*]</a> (and derived tools such as <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a>, <a href="Nona.html" title="Nona">nona</a> or the Panorama Tools Plugins<a class="external" href="http://wiki.panotools.org/Panorama_Tools_Plugins">[*]</a>) the important thing to know was that Panorama Tools did not anti-alias until pano12 version 2.7.0.11.  This meant that if you had Panorama Tools make a small panorama directly, it was likely to show jaggies or Moire effects. 
 </p><p>In version 2.7.0.11 a couple of anti-aliasing interpolators<a class="external" href="http://wiki.panotools.org/Anti-aliasing_interpolators">[*]</a> where added which can be used by either specifying the correct interpolator number in the <a rel="nofollow" class="external text" href="http://photocreations.ca/panotools/stitch.txt">script</a>] or by choosing one of the interpolators directly if the Software supports it. However, the traditional interpolators "poly3", "spline16", "spline36", "sinc256", "spline64", "bilinear", "nearest neighbor" and "sinc1024" still cause aliasing.
 </p>
-<h3> <span class="mw-headline" id="Guidance"> Guidance </span></h3>
+<h3><span class="mw-headline" id="Guidance">Guidance</span></h3>
 <p>You will get better results by having Panorama Tools make a large panorama, then resizing it (downsampling) using some tool like Photoshop<a class="external" href="http://wiki.panotools.org/Photoshop">[*]</a>, ImageMagick<a class="external" href="http://wiki.panotools.org/ImageMagick">[*]</a> or the Gimp<a class="external" href="http://wiki.panotools.org/Gimp">[*]</a> that does incorporate anti-aliasing, if you use a version prior to 2.7.0.11 or if it's not possible to use the new anti-aliasing filters.
 </p>
-<h3> <span class="mw-headline" id="Illustrations"> Illustrations </span></h3>
+<h3><span class="mw-headline" id="Illustrations">Illustrations</span></h3>
 <p>The following images illustrate this guidance.  They show crops from a 1000x500 panorama.  
 </p><p>On the left is what Photoshop produced by downsampling from a 6068x3034 pano, using the Image Size command with Bicubic resampling.  (6068x3034 was the PTGui<a class="external" href="http://wiki.panotools.org/PTGui">[*]</a> "optimum" size.)  
 </p><p>On the right is what Panorama Tools produced directly at 1000x500.
@@ -72,10 +57,6 @@
 
 
 
-</div>				<!-- /bodycontent -->
-								<!-- printfooter -->
-				<div class="printfooter">
+</div>								<div class="printfooter">
 				Retrieved from "http://wiki.panotools.org/index.php?title=Aliasing&amp;oldid=10854<a class="external" href="http://wiki.panotools.org/index.php?title=Aliasing&amp;oldid=10854">[*]</a>"				</div>
-				<!-- /printfooter -->
-												<!-- catlinks -->
-				</div></div></body></html>
+												</div></div></body></html>

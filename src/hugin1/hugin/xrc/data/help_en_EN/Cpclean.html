@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" class="client-nojs">
 <head>
-<title>Cpclean - PanoTools.org Wiki</title>
 <meta charset="UTF-8" />
-<meta name="generator" content="MediaWiki 1.19.0" />
+<title>Cpclean - PanoTools.org Wiki</title>
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<meta name="generator" content="MediaWiki 1.23.6" />
 
 
 
@@ -12,59 +13,52 @@
 
 <style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 
-<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
-
-/* cache key: pt_wikidb:resourceloader:filter:minify-css:7:c88e2bcd56513749bec09a7e29cb3ffa */
-</style>
-
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: panotools_wiki:resourceloader:filter:minify-css:7:90730a7865ba4b50e0b837e1821ff0a3 */</style>
 
 
 
 <!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
-<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Cpclean skin-vector action-view">
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Cpclean skin-vector action-view vector-animateLayout">
 		
 		
-		<!-- content -->
-		<div id="content" class="mw-body">
+		<div id="content" class="mw-body" role="main">
 			<a id="top"></a>
 			
-						<!-- firstHeading -->
-			<h1 id="firstHeading" class="firstHeading">
-				<span dir="auto">Cpclean</span>
-			</h1>
-			<!-- /firstHeading -->
-			<!-- bodyContent -->
-			<div id="bodyContent">
-								<!-- tagline -->
-				<div id="siteSub">From PanoTools.org Wiki</div>
-				<!-- /tagline -->
-								<!-- subtitle -->
-				
-				<!-- /subtitle -->
-																<!-- jumpto -->
-				
-				<!-- /jumpto -->
-								<!-- bodycontent -->
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Cpclean</span></h1>
+						<div id="bodyContent">
+								<div id="siteSub">From PanoTools.org Wiki</div>
+								
+												
 				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><b>cpclean</b> is a command-line tool that implements the 'bad' <a href="Control_points.html" title="Control points">control points</a> pruning available within the <a href="Hugin.html" title="Hugin">Hugin</a> GUI. It is similar conceptually to apclean<a class="external" href="http://wiki.panotools.org/index.php?title=Apclean&amp;action=edit&amp;redlink=1">[*]</a>, but with some extra functionality. Both tools use a statistical filter to remove points with an error above a statistical threshold.
 </p><p>The idea is to remove all non-credible control points.  To do this it uses a two step process to remove bad control points. 
 </p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Cpclean.html#Step_1"><span class="tocnumber">1</span> <span class="toctext">Step 1</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Cpclean.html#Step_2"><span class="tocnumber">2</span> <span class="toctext">Step 2</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Cpclean.html#result"><span class="tocnumber">3</span> <span class="toctext">result</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Cpclean.html#usage"><span class="tocnumber">4</span> <span class="toctext">usage</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="Cpclean.html#Options"><span class="tocnumber">5</span> <span class="toctext">Options</span></a></li>
+</ul>
+</div>
 
-<h3> <span class="mw-headline" id="Step_1">Step 1</span></h3>
+<h3><span class="mw-headline" id="Step_1">Step 1</span></h3>
 <p>optimises each pair of photos one at a time and deletes all points that can't be made to fit.
 </p>
-<h3> <span class="mw-headline" id="Step_2">Step 2</span></h3>
+<h3><span class="mw-headline" id="Step_2">Step 2</span></h3>
 <p>optimises the whole project together using more conservative assumptions and deletes another round of points. If there is more than one image chain present this step is not done.
 </p>
-<h3> <span class="mw-headline" id="result">result</span></h3>
+<h3><span class="mw-headline" id="result">result</span></h3>
 <p>The .pto project file is returned unoptimised, the only change is that there are less control points, this means the project doesn't have to be optimised before you start.
 </p><p>By using this optimisation step <b>cpclean</b> is able to look not just at the current project settings and find 'bad' points, but is able to find points that are 'bad' under a range of circumstances.
 </p>
-<h3> <span class="mw-headline" id="usage">usage</span></h3>
+<h3><span class="mw-headline" id="usage">usage</span></h3>
 <p>A typical usage would be:
 </p>
 <pre> cpclean -o output.pto project.pto
 </pre>
-<h3> <span class="mw-headline" id="Options">Options</span></h3>
+<h3><span class="mw-headline" id="Options">Options</span></h3>
 <p>Vary the threshold with the -n parameter (defaults to 2, i.e. points with a distance error greater than twice the standard deviation are deleted):
 </p>
 <pre> cpclean -n 1 -o output.pto project.pto
@@ -86,10 +80,6 @@
 
 
 
-</div>				<!-- /bodycontent -->
-								<!-- printfooter -->
-				<div class="printfooter">
+</div>								<div class="printfooter">
 				Retrieved from "http://wiki.panotools.org/index.php?title=Cpclean&amp;oldid=13505<a class="external" href="http://wiki.panotools.org/index.php?title=Cpclean&amp;oldid=13505">[*]</a>"				</div>
-				<!-- /printfooter -->
-												<!-- catlinks -->
-				</div></div></body></html>
+												</div></div></body></html>

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" class="client-nojs">
 <head>
-<title>Depth of Field - PanoTools.org Wiki</title>
 <meta charset="UTF-8" />
-<meta name="generator" content="MediaWiki 1.19.0" />
+<title>Depth of Field - PanoTools.org Wiki</title>
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<meta name="generator" content="MediaWiki 1.23.6" />
 
 
 
@@ -12,66 +13,65 @@
 
 <style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 
-<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
-
-/* cache key: pt_wikidb:resourceloader:filter:minify-css:7:c88e2bcd56513749bec09a7e29cb3ffa */
-</style>
-
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: panotools_wiki:resourceloader:filter:minify-css:7:90730a7865ba4b50e0b837e1821ff0a3 */</style>
 
 
 
 <!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
-<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Depth_of_Field skin-vector action-view">
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Depth_of_Field skin-vector action-view vector-animateLayout">
 		
 		
-		<!-- content -->
-		<div id="content" class="mw-body">
+		<div id="content" class="mw-body" role="main">
 			<a id="top"></a>
 			
-						<!-- firstHeading -->
-			<h1 id="firstHeading" class="firstHeading">
-				<span dir="auto">Depth of Field</span>
-			</h1>
-			<!-- /firstHeading -->
-			<!-- bodyContent -->
-			<div id="bodyContent">
-								<!-- tagline -->
-				<div id="siteSub">From PanoTools.org Wiki</div>
-				<!-- /tagline -->
-								<!-- subtitle -->
-				
-				<!-- /subtitle -->
-																<!-- jumpto -->
-				
-				<!-- /jumpto -->
-								<!-- bodycontent -->
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Depth of Field</span></h1>
+						<div id="bodyContent">
+								<div id="siteSub">From PanoTools.org Wiki</div>
+								
+												
 				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><br />
 </p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Depth_of_Field.html#What_it_is"><span class="tocnumber">1</span> <span class="toctext">What it is</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Depth_of_Field.html#Considerations_for_zoomable_panoramas"><span class="tocnumber">2</span> <span class="toctext">Considerations for zoomable panoramas</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Depth_of_Field.html#Diffraction"><span class="tocnumber">3</span> <span class="toctext">Diffraction</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Depth_of_Field.html#Hyperfocal_distance"><span class="tocnumber">4</span> <span class="toctext">Hyperfocal distance</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="Depth_of_Field.html#Extending_depth_of_field_in_software"><span class="tocnumber">5</span> <span class="toctext">Extending depth of field in software</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="Depth_of_Field.html#Web_links"><span class="tocnumber">6</span> <span class="toctext">Web links</span></a></li>
+</ul>
+</div>
 
-<h2> <span class="mw-headline" id="What_it_is">What it is</span></h2>
+<h2><span class="mw-headline" id="What_it_is">What it is</span></h2>
 <p>A photographic image is only sharp in the focus plane. The farther an object is located in front of or behind the focus plane, the more it is blurred. 
 </p><p>However, this blur is not recognizable if it stays below a certain amount. In classical photography which has a printed image as a goal (no matter whether digital or analog) the perception of the human eye is the limiting factor. 
 </p><p>The human eye commonly accepts an edge as sharp, if the angle of view of the blur is smaller than 1 arc minute. Hence a point blurred to that amount has the diameter of 2 arc minutes, which is the same as 1/1700 of the viewing distance. 
 </p><p>This is the allowed diameter of the so called Circle of Confusion. The normal viewing distance in classical photography is assumed to be equivalent to the printed image diagonal. The circle of confusion is the basis for most Depth of Field calculators or tables. 
 </p>
-<h2> <span class="mw-headline" id="Considerations_for_zoomable_panoramas">Considerations for zoomable panoramas</span></h2>
+<h2><span class="mw-headline" id="Considerations_for_zoomable_panoramas">Considerations for zoomable panoramas</span></h2>
 <p>For computer displayed panorama creation where one can zoom into the image, the limit must be the pixel distance in the viewable panorama - unless you don't allow to zoom in until 100% pixel view.
 </p><p>Since a pixel in an <a href="Equirectangular.html" title="Equirectangular" class="mw-redirect">equirectangular</a> panorama corresponds to a certain angle of view in reality, we can directly calculate the allowed angle of confusion in the shot image. It is 360° divided by the pixel width of the equirectangular image.
 </p><p>For a standard angle of confusion of 2 arc minutes this would result in an equirect image with 10800*5400 pixel. If zoomable panoramas are smaller in pixel size, the Depth of Field is far bigger than for classical photography and standard depth of field calculators are of no big use. Read on to see how to circumvent this.
 </p>
-<h2> <span class="mw-headline" id="Diffraction"><a href="Diffraction.html" title="Diffraction">Diffraction</a></span></h2>
+<h2><span class="mw-headline" id="Diffraction"><a href="Diffraction.html" title="Diffraction">Diffraction</a></span></h2>
 <p>In the increasingly popular gigapixel panoramas, where longer lenses are used, Depth of Field is a serious issue. While stopping down increases DoF, image blur due to diffraction limits the sharpness and the final resolution. Effective resolution can be calculated using the Rayleigh criterion<a class="external" href="http://www.wikipedia.org/wiki/angular_resolution">[*]</a>. See the main article on <a href="Diffraction.html" title="Diffraction">Diffraction</a> for more details.
 </p>
-<h2> <span class="mw-headline" id="Hyperfocal_distance">Hyperfocal distance</span></h2>
+<h2><span class="mw-headline" id="Hyperfocal_distance">Hyperfocal distance</span></h2>
 <p>In most cases a panorama should be sharp from the horizon to the nearest objects. Since the <a href="Depth_of_Field.html#What_it_is">Depth of Field</a> region is partly in front of and partly behind the focus plane, you sacrifice a fair amount of Depth of Field if you focus to infinity - only one part of the depth of field range is used.
 </p><p>However, there is a distance you can focus on, that extends the Depth of Field exactly from infinity to a nearer limit. This is the hyperfocal distance. It can be calculated, if the allowed circle of confusion (see above) on the sensor is known.
 </p><p>Following the above considerations on <a href="Depth_of_Field.html#Considerations_for_zoomable_panoramas">Depth of Field for zoomable panoramas</a> we can calculate a small table with
 </p>
-<ul><li>Width - image width in pixels 
-</li><li>AoC - angle of confusion in arc minutes
-</li><li>CoC - Circle of Confusion on full format DSLR or analog film in mm (diagonal 43.3mm)
-</li><li>CoC1.6 - Circle of Confusion on <a href="Crop_factor.html" title="Crop factor">crop factor</a> 1.6 DSLR in mm (diagonal 27mm)
-</li></ul>
+<ul>
+<li>Width - image width in pixels 
+</li>
+<li>AoC - angle of confusion in arc minutes
+</li>
+<li>CoC - Circle of Confusion on full format DSLR or analog film in mm (diagonal 43.3mm)
+</li>
+<li>CoC1.6 - Circle of Confusion on <a href="Crop_factor.html" title="Crop factor">crop factor</a> 1.6 DSLR in mm (diagonal 27mm)
+</li>
+</ul>
 <pre> Width  AoC  CoC    C0C1.6
 16000   1.4  0.017  0.011
 12000   1.8  0.023  0.014
@@ -89,20 +89,16 @@ AoC = 360 / Width
 </p><p>In any case the near limit of the Depth of Field is half the hyperfocal distance. 
 </p><p>Please note, that all these values for fisheye lenses are only approximations, since their focal length changes from the center to the edges as well as the effective aperture changes.
 </p>
-<h2> <span class="mw-headline" id="Extending_depth_of_field_in_software"> Extending depth of field in software </span></h2>
+<h2><span class="mw-headline" id="Extending_depth_of_field_in_software">Extending depth of field in software</span></h2>
 <p><a rel="nofollow" class="external text" href="http://www.janrik.net/ptools/ExtendedFocusPano12/">Rik Littlefield</a> added functionality to the <a href="Pano12.html" title="Pano12">pano12</a> library to merge multiple exposures with different focal distances into a single image with extended <b>depth of field</b>.  This has largely been superceded by new software, notably <a rel="nofollow" class="external text" href="http://www.hadleyweb.pwp.blueyonder.co.uk/CZ5/combinez5.htm">CombineZ5</a>,<a rel="nofollow" class="external text" href="http://www.general-cathexis.com/">SAR</a>, <a rel="nofollow" class="external text" href="http://heliconfilter.com/pages/focus_overview.html">Helicon focus</a> and <a href="Enfuse.html" title="Enfuse">enfuse</a>.
 </p>
-<h2> <span class="mw-headline" id="Web_links"> Web links </span></h2>
+<h2><span class="mw-headline" id="Web_links">Web links</span></h2>
 <p>Some Investigations Regarding Depth of Field by Rik Littlefield: <a rel="nofollow" class="external autonumber" href="http://www.janrik.net/DOFpostings/PM1/DOFInvestigations1.htm">[1]</a>
 </p><p><small>Erik Krause<a class="external" href="http://wiki.panotools.org/User:Erik_Krause">[*]</a> 16:50, 6 Jun 2005 (EDT)</small>
 </p>
 
 
 
-</div>				<!-- /bodycontent -->
-								<!-- printfooter -->
-				<div class="printfooter">
+</div>								<div class="printfooter">
 				Retrieved from "http://wiki.panotools.org/index.php?title=Depth_of_Field&amp;oldid=12928<a class="external" href="http://wiki.panotools.org/index.php?title=Depth_of_Field&amp;oldid=12928">[*]</a>"				</div>
-				<!-- /printfooter -->
-												<!-- catlinks -->
-				</div></div></body></html>
+												</div></div></body></html>

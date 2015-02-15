@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" class="client-nojs">
 <head>
-<title>Vig optimize - PanoTools.org Wiki</title>
 <meta charset="UTF-8" />
-<meta name="generator" content="MediaWiki 1.19.0" />
+<title>Vig optimize - PanoTools.org Wiki</title>
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<meta name="generator" content="MediaWiki 1.23.6" />
 
 
 
@@ -12,48 +13,37 @@
 
 <style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 
-<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
-
-/* cache key: pt_wikidb:resourceloader:filter:minify-css:7:c88e2bcd56513749bec09a7e29cb3ffa */
-</style>
-
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: panotools_wiki:resourceloader:filter:minify-css:7:90730a7865ba4b50e0b837e1821ff0a3 */</style>
 
 
 
 <!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
-<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Vig_optimize skin-vector action-view">
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Vig_optimize skin-vector action-view vector-animateLayout">
 		
 		
-		<!-- content -->
-		<div id="content" class="mw-body">
+		<div id="content" class="mw-body" role="main">
 			<a id="top"></a>
 			
-						<!-- firstHeading -->
-			<h1 id="firstHeading" class="firstHeading">
-				<span dir="auto">Vig optimize</span>
-			</h1>
-			<!-- /firstHeading -->
-			<!-- bodyContent -->
-			<div id="bodyContent">
-								<!-- tagline -->
-				<div id="siteSub">From PanoTools.org Wiki</div>
-				<!-- /tagline -->
-								<!-- subtitle -->
-				
-				<!-- /subtitle -->
-																<!-- jumpto -->
-				
-				<!-- /jumpto -->
-								<!-- bodycontent -->
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Vig optimize</span></h1>
+						<div id="bodyContent">
+								<div id="siteSub">From PanoTools.org Wiki</div>
+								
+												
 				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>Photometric parameters such as exposure (EV), <a href="Vignetting.html" title="Vignetting">vignetting</a>, white balance<a class="external" href="http://wiki.panotools.org/White_balance">[*]</a> and <a href="Camera_response_curve.html" title="Camera response curve">camera response curve</a> can be optimised by <a href="Hugin.html" title="Hugin">Hugin</a> in a similar way to <a href="Lens_distortion.html" title="Lens distortion">lens distortion</a>.  These photometric parameters can be edited in the <a href="Hugin_Photos_tab.html" title="Hugin Photos tab">Photos tab</a> or calculated automatically in the <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">Exposure tab</a>.
 </p><p>For this to work, photos first have to be aligned with correct relative positions and lens parameters. Hugin will compare randomly selected groups of pixels from matching areas in each of the overlapping photos.  Exposure and response curve can be calculated with any kind of overlap, however vignetting calculations require partial overlap, ideally around 50%.
 </p><p>As well as the GUI process of optimisation/calculation in the <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">hugin Exposure tab</a>, photometric calculation can also be performed on the command-line with the <b>vig_optimize</b> tool. This functionally is configured via 'v' <i>variable</i> lines in the .pto project file in a similar way to the <a href="Autooptimiser.html" title="Autooptimiser">autooptimiser</a> tool:
 </p>
-<ul><li> The <a href="Camera_response_curve.html" title="Camera response curve">camera response curve</a> is simplified using the EMoR<a class="external" href="http://wiki.panotools.org/index.php?title=EMoR&amp;action=edit&amp;redlink=1">[*]</a> sensor model which reduces the variation to five numbers, these are the <b>Ra</b>, <b>Rb</b>, <b>Rc</b>, <b>Rd</b> &amp; <b>Re</b> image (i) parameters (the default values of 0.0 are equivalent to an 'average' generic sensor).
-</li><li> The <a href="Vignetting.html" title="Vignetting">vignetting</a> model is represented by a polynomial with four parameters: <b>Va</b> (this is always 1.0 and doesn't need to be optimised) and <b>Vb</b>, <b>Vc</b> &amp; <b>Vd</b> (which default to 0.0 - equivalent to no vignetting).  The vignetting centre can also be different from the geometrical centre, this is specified by <b>Vx</b> &amp; <b>Vy</b> (both default to 0.0).
-</li><li> Exposure (EV) is represented by a single value <b>Eev</b> (defaults 0.0, equivalent to no-change).
-</li><li> The white balance<a class="external" href="http://wiki.panotools.org/White_balance">[*]</a> is represented by multipliers for the red and blue channels <b>Er</b> and <b>Eb</b> (the defaults of 1.0 are equivalent to no-change).
-</li></ul>
+<ul>
+<li> The <a href="Camera_response_curve.html" title="Camera response curve">camera response curve</a> is simplified using the EMoR<a class="external" href="http://wiki.panotools.org/index.php?title=EMoR&amp;action=edit&amp;redlink=1">[*]</a> sensor model which reduces the variation to five numbers, these are the <b>Ra</b>, <b>Rb</b>, <b>Rc</b>, <b>Rd</b> &amp; <b>Re</b> image (i) parameters (the default values of 0.0 are equivalent to an 'average' generic sensor).
+</li>
+<li> The <a href="Vignetting.html" title="Vignetting">vignetting</a> model is represented by a polynomial with four parameters: <b>Va</b> (this is always 1.0 and doesn't need to be optimised) and <b>Vb</b>, <b>Vc</b> &amp; <b>Vd</b> (which default to 0.0 - equivalent to no vignetting).  The vignetting centre can also be different from the geometrical centre, this is specified by <b>Vx</b> &amp; <b>Vy</b> (both default to 0.0).
+</li>
+<li> Exposure (EV) is represented by a single value <b>Eev</b> (defaults 0.0, equivalent to no-change).
+</li>
+<li> The white balance<a class="external" href="http://wiki.panotools.org/White_balance">[*]</a> is represented by multipliers for the red and blue channels <b>Er</b> and <b>Eb</b> (the defaults of 1.0 are equivalent to no-change).
+</li>
+</ul>
 <p>A typical 'v' <i>variable</i> line configuration would look like this, i.e. optimise camera response curve and vignetting for image <i>0</i> and exposure for images <i>1</i>, <i>2</i>, <i>3</i> and <i>4</i>:
 </p>
 <pre>v Ra0 Rb0 Rc0 Rd0 Re0 Vb0 Vc0 Vd0
@@ -67,10 +57,6 @@ v Eev1 Eev2 Eev3 Eev4
 
 
 
-</div>				<!-- /bodycontent -->
-								<!-- printfooter -->
-				<div class="printfooter">
+</div>								<div class="printfooter">
 				Retrieved from "http://wiki.panotools.org/index.php?title=Vig_optimize&amp;oldid=14921<a class="external" href="http://wiki.panotools.org/index.php?title=Vig_optimize&amp;oldid=14921">[*]</a>"				</div>
-				<!-- /printfooter -->
-												<!-- catlinks -->
-				</div></div></body></html>
+												</div></div></body></html>

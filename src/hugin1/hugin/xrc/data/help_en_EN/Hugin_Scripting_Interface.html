@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" class="client-nojs">
 <head>
-<title>Hugin Scripting Interface - PanoTools.org Wiki</title>
 <meta charset="UTF-8" />
-<meta name="generator" content="MediaWiki 1.19.0" />
+<title>Hugin Scripting Interface - PanoTools.org Wiki</title>
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<meta name="generator" content="MediaWiki 1.23.6" />
 
 
 
@@ -12,59 +13,62 @@
 
 <style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 
-<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
-
-/* cache key: pt_wikidb:resourceloader:filter:minify-css:7:c88e2bcd56513749bec09a7e29cb3ffa */
-</style>
-
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: panotools_wiki:resourceloader:filter:minify-css:7:90730a7865ba4b50e0b837e1821ff0a3 */</style>
 
 
 
 <!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
-<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Hugin_Scripting_Interface skin-vector action-view">
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Hugin_Scripting_Interface skin-vector action-view vector-animateLayout">
 		
 		
-		<!-- content -->
-		<div id="content" class="mw-body">
+		<div id="content" class="mw-body" role="main">
 			<a id="top"></a>
 			
-						<!-- firstHeading -->
-			<h1 id="firstHeading" class="firstHeading">
-				<span dir="auto">Hugin Scripting Interface</span>
-			</h1>
-			<!-- /firstHeading -->
-			<!-- bodyContent -->
-			<div id="bodyContent">
-								<!-- tagline -->
-				<div id="siteSub">From PanoTools.org Wiki</div>
-				<!-- /tagline -->
-								<!-- subtitle -->
-				
-				<!-- /subtitle -->
-																<!-- jumpto -->
-				
-				<!-- /jumpto -->
-								<!-- bodycontent -->
-				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr">
-<h2> <span class="mw-headline" id="Introduction"> Introduction </span></h2>
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Hugin Scripting Interface</span></h1>
+						<div id="bodyContent">
+								<div id="siteSub">From PanoTools.org Wiki</div>
+								
+												
+				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Hugin_Scripting_Interface.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Hugin_Scripting_Interface.html#HPI"><span class="tocnumber">2</span> <span class="toctext">HPI</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="Hugin_Scripting_Interface.html#Limitations"><span class="tocnumber">2.1</span> <span class="toctext">Limitations</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="Hugin_Scripting_Interface.html#HSI"><span class="tocnumber">3</span> <span class="toctext">HSI</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="Hugin_Scripting_Interface.html#Example"><span class="tocnumber">3.1</span> <span class="toctext">Example</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="Hugin_Scripting_Interface.html#Scripts"><span class="tocnumber">4</span> <span class="toctext">Scripts</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
 <p>Scripting has been implemented both ways:
 </p>
-<ul><li> <b>HSI</b> (Hugin Scripting Interface): enables calling Hugin functionality from Python scripts
-</li><li> <b>HPI</b> (Hugin Plugin Interface): enables calling Python functionality from within Hugin
-</li></ul>
+<ul>
+<li> <b>HSI</b> (Hugin Scripting Interface): enables calling Hugin functionality from Python scripts
+</li>
+<li> <b>HPI</b> (Hugin Plugin Interface): enables calling Python functionality from within Hugin
+</li>
+</ul>
 <p>If you have access to a Hugin binary that comes with scripting capability, you'll notice a "Run Python script" entry in the Edit menu.  You are all set and ready to go.  If that menu command is not available, you will need to upgrade your Hugin binary, your system, or both.
 </p><p>You can call Python from Hugin and just carry on in Python with the same objects, then return to C++.  As a user, you are enabled to use and write Python plugins with access to the Hugin dataverse.  The plugin interface provided by Hugin now is still experimental.  As it attracts interest, we expect it to grow and mature.
 </p>
-<h2> <span class="mw-headline" id="HPI"> HPI </span></h2>
+<h2><span class="mw-headline" id="HPI">HPI</span></h2>
 <p>HPI is embedding Python into Hugin.  It allows you to call arbitrary Python code  Use the file-select dialog Edit-&gt;Run Python Script to pick a plugin file and it will be executed without further ado.  You can edit your Python scripts with any text editor and launch them within Hugin.
 </p><p>Hpi uses hsi, so it can deal with all data types wrapped with hsi and call all their methods.
 </p>
-<h3> <span class="mw-headline" id="Limitations"> Limitations </span></h3>
+<h3><span class="mw-headline" id="Limitations">Limitations</span></h3>
 <p>Currently this functionality is available in varied degrees only in FreeBSD, Linux and Windows.
 </p><p>Currently there is no feedback from the plugin apart from its success or failure, which is communicated in a dialog.  If you are using FreeBSD or Linux, you can start Hugin from the command line and switch to the window you started it from while the plugin is running.  You'll see any console output it may produce.  The effect of the plugin manifests itself after the plugin's termination.  While the plugin runs, Hugin will not respond.  If the plugin's effect is undesirable you should be able to return to the previous state by using undo.
 </p><p>If you are using plugins that have been designed to also work as standalone Python programs, you can pass parameters to them on the command line.  If called from Hugin, no parametrization is possible, apart from modifying the Python code, using an .ini file, as demonstrated with woa.py, or taking input via GUI elements, as demonstrated in crop_cp.py, which will only succeed on Linux currently.
 </p>
-<h2> <span class="mw-headline" id="HSI"> HSI </span></h2>
+<h2><span class="mw-headline" id="HSI">HSI</span></h2>
 <p>HSI is an extension of Python.  Import the hsi module and access Hugin functionality from your scripts.
 </p><p>To see what objects and methods are available, run
 </p>
@@ -80,7 +84,7 @@ $ python
 </pre>
 <p>There is sparse documentation of the hugin data types and their methods beyond call signatures and member lists, so you have to guess your way when you want to use them. Luckily most of them are aptly and expressively named, so you can figure it out. I hope that eventually something like an API documentation will arise.
 </p>
-<h3> <span class="mw-headline" id="Example"> Example </span></h3>
+<h3><span class="mw-headline" id="Example">Example</span></h3>
 <pre>
 #!/usr/bin/env python
 
@@ -100,17 +104,13 @@ ofs=ofstream('yy.pto')    # make a c++ std::ofstream to write to
 p.writeData(ofs)          # write the modified panorama to that stream
 del ofs                   # done with it
 </pre>
-<h2> <span class="mw-headline" id="Scripts"> Scripts </span></h2>
+<h2><span class="mw-headline" id="Scripts">Scripts</span></h2>
 <p>This functionality is very recent and at the moment there are only a few simple sample Python plugins in the hugin_script_interface/plugins directory as well as some more involved ones to give you ideas.
 </p><p>Hopefully a body of scripts will develop which you can use for templates.
 </p>
 
 
 
-</div>				<!-- /bodycontent -->
-								<!-- printfooter -->
-				<div class="printfooter">
+</div>								<div class="printfooter">
 				Retrieved from "http://wiki.panotools.org/index.php?title=Hugin_Scripting_Interface&amp;oldid=15455<a class="external" href="http://wiki.panotools.org/index.php?title=Hugin_Scripting_Interface&amp;oldid=15455">[*]</a>"				</div>
-				<!-- /printfooter -->
-												<!-- catlinks -->
-				</div></div></body></html>
+												</div></div></body></html>

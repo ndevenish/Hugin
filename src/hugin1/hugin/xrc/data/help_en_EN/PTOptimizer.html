@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" class="client-nojs">
 <head>
-<title>PTOptimizer - PanoTools.org Wiki</title>
 <meta charset="UTF-8" />
-<meta name="generator" content="MediaWiki 1.19.0" />
+<title>PTOptimizer - PanoTools.org Wiki</title>
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<meta name="generator" content="MediaWiki 1.23.6" />
 
 
 
@@ -12,44 +13,41 @@
 
 <style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 
-<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
-
-/* cache key: pt_wikidb:resourceloader:filter:minify-css:7:c88e2bcd56513749bec09a7e29cb3ffa */
-</style>
-
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: panotools_wiki:resourceloader:filter:minify-css:7:90730a7865ba4b50e0b837e1821ff0a3 */</style>
 
 
 
 <!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
-<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-PTOptimizer skin-vector action-view">
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-PTOptimizer skin-vector action-view vector-animateLayout">
 		
 		
-		<!-- content -->
-		<div id="content" class="mw-body">
+		<div id="content" class="mw-body" role="main">
 			<a id="top"></a>
 			
-						<!-- firstHeading -->
-			<h1 id="firstHeading" class="firstHeading">
-				<span dir="auto">PTOptimizer</span>
-			</h1>
-			<!-- /firstHeading -->
-			<!-- bodyContent -->
-			<div id="bodyContent">
-								<!-- tagline -->
-				<div id="siteSub">From PanoTools.org Wiki</div>
-				<!-- /tagline -->
-								<!-- subtitle -->
-				
-				<!-- /subtitle -->
-																<!-- jumpto -->
-				
-				<!-- /jumpto -->
-								<!-- bodycontent -->
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">PTOptimizer</span></h1>
+						<div id="bodyContent">
+								<div id="siteSub">From PanoTools.org Wiki</div>
+								
+												
 				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><b>PTOptimizer</b> was originally created by Helmut Dersch<a class="external" href="http://wiki.panotools.org/Helmut_Dersch">[*]</a> as part of Panorama Tools<a class="external" href="http://wiki.panotools.org/Panorama_Tools">[*]</a>, it is a simple wrapper program around <a href="Control_points.html" title="Control points">control point</a> optimization routines present in the <a href="Pano12.html" title="Pano12">pano12</a> library.
 </p><p>Source code for the original <b>PTOptimizer</b> was never released, however reconstruction was quite straightforward and a multi-platform version is now included with the <a href="Pano12.html" title="Pano12">pano12</a> library available at <a rel="nofollow" class="external text" href="http://panotools.sf.net/">Sourceforge</a>.
 </p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="PTOptimizer.html#Example_Script"><span class="tocnumber">1</span> <span class="toctext">Example Script</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="PTOptimizer.html#p-line_options"><span class="tocnumber">1.1</span> <span class="toctext">p-line options</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="PTOptimizer.html#i-lines"><span class="tocnumber">1.2</span> <span class="toctext">i-lines</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="PTOptimizer.html#v-line_options"><span class="tocnumber">1.3</span> <span class="toctext">v-line options</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="PTOptimizer.html#m-line_options"><span class="tocnumber">1.4</span> <span class="toctext">m-line options</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="PTOptimizer.html#c-lines"><span class="tocnumber">1.5</span> <span class="toctext">c-lines</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
 
-<h2> <span class="mw-headline" id="Example_Script"> Example Script </span></h2>
+<h2><span class="mw-headline" id="Example_Script">Example Script</span></h2>
 <p>The updated original example script with lots of comments is below.  Copied from <a rel="nofollow" class="external text" href="http://photocreations.ca/panotools/Optimize.txt">Jim Watters' page</a>.
 </p>
 <pre>#############           Example Script                  ##########################
@@ -69,7 +67,7 @@
 # the 'm'-line is optional and allows you to specify modes for the optimization.
 # one 'c'-line for each pair of control points
 </pre>
-<h3> <span class="mw-headline" id="p-line_options"> p-line options </span></h3>
+<h3><span class="mw-headline" id="p-line_options">p-line options</span></h3>
 <pre># 'p'-line options
 # w1000        width in pixels
 # h600         height in pixels (default: width/2)
@@ -135,7 +133,7 @@
 </p>
 <pre>p w800 nPSD_mask -buf
 </pre>
-<h3> <span class="mw-headline" id="i-lines"> i-lines </span></h3>
+<h3><span class="mw-headline" id="i-lines">i-lines</span></h3>
 <pre># The 'i' lines describe input images. One line per image is required
 # unneeded paramiters for optimizing but needed for stitching can be 
 # set here and the optimizer will automaticaly add them to the o lines
@@ -202,7 +200,7 @@
 <pre>i f2 r0      p0    y0     v183    a0 b-0.1 c0  mx400 my400 
 i f2 r-0.5   p1    y182   v=0     a0 b-0.1 c0  mx400 my400 
 </pre>
-<h3> <span class="mw-headline" id="v-line_options"> v-line options </span></h3>
+<h3><span class="mw-headline" id="v-line_options">v-line options</span></h3>
 <pre># 'v'-line options:
 # -----------------
 # Please note: the 'v'-line must come after the the 'i'-lines.
@@ -224,7 +222,7 @@ i f2 r-0.5   p1    y182   v=0     a0 b-0.1 c0  mx400 my400
 </pre>
 <pre>v v0 r0 p0 r1 p1 y1
 </pre>
-<h3> <span class="mw-headline" id="m-line_options"> m-line options </span></h3>
+<h3><span class="mw-headline" id="m-line_options">m-line options</span></h3>
 <pre># 'm'-line options
 # ----------------
 # Set mode for stitcher, not required
@@ -264,7 +262,7 @@ i f2 r-0.5   p1    y182   v=0     a0 b-0.1 c0  mx400 my400
 </pre>
 <pre>m g1.5 i6
 </pre>
-<h3> <span class="mw-headline" id="c-lines"> c-lines </span></h3>
+<h3><span class="mw-headline" id="c-lines">c-lines</span></h3>
 <pre>#
 # 'c' lines
 # ----------------
@@ -294,10 +292,6 @@ Every thing after * is ignored.
 
 
 
-</div>				<!-- /bodycontent -->
-								<!-- printfooter -->
-				<div class="printfooter">
+</div>								<div class="printfooter">
 				Retrieved from "http://wiki.panotools.org/index.php?title=PTOptimizer&amp;oldid=13475<a class="external" href="http://wiki.panotools.org/index.php?title=PTOptimizer&amp;oldid=13475">[*]</a>"				</div>
-				<!-- /printfooter -->
-												<!-- catlinks -->
-				</div></div></body></html>
+												</div></div></body></html>

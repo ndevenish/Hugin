@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" class="client-nojs">
 <head>
-<title>Pano modify - PanoTools.org Wiki</title>
 <meta charset="UTF-8" />
-<meta name="generator" content="MediaWiki 1.19.0" />
+<title>Pano modify - PanoTools.org Wiki</title>
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<meta name="generator" content="MediaWiki 1.23.6" />
 
 
 
@@ -12,39 +13,23 @@
 
 <style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 
-<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
-
-/* cache key: pt_wikidb:resourceloader:filter:minify-css:7:c88e2bcd56513749bec09a7e29cb3ffa */
-</style>
-
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: panotools_wiki:resourceloader:filter:minify-css:7:90730a7865ba4b50e0b837e1821ff0a3 */</style>
 
 
 
 <!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
-<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Pano_modify skin-vector action-view">
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Pano_modify skin-vector action-view vector-animateLayout">
 		
 		
-		<!-- content -->
-		<div id="content" class="mw-body">
+		<div id="content" class="mw-body" role="main">
 			<a id="top"></a>
 			
-						<!-- firstHeading -->
-			<h1 id="firstHeading" class="firstHeading">
-				<span dir="auto">Pano modify</span>
-			</h1>
-			<!-- /firstHeading -->
-			<!-- bodyContent -->
-			<div id="bodyContent">
-								<!-- tagline -->
-				<div id="siteSub">From PanoTools.org Wiki</div>
-				<!-- /tagline -->
-								<!-- subtitle -->
-				
-				<!-- /subtitle -->
-																<!-- jumpto -->
-				
-				<!-- /jumpto -->
-								<!-- bodycontent -->
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Pano modify</span></h1>
+						<div id="bodyContent">
+								<div id="siteSub">From PanoTools.org Wiki</div>
+								
+												
 				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>The program <b>pano_modify</b> allows you to change some output options of a project file on the command line. The same functions can also accessed inside Hugin's GUI on the <a href="Hugin_Stitcher_tab.html" title="Hugin Stitcher tab">hugin Stitcher tab</a> or in the <a href="Hugin_Fast_Preview_window.html" title="Hugin Fast Preview window">hugin Fast Preview window</a>.
 </p><p>You have to give at least an input project file:
 </p>
@@ -54,37 +39,105 @@
 </p>
 <pre>  pano_modify -c --crop=AUTO --output=output.pto input.pto
 </pre>
-<h2> <span class="mw-headline" id="Options"> Options </span></h2>
-<ul><li> <tt>-o, --output=file.pto</tt>: Writes the output to the given project file. If this parameter is not given the suffix _mod is added to the given input project.
-</li><li> <tt>-p, --projection=x</tt>: Sets the output projection to the projection with number x.
-</li><li> <tt>--fov=AUTO|HFOV|HFOVxVFOV</tt>: Sets output field of view. Following arguments are possible
-<ul><li> AUTO: calculates optimal fov.
-</li><li> HFOV: set hfov to given hfov (If output projection has coupled hfov and vfov, vfov is automatic changed).
-</li><li> HFOVxVFOV: set to given hfov and vfov.
-</li></ul>
-</li><li><tt>-s, --straighten</tt>: Straightens the panorama.
-</li><li><tt>-c, --center</tt>: Centers the panorama.
-</li><li> <tt>--canvas=AUTO|num%|WIDTHxHEIGHT</tt>:  Sets the output canvas size
-<ul><li> AUTO: calculate optimal canvas size
-</li><li> num%: scales the optimal canvas size by the given percent value, e.g. <tt>--canvas=70%</tt> will scale the image to 70&#160;% of the optimal size.
-</li><li> WIDTHxHEIGHT: set to given size
-</li></ul>
-</li><li> <tt>--crop=AUTO|AUTOHDR|left,right,top,bottom</tt>:  Sets the crop rectangle for the output
-<ul><li> AUTO: performs an autocrop to the maximal possible size of the panorama
-</li><li> AUTOHDR: performs a HDR autocrop to the maximal possible size covered by all exposures
-</li><li> left,right,top,bottom: sets the crop to the given size
-</li></ul>
-</li><li> <tt>--rotate=yaw,pitch,roll</tt> rotate the panorama by the given angles
-</li><li> <tt>--translate=x,y,z</tt> translate the panorama by the given distances
-</li></ul>
+<h2><span class="mw-headline" id="Options">Options</span></h2>
+<ul>
+<li> <tt>-o, --output=file.pto</tt>: Writes the output to the given project file. If this parameter is not given the suffix _mod is added to the given input project.
+</li>
+<li> <tt>-p, --projection=x</tt>: Sets the output projection to the projection with number x.
+</li>
+<li> <tt>--fov=AUTO|HFOV|HFOVxVFOV</tt>: Sets output field of view. Following arguments are possible
+<ul>
+<li> <tt>AUTO</tt>: calculates optimal fov.
+</li>
+<li> HFOV: set hfov to given hfov (If output projection has coupled hfov and vfov, vfov is automatic changed).
+</li>
+<li> HFOVxVFOV: set to given hfov and vfov.
+</li>
+</ul>
+</li>
+<li><tt>-s, --straighten</tt>: Straightens the panorama.
+</li>
+<li><tt>-c, --center</tt>: Centers the panorama.
+</li>
+<li> <tt>--canvas=AUTO|num%|WIDTHxHEIGHT</tt>:  Sets the output canvas size
+<ul>
+<li> <tt>AUTO</tt>: calculate optimal canvas size
+</li>
+<li> num%: scales the optimal canvas size by the given percent value, e.g. <tt>--canvas=70%</tt> will scale the image to 70&#160;% of the optimal size.
+</li>
+<li> WIDTHxHEIGHT: set to given size
+</li>
+</ul>
+</li>
+<li> <tt>--crop=AUTO|AUTOHDR|left,right,top,bottom</tt>:  Sets the crop rectangle for the output
+<ul>
+<li> <tt>AUTO</tt>: performs an autocrop to the maximal possible size of the panorama
+</li>
+<li> <tt>AUTOHDR</tt>: performs a HDR autocrop to the maximal possible size covered by all exposures
+</li>
+<li> left,right,top,bottom: sets the crop to the given size
+</li>
+</ul>
+</li>
+<li> <tt>--output-exposure=AUTO|value</tt>: Sets the output exposure of the panorama
+<ul>
+<li> <tt>AUTO</tt>: set output exposure to mean exposure of all images
+</li>
+<li> value: set output exposure to given value
+</li>
+</ul>
+</li>
+<li> <tt>--output-type=str</tt>: Activates the output of the given items. This switch can be given several times or several items in one switch can be separated by a comma.
+<ul>
+<li> <tt>NORMAL|N</tt>: normal panorama
+</li>
+<li> <tt>STACKSFUSEDBLENDED|BF</tt>: LDR panorama with blended stacks
+</li>
+<li> <tt>EXPOSURELAYERSFUSED|FB</tt>: LDR panorama with fused exposure layers (any arrangement)
+</li>
+<li> <tt>HDR</tt>: HDR panorama
+</li>
+<li> <tt>REMAP</tt>: remapped images with corrected exposure
+</li>
+<li> <tt>REMAPORIG</tt>: remapped images with uncorrected exposure
+</li>
+<li> <tt>HDRREMAP</tt>: remapped images in linear color space
+</li>
+<li> <tt>FUSEDSTACKS</tt>: exposure fused stacks
+</li>
+<li> <tt>HDRSTACKS</tt>: HDR stacks
+</li>
+<li> <tt>EXPOSURELAYERS</tt>: blended exposure layers
+</li>
+</ul>
+</li>
+<li> <tt>--ldr-file=JPG|TIF|PNG</tt>: Sets the filetype for LDR panorama output
+</li>
+<li> <tt>--ldr-compression=str</tt>: Sets the compression for LDR panorama output
+<ul>
+<li> For TIF files the following compressions are supported: <tt>NONE|PACKBITS|LZW|DEFLATE</tt>
+</li>
+<li> For JPG files the quality as number is expected
+</li>
+</ul>
+</li>
+<li> <tt>--hdr-file=EXR|TIF</tt>: Sets the filetype for HDR panorama output
+</li>
+<li> <tt>--hdr-compression=str</tt>: Sets the compression for HDR panorama output
+<ul>
+<li> For TIF files the following compressions are supported: <tt>NONE|PACKBITS|LZW|DEFLATE</tt>
+</li>
+</ul>
+</li>
+<li> <tt>--rotate=yaw,pitch,roll</tt> rotate the panorama by the given angles
+</li>
+<li> <tt>--translate=x,y,z</tt> translate the panorama by the given distances
+</li>
+</ul>
 
 
 
 
-</div>				<!-- /bodycontent -->
-								<!-- printfooter -->
-				<div class="printfooter">
-				Retrieved from "http://wiki.panotools.org/index.php?title=Pano_modify&amp;oldid=15426<a class="external" href="http://wiki.panotools.org/index.php?title=Pano_modify&amp;oldid=15426">[*]</a>"				</div>
-				<!-- /printfooter -->
-												<!-- catlinks -->
-				</div></div></body></html>
+</div>								<div class="printfooter">
+				Retrieved from "http://wiki.panotools.org/index.php?title=Pano_modify&amp;oldid=15626<a class="external" href="http://wiki.panotools.org/index.php?title=Pano_modify&amp;oldid=15626">[*]</a>"				</div>
+												</div></div></body></html>

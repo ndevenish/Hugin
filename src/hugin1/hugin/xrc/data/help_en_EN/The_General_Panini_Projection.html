@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" class="client-nojs">
 <head>
-<title>The General Panini Projection - PanoTools.org Wiki</title>
 <meta charset="UTF-8" />
-<meta name="generator" content="MediaWiki 1.19.0" />
+<title>The General Panini Projection - PanoTools.org Wiki</title>
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<meta name="generator" content="MediaWiki 1.23.6" />
 
 
 
@@ -12,47 +13,45 @@
 
 <style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 
-<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
-
-/* cache key: pt_wikidb:resourceloader:filter:minify-css:7:c88e2bcd56513749bec09a7e29cb3ffa */
-</style>
-
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: panotools_wiki:resourceloader:filter:minify-css:7:90730a7865ba4b50e0b837e1821ff0a3 */</style>
 
 
 
 <!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
-<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-The_General_Panini_Projection skin-vector action-view">
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-The_General_Panini_Projection skin-vector action-view vector-animateLayout">
 		
 		
-		<!-- content -->
-		<div id="content" class="mw-body">
+		<div id="content" class="mw-body" role="main">
 			<a id="top"></a>
 			
-						<!-- firstHeading -->
-			<h1 id="firstHeading" class="firstHeading">
-				<span dir="auto">The General Panini Projection</span>
-			</h1>
-			<!-- /firstHeading -->
-			<!-- bodyContent -->
-			<div id="bodyContent">
-								<!-- tagline -->
-				<div id="siteSub">From PanoTools.org Wiki</div>
-				<!-- /tagline -->
-								<!-- subtitle -->
-				
-				<!-- /subtitle -->
-																<!-- jumpto -->
-				
-				<!-- /jumpto -->
-								<!-- bodycontent -->
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">The General Panini Projection</span></h1>
+						<div id="bodyContent">
+								<div id="siteSub">From PanoTools.org Wiki</div>
+								
+												
 				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>The general Panini projection is
 an adjustable projection that can render convincing simulated perspective views of scenes up to 150 degrees wide, or even wider in some cases.  It was first implemented in early 2009 in the panorama viewer, Panini, and in limited form in the panotools library.  This page describes the improved version that was added to the panotools library in January 2010, and to PTStitcherNG in February 2010. 
 </p><p>The Pannini projection is a cylindrical projection, so it keeps vertical straight lines straight and vertical.  Unlike other cylindrical projections, it keeps radial lines through image center straight as well.  Those two kinds of straight lines are the most important perspective cues in many scenes, so a Pannini view often resembles a normal rectilinear perspective.  But the horizontal field of view can be very wide, without the peripheral distortion (stretching) that is so noticeable when a rectilinear perspective is pushed too far.
 </p><p>The general Panini projection is suitable for architectural subjects, especially interiors.  It works best for views with a single central vanishing point -- straight down a city street, or the aisle of a church, for example.  However it is good for oblique interior and street views too.  It can make nice city-scapes, but is not suitable for close-up exterior views of buildings, especially when looking toward a corner of the building.
 </p><p>For best results the general Panini projection should be used interactively: you adjust the control parameters until the image looks just right.  The 'fast' preview window in the 2010 version of Hugin works well for that most of the time but has a few problems.  However, it is possible to get equally good results with the 'slow' preview window, and with experience, even with scripts for the command line tools, PTStitcherNG or PTmender.
 </p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="The_General_Panini_Projection.html#Geometrical_Description"><span class="tocnumber">1</span> <span class="toctext">Geometrical Description</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="The_General_Panini_Projection.html#Parameters"><span class="tocnumber">2</span> <span class="toctext">Parameters</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="The_General_Panini_Projection.html#Applications"><span class="tocnumber">3</span> <span class="toctext">Applications</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="The_General_Panini_Projection.html#Distortionless_Wide-Angle_Photos"><span class="tocnumber">3.1</span> <span class="toctext">Distortionless Wide-Angle Photos</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="The_General_Panini_Projection.html#Perspective_Views_from_Fish-Eye_Photos"><span class="tocnumber">3.2</span> <span class="toctext">Perspective Views from Fish-Eye Photos</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="The_General_Panini_Projection.html#Very_Wide_and_Ultra-Wide_Views_from_Panoramas"><span class="tocnumber">3.3</span> <span class="toctext">Very Wide and Ultra-Wide Views from Panoramas</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="The_General_Panini_Projection.html#Software_Versions"><span class="tocnumber">4</span> <span class="toctext">Software Versions</span></a></li>
+</ul>
+</div>
 
-<h2> <span class="mw-headline" id="Geometrical_Description"> Geometrical Description </span></h2>
+<h2><span class="mw-headline" id="Geometrical_Description">Geometrical Description</span></h2>
 <div class="thumb tright"><div class="thumbinner" style="width:402px;"><img alt="" src="400px-220x120deg-panini-grid.png" width="400" height="243" class="thumbimage" /><a class="external" href="http://wiki.panotools.org/File:220x120deg-panini-grid.png">[*]</a>  <div class="thumbcaption"><div class="magnify"><img src="magnify-clip.png" width="15" height="11" alt="" /><a class="external" href="http://wiki.panotools.org/File:220x120deg-panini-grid.png">[*]</a></div>Standard Panini projection, 10 degree intervals</div></div></div>
 <p>The basic Panini projection -- the cylindrical stereographic projection -- renders vertical, horizontal and radial straight lines as shown in the diagram at right.  Verticals are straight, a prerequisite for any perspective view.  Radial lines through the view center are also straight. That creates a convincing perspective illusion when there is a vanishing point at or near view center.  But horizontal straight lines are curves, with the strongest curvature in the middle of the image. That makes many images seem to 'bulge' at top and bottom center.  
 </p><p>The general Panini adds two adjustable parameters to the basic projection.  One sets the horizontal angle compression, so the projection can vary smoothly from rectilinear to a highly condensed form.  The other reduces the curvature of horizontal lines.  This can make many central perspectives look more natural, and can also improve the perspective illusion when the vanishing point is off-center.  We call this a 'squeeze' parameter because early implementations actually compressed the middle of the image; current versions stretch the sides instead.  The adjustment is purely vertical so that verticals remain straight. There are actually separate squeeze parameters for the top and bottom halves of the image.
@@ -60,28 +59,28 @@ an adjustable projection that can render convincing simulated perspective views 
 </p><p>For more detailed technical and historical information, visit <a rel="nofollow" class="external free" href="http://vedutismo.net/Pannini/">http://vedutismo.net/Pannini/</a>.
 </p><p><br style="clear:both;" />
 </p>
-<h2> <span class="mw-headline" id="Parameters"> Parameters </span></h2>
+<h2><span class="mw-headline" id="Parameters">Parameters</span></h2>
 <p>The general Panini projection is controlled by three parameters.  
 </p><p>The main parameter, called compression and labelled 'Cmpr' in the hugin previews, has a range of 0 to 150 (you can think of that as percent).  It adjusts the form of the projection between the completely uncompressed rectilinear projection (Cmpr = 0) and the maximally compressed cylindrical orthographic projection (Cmpr = 150) with the standard Pannini (cylindrical stereographic) projection at Cmpr = 100.  
 </p><p>The maximum horizontal field of view varies with compression, from 160 degrees at Cmpr = 0 to 320 degrees at Cmpr = 100, then back to 180 degrees at Cmpr = 150.  Hugin's FOV sliders automatically respect these limits.  If you enter an infeasible hfov value in a script (for PTmender, for example) the actual field of view will be the largest feasible value.
 </p><p>Two secondary parameters, labeled 'Tops' and 'Bots', control vertical squeeze adjustments applied to the top and bottom halves of the image, for the purpose of reducing the curvature of horizontal lines.  These have a range of -100 to 100.  There is no squeeze when the parameter is zero.  Positive values invoke a 'hard' squeeze, that can exactly straighten horizontal lines, but only over a limited range of about 160 degrees.  Negative values invoke a 'soft' squeeze that works for wider fields of view but cannot eliminate all curvature.
 </p>
-<h2> <span class="mw-headline" id="Applications"> Applications </span></h2>
-<h3> <span class="mw-headline" id="Distortionless_Wide-Angle_Photos"> Distortionless Wide-Angle Photos </span></h3>
+<h2><span class="mw-headline" id="Applications">Applications</span></h2>
+<h3><span class="mw-headline" id="Distortionless_Wide-Angle_Photos">Distortionless Wide-Angle Photos</span></h3>
 <div class="thumb tright"><div class="thumbinner" style="width:252px;"><img alt="" src="250px-TKS-Mmm-obliquev120-recti.png" width="250" height="167" class="thumbimage" /><a class="external" href="http://wiki.panotools.org/File:TKS-Mmm-obliquev120-recti.png">[*]</a>  <div class="thumbcaption"><div class="magnify"><img src="magnify-clip.png" width="15" height="11" alt="" /><a class="external" href="http://wiki.panotools.org/File:TKS-Mmm-obliquev120-recti.png">[*]</a></div>Rectilinear, hfov 120 deg.</div></div></div>
 <div class="thumb tleft"><div class="thumbinner" style="width:252px;"><img alt="" src="250px-TKS-Mmm-obliquev120-gP70_50_50.png" width="250" height="167" class="thumbimage" /><a class="external" href="http://wiki.panotools.org/File:TKS-Mmm-obliquev120-gP70_50_50.png">[*]</a>  <div class="thumbcaption"><div class="magnify"><img src="magnify-clip.png" width="15" height="11" alt="" /><a class="external" href="http://wiki.panotools.org/File:TKS-Mmm-obliquev120-gP70_50_50.png">[*]</a></div>Panini(70,50,50), hfov 120 deg.</div></div></div>
 <p>One of the best uses of the general Panini projection is simulating rectilinear perspective, without peripheral distortion, on fields of view typical of wide angle to super-wide angle camera lenses, say in the range of 75 to 120 degrees.  A compression well under 100 is usually enough, plus a hard squeeze to straighten prominent transverse lines.  The appropriate squeeze strength depends on the inclination of those lines:  100% if they are horizontal, less as the slope increases.  
 </p><p>Compare the shapes of the rose window (and other features) in the mild Panini perspective at left and the true rectilinear one at right.
 </p><p><br style="clear:both;" />
 </p>
-<h3> <span class="mw-headline" id="Perspective_Views_from_Fish-Eye_Photos"> Perspective Views from Fish-Eye Photos </span></h3>
+<h3><span class="mw-headline" id="Perspective_Views_from_Fish-Eye_Photos">Perspective Views from Fish-Eye Photos</span></h3>
 <div class="thumb tleft"><div class="thumbinner" style="width:252px;"><img alt="" src="250px-LagardePont-defish.jpg" width="250" height="213" class="thumbimage" /><a class="external" href="http://wiki.panotools.org/File:LagardePont-defish.jpg">[*]</a>  <div class="thumbcaption"><div class="magnify"><img src="magnify-clip.png" width="15" height="11" alt="" /><a class="external" href="http://wiki.panotools.org/File:LagardePont-defish.jpg">[*]</a></div>Panini view</div></div></div>
 <div class="thumb tright"><div class="thumbinner" style="width:182px;"><img alt="" src="180px-LagardePont-fish.jpg" width="180" height="181" class="thumbimage" /><a class="external" href="http://wiki.panotools.org/File:LagardePont-fish.jpg">[*]</a>  <div class="thumbcaption"><div class="magnify"><img src="magnify-clip.png" width="15" height="11" alt="" /><a class="external" href="http://wiki.panotools.org/File:LagardePont-fish.jpg">[*]</a></div>Fisheye snapshot</div></div></div>
 <p>Hugin with the general Panini projection is an excellent 'de-fishing' tool.  Load a fisheye photo, adjust pitch and roll angles to align the true vertical with the vertical axis of the view, then adjust the general Panini parameters for a pleasing perspective -- anything from rectilinear to highly compressed and squeezed.  Note that you can adjust pitch and roll by dragging in the fast preview window.
 </p><p>If vertical lines look curved, you should adjust the lens focal length or FOV until they are straight.  Temporarily switching to the rectilinear projection may make it easier to do this.  The curvature results when the panotools lens model does not match the actual projection function of your lens. Adjusting the fov provides a first order correction that is usually 'close enough'; but for even better results, you could set the lens fov and a,b,c distortion parameters to values that were optimized on a well-aligned spherical panorama made with the same lens.
 </p><p><br style="clear:both;" />
 </p>
-<h3> <span class="mw-headline" id="Very_Wide_and_Ultra-Wide_Views_from_Panoramas"> Very Wide and Ultra-Wide Views from Panoramas </span></h3>
+<h3><span class="mw-headline" id="Very_Wide_and_Ultra-Wide_Views_from_Panoramas">Very Wide and Ultra-Wide Views from Panoramas</span></h3>
 <div class="floatright"><img alt="Pantheon-150x100-rect-panini.jpg" src="360px-Pantheon-150x100-rect-panini.jpg" width="360" height="405" /><a class="external" href="http://wiki.panotools.org/File:Pantheon-150x100-rect-panini.jpg">[*]</a></div>
 <p>With a panorama as the source image, the general Panini projection can be used like any other projection to render views in various directions.  However it is best for views where the line of sight is not tilted up or down.  It is important to align the vertical direction carefully in "roll" as well.  Both pitch and roll alignment can be done by dragging the image in Hugin's fast preview window.  To get a perfectly framed view, it may be necessary to render oversize and crop later.
 </p><p>The image at right compares rectilinear (top) and general Pannini (bottom) projections of a panoramic view 150 degrees wide by 100 degrees high in the Pantheon (Rome), a large, perfectly circular space.  The point of view here is well away from the middle of the room.  Notice how the Pannini perspective both magnifies the center, so that people in the middle look closer, and condenses the periphery, so that people near the edges have more natural shapes -- for example, the man taking a picture at far right.  A 50 percent "soft squeeze" has been applied at both top and bottom to improve the perspective of the floor and dome.
@@ -89,7 +88,7 @@ an adjustable projection that can render convincing simulated perspective views 
 </p><p><br style="clear:both;" />
 </p>
 <div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:802px;"><img alt="" src="800px-C_Marchi-GrandCentral-adj.jpg" width="800" height="264" class="thumbimage" /><a class="external" href="http://wiki.panotools.org/File:C_Marchi-GrandCentral-adj.jpg">[*]</a>  <div class="thumbcaption"><div class="magnify"><img src="magnify-clip.png" width="15" height="11" alt="" /><a class="external" href="http://wiki.panotools.org/File:C_Marchi-GrandCentral-adj.jpg">[*]</a></div>Grand Central Terminal by Cristian Marchi; Panini projection, hFOV 220 degrees</div></div></div></div>
-<h2> <span class="mw-headline" id="Software_Versions"> Software Versions </span></h2>
+<h2><span class="mw-headline" id="Software_Versions">Software Versions</span></h2>
 <p>Your libpano13 and hugin must have been built after 20 January 2010, from panotools source version SVN 1237 or later and hugin source version SVN 4920 or later.  You have to build pre-release versions, or download them from a test builder's site, as the first official 2010 release of Hugin does not include the general Panini projection.  You can get a self installing Win32 binary at <a rel="nofollow" class="external free" href="http://tksharpless.net">http://tksharpless.net</a> [click 'Panoramic Software', then double-click 'hugin-2010.1.0.4920.exe'.  Running this creates a new self contained installation that won't interfere with any existing installation.]
 </p><p>In the first versions of hugin that support the general Panini projection, the 'fast' preview window sometimes has trouble displaying general Panini views, usually parts go black, occasionally it shows an apparently complete but incorrect view. The 'slow' preview window shows the true view in all cases; use it if the fast preview display seems garbled or unreliable.
 </p><p>Helmut Dersch's PTStitcherNG implements the general Panini projection just like libpano13.  It only runs from scripts and provides no interactive preview; however it is so fast that an iterative adjustment of the script parameters is feasible.
@@ -98,10 +97,6 @@ an adjustable projection that can render convincing simulated perspective views 
 
 
 
-</div>				<!-- /bodycontent -->
-								<!-- printfooter -->
-				<div class="printfooter">
+</div>								<div class="printfooter">
 				Retrieved from "http://wiki.panotools.org/index.php?title=The_General_Panini_Projection&amp;oldid=12483<a class="external" href="http://wiki.panotools.org/index.php?title=The_General_Panini_Projection&amp;oldid=12483">[*]</a>"				</div>
-				<!-- /printfooter -->
-												<!-- catlinks -->
-				</div></div></body></html>
+												</div></div></body></html>

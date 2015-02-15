@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" class="client-nojs">
 <head>
-<title>Nona - PanoTools.org Wiki</title>
 <meta charset="UTF-8" />
-<meta name="generator" content="MediaWiki 1.19.0" />
+<title>Nona - PanoTools.org Wiki</title>
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<meta name="generator" content="MediaWiki 1.23.6" />
 
 
 
@@ -12,68 +13,61 @@
 
 <style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 
-<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
-
-/* cache key: pt_wikidb:resourceloader:filter:minify-css:7:c88e2bcd56513749bec09a7e29cb3ffa */
-</style>
-
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: panotools_wiki:resourceloader:filter:minify-css:7:90730a7865ba4b50e0b837e1821ff0a3 */</style>
 
 
 
 <!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
-<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Nona skin-vector action-view">
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Nona skin-vector action-view vector-animateLayout">
 		
 		
-		<!-- content -->
-		<div id="content" class="mw-body">
+		<div id="content" class="mw-body" role="main">
 			<a id="top"></a>
 			
-						<!-- firstHeading -->
-			<h1 id="firstHeading" class="firstHeading">
-				<span dir="auto">Nona</span>
-			</h1>
-			<!-- /firstHeading -->
-			<!-- bodyContent -->
-			<div id="bodyContent">
-								<!-- tagline -->
-				<div id="siteSub">From PanoTools.org Wiki</div>
-				<!-- /tagline -->
-								<!-- subtitle -->
-				
-				<!-- /subtitle -->
-																<!-- jumpto -->
-				
-				<!-- /jumpto -->
-								<!-- bodycontent -->
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Nona</span></h1>
+						<div id="bodyContent">
+								<div id="siteSub">From PanoTools.org Wiki</div>
+								
+												
 				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><b>nona</b>
 is a drop-in replacement for <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a> and is part of <a href="Hugin.html" title="Hugin">Hugin</a>.
 </p><p>Like PTStitcher and <a href="PTmender.html" title="PTmender">PTmender</a>, nona performs geometrical and photometric distortions on photos and writes the output to image files.  The parameters are specified in a .pto project file, i.e. nona doesn't decide what the distortions are going to be, it just does the <i>remapping</i> part of the stitching process. The format of the project file is documented here: <a href="PTStitcher.html#Example_Script" title="PTStitcher">PTStitcher Example_Script</a>, with an older version here: <a rel="nofollow" class="external free" href="http://hugin.sourceforge.net/docs/nona/nona.txt">http://hugin.sourceforge.net/docs/nona/nona.txt</a>.
 </p>
-<h2> <span class="mw-headline" id="Advantages"> Advantages </span></h2>
-<ul><li> Unlike <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a>, <b>nona</b> has full source-code availability, this means that it can be used on many more platforms such as OS X, Linux x86_64, linux powerpc, Solaris and IRIX.
-</li><li> When set to use <a href="Cropped_TIFF.html" title="Cropped TIFF">cropped TIFF</a> output, <b>nona</b> doesn't perform expensive transformation calculations for unused areas of output images.  For panoramas consisting of many source photos this can speed things up greatly.
-</li><li> <b>nona</b> implements <a href="Vignetting.html" title="Vignetting">vignetting</a>, white-balance, brightness and <a href="Camera_response_curve.html" title="Camera response curve">camera response curve</a> correction at the stitching stage.
-</li><li> multi-threaded processing uses as many CPUs as are available.
-</li><li> nona supports <a href="HDR.html" title="HDR">HDR</a> images for input and output.
-</li><li> nona supports GPU stitching with graphics hardware
-</li><li> nona can merge 8bit low dynamic range <a href="Bracketing.html" title="Bracketing">bracketed</a> shots into <b>HDR</b> output.
-</li></ul>
-<h2> <span class="mw-headline" id="Disadvantages"> Disadvantages </span></h2>
+<h2><span class="mw-headline" id="Advantages">Advantages</span></h2>
+<ul>
+<li> Unlike <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a>, <b>nona</b> has full source-code availability, this means that it can be used on many more platforms such as OS X, Linux x86_64, linux powerpc, Solaris and IRIX.
+</li>
+<li> When set to use <a href="Cropped_TIFF.html" title="Cropped TIFF">cropped TIFF</a> output, <b>nona</b> doesn't perform expensive transformation calculations for unused areas of output images.  For panoramas consisting of many source photos this can speed things up greatly.
+</li>
+<li> <b>nona</b> implements <a href="Vignetting.html" title="Vignetting">vignetting</a>, white-balance, brightness and <a href="Camera_response_curve.html" title="Camera response curve">camera response curve</a> correction at the stitching stage.
+</li>
+<li> multi-threaded processing uses as many CPUs as are available.
+</li>
+<li> nona supports <a href="HDR.html" title="HDR">HDR</a> images for input and output.
+</li>
+<li> nona supports GPU stitching with graphics hardware
+</li>
+<li> nona can merge 8bit low dynamic range <a href="Bracketing.html" title="Bracketing">bracketed</a> shots into <b>HDR</b> output.
+</li>
+</ul>
+<h2><span class="mw-headline" id="Disadvantages">Disadvantages</span></h2>
 <p>(Note: this is the situation as of May 2007, please correct this page if you know this has changed)
 </p>
-<ul><li> Morph to fit<a class="external" href="http://wiki.panotools.org/index.php?title=Morph_to_fit&amp;action=edit&amp;redlink=1">[*]</a> control points are not supported.
-</li><li> It doesn't yet support the <i>fast transformation</i> option added to <a href="Pano12.html" title="Pano12">pano12</a> by Fulvio Senore<a class="external" href="http://wiki.panotools.org/Fulvio_Senore">[*]</a>.
-</li><li> It doesn't support the adaptive filtersize anti-<a href="Aliasing.html" title="Aliasing">aliasing</a> filters added to pano12-2.7.0.11
-</li><li> It doesn't support C-type cropping<a class="external" href="http://wiki.panotools.org/Panotools_internals#Cropping">[*]</a> and hence is not compatible with other GUI front-ends<a class="external" href="http://wiki.panotools.org/GUI_front-ends">[*]</a> than <a href="Hugin.html" title="Hugin">hugin</a> if used for images that need cropping (like circular fisheye or scanned ones).
-</li></ul>
+<ul>
+<li> Morph to fit<a class="external" href="http://wiki.panotools.org/index.php?title=Morph_to_fit&amp;action=edit&amp;redlink=1">[*]</a> control points are not supported.
+</li>
+<li> It doesn't yet support the <i>fast transformation</i> option added to <a href="Pano12.html" title="Pano12">pano12</a> by Fulvio Senore<a class="external" href="http://wiki.panotools.org/Fulvio_Senore">[*]</a>.
+</li>
+<li> It doesn't support the adaptive filtersize anti-<a href="Aliasing.html" title="Aliasing">aliasing</a> filters added to pano12-2.7.0.11
+</li>
+<li> It doesn't support C-type cropping<a class="external" href="http://wiki.panotools.org/Panotools_internals#Cropping">[*]</a> and hence is not compatible with other GUI front-ends<a class="external" href="http://wiki.panotools.org/GUI_front-ends">[*]</a> than <a href="Hugin.html" title="Hugin">hugin</a> if used for images that need cropping (like circular fisheye or scanned ones).
+</li>
+</ul>
 
 
 
 
-</div>				<!-- /bodycontent -->
-								<!-- printfooter -->
-				<div class="printfooter">
+</div>								<div class="printfooter">
 				Retrieved from "http://wiki.panotools.org/index.php?title=Nona&amp;oldid=15560<a class="external" href="http://wiki.panotools.org/index.php?title=Nona&amp;oldid=15560">[*]</a>"				</div>
-				<!-- /printfooter -->
-												<!-- catlinks -->
-				</div></div></body></html>
+												</div></div></body></html>

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" class="client-nojs">
 <head>
-<title>Hugin Stitcher tab - PanoTools.org Wiki</title>
 <meta charset="UTF-8" />
-<meta name="generator" content="MediaWiki 1.19.0" />
+<title>Hugin Stitcher tab - PanoTools.org Wiki</title>
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<meta name="generator" content="MediaWiki 1.23.6" />
 
 
 
@@ -12,83 +13,96 @@
 
 <style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 
-<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
-
-/* cache key: pt_wikidb:resourceloader:filter:minify-css:7:c88e2bcd56513749bec09a7e29cb3ffa */
-</style>
-
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: panotools_wiki:resourceloader:filter:minify-css:7:90730a7865ba4b50e0b837e1821ff0a3 */</style>
 
 
 
 <!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
-<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Hugin_Stitcher_tab skin-vector action-view">
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Hugin_Stitcher_tab skin-vector action-view vector-animateLayout">
 		
 		
-		<!-- content -->
-		<div id="content" class="mw-body">
+		<div id="content" class="mw-body" role="main">
 			<a id="top"></a>
 			
-						<!-- firstHeading -->
-			<h1 id="firstHeading" class="firstHeading">
-				<span dir="auto">Hugin Stitcher tab</span>
-			</h1>
-			<!-- /firstHeading -->
-			<!-- bodyContent -->
-			<div id="bodyContent">
-								<!-- tagline -->
-				<div id="siteSub">From PanoTools.org Wiki</div>
-				<!-- /tagline -->
-								<!-- subtitle -->
-				
-				<!-- /subtitle -->
-																<!-- jumpto -->
-				
-				<!-- /jumpto -->
-								<!-- bodycontent -->
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Hugin Stitcher tab</span></h1>
+						<div id="bodyContent">
+								<div id="siteSub">From PanoTools.org Wiki</div>
+								
+												
 				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>The rest of <a href="Hugin.html" title="Hugin">hugin</a> is all about setting up the project and aligning images, the <b>Stitcher</b> tab is where
 the final output file is created.
 </p>
-<h1> <span class="mw-headline" id="Projection"> Projection </span></h1>
+<h1><span class="mw-headline" id="Projection">Projection</span></h1>
 <p>Here you can set the output <b><a href="Projections.html" title="Projections">Projection</a></b> of your project, there are lots
 to choose from, each with different advantages and disadvantages:
 </p>
-<ul><li> <a href="Rectilinear_Projection.html" title="Rectilinear Projection">Rectilinear</a>, this is the same projection as a photo taken with a 'normal' camera and lens.  Use this if you are just stitching a handful of photographs together with a narrow <a href="Field_of_View.html" title="Field of View">Field of View</a> or <a href="Perspective_correction.html" title="Perspective correction">correcting perspective</a> in a single shot.
-</li><li> <a href="Cylindrical_Projection.html" title="Cylindrical Projection">Cylindrical</a>, actually a simple <a href="Cylindrical_Projection.html" title="Cylindrical Projection">Cylindrical Projection</a> as used by traditional rotating panoramic cameras.  A good projection for printing a 360 degree panorama, though you may prefer <i>Mercator Projection</i>.
-</li><li> <a href="Equirectangular_Projection.html" title="Equirectangular Projection">Equirectangular</a>, the all purpose format for representing an entire spherical scene.  It covers 360 degrees horizontally as well as the <a href="Zenith.html" title="Zenith">zenith</a> and <a href="Nadir.html" title="Nadir">nadir</a>.
-</li><li> <a href="Fisheye_Projection.html" title="Fisheye Projection">Fisheye</a>, the same projection as a photo taken with a <i>fisheye lens</i>.  Better for representing a wide <a href="Field_of_View.html" title="Field of View">Field of View</a> than <i>rectilinear</i>, but in many cases <i>Stereographic Projection</i> gives less distortion than simple <i>fisheye</i>.
-</li><li> <a href="Stereographic_Projection.html" title="Stereographic Projection">Stereographic</a>, a <i>conformal</i> fisheye image.  Objects in a stereographic image keep the same shape and show less distortion than simple <i>fisheye</i>.
-</li><li> <a href="Projections.html#mercator_projection" title="Projections">Mercator</a>, a <i>conformal</i> cylindrical image.  A good projection for printing a 360 degree panorama.
-</li><li> <a href="Projections.html#Transverse_mercator_projection" title="Projections">Trans Mercator</a>, a <i>mercator</i> image rotated 90 degrees, suitable for displaying tall or overhead objects.
-</li><li> <a href="Projections.html#sinusoidal_projection" title="Projections">Sinusoidal</a>, an <i>equal area</i> projection of an entire spherical scene.
-</li><li> Lambert Cylindrical Equal Area<a class="external" href="http://wiki.panotools.org/index.php?title=Lambert_Equal_Area_Cylindrical_Projection&amp;action=edit&amp;redlink=1">[*]</a>
-</li><li> Lambert Equal Area Azimuthal<a class="external" href="http://wiki.panotools.org/index.php?title=Lambert_Equal_Area_Azimuthal_Projection&amp;action=edit&amp;redlink=1">[*]</a>
-</li><li> Albers Equal Area Conic<a class="external" href="http://wiki.panotools.org/index.php?title=Albers_Equal_Area_Conic_Projection&amp;action=edit&amp;redlink=1">[*]</a>
-</li><li> Miller Cylindrical<a class="external" href="http://wiki.panotools.org/index.php?title=Miller_Cylindrical_Projection&amp;action=edit&amp;redlink=1">[*]</a>
-</li><li> <a href="Panini.html" title="Panini">Panini</a>
-</li><li> Architectural<a class="external" href="http://wiki.panotools.org/index.php?title=Architectural&amp;action=edit&amp;redlink=1">[*]</a>
-</li><li> <a href="Fisheye_Projection.html" title="Fisheye Projection">Orthographic</a>
-</li><li> <a href="Fisheye_Projection.html" title="Fisheye Projection">Equisolid</a>
-</li><li> <a href="Equirectangular_Panini.html" title="Equirectangular Panini">Equirectangular Panini</a>
-</li><li> Biplane<a class="external" href="http://wiki.panotools.org/index.php?title=Biplane&amp;action=edit&amp;redlink=1">[*]</a>
-</li><li> Triplane<a class="external" href="http://wiki.panotools.org/index.php?title=Triplane&amp;action=edit&amp;redlink=1">[*]</a>
-</li><li> <a href="The_General_Panini_Projection.html" title="The General Panini Projection">Panini General</a>
-</li><li> <a href="Fisheye_Projection.html" title="Fisheye Projection">Thoby Projection</a>, is modeling the 10.5 mm Nikkor fisheye lens and was introduced with <a rel="nofollow" class="external text" href="http://hugin.sourceforge.net/releases/2011.0.0/en.shtml">hugin 2011.0.0</a>. The projection is called after Michel Thoby who was able to empirically find it.
-</li><li> Hammer-Aitoff Equal Area Projection
-</li></ul>
-<h1> <span class="mw-headline" id="Field_of_View"> Field of View </span></h1>
+<ul>
+<li> <a href="Rectilinear_Projection.html" title="Rectilinear Projection">Rectilinear</a>, this is the same projection as a photo taken with a 'normal' camera and lens.  Use this if you are just stitching a handful of photographs together with a narrow <a href="Field_of_View.html" title="Field of View">Field of View</a> or <a href="Perspective_correction.html" title="Perspective correction">correcting perspective</a> in a single shot.
+</li>
+<li> <a href="Cylindrical_Projection.html" title="Cylindrical Projection">Cylindrical</a>, actually a simple <a href="Cylindrical_Projection.html" title="Cylindrical Projection">Cylindrical Projection</a> as used by traditional rotating panoramic cameras.  A good projection for printing a 360 degree panorama, though you may prefer <i>Mercator Projection</i>.
+</li>
+<li> <a href="Equirectangular_Projection.html" title="Equirectangular Projection">Equirectangular</a>, the all purpose format for representing an entire spherical scene.  It covers 360 degrees horizontally as well as the <a href="Zenith.html" title="Zenith">zenith</a> and <a href="Nadir.html" title="Nadir">nadir</a>.
+</li>
+<li> <a href="Fisheye_Projection.html" title="Fisheye Projection">Fisheye</a>, the same projection as a photo taken with a <i>fisheye lens</i>.  Better for representing a wide <a href="Field_of_View.html" title="Field of View">Field of View</a> than <i>rectilinear</i>, but in many cases <i>Stereographic Projection</i> gives less distortion than simple <i>fisheye</i>.
+</li>
+<li> <a href="Stereographic_Projection.html" title="Stereographic Projection">Stereographic</a>, a <i>conformal</i> fisheye image.  Objects in a stereographic image keep the same shape and show less distortion than simple <i>fisheye</i>.
+</li>
+<li> <a href="Projections.html#mercator_projection" title="Projections">Mercator</a>, a <i>conformal</i> cylindrical image.  A good projection for printing a 360 degree panorama.
+</li>
+<li> <a href="Projections.html#Transverse_mercator_projection" title="Projections">Trans Mercator</a>, a <i>mercator</i> image rotated 90 degrees, suitable for displaying tall or overhead objects.
+</li>
+<li> <a href="Projections.html#sinusoidal_projection" title="Projections">Sinusoidal</a>, an <i>equal area</i> projection of an entire spherical scene.
+</li>
+<li> Lambert Cylindrical Equal Area<a class="external" href="http://wiki.panotools.org/index.php?title=Lambert_Equal_Area_Cylindrical_Projection&amp;action=edit&amp;redlink=1">[*]</a>
+</li>
+<li> Lambert Equal Area Azimuthal<a class="external" href="http://wiki.panotools.org/index.php?title=Lambert_Equal_Area_Azimuthal_Projection&amp;action=edit&amp;redlink=1">[*]</a>
+</li>
+<li> Albers Equal Area Conic<a class="external" href="http://wiki.panotools.org/index.php?title=Albers_Equal_Area_Conic_Projection&amp;action=edit&amp;redlink=1">[*]</a>
+</li>
+<li> Miller Cylindrical<a class="external" href="http://wiki.panotools.org/index.php?title=Miller_Cylindrical_Projection&amp;action=edit&amp;redlink=1">[*]</a>
+</li>
+<li> <a href="Panini.html" title="Panini">Panini</a>
+</li>
+<li> Architectural<a class="external" href="http://wiki.panotools.org/index.php?title=Architectural&amp;action=edit&amp;redlink=1">[*]</a>
+</li>
+<li> <a href="Fisheye_Projection.html" title="Fisheye Projection">Orthographic</a>
+</li>
+<li> <a href="Fisheye_Projection.html" title="Fisheye Projection">Equisolid</a>
+</li>
+<li> <a href="Equirectangular_Panini.html" title="Equirectangular Panini">Equirectangular Panini</a>
+</li>
+<li> Biplane<a class="external" href="http://wiki.panotools.org/index.php?title=Biplane&amp;action=edit&amp;redlink=1">[*]</a>
+</li>
+<li> Triplane<a class="external" href="http://wiki.panotools.org/index.php?title=Triplane&amp;action=edit&amp;redlink=1">[*]</a>
+</li>
+<li> <a href="The_General_Panini_Projection.html" title="The General Panini Projection">Panini General</a>
+</li>
+<li> <a href="Fisheye_Projection.html" title="Fisheye Projection">Thoby Projection</a>, is modeling the 10.5 mm Nikkor fisheye lens and was introduced with <a rel="nofollow" class="external text" href="http://hugin.sourceforge.net/releases/2011.0.0/en.shtml">hugin 2011.0.0</a>. The projection is called after Michel Thoby who was able to empirically find it.
+</li>
+<li> Hammer-Aitoff Equal Area Projection
+</li>
+</ul>
+<h1><span class="mw-headline" id="Field_of_View">Field of View</span></h1>
 <p>This is the horizontal and vertical <a href="Field_of_View.html" title="Field of View">angle of view</a> of the output image,
 clicking <b>Calculate Field of View</b> will shrink or enlarge the field of view of the
 output to fit the arrangement of the input images - The <b>Fit</b> button in the
 <a href="Hugin_Preview_window.html" title="Hugin Preview window">Hugin Preview window</a> does the same thing.
 </p><p>Note that some <a href="Projections.html" title="Projections">Projections</a> have a limited field of view, notably:
 </p>
-<ul><li> Rectilinear has to be less than 180 degrees both vertically and horizontally.
-</li><li> Panoramic (cylindrical) has to be less than 180 degrees vertically.
-</li><li> Stereographic has to be less than 360 degrees both vertically and horizontally.
-</li><li> Mercator has to be less than 180 degrees vertically.
-</li><li> Transverse Mercator has to be less than 180 degrees horizontally.
-</li></ul>
-<h1> <span class="mw-headline" id="Canvas_Size"> Canvas Size </span></h1>
+<ul>
+<li> Rectilinear has to be less than 180 degrees both vertically and horizontally.
+</li>
+<li> Panoramic (cylindrical) has to be less than 180 degrees vertically.
+</li>
+<li> Stereographic has to be less than 360 degrees both vertically and horizontally.
+</li>
+<li> Mercator has to be less than 180 degrees vertically.
+</li>
+<li> Transverse Mercator has to be less than 180 degrees horizontally.
+</li>
+</ul>
+<h1><span class="mw-headline" id="Canvas_Size">Canvas Size</span></h1>
 <p>Set the <b>width</b> and <b>height</b> of your output panorama in pixels.  <b>Calculate Optimal Size</b> will estimate
 a size that has about the same resolution as your input images.
 </p><p>Some examples: a <i>three megapixel</i> image has pixel dimensions of 2048 x 1536, an A4 print at 300 pixels per inch will
@@ -98,44 +112,70 @@ dimensions of 6000 x 3000 or greater and a <i>gigapixel</i> image has a pixel si
 than about half the size of the <i>Optimal Size</i> will show <a href="Aliasing.html" title="Aliasing">aliasing</a> artefacts.  If you want to create high quality
 small images, it is better to create an <i>Optimal Size</i> image in hugin and downsize it later in an image editor such as Gimp<a class="external" href="http://wiki.panotools.org/Gimp">[*]</a>.
 </p>
-<h1> <span class="mw-headline" id="Crop"> Crop </span></h1>
+<h1><span class="mw-headline" id="Crop">Crop</span></h1>
 <p>The crop settings allow just a portion of the panorama to be stitched, there are various reasons to do this:
 </p>
-<ul><li> When <a href="Perspective_correction.html" title="Perspective correction">correcting perspective</a> large areas of the panorama output will be empty anyway.
-</li><li> Large 'gigapixel' style panoramas can be stitched in sections then blended later.
-</li></ul>
+<ul>
+<li> When <a href="Perspective_correction.html" title="Perspective correction">correcting perspective</a> large areas of the panorama output will be empty anyway.
+</li>
+<li> Large 'gigapixel' style panoramas can be stitched in sections then blended later.
+</li>
+</ul>
 <p>The cropped-out areas are shown darkened in the <a href="Hugin_Preview_window.html" title="Hugin Preview window">Preview window</a>.
 </p><p>The <b>Fit Crop to Images</b> button will automatically determine a crop that has a maximum number of pixels and no empty space.  This is the same function as the <b>Autocrop</b> button in the <a href="Hugin_Fast_Preview_window.html" title="Hugin Fast Preview window">Fast Preview window</a>. 
 </p>
-<h1> <span class="mw-headline" id="Panorama_Outputs"> Panorama Outputs </span></h1>
+<h1><span class="mw-headline" id="Panorama_Outputs">Panorama Outputs</span></h1>
 <p>Hugin can output 'normal' stitched images, exposure fused<a class="external" href="http://wiki.panotools.org/index.php?title=Exposure_fusion&amp;action=edit&amp;redlink=1">[*]</a> images or high dynamic range (<a href="HDR.html" title="HDR">HDR</a>) images.
 The following options determine which kind of image is created, and allow keeping the intermediate images created during the process.
 </p>
-<h2> <span class="mw-headline" id="Normal"> Normal </span></h2>
+<h2><span class="mw-headline" id="Normal">Normal</span></h2>
 <p>If <b>Exposure corrected, low dynamic range</b> is enabled then <a href="Enblend.html" title="Enblend">enblend</a> is used for blending. In the final stitching process <a href="Nona.html" title="Nona">nona</a> reprojects and distorts images to fit, <b>enblend</b> takes these images as individual <a href="TIFF.html" title="TIFF">TIFF</a> files and merges them using sophisticated seam positioning and blending.  Further <b>enblend</b> settings can be found in the <a href="Hugin_Preferences.html" title="Hugin Preferences">hugin Preferences</a>.
 </p><p>Enable <b>Exposure corrected, low dynamic range</b> under <b>Remapped Images</b> if you want to keep the intermediate images that <b>enblend</b> uses as input - For example modifying the <a href="Alpha_channel.html" title="Alpha channel">alpha channel</a> of these images and then blending manually is one technique for including and excluding people or objects that move between shots.
 </p>
-<h2> <span class="mw-headline" id="Exposure_fusion"> Exposure fusion </span></h2>
+<h2><span class="mw-headline" id="Exposure_fusion">Exposure fusion</span></h2>
 <p>If <b>Exposure fused from stacks</b> is enabled then hugin will group the input images into exposure stacks by comparing positions, any images with more than 70&#160;% overlap are grouped like this.  Each of these <a href="Bracketing.html" title="Bracketing">bracketed</a> exposure stacks will be exposure fused<a class="external" href="http://wiki.panotools.org/index.php?title=Exposure_fusion&amp;action=edit&amp;redlink=1">[*]</a> with <a href="Enfuse.html" title="Enfuse">enfuse</a> and the results seam blended together into a panorama with <a href="Enblend.html" title="Enblend">enblend</a>.
-</p><p>Note that for this to work, the scene has to be photographed multiple times using exposure <a href="Bracketing.html" title="Bracketing">bracketing</a> and the EV exposure values set either manually in the <a href="Hugin_Photos_tab.html" title="Hugin Photos tab">Photos tab</a>, automatically from <a href="EXIF.html" title="EXIF">EXIF</a> data or by optimising exposure in the <a href="Hugin_Assistant_tab.html" title="Hugin Assistant tab">hugin Assistant tab</a> or <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">hugin Exposure tab</a>.
-</p><p>Note also that unlike <b>Normal</b> and <b>HDR merging</b> options where images are exposure corrected as part of the remapping process, enfuse requires that each exposure layer is supplied uncorrected - Hugin takes care of this automatically and will not apply exposure correction in this case.
-</p><p>If you want to keep the exposure fused stacks for manual blending tick the option <b>Exposure fused stacks</b> from <b>Combined stacks</b>.
-</p><p>If <b>Exposure fused from any arrangement</b> is enabled then hugin will seam blend images with similar exposure with <a href="Enblend.html" title="Enblend">enblend</a>  and than it will exposure fuse<a class="external" href="http://wiki.panotools.org/index.php?title=Exposure_fusion&amp;action=edit&amp;redlink=1">[*]</a> them using <a href="Enfuse.html" title="Enfuse">enfuse</a>. This variant is often much more successful than <b>Exposure fused from stacks</b> in two situations:
+</p><p>Notes:
 </p>
-<ul><li> Where entire panoramas have been shot at each EV level consecutively rather than each shot <a href="Bracketing.html" title="Bracketing">bracketed</a>, in this case it isn't guaranteed that shots will line up into the approximate stacks expected by the <b>Exposure fused from stacks</b> option.
-</li></ul>
-<ul><li> When the panorama has been shot entirely on automatic exposure, in this situation it is useful to seam blend adjacent photos with small EV differences, but then exposure fuse larger EV differences - As effectively happens with this option.
-</li></ul>
+<ul>
+<li> For this to work, the scene has to be photographed multiple times using exposure <a href="Bracketing.html" title="Bracketing">bracketing</a> and the EV exposure values set either manually in the <a href="Hugin_Photos_tab.html" title="Hugin Photos tab">Photos tab</a>, automatically from <a href="EXIF.html" title="EXIF">EXIF</a> data or by optimising exposure in the <a href="Hugin_Assistant_tab.html" title="Hugin Assistant tab">hugin Assistant tab</a> or <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">hugin Exposure tab</a>.
+</li>
+</ul>
+<ul>
+<li> Note also that unlike <b>Normal</b> and <b>HDR merging</b> options where images are exposure corrected as part of the remapping process, enfuse requires that each exposure layer is supplied uncorrected - Hugin takes care of this automatically and will not apply exposure correction in this case.
+</li>
+</ul>
+<ul>
+<li> If you want to keep the exposure fused stacks for manual blending tick the option <b>Exposure fused stacks</b> from <b>Combined stacks</b>.
+</li>
+</ul>
+<ul>
+<li> For special cases the percentage for decision for the overlap can be fine-tuned (only in expert). Go to Images tab<a class="external" href="http://wiki.panotools.org/Hugin_Images_tab">[*]</a> and select group by <b>output stacks</b> and change the minimum overlap value. If you want to use the already assigned stacks instead of the deduced stacks, set the minimum overlap value to -1.
+</li>
+</ul>
+<p>If <b>Exposure fused from any arrangement</b> is enabled then hugin will seam blend images with similar exposure with <a href="Enblend.html" title="Enblend">enblend</a>  and than it will exposure fuse<a class="external" href="http://wiki.panotools.org/index.php?title=Exposure_fusion&amp;action=edit&amp;redlink=1">[*]</a> them using <a href="Enfuse.html" title="Enfuse">enfuse</a>. This variant is often much more successful than <b>Exposure fused from stacks</b> in two situations:
+</p>
+<ul>
+<li> Where entire panoramas have been shot at each EV level consecutively rather than each shot <a href="Bracketing.html" title="Bracketing">bracketed</a>, in this case it isn't guaranteed that shots will line up into the approximate stacks expected by the <b>Exposure fused from stacks</b> option.
+</li>
+</ul>
+<ul>
+<li> When the panorama has been shot entirely on automatic exposure, in this situation it is useful to seam blend adjacent photos with small EV differences, but then exposure fuse larger EV differences - As effectively happens with this option.
+</li>
+</ul>
 <p>Note that Hugin uses a default threshold of 0.5 EV exposure difference to determine which photos can be fused into each layer. This threshold can be modified on the <a href="Hugin_Photos_tab.html" title="Hugin Photos tab">Photos tab</a> in the Expert mode (selecting group by Output layers).
 </p><p>Enable <b>Blended layers of similar exposure, without exposure correction</b> from <b>Layers</b> to keep exposure layers from the <b>Exposure fused from any arrangement</b> step, these are useful for manual Contrast Blending<a class="external" href="http://wiki.panotools.org/Contrast_Blending">[*]</a>.
 </p><p>Enable <b>No exposure correction, low dynamic range</b> from <b>Remapped Images</b> to keep the intermediate images supplied to <a href="Enblend.html" title="Enblend">enblend</a> and <a href="Enfuse.html" title="Enfuse">enfuse</a>.
 </p><p>The output <b>format</b> of Normal and Exposure fusion can be in one of several output file types:
 </p>
-<ul><li> <b><a href="TIFF.html" title="TIFF">TIFF</a></b>, various compression options. <a href="16bit.html" title="16bit">16 bit</a> and 8 bit depth supported.  <b>None</b> compression is supported by most other applications, <b>LZW</b> compression is common in Windows/Mac applications and <b>Deflate</b> compression is more common with Linux tools.
-</li><li> <b><a href="JPEG.html" title="JPEG">JPG</a></b>, lossy compression suitable for web/email.  <b>Quality</b> can vary from <i>0</i> (extremely low quality, small file size) and <i>100</i> (high quality, large file size).  A typical quality setting for web/email would be between <i>70</i> and <i>80</i>
-</li><li> <b><a href="PNG.html" title="PNG">PNG</a></b>, lossless compression. <a href="16bit.html" title="16bit">16 bit</a> and 8 bit depth supported.
-</li></ul>
-<h2> <span class="mw-headline" id="HDR_merging"> HDR merging </span></h2>
+<ul>
+<li> <b><a href="TIFF.html" title="TIFF">TIFF</a></b>, various compression options. <a href="16bit.html" title="16bit">16 bit</a> and 8 bit depth supported.  <b>None</b> compression is supported by most other applications, <b>LZW</b> compression is common in Windows/Mac applications and <b>Deflate</b> compression is more common with Linux tools.
+</li>
+<li> <b><a href="JPEG.html" title="JPEG">JPG</a></b>, lossy compression suitable for web/email.  <b>Quality</b> can vary from <i>0</i> (extremely low quality, small file size) and <i>100</i> (high quality, large file size).  A typical quality setting for web/email would be between <i>70</i> and <i>80</i>
+</li>
+<li> <b><a href="PNG.html" title="PNG">PNG</a></b>, lossless compression. <a href="16bit.html" title="16bit">16 bit</a> and 8 bit depth supported.
+</li>
+</ul>
+<h2><span class="mw-headline" id="HDR_merging">HDR merging</span></h2>
 <p><i>The option <b>High dynamic range</b> is only available in <b>Advanced</b> and <b>Expert</b> mode.</i>
 </p><p>If <b>High dynamic range</b> is enabled then hugin will identify likely <a href="Bracketing.html" title="Bracketing">bracketed</a> stacks of images, then create remapped <a href="HDR.html" title="HDR">HDR</a> images which are then blended with <a href="Enblend.html" title="Enblend">enblend</a>.
 </p><p>Note that like the Exposure fusion option above, this generally only makes sense if the scene has been photographed multiple times using exposure bracketing. This option works also for creating panorama from HDR input images.
@@ -143,10 +183,13 @@ The following options determine which kind of image is created, and allow keepin
 </p><p>Enable <b>High dynamic range</b> from <b>Remapped Images</b> to keep copies of each image remapped in linear colour space before merging to HDR. 
 High dynamic range <b>Format</b> can be either:
 </p>
-<ul><li> <i>floating-point</i> <a href="TIFF.html" title="TIFF">TIFF</a>, various compression options.
-</li><li> <b><a href="OpenEXR.html" title="OpenEXR">EXR</a></b>, this is a high dynamic range format which is more compact than a high dynamic range TIFF.
-</li></ul>
-<h1> <span class="mw-headline" id="Processing"> Processing </span></h1>
+<ul>
+<li> <i>floating-point</i> <a href="TIFF.html" title="TIFF">TIFF</a>, various compression options.
+</li>
+<li> <b><a href="OpenEXR.html" title="OpenEXR">EXR</a></b>, this is a high dynamic range format which is more compact than a high dynamic range TIFF.
+</li>
+</ul>
+<h1><span class="mw-headline" id="Processing">Processing</span></h1>
 <p><a href="Nona.html" title="Nona">nona</a> is the default <b>Remapper</b> (stitching engine) supplied with <a href="Hugin.html" title="Hugin">hugin</a>, normally there is no need to
 change this or any of the options below.
 </p><p>Set the <b>Interpolator (i)</b> to change the sampling <a href="Interpolation.html" title="Interpolation">interpolation</a>.  You probably won't notice
@@ -159,16 +202,12 @@ always <b>save cropped images</b> unless you need to open them in an image edito
 </p><p><a href="Enblend.html" title="Enblend">enblend</a> is the default <b>Blender</b> for use with <a href="Hugin.html" title="Hugin">hugin</a>, normally there is no need to change this.  Additional command-line <b>Options</b> can be set here or in the <a href="Hugin_Preferences.html" title="Hugin Preferences">hugin Preferences</a> for new projects.
 </p><p><br />
 </p>
-<h1> <span class="mw-headline" id="Stitch"> Stitch </span></h1>
+<h1><span class="mw-headline" id="Stitch">Stitch</span></h1>
 <p>Click <b>Stitch!</b> (located in the bottom right corner of the window) to generate output panoramas. With default setting the current project is added to the <a href="Hugin_Batch_Processor.html" title="Hugin Batch Processor">Hugin Batch Processor</a> stitching queue. Note that the queue won't be processed unless this queue manager is running.
 </p>
 
 
 
-</div>				<!-- /bodycontent -->
-								<!-- printfooter -->
-				<div class="printfooter">
-				Retrieved from "http://wiki.panotools.org/index.php?title=Hugin_Stitcher_tab&amp;oldid=15443<a class="external" href="http://wiki.panotools.org/index.php?title=Hugin_Stitcher_tab&amp;oldid=15443">[*]</a>"				</div>
-				<!-- /printfooter -->
-												<!-- catlinks -->
-				</div></div></body></html>
+</div>								<div class="printfooter">
+				Retrieved from "http://wiki.panotools.org/index.php?title=Hugin_Stitcher_tab&amp;oldid=15673<a class="external" href="http://wiki.panotools.org/index.php?title=Hugin_Stitcher_tab&amp;oldid=15673">[*]</a>"				</div>
+												</div></div></body></html>

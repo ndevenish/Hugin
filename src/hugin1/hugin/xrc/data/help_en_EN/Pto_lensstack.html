@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" class="client-nojs">
 <head>
-<title>Pto lensstack - PanoTools.org Wiki</title>
 <meta charset="UTF-8" />
-<meta name="generator" content="MediaWiki 1.19.0" />
+<title>Pto lensstack - PanoTools.org Wiki</title>
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<meta name="generator" content="MediaWiki 1.23.6" />
 
 
 
@@ -12,45 +13,29 @@
 
 <style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 
-<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
-
-/* cache key: pt_wikidb:resourceloader:filter:minify-css:7:c88e2bcd56513749bec09a7e29cb3ffa */
-</style>
-
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: panotools_wiki:resourceloader:filter:minify-css:7:90730a7865ba4b50e0b837e1821ff0a3 */</style>
 
 
 
 <!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
-<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Pto_lensstack skin-vector action-view">
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Pto_lensstack skin-vector action-view vector-animateLayout">
 		
 		
-		<!-- content -->
-		<div id="content" class="mw-body">
+		<div id="content" class="mw-body" role="main">
 			<a id="top"></a>
 			
-						<!-- firstHeading -->
-			<h1 id="firstHeading" class="firstHeading">
-				<span dir="auto">Pto lensstack</span>
-			</h1>
-			<!-- /firstHeading -->
-			<!-- bodyContent -->
-			<div id="bodyContent">
-								<!-- tagline -->
-				<div id="siteSub">From PanoTools.org Wiki</div>
-				<!-- /tagline -->
-								<!-- subtitle -->
-				
-				<!-- /subtitle -->
-																<!-- jumpto -->
-				
-				<!-- /jumpto -->
-								<!-- bodycontent -->
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Pto lensstack</span></h1>
+						<div id="bodyContent">
+								<div id="siteSub">From PanoTools.org Wiki</div>
+								
+												
 				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><b>Pto_lensstack</b> can manipulate lenses and stacks in <a href="Hugin.html" title="Hugin">Hugin</a> .pto project files. The intended use for Pto_lensstack is in <a href="Panorama_scripting_in_a_nutshell.html" title="Panorama scripting in a nutshell">Scripting</a>.
 </p><p>The general use is
 </p>
 <pre>   pto_lensstack --output=output.pto --new-lens|--new-stack|--change-lens|--change-stack images input.pto
 </pre>
-<h2> <span class="mw-headline" id="Assigning_new_lenses.2Fstacks"> Assigning new lenses/stacks </span></h2>
+<h2><span class="mw-headline" id="Assigning_new_lenses.2Fstacks">Assigning new lenses/stacks</span></h2>
 <p>You can assign a new lens or stack to an image or a set of images by providing a list of image numbers as parameters to the program. The counting starts with zero. Several images can be given at the same time. Separate them with a comma.
 So
 </p>
@@ -59,25 +44,24 @@ So
 </pre>
 <p>will assign a new lens to image 1 and 3 and a new stack to images 2 and 4.
 </p>
-<h2> <span class="mw-headline" id="Changing_lenses.2Fstacks"> Changing lenses/stacks </span></h2>
+<h2><span class="mw-headline" id="Changing_lenses.2Fstacks">Changing lenses/stacks</span></h2>
 <p>For changing the lens or the stack provide a list of image numbers and the new lens/stack number. For both the counting starts with zero and you can supply several images separated by a comma at the same time.
 </p><p>Examples:
 </p>
 <pre>  pto_lensstack --change-lens i1=4,i5=1 input.pto
   pto_lensstack --change-stack i2=0,i4=0 input.pto
 </pre>
-<h2> <span class="mw-headline" id="General_options"> General options </span></h2>
-<ul><li> <b>-o|--output output.pto</b> Output a pto file with the given filename. If not given it will append "_lens" to the input filename.
-</li><li> <b>-h | --help</b> Display help.
-</li></ul>
+<h2><span class="mw-headline" id="General_options">General options</span></h2>
+<ul>
+<li> <b>-o|--output output.pto</b> Output a pto file with the given filename. If not given it will append "_lens" to the input filename.
+</li>
+<li> <b>-h | --help</b> Display help.
+</li>
+</ul>
 
 
 
 
-</div>				<!-- /bodycontent -->
-								<!-- printfooter -->
-				<div class="printfooter">
+</div>								<div class="printfooter">
 				Retrieved from "http://wiki.panotools.org/index.php?title=Pto_lensstack&amp;oldid=14997<a class="external" href="http://wiki.panotools.org/index.php?title=Pto_lensstack&amp;oldid=14997">[*]</a>"				</div>
-				<!-- /printfooter -->
-												<!-- catlinks -->
-				</div></div></body></html>
+												</div></div></body></html>

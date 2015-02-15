@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" class="client-nojs">
 <head>
-<title>Perspective correction - PanoTools.org Wiki</title>
 <meta charset="UTF-8" />
-<meta name="generator" content="MediaWiki 1.19.0" />
+<title>Perspective correction - PanoTools.org Wiki</title>
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<meta name="generator" content="MediaWiki 1.23.6" />
 
 
 
@@ -12,63 +13,73 @@
 
 <style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 
-<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
-
-/* cache key: pt_wikidb:resourceloader:filter:minify-css:7:c88e2bcd56513749bec09a7e29cb3ffa */
-</style>
-
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: panotools_wiki:resourceloader:filter:minify-css:7:90730a7865ba4b50e0b837e1821ff0a3 */</style>
 
 
 
 <!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
-<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Perspective_correction skin-vector action-view">
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Perspective_correction skin-vector action-view vector-animateLayout">
 		
 		
-		<!-- content -->
-		<div id="content" class="mw-body">
+		<div id="content" class="mw-body" role="main">
 			<a id="top"></a>
 			
-						<!-- firstHeading -->
-			<h1 id="firstHeading" class="firstHeading">
-				<span dir="auto">Perspective correction</span>
-			</h1>
-			<!-- /firstHeading -->
-			<!-- bodyContent -->
-			<div id="bodyContent">
-								<!-- tagline -->
-				<div id="siteSub">From PanoTools.org Wiki</div>
-				<!-- /tagline -->
-								<!-- subtitle -->
-				
-				<!-- /subtitle -->
-																<!-- jumpto -->
-				
-				<!-- /jumpto -->
-								<!-- bodycontent -->
-				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr">
-<h2> <span class="mw-headline" id="Intro">Intro</span></h2>
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Perspective correction</span></h1>
+						<div id="bodyContent">
+								<div id="siteSub">From PanoTools.org Wiki</div>
+								
+												
+				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Perspective_correction.html#Intro"><span class="tocnumber">1</span> <span class="toctext">Intro</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Perspective_correction.html#Prerequisites"><span class="tocnumber">2</span> <span class="toctext">Prerequisites</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="Perspective_correction.html#Warning"><span class="tocnumber">2.1</span> <span class="toctext">Warning</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="Perspective_correction.html#Camera_tilted_up_or_down"><span class="tocnumber">3</span> <span class="toctext">Camera tilted up or down</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="Perspective_correction.html#Camera_level_to_the_horizon"><span class="tocnumber">3.1</span> <span class="toctext">Camera level to the horizon</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="Perspective_correction.html#Camera_tilted_and_rotated"><span class="tocnumber">3.2</span> <span class="toctext">Camera tilted and rotated</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="Perspective_correction.html#Camera_panned_sideways"><span class="tocnumber">4</span> <span class="toctext">Camera panned sideways</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="Perspective_correction.html#Camera_panned_and_rotated"><span class="tocnumber">4.1</span> <span class="toctext">Camera panned and rotated</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="Perspective_correction.html#Camera_panned.2C_tilted_and_rotated"><span class="tocnumber">5</span> <span class="toctext">Camera panned, tilted and rotated</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="Perspective_correction.html#Summary"><span class="tocnumber">6</span> <span class="toctext">Summary</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="Perspective_correction.html#Adjust_output"><span class="tocnumber">7</span> <span class="toctext">Adjust output</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="Perspective_correction.html#Save"><span class="tocnumber">8</span> <span class="toctext">Save</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="Perspective_correction.html#Batch_process"><span class="tocnumber">9</span> <span class="toctext">Batch process</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Intro">Intro</span></h2>
 <p>This tutorial has no direct relevance to panorama creation. However, perspective correction is an issue for panorama creation as well, if you shoot your images tilted up or down. But please note that it is not necessary to correct the images prior to stitching - this is done in one go with alignment and stitching.
 </p><p>Falling lines can be annoying not only in architectural photography. In former times photographers used shift lenses (some times called <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Perspective_correction">Perspective Correction</a> lenses) to correct for that. These lenses usually are pretty expensive, not available in all needed focal lengths and limited to a certain amount of correction.
 </p><p>Panotools are able to simulate a shift lens in terms of geometry (obviously they can't simulate it in terms of <a href="Depth_of_Field.html" title="Depth of Field">Depth of Field</a>). There are some easy and straightforward techniques to achieve perspective correction depending on the direction the camera was tilted.
 </p>
-<h2> <span class="mw-headline" id="Prerequisites">Prerequisites</span></h2>
+<h2><span class="mw-headline" id="Prerequisites">Prerequisites</span></h2>
 <p>This tutorial uses PTGui<a class="external" href="http://wiki.panotools.org/PTGui">[*]</a>, but any of the GUI front-ends<a class="external" href="http://wiki.panotools.org/GUI_front-ends">[*]</a> would do. The usage of these programs is more or less identical although names differ sometimes a bit and some fields are in different locations. For hugin see tutorials on <a rel="nofollow" class="external text" href="http://hugin.sourceforge.net/tutorials/architectural/en.shtml">Simulating an architectural projection</a> and <a rel="nofollow" class="external text" href="http://hugin.sourceforge.net/tutorials/perspective/en.shtml">Perspective correction</a>
 </p><p>In all cases you start a new project and add the image you want to correct by pressing the <b>Add</b> button. 
 </p><p>Go to <b>Lens parameters</b> tab and choose your lens type (presumable <b>normal (rectilinear)</b>). Enter the approximate <b>Field of View</b> if not already read from <a href="EXIF.html" title="EXIF">EXIF</a> data (it's not necessary to have it exact). If you already have lens correction parameters enter them in the <b>a</b>, <b>b</b> and <b>c</b> fields else enter 0.0 for each.
 </p><p>In <b>Panorama settings</b> tab choose <b>Rectilinear ('flat')</b> as output.
 </p>
-<h3> <span class="mw-headline" id="Warning">Warning</span></h3>
+<h3><span class="mw-headline" id="Warning">Warning</span></h3>
 <p>Newer PTGui versions require you to allow optimization for Roll and Pitch when using the internal optimizer together with horizontal or vertical control points. Use the <b>Panorama Tools Optimizer</b> in this case.
 </p>
-<h2> <span class="mw-headline" id="Camera_tilted_up_or_down"> Camera tilted up or down </span></h2>
+<h2><span class="mw-headline" id="Camera_tilted_up_or_down">Camera tilted up or down</span></h2>
 <p>Using a shift lens this would have been shot with camera level and the lens shifted up or down. The respective parameter to simulate this in panotools is <b>Pitch</b>.
 </p>
-<h3> <span class="mw-headline" id="Camera_level_to_the_horizon"> Camera level to the horizon </span></h3>
-<table border="0" cellpadding="2" cellspacing="0" style="text-align: right;">
+<h3><span class="mw-headline" id="Camera_level_to_the_horizon">Camera level to the horizon</span></h3>
+<table border="0" cellpadding="2" cellspacing="0" align="right">
 <tr>
-<td style="vertical-align: top;"><div class="thumb tright"><div class="thumbinner" style="width:102px;"><img alt="" src="100px-PC_img01.jpg" width="100" height="150" class="thumbimage" /><a class="external" href="http://wiki.panotools.org/File:PC_img01.jpg">[*]</a>  <div class="thumbcaption"><div class="magnify"><img src="magnify-clip.png" width="15" height="11" alt="" /><a class="external" href="http://wiki.panotools.org/File:PC_img01.jpg">[*]</a></div>Falling lines example &#169; Daniela Dürbeck</div></div></div>
+<td valign="top"><div class="thumb tright"><div class="thumbinner" style="width:102px;"><img alt="" src="100px-PC_img01.jpg" width="100" height="150" class="thumbimage" /><a class="external" href="http://wiki.panotools.org/File:PC_img01.jpg">[*]</a>  <div class="thumbcaption"><div class="magnify"><img src="magnify-clip.png" width="15" height="11" alt="" /><a class="external" href="http://wiki.panotools.org/File:PC_img01.jpg">[*]</a></div>Falling lines example &#169; Daniela Dürbeck</div></div></div>
 </td>
-<td style="vertical-align: top;"><div class="thumb tright"><div class="thumbinner" style="width:102px;"><img alt="" src="100px-PC_img02.jpg" width="100" height="100" class="thumbimage" /><a class="external" href="http://wiki.panotools.org/File:PC_img02.jpg">[*]</a>  <div class="thumbcaption"><div class="magnify"><img src="magnify-clip.png" width="15" height="11" alt="" /><a class="external" href="http://wiki.panotools.org/File:PC_img02.jpg">[*]</a></div>corrected image in Panorama Editor</div></div></div>
+<td valign="top"><div class="thumb tright"><div class="thumbinner" style="width:102px;"><img alt="" src="100px-PC_img02.jpg" width="100" height="100" class="thumbimage" /><a class="external" href="http://wiki.panotools.org/File:PC_img02.jpg">[*]</a>  <div class="thumbcaption"><div class="magnify"><img src="magnify-clip.png" width="15" height="11" alt="" /><a class="external" href="http://wiki.panotools.org/File:PC_img02.jpg">[*]</a></div>corrected image in Panorama Editor</div></div></div>
 </td></tr></table>
 <p>If the camera was level to the horizon, one pair of <a href="Vertical_control_points.html" title="Vertical control points">vertical control points</a> is enough to correct for falling lines. Go to <b>Control points</b> tab and set one point to the top of something vertical in your image in the left pane and one point at the bottom of the same vertical structure in the right pane. This vertical structure must not go through or near the image center. Be sure to choose <b>Vertical line</b> as control point type.
 </p><p>On <b>Optimizer</b> tab check <b>Interface: Advanced</b>. Check <b>Pitch</b> and <b>Use control points of:</b> for <b>Image 0</b>. All other fields are unchecked. Then press <b>Run Optimizer</b> and confirm the following dialog.
@@ -76,15 +87,15 @@
 </p><p>In the example image I set one point at the middle light at the top of the tower, another approximately in the middle as far down as possible. Click the thumbs to enlarge.
 <br style="clear:both;" />
 </p>
-<h3> <span class="mw-headline" id="Camera_tilted_and_rotated"> Camera tilted and rotated </span></h3>
-<table border="0" cellpadding="2" cellspacing="0" style="text-align: right;">
+<h3><span class="mw-headline" id="Camera_tilted_and_rotated">Camera tilted and rotated</span></h3>
+<table border="0" cellpadding="2" cellspacing="0" align="right">
 <tr>
-<td style="vertical-align: top;"><div class="thumb tright"><div class="thumbinner" style="width:102px;"><img alt="" src="100px-PC_img03.jpg" width="100" height="74" class="thumbimage" /><a class="external" href="http://wiki.panotools.org/File:PC_img03.jpg">[*]</a>  <div class="thumbcaption"><div class="magnify"><img src="magnify-clip.png" width="15" height="11" alt="" /><a class="external" href="http://wiki.panotools.org/File:PC_img03.jpg">[*]</a></div>Falling lines example 2 &#169; Erik Krause</div></div></div>
+<td valign="top"><div class="thumb tright"><div class="thumbinner" style="width:102px;"><img alt="" src="100px-PC_img03.jpg" width="100" height="74" class="thumbimage" /><a class="external" href="http://wiki.panotools.org/File:PC_img03.jpg">[*]</a>  <div class="thumbcaption"><div class="magnify"><img src="magnify-clip.png" width="15" height="11" alt="" /><a class="external" href="http://wiki.panotools.org/File:PC_img03.jpg">[*]</a></div>Falling lines example 2 &#169; Erik Krause</div></div></div>
 </td>
-<td style="vertical-align: top;"><div class="thumb tright"><div class="thumbinner" style="width:102px;"><img alt="" src="100px-PC_img04.jpg" width="100" height="78" class="thumbimage" /><a class="external" href="http://wiki.panotools.org/File:PC_img04.jpg">[*]</a>  <div class="thumbcaption"><div class="magnify"><img src="magnify-clip.png" width="15" height="11" alt="" /><a class="external" href="http://wiki.panotools.org/File:PC_img04.jpg">[*]</a></div>Image in Control Point Editor</div></div></div>
+<td valign="top"><div class="thumb tright"><div class="thumbinner" style="width:102px;"><img alt="" src="100px-PC_img04.jpg" width="100" height="78" class="thumbimage" /><a class="external" href="http://wiki.panotools.org/File:PC_img04.jpg">[*]</a>  <div class="thumbcaption"><div class="magnify"><img src="magnify-clip.png" width="15" height="11" alt="" /><a class="external" href="http://wiki.panotools.org/File:PC_img04.jpg">[*]</a></div>Image in Control Point Editor</div></div></div>
 </td></tr>
 <tr>
-<td style="vertical-align: top;"><div class="thumb tright"><div class="thumbinner" style="width:102px;"><img alt="" src="100px-PC_img05.jpg" width="100" height="103" class="thumbimage" /><a class="external" href="http://wiki.panotools.org/File:PC_img05.jpg">[*]</a>  <div class="thumbcaption"><div class="magnify"><img src="magnify-clip.png" width="15" height="11" alt="" /><a class="external" href="http://wiki.panotools.org/File:PC_img05.jpg">[*]</a></div>Corrected image in Panorama Editor</div></div></div>
+<td valign="top"><div class="thumb tright"><div class="thumbinner" style="width:102px;"><img alt="" src="100px-PC_img05.jpg" width="100" height="103" class="thumbimage" /><a class="external" href="http://wiki.panotools.org/File:PC_img05.jpg">[*]</a>  <div class="thumbcaption"><div class="magnify"><img src="magnify-clip.png" width="15" height="11" alt="" /><a class="external" href="http://wiki.panotools.org/File:PC_img05.jpg">[*]</a></div>Corrected image in Panorama Editor</div></div></div>
 </td></tr></table>
 <p>If the camera was rotated you need at least two vertical lines control point pairs. Go to <b>Control points</b> tab and set two point pairs on some vertical structures well apart from each other. For each line set a point in one pane at the bottom and in the other pane at the top of the same vertical structure. Be sure to choose <b>Vertical line</b> as control point type. 
 </p><p>If there is no second vertical structure you can use a horizontal one with a <a href="Horizontal_control_points.html" title="Horizontal control points">horizontal control points</a> pair instead.
@@ -94,12 +105,12 @@
 </p><p>In the example image I set one point pair at top and bottom of the leftmost edge of the altar and one point pair at the rightmost edge. Click the thumbs to enlarge.
 <br style="clear:both;" />
 </p>
-<h2> <span class="mw-headline" id="Camera_panned_sideways"> Camera panned sideways </span></h2>
-<table border="0" cellpadding="2" cellspacing="0" style="text-align: right;">
+<h2><span class="mw-headline" id="Camera_panned_sideways">Camera panned sideways</span></h2>
+<table border="0" cellpadding="2" cellspacing="0" align="right">
 <tr>
-<td style="vertical-align: top;"><div class="thumb tright"><div class="thumbinner" style="width:102px;"><img alt="" src="100px-PC_img06.jpg" width="100" height="166" class="thumbimage" /><a class="external" href="http://wiki.panotools.org/File:PC_img06.jpg">[*]</a>  <div class="thumbcaption"><div class="magnify"><img src="magnify-clip.png" width="15" height="11" alt="" /><a class="external" href="http://wiki.panotools.org/File:PC_img06.jpg">[*]</a></div>Panned camera example &#169; Tom! Striewisch</div></div></div>
+<td valign="top"><div class="thumb tright"><div class="thumbinner" style="width:102px;"><img alt="" src="100px-PC_img06.jpg" width="100" height="166" class="thumbimage" /><a class="external" href="http://wiki.panotools.org/File:PC_img06.jpg">[*]</a>  <div class="thumbcaption"><div class="magnify"><img src="magnify-clip.png" width="15" height="11" alt="" /><a class="external" href="http://wiki.panotools.org/File:PC_img06.jpg">[*]</a></div>Panned camera example &#169; Tom! Striewisch</div></div></div>
 </td>
-<td style="vertical-align: top;"><div class="thumb tright"><div class="thumbinner" style="width:102px;"><img alt="" src="100px-PC_img07.jpg" width="100" height="158" class="thumbimage" /><a class="external" href="http://wiki.panotools.org/File:PC_img07.jpg">[*]</a>  <div class="thumbcaption"><div class="magnify"><img src="magnify-clip.png" width="15" height="11" alt="" /><a class="external" href="http://wiki.panotools.org/File:PC_img07.jpg">[*]</a></div>corrected image</div></div></div>
+<td valign="top"><div class="thumb tright"><div class="thumbinner" style="width:102px;"><img alt="" src="100px-PC_img07.jpg" width="100" height="158" class="thumbimage" /><a class="external" href="http://wiki.panotools.org/File:PC_img07.jpg">[*]</a>  <div class="thumbcaption"><div class="magnify"><img src="magnify-clip.png" width="15" height="11" alt="" /><a class="external" href="http://wiki.panotools.org/File:PC_img07.jpg">[*]</a></div>corrected image</div></div></div>
 </td></tr></table>
 <p>Using a shift lens this would have been shot with camera film or sensor parallel to the subject and the lens shifted right or left. The respective parameter to simulate this in panotools is <b>Yaw</b>.
 </p><p>It is not often necessary to correct for a panned camera since we are used to horizontal perspective distortion. One use is to shoot a mirror without the camera beeing mirrored.
@@ -108,16 +119,16 @@
 </p><p>Once you're done proceed as described under <a href="Perspective_correction.html#Adjust_output">Adjust output</a>.
 </p><p>In the example image I set one point at the top border of the mirror at the left and right end. Click the thumbs to enlarge.
 </p>
-<h3> <span class="mw-headline" id="Camera_panned_and_rotated"> Camera panned and rotated </span></h3>
+<h3><span class="mw-headline" id="Camera_panned_and_rotated">Camera panned and rotated</span></h3>
 <p>If the camera was rotated during shooting you need at least two horizontal control point pairs or one horizontal and one vertical. Proceed in an analogous manner as for rotated camera if <a href="Perspective_correction.html#Camera_tilted_and_rotated">tilted upwards</a>
 <br style="clear:both;" />
 </p>
-<h2> <span class="mw-headline" id="Camera_panned.2C_tilted_and_rotated"> Camera panned, tilted and rotated </span></h2>
-<table border="0" cellpadding="2" cellspacing="0" style="text-align: right;">
+<h2><span class="mw-headline" id="Camera_panned.2C_tilted_and_rotated">Camera panned, tilted and rotated</span></h2>
+<table border="0" cellpadding="2" cellspacing="0" align="right">
 <tr>
-<td style="vertical-align: top;"><div class="thumb tright"><div class="thumbinner" style="width:102px;"><img alt="" src="100px-PC_img08.jpg" width="100" height="75" class="thumbimage" /><a class="external" href="http://wiki.panotools.org/File:PC_img08.jpg">[*]</a>  <div class="thumbcaption"><div class="magnify"><img src="magnify-clip.png" width="15" height="11" alt="" /><a class="external" href="http://wiki.panotools.org/File:PC_img08.jpg">[*]</a></div>Tight spaces example &#169; Bruno Postle</div></div></div>
+<td valign="top"><div class="thumb tright"><div class="thumbinner" style="width:102px;"><img alt="" src="100px-PC_img08.jpg" width="100" height="75" class="thumbimage" /><a class="external" href="http://wiki.panotools.org/File:PC_img08.jpg">[*]</a>  <div class="thumbcaption"><div class="magnify"><img src="magnify-clip.png" width="15" height="11" alt="" /><a class="external" href="http://wiki.panotools.org/File:PC_img08.jpg">[*]</a></div>Tight spaces example &#169; Bruno Postle</div></div></div>
 </td>
-<td style="vertical-align: top;"><div class="thumb tright"><div class="thumbinner" style="width:102px;"><img alt="" src="100px-PC_img09.jpg" width="100" height="103" class="thumbimage" /><a class="external" href="http://wiki.panotools.org/File:PC_img09.jpg">[*]</a>  <div class="thumbcaption"><div class="magnify"><img src="magnify-clip.png" width="15" height="11" alt="" /><a class="external" href="http://wiki.panotools.org/File:PC_img09.jpg">[*]</a></div>corrected image</div></div></div>
+<td valign="top"><div class="thumb tright"><div class="thumbinner" style="width:102px;"><img alt="" src="100px-PC_img09.jpg" width="100" height="103" class="thumbimage" /><a class="external" href="http://wiki.panotools.org/File:PC_img09.jpg">[*]</a>  <div class="thumbcaption"><div class="magnify"><img src="magnify-clip.png" width="15" height="11" alt="" /><a class="external" href="http://wiki.panotools.org/File:PC_img09.jpg">[*]</a></div>corrected image</div></div></div>
 </td></tr></table>
 <p>Using a shift lens (provided you get one with a short enough <a href="Focal_Length.html" title="Focal Length"> focal length</a>) this would have been shot with camera level and film or sensor parallel to the subject and the lens shifted diagonally. The respective parameters to simulate this in panotools are <b>Yaw, Pitch</b> and <b>Roll</b>.
 </p><p>Sometimes you have to shoot in very tight spaces but would like to show the image in a frontal view.
@@ -128,28 +139,38 @@
 </p><p>In the example image I set the lines at the vertical and horizontal edges between the slabs. Click the thumbs to enlarge. There is an excellent <a href="Hugin.html" title="Hugin">hugin</a> tutorial available on how to correct this image: <a rel="nofollow" class="external autonumber" href="http://hugin.sourceforge.net/tutorials/perspective/en.shtml">[1]</a>
 <br style="clear:both;" />
 </p>
-<h2> <span class="mw-headline" id="Summary"> Summary </span></h2>
+<h2><span class="mw-headline" id="Summary">Summary</span></h2>
 <p>Only few control point pairs are needed to correct for perspective distortion.  
 </p>
-<ul><li> Camera level. To correct for  
-<ul><li> falling lines (vertical perspective distortion) - set one pair to a vertical structure off center. Optimize for <b>Pitch</b> only.
-</li><li> horizontal perspective distortion - set one pair to a horizontal structure off center. Optimize for <b>Yaw</b> only.
-</li></ul>
-</li><li> Camera rotated. To correct for  
-<ul><li> falling lines (vertical perspective distortion) - set at least one pair of vertical points to a vertical structure plus either one vertical pair apart from the other vertical one or a horizontal pair on a horizontal structure. Optimize for <b>Pitch</b> and <b>Roll</b> only.
-</li><li> horizontal perspective distortion - set at least one pair of horizontal points to a horizontal structure plus either one horizontal pair apart from the other horizontal one or a vertical pair on a vertical structure. Optimize for <b>Yaw</b> and <b>Roll</b> only.
-</li></ul>
-</li><li> Camera tilted, panned and rotated - set two pairs to two different vertical structures apart from each other and two pairs to different horizontal structures apart from each other. Optimize for <b>Yaw, Pitch, Roll</b> and eventually <b>Field of View</b>.
-</li></ul>
-<h2> <span class="mw-headline" id="Adjust_output">Adjust output</span></h2>
+<ul>
+<li> Camera level. To correct for  
+<ul>
+<li> falling lines (vertical perspective distortion) - set one pair to a vertical structure off center. Optimize for <b>Pitch</b> only.
+</li>
+<li> horizontal perspective distortion - set one pair to a horizontal structure off center. Optimize for <b>Yaw</b> only.
+</li>
+</ul>
+</li>
+<li> Camera rotated. To correct for  
+<ul>
+<li> falling lines (vertical perspective distortion) - set at least one pair of vertical points to a vertical structure plus either one vertical pair apart from the other vertical one or a horizontal pair on a horizontal structure. Optimize for <b>Pitch</b> and <b>Roll</b> only.
+</li>
+<li> horizontal perspective distortion - set at least one pair of horizontal points to a horizontal structure plus either one horizontal pair apart from the other horizontal one or a vertical pair on a vertical structure. Optimize for <b>Yaw</b> and <b>Roll</b> only.
+</li>
+</ul>
+</li>
+<li> Camera tilted, panned and rotated - set two pairs to two different vertical structures apart from each other and two pairs to different horizontal structures apart from each other. Optimize for <b>Yaw, Pitch, Roll</b> and eventually <b>Field of View</b>.
+</li>
+</ul>
+<h2><span class="mw-headline" id="Adjust_output">Adjust output</span></h2>
 <p>In any case you should get an average control point distance of almost 0.0. And in any case the image will be shifted in some direction, hence the output image will be larger. The width and height of the output image can be adjusted, but it is not possible to crop either side individually in PTGui. 
 </p><p>Open <b>Panorama Editor</b> (Ctrl+E) and press the <b>Fit panorama</b> (Ctrl+F or menu: Edit -&gt; Fit panorama) button. This will automatically adjust the output area to fit the corrected image. 
 </p><p>You should see the image shifted in some direction with the empty space filled with black. You can adjust the width and heigth of the frame using the small sliders at the bottom and right side of the window (actually you adjust the output <a href="Field_of_View.html" title="Field of View">Field of View</a>). The additional black space must be cropped in some image editor.
 </p>
-<h2> <span class="mw-headline" id="Save"> Save </span></h2>
+<h2><span class="mw-headline" id="Save">Save</span></h2>
 <p>As a last step go to <b>Create Panorama</b> tab page and press <b>Set optimum size</b>. Choose either <a href="TIFF.html" title="TIFF">TIFF</a>, <a href="JPEG.html" title="JPEG">JPG</a> (and quality) or <a href="PNG.html" title="PNG">PNG</a> as output and enter an appropriate file name. There should be a checkmark under <b>Include Images</b>. Then press <b>Create Panorama</b>. 
 </p>
-<h2> <span class="mw-headline" id="Batch_process"> Batch process </span></h2>
+<h2><span class="mw-headline" id="Batch_process">Batch process</span></h2>
 <p><b>unfortunately this feature has been removed in recent PTGui versions!</b>
 </p><p><strike>
 If you want to batch process some equally sized images with the same correction values (only possible if you shot them all from a tripod without moving the camera) you can simply add them to the project on <b>Source Images</b> tab. 
@@ -173,10 +194,6 @@ If you want to batch process some equally sized images with the same correction 
 
 
 
-</div>				<!-- /bodycontent -->
-								<!-- printfooter -->
-				<div class="printfooter">
+</div>								<div class="printfooter">
 				Retrieved from "http://wiki.panotools.org/index.php?title=Perspective_correction&amp;oldid=13987<a class="external" href="http://wiki.panotools.org/index.php?title=Perspective_correction&amp;oldid=13987">[*]</a>"				</div>
-				<!-- /printfooter -->
-												<!-- catlinks -->
-				</div></div></body></html>
+												</div></div></body></html>
