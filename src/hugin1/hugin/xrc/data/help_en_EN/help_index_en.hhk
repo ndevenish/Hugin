@@ -169,8 +169,6 @@
 		<param name="Local" value="Pto_merge.html">
 		<param name="Name" value="Pto var - PanoTools.org Wiki">
 		<param name="Local" value="Pto_var.html">
-		<param name="Name" value="Pto2mk - PanoTools.org Wiki">
-		<param name="Local" value="Pto2mk.html">
 		<param name="Name" value="Align image stack - PanoTools.org Wiki">
 		<param name="Local" value="Align_image_stack.html">
 		<param name="Name" value="Checkpto - PanoTools.org Wiki">
@@ -183,6 +181,10 @@
 		<param name="Local" value="Geocpset.html">
 		<param name="Name" value="Linefind - PanoTools.org Wiki">
 		<param name="Local" value="Linefind.html">
+		<param name="Name" value="Hugin executor - PanoTools.org Wiki">
+		<param name="Local" value="Hugin_executor.html">
+		<param name="Name" value="Verdandi - PanoTools.org Wiki">
+		<param name="Local" value="Verdandi.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Contrast">
@@ -447,6 +449,11 @@
 		<param name="Name" value="Hugin">
 		<param name="Name" value="Hugin">
 		<param name="Local" value="Hugin.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Hugin_executor">
+		<param name="Name" value="Hugin executor - PanoTools.org Wiki">
+		<param name="Local" value="Hugin_executor.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Hugin_stitch_project">
@@ -812,11 +819,6 @@
 		<param name="Local" value="Pto_var.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
-		<param name="Name" value="Pto2mk">
-		<param name="Name" value="Pto2mk">
-		<param name="Local" value="Pto2mk.html">
-		</OBJECT>
-	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="PTOptimizer">
 		<param name="Name" value="PTOptimizer">
 		<param name="Local" value="PTOptimizer.html">
@@ -937,6 +939,11 @@
 		<param name="Name" value="Translation parameters">
 		<param name="Name" value="Stitching a photo-mosaic - PanoTools.org Wiki">
 		<param name="Local" value="Stitching_a_photo-mosaic.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Verdandi">
+		<param name="Name" value="Verdandi - PanoTools.org Wiki">
+		<param name="Local" value="Verdandi.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Vertical control point">

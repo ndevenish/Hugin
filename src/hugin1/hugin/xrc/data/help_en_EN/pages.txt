@@ -62,6 +62,7 @@ Hugin_Batch_Processor
 Hugin_Control_Points_tab
 Hugin_Control_Points_table
 Hugin_Crop_tab
+Hugin_executor
 Hugin_Exposure_tab
 Hugin_FAQ
 Hugin_Fast_Preview_window
@@ -133,7 +134,6 @@ Projections
 PSD
 PTblender
 PTmender
-Pto2mk
 PTOptimizer
 PTStitcher
 PTtiff2psd
@@ -154,6 +154,7 @@ TIFF
 The_General_Panini_Projection
 Tone_mapping
 Using_Celeste_with_hugin
+Verdandi
 Vertical_control_points
 Vig_optimize
 Vignetting

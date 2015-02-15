@@ -132,8 +132,8 @@
 			<param name="Local" value="Tca_correct.html">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
-			<param name="Name" value="Pto2mk">
-			<param name="Local" value="Pto2mk.html">
+			<param name="Name" value="Hugin_executor">
+			<param name="Local" value="Hugin_executor.html">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="Hugin_stitch_project">
@@ -202,6 +202,10 @@
 		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="Celeste_standalone">
 			<param name="Local" value="Celeste_standalone.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Verdandi">
+			<param name="Local" value="Verdandi.html">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="PTBatcherGUI">

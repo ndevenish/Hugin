@@ -72,6 +72,7 @@ Hugin_Batch_Processor.html
 Hugin_Control_Points_tab.html
 Hugin_Control_Points_table.html
 Hugin_Crop_tab.html
+Hugin_executor.html
 Hugin_Exposure_tab.html
 Hugin_FAQ.html
 Hugin_Fast_Preview_window.html
@@ -134,7 +135,6 @@ Projections.html
 PSD.html
 PTblender.html
 PTmender.html
-Pto2mk.html
 Pto_gen.html
 Pto_lensstack.html
 Pto_mask.html
@@ -162,6 +162,7 @@ The_General_Panini_Projection.html
 TIFF.html
 Tone_mapping.html
 Using_Celeste_with_hugin.html
+Verdandi.html
 Vertical_control_points.html
 Vig_optimize.html
 Vignetting.html
