@@ -208,6 +208,14 @@ PreferencesDialog::PreferencesDialog(wxWindow* parent)
     preview=XRCCTRL(*this, "prefs_output_filename_preview", wxStaticText);
     preview->SetWindowStyle(preview->GetWindowStyle() | wxST_ELLIPSIZE_START);
 #endif
+#if wxCHECK_VERSION(2,9,3)
+    // enable auto-completion
+    XRCCTRL(*this, "prefs_misc_tempdir", wxTextCtrl)->AutoCompleteDirectories();
+    XRCCTRL(*this, "pref_exiftool_argfile", wxTextCtrl)->AutoCompleteFileNames();
+    XRCCTRL(*this, "pref_exiftool_argfile2", wxTextCtrl)->AutoCompleteFileNames();
+    XRCCTRL(*this, "prefs_enblend_EnblendExe", wxTextCtrl)->AutoCompleteFileNames();
+    XRCCTRL(*this, "prefs_enblend_EnfuseExe", wxTextCtrl)->AutoCompleteFileNames();
+#endif
     // load autopano settings
     wxConfigBase* cfg = wxConfigBase::Get();
     m_CPDetectorList = XRCCTRL(*this, "pref_cpdetector_list", wxListBox);
