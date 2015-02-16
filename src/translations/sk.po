@@ -3,15 +3,14 @@
 # This file is distributed under the same license as the hugin package.
 #
 # Jozef Riha <jose1711@gmail.com>, 2006, 2007, 2008, 2009, 2010, 2011.
-# Kornel Benko <kornel@lyx.org>, 2013, 2014.
+# Kornel Benko <kornel@lyx.org>, 2013, 2014, 2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2015-02-08 14:34+0100\n"
-"PO-Revision-Date: 2014-07-12 13:32+0200\n"
+"POT-Creation-Date: 2015-02-16 08:56+0100\n"
+"PO-Revision-Date: 2015-02-16 10:51+0100\n"
 "Last-Translator: Kornel Benko <kornel@lyx.org>\n"
-"Language-Team: Slovak <sk@li.org>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,6 +21,30 @@ msgstr ""
 "X-Poedit-Country: SLOVAKIA\n"
 "X-Language: sk_SK\n"
 "X-Source-Language: C\n"
+
+#: hugin1/base_wx/AssistantExecutor.cpp:71
+msgid "Searching for control points..."
+msgstr "Hľadať kontrolné body..."
+
+#: hugin1/base_wx/AssistantExecutor.cpp:83
+msgid "Removing control points in clouds..."
+msgstr "Odstrániť kontrolné body v mrakoch..."
+
+#: hugin1/base_wx/AssistantExecutor.cpp:89
+msgid "Statistically cleaning of control points..."
+msgstr "Štatistické čistenie kontrolných bodov..."
+
+#: hugin1/base_wx/AssistantExecutor.cpp:107
+msgid "Searching for vertical lines..."
+msgstr "Hľadať vertikálne čiary..."
+
+#: hugin1/base_wx/AssistantExecutor.cpp:113
+msgid "Optimizing..."
+msgstr "Optimalizujem..."
+
+#: hugin1/base_wx/AssistantExecutor.cpp:122
+msgid "Searching for best crop..."
+msgstr "Vyhľadávam najlepšie orezanie..."
 
 #: hugin1/base_wx/LensTools.cpp:37 hugin1/hugin/ImagesTree.cpp:354
 msgid "Normal (rectilinear)"
@@ -97,6 +120,18 @@ msgstr "Súbory s projektami šošovky (*.ini)|*.ini|Všetky súbory (*)|*"
 msgid "Please select an image and try again"
 msgstr "Vyberte prosím obrázok a skúste znovu"
 
+#: hugin1/base_wx/LensTools.cpp:459
+msgid ""
+"This project contains stacks with linked positions. But the lens parameters "
+"are not linked for these images.\n"
+"This will result in unwanted results.\n"
+"Please check and correct this before proceeding."
+msgstr ""
+"Projekt obsahuje štósy so spojenými pozíciami. Ale parametre šošoviek nie sú "
+"spojené s týmito obrázkami.\n"
+"Vedie to k nežiadúcim výsledkom.\n"
+"Prosím skontrolujte a opravte to pred pokračovaním."
+
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:160
 #, c-format
 msgid "Failed to kill process %ld, error %d: %s"
@@ -131,10 +166,6 @@ msgstr "Chyba pri pozastavovaní procesu %ld, kód 1"
 msgid "Cancel"
 msgstr "Zrušiť"
 
-#: hugin1/base_wx/MyExternalCmdExecDialog.h:189
-msgid "Command Line Progress"
-msgstr "Priebeh v príkazovom riadku"
-
 #: hugin1/base_wx/MyProgressDialog.cpp:36
 msgid "Elapsed time : "
 msgstr "Uplynutý čas: "
@@ -157,6 +188,24 @@ msgid "External program %s not found in the bundle, reverting to system path"
 msgstr ""
 "Externý program %s nebol nájdený v sade dodávanej s programom, vraciam sa k "
 "systémovej ceste"
+
+#: hugin1/base_wx/Executor.cpp:155 hugin1/base_wx/Executor.cpp:207
+#, c-format
+msgid ""
+"WARNING: External program %s not found as specified in preferences, "
+"reverting to bundled version"
+msgstr ""
+"VAROVANIE: Externý program %s, zadaný v nastaveniach, nebol nájdený, vraciam "
+"sa k verzii dodávanej s programom"
+
+#: hugin1/base_wx/Executor.cpp:168 hugin1/base_wx/Executor.cpp:179
+#, c-format
+msgid ""
+"WARNING: External program %s not found in the bundle, reverting to system "
+"path"
+msgstr ""
+"VAROVANIE: Externý program %s nebol nájdený v sade dodávanej s programom, "
+"vraciam sa k systémovej ceste"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:111 hugin1/base_wx/huginConfig.cpp:47
 #: hugin1/base_wx/huginConfig.cpp:57 hugin1/base_wx/huginConfig.cpp:69
@@ -192,6 +241,11 @@ msgstr "Nepodarilo sa otvoriť súbor s projektom:"
 msgid "could not open script : %s"
 msgstr "nepodarilo sa otvoriť skript: %s"
 
+#: hugin1/base_wx/RunStitchPanel.cpp:129
+#, c-format
+msgid "Project %s does not contain any active images."
+msgstr "Projekt %s neobsahuje žiadne aktívne obrázky."
+
 #: hugin1/base_wx/RunStitchPanel.cpp:172 hugin1/base_wx/RunStitchPanel.cpp:328
 #: hugin1/ptbatcher/ProjectArray.cpp:128
 #, c-format
@@ -202,6 +256,10 @@ msgstr "chyba počas analýzy panotools skriptu: %s"
 #: hugin1/base_wx/RunStitchPanel.cpp:354
 msgid "Could not create temporary file"
 msgstr "Nemožno vytvoriť dočasný súbor"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:198 hugin1/base_wx/RunStitchPanel.cpp:286
+msgid "Queue is empty. This should never happen."
+msgstr "Front je prázdny. To by sa nikdy stať nemalo."
 
 #: hugin1/base_wx/RunStitchPanel.cpp:275
 msgid ""
@@ -214,11 +272,6 @@ msgstr ""
 #: hugin1/base_wx/RunStitchPanel.cpp:275
 msgid "Overwrite existing images"
 msgstr "Prepísať existujúce obrázky"
-
-#: hugin1/base_wx/RunStitchPanel.cpp:290
-#, c-format
-msgid "Stitching %s"
-msgstr "Lepím %s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:294
 #, c-format
@@ -243,25 +296,29 @@ msgstr ""
 "Chyba počas spúšťania asistenta\n"
 "%s"
 
+#: hugin1/base_wx/StitchingExecutor.cpp:208
+msgid "Stitching panorama..."
+msgstr "Lepím panorámu..."
+
+#: hugin1/base_wx/StitchingExecutor.cpp:211
+msgid "Platform:"
+msgstr "System (OS):"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:212
+msgid "Version:"
+msgstr "Verzia:"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:213
+msgid "Working directory:"
+msgstr "Pracovný adresár:"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:214
+msgid "Output prefix:"
+msgstr "Predpona pre výstup:"
+
 #: hugin1/base_wx/RunStitchPanel.cpp:374 hugin1/base_wx/RunStitchPanel.cpp:382
 msgid "Error during running assistant"
 msgstr "Chyba počas spúšťania asistenta"
-
-#: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:82
-#, c-format
-msgid ""
-"External program %s not found as specified in preferences, reverting to "
-"bundled version"
-msgstr ""
-"Externý program %s, zadaný v nastaveniach, nebol nájdený, vraciam sa k "
-"verzii dodávanej s programom"
-
-#: hugin1/base_wx/huginConfig.cpp:95 hugin1/base_wx/huginConfig.cpp:109
-#, c-format
-msgid "Program %s not found in preferences, reverting to default value"
-msgstr ""
-"Program %s, zadaný v nastaveniach, nebol nájdený, vraciam sa k východzej "
-"hodnote"
 
 #: hugin1/base_wx/huginConfig.cpp:129 hugin1/base_wx/huginConfig.cpp:134
 #: hugin1/base_wx/huginConfig.cpp:140 hugin1/base_wx/huginConfig.cpp:145
@@ -341,6 +398,11 @@ msgstr ""
 "Meno súboru(ov) obsahuje(ú) jeden z nasledujúcich neplatných znakov: %s\n"
 "Hugin nedokáže pracovať s takýmito názvami súborov. Prosím premenujte vaše "
 "súbory a skúste to znovu."
+
+#: hugin1/base_wx/platform.cpp:487
+#, c-format
+msgid "Debug report generated in \"%s\"."
+msgstr "Ladiace správy generované v \"%s\"."
 
 #: hugin1/base_wx/platform.h:40
 msgid ""
@@ -543,6 +605,34 @@ msgstr "Uložiť súbor s projektom"
 msgid "Project files (*.pto)|*.pto|All files (*)|*"
 msgstr "Súbory projektu (*.pto)|*.pto|Všetky súbory (*)|*"
 
+#: hugin1/executor/hugin_executor.cpp:177
+msgid "Removing temporary files..."
+msgstr "Odstraňujem dočasné súbory..."
+
+#: hugin1/executor/hugin_executor.cpp:195
+msgid "shows this help message"
+msgstr "zobrazuje túto pomocnú správu"
+
+#: hugin1/executor/hugin_executor.cpp:196
+msgid "execute assistant"
+msgstr "Spustiť asistenta"
+
+#: hugin1/executor/hugin_executor.cpp:197
+msgid "execute stitching with given project"
+msgstr "Spustiť lepenie s daným projektom"
+
+#: hugin1/executor/hugin_executor.cpp:198
+msgid "number of used threads"
+msgstr "Počet použitých vlákien"
+
+#: hugin1/executor/hugin_executor.cpp:199
+msgid "prefix used for stitching"
+msgstr "predpona použitá na zlepenie"
+
+#: hugin1/executor/hugin_executor.cpp:200
+msgid "only print commands"
+msgstr "Len zobraziť príkazy"
+
 #: hugin1/hugin/AboutDialog.cpp:131
 #, c-format
 msgid "Operating System: %s"
@@ -590,6 +680,14 @@ msgstr "Cesta k dátam: %s"
 #, c-format
 msgid "Hugins camera and lens database: %s"
 msgstr "Huginova databáza pre kamery a šošovky: %s"
+
+#: hugin1/hugin/AboutDialog.cpp:189
+msgid "Multi-threading using C++11 std::thread and OpenMP"
+msgstr "Viaccestné použitím C++11 std::thread a OpenMP"
+
+#: hugin1/hugin/AboutDialog.cpp:191
+msgid "Multi-threading using boost::thread and OpenMP"
+msgstr "Viaccestné použitím boost::thread a OpenMP"
 
 #: hugin1/hugin/AboutDialog.cpp:180
 msgid "Libraries"
@@ -2114,21 +2212,6 @@ msgstr "Hugin - Program na tvorbu panorám"
 msgid "Panorama editor"
 msgstr "Editor panorámy"
 
-#: hugin1/hugin/MainFrame.cpp:838
-#, c-format
-msgid ""
-"Could not save project makefile \"%s\".\n"
-"But the project file was saved.\n"
-"Maybe the file or the folder is read-only.\n"
-"\n"
-"(Error code: %s)"
-msgstr ""
-"Nepodarilo sa uložiť makefile projektu \"%s\".\n"
-"Ale súbor s projektom bol uložený.\n"
-"Možno že je súbor alebo priečinok len na čítanie.\n"
-"\n"
-"(Kód chyby: %s)"
-
 #: hugin1/hugin/MainFrame.cpp:842
 #, c-format
 msgid ""
@@ -3267,6 +3350,10 @@ msgstr "Adresár '%s' neexistuje"
 msgid "Could not set environment variable PYTHONHOME"
 msgstr "Could not set environment variable PYTHONHOME"
 
+#: hugin1/hugin/huginApp.cpp:339
+msgid "Open Batch Processor"
+msgstr "Otvoriť Dávkový Procesor"
+
 #: hugin1/hugin/wxPanoCommand.cpp:255 hugin1/hugin/wxPanoCommand.cpp:269
 #, c-format
 msgid ""
@@ -3649,9 +3736,10 @@ msgstr "Spúšťam dávkovú úlohu..."
 msgid "Batch already in progress."
 msgstr "Dávková úloha už prebieha."
 
-#: hugin1/ptbatcher/Batch.cpp:837
-msgid "Running command \""
-msgstr "Spúšťam príkaz \""
+#: hugin1/ptbatcher/Batch.cpp:831
+#, c-format
+msgid "Running command \"%s\""
+msgstr "Spúšťam príkaz \"%s\""
 
 #: hugin1/ptbatcher/Batch.cpp:859 hugin1/ptbatcher/Batch.cpp:892
 #, c-format
@@ -3704,9 +3792,10 @@ msgstr "Zadajte adresár, v ktorom sa budú hľadať súbory projektov"
 msgid "Specify project source file(s)"
 msgstr "Určite zdrojový(é) súbor(y) projektu"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:454
-msgid "Added projects from dir "
-msgstr "Projekty pridané z adresára "
+#: hugin1/ptbatcher/BatchFrame.cpp:504
+#, c-format
+msgid "Added projects from dir %s"
+msgstr "Projekty pridané z adresára %s"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:465
 #, c-format
@@ -3778,9 +3867,10 @@ msgstr ""
 "Nemôžem odstrániť projekt, ktorý prebieha.\n"
 "Chcete ho zrušiť?"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:779
-msgid "Removed project "
-msgstr "Odstránený projekt "
+#: hugin1/ptbatcher/BatchFrame.cpp:825
+#, c-format
+msgid "Removed project %s"
+msgstr "Odstránený projekt %s"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:788
 msgid "Please select a project to remove"
@@ -3794,9 +3884,10 @@ msgstr ""
 "Nemôžem resetovať projekt, ktorý prebieha.\n"
 "Chcete ho zrušiť?"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:815
-msgid "Reset project "
-msgstr "Resetovať projekt "
+#: hugin1/ptbatcher/BatchFrame.cpp:861
+#, c-format
+msgid "Reset project %s"
+msgstr "Resetovať projekt %s"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:820
 msgid "Please select a project to reset"
@@ -4161,14 +4252,6 @@ msgstr "Presunúť projekt vyššie"
 #: hugin1/hugin/xrc/batch_frame.xrc:68
 msgid "Move project down"
 msgstr "Presunúť projekt nižšie"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:77
-msgid "Parallel execution"
-msgstr "Paralelné spúšťanie"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:78
-msgid "Stitch several projects parallel."
-msgstr "Lepiť niekoľko projektov paralelne."
 
 #: hugin1/hugin/xrc/batch_frame.xrc:84
 msgid "Overwrite always"
@@ -5917,6 +6000,18 @@ msgstr "Voľby Enfuse"
 msgid "Projection:"
 msgstr "Projekcia:"
 
+#: hugin1/base_wx/StitchingExecutor.cpp:286
+msgid "Using GPU for remapping:"
+msgstr "Použiť grafický čip na premapovanie:"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:286
+msgid "true"
+msgstr "áno"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:286
+msgid "false"
+msgstr "nie"
+
 #: hugin1/hugin/xrc/pano_panel.xrc:188
 msgid "Field of View:"
 msgstr "Zorné pole:"
@@ -6036,6 +6131,10 @@ msgstr "Formát:"
 msgid "High dynamic range"
 msgstr "Vysoký dynamický rozsah"
 
+#: hugin1/base_wx/StitchingExecutor.cpp:311
+msgid "Remapped Images :"
+msgstr "Premapované obrázky :"
+
 #: hugin1/hugin/xrc/pano_panel.xrc:552 hugin1/hugin/xrc/pano_panel.xrc:1309
 msgid ""
 "Images will be remapped in linear color space, stacks merged, then blended "
@@ -6065,8 +6164,8 @@ msgid ""
 "Output remapped images with unmodified exposure. Useful for manual exposure "
 "fusing."
 msgstr ""
-"Premapovať výstupné obrázky s nezmenenou expozíciu. Užitočné, ak chcete "
-"urobiť expozičnú fúziu manuálne."
+"Vytvoriť premapované obrázky s nezmenenou expozíciou. Užitočné, ak chcete "
+"urobiť expozičné splynutie manuálne."
 
 #: hugin1/hugin/xrc/pano_panel.xrc:645
 msgid "Produce remapped, but not merged, linear color space images"
@@ -6105,6 +6204,96 @@ msgstr "Vrstvy:"
 msgid "Blended layers of similar exposure, without exposure correction"
 msgstr "Zmiešané vrstvy s podobnou expozíciou, bez korekcie expozície"
 
+#: hugin1/base_wx/StitchingExecutor.cpp:346
+msgid "First input image"
+msgstr "Prvý vstupný obrázok"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:347
+msgid "Number:"
+msgstr "Číslo:"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:348
+msgid "Filename:"
+msgstr "Názov súboru:"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:349
+#, c-format
+msgid "Size: %ldx%ld"
+msgstr "Rozmer: %ldx%ld"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:351
+msgid "Response type:"
+msgstr "Typ odozvy:"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:352
+#, c-format
+msgid "HFOV: %.0f"
+msgstr "HFOV: %.0f"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:353
+#, c-format
+msgid "Exposure value: %.1f"
+msgstr "Hodnota expozície: %.1f"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:548
+msgid "Remapping and blending LDR images..."
+msgstr "Premapovanie a miešanie LDR obrázkov..."
+
+#: hugin1/base_wx/StitchingExecutor.cpp:559
+msgid "Remapping LDR images..."
+msgstr "Premapovanie LDR obrázkov..."
+
+#: hugin1/base_wx/StitchingExecutor.cpp:569
+msgid "Blending images..."
+msgstr "Miešanie obrázkov..."
+
+#: hugin1/base_wx/StitchingExecutor.cpp:612
+msgid "Remapping LDR images and blending exposure layers..."
+msgstr "Premapovanie LDR obrázkov a miešanie expozičných vrstiev..."
+
+#: hugin1/base_wx/StitchingExecutor.cpp:630
+msgid "Remapping LDR images without exposure correction..."
+msgstr "Premapovanie LDR obrázkov bez expozičnej korekcie..."
+
+#: hugin1/base_wx/StitchingExecutor.cpp:651
+#: hugin1/base_wx/StitchingExecutor.cpp:656
+#, c-format
+msgid "Blending exposure layer %u..."
+msgstr "Miešanie expozičnej vrstvy %u..."
+
+#: hugin1/base_wx/StitchingExecutor.cpp:677
+msgid "Fusing all exposure layers..."
+msgstr "Splynutie všetkých expozičných vrstiev..."
+
+#: hugin1/base_wx/StitchingExecutor.cpp:698
+#, c-format
+msgid "Fusing stack number %u..."
+msgstr "Splynutie štósu číslo %u..."
+
+#: hugin1/base_wx/StitchingExecutor.cpp:719
+#: hugin1/base_wx/StitchingExecutor.cpp:728
+msgid "Blending all stacks..."
+msgstr "Miešanie všetkých štósov..."
+
+#: hugin1/base_wx/StitchingExecutor.cpp:745
+msgid "Remapping HDR images..."
+msgstr "Premapovanie HDR obrázkov..."
+
+#: hugin1/base_wx/StitchingExecutor.cpp:767
+#, c-format
+msgid "Merging hdr stack number %u..."
+msgstr "Zlúčenie hdr štósu číslo %u..."
+
+#: hugin1/base_wx/StitchingExecutor.cpp:782
+#: hugin1/base_wx/StitchingExecutor.cpp:786
+msgid "Blending hdr stacks..."
+msgstr "Miešanie hdr štósov..."
+
+#: hugin1/base_wx/StitchingExecutor.cpp:803
+#: hugin1/base_wx/StitchingExecutor.cpp:809
+msgid "Updating metadata..."
+msgstr "Aktualizovanie metadát..."
+
 #: hugin1/hugin/xrc/pano_panel.xrc:705
 msgid ""
 "Output a complete blended panorama for each exposure step. Useful for manual "
@@ -6140,6 +6329,59 @@ msgstr "zabudovaný"
 #: hugin1/hugin/xrc/pano_panel.xrc:814
 msgid "Blender:"
 msgstr "Miešač:"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:230
+msgid "Unknown blender (enblend --version failed)"
+msgstr "Neznámi miešač (enblend --version zlyhal)"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:235
+msgid "internal"
+msgstr "Interné"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:244
+#: hugin1/base_wx/StitchingExecutor.cpp:248
+msgid "Exposure fusion:"
+msgstr "Expozičné splynutie:"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:248
+msgid "Unknown exposure fusion (enfuse --version failed)"
+msgstr "Neznámy program na expozičné splynutie (enfuse --version zlyhal)"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:256
+msgid "ExifTool version:"
+msgstr "Exiftool verzia:"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:261
+msgid "ExifTool:"
+msgstr "Exiftool:"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:261
+msgid "FAILED"
+msgstr "ZLYHAL"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:267
+msgid "Number of active images:"
+msgstr "Počet aktívnych obrázkov:"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:268
+#, c-format
+msgid "Output exposure value: %.1f"
+msgstr "Výstupná hodnota expozície %.1f"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:269
+#, c-format
+msgid "Canvas size: %ldx%ld"
+msgstr "Veľkosť plátna: %ldx%ld"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:270
+#, c-format
+msgid "ROI: (%ld, %ld) - (%ld, %ld)"
+msgstr "ROI: (%ld, %ld) - (%ld, %ld)"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:271
+#, c-format
+msgid "FOV: %.0fx%.0f"
+msgstr "FOV: %.0fx%.0f"
 
 #: hugin1/hugin/xrc/pano_panel.xrc:823
 msgid "enblend"
@@ -6257,20 +6499,6 @@ msgid "Keep fullsize images in memory, until this limit is exceeded"
 msgstr ""
 "Ponechať obrázky v plnej veľkosti v pamäti, kým nie je prekročený tento limit"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:46
-msgid "Number of CPUs:"
-msgstr "Počet procesorov:"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:55
-msgid ""
-"Hugin's preview window can use multiple threads for processing.\n"
-"Set this to the number of processors or processor cores available in your "
-"system."
-msgstr ""
-"Huginove okno náhľadu môže použiť viacero vlákien pre spracovanie.\n"
-"Nastavte toto číslo na počet procesorov (alebo jadier) dostupných vo vašom "
-"systéme."
-
 #: hugin1/hugin/xrc/pref_dialog.xrc:76
 msgid "User Interface"
 msgstr "Užívateľské rozhranie"
@@ -6306,22 +6534,6 @@ msgstr "Protokolové hlásenia:"
 #: hugin1/hugin/xrc/pref_dialog.xrc:135
 msgid "Copy log messages to clipboard."
 msgstr "Kopírovať protokolové hlásenia do schránky."
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:146
-msgid "Project save:"
-msgstr "Uložiť projekt:"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:153
-msgid "Create makefile automatically during project save"
-msgstr "Počas ukladania projektu vytvoriť makefile automaticky"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:154
-msgid ""
-"Saves a makefile (.mk) beside the project file (.pto) for command line "
-"stitching"
-msgstr ""
-"Uloží makefile (.mk) vedľa projektového súboru (.pto) pre lepenie z "
-"príkazového riadku"
 
 #: hugin1/hugin/xrc/pref_dialog.xrc:169
 msgid "Show hints about projections"
@@ -6616,21 +6828,6 @@ msgstr ""
 "Keď vybrané, spracovateľ okamžite obnoví spracovanie fronty úloh. Ináč "
 "spracovateľ bude spustený v suspendovanom stave a užívateľ musí spracovanie "
 "štartovať manuálne."
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:875
-msgid "Run stitching jobs in parallel"
-msgstr "Spustiť lepiace práce súbežne"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:876
-msgid ""
-"If selected, the processor will run multiple jobs contemporaneously.  "
-"Otherwise it will run one job at a time.  Note that selecting this option "
-"may actually result in slower stitches, depending on the system's resources "
-"and bottlenecks."
-msgstr ""
-"Keď vybrané, spracovateľ spustí niekoľko lepení súčasne. V opačnom prípade "
-"vyvoláva súčasne len jednu úlohu. Všimnite si, že vybranie tejto voľby môže "
-"predĺžiť spracovanie v závislosti od systémových zdrojov."
 
 #: hugin1/hugin/xrc/pref_dialog.xrc:883
 msgid "Overwrite existing files"
@@ -7046,8 +7243,8 @@ msgstr "Výber šedej"
 
 #: hugin1/hugin/xrc/preview_frame.xrc:404
 #: hugin1/hugin/xrc/preview_frame.xrc:1244
-msgid "Delete all control points in selected rectangle."
-msgstr "Vymazať všetky kontrolné body vo vybranom obdĺžniku."
+msgid "Create or delete control points in selected rectangle."
+msgstr "Vytvoriť alebo vymazať kontrolné body vo vybranom obdĺžniku."
 
 #: hugin1/hugin/xrc/preview_frame.xrc:405
 #: hugin1/hugin/xrc/preview_frame.xrc:414
@@ -7548,6 +7745,71 @@ msgstr ""
 "ak sa obrázky veľmi prekrývajú a použili ste tiež mnoho dobre rozprestrených "
 "kontrolných bodov."
 
+#~ msgid "Command Line Progress"
+#~ msgstr "Priebeh v príkazovom riadku"
+
+#~ msgid "Stitching %s"
+#~ msgstr "Lepím %s"
+
+#~ msgid "Program %s not found in preferences, reverting to default value"
+#~ msgstr ""
+#~ "Program %s, zadaný v nastaveniach, nebol nájdený, vraciam sa k východzej "
+#~ "hodnote"
+
+#~ msgid ""
+#~ "Could not save project makefile \"%s\".\n"
+#~ "But the project file was saved.\n"
+#~ "Maybe the file or the folder is read-only.\n"
+#~ "\n"
+#~ "(Error code: %s)"
+#~ msgstr ""
+#~ "Nepodarilo sa uložiť makefile projektu \"%s\".\n"
+#~ "Ale súbor s projektom bol uložený.\n"
+#~ "Možno že je súbor alebo priečinok len na čítanie.\n"
+#~ "\n"
+#~ "(Kód chyby: %s)"
+
+#~ msgid "Parallel execution"
+#~ msgstr "Paralelné spúšťanie"
+
+#~ msgid "Stitch several projects parallel."
+#~ msgstr "Lepiť niekoľko projektov paralelne."
+
+#~ msgid ""
+#~ "Hugin's preview window can use multiple threads for processing.\n"
+#~ "Set this to the number of processors or processor cores available in your "
+#~ "system."
+#~ msgstr ""
+#~ "Huginove okno náhľadu môže použiť viacero vlákien pre spracovanie.\n"
+#~ "Nastavte toto číslo na počet procesorov (alebo jadier) dostupných vo "
+#~ "vašom systéme."
+
+#~ msgid "Project save:"
+#~ msgstr "Uložiť projekt:"
+
+#~ msgid "Create makefile automatically during project save"
+#~ msgstr "Počas ukladania projektu vytvoriť makefile automaticky"
+
+#~ msgid ""
+#~ "Saves a makefile (.mk) beside the project file (.pto) for command line "
+#~ "stitching"
+#~ msgstr ""
+#~ "Uloží makefile (.mk) vedľa projektového súboru (.pto) pre lepenie z "
+#~ "príkazového riadku"
+
+#~ msgid "Run stitching jobs in parallel"
+#~ msgstr "Spustiť lepiace práce súbežne"
+
+#~ msgid ""
+#~ "If selected, the processor will run multiple jobs contemporaneously.  "
+#~ "Otherwise it will run one job at a time.  Note that selecting this option "
+#~ "may actually result in slower stitches, depending on the system's "
+#~ "resources and bottlenecks."
+#~ msgstr ""
+#~ "Keď vybrané, spracovateľ spustí niekoľko lepení súčasne. V opačnom "
+#~ "prípade vyvoláva súčasne len jednu úlohu. Všimnite si, že vybranie tejto "
+#~ "voľby môže predĺžiť spracovanie v závislosti od systémových zdrojov."
+
 #~ msgid "Remap \"%s\" to panorama projection..."
 #~ msgstr "Premapovať obrázok do projekcie panorámy..."
 
@@ -8000,9 +8262,6 @@ msgstr ""
 
 #~ msgid "Use the currently selected images as color correction anchor image"
 #~ msgstr "Použiť aktuálne vybrané obrázky ako kotvu pre korekciu farby"
-
-#~ msgid "Filename:"
-#~ msgstr "Názov súboru:"
 
 #~ msgid "Camera Model:"
 #~ msgstr "Model fotoaparátu:"
@@ -9292,6 +9551,12 @@ msgstr ""
 
 #~ msgid "Shutdown when done"
 #~ msgstr "Vypnúť po skončení"
+
+#~ msgid "Number of CPUs:"
+#~ msgstr "Počet procesorov:"
+
+#~ msgid "Delete all control points in selected rectangle."
+#~ msgstr "Vymazať všetky kontrolné body vo vybranom obdĺžniku."
 
 #~ msgid "ExifTool argfile:"
 #~ msgstr "Exiftool súbor argumentov:"
