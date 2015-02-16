@@ -76,6 +76,13 @@ CPDetectorDialog::CPDetectorDialog(wxWindow* parent)
     m_check_option = XRCCTRL(*this, "prefs_cpdetector_option", wxCheckBox);
     m_cpdetector_type = XRCCTRL(*this, "prefs_cpdetector_type", wxChoice);
     m_choice_step = XRCCTRL(*this, "choicebook_steps", wxChoicebook);
+#if wxCHECK_VERSION(2,9,3)
+    // enable auto completion
+    m_edit_prog->AutoCompleteFileNames();
+    m_edit_prog_descriptor->AutoCompleteFileNames();
+    m_edit_prog_matcher->AutoCompleteFileNames();
+    m_edit_prog_stack->AutoCompleteFileNames();
+#endif
     m_cpdetector_type->SetSelection(1);
     ChangeType();
 };

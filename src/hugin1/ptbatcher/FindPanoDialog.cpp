@@ -77,6 +77,9 @@ FindPanoDialog::FindPanoDialog(BatchFrame* batchframe, wxString xrcPrefix)
     m_button_send=XRCCTRL(*this,"find_pano_add_queue",wxButton);
     m_button_close=XRCCTRL(*this,"find_pano_close",wxButton);
     m_textctrl_dir=XRCCTRL(*this,"find_pano_dir",wxTextCtrl);
+#if wxCHECK_VERSION(2,9,3)
+    m_textctrl_dir->AutoCompleteDirectories();
+#endif
     m_cb_subdir=XRCCTRL(*this,"find_pano_subdir",wxCheckBox);
     m_statustext=XRCCTRL(*this,"find_pano_label",wxStaticText);
     m_list_pano=XRCCTRL(*this,"find_pano_list",wxCheckListBox);
