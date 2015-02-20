@@ -347,6 +347,21 @@ void LensCalFrame::AddImages(wxArrayString files)
     {
         ImageLineList* image=new ImageLineList(files[i]);
         //check input
+        {
+            // check for black/white images
+            const HuginBase::FileMetaData metadata = image->GetPanoImage()->getFileMetadata();
+            HuginBase::FileMetaData::const_iterator it = metadata.find("pixeltype");
+            if (it != metadata.end())
+            {
+                if (it->second == "BILEVEL")
+                {
+                    wxMessageBox(wxString::Format(_("File \"%s\" is a black/white image.\nHugin does not support this image type. Skipping this image.\nConvert image to grayscale image and try loading again."), files[i].c_str()),
+                        _("Warning"), wxOK | wxICON_EXCLAMATION, this);
+                    delete image;
+                    continue;
+                };
+            };
+        };
         if(m_images.size()>0)
         {
             const HuginBase::SrcPanoImage* image0=m_images[0]->GetPanoImage();

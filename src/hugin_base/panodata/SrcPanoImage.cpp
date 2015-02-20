@@ -286,6 +286,11 @@ bool SrcPanoImage::checkImageSizeKnown()
         {
             vigra::ImageImportInfo info(getFilename().c_str());
             setSize(info.size());
+            // save pixeltype for later, so we don't need to parse the file again
+            const std::string pixeltype(info.getPixelType());
+            FileMetaData metaData = getFileMetadata();
+            metaData["pixeltype"] = pixeltype;
+            setFileMetadata(metaData);
         }
         catch(std::exception & )
         {

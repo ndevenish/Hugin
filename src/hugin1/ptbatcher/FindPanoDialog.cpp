@@ -394,6 +394,17 @@ void FindPanoDialog::SearchInDir(wxString dirstring, const bool includeSubdir, c
             SrcPanoImage* img=new SrcPanoImage;
             img->setFilename(filenamestr);
             img->readEXIF();
+            // check for black/white images, if so skip
+            const HuginBase::FileMetaData& metadata = img->getFileMetadata();
+            HuginBase::FileMetaData::const_iterator it = metadata.find("pixeltype");
+            if (it != metadata.end())
+            {
+                if (it->second == "BILEVEL")
+                { 
+                    wxGetApp().Yield(true);
+                    continue;
+                };
+            };
             img->applyEXIFValues();
             if(!img->getExifMake().empty() && !img->getExifModel().empty() && 
                 img->getExifFocalLength()!=0 && img->getCropFactor()!=0)

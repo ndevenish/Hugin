@@ -269,7 +269,15 @@ int main(int argc, char* argv[])
                 continue;
             }
             srcImage.setSize(info.size());
-            std::string pixelType=info.getPixelType();
+            // check for black/white images
+            const std::string pixelType=info.getPixelType();
+            if (pixelType == "BILEVEL")
+            {
+                cerr << "ERROR: Image " << filelist[i] << " is a black/white images." << endl
+                    << "       This is not supported. Convert to grayscale image and try again." << endl
+                    << "       Skipping this image." << endl;
+                continue;
+            }
             if((pixelType=="UINT8") || (pixelType=="UINT16") || (pixelType=="INT16"))
             {
                 srcImage.setResponseType(HuginBase::SrcPanoImage::RESPONSE_EMOR);

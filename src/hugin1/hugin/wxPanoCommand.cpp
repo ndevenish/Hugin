@@ -257,7 +257,14 @@ bool wxAddImagesCmd::processPanorama(Panorama& pano)
                 return false;
             };
             srcImg.setSize(info.size());
-            std::string pixelType=info.getPixelType();
+            const std::string pixelType=info.getPixelType();
+            // refuse black/white images
+            if (pixelType == "BILEVEL")
+            {
+                wxMessageBox(wxString::Format(_("File \"%s\" is a black/white image.\nHugin does not support this image type. Skipping this image.\nConvert image to grayscale image and try loading again."), fname.c_str()),
+                    _("Warning"), wxOK|wxICON_EXCLAMATION);
+                continue;
+            }
             if((pixelType=="UINT8") || (pixelType=="UINT16") || (pixelType=="INT16"))
                 srcImg.setResponseType(HuginBase::SrcPanoImage::RESPONSE_EMOR);
             else
