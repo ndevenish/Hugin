@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: for Hugin\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2014-08-30 09:41+0200\n"
+"POT-Creation-Date: 2015-02-21 14:55+0100\n"
 "PO-Revision-Date: 2014-05-25 12:55+0800\n"
 "Last-Translator: Lu Fang <supercosmosgod@hotmail.com>\n"
 "Language-Team: Simplified Chinese <N/A>\n"
@@ -12,57 +12,125 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.6.5\n"
 
-#: hugin1/base_wx/LensTools.cpp:37 hugin1/hugin/ImagesTree.cpp:354
+#: hugin1/base_wx/AssistantExecutor.cpp:71
+#, fuzzy
+msgid "Searching for control points..."
+msgstr "清理控制点"
+
+#: hugin1/base_wx/AssistantExecutor.cpp:83
+#, fuzzy
+msgid "Removing control points in clouds..."
+msgstr "移除动云上控制点"
+
+#: hugin1/base_wx/AssistantExecutor.cpp:89
+#, fuzzy
+msgid "Statistically cleaning of control points..."
+msgstr "正在划分控制点"
+
+#: hugin1/base_wx/AssistantExecutor.cpp:107
+#, fuzzy
+msgid "Searching for vertical lines..."
+msgstr "检测垂直线"
+
+#: hugin1/base_wx/AssistantExecutor.cpp:113
+#, fuzzy
+msgid "Optimizing..."
+msgstr "优化中"
+
+#: hugin1/base_wx/AssistantExecutor.cpp:122
+#, fuzzy
+msgid "Searching for best crop..."
+msgstr "正在搜索似云控制点..."
+
+#: hugin1/base_wx/Executor.cpp:132 hugin1/base_wx/platform.cpp:131
+#: hugin1/hugin/MainFrame.cpp:1481 hugin1/hugin/MainFrame.cpp:2217
+#: hugin1/hugin/PanoPanel.cpp:1224
+#, c-format
+msgid "External program %s not found in the bundle, reverting to system path"
+msgstr "没有在程序包中发现外部程序 %s, 恢复成系统目录"
+
+#: hugin1/base_wx/Executor.cpp:155 hugin1/base_wx/Executor.cpp:207
+#, fuzzy, c-format
+msgid ""
+"WARNING: External program %s not found as specified in preferences, "
+"reverting to bundled version"
+msgstr "没有发现首选项中的指定的外部程序 %s, 恢复成程序包版本"
+
+#: hugin1/base_wx/Executor.cpp:168 hugin1/base_wx/Executor.cpp:179
+#, fuzzy, c-format
+msgid ""
+"WARNING: External program %s not found in the bundle, reverting to system "
+"path"
+msgstr "没有在程序包中发现外部程序 %s, 恢复成系统目录"
+
+#: hugin1/base_wx/LensTools.cpp:38 hugin1/base_wx/LensTools.cpp:81
 msgid "Normal (rectilinear)"
 msgstr "标准的 (直线的)"
 
-#: hugin1/base_wx/LensTools.cpp:38 hugin1/hugin/ImagesTree.cpp:355
+#: hugin1/base_wx/LensTools.cpp:39 hugin1/base_wx/LensTools.cpp:82
 msgid "Panoramic (cylindrical)"
 msgstr "全景的 (圆柱的)"
 
-#: hugin1/base_wx/LensTools.cpp:39 hugin1/hugin/ImagesTree.cpp:356
+#: hugin1/base_wx/LensTools.cpp:40 hugin1/base_wx/LensTools.cpp:83
 msgid "Circular fisheye"
 msgstr "圆形鱼眼"
 
-#: hugin1/base_wx/LensTools.cpp:40 hugin1/hugin/ImagesTree.cpp:357
+#: hugin1/base_wx/LensTools.cpp:41 hugin1/base_wx/LensTools.cpp:84
 msgid "Full frame fisheye"
 msgstr "全帧鱼眼"
 
-#: hugin1/base_wx/LensTools.cpp:41 hugin1/base_wx/huginConfig.cpp:305
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:1515 Kopie.cpp:1514
-#: hugin1/hugin/GLPreviewFrame.cpp:1526 hugin1/hugin/ImagesTree.cpp:358
+#: hugin1/base_wx/LensTools.cpp:42 hugin1/base_wx/LensTools.cpp:85
+#: hugin1/base_wx/huginConfig.cpp:44 hugin1/hugin/GLPreviewFrame.cpp:1532
 #: hugin1/hugin/PreviewFrame.cpp:643
 msgid "Equirectangular"
 msgstr "等矩形的"
 
-#: hugin1/base_wx/LensTools.cpp:42 hugin1/hugin/ImagesTree.cpp:359
-#: hugin1/hugin/PanoPanel.cpp:154
+#: hugin1/base_wx/LensTools.cpp:43 hugin1/base_wx/LensTools.cpp:86
+#: hugin1/hugin/PanoPanel.cpp:155
 msgid "Orthographic"
 msgstr "正投影"
 
-#: hugin1/base_wx/LensTools.cpp:43 hugin1/hugin/ImagesTree.cpp:360
-#: hugin1/hugin/PanoPanel.cpp:144
+#: hugin1/base_wx/LensTools.cpp:44 hugin1/base_wx/LensTools.cpp:87
+#: hugin1/hugin/PanoPanel.cpp:145
 msgid "Stereographic"
 msgstr "立体图像"
 
-#: hugin1/base_wx/LensTools.cpp:44 hugin1/hugin/ImagesTree.cpp:361
-#: hugin1/hugin/PanoPanel.cpp:155
+#: hugin1/base_wx/LensTools.cpp:45 hugin1/base_wx/LensTools.cpp:88
+#: hugin1/hugin/PanoPanel.cpp:156
 msgid "Equisolid"
 msgstr "Equisolid"
 
-#: hugin1/base_wx/LensTools.cpp:45 hugin1/hugin/ImagesTree.cpp:362
+#: hugin1/base_wx/LensTools.cpp:46 hugin1/base_wx/LensTools.cpp:89
 msgid "Fisheye Thoby"
 msgstr "鱼眼 Thoby"
 
-#: hugin1/base_wx/LensTools.cpp:219
+#: hugin1/base_wx/LensTools.cpp:53 hugin1/hugin/xrc/pano_panel.xrc:823
+msgid "enblend"
+msgstr "enblend"
+
+#: hugin1/base_wx/LensTools.cpp:54 hugin1/hugin/xrc/pano_panel.xrc:795
+msgid "builtin"
+msgstr "内建"
+
+#: hugin1/base_wx/LensTools.cpp:100
+#: hugin1/hugin/xrc/image_variable_dlg.xrc:559
+msgid "custom (EMoR)"
+msgstr "自定义 (EMoR)"
+
+#: hugin1/base_wx/LensTools.cpp:103
+#: hugin1/hugin/xrc/image_variable_dlg.xrc:560
+msgid "Linear"
+msgstr "线性的"
+
+#: hugin1/base_wx/LensTools.cpp:261
 msgid "Load lens parameters"
 msgstr "加载镜头参数"
 
-#: hugin1/base_wx/LensTools.cpp:221
+#: hugin1/base_wx/LensTools.cpp:263
 msgid "Lens Project Files (*.ini)|*.ini|All files (*.*)|*.*"
 msgstr "镜头项目文件 (*.ini)|*.ini|所有文件 (*.*)|*.*"
 
-#: hugin1/base_wx/LensTools.cpp:242
+#: hugin1/base_wx/LensTools.cpp:284
 msgid ""
 "Incompatible lens parameter file, image sizes do not match\n"
 "Apply settings anyway?"
@@ -70,40 +138,83 @@ msgstr ""
 "矛盾的镜头参数文件, 图像尺寸不匹配\n"
 "仍然要应用设置吗?"
 
-#: hugin1/base_wx/LensTools.cpp:242
+#: hugin1/base_wx/LensTools.cpp:284
 msgid "Error loading lens parameters"
 msgstr "加载镜头参数出错"
 
-#: hugin1/base_wx/LensTools.cpp:345 hugin1/calibrate_lens/LensCalFrame.cpp:743
+#: hugin1/base_wx/LensTools.cpp:387 hugin1/calibrate_lens/LensCalFrame.cpp:761
 msgid "Save lens parameters file"
 msgstr "保存镜头参数文件"
 
-#: hugin1/base_wx/LensTools.cpp:347 hugin1/calibrate_lens/LensCalFrame.cpp:745
+#: hugin1/base_wx/LensTools.cpp:389 hugin1/calibrate_lens/LensCalFrame.cpp:763
 msgid "Lens Project Files (*.ini)|*.ini|All files (*)|*"
 msgstr "镜头项目文件 (*.ini)|*.ini|所有文件 (*)|*"
 
-#: hugin1/base_wx/LensTools.cpp:363
+#: hugin1/base_wx/LensTools.cpp:404 hugin1/calibrate_lens/LensCalFrame.cpp:774
+#: hugin1/calibrate_lens/LensCalFrame.cpp:839
+#: hugin1/hugin/ImageVariableDialog.cpp:350 hugin1/hugin/MainFrame.cpp:835
+#: hugin1/hugin/MaskEditorPanel.cpp:442
+#, c-format
+msgid "File %s exists. Overwrite?"
+msgstr "文件 %s 已存在. 是否覆盖?"
+
+#: hugin1/base_wx/LensTools.cpp:405 hugin1/calibrate_lens/LensCalFrame.cpp:775
+#: hugin1/calibrate_lens/LensCalFrame.cpp:840 hugin1/hugin/MainFrame.cpp:836
+#: hugin1/hugin/xrc/main_tool.xrc:19
+msgid "Save project"
+msgstr "保存项目"
+
+#: hugin1/base_wx/LensTools.cpp:417
 msgid "Please select an image and try again"
 msgstr "请选择一张图像再试一次"
 
-#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:160
+#: hugin1/base_wx/LensTools.cpp:459
+msgid ""
+"This project contains stacks with linked positions. But the lens parameters "
+"are not linked for these images.\n"
+"This will result in unwanted results.\n"
+"Please check and correct this before proceeding."
+msgstr ""
+
+#: hugin1/base_wx/LensTools.cpp:461 hugin1/hugin/CPEditorPanel.cpp:1105
+#: hugin1/hugin/CPEditorPanel.cpp:1115 hugin1/hugin/CPEditorPanel.cpp:1130
+#: hugin1/hugin/CPEditorPanel.cpp:1143 hugin1/hugin/GLPreviewFrame.cpp:1832
+#: hugin1/hugin/GLPreviewFrame.cpp:1921 hugin1/hugin/GLPreviewFrame.cpp:2983
+#: hugin1/hugin/GLPreviewFrame.cpp:3310 hugin1/hugin/GLPreviewFrame.cpp:3321
+#: hugin1/hugin/GLPreviewFrame.cpp:3332 hugin1/hugin/GLPreviewFrame.cpp:3558
+#: hugin1/hugin/HFOVDialog.cpp:384 hugin1/hugin/ImageVariableDialog.cpp:204
+#: hugin1/hugin/ImagesPanel.cpp:561 hugin1/hugin/ImagesPanel.cpp:624
+#: hugin1/hugin/ImagesPanel.cpp:658 hugin1/hugin/ImagesTree.cpp:1780
+#: hugin1/hugin/MainFrame.cpp:698 hugin1/hugin/MainFrame.cpp:972
+#: hugin1/hugin/OptimizePanel.cpp:172
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:154
+#: hugin1/hugin/PanoOperation.cpp:372 hugin1/hugin/PanoPanel.cpp:1441
+#: hugin1/hugin/PanoPanel.cpp:1467 hugin1/hugin/PanoPanel.cpp:1502
+#: hugin1/hugin/PanoPanel.cpp:1523 hugin1/hugin/PanoPanel.cpp:1533
+#: hugin1/hugin/wxPanoCommand.cpp:453 hugin1/hugin/xrc/main_frame.xrc:123
+#: hugin1/hugin/xrc/main_frame.xrc:183 hugin1/hugin/xrc/main_frame.xrc:255
+#: hugin1/hugin/xrc/pano_panel.xrc:1087
+msgid "Hugin"
+msgstr "Hugin"
+
+#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:124
 #, c-format
 msgid "Failed to kill process %ld, error %d: %s"
 msgstr "停止进程 %ld 失败, 错误 %d: %s"
 
-#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:179
+#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:143
 #, c-format
 msgid "Error pausing process %ld, code 1"
 msgstr "停止进程 %ld 错误, 代码 1"
 
-#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:196
+#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:160
 #, c-format
 msgid "Error pausing process %ld, code 2"
 msgstr "停止进程 %ld 错误, 代码 2"
 
-#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:612
+#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:547
 #: hugin1/ptbatcher/RunStitchFrame.cpp:43
-#: hugin1/stitch_project/hugin_stitch_project.cpp:126
+#: hugin1/stitch_project/hugin_stitch_project.cpp:120
 #: hugin1/hugin/xrc/cpdetector_dialog.xrc:334
 #: hugin1/hugin/xrc/image_variable_dlg.xrc:640
 #: hugin1/hugin/xrc/image_variable_dlg.xrc:711
@@ -113,16 +224,12 @@ msgstr "停止进程 %ld 错误, 代码 2"
 #: hugin1/hugin/xrc/mask_editor_panel.xrc:497
 #: hugin1/hugin/xrc/pano_panel.xrc:55 hugin1/hugin/xrc/pano_panel.xrc:97
 #: hugin1/hugin/xrc/pano_panel.xrc:139 hugin1/hugin/xrc/pano_panel.xrc:1022
-#: hugin1/hugin/xrc/pano_panel.xrc:1352 hugin1/hugin/xrc/pref_dialog.xrc:1492
-#: hugin1/hugin/xrc/pref_dialog.xrc:1533 hugin1/hugin/xrc/pref_dialog.xrc:1591
+#: hugin1/hugin/xrc/pano_panel.xrc:1352 hugin1/hugin/xrc/pref_dialog.xrc:1442
+#: hugin1/hugin/xrc/pref_dialog.xrc:1483 hugin1/hugin/xrc/pref_dialog.xrc:1541
 #: hugin1/hugin/xrc/preview_frame.xrc:115
 #: hugin1/hugin/xrc/reset_dialog.xrc:123
 msgid "Cancel"
 msgstr "取消"
-
-#: hugin1/base_wx/MyExternalCmdExecDialog.h:189
-msgid "Command Line Progress"
-msgstr "命令行进程"
 
 #: hugin1/base_wx/MyProgressDialog.cpp:36
 msgid "Elapsed time : "
@@ -137,60 +244,42 @@ msgstr "正在优化全景图像"
 msgid "Panorama Tools"
 msgstr "全景图像工具"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:111 hugin1/base_wx/huginConfig.cpp:57
-#: hugin1/base_wx/huginConfig.cpp:69 hugin1/base_wx/platform.cpp:131
-#: hugin1/hugin/MainFrame.cpp:1519 hugin1/hugin/MainFrame.cpp:2281
-#: hugin1/hugin/PanoPanel.cpp:1241
-#, c-format
-msgid "External program %s not found in the bundle, reverting to system path"
-msgstr "没有在程序包中发现外部程序 %s, 恢复成系统目录"
-
-#: hugin1/base_wx/RunStitchPanel.cpp:111 hugin1/base_wx/huginConfig.cpp:47
-#: hugin1/base_wx/huginConfig.cpp:57 hugin1/base_wx/huginConfig.cpp:69
-#: hugin1/base_wx/huginConfig.cpp:82 hugin1/base_wx/platform.cpp:131
-#: hugin1/base_wx/wxLensDB.cpp:625 hugin1/base_wx/wxLensDB.cpp:630
-#: hugin1/base_wx/wxLensDB.cpp:638 hugin1/calibrate_lens/LensCalFrame.cpp:405
-#: hugin1/hugin/CPEditorPanel.cpp:1887 hugin1/hugin/GLViewer.cpp:287
-#: hugin1/hugin/GLViewer.cpp:299 hugin1/hugin/MainFrame.cpp:842
-#: hugin1/hugin/MainFrame.cpp:1471 hugin1/hugin/MainFrame.cpp:1519
-#: hugin1/hugin/MainFrame.cpp:1978 hugin1/hugin/MainFrame.cpp:2169
-#: hugin1/hugin/MainFrame.cpp:2243 hugin1/hugin/MainFrame.cpp:2281
-#: hugin1/hugin/MainFrame.cpp:2293 hugin1/hugin/MainFrame.cpp:2308
-#: hugin1/hugin/MainFrame.cpp:2316
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:278
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:307
-#: hugin1/hugin/PanoOperation.cpp:531 hugin1/hugin/PanoPanel.cpp:1022
-#: hugin1/hugin/PanoPanel.cpp:1241 hugin1/hugin/PreferencesDialog.cpp:409
-#: hugin1/hugin/PreferencesDialog.cpp:477
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:221
-#: hugin1/ptbatcher/FindPanoDialog.cpp:320
-#: hugin1/ptbatcher/ProjectListBox.cpp:184
-#: hugin1/stitch_project/hugin_stitch_project.cpp:411
-msgid "Error"
-msgstr "错误"
-
-#: hugin1/base_wx/RunStitchPanel.cpp:141 hugin1/base_wx/RunStitchPanel.cpp:312
+#: hugin1/base_wx/RunStitchPanel.cpp:109 hugin1/base_wx/RunStitchPanel.cpp:248
 msgid "Could not open project file:"
 msgstr "不能打开项目文件:"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:151 hugin1/base_wx/RunStitchPanel.cpp:320
+#: hugin1/base_wx/RunStitchPanel.cpp:119 hugin1/base_wx/RunStitchPanel.cpp:256
 #: hugin1/ptbatcher/ProjectArray.cpp:91
 #, c-format
 msgid "could not open script : %s"
 msgstr "不能打开脚本: %s"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:172 hugin1/base_wx/RunStitchPanel.cpp:328
+#: hugin1/base_wx/RunStitchPanel.cpp:129
+#, c-format
+msgid "Project %s does not contain any active images."
+msgstr ""
+
+#: hugin1/base_wx/RunStitchPanel.cpp:145 hugin1/base_wx/RunStitchPanel.cpp:264
 #: hugin1/ptbatcher/ProjectArray.cpp:128
 #, c-format
 msgid "error while parsing panotools script: %s"
 msgstr "分析 panotools 脚本时出错: %s"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:216 hugin1/base_wx/RunStitchPanel.cpp:233
-#: hugin1/base_wx/RunStitchPanel.cpp:354
+#: hugin1/base_wx/RunStitchPanel.cpp:178
 msgid "Could not create temporary file"
 msgstr "不能创建临时文件"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:275
+#: hugin1/base_wx/RunStitchPanel.cpp:198 hugin1/base_wx/RunStitchPanel.cpp:286
+msgid "Queue is empty. This should never happen."
+msgstr ""
+
+#: hugin1/base_wx/RunStitchPanel.cpp:198 hugin1/base_wx/RunStitchPanel.cpp:232
+#: hugin1/base_wx/RunStitchPanel.cpp:238
+#: hugin1/stitch_project/hugin_stitch_project.cpp:172
+msgid "Error during stitching"
+msgstr "缝合时出错"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:216
 msgid ""
 "Overwrite existing images?\n"
 "\n"
@@ -198,16 +287,11 @@ msgstr ""
 "覆盖已经存在的图像?\n"
 "\n"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:275
+#: hugin1/base_wx/RunStitchPanel.cpp:216
 msgid "Overwrite existing images"
 msgstr "覆盖已经存在的图像"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:290
-#, c-format
-msgid "Stitching %s"
-msgstr "缝合中 %s"
-
-#: hugin1/base_wx/RunStitchPanel.cpp:294
+#: hugin1/base_wx/RunStitchPanel.cpp:231
 #, c-format
 msgid ""
 "Error while stitching project\n"
@@ -216,12 +300,12 @@ msgstr ""
 "缝合项目时出错\n"
 "%s"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:295 hugin1/base_wx/RunStitchPanel.cpp:301
-#: hugin1/stitch_project/hugin_stitch_project.cpp:177
-msgid "Error during stitching"
-msgstr "缝合时出错"
+#: hugin1/base_wx/RunStitchPanel.cpp:286 hugin1/base_wx/RunStitchPanel.cpp:292
+#: hugin1/base_wx/RunStitchPanel.cpp:299
+msgid "Error during running assistant"
+msgstr "运行助理时出错"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:373
+#: hugin1/base_wx/RunStitchPanel.cpp:291
 #, c-format
 msgid ""
 "Error while running assistant\n"
@@ -230,79 +314,296 @@ msgstr ""
 "运行助理时出错\n"
 "%s"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:374 hugin1/base_wx/RunStitchPanel.cpp:382
-msgid "Error during running assistant"
-msgstr "运行助理时出错"
+#: hugin1/base_wx/StitchingExecutor.cpp:208
+#, fuzzy
+msgid "Stitching panorama..."
+msgstr "全景图像缝合中"
 
-#: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:82
+#: hugin1/base_wx/StitchingExecutor.cpp:211
+msgid "Platform:"
+msgstr ""
+
+#: hugin1/base_wx/StitchingExecutor.cpp:212
+#, fuzzy
+msgid "Version:"
+msgstr "版本: %s"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:213
+#, fuzzy
+msgid "Working directory:"
+msgstr ""
+"\n"
+" 当前目录:"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:214
+#, fuzzy
+msgid "Output prefix:"
+msgstr "输出前缀"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:226
+#: hugin1/base_wx/StitchingExecutor.cpp:230
+#: hugin1/base_wx/StitchingExecutor.cpp:235
+#: hugin1/hugin/xrc/batch_frame.xrc:330 hugin1/hugin/xrc/pano_panel.xrc:814
+msgid "Blender:"
+msgstr "Blender:"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:230
+msgid "Unknown blender (enblend --version failed)"
+msgstr ""
+
+#: hugin1/base_wx/StitchingExecutor.cpp:235
+#, fuzzy
+msgid "internal"
+msgstr "内部错误"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:244
+#: hugin1/base_wx/StitchingExecutor.cpp:248
+#, fuzzy
+msgid "Exposure fusion:"
+msgstr "曝光:"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:248
+msgid "Unknown exposure fusion (enfuse --version failed)"
+msgstr ""
+
+#: hugin1/base_wx/StitchingExecutor.cpp:256
+#, fuzzy
+msgid "ExifTool version:"
+msgstr "ExifTool 选项"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:261
+#, fuzzy
+msgid "ExifTool:"
+msgstr "ExifTool 选项"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:261
+msgid "FAILED"
+msgstr ""
+
+#: hugin1/base_wx/StitchingExecutor.cpp:267
+#, fuzzy
+msgid "Number of active images:"
+msgstr "每张图像的点的编号:"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:268
+#, fuzzy, c-format
+msgid "Output exposure value: %.1f"
+msgstr "输出曝光层 %ld"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:269
+#, fuzzy, c-format
+msgid "Canvas size: %ldx%ld"
+msgstr "画布尺寸:"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:270
 #, c-format
-msgid ""
-"External program %s not found as specified in preferences, reverting to "
-"bundled version"
-msgstr "没有发现首选项中的指定的外部程序 %s, 恢复成程序包版本"
+msgid "ROI: (%ld, %ld) - (%ld, %ld)"
+msgstr ""
 
-#: hugin1/base_wx/huginConfig.cpp:95 hugin1/base_wx/huginConfig.cpp:109
+#: hugin1/base_wx/StitchingExecutor.cpp:271
 #, c-format
-msgid "Program %s not found in preferences, reverting to default value"
-msgstr "没有在首选项中发现程序 %s, 恢复成默认值"
+msgid "FOV: %.0fx%.0f"
+msgstr ""
 
-#: hugin1/base_wx/huginConfig.cpp:129 hugin1/base_wx/huginConfig.cpp:134
-#: hugin1/base_wx/huginConfig.cpp:140 hugin1/base_wx/huginConfig.cpp:145
-#: hugin1/base_wx/huginConfig.cpp:150 hugin1/base_wx/huginConfig.cpp:155
-#: hugin1/base_wx/huginConfig.cpp:161 hugin1/base_wx/huginConfig.cpp:166
-#: hugin1/base_wx/huginConfig.cpp:171 hugin1/base_wx/huginConfig.cpp:176
-#: hugin1/base_wx/huginConfig.cpp:182 hugin1/base_wx/huginConfig.cpp:188
-#: hugin1/base_wx/huginConfig.cpp:193 hugin1/base_wx/huginConfig.cpp:199
-#: hugin1/base_wx/huginConfig.cpp:206 hugin1/base_wx/huginConfig.cpp:211
-#: hugin1/base_wx/huginConfig.cpp:232 hugin1/base_wx/huginConfig.cpp:237
-#: hugin1/base_wx/huginConfig.cpp:243 hugin1/base_wx/huginConfig.cpp:248
-#: hugin1/base_wx/huginConfig.cpp:253 hugin1/base_wx/huginConfig.cpp:258
-#: hugin1/base_wx/huginConfig.cpp:266 hugin1/base_wx/wxLensDB.cpp:206
-#: hugin1/base_wx/wxLensDB.cpp:534 hugin1/calibrate_lens/LensCalFrame.cpp:418
-#: hugin1/calibrate_lens/LensCalFrame.cpp:606
-#: hugin1/calibrate_lens/LensCalFrame.cpp:629
-#: hugin1/calibrate_lens/LensCalFrame.cpp:637
-#: hugin1/calibrate_lens/LensCalFrame.cpp:772
-#: hugin1/calibrate_lens/LensCalFrame.cpp:780
-#: hugin1/calibrate_lens/LensCalFrame.cpp:806
-#: hugin1/calibrate_lens/LensCalFrame.cpp:878
-#: hugin1/hugin/CPDetectorDialog.cpp:121 hugin1/hugin/GLPreviewFrame - Kopie
-#: (2).cpp:1612 (2).cpp:1619 (2).cpp:1626 (2).cpp:1640 (2).cpp:1647
-#: (2).cpp:1654 Kopie.cpp:1611 Kopie.cpp:1618 Kopie.cpp:1625 Kopie.cpp:1639
-#: Kopie.cpp:1646 Kopie.cpp:1653 hugin1/hugin/GLPreviewFrame.cpp:1623
-#: hugin1/hugin/GLPreviewFrame.cpp:1630 hugin1/hugin/GLPreviewFrame.cpp:1637
-#: hugin1/hugin/GLPreviewFrame.cpp:1651 hugin1/hugin/GLPreviewFrame.cpp:1658
-#: hugin1/hugin/GLPreviewFrame.cpp:1665 hugin1/hugin/MainFrame.cpp:838
-#: hugin1/hugin/MainFrame.cpp:1689 hugin1/hugin/MainFrame.cpp:2247
-#: hugin1/hugin/MaskEditorPanel.cpp:479
-#: hugin1/hugin/PreferencesDialog.cpp:1070
-#: hugin1/ptbatcher/FindPanoDialog.cpp:277
-#: hugin1/ptbatcher/FindPanoDialog.cpp:298 hugin1/hugin/xrc/dlg_warning.xrc:56
-msgid "Warning"
-msgstr "警告"
+#: hugin1/base_wx/StitchingExecutor.cpp:277
+#: hugin1/base_wx/StitchingExecutor.cpp:283
+#: hugin1/base_wx/StitchingExecutor.cpp:350
+#: hugin1/hugin/xrc/pano_panel.xrc:166
+msgid "Projection:"
+msgstr "投影:"
 
-#: hugin1/base_wx/huginConfig.cpp:301
+#: hugin1/base_wx/StitchingExecutor.cpp:286
+#, fuzzy
+msgid "Using GPU for remapping:"
+msgstr "重定位时使用 GPU (实验性质)"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:286
+msgid "true"
+msgstr ""
+
+#: hugin1/base_wx/StitchingExecutor.cpp:286
+msgid "false"
+msgstr ""
+
+#: hugin1/base_wx/StitchingExecutor.cpp:290
+#: hugin1/hugin/xrc/pano_panel.xrc:447
+msgid "Panorama Outputs:"
+msgstr "全景图像输出:"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:293
+#: hugin1/base_wx/StitchingExecutor.cpp:314
+#: hugin1/hugin/xrc/pano_panel.xrc:462 hugin1/hugin/xrc/pano_panel.xrc:624
+#: hugin1/hugin/xrc/pano_panel.xrc:1258
+msgid "Exposure corrected, low dynamic range"
+msgstr "曝光校正, 低动态范围"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:297
+#: hugin1/hugin/xrc/pano_panel.xrc:474 hugin1/hugin/xrc/pano_panel.xrc:1273
+msgid "Exposure fused from stacks"
+msgstr "从堆栈中融合曝光"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:301
+#: hugin1/hugin/xrc/pano_panel.xrc:483 hugin1/hugin/xrc/pano_panel.xrc:1287
+msgid "Exposure fused from any arrangement"
+msgstr "按排列融合曝光"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:305
+#: hugin1/base_wx/StitchingExecutor.cpp:322
+#: hugin1/base_wx/StitchingExecutor.cpp:335
+#: hugin1/hugin/xrc/pano_panel.xrc:551 hugin1/hugin/xrc/pano_panel.xrc:644
+#: hugin1/hugin/xrc/pano_panel.xrc:1301
+msgid "High dynamic range"
+msgstr "高动态范围"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:311
+#, fuzzy
+msgid "Remapped Images :"
+msgstr "重定位图像:"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:318
+#: hugin1/hugin/xrc/pano_panel.xrc:635
+msgid "No exposure correction, low dynamic range"
+msgstr "没有曝光校正, 低动态范围"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:328
+#: hugin1/hugin/xrc/pano_panel.xrc:654
+msgid "Combined stacks:"
+msgstr "组合堆栈:"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:331
+#: hugin1/hugin/xrc/pano_panel.xrc:669
+msgid "Exposure fused stacks"
+msgstr "堆栈融合曝光"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:341
+#: hugin1/hugin/xrc/pano_panel.xrc:689
+msgid "Layers:"
+msgstr "层:"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:342
+#: hugin1/hugin/xrc/pano_panel.xrc:704
+msgid "Blended layers of similar exposure, without exposure correction"
+msgstr "混合相似曝光层, 不使用曝光校正"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:346
+#, fuzzy
+msgid "First input image"
+msgstr "第一张图像"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:347
+#, fuzzy
+msgid "Number:"
+msgstr "CPU 编号:"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:348
+msgid "Filename:"
+msgstr "文件名:"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:349
+#, c-format
+msgid "Size: %ldx%ld"
+msgstr ""
+
+#: hugin1/base_wx/StitchingExecutor.cpp:351
+#, fuzzy
+msgid "Response type:"
+msgstr "响应类型"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:352
+#, c-format
+msgid "HFOV: %.0f"
+msgstr ""
+
+#: hugin1/base_wx/StitchingExecutor.cpp:353
+#, fuzzy, c-format
+msgid "Exposure value: %.1f"
+msgstr "曝光值 (Eev)"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:548
+msgid "Remapping and blending LDR images..."
+msgstr ""
+
+#: hugin1/base_wx/StitchingExecutor.cpp:559
+#, fuzzy
+msgid "Remapping LDR images..."
+msgstr "重定位图像:"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:569
+#, fuzzy
+msgid "Blending images..."
+msgstr "排列图像"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:612
+msgid "Remapping LDR images and blending exposure layers..."
+msgstr ""
+
+#: hugin1/base_wx/StitchingExecutor.cpp:630
+#, fuzzy
+msgid "Remapping LDR images without exposure correction..."
+msgstr "混合相似曝光层, 不使用曝光校正"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:651
+#: hugin1/base_wx/StitchingExecutor.cpp:656
+#, fuzzy, c-format
+msgid "Blending exposure layer %u..."
+msgstr "输出曝光层 %ld"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:677
+msgid "Fusing all exposure layers..."
+msgstr ""
+
+#: hugin1/base_wx/StitchingExecutor.cpp:698
+#, fuzzy, c-format
+msgid "Fusing stack number %u..."
+msgstr "分配堆栈编号"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:719
+#: hugin1/base_wx/StitchingExecutor.cpp:728
+msgid "Blending all stacks..."
+msgstr ""
+
+#: hugin1/base_wx/StitchingExecutor.cpp:745
+#, fuzzy
+msgid "Remapping HDR images..."
+msgstr "重定位图像:"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:767
+#, fuzzy, c-format
+msgid "Merging hdr stack number %u..."
+msgstr "分配堆栈编号"
+
+#: hugin1/base_wx/StitchingExecutor.cpp:782
+#: hugin1/base_wx/StitchingExecutor.cpp:786
+msgid "Blending hdr stacks..."
+msgstr ""
+
+#: hugin1/base_wx/StitchingExecutor.cpp:803
+#: hugin1/base_wx/StitchingExecutor.cpp:809
+msgid "Updating metadata..."
+msgstr ""
+
+#: hugin1/base_wx/huginConfig.cpp:40
 msgid "first image"
 msgstr "第一张图像"
 
-#: hugin1/base_wx/huginConfig.cpp:302
+#: hugin1/base_wx/huginConfig.cpp:41
 msgid "last image"
 msgstr "最后一张图像"
 
-#: hugin1/base_wx/huginConfig.cpp:304
+#: hugin1/base_wx/huginConfig.cpp:43
 msgid "directory"
 msgstr "目录"
 
-#: hugin1/base_wx/huginConfig.cpp:310 hugin1/hugin/ImagesTree.cpp:149
+#: hugin1/base_wx/huginConfig.cpp:49 hugin1/hugin/ImagesTree.cpp:150
 msgid "Camera maker"
 msgstr "照相机制造商"
 
-#: hugin1/base_wx/huginConfig.cpp:311 hugin1/hugin/ImagesTree.cpp:150
+#: hugin1/base_wx/huginConfig.cpp:50 hugin1/hugin/ImagesTree.cpp:151
 msgid "Camera model"
 msgstr "照相机型号"
 
-#: hugin1/base_wx/huginConfig.cpp:312 hugin1/hugin/ImagesPanel.cpp:669
-#: hugin1/hugin/ImagesTree.cpp:151 hugin1/hugin/ImagesTree.cpp:1200
+#: hugin1/base_wx/huginConfig.cpp:51 hugin1/hugin/ImagesPanel.cpp:683
+#: hugin1/hugin/ImagesTree.cpp:152 hugin1/hugin/ImagesTree.cpp:1168
 #: hugin1/hugin/xrc/image_variable_dlg.xrc:152
 #: hugin1/hugin/xrc/image_variable_dlg.xrc:347
 #: hugin1/hugin/xrc/lensdb_dialogs.xrc:8
@@ -310,9 +611,31 @@ msgstr "照相机型号"
 msgid "Lens"
 msgstr "镜头"
 
-#: hugin1/base_wx/huginConfig.cpp:348
+#: hugin1/base_wx/huginConfig.cpp:87
 msgid "unknown projection"
 msgstr "未知项目"
+
+#: hugin1/base_wx/platform.cpp:131 hugin1/base_wx/wxLensDB.cpp:630
+#: hugin1/base_wx/wxLensDB.cpp:635 hugin1/base_wx/wxLensDB.cpp:643
+#: hugin1/calibrate_lens/LensCalFrame.cpp:423
+#: hugin1/hugin/CPEditorPanel.cpp:1887 hugin1/hugin/GLViewer.cpp:288
+#: hugin1/hugin/GLViewer.cpp:300 hugin1/hugin/MainFrame.cpp:806
+#: hugin1/hugin/MainFrame.cpp:1433 hugin1/hugin/MainFrame.cpp:1481
+#: hugin1/hugin/MainFrame.cpp:1936 hugin1/hugin/MainFrame.cpp:2128
+#: hugin1/hugin/MainFrame.cpp:2179 hugin1/hugin/MainFrame.cpp:2217
+#: hugin1/hugin/MainFrame.cpp:2229 hugin1/hugin/MainFrame.cpp:2244
+#: hugin1/hugin/MainFrame.cpp:2252
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:278
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:307
+#: hugin1/hugin/PanoOperation.cpp:531 hugin1/hugin/PanoPanel.cpp:1009
+#: hugin1/hugin/PanoPanel.cpp:1224 hugin1/hugin/PreferencesDialog.cpp:415
+#: hugin1/hugin/PreferencesDialog.cpp:483
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:226
+#: hugin1/ptbatcher/FindPanoDialog.cpp:330
+#: hugin1/ptbatcher/ProjectListBox.cpp:184
+#: hugin1/stitch_project/hugin_stitch_project.cpp:408
+msgid "Error"
+msgstr "错误"
 
 #: hugin1/base_wx/platform.cpp:470
 #, c-format
@@ -324,7 +647,12 @@ msgstr ""
 "文件名包含一个以下的无效字符: %s\n"
 "Hugin 不能使用这些文件名. 请重命名您的文件然后重试."
 
-#: hugin1/base_wx/platform.h:40
+#: hugin1/base_wx/platform.cpp:487
+#, c-format
+msgid "Debug report generated in \"%s\"."
+msgstr ""
+
+#: hugin1/base_wx/platform.h:43
 msgid ""
 "All Image files|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*."
 "PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr;*.HDR;*.exr;*.EXR|"
@@ -348,41 +676,64 @@ msgstr "照相机响应"
 msgid "The input \"%s\" is not a valid number."
 msgstr "输入的 \"%s\" 不是一个有效数字."
 
+#: hugin1/base_wx/wxLensDB.cpp:206 hugin1/base_wx/wxLensDB.cpp:534
+#: hugin1/calibrate_lens/LensCalFrame.cpp:359
+#: hugin1/calibrate_lens/LensCalFrame.cpp:436
+#: hugin1/calibrate_lens/LensCalFrame.cpp:624
+#: hugin1/calibrate_lens/LensCalFrame.cpp:647
+#: hugin1/calibrate_lens/LensCalFrame.cpp:655
+#: hugin1/calibrate_lens/LensCalFrame.cpp:790
+#: hugin1/calibrate_lens/LensCalFrame.cpp:798
+#: hugin1/calibrate_lens/LensCalFrame.cpp:824
+#: hugin1/calibrate_lens/LensCalFrame.cpp:896
+#: hugin1/hugin/CPDetectorDialog.cpp:128 hugin1/hugin/GLPreviewFrame.cpp:1629
+#: hugin1/hugin/GLPreviewFrame.cpp:1636 hugin1/hugin/GLPreviewFrame.cpp:1643
+#: hugin1/hugin/GLPreviewFrame.cpp:1657 hugin1/hugin/GLPreviewFrame.cpp:1664
+#: hugin1/hugin/GLPreviewFrame.cpp:1671 hugin1/hugin/MainFrame.cpp:1647
+#: hugin1/hugin/MainFrame.cpp:2183 hugin1/hugin/MaskEditorPanel.cpp:479
+#: hugin1/hugin/PreferencesDialog.cpp:1045 hugin1/hugin/wxPanoCommand.cpp:265
+#: hugin1/ptbatcher/FindPanoDialog.cpp:286
+#: hugin1/ptbatcher/FindPanoDialog.cpp:307 hugin1/hugin/xrc/dlg_warning.xrc:56
+msgid "Warning"
+msgstr "警告"
+
 #: hugin1/base_wx/wxLensDB.cpp:534
 msgid ""
 "There is too little information for saving data into database. Please check "
 "your input!"
 msgstr "用于保存数据到数据库的信息量太少. 请检查您的输入!"
 
-#: hugin1/base_wx/wxLensDB.cpp:625 hugin1/base_wx/wxLensDB.cpp:630
-#: hugin1/base_wx/wxLensDB.cpp:638
+#: hugin1/base_wx/wxLensDB.cpp:630 hugin1/base_wx/wxLensDB.cpp:635
+#: hugin1/base_wx/wxLensDB.cpp:643
 #, fuzzy
 msgid "Could not save information into database."
 msgstr "不能保存信息到数据库文件."
 
-#: hugin1/calibrate_lens/LensCalApp.cpp:62 hugin1/hugin/huginApp.cpp:191
-#: hugin1/ptbatcher/PTBatcherGUI.cpp:77
+#: hugin1/calibrate_lens/LensCalApp.cpp:65 hugin1/hugin/huginApp.cpp:194
+#: hugin1/ptbatcher/PTBatcherGUI.cpp:79
 msgid "xrc directory not found in bundle"
 msgstr "xrc 目录不存在于程序包中"
 
-#: hugin1/calibrate_lens/LensCalApp.cpp:62
-#: hugin1/calibrate_lens/LensCalApp.cpp:70
-#: hugin1/calibrate_lens/LensCalApp.cpp:81 hugin1/hugin/MainFrame.cpp:1973
-#: hugin1/hugin/huginApp.cpp:191 hugin1/hugin/huginApp.cpp:219
-#: hugin1/hugin/huginApp.cpp:232 hugin1/ptbatcher/PTBatcherGUI.cpp:77
-#: hugin1/ptbatcher/PTBatcherGUI.cpp:88 hugin1/ptbatcher/PTBatcherGUI.cpp:109
-#: hugin1/stitch_project/hugin_stitch_project.cpp:306
+#: hugin1/calibrate_lens/LensCalApp.cpp:65
+#: hugin1/calibrate_lens/LensCalApp.cpp:73
+#: hugin1/calibrate_lens/LensCalApp.cpp:84
+#: hugin1/executor/hugin_executor.cpp:78 hugin1/hugin/MainFrame.cpp:1931
+#: hugin1/hugin/huginApp.cpp:194 hugin1/hugin/huginApp.cpp:222
+#: hugin1/hugin/huginApp.cpp:235 hugin1/ptbatcher/PTBatcherGUI.cpp:79
+#: hugin1/ptbatcher/PTBatcherGUI.cpp:90 hugin1/ptbatcher/PTBatcherGUI.cpp:111
+#: hugin1/stitch_project/hugin_stitch_project.cpp:303
 msgid "Fatal Error"
 msgstr "致命错误"
 
-#: hugin1/calibrate_lens/LensCalApp.cpp:70 hugin1/hugin/huginApp.cpp:219
-#: hugin1/ptbatcher/PTBatcherGUI.cpp:88
-#: hugin1/stitch_project/hugin_stitch_project.cpp:306
+#: hugin1/calibrate_lens/LensCalApp.cpp:73
+#: hugin1/executor/hugin_executor.cpp:78 hugin1/hugin/huginApp.cpp:222
+#: hugin1/ptbatcher/PTBatcherGUI.cpp:90
+#: hugin1/stitch_project/hugin_stitch_project.cpp:303
 msgid "Translations not found in bundle"
 msgstr "翻译文件不存在于程序包中"
 
-#: hugin1/calibrate_lens/LensCalApp.cpp:81 hugin1/hugin/huginApp.cpp:232
-#: hugin1/ptbatcher/PTBatcherGUI.cpp:109
+#: hugin1/calibrate_lens/LensCalApp.cpp:84 hugin1/hugin/huginApp.cpp:235
+#: hugin1/ptbatcher/PTBatcherGUI.cpp:111
 msgid ""
 "xrc directory not found, hugin needs to be properly installed\n"
 "Tried Path:"
@@ -394,17 +745,26 @@ msgstr ""
 msgid "Hugin Lens calibration GUI"
 msgstr "Hugin 镜头校准图形用户界面"
 
-#: hugin1/calibrate_lens/LensCalFrame.cpp:377
+#: hugin1/calibrate_lens/LensCalFrame.cpp:358
+#: hugin1/hugin/wxPanoCommand.cpp:264
+#, c-format
+msgid ""
+"File \"%s\" is a black/white image.\n"
+"Hugin does not support this image type. Skipping this image.\n"
+"Convert image to grayscale image and try loading again."
+msgstr ""
+
+#: hugin1/calibrate_lens/LensCalFrame.cpp:392
 #, c-format
 msgid "Added %s"
 msgstr "已增加 %s"
 
-#: hugin1/calibrate_lens/LensCalFrame.cpp:404
+#: hugin1/calibrate_lens/LensCalFrame.cpp:422
 #, c-format
 msgid "The size of the images (%s) does not match the already added image(s)."
 msgstr "图像 (%s) 尺寸不匹配已经增加的图像."
 
-#: hugin1/calibrate_lens/LensCalFrame.cpp:417
+#: hugin1/calibrate_lens/LensCalFrame.cpp:435
 #, c-format
 msgid ""
 "The EXIF information of the added images (%s) is not consistent with the "
@@ -414,27 +774,27 @@ msgstr ""
 "增加的图像 (%s) 的 EXIF 信息不匹配已经增加的图像.\n"
 "如果你已经选择了正确的图像，请再次检查图像."
 
-#: hugin1/calibrate_lens/LensCalFrame.cpp:426
-#: hugin1/hugin/PanoOperation.cpp:90 hugin1/hugin/wxPanoCommand.cpp:583
-#: hugin1/hugin/wxPanoCommand.cpp:759
+#: hugin1/calibrate_lens/LensCalFrame.cpp:444
+#: hugin1/hugin/PanoOperation.cpp:90 hugin1/hugin/wxPanoCommand.cpp:591
+#: hugin1/hugin/wxPanoCommand.cpp:777
 msgid "Add images"
 msgstr "增加图像"
 
-#: hugin1/calibrate_lens/LensCalFrame.cpp:500 hugin1/hugin/MainFrame.cpp:1076
+#: hugin1/calibrate_lens/LensCalFrame.cpp:518 hugin1/hugin/MainFrame.cpp:1038
 msgid "Add Image: cancel"
 msgstr "增加图像: 取消"
 
-#: hugin1/calibrate_lens/LensCalFrame.cpp:508
-#: hugin1/calibrate_lens/LensCalFrame.cpp:518
+#: hugin1/calibrate_lens/LensCalFrame.cpp:526
+#: hugin1/calibrate_lens/LensCalFrame.cpp:536
 #, c-format
 msgid "%s (%d lines)"
 msgstr "%s (%d 行)"
 
-#: hugin1/calibrate_lens/LensCalFrame.cpp:606
-#: hugin1/calibrate_lens/LensCalFrame.cpp:629
-#: hugin1/calibrate_lens/LensCalFrame.cpp:772
-#: hugin1/calibrate_lens/LensCalFrame.cpp:806
-#: hugin1/calibrate_lens/LensCalFrame.cpp:878
+#: hugin1/calibrate_lens/LensCalFrame.cpp:624
+#: hugin1/calibrate_lens/LensCalFrame.cpp:647
+#: hugin1/calibrate_lens/LensCalFrame.cpp:790
+#: hugin1/calibrate_lens/LensCalFrame.cpp:824
+#: hugin1/calibrate_lens/LensCalFrame.cpp:896
 msgid ""
 "There are invalid values in the input boxes.\n"
 "Please check your inputs."
@@ -442,20 +802,20 @@ msgstr ""
 "输入栏中有无效值.\n"
 "请检查您的输入."
 
-#: hugin1/calibrate_lens/LensCalFrame.cpp:615
+#: hugin1/calibrate_lens/LensCalFrame.cpp:633
 msgid "Detecting edges..."
 msgstr "检测边缘..."
 
-#: hugin1/calibrate_lens/LensCalFrame.cpp:617
+#: hugin1/calibrate_lens/LensCalFrame.cpp:635
 msgid "Finding lines..."
 msgstr "查找行..."
 
-#: hugin1/calibrate_lens/LensCalFrame.cpp:621
-#: hugin1/calibrate_lens/LensCalFrame.cpp:737
+#: hugin1/calibrate_lens/LensCalFrame.cpp:639
+#: hugin1/calibrate_lens/LensCalFrame.cpp:755
 msgid "Finished"
 msgstr "完成"
 
-#: hugin1/calibrate_lens/LensCalFrame.cpp:637
+#: hugin1/calibrate_lens/LensCalFrame.cpp:655
 msgid ""
 "There are no detected lines.\n"
 "Please run \"Find lines\" first. If there are no lines found, change the "
@@ -464,25 +824,11 @@ msgstr ""
 "不存在检测行.\n"
 "请先运行 \"查找行\". 如果不能查找到行, 请修改参数."
 
-#: hugin1/calibrate_lens/LensCalFrame.cpp:721
+#: hugin1/calibrate_lens/LensCalFrame.cpp:739
 msgid "Optimizing lens distortion parameters..."
 msgstr "优化镜头畸变参数..."
 
-#: hugin1/calibrate_lens/LensCalFrame.cpp:756
-#: hugin1/calibrate_lens/LensCalFrame.cpp:821
-#: hugin1/hugin/ImageVariableDialog.cpp:350 hugin1/hugin/MainFrame.cpp:873
-#: hugin1/hugin/MaskEditorPanel.cpp:443
-#, c-format
-msgid "File %s exists. Overwrite?"
-msgstr "文件 %s 已存在. 是否覆盖?"
-
-#: hugin1/calibrate_lens/LensCalFrame.cpp:757
-#: hugin1/calibrate_lens/LensCalFrame.cpp:822 hugin1/hugin/MainFrame.cpp:874
-#: hugin1/hugin/xrc/main_tool.xrc:19
-msgid "Save project"
-msgstr "保存项目"
-
-#: hugin1/calibrate_lens/LensCalFrame.cpp:780
+#: hugin1/calibrate_lens/LensCalFrame.cpp:798
 msgid ""
 "There are no detected lines.\n"
 "Please run \"Find lines\" and \"Optimize\" before saving the lens data. If "
@@ -492,98 +838,139 @@ msgstr ""
 "请在保存镜头数据前先运行 \"查找行\" 和 \"优化\". 如果不能查找到行, 请修改参"
 "数."
 
-#: hugin1/calibrate_lens/LensCalFrame.cpp:785
+#: hugin1/calibrate_lens/LensCalFrame.cpp:803
 msgid "Save lens parameters to ini file"
 msgstr "保存镜头参数到 ini 文件"
 
-#: hugin1/calibrate_lens/LensCalFrame.cpp:786
+#: hugin1/calibrate_lens/LensCalFrame.cpp:804
 #: hugin1/hugin/PanoOperation.cpp:565
 #, fuzzy
 msgid "Save lens parameters to lens database"
 msgstr "保存镜头参数到镜头数据库"
 
-#: hugin1/calibrate_lens/LensCalFrame.cpp:787
+#: hugin1/calibrate_lens/LensCalFrame.cpp:805
 msgid "Saving lens data"
 msgstr "保存镜头数据"
 
-#: hugin1/calibrate_lens/LensCalFrame.cpp:787
+#: hugin1/calibrate_lens/LensCalFrame.cpp:805
 #: hugin1/hugin/xrc/lenscal_frame.xrc:373
 msgid "Save lens"
 msgstr "保存镜头"
 
-#: hugin1/calibrate_lens/LensCalFrame.cpp:810 hugin1/hugin/MainFrame.cpp:861
+#: hugin1/calibrate_lens/LensCalFrame.cpp:828 hugin1/hugin/MainFrame.cpp:824
 msgid "Save project file"
 msgstr "保存项目文件"
 
-#: hugin1/calibrate_lens/LensCalFrame.cpp:811 hugin1/hugin/MainFrame.cpp:863
-#: hugin1/hugin/MainFrame.cpp:1000 hugin1/hugin/MainFrame.cpp:1440
-#: hugin1/hugin/MainFrame.cpp:1485 hugin1/ptbatcher/Batch.cpp:641
-#: hugin1/ptbatcher/BatchFrame.cpp:385 hugin1/ptbatcher/BatchFrame.cpp:413
-#: hugin1/stitch_project/hugin_stitch_project.cpp:378
+#: hugin1/calibrate_lens/LensCalFrame.cpp:829 hugin1/hugin/MainFrame.cpp:826
+#: hugin1/hugin/MainFrame.cpp:962 hugin1/hugin/MainFrame.cpp:1402
+#: hugin1/hugin/MainFrame.cpp:1447 hugin1/ptbatcher/Batch.cpp:636
+#: hugin1/ptbatcher/BatchFrame.cpp:435 hugin1/ptbatcher/BatchFrame.cpp:463
+#: hugin1/stitch_project/hugin_stitch_project.cpp:375
 msgid "Project files (*.pto)|*.pto|All files (*)|*"
 msgstr "项目文件 (*.pto)|*.pto|所有文件 (*)|*"
 
-#: hugin1/hugin/AboutDialog.cpp:131
+#: hugin1/executor/hugin_executor.cpp:177
+#, fuzzy
+msgid "Removing temporary files..."
+msgstr "清理临时关键点文件"
+
+#: hugin1/executor/hugin_executor.cpp:195
+msgid "shows this help message"
+msgstr ""
+
+#: hugin1/executor/hugin_executor.cpp:196
+#, fuzzy
+msgid "execute assistant"
+msgstr "运行助理 (&s)"
+
+#: hugin1/executor/hugin_executor.cpp:197
+msgid "execute stitching with given project"
+msgstr ""
+
+#: hugin1/executor/hugin_executor.cpp:198
+#, fuzzy
+msgid "number of used threads"
+msgstr "线程编号:"
+
+#: hugin1/executor/hugin_executor.cpp:199
+#, fuzzy
+msgid "prefix used for stitching"
+msgstr "在缝合前编辑脚本"
+
+#: hugin1/executor/hugin_executor.cpp:200
+#, fuzzy
+msgid "only print commands"
+msgstr "正在运行命令 \""
+
+#: hugin1/hugin/AboutDialog.cpp:139
 #, c-format
 msgid "Operating System: %s"
 msgstr "操作系统: %s"
 
-#: hugin1/hugin/AboutDialog.cpp:134
+#: hugin1/hugin/AboutDialog.cpp:142
 msgid "64 bit"
 msgstr "64 bit"
 
-#: hugin1/hugin/AboutDialog.cpp:136
+#: hugin1/hugin/AboutDialog.cpp:144
 msgid "32 bit"
 msgstr "32 bit"
 
-#: hugin1/hugin/AboutDialog.cpp:137
+#: hugin1/hugin/AboutDialog.cpp:145
 #, c-format
 msgid "Architecture: %s"
 msgstr "建筑: %s"
 
-#: hugin1/hugin/AboutDialog.cpp:140
+#: hugin1/hugin/AboutDialog.cpp:148
 #, c-format
 msgid "Free memory: %ld kiB"
 msgstr "空闲内存: %ld kiB"
 
-#: hugin1/hugin/AboutDialog.cpp:143
+#: hugin1/hugin/AboutDialog.cpp:151
 #, c-format
 msgid "Active Codepage: %u"
 msgstr "有效代码页: %u"
 
-#: hugin1/hugin/AboutDialog.cpp:175
+#: hugin1/hugin/AboutDialog.cpp:183
 #, c-format
 msgid "Version: %s"
 msgstr "版本: %s"
 
-#: hugin1/hugin/AboutDialog.cpp:176
+#: hugin1/hugin/AboutDialog.cpp:184
 #, c-format
 msgid "Path to resources: %s"
 msgstr "资源路径: %s"
 
-#: hugin1/hugin/AboutDialog.cpp:177
+#: hugin1/hugin/AboutDialog.cpp:185
 #, c-format
 msgid "Path to data: %s"
 msgstr "数据路径: %s"
 
-#: hugin1/hugin/AboutDialog.cpp:179
+#: hugin1/hugin/AboutDialog.cpp:187
 #, fuzzy, c-format
 msgid "Hugins camera and lens database: %s"
 msgstr "照相机和镜头数据"
 
-#: hugin1/hugin/AboutDialog.cpp:180
+#: hugin1/hugin/AboutDialog.cpp:189
+msgid "Multi-threading using C++11 std::thread and OpenMP"
+msgstr ""
+
+#: hugin1/hugin/AboutDialog.cpp:191
+msgid "Multi-threading using boost::thread and OpenMP"
+msgstr ""
+
+#: hugin1/hugin/AboutDialog.cpp:193
 msgid "Libraries"
 msgstr "收藏库"
 
-#: hugin1/hugin/CPDetectorDialog.cpp:93
+#: hugin1/hugin/CPDetectorDialog.cpp:100
 msgid "Autopano from http://autopano.kolor.com is not available for OS X"
 msgstr "来自于 http://autopano.kolor.com 的 Autopano 对 OSX 来说是无效的"
 
-#: hugin1/hugin/CPDetectorDialog.cpp:94
+#: hugin1/hugin/CPDetectorDialog.cpp:101
 msgid "Using Autopano-Sift instead"
 msgstr "使用 Autopano-Sift 代替"
 
-#: hugin1/hugin/CPDetectorDialog.cpp:120
+#: hugin1/hugin/CPDetectorDialog.cpp:127
 msgid ""
 "At least one input field is empty.\n"
 "Please check your inputs."
@@ -591,19 +978,19 @@ msgstr ""
 "至少一个输入栏是空白的.\n"
 "请检查您的输入."
 
-#: hugin1/hugin/CPDetectorDialog.cpp:215
+#: hugin1/hugin/CPDetectorDialog.cpp:222
 msgid "Try to connect all overlapping images."
 msgstr "尝试连接所有重叠图像."
 
-#: hugin1/hugin/CPDetectorDialog.cpp:221
+#: hugin1/hugin/CPDetectorDialog.cpp:228
 msgid "Only work on image pairs without control points."
 msgstr "只能处理没有控制点的成对图像."
 
-#: hugin1/hugin/CPDetectorDialog.cpp:249
+#: hugin1/hugin/CPDetectorDialog.cpp:256
 msgid "Select control point detector program"
 msgstr "控制点检测器"
 
-#: hugin1/hugin/CPDetectorDialog.cpp:257
+#: hugin1/hugin/CPDetectorDialog.cpp:264
 msgid "Executables (*.exe,*.vbs,*.cmd, *.bat)|*.exe;*.vbs;*.cmd;*.bat"
 msgstr "可执行文件 (*.exe,*.vbs,*.cmd, *.bat)|*.exe;*.vbs;*.cmd;*.bat"
 
@@ -667,30 +1054,6 @@ msgstr "估算画外点"
 msgid "No similar point found."
 msgstr "没有发现相似点."
 
-#: hugin1/hugin/CPEditorPanel.cpp:1105 hugin1/hugin/CPEditorPanel.cpp:1115
-#: hugin1/hugin/CPEditorPanel.cpp:1130 hugin1/hugin/CPEditorPanel.cpp:1143
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:1815 (2).cpp:1904 (2).cpp:2961
-#: (2).cpp:3337 (2).cpp:3348 (2).cpp:3359 (2).cpp:3535 Kopie.cpp:1814
-#: Kopie.cpp:1903 Kopie.cpp:2960 Kopie.cpp:3291 Kopie.cpp:3302 Kopie.cpp:3313
-#: Kopie.cpp:3457 hugin1/hugin/GLPreviewFrame.cpp:1826
-#: hugin1/hugin/GLPreviewFrame.cpp:1915 hugin1/hugin/GLPreviewFrame.cpp:2977
-#: hugin1/hugin/GLPreviewFrame.cpp:3304 hugin1/hugin/GLPreviewFrame.cpp:3315
-#: hugin1/hugin/GLPreviewFrame.cpp:3326 hugin1/hugin/GLPreviewFrame.cpp:3552
-#: hugin1/hugin/HFOVDialog.cpp:384 hugin1/hugin/ImageVariableDialog.cpp:204
-#: hugin1/hugin/ImagesPanel.cpp:551 hugin1/hugin/ImagesPanel.cpp:614
-#: hugin1/hugin/ImagesPanel.cpp:644 hugin1/hugin/ImagesTree.cpp:1812
-#: hugin1/hugin/MainFrame.cpp:696 hugin1/hugin/MainFrame.cpp:1010
-#: hugin1/hugin/OptimizePanel.cpp:171
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:154
-#: hugin1/hugin/PanoOperation.cpp:372 hugin1/hugin/PanoPanel.cpp:1462
-#: hugin1/hugin/PanoPanel.cpp:1488 hugin1/hugin/PanoPanel.cpp:1523
-#: hugin1/hugin/PanoPanel.cpp:1544 hugin1/hugin/PanoPanel.cpp:1554
-#: hugin1/hugin/wxPanoCommand.cpp:445 hugin1/hugin/xrc/main_frame.xrc:123
-#: hugin1/hugin/xrc/main_frame.xrc:183 hugin1/hugin/xrc/main_frame.xrc:255
-#: hugin1/hugin/xrc/pano_panel.xrc:1087
-msgid "Hugin"
-msgstr "Hugin"
-
 #: hugin1/hugin/CPEditorPanel.cpp:1110 hugin1/hugin/CPEditorPanel.cpp:1113
 msgid ""
 "An internal transformation went wrong.\n"
@@ -728,10 +1091,8 @@ msgid "Line %d"
 msgstr "行 %d"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1417 hugin1/hugin/CPListFrame.cpp:149
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:648 (2).cpp:3028 Kopie.cpp:647
-#: Kopie.cpp:3027 hugin1/hugin/GLPreviewFrame.cpp:655
-#: hugin1/hugin/GLPreviewFrame.cpp:3044 hugin1/hugin/PreviewFrame.cpp:242
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:185
+#: hugin1/hugin/GLPreviewFrame.cpp:655 hugin1/hugin/GLPreviewFrame.cpp:3050
+#: hugin1/hugin/PreviewFrame.cpp:242 hugin1/hugin/xrc/cp_editor_panel.xrc:185
 msgid "normal"
 msgstr "标准的"
 
@@ -799,7 +1160,7 @@ msgstr "正在搜索似云控制点..."
 msgid "Loading model file"
 msgstr "装载图像 %s"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1941 hugin1/hugin/MainFrame.cpp:1650
+#: hugin1/hugin/CPEditorPanel.cpp:1941 hugin1/hugin/MainFrame.cpp:1608
 #, c-format
 msgid "Removed %d control points"
 msgstr "移除了 %d 个控制点"
@@ -808,11 +1169,11 @@ msgstr "移除了 %d 个控制点"
 msgid "Celeste result"
 msgstr "Celeste 结果"
 
-#: hugin1/hugin/CPImageCtrl.cpp:591 hugin1/hugin/CPImageCtrl.cpp:753
+#: hugin1/hugin/CPImageCtrl.cpp:597 hugin1/hugin/CPImageCtrl.cpp:759
 msgid "new"
 msgstr "新建"
 
-#: hugin1/hugin/CPImageCtrl.cpp:1459
+#: hugin1/hugin/CPImageCtrl.cpp:1470
 msgid "Could not process event!"
 msgstr "不能处理事件!"
 
@@ -883,72 +1244,59 @@ msgid ""
 msgstr ""
 "拖动图像 (任意使用 shift 键来约束), 可以使用右键-拖动或者 ctrl 键-拖动来旋转."
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:317 (2).cpp:3090 Kopie.cpp:316
-#: Kopie.cpp:3089 hugin1/hugin/GLPreviewFrame.cpp:316
-#: hugin1/hugin/GLPreviewFrame.cpp:3106
+#: hugin1/hugin/GLPreviewFrame.cpp:316 hugin1/hugin/GLPreviewFrame.cpp:3112
 msgid "Fast Panorama preview"
 msgstr "快速全景图像预览"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:370 Kopie.cpp:369
 #: hugin1/hugin/GLPreviewFrame.cpp:369 hugin1/hugin/xrc/preview_frame.xrc:8
 #: hugin1/hugin/xrc/preview_frame.xrc:1461
 msgid "Center"
 msgstr "中心"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:371 (2).cpp:373 Kopie.cpp:370
-#: Kopie.cpp:372 hugin1/hugin/GLPreviewFrame.cpp:370
-#: hugin1/hugin/GLPreviewFrame.cpp:372 hugin1/hugin/xrc/preview_frame.xrc:14
+#: hugin1/hugin/GLPreviewFrame.cpp:370 hugin1/hugin/GLPreviewFrame.cpp:372
+#: hugin1/hugin/xrc/preview_frame.xrc:14
 #: hugin1/hugin/xrc/preview_frame.xrc:1356
 #: hugin1/hugin/xrc/preview_frame.xrc:1473
 msgid "Fit"
 msgstr "适合"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:372 Kopie.cpp:371
 #: hugin1/hugin/GLPreviewFrame.cpp:371 hugin1/hugin/xrc/preview_frame.xrc:19
 #: hugin1/hugin/xrc/preview_frame.xrc:1485
 msgid "Straighten"
 msgstr "拉直"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:374 (2).cpp:2572 (2).cpp:2600
-#: Kopie.cpp:373 Kopie.cpp:2571 Kopie.cpp:2599
-#: hugin1/hugin/GLPreviewFrame.cpp:373 hugin1/hugin/GLPreviewFrame.cpp:2588
-#: hugin1/hugin/GLPreviewFrame.cpp:2616 hugin1/hugin/PanoPanel.cpp:977
+#: hugin1/hugin/GLPreviewFrame.cpp:373 hugin1/hugin/GLPreviewFrame.cpp:2594
+#: hugin1/hugin/GLPreviewFrame.cpp:2622 hugin1/hugin/PanoPanel.cpp:964
 #: hugin1/hugin/xrc/preview_frame.xrc:1660
 msgid "Autocrop"
 msgstr "自动裁切"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:375 Kopie.cpp:374
 #: hugin1/hugin/GLPreviewFrame.cpp:374 hugin1/hugin/xrc/preview_frame.xrc:1672
 msgid "HDR Autocrop"
 msgstr "HDR 自动裁切"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:390 (2).cpp:3077 Kopie.cpp:389
-#: Kopie.cpp:3076 hugin1/hugin/GLPreviewFrame.cpp:389
-#: hugin1/hugin/GLPreviewFrame.cpp:3093 hugin1/hugin/MainFrame.cpp:364
-#: hugin1/hugin/MainFrame.cpp:2065 hugin1/hugin/MainFrame.cpp:2083
-#: hugin1/hugin/xrc/batch_menu.xrc:5 hugin1/hugin/xrc/lenscal_frame.xrc:459
-#: hugin1/hugin/xrc/main_menu.xrc:205 hugin1/hugin/xrc/main_menu.xrc:230
-#: hugin1/hugin/xrc/preview_frame.xrc:1932
+#: hugin1/hugin/GLPreviewFrame.cpp:389 hugin1/hugin/GLPreviewFrame.cpp:3099
+#: hugin1/hugin/MainFrame.cpp:366 hugin1/hugin/MainFrame.cpp:2024
+#: hugin1/hugin/MainFrame.cpp:2042 hugin1/hugin/xrc/batch_menu.xrc:5
+#: hugin1/hugin/xrc/lenscal_frame.xrc:459 hugin1/hugin/xrc/main_menu.xrc:205
+#: hugin1/hugin/xrc/main_menu.xrc:230 hugin1/hugin/xrc/preview_frame.xrc:1932
 msgid "&File"
 msgstr "文件 (&F)"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:409 Kopie.cpp:408
 #: hugin1/hugin/GLPreviewFrame.cpp:408 hugin1/hugin/PreviewFrame.cpp:135
 msgid "displayed images"
 msgstr "显示的图像"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:426 (2).cpp:439 Kopie.cpp:425
-#: Kopie.cpp:438 hugin1/hugin/GLPreviewFrame.cpp:425
-#: hugin1/hugin/GLPreviewFrame.cpp:438 hugin1/hugin/xrc/preview_frame.xrc:42
+#: hugin1/hugin/GLPreviewFrame.cpp:425 hugin1/hugin/GLPreviewFrame.cpp:438
+#: hugin1/hugin/xrc/preview_frame.xrc:42
 msgid "All"
 msgstr "所有"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:434 (2).cpp:440 Kopie.cpp:433
-#: Kopie.cpp:439 hugin1/hugin/GLPreviewFrame.cpp:433
-#: hugin1/hugin/GLPreviewFrame.cpp:439 hugin1/hugin/ImagesPanel.cpp:666
-#: hugin1/hugin/xrc/pano_panel.xrc:535 hugin1/hugin/xrc/pano_panel.xrc:592
-#: hugin1/hugin/xrc/pano_panel.xrc:1188 hugin1/hugin/xrc/pano_panel.xrc:1235
-#: hugin1/hugin/xrc/pref_dialog.xrc:809 hugin1/hugin/xrc/preview_frame.xrc:47
+#: hugin1/hugin/GLPreviewFrame.cpp:433 hugin1/hugin/GLPreviewFrame.cpp:439
+#: hugin1/hugin/ImagesPanel.cpp:680 hugin1/hugin/xrc/pano_panel.xrc:535
+#: hugin1/hugin/xrc/pano_panel.xrc:592 hugin1/hugin/xrc/pano_panel.xrc:1188
+#: hugin1/hugin/xrc/pano_panel.xrc:1235 hugin1/hugin/xrc/pref_dialog.xrc:767
+#: hugin1/hugin/xrc/preview_frame.xrc:47
 #: hugin1/hugin/xrc/preview_frame.xrc:590
 #: hugin1/hugin/xrc/preview_frame.xrc:668
 #: hugin1/hugin/xrc/preview_frame.xrc:836
@@ -958,107 +1306,88 @@ msgstr "所有"
 msgid "None"
 msgstr "无"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:455 Kopie.cpp:454
 #: hugin1/hugin/GLPreviewFrame.cpp:454
 msgid "Hide"
 msgstr "隐藏"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:504 Kopie.cpp:503
 #: hugin1/hugin/GLPreviewFrame.cpp:503 hugin1/hugin/PreviewFrame.cpp:172
 msgid "VFOV"
 msgstr "垂直视野"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:508 Kopie.cpp:507
 #: hugin1/hugin/GLPreviewFrame.cpp:511 hugin1/hugin/PreviewFrame.cpp:180
 msgid "drag to change the vertical field of view"
 msgstr "拖动以修改垂直视野"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:517 Kopie.cpp:516
 #: hugin1/hugin/GLPreviewFrame.cpp:520 hugin1/hugin/PreviewFrame.cpp:189
 msgid "HFOV"
 msgstr "水平视角"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:522 Kopie.cpp:521
 #: hugin1/hugin/GLPreviewFrame.cpp:529 hugin1/hugin/PreviewFrame.cpp:198
 msgid "drag to change the horizontal field of view"
 msgstr "拖动以修改水平视野"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:577 Kopie.cpp:576
 #: hugin1/hugin/GLPreviewFrame.cpp:584 hugin1/hugin/xrc/lenscal_frame.xrc:434
 #: hugin1/hugin/xrc/main_tool.xrc:67 hugin1/hugin/xrc/preview_frame.xrc:461
 #: hugin1/hugin/xrc/preview_frame.xrc:1301
 msgid "Preview"
 msgstr "预览"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:590 Kopie.cpp:589
 #: hugin1/hugin/GLPreviewFrame.cpp:597
 msgid "Overview"
 msgstr "预览"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:701 Kopie.cpp:700
 #: hugin1/hugin/GLPreviewFrame.cpp:708 hugin1/hugin/PreviewFrame.cpp:312
 msgid "Resets the projection's parameters to their default values."
 msgstr "重置项目参数到它们的默认值."
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:710 Kopie.cpp:709
 #: hugin1/hugin/GLPreviewFrame.cpp:717 hugin1/hugin/PreviewFrame.cpp:321
 msgid "param:"
 msgstr "param:"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:997 Kopie.cpp:996
-#: hugin1/hugin/GLPreviewFrame.cpp:1004
+#: hugin1/hugin/GLPreviewFrame.cpp:1010
 msgid "No images loaded."
 msgstr "没有加载图像."
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:1032 Kopie.cpp:1031
-#: hugin1/hugin/GLPreviewFrame.cpp:1039
+#: hugin1/hugin/GLPreviewFrame.cpp:1045
 #, c-format
 msgid "%lu images loaded."
 msgstr "%lu 图像被加载."
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:1048 Kopie.cpp:1047
-#: hugin1/hugin/GLPreviewFrame.cpp:1055
+#: hugin1/hugin/GLPreviewFrame.cpp:1061
 #, c-format
 msgid "Images are connected by %lu control points.\n"
 msgstr "图像通过 %lu 个控制点来连接.\n"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:1059 Kopie.cpp:1058
-#: hugin1/hugin/GLPreviewFrame.cpp:1066
+#: hugin1/hugin/GLPreviewFrame.cpp:1072
 #, c-format
 msgid "%d unconnected image groups found: "
 msgstr "发现 %d 未连接图像组: "
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:1060 Kopie.cpp:1059
-#: hugin1/hugin/GLPreviewFrame.cpp:1067
+#: hugin1/hugin/GLPreviewFrame.cpp:1073
 msgid ""
 "Please use the Control Points tab to connect all images with control "
 "points.\n"
 msgstr "您可以在控制点面板中按鼠标中键来平移图像.\n"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:1066 Kopie.cpp:1065
-#: hugin1/hugin/GLPreviewFrame.cpp:1073
+#: hugin1/hugin/GLPreviewFrame.cpp:1079
 msgid "Images or control points have changed, new alignment is needed."
 msgstr "图像或者控制点已经被改变, 需要新的队列."
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:1080 Kopie.cpp:1079
-#: hugin1/hugin/GLPreviewFrame.cpp:1087
+#: hugin1/hugin/GLPreviewFrame.cpp:1093
 msgid "Very good fit."
 msgstr "极好的融合."
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:1082 Kopie.cpp:1081
-#: hugin1/hugin/GLPreviewFrame.cpp:1089
+#: hugin1/hugin/GLPreviewFrame.cpp:1095
 msgid "Good fit."
 msgstr "较好的融合."
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:1084 Kopie.cpp:1083
-#: hugin1/hugin/GLPreviewFrame.cpp:1091
+#: hugin1/hugin/GLPreviewFrame.cpp:1097
 msgid ""
 "Bad fit, some control points might be bad, or there are parallax and "
 "movement errors"
 msgstr "较差的融合, 一些控制点可能是坏的, 或者存在视差和移动错误"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:1086 Kopie.cpp:1085
-#: hugin1/hugin/GLPreviewFrame.cpp:1093
+#: hugin1/hugin/GLPreviewFrame.cpp:1099
 msgid ""
 "Very bad fit. Check for bad control points, lens parameters, or images with "
 "parallax or movement. The optimizer might have failed. Manual intervention "
@@ -1067,14 +1396,12 @@ msgstr ""
 "极差的融合. 检查坏控制点, 镜头参数, 或者存在视差或移动错误的图像. 优化可能失"
 "败. 需要人工干预."
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:1088 Kopie.cpp:1087
-#: hugin1/hugin/GLPreviewFrame.cpp:1095
+#: hugin1/hugin/GLPreviewFrame.cpp:1101
 #, c-format
 msgid "Mean error after optimization: %.1f pixel, max: %.1f\n"
 msgstr "优化后的平均错误: %.1f 像素, 最大: %.1f\n"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:1098 Kopie.cpp:1097
-#: hugin1/hugin/GLPreviewFrame.cpp:1105
+#: hugin1/hugin/GLPreviewFrame.cpp:1111
 msgid ""
 "Note: automatic alignment uses default settings from the preferences. If you "
 "want to use customized settings, run the CP detection, the geometrical "
@@ -1084,59 +1411,47 @@ msgstr ""
 "注意: 自动对齐使用首选项的默认设置. 假如您希望使用自定义设置, 运行全景图像编"
 "辑器的图像面板中的控制点检测, 几何优化以及测光优化."
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:1513 Kopie.cpp:1512
-#: hugin1/hugin/GLPreviewFrame.cpp:1524 hugin1/hugin/PreviewFrame.cpp:641
+#: hugin1/hugin/GLPreviewFrame.cpp:1530 hugin1/hugin/PreviewFrame.cpp:641
 msgid "Rectilinear"
 msgstr "直线的"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:1514 Kopie.cpp:1513
-#: hugin1/hugin/GLPreviewFrame.cpp:1525 hugin1/hugin/PreviewFrame.cpp:642
+#: hugin1/hugin/GLPreviewFrame.cpp:1531 hugin1/hugin/PreviewFrame.cpp:642
 msgid "Cylindrical"
 msgstr "圆柱的"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:1612 Kopie.cpp:1611
-#: hugin1/hugin/GLPreviewFrame.cpp:1623 hugin1/hugin/PreviewFrame.cpp:746
+#: hugin1/hugin/GLPreviewFrame.cpp:1629 hugin1/hugin/PreviewFrame.cpp:746
 msgid "Yaw value must be numeric."
 msgstr "偏航值必须是数字."
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:1619 Kopie.cpp:1618
-#: hugin1/hugin/GLPreviewFrame.cpp:1630 hugin1/hugin/PreviewFrame.cpp:752
+#: hugin1/hugin/GLPreviewFrame.cpp:1636 hugin1/hugin/PreviewFrame.cpp:752
 msgid "Pitch value must be numeric."
 msgstr "俯仰值必须是数字."
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:1626 Kopie.cpp:1625
-#: hugin1/hugin/GLPreviewFrame.cpp:1637 hugin1/hugin/PreviewFrame.cpp:758
+#: hugin1/hugin/GLPreviewFrame.cpp:1643 hugin1/hugin/PreviewFrame.cpp:758
 msgid "Roll value must be numeric."
 msgstr "滚转值必须是数字."
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:1640 Kopie.cpp:1639
-#: hugin1/hugin/GLPreviewFrame.cpp:1651
+#: hugin1/hugin/GLPreviewFrame.cpp:1657
 msgid "X value must be numeric."
 msgstr "X 值必须是数字."
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:1647 Kopie.cpp:1646
-#: hugin1/hugin/GLPreviewFrame.cpp:1658
+#: hugin1/hugin/GLPreviewFrame.cpp:1664
 msgid "Y value must be numeric."
 msgstr "Y 值必须是数字."
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:1654 Kopie.cpp:1653
-#: hugin1/hugin/GLPreviewFrame.cpp:1665
+#: hugin1/hugin/GLPreviewFrame.cpp:1671
 msgid "Z value must be numeric."
 msgstr "Z 值必须是数字."
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:1673 (2).cpp:1695 (2).cpp:2807
-#: (2).cpp:2838 Kopie.cpp:1672 Kopie.cpp:1694 Kopie.cpp:2806 Kopie.cpp:2837
-#: hugin1/hugin/GLPreviewFrame.cpp:1684 hugin1/hugin/GLPreviewFrame.cpp:1706
-#: hugin1/hugin/GLPreviewFrame.cpp:2823 hugin1/hugin/GLPreviewFrame.cpp:2854
-#: hugin1/hugin/ImageVariableDialog.cpp:222 hugin1/hugin/PanoPanel.cpp:616
-#: hugin1/hugin/PanoPanel.cpp:647 hugin1/hugin/PreviewFrame.cpp:781
-#: hugin1/hugin/PreviewFrame.cpp:796 hugin1/hugin/huginApp.cpp:84
+#: hugin1/hugin/GLPreviewFrame.cpp:1690 hugin1/hugin/GLPreviewFrame.cpp:1712
+#: hugin1/hugin/GLPreviewFrame.cpp:2829 hugin1/hugin/GLPreviewFrame.cpp:2860
+#: hugin1/hugin/ImageVariableDialog.cpp:222 hugin1/hugin/PanoPanel.cpp:620
+#: hugin1/hugin/PanoPanel.cpp:651 hugin1/hugin/PreviewFrame.cpp:781
+#: hugin1/hugin/PreviewFrame.cpp:796 hugin1/hugin/huginApp.cpp:86
 msgid "Value must be numeric."
 msgstr "数值必须是数字"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:1813 (2).cpp:1902
-#: Kopie.cpp:1812 Kopie.cpp:1901 hugin1/hugin/GLPreviewFrame.cpp:1824
-#: hugin1/hugin/GLPreviewFrame.cpp:1913
+#: hugin1/hugin/GLPreviewFrame.cpp:1830 hugin1/hugin/GLPreviewFrame.cpp:1919
 msgid ""
 "The mosaic/plane mode works only correct for a remapping plane of yaw=0 and "
 "pitch=0.\n"
@@ -1147,85 +1462,70 @@ msgstr ""
 "但是您的项目具有非零 Tpy 和 Tpp 参数.\n"
 "应该将 Tpy 和 Tpp 参数重置到零?"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:2546 Kopie.cpp:2545
-#: hugin1/hugin/GLPreviewFrame.cpp:2562 hugin1/hugin/PreviewFrame.cpp:243
+#: hugin1/hugin/GLPreviewFrame.cpp:2568 hugin1/hugin/PreviewFrame.cpp:243
 msgid "difference"
 msgstr "差异"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:2572 (2).cpp:2600
-#: Kopie.cpp:2571 Kopie.cpp:2599 hugin1/hugin/GLPreviewFrame.cpp:2588
-#: hugin1/hugin/GLPreviewFrame.cpp:2616 hugin1/hugin/PanoPanel.cpp:977
+#: hugin1/hugin/GLPreviewFrame.cpp:2594 hugin1/hugin/GLPreviewFrame.cpp:2622
+#: hugin1/hugin/PanoPanel.cpp:964
 msgid "Calculating optimal crop"
 msgstr "正在计算优化裁切"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:2753 Kopie.cpp:2752
-#: hugin1/hugin/GLPreviewFrame.cpp:2769 hugin1/hugin/PanoPanel.cpp:726
+#: hugin1/hugin/GLPreviewFrame.cpp:2775 hugin1/hugin/PanoPanel.cpp:730
 msgid "Top needs to be an integer bigger than 0"
 msgstr "上部值需要是一个大于 0 的整数"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:2757 Kopie.cpp:2756
-#: hugin1/hugin/GLPreviewFrame.cpp:2773 hugin1/hugin/PanoPanel.cpp:730
+#: hugin1/hugin/GLPreviewFrame.cpp:2779 hugin1/hugin/PanoPanel.cpp:734
 msgid "left needs to be an integer bigger than 0"
 msgstr "左部值需要是一个大于 0 的整数"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:2761 Kopie.cpp:2760
-#: hugin1/hugin/GLPreviewFrame.cpp:2777 hugin1/hugin/PanoPanel.cpp:734
+#: hugin1/hugin/GLPreviewFrame.cpp:2783 hugin1/hugin/PanoPanel.cpp:738
 msgid "right needs to be an integer bigger than 0"
 msgstr "右部值需要是一个大于 0 的整数"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:2765 Kopie.cpp:2764
-#: hugin1/hugin/GLPreviewFrame.cpp:2781 hugin1/hugin/PanoPanel.cpp:738
+#: hugin1/hugin/GLPreviewFrame.cpp:2787 hugin1/hugin/PanoPanel.cpp:742
 msgid "bottom needs to be an integer bigger than 0"
 msgstr "下部值需要是一个大于 0 的整数"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:2771 Kopie.cpp:2770
-#: hugin1/hugin/GLPreviewFrame.cpp:2787
+#: hugin1/hugin/GLPreviewFrame.cpp:2793
 msgid "left boundary must be smaller than right"
 msgstr "左侧边界必须小于右侧边界"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:2777 Kopie.cpp:2776
-#: hugin1/hugin/GLPreviewFrame.cpp:2793
+#: hugin1/hugin/GLPreviewFrame.cpp:2799
 msgid "top boundary must be smaller than bottom"
 msgstr "顶部边界必须小于底部边界"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:2813 Kopie.cpp:2812
-#: hugin1/hugin/GLPreviewFrame.cpp:2829 hugin1/hugin/PanoPanel.cpp:622
+#: hugin1/hugin/GLPreviewFrame.cpp:2835 hugin1/hugin/PanoPanel.cpp:626
 #, c-format
 msgid "Invalid HFOV value. Maximum HFOV for this projection is %lf."
 msgstr "无效的水平视角值. 这个项目的最大水平视角值是 %lf."
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:2844 Kopie.cpp:2843
-#: hugin1/hugin/GLPreviewFrame.cpp:2860 hugin1/hugin/PanoPanel.cpp:653
+#: hugin1/hugin/GLPreviewFrame.cpp:2866 hugin1/hugin/PanoPanel.cpp:657
 #, c-format
 msgid "Invalid VFOV value. Maximum VFOV for this projection is %lf."
 msgstr "无效的垂直视野值. 这个项目的最大垂直视野值是 %lf."
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:2882 Kopie.cpp:2881
-#: hugin1/hugin/GLPreviewFrame.cpp:2898
+#: hugin1/hugin/GLPreviewFrame.cpp:2904
 msgid ""
 "With a wide field of view, panoramas with rectilinear projection get very "
 "stretched towards the edges.\n"
 msgstr "带有一个宽视野, 使用直线投影的全景图像在边缘处会被拉伸得非常平整.\n"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:2884 Kopie.cpp:2883
-#: hugin1/hugin/GLPreviewFrame.cpp:2900
+#: hugin1/hugin/GLPreviewFrame.cpp:2906
 msgid ""
 "Since the field of view is only very wide in the horizontal direction, try a "
 "cylindrical projection instead."
 msgstr "由于视野只有水平方向非常宽, 尝试使用一个圆柱投影来代替."
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:2886 Kopie.cpp:2885
-#: hugin1/hugin/GLPreviewFrame.cpp:2902
+#: hugin1/hugin/GLPreviewFrame.cpp:2908
 msgid "For a very wide panorama, try equirectangular projection instead."
 msgstr "对于一个非常宽的全景图像, 尝试使用等矩形投影来代替."
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:2888 Kopie.cpp:2887
-#: hugin1/hugin/GLPreviewFrame.cpp:2904
+#: hugin1/hugin/GLPreviewFrame.cpp:2910
 msgid " You could also try Panini projection."
 msgstr " 您也可以尝试 Panini 投影."
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:2893 Kopie.cpp:2892
-#: hugin1/hugin/GLPreviewFrame.cpp:2909
+#: hugin1/hugin/GLPreviewFrame.cpp:2915
 msgid ""
 "With a wide vertical field of view, panoramas with cylindrical projection "
 "get very stretched at the top and bottom.\n"
@@ -1235,8 +1535,7 @@ msgstr ""
 "带有一个宽垂直视野, 使用圆柱投影的全景图像在顶部和底部会被拉伸得非常平整.\n"
 "一个等矩形投影可以在较少垂直空间内得到相同内容."
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:2899 Kopie.cpp:2898
-#: hugin1/hugin/GLPreviewFrame.cpp:2915
+#: hugin1/hugin/GLPreviewFrame.cpp:2921
 msgid ""
 "Since the vertical field of view is not too wide, you could try setting the "
 "panorama projection to cylindrical.\n"
@@ -1245,8 +1544,7 @@ msgstr ""
 "由于垂直视野不太宽, 您可以尝试设置全景投影为圆柱投影.\n"
 "圆柱投影保持垂直线, 不像等矩形投影."
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:2905 Kopie.cpp:2904
-#: hugin1/hugin/GLPreviewFrame.cpp:2921
+#: hugin1/hugin/GLPreviewFrame.cpp:2927
 msgid ""
 "Stereographic projection is conformal, unlike this Fisheye panorama "
 "projection.\n"
@@ -1256,8 +1554,7 @@ msgstr ""
 "球面投影是正形的, 不像鱼眼全景投影.\n"
 "一个正形投影保持了围绕一个点的各个角度, 经常使图像更容易令人欣赏."
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:2910 Kopie.cpp:2909
-#: hugin1/hugin/GLPreviewFrame.cpp:2926
+#: hugin1/hugin/GLPreviewFrame.cpp:2932
 msgid ""
 "Panoramas with stereographic projection and a very wide field of view "
 "stretch the image around the edges a lot.\n"
@@ -1267,15 +1564,13 @@ msgstr ""
 "使用球面投影并带有一个非常宽视野的全景图像将图像沿大量边缘进行拉伸.\n"
 "鱼眼投影压缩了它, 所以您能用于一个宽视野并且仍然拥有一个合适的中央包裹."
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:2917 Kopie.cpp:2916
-#: hugin1/hugin/GLPreviewFrame.cpp:2933
+#: hugin1/hugin/GLPreviewFrame.cpp:2939
 msgid ""
 "Setting the panorama to rectilinear projection would keep the straight lines "
 "straight."
 msgstr "设置全景图像到直线投影能够保持直线的直线度."
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:2959 Kopie.cpp:2958
-#: hugin1/hugin/GLPreviewFrame.cpp:2975
+#: hugin1/hugin/GLPreviewFrame.cpp:2981
 msgid ""
 "You have hidden the infobar, which shows hints about selection of "
 "projection.\n"
@@ -1284,47 +1579,39 @@ msgstr ""
 "您已经隐藏了信息栏, 它可以显示关于选择投影方面的提示.\n"
 "假如您希望再次看见这一栏, 请再次在首选项中激活这一栏."
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:3029 Kopie.cpp:3028
-#: hugin1/hugin/GLPreviewFrame.cpp:3045
+#: hugin1/hugin/GLPreviewFrame.cpp:3051
 msgid "normal, individual"
 msgstr "普通, 独立"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:3032 Kopie.cpp:3031
-#: hugin1/hugin/GLPreviewFrame.cpp:3048
+#: hugin1/hugin/GLPreviewFrame.cpp:3054
 msgid "mosaic"
 msgstr "马赛克"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:3033 Kopie.cpp:3032
-#: hugin1/hugin/GLPreviewFrame.cpp:3049
+#: hugin1/hugin/GLPreviewFrame.cpp:3055
 msgid "mosaic, individual"
 msgstr "马塞克, 独立"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:3053 Kopie.cpp:3052
-#: hugin1/hugin/GLPreviewFrame.cpp:3069
+#: hugin1/hugin/GLPreviewFrame.cpp:3075
 msgid "Panosphere"
 msgstr "全景球"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:3056 Kopie.cpp:3055
-#: hugin1/hugin/GLPreviewFrame.cpp:3072
+#: hugin1/hugin/GLPreviewFrame.cpp:3078
 msgid "Mosaic plane"
 msgstr "马塞克平面"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:3335 Kopie.cpp:3289
-#: hugin1/hugin/GLPreviewFrame.cpp:3302
+#: hugin1/hugin/GLPreviewFrame.cpp:3308
 msgid ""
 "The selected region contains no active image.\n"
 "Please select a region which is covered by at least 2 images."
 msgstr ""
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:3346 Kopie.cpp:3300
-#: hugin1/hugin/GLPreviewFrame.cpp:3313
+#: hugin1/hugin/GLPreviewFrame.cpp:3319
 msgid ""
 "The selected region is only covered by a single image.\n"
 "Can't create control points for a single image."
 msgstr ""
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:3357 Kopie.cpp:3311
-#: hugin1/hugin/GLPreviewFrame.cpp:3324
+#: hugin1/hugin/GLPreviewFrame.cpp:3330
 msgid ""
 "The selected rectangle is very big.\n"
 "This function is only intended for smaller areas. Otherwise unwanted side "
@@ -1333,36 +1620,31 @@ msgid ""
 "Proceed anyway?"
 msgstr ""
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:3382 Kopie.cpp:3336
-#: hugin1/hugin/GLPreviewFrame.cpp:3351 hugin1/hugin/GLPreviewFrame.cpp:3356
+#: hugin1/hugin/GLPreviewFrame.cpp:3357 hugin1/hugin/GLPreviewFrame.cpp:3362
 #, fuzzy
 msgid "Searching control points"
 msgstr "清理控制点"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:3382 Kopie.cpp:3336
-#: hugin1/hugin/GLPreviewFrame.cpp:3351 hugin1/hugin/GLPreviewFrame.cpp:3356
+#: hugin1/hugin/GLPreviewFrame.cpp:3357 hugin1/hugin/GLPreviewFrame.cpp:3362
 #, fuzzy
 msgid "Processing"
 msgstr "处理中:"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:3390
-#, c-format
-msgid "Remap \"%s\" to panorama projection..."
+#: hugin1/hugin/GLPreviewFrame.cpp:3370
+msgid "Remap image to panorama projection..."
 msgstr ""
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:3420
-#, c-format
-msgid "Matching interest points for image \"%s\"..."
-msgstr ""
+#: hugin1/hugin/GLPreviewFrame.cpp:3417
+#, fuzzy
+msgid "Matching interest points..."
+msgstr "正在搜索相似点..."
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:3518 Kopie.cpp:3440
-#: hugin1/hugin/GLPreviewFrame.cpp:3530
+#: hugin1/hugin/GLPreviewFrame.cpp:3536
 #, fuzzy
 msgid "Checking results..."
 msgstr "正在成对检查"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:3533 Kopie.cpp:3455
-#: hugin1/hugin/GLPreviewFrame.cpp:3550
+#: hugin1/hugin/GLPreviewFrame.cpp:3556
 #, c-format
 msgid ""
 "%lu control points were added to the panorama.\n"
@@ -1371,43 +1653,21 @@ msgid ""
 "account?"
 msgstr ""
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:3541 Kopie.cpp:3463
-#: hugin1/hugin/GLPreviewFrame.cpp:3558
+#: hugin1/hugin/GLPreviewFrame.cpp:3564
 #, c-format
 msgid "Current selected optimizer strategy is \"%s\"."
 msgstr ""
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:3542 Kopie.cpp:3464
-#: hugin1/hugin/GLPreviewFrame.cpp:3559 hugin1/hugin/xrc/main_tool.xrc:51
+#: hugin1/hugin/GLPreviewFrame.cpp:3565 hugin1/hugin/xrc/main_tool.xrc:51
 msgid "Re-optimize"
 msgstr "重新优化"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:3542 Kopie.cpp:3464
-#: hugin1/hugin/GLPreviewFrame.cpp:3559
+#: hugin1/hugin/GLPreviewFrame.cpp:3565
 #, fuzzy
 msgid "Don't optimize now"
 msgstr "现在优化!"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie.cpp:3341
-msgid "Remap to panorama projection..."
-msgstr ""
-
-#: hugin1/hugin/GLPreviewFrame - Kopie.cpp:3370
-#, fuzzy
-msgid "Finding interest points..."
-msgstr "查找行..."
-
-#: hugin1/hugin/GLPreviewFrame - Kopie.cpp:3394
-#: hugin1/hugin/GLPreviewFrame.cpp:3411
-#, fuzzy
-msgid "Matching interest points..."
-msgstr "正在搜索相似点..."
-
-#: hugin1/hugin/GLPreviewFrame.cpp:3364
-msgid "Remap image to panorama projection..."
-msgstr ""
-
-#: hugin1/hugin/GLViewer.cpp:287
+#: hugin1/hugin/GLViewer.cpp:288
 msgid ""
 "Error initializing GLEW\n"
 "Fast preview window can not be opened."
@@ -1415,7 +1675,7 @@ msgstr ""
 "GLEW 初始化出错\n"
 "不能开启快速预览窗口."
 
-#: hugin1/hugin/GLViewer.cpp:299
+#: hugin1/hugin/GLViewer.cpp:300
 msgid ""
 "Sorry, the fast preview window requires a system which supports OpenGL "
 "version 1.1 with the GL_ARB_multitexture extension.\n"
@@ -1480,7 +1740,7 @@ msgid "The crop factor must be positive."
 msgstr "裁切系数必须是正数."
 
 #: hugin1/hugin/HFOVDialog.cpp:382 hugin1/hugin/ImageVariableDialog.cpp:202
-#: hugin1/hugin/ImagesPanel.cpp:549 hugin1/hugin/ImagesTree.cpp:1810
+#: hugin1/hugin/ImagesPanel.cpp:559 hugin1/hugin/ImagesTree.cpp:1778
 #, c-format
 msgid ""
 "You have given a field of view of %.2f degrees.\n"
@@ -1505,7 +1765,7 @@ msgid "Save image"
 msgstr "保存图像"
 
 #: hugin1/hugin/ImagesList.cpp:455 hugin1/hugin/ImagesList.cpp:515
-#: hugin1/hugin/ImagesTree.cpp:141
+#: hugin1/hugin/ImagesTree.cpp:142
 msgid "Filename"
 msgstr "文件名"
 
@@ -1520,437 +1780,429 @@ msgstr "蒙板编号"
 msgid "Crop"
 msgstr "裁切"
 
-#: hugin1/hugin/ImagesPanel.cpp:315
+#: hugin1/hugin/ImagesPanel.cpp:320
 msgid "Enter maximal number of control points per image pair"
 msgstr "输入每对图像的最大控制点数量"
 
-#: hugin1/hugin/ImagesPanel.cpp:316
+#: hugin1/hugin/ImagesPanel.cpp:321
 msgid "Points per Overlap"
 msgstr "每对重叠点"
 
-#: hugin1/hugin/ImagesPanel.cpp:317
+#: hugin1/hugin/ImagesPanel.cpp:322
 msgid "Control point detector option"
 msgstr "控制点检测器选项"
 
-#: hugin1/hugin/ImagesPanel.cpp:335
+#: hugin1/hugin/ImagesPanel.cpp:340
 #, c-format
 msgid "Added %lu control points"
 msgstr "增加了 %lu 个控制点"
 
-#: hugin1/hugin/ImagesPanel.cpp:335
+#: hugin1/hugin/ImagesPanel.cpp:340
 msgid "Control point detector result"
 msgstr "控制点检测器结果"
 
-#: hugin1/hugin/ImagesPanel.cpp:612
+#: hugin1/hugin/ImagesPanel.cpp:622
 msgid "The minimum overlap has to be greater than 0 and smaller than 1."
 msgstr "最小重叠区域必须大于 0 并且小于 1."
 
-#: hugin1/hugin/ImagesPanel.cpp:642
+#: hugin1/hugin/ImagesPanel.cpp:656
 msgid "The maximum Ev difference has to be greater than 0."
 msgstr "最大 Ev 差值必须大于 0."
 
-#: hugin1/hugin/ImagesPanel.cpp:674 hugin1/hugin/ImagesTree.cpp:1212
+#: hugin1/hugin/ImagesPanel.cpp:688 hugin1/hugin/ImagesTree.cpp:1180
 msgid "Stacks"
 msgstr "堆栈"
 
-#: hugin1/hugin/ImagesPanel.cpp:679
+#: hugin1/hugin/ImagesPanel.cpp:693
 msgid "Output layers"
 msgstr "输出层"
 
-#: hugin1/hugin/ImagesPanel.cpp:682
+#: hugin1/hugin/ImagesPanel.cpp:696
 msgid "Output stacks"
 msgstr "输出栈"
 
-#: hugin1/hugin/ImagesPanel.cpp:700
+#: hugin1/hugin/ImagesPanel.cpp:714
 msgid "Positions (incremental, starting from anchor)"
 msgstr "位置 (增量, 从锚定点开始) "
 
-#: hugin1/hugin/ImagesPanel.cpp:703
+#: hugin1/hugin/ImagesPanel.cpp:717
 msgid "Positions (y,p,r)"
 msgstr "位置 (y,p,r)"
 
-#: hugin1/hugin/ImagesPanel.cpp:706
+#: hugin1/hugin/ImagesPanel.cpp:720
 msgid "Positions and View (y,p,r,v)"
 msgstr "位置和视角 (y,p,r,v)"
 
-#: hugin1/hugin/ImagesPanel.cpp:709
+#: hugin1/hugin/ImagesPanel.cpp:723
 msgid "Positions and Barrel Distortion (y,p,r,b)"
 msgstr "位置和桶状畸变 (y,p,r,b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:712
+#: hugin1/hugin/ImagesPanel.cpp:726
 msgid "Positions, View and Barrel (y,p,r,v,b)"
 msgstr "位置, 视野和桶状 (y,p,r,v,b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:717
+#: hugin1/hugin/ImagesPanel.cpp:731
 msgid "Everything without translation"
 msgstr "所有图像未经坐标变换"
 
-#: hugin1/hugin/ImagesPanel.cpp:721
+#: hugin1/hugin/ImagesPanel.cpp:735
 msgid "Everything"
 msgstr "每件事"
 
-#: hugin1/hugin/ImagesPanel.cpp:727
+#: hugin1/hugin/ImagesPanel.cpp:741
 msgid "Positions and Translation (y,p,r,x,y,z)"
 msgstr "位置和坐标变换 (y,p,r,x,y,z)"
 
-#: hugin1/hugin/ImagesPanel.cpp:730
+#: hugin1/hugin/ImagesPanel.cpp:744
 msgid "Positions, Translation and View (y,p,r,x,y,z,v)"
 msgstr "位置, 坐标变换和视角 (y,p,r,x,y,z,v)"
 
-#: hugin1/hugin/ImagesPanel.cpp:733
+#: hugin1/hugin/ImagesPanel.cpp:747
 msgid "Positions, Translation and Barrel (y,p,r,x,y,z,b)"
 msgstr "位置, 坐标变换和桶状 (y,p,r,x,y,z,b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:736
+#: hugin1/hugin/ImagesPanel.cpp:750
 msgid "Positions, Translation, View and Barrel (y,p,r,x,y,z,v,b)"
 msgstr "位置, 坐标变换, 视野和桶状 (y,p,r,x,y,z,v,b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:740 hugin1/hugin/ImagesPanel.cpp:761
+#: hugin1/hugin/ImagesPanel.cpp:754 hugin1/hugin/ImagesPanel.cpp:775
 msgid "Custom parameters"
 msgstr "自定义参数"
 
-#: hugin1/hugin/ImagesPanel.cpp:746
+#: hugin1/hugin/ImagesPanel.cpp:760
 msgid "Low dynamic range"
 msgstr "低动态范围"
 
-#: hugin1/hugin/ImagesPanel.cpp:749
+#: hugin1/hugin/ImagesPanel.cpp:763
 msgid "Low dynamic range, variable white balance"
 msgstr "低动态范围, 白平衡变量"
 
-#: hugin1/hugin/ImagesPanel.cpp:754
+#: hugin1/hugin/ImagesPanel.cpp:768
 msgid "High dynamic range, fixed exposure"
 msgstr "高动态范围, 曝光校正"
 
-#: hugin1/hugin/ImagesPanel.cpp:757
+#: hugin1/hugin/ImagesPanel.cpp:771
 msgid "High dynamic range, variable white balance, fixed exposure"
 msgstr "高动态范围, 白平衡变量, 曝光校正"
 
-#: hugin1/hugin/ImagesPanel.cpp:824
+#: hugin1/hugin/ImagesPanel.cpp:838
 msgid "Simple interface"
 msgstr "简单界面"
 
-#: hugin1/hugin/ImagesPanel.cpp:827
+#: hugin1/hugin/ImagesPanel.cpp:841
 msgid "Advanced interface"
 msgstr "高级界面"
 
-#: hugin1/hugin/ImagesPanel.cpp:830
+#: hugin1/hugin/ImagesPanel.cpp:844
 msgid "Expert interface"
 msgstr "专家界面"
 
-#: hugin1/hugin/ImagesTree.cpp:140
+#: hugin1/hugin/ImagesTree.cpp:141
 msgid "Image number"
 msgstr "图像编号"
 
-#: hugin1/hugin/ImagesTree.cpp:142
+#: hugin1/hugin/ImagesTree.cpp:143
 msgid "Width"
 msgstr "宽度"
 
-#: hugin1/hugin/ImagesTree.cpp:142
+#: hugin1/hugin/ImagesTree.cpp:143
 msgid "Image width"
 msgstr "图像宽度"
 
-#: hugin1/hugin/ImagesTree.cpp:143
+#: hugin1/hugin/ImagesTree.cpp:144
 msgid "Height"
 msgstr "高度"
 
-#: hugin1/hugin/ImagesTree.cpp:143
+#: hugin1/hugin/ImagesTree.cpp:144
 msgid "Image height"
 msgstr "图像高度"
 
-#: hugin1/hugin/ImagesTree.cpp:144
+#: hugin1/hugin/ImagesTree.cpp:145
 msgid "Anchor"
 msgstr "锚定"
 
-#: hugin1/hugin/ImagesTree.cpp:144
+#: hugin1/hugin/ImagesTree.cpp:145
 msgid "Anchor image for position and/or exposure"
 msgstr "锚定这张图像以便定位和/或曝光"
 
-#: hugin1/hugin/ImagesTree.cpp:145
+#: hugin1/hugin/ImagesTree.cpp:146
 msgid "# Ctrl Pnts"
 msgstr "# 控制点"
 
-#: hugin1/hugin/ImagesTree.cpp:145
+#: hugin1/hugin/ImagesTree.cpp:146
 msgid "Number of control points in this image"
 msgstr "这张图像的控制点编号"
 
-#: hugin1/hugin/ImagesTree.cpp:146
+#: hugin1/hugin/ImagesTree.cpp:147
 msgid "Lens no."
 msgstr "镜头编号"
 
-#: hugin1/hugin/ImagesTree.cpp:146
+#: hugin1/hugin/ImagesTree.cpp:147
 msgid "Assigned lens number"
 msgstr "分配镜头编号"
 
-#: hugin1/hugin/ImagesTree.cpp:147
+#: hugin1/hugin/ImagesTree.cpp:148
 msgid "Stack no."
 msgstr "堆栈编号"
 
-#: hugin1/hugin/ImagesTree.cpp:147
+#: hugin1/hugin/ImagesTree.cpp:148
 msgid "Assigned stack number"
 msgstr "分配堆栈编号"
 
-#: hugin1/hugin/ImagesTree.cpp:149
+#: hugin1/hugin/ImagesTree.cpp:150
 msgid "Maker"
 msgstr "制造商"
 
-#: hugin1/hugin/ImagesTree.cpp:150
+#: hugin1/hugin/ImagesTree.cpp:151
 msgid "Model"
 msgstr "型号"
 
-#: hugin1/hugin/ImagesTree.cpp:151
+#: hugin1/hugin/ImagesTree.cpp:152
 msgid "Used lens"
 msgstr "使用的镜头"
 
-#: hugin1/hugin/ImagesTree.cpp:152
+#: hugin1/hugin/ImagesTree.cpp:153
 msgid "Capture date"
 msgstr "照相日期"
 
-#: hugin1/hugin/ImagesTree.cpp:152
+#: hugin1/hugin/ImagesTree.cpp:153
 msgid "Date, image was taken"
 msgstr "日期, 图像已经给定"
 
-#: hugin1/hugin/ImagesTree.cpp:153
+#: hugin1/hugin/ImagesTree.cpp:154
 msgid "Focal length"
 msgstr "焦距"
 
-#: hugin1/hugin/ImagesTree.cpp:154
+#: hugin1/hugin/ImagesTree.cpp:155
 msgid "Aperture"
 msgstr "光圈"
 
-#: hugin1/hugin/ImagesTree.cpp:155
+#: hugin1/hugin/ImagesTree.cpp:156
 msgid "Shutter Speed"
 msgstr "快门速度"
 
-#: hugin1/hugin/ImagesTree.cpp:155
+#: hugin1/hugin/ImagesTree.cpp:156
 msgid "Shutter speed"
 msgstr "快门速度"
 
-#: hugin1/hugin/ImagesTree.cpp:156
+#: hugin1/hugin/ImagesTree.cpp:157
 msgid "ISO"
 msgstr "ISO"
 
-#: hugin1/hugin/ImagesTree.cpp:156
+#: hugin1/hugin/ImagesTree.cpp:157
 msgid "ISO speed"
 msgstr "ISO 速度"
 
-#: hugin1/hugin/ImagesTree.cpp:158
+#: hugin1/hugin/ImagesTree.cpp:159
 msgid "Yaw (y)"
 msgstr "偏航 (y)"
 
-#: hugin1/hugin/ImagesTree.cpp:158
+#: hugin1/hugin/ImagesTree.cpp:159
 msgid "Yaw"
 msgstr "偏航"
 
-#: hugin1/hugin/ImagesTree.cpp:159
+#: hugin1/hugin/ImagesTree.cpp:160
 msgid "Pitch (p)"
 msgstr "俯仰 (p)"
 
-#: hugin1/hugin/ImagesTree.cpp:159
+#: hugin1/hugin/ImagesTree.cpp:160
 msgid "Pitch"
 msgstr "俯仰"
 
-#: hugin1/hugin/ImagesTree.cpp:160
+#: hugin1/hugin/ImagesTree.cpp:161
 msgid "Roll (r)"
 msgstr "滚转 (r)"
 
-#: hugin1/hugin/ImagesTree.cpp:160
+#: hugin1/hugin/ImagesTree.cpp:161
 msgid "Roll"
 msgstr "滚转"
 
-#: hugin1/hugin/ImagesTree.cpp:161
+#: hugin1/hugin/ImagesTree.cpp:162
 msgid "Camera translation X"
 msgstr "照相机位移 X"
 
-#: hugin1/hugin/ImagesTree.cpp:162
+#: hugin1/hugin/ImagesTree.cpp:163
 msgid "Camera translation Y"
 msgstr "照相机位移 Y"
 
-#: hugin1/hugin/ImagesTree.cpp:163
+#: hugin1/hugin/ImagesTree.cpp:164
 msgid "Camera translation Z"
 msgstr "照相机位移 Z"
 
-#: hugin1/hugin/ImagesTree.cpp:164
+#: hugin1/hugin/ImagesTree.cpp:165
 msgid "Plane yaw"
 msgstr "平面偏航"
 
-#: hugin1/hugin/ImagesTree.cpp:164
+#: hugin1/hugin/ImagesTree.cpp:165
 msgid "Translation remap plane yaw"
 msgstr "位移重映射平面偏航"
 
-#: hugin1/hugin/ImagesTree.cpp:165
+#: hugin1/hugin/ImagesTree.cpp:166
 msgid "Plane pitch"
 msgstr "平面俯仰"
 
-#: hugin1/hugin/ImagesTree.cpp:165
+#: hugin1/hugin/ImagesTree.cpp:166
 msgid "Translation remap plane pitch"
 msgstr "位移重映射平面俯仰"
 
-#: hugin1/hugin/ImagesTree.cpp:166
+#: hugin1/hugin/ImagesTree.cpp:167
 msgid "Camera translation"
 msgstr "照相机位移"
 
-#: hugin1/hugin/ImagesTree.cpp:168
+#: hugin1/hugin/ImagesTree.cpp:169
 msgid "Lens type (f)"
 msgstr "镜头类型 (f)"
 
-#: hugin1/hugin/ImagesTree.cpp:168
+#: hugin1/hugin/ImagesTree.cpp:169
 msgid "Lens type (rectilinear, fisheye, equirectangular, ...)"
 msgstr "镜头类型 (矩形, 鱼眼, 等矩形, ...)"
 
-#: hugin1/hugin/ImagesTree.cpp:169
+#: hugin1/hugin/ImagesTree.cpp:170
 msgid "Hfov (v)"
 msgstr "水平视野 (v)"
 
-#: hugin1/hugin/ImagesTree.cpp:169
+#: hugin1/hugin/ImagesTree.cpp:170
 msgid "Horizontal field of view (v)"
 msgstr "水平视野 (v)"
 
-#: hugin1/hugin/ImagesTree.cpp:170
+#: hugin1/hugin/ImagesTree.cpp:171
 msgid "Radial distortion (a)"
 msgstr "径向畸变 (a)"
 
-#: hugin1/hugin/ImagesTree.cpp:171
+#: hugin1/hugin/ImagesTree.cpp:172
 msgid "Radial distortion (b, barrel)"
 msgstr "径向畸变 (b, 桶状)"
 
-#: hugin1/hugin/ImagesTree.cpp:172
+#: hugin1/hugin/ImagesTree.cpp:173
 msgid "Radial distortion (c)"
 msgstr "径向畸变 (c)"
 
-#: hugin1/hugin/ImagesTree.cpp:173
+#: hugin1/hugin/ImagesTree.cpp:174
 msgid "Horizontal image center shift (d)"
 msgstr "水平图像偏心 (d)"
 
-#: hugin1/hugin/ImagesTree.cpp:174
+#: hugin1/hugin/ImagesTree.cpp:175
 msgid "Vertical image center shift (e)"
 msgstr "垂直图像偏心 (e)"
 
-#: hugin1/hugin/ImagesTree.cpp:175
+#: hugin1/hugin/ImagesTree.cpp:176
 msgid "Horizontal image shearing (g)"
 msgstr "水平图像剪切 (g)"
 
-#: hugin1/hugin/ImagesTree.cpp:176
+#: hugin1/hugin/ImagesTree.cpp:177
 msgid "Vertical image shearing (t)"
 msgstr "垂直图像剪切 (t)"
 
-#: hugin1/hugin/ImagesTree.cpp:178
+#: hugin1/hugin/ImagesTree.cpp:179
 msgid "Exposure value (Eev)"
 msgstr "曝光值 (Eev)"
 
-#: hugin1/hugin/ImagesTree.cpp:179
+#: hugin1/hugin/ImagesTree.cpp:180
 msgid "Red multiplier (Er)"
 msgstr "红色乘法器 (Er)"
 
-#: hugin1/hugin/ImagesTree.cpp:180
+#: hugin1/hugin/ImagesTree.cpp:181
 msgid "Blue multiplier (Eb)"
 msgstr "蓝色乘法器 (Eb)"
 
-#: hugin1/hugin/ImagesTree.cpp:181 hugin1/hugin/ImagesTree.cpp:182
-#: hugin1/hugin/ImagesTree.cpp:183
+#: hugin1/hugin/ImagesTree.cpp:182 hugin1/hugin/ImagesTree.cpp:183
+#: hugin1/hugin/ImagesTree.cpp:184
 msgid "Vignetting (Vb, Vc, Vd)"
 msgstr "虚光 (Vb, Vc, Vd)"
 
-#: hugin1/hugin/ImagesTree.cpp:184
+#: hugin1/hugin/ImagesTree.cpp:185
 msgid "Horizontal vignetting center shift (Vx)"
 msgstr "水平渐晕偏心 (Vx)"
 
-#: hugin1/hugin/ImagesTree.cpp:185
+#: hugin1/hugin/ImagesTree.cpp:186
 msgid "Vertical vignetting center shift (Vy)"
 msgstr "垂直渐晕偏心 (Vy)"
 
-#: hugin1/hugin/ImagesTree.cpp:186
+#: hugin1/hugin/ImagesTree.cpp:187
 msgid "Response type"
 msgstr "响应类型"
 
-#: hugin1/hugin/ImagesTree.cpp:186
+#: hugin1/hugin/ImagesTree.cpp:187
 msgid "Camera response type"
 msgstr "照相机响应类型"
 
-#: hugin1/hugin/ImagesTree.cpp:187 hugin1/hugin/ImagesTree.cpp:188
-#: hugin1/hugin/ImagesTree.cpp:189 hugin1/hugin/ImagesTree.cpp:190
-#: hugin1/hugin/ImagesTree.cpp:191
+#: hugin1/hugin/ImagesTree.cpp:188 hugin1/hugin/ImagesTree.cpp:189
+#: hugin1/hugin/ImagesTree.cpp:190 hugin1/hugin/ImagesTree.cpp:191
+#: hugin1/hugin/ImagesTree.cpp:192
 msgid "Camera response parameter"
 msgstr "照相机响应参数"
 
-#: hugin1/hugin/ImagesTree.cpp:373 hugin1/hugin/xrc/image_variable_dlg.xrc:559
-msgid "custom (EMoR)"
-msgstr "自定义 (EMoR)"
-
-#: hugin1/hugin/ImagesTree.cpp:376 hugin1/hugin/xrc/image_variable_dlg.xrc:560
-msgid "Linear"
-msgstr "线性的"
-
-#: hugin1/hugin/ImagesTree.cpp:522 hugin1/hugin/ImagesTree.cpp:697
+#: hugin1/hugin/ImagesTree.cpp:490 hugin1/hugin/ImagesTree.cpp:665
 msgid "not active"
 msgstr "未激活"
 
-#: hugin1/hugin/ImagesTree.cpp:525 hugin1/hugin/ImagesTree.cpp:700
+#: hugin1/hugin/ImagesTree.cpp:493 hugin1/hugin/ImagesTree.cpp:668
 msgid "active"
 msgstr "激活"
 
-#: hugin1/hugin/ImagesTree.cpp:667
+#: hugin1/hugin/ImagesTree.cpp:635
 #, c-format
 msgid "Lens %ld"
 msgstr "镜头 %ld"
 
-#: hugin1/hugin/ImagesTree.cpp:670
+#: hugin1/hugin/ImagesTree.cpp:638
 #, c-format
 msgid "Stack %ld"
 msgstr "堆栈 %ld"
 
-#: hugin1/hugin/ImagesTree.cpp:673
+#: hugin1/hugin/ImagesTree.cpp:641
 #, c-format
 msgid "Output stack %ld"
 msgstr "输出栈 %ld"
 
-#: hugin1/hugin/ImagesTree.cpp:676
+#: hugin1/hugin/ImagesTree.cpp:644
 #, c-format
 msgid "Output exposure layer %ld"
 msgstr "输出曝光层 %ld"
 
-#: hugin1/hugin/ImagesTree.cpp:1130 hugin1/hugin/ImagesTree.cpp:1145
+#: hugin1/hugin/ImagesTree.cpp:1098 hugin1/hugin/ImagesTree.cpp:1113
 msgid "Link"
 msgstr "链接"
 
-#: hugin1/hugin/ImagesTree.cpp:1134 hugin1/hugin/ImagesTree.cpp:1141
+#: hugin1/hugin/ImagesTree.cpp:1102 hugin1/hugin/ImagesTree.cpp:1109
 msgid "Unlink"
 msgstr "未连接"
 
-#: hugin1/hugin/ImagesTree.cpp:1156
+#: hugin1/hugin/ImagesTree.cpp:1124
 msgid "Select all for current lens"
 msgstr "为当前镜头选择全部"
 
-#: hugin1/hugin/ImagesTree.cpp:1157
+#: hugin1/hugin/ImagesTree.cpp:1125
 msgid "Unselect all for current lens"
 msgstr "为当前镜头都不选择"
 
-#: hugin1/hugin/ImagesTree.cpp:1161
+#: hugin1/hugin/ImagesTree.cpp:1129
 msgid "Select all for current stack"
 msgstr "为当前堆栈选择全部"
 
-#: hugin1/hugin/ImagesTree.cpp:1162
+#: hugin1/hugin/ImagesTree.cpp:1130
 msgid "Unselect all for current stack"
 msgstr "为当前堆栈都不选择"
 
-#: hugin1/hugin/ImagesTree.cpp:1167 hugin1/hugin/ImagesTree.cpp:1181
-#: hugin1/hugin/ImagesTree.cpp:1267
+#: hugin1/hugin/ImagesTree.cpp:1135 hugin1/hugin/ImagesTree.cpp:1149
+#: hugin1/hugin/ImagesTree.cpp:1235
 msgid "Select all"
 msgstr "选择全部"
 
-#: hugin1/hugin/ImagesTree.cpp:1169 hugin1/hugin/ImagesTree.cpp:1183
-#: hugin1/hugin/ImagesTree.cpp:1268
+#: hugin1/hugin/ImagesTree.cpp:1137 hugin1/hugin/ImagesTree.cpp:1151
+#: hugin1/hugin/ImagesTree.cpp:1236
 msgid "Unselect all"
 msgstr "都不选择"
 
-#: hugin1/hugin/ImagesTree.cpp:1173
+#: hugin1/hugin/ImagesTree.cpp:1141
 msgid "Edit image variables..."
 msgstr "编辑图像变量..."
 
-#: hugin1/hugin/ImagesTree.cpp:1223
+#: hugin1/hugin/ImagesTree.cpp:1191
 msgid "Control points"
 msgstr "控制点"
 
-#: hugin1/hugin/ImagesTree.cpp:1233 hugin1/hugin/xrc/lenscal_frame.xrc:213
+#: hugin1/hugin/ImagesTree.cpp:1201 hugin1/hugin/xrc/lenscal_frame.xrc:213
 #: hugin1/hugin/xrc/mask_editor_panel.xrc:325
 #: hugin1/hugin/xrc/optimize_panel.xrc:60
 #: hugin1/hugin/xrc/optimize_photo_panel.xrc:60
@@ -1975,7 +2227,7 @@ msgid "Tip of the Day"
 msgstr "今日提示"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:111
-#: hugin1/hugin/xrc/batch_frame.xrc:530
+#: hugin1/hugin/xrc/batch_frame.xrc:534
 msgid "&Close"
 msgstr "关闭 (&C)"
 
@@ -1983,12 +2235,12 @@ msgstr "关闭 (&C)"
 msgid "Did you know..."
 msgstr "您知道吗..."
 
-#: hugin1/hugin/MainFrame.cpp:331
+#: hugin1/hugin/MainFrame.cpp:333
 #, c-format
 msgid "Version %s"
 msgstr "版本 %s"
 
-#: hugin1/hugin/MainFrame.cpp:339
+#: hugin1/hugin/MainFrame.cpp:341
 msgid ""
 "Fatal installation error\n"
 "The file data/splash.png was not found at:"
@@ -1996,89 +2248,74 @@ msgstr ""
 "致命安装错误\n"
 "文件 data/splash.png 不存在于:"
 
-#: hugin1/hugin/MainFrame.cpp:359 hugin1/ptbatcher/BatchFrame.cpp:141
+#: hugin1/hugin/MainFrame.cpp:361 hugin1/ptbatcher/BatchFrame.cpp:144
 #: hugin1/hugin/xrc/batch_menu.xrc:50 hugin1/hugin/xrc/main_menu.xrc:120
 #: hugin1/hugin/xrc/main_menu.xrc:122 hugin1/hugin/xrc/preview_frame.xrc:1861
 #: hugin1/hugin/xrc/preview_frame.xrc:1889
 msgid "&Help"
 msgstr "帮助 (&H)"
 
-#: hugin1/hugin/MainFrame.cpp:412
+#: hugin1/hugin/MainFrame.cpp:414
 msgid "&Actions"
 msgstr "动作 (&A)"
 
-#: hugin1/hugin/MainFrame.cpp:503
+#: hugin1/hugin/MainFrame.cpp:505
 msgid "Started"
 msgstr "开始了"
 
-#: hugin1/hugin/MainFrame.cpp:635 hugin1/hugin/xrc/main_frame.xrc:34
+#: hugin1/hugin/MainFrame.cpp:637 hugin1/hugin/xrc/main_frame.xrc:34
 #: hugin1/hugin/xrc/main_menu.xrc:88
 msgid "Optimizer"
 msgstr "优化器"
 
-#: hugin1/hugin/MainFrame.cpp:647 hugin1/hugin/MainFrame.cpp:651
+#: hugin1/hugin/MainFrame.cpp:649 hugin1/hugin/MainFrame.cpp:653
 #: hugin1/hugin/xrc/main_frame.xrc:38 hugin1/hugin/xrc/main_menu.xrc:93
 #: hugin1/hugin/xrc/reset_dialog.xrc:46
 msgid "Exposure"
 msgstr "曝光"
 
-#: hugin1/hugin/MainFrame.cpp:694
+#: hugin1/hugin/MainFrame.cpp:696
 msgid "Save changes to the panorama before closing?"
 msgstr "在关闭前保存对全影图像的修改吗?"
 
-#: hugin1/hugin/MainFrame.cpp:702
+#: hugin1/hugin/MainFrame.cpp:704
 msgid ""
 "If you close without saving, changes since your last save will be discarded"
 msgstr "假如您不保存就关闭, 自从您上次保存以来的修改将会被丢弃"
 
-#: hugin1/hugin/MainFrame.cpp:705
+#: hugin1/hugin/MainFrame.cpp:707
 msgid "Don't Save"
 msgstr "不要保存"
 
-#: hugin1/hugin/MainFrame.cpp:708
+#: hugin1/hugin/MainFrame.cpp:710
 msgid "Close without saving"
 msgstr "不保存就关闭"
 
-#: hugin1/hugin/MainFrame.cpp:740
+#: hugin1/hugin/MainFrame.cpp:742
 msgid "forced close"
 msgstr "强迫关闭"
 
-#: hugin1/hugin/MainFrame.cpp:818
+#: hugin1/hugin/MainFrame.cpp:788
 #, c-format
 msgid "saved project %s"
 msgstr "保存项目 %s"
 
-#: hugin1/hugin/MainFrame.cpp:823 hugin1/hugin/MainFrame.cpp:829
-#: hugin1/hugin/MainFrame.cpp:948 hugin1/hugin/MainFrame.cpp:954
-#: hugin1/hugin/MainFrame.cpp:1050 hugin1/hugin/MainFrame.cpp:1056
-#: hugin1/hugin/MainFrame.cpp:2068 hugin1/hugin/MainFrame.cpp:2074
-#: hugin1/hugin/MainFrame.cpp:2086 hugin1/hugin/MainFrame.cpp:2091
+#: hugin1/hugin/MainFrame.cpp:793 hugin1/hugin/MainFrame.cpp:799
+#: hugin1/hugin/MainFrame.cpp:910 hugin1/hugin/MainFrame.cpp:916
+#: hugin1/hugin/MainFrame.cpp:1012 hugin1/hugin/MainFrame.cpp:1018
+#: hugin1/hugin/MainFrame.cpp:2027 hugin1/hugin/MainFrame.cpp:2033
+#: hugin1/hugin/MainFrame.cpp:2045 hugin1/hugin/MainFrame.cpp:2050
 #: hugin1/hugin/xrc/main_frame.xrc:4
 msgid "Hugin - Panorama Stitcher"
 msgstr "Hugin - 全景图像缝合器"
 
-#: hugin1/hugin/MainFrame.cpp:825 hugin1/hugin/MainFrame.cpp:950
-#: hugin1/hugin/MainFrame.cpp:1052 hugin1/hugin/MainFrame.cpp:2069
-#: hugin1/hugin/MainFrame.cpp:2075
+#: hugin1/hugin/MainFrame.cpp:795 hugin1/hugin/MainFrame.cpp:912
+#: hugin1/hugin/MainFrame.cpp:1014 hugin1/hugin/MainFrame.cpp:2028
+#: hugin1/hugin/MainFrame.cpp:2034
 msgid "Panorama editor"
 msgstr "全景图像编辑"
 
-#: hugin1/hugin/MainFrame.cpp:838
-#, c-format
-msgid ""
-"Could not save project makefile \"%s\".\n"
-"But the project file was saved.\n"
-"Maybe the file or the folder is read-only.\n"
-"\n"
-"(Error code: %s)"
-msgstr ""
-"不能保存项目的 makefile 文件\"%s\".\n"
-"但是已经保存了项目文件.\n"
-"相关文件或者文件夹可能是只读的.\n"
-"\n"
-"(错误代码: %s)"
-
-#: hugin1/hugin/MainFrame.cpp:842
+#: hugin1/hugin/MainFrame.cpp:806
 #, c-format
 msgid ""
 "Could not save project file \"%s\".\n"
@@ -2091,31 +2328,31 @@ msgstr ""
 "\n"
 "(错误代码: %s)"
 
-#: hugin1/hugin/MainFrame.cpp:895
+#: hugin1/hugin/MainFrame.cpp:858
 msgid "Save PTmender script file"
 msgstr "保存 PTmender 脚本文件"
 
-#: hugin1/hugin/MainFrame.cpp:897
+#: hugin1/hugin/MainFrame.cpp:860
 msgid "PTmender files (*.txt)|*.txt"
 msgstr "PTmender 文件 (*.txt)|*.txt"
 
-#: hugin1/hugin/MainFrame.cpp:924
+#: hugin1/hugin/MainFrame.cpp:886
 msgid "Open project:   "
 msgstr "打开项目:   "
 
-#: hugin1/hugin/MainFrame.cpp:942
+#: hugin1/hugin/MainFrame.cpp:904
 msgid "Project opened"
 msgstr "被打开的项目"
 
-#: hugin1/hugin/MainFrame.cpp:966
+#: hugin1/hugin/MainFrame.cpp:928
 msgid "Error opening project:   "
 msgstr "打开项目出错:   "
 
-#: hugin1/hugin/MainFrame.cpp:998 hugin1/hugin/MainFrame.cpp:1438
+#: hugin1/hugin/MainFrame.cpp:960 hugin1/hugin/MainFrame.cpp:1400
 msgid "Open project file"
 msgstr "打开项目文件"
 
-#: hugin1/hugin/MainFrame.cpp:1008
+#: hugin1/hugin/MainFrame.cpp:970
 #, c-format
 msgid ""
 "File %s is an image file and not a project file.\n"
@@ -2126,32 +2363,32 @@ msgstr ""
 "这个文件不能通过 \"文件, 打开\" 的方式来打开.\n"
 "您想用增加这个文件到当前项目的方式来代替吗?"
 
-#: hugin1/hugin/MainFrame.cpp:1034
+#: hugin1/hugin/MainFrame.cpp:996
 msgid "Open project: cancel"
 msgstr "打开项目: 取消"
 
-#: hugin1/hugin/MainFrame.cpp:1282
+#: hugin1/hugin/MainFrame.cpp:1244
 msgid "Can't start system's web browser"
 msgstr "不能启动系统网络浏览器"
 
-#: hugin1/hugin/MainFrame.cpp:1471
+#: hugin1/hugin/MainFrame.cpp:1433
 #, c-format
 msgid "Could not read project file %s."
 msgstr "不能读取项目文件 %s."
 
-#: hugin1/hugin/MainFrame.cpp:1483
+#: hugin1/hugin/MainFrame.cpp:1445
 msgid "Choose template project"
 msgstr "选择项目模板"
 
-#: hugin1/hugin/MainFrame.cpp:1563
+#: hugin1/hugin/MainFrame.cpp:1521
 msgid "Fine-tuning all points"
 msgstr "调整所有点"
 
-#: hugin1/hugin/MainFrame.cpp:1563
+#: hugin1/hugin/MainFrame.cpp:1521
 msgid "Fine-tuning"
 msgstr "调整中"
 
-#: hugin1/hugin/MainFrame.cpp:1631
+#: hugin1/hugin/MainFrame.cpp:1589
 #, c-format
 msgid ""
 "%d points fine-tuned, %d points not updated due to low correlation\n"
@@ -2176,23 +2413,23 @@ msgstr ""
 "\n"
 "使用控制点列表 (F3) 来查看当前项目的所有点\n"
 
-#: hugin1/hugin/MainFrame.cpp:1633
+#: hugin1/hugin/MainFrame.cpp:1591
 msgid "Fine-tune result"
 msgstr "调整结果"
 
-#: hugin1/hugin/MainFrame.cpp:1651
+#: hugin1/hugin/MainFrame.cpp:1609
 msgid "Removing control points in masks"
 msgstr "正在移除蒙板内的控制点"
 
-#: hugin1/hugin/MainFrame.cpp:1660
+#: hugin1/hugin/MainFrame.cpp:1618
 msgid "Select python script"
 msgstr "选择 python 脚本"
 
-#: hugin1/hugin/MainFrame.cpp:1662
+#: hugin1/hugin/MainFrame.cpp:1620
 msgid "Python script (*.py)|*.py|All files (*.*)|*.*"
 msgstr "Python 脚本 (*.py)|*.py|所有文件 (*.*)|*.*"
 
-#: hugin1/hugin/MainFrame.cpp:1946
+#: hugin1/hugin/MainFrame.cpp:1904
 #, c-format
 msgid ""
 "File \"%s\" not found.\n"
@@ -2201,24 +2438,24 @@ msgstr ""
 "不能找到文件 \"%s\".\n"
 "可能文件已经被重命名, 移动或者删除."
 
-#: hugin1/hugin/MainFrame.cpp:1947 hugin1/ptbatcher/Batch.cpp:320
-#: hugin1/ptbatcher/Batch.cpp:785 hugin1/ptbatcher/Batch.cpp:801
-#: hugin1/ptbatcher/Batch.cpp:999
+#: hugin1/hugin/MainFrame.cpp:1905 hugin1/ptbatcher/Batch.cpp:333
+#: hugin1/ptbatcher/Batch.cpp:779 hugin1/ptbatcher/Batch.cpp:795
+#: hugin1/ptbatcher/Batch.cpp:955
 msgid "Error!"
 msgstr "错误!"
 
-#: hugin1/hugin/MainFrame.cpp:1973
+#: hugin1/hugin/MainFrame.cpp:1931
 #, c-format
 msgid ""
 "Celeste model expected in %s not found, Hugin needs to be properly installed."
 msgstr "在 %s 中没有发现预期的 Celeste 模型, Hugin 需要被正确安装."
 
-#: hugin1/hugin/MainFrame.cpp:1978
+#: hugin1/hugin/MainFrame.cpp:1936
 #, c-format
 msgid "Could not load Celeste model file %s"
 msgstr "不能加载 Celeste 模型文件 %s"
 
-#: hugin1/hugin/MainFrame.cpp:2111
+#: hugin1/hugin/MainFrame.cpp:2070
 msgid ""
 "Can't switch to simple interface. The project is using stacks and/or "
 "vignetting center shift.\n"
@@ -2227,7 +2464,7 @@ msgstr ""
 "不能切换到简单界面. 这个项目正在使用堆栈和/或虚光偏心.\n"
 "这些功能不支持简单界面."
 
-#: hugin1/hugin/MainFrame.cpp:2121
+#: hugin1/hugin/MainFrame.cpp:2080
 msgid ""
 "Can't switch to simple interface. The project is using translation or shear "
 "parameters.\n"
@@ -2236,7 +2473,7 @@ msgstr ""
 "不能切换到简单界面. 这个项目正在使用位移或剪切参数.\n"
 "这些参数不支持简单界面."
 
-#: hugin1/hugin/MainFrame.cpp:2142
+#: hugin1/hugin/MainFrame.cpp:2101
 msgid ""
 "Can't switch to advanced interface. The project is using translation or "
 "shear parameters.\n"
@@ -2245,7 +2482,7 @@ msgstr ""
 "不能切换到高级界面. 这个项目正在使用位移或者剪切参数.\n"
 "这些参数不支持高级界面."
 
-#: hugin1/hugin/MainFrame.cpp:2169
+#: hugin1/hugin/MainFrame.cpp:2128
 msgid ""
 "At least two images are required.\n"
 "Please add more images."
@@ -2253,16 +2490,16 @@ msgstr ""
 "至少需要两张图像.\n"
 "请增加更多的图像."
 
-#: hugin1/hugin/MainFrame.cpp:2216
+#: hugin1/hugin/MainFrame.cpp:2153
 msgid "Running assistant"
 msgstr "正在运行助理"
 
-#: hugin1/hugin/MainFrame.cpp:2242
+#: hugin1/hugin/MainFrame.cpp:2178
 #, c-format
 msgid "Warning %d unconnected image groups found:"
 msgstr "警告: 发现 %d 未连接图像组:"
 
-#: hugin1/hugin/MainFrame.cpp:2243
+#: hugin1/hugin/MainFrame.cpp:2179
 msgid ""
 "Please create control points between unconnected images using the Control "
 "Points tab.\n"
@@ -2273,21 +2510,21 @@ msgstr ""
 "\n"
 "在增加控制点后, 再按 \"排列\" 按钮"
 
-#: hugin1/hugin/MainFrame.cpp:2246
+#: hugin1/hugin/MainFrame.cpp:2182
 msgid ""
 "The assistant did not complete successfully. Please check the resulting "
 "project file."
 msgstr "助理没有成功处理. 请检查项目文件的结果."
 
-#: hugin1/hugin/MainFrame.cpp:2293
+#: hugin1/hugin/MainFrame.cpp:2229
 msgid "Project file not found"
 msgstr "没有发现项目文件"
 
-#: hugin1/hugin/MainFrame.cpp:2308
+#: hugin1/hugin/MainFrame.cpp:2244
 msgid "Can't launch PTBatcherGui"
 msgstr "不能载入 PTBatcherGui"
 
-#: hugin1/hugin/MainFrame.cpp:2316
+#: hugin1/hugin/MainFrame.cpp:2252
 msgid "Launched incorrect programme"
 msgstr "加载错误程序"
 
@@ -2301,7 +2538,7 @@ msgid ""
 "the last point with the right mouse button."
 msgstr "在图像中点击鼠标左键来创建一个多边形蒙板, 使用鼠标右键设置终点."
 
-#: hugin1/hugin/MaskEditorPanel.cpp:430 hugin1/hugin/MaskEditorPanel.cpp:444
+#: hugin1/hugin/MaskEditorPanel.cpp:430 hugin1/hugin/MaskEditorPanel.cpp:443
 msgid "Save mask"
 msgstr "保存蒙板"
 
@@ -2331,27 +2568,27 @@ msgstr "请输入一个有效数字"
 msgid "Nona options"
 msgstr "Nona 选项"
 
-#: hugin1/hugin/OptimizePanel.cpp:96
+#: hugin1/hugin/OptimizePanel.cpp:97
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:95
 msgid "Any variables below which are bold and underlined will be optimized."
 msgstr "下列粗体和下划线变量将被优化."
 
-#: hugin1/hugin/OptimizePanel.cpp:99
+#: hugin1/hugin/OptimizePanel.cpp:100
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:98
 msgid "Use command + left mouse click to toggle state of variables."
 msgstr "使用 command 键 + 鼠标左键点击来切换变量状态."
 
-#: hugin1/hugin/OptimizePanel.cpp:101
+#: hugin1/hugin/OptimizePanel.cpp:102
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:100
 msgid "Use control + left mouse click to toggle state of variables."
 msgstr "使用 control 键 + 鼠标左键点击来切换变量状态."
 
-#: hugin1/hugin/OptimizePanel.cpp:104
+#: hugin1/hugin/OptimizePanel.cpp:105
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:103
 msgid "Variables which shown in normal font will act as references or anchors."
 msgstr "采用正常字体显示的变量将用于参数或者定位."
 
-#: hugin1/hugin/OptimizePanel.cpp:169
+#: hugin1/hugin/OptimizePanel.cpp:170
 msgid ""
 "The project does not contain any active images.\n"
 "Please activate at least one image in the (fast) preview window.\n"
@@ -2361,7 +2598,7 @@ msgstr ""
 "请在 (快速) 预览窗口中激活至少一张图像.\n"
 "中止优化."
 
-#: hugin1/hugin/OptimizePanel.cpp:319
+#: hugin1/hugin/OptimizePanel.cpp:323
 msgid ""
 "Optimizer run finished.\n"
 "WARNING: a very small Field of View (v) has been estimated\n"
@@ -2384,7 +2621,7 @@ msgstr ""
 "\n"
 "仍然要应用这些修改吗?"
 
-#: hugin1/hugin/OptimizePanel.cpp:326
+#: hugin1/hugin/OptimizePanel.cpp:330
 #, c-format
 msgid ""
 "Optimizer run finished.\n"
@@ -2413,7 +2650,7 @@ msgstr ""
 "请重置 a,b 和 c 成为 0 然后增加更多控制点\n"
 "仍然要应用这些修改吗?"
 
-#: hugin1/hugin/OptimizePanel.cpp:332
+#: hugin1/hugin/OptimizePanel.cpp:336
 #, c-format
 msgid ""
 "Optimizer run finished.\n"
@@ -2432,7 +2669,7 @@ msgstr ""
 "\n"
 "应用这些修改?"
 
-#: hugin1/hugin/OptimizePanel.cpp:338
+#: hugin1/hugin/OptimizePanel.cpp:342
 msgid "Optimization result"
 msgstr "优化结果"
 
@@ -2577,8 +2814,8 @@ msgstr ""
 "您只选择了一张图像.\n"
 "应该将载入的参数应用于所有具有相同镜头的图像吗?"
 
-#: hugin1/hugin/PanoOperation.cpp:509 hugin1/ptbatcher/FindPanoDialog.cpp:221
-#: hugin1/ptbatcher/FindPanoDialog.cpp:256
+#: hugin1/hugin/PanoOperation.cpp:509 hugin1/ptbatcher/FindPanoDialog.cpp:230
+#: hugin1/ptbatcher/FindPanoDialog.cpp:265
 msgid "Question"
 msgstr "问题"
 
@@ -2690,128 +2927,128 @@ msgstr "修改堆栈编号"
 msgid "Set stack size..."
 msgstr "设置堆栈尺寸..."
 
-#: hugin1/hugin/PanoOutputDialog.cpp:335 hugin1/hugin/PanoPanel.cpp:522
+#: hugin1/hugin/PanoOutputDialog.cpp:335 hugin1/hugin/PanoPanel.cpp:526
 msgid "Quality:"
 msgstr "质量:"
 
-#: hugin1/hugin/PanoOutputDialog.cpp:349 hugin1/hugin/PanoPanel.cpp:507
+#: hugin1/hugin/PanoOutputDialog.cpp:349 hugin1/hugin/PanoPanel.cpp:511
 #: hugin1/hugin/xrc/pano_panel.xrc:514 hugin1/hugin/xrc/pano_panel.xrc:583
 #: hugin1/hugin/xrc/pano_panel.xrc:1169 hugin1/hugin/xrc/pano_panel.xrc:1227
 msgid "Compression:"
 msgstr "压缩:"
 
-#: hugin1/hugin/PanoPanel.cpp:143
+#: hugin1/hugin/PanoPanel.cpp:144
 msgid "Fisheye"
 msgstr "鱼眼"
 
-#: hugin1/hugin/PanoPanel.cpp:145
+#: hugin1/hugin/PanoPanel.cpp:146
 msgid "Mercator"
 msgstr "墨卡托投影"
 
-#: hugin1/hugin/PanoPanel.cpp:146
+#: hugin1/hugin/PanoPanel.cpp:147
 msgid "Trans Mercator"
 msgstr "反式 Mercator"
 
-#: hugin1/hugin/PanoPanel.cpp:147
+#: hugin1/hugin/PanoPanel.cpp:148
 msgid "Sinusoidal"
 msgstr "正弦的"
 
-#: hugin1/hugin/PanoPanel.cpp:148
+#: hugin1/hugin/PanoPanel.cpp:149
 msgid "Lambert Cylindrical Equal Area"
 msgstr "Lambert 圆柱形等面积"
 
-#: hugin1/hugin/PanoPanel.cpp:149
+#: hugin1/hugin/PanoPanel.cpp:150
 msgid "Lambert Equal Area Azimuthal"
 msgstr "Lambert 等面积方位角"
 
-#: hugin1/hugin/PanoPanel.cpp:150
+#: hugin1/hugin/PanoPanel.cpp:151
 msgid "Albers Equal Area Conic"
 msgstr "Albers 等面积圆锥"
 
-#: hugin1/hugin/PanoPanel.cpp:151
+#: hugin1/hugin/PanoPanel.cpp:152
 msgid "Miller Cylindrical"
 msgstr "米勒圆柱形"
 
-#: hugin1/hugin/PanoPanel.cpp:152
+#: hugin1/hugin/PanoPanel.cpp:153
 msgid "Panini"
 msgstr "Panini"
 
-#: hugin1/hugin/PanoPanel.cpp:153
+#: hugin1/hugin/PanoPanel.cpp:154
 msgid "Architectural"
 msgstr "建筑的"
 
-#: hugin1/hugin/PanoPanel.cpp:156
+#: hugin1/hugin/PanoPanel.cpp:157
 msgid "Equirectangular Panini"
 msgstr "等矩形的 Panini"
 
-#: hugin1/hugin/PanoPanel.cpp:157
+#: hugin1/hugin/PanoPanel.cpp:158
 msgid "Biplane"
 msgstr "双翼飞机"
 
-#: hugin1/hugin/PanoPanel.cpp:158
+#: hugin1/hugin/PanoPanel.cpp:159
 msgid "Triplane"
 msgstr "三翼飞机"
 
-#: hugin1/hugin/PanoPanel.cpp:159
+#: hugin1/hugin/PanoPanel.cpp:160
 msgid "Panini General"
 msgstr "Panini 常规"
 
-#: hugin1/hugin/PanoPanel.cpp:160
+#: hugin1/hugin/PanoPanel.cpp:161
 msgid "Thoby Projection"
 msgstr "Thoby 投影"
 
-#: hugin1/hugin/PanoPanel.cpp:161
+#: hugin1/hugin/PanoPanel.cpp:162
 msgid "Hammer-Aitoff Equal Area"
 msgstr "Hammer-Aitoff 等面积"
 
-#: hugin1/hugin/PanoPanel.cpp:699
+#: hugin1/hugin/PanoPanel.cpp:703
 msgid "width needs to be an integer bigger than 0"
 msgstr "宽度值需要是一个大于 0 的整数"
 
-#: hugin1/hugin/PanoPanel.cpp:716
+#: hugin1/hugin/PanoPanel.cpp:720
 msgid "height needs to be an integer bigger than 0"
 msgstr "高度值需要是一个大于 0 的整数"
 
-#: hugin1/hugin/PanoPanel.cpp:745
+#: hugin1/hugin/PanoPanel.cpp:749
 msgid "Left boundary must be smaller than right."
 msgstr "左侧边界必须小于右侧边界."
 
-#: hugin1/hugin/PanoPanel.cpp:751
+#: hugin1/hugin/PanoPanel.cpp:755
 msgid "Top boundary must be smaller than bottom."
 msgstr "顶部边界必须小于底部边界."
 
-#: hugin1/hugin/PanoPanel.cpp:814
+#: hugin1/hugin/PanoPanel.cpp:818
 msgid " PTmender options not yet implemented"
 msgstr "还没有执行 PTmender 选项"
 
-#: hugin1/hugin/PanoPanel.cpp:868
+#: hugin1/hugin/PanoPanel.cpp:855
 msgid " PTblender options not yet implemented"
 msgstr "还没有执行 PTblender 选项"
 
-#: hugin1/hugin/PanoPanel.cpp:922
+#: hugin1/hugin/PanoPanel.cpp:909
 msgid " Options for this HDRMerge program not yet implemented"
 msgstr " HDRMerge 程序的选项还没有被实现"
 
-#: hugin1/hugin/PanoPanel.cpp:1022
+#: hugin1/hugin/PanoPanel.cpp:1009
 msgid "Could not create temporary project file"
 msgstr "不能创建临时项目文件"
 
-#: hugin1/hugin/PanoPanel.cpp:1067 hugin1/hugin/PanoPanel.cpp:1191
-#: hugin1/ptbatcher/Batch.cpp:649
-#: hugin1/stitch_project/hugin_stitch_project.cpp:402
+#: hugin1/hugin/PanoPanel.cpp:1054 hugin1/hugin/PanoPanel.cpp:1174
+#: hugin1/ptbatcher/Batch.cpp:644
+#: hugin1/stitch_project/hugin_stitch_project.cpp:399
 msgid "Specify output prefix"
 msgstr "指定输出前缀"
 
-#: hugin1/hugin/PanoPanel.cpp:1085 hugin1/hugin/PanoPanel.cpp:1209
-#: hugin1/ptbatcher/BatchFrame.cpp:512
-#: hugin1/stitch_project/hugin_stitch_project.cpp:418
+#: hugin1/hugin/PanoPanel.cpp:1072 hugin1/hugin/PanoPanel.cpp:1192
+#: hugin1/ptbatcher/BatchFrame.cpp:562
+#: hugin1/stitch_project/hugin_stitch_project.cpp:415
 #, c-format
 msgid ""
 "You have no permissions to write in folder \"%s\".\n"
 "Please select another folder for the final output."
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:1444
+#: hugin1/hugin/PanoPanel.cpp:1423
 #, c-format
 msgid ""
 "The panorama you are trying to stitch is %.1f gigapixels.\n"
@@ -2823,7 +3060,7 @@ msgstr ""
 "假如它太大了, 从缝合器面板中减少全景图像画布尺寸和裁剪区域大小. 缝合一张这种"
 "尺寸的全景图像会使用很长时间和大量内存."
 
-#: hugin1/hugin/PanoPanel.cpp:1451
+#: hugin1/hugin/PanoPanel.cpp:1430
 msgid ""
 "The width or the height of the final panorama exceeds 32700 pixel.\n"
 "Some programs have problems to open or display such big images.\n"
@@ -2831,19 +3068,19 @@ msgid ""
 "If this is too big, reduce the panorama Canvas Size or the cropped region."
 msgstr ""
 
-#: hugin1/hugin/PanoPanel.cpp:1460 hugin1/hugin/PanoPanel.cpp:1485
+#: hugin1/hugin/PanoPanel.cpp:1439 hugin1/hugin/PanoPanel.cpp:1464
 msgid "Are you sure you want to stitch such a large panorama?"
 msgstr "您确定想要缝合一张这样巨大的全景图像吗?"
 
-#: hugin1/hugin/PanoPanel.cpp:1468 hugin1/hugin/PanoPanel.cpp:1549
+#: hugin1/hugin/PanoPanel.cpp:1447 hugin1/hugin/PanoPanel.cpp:1528
 msgid "Stitch anyway"
 msgstr "仍然缝合"
 
-#: hugin1/hugin/PanoPanel.cpp:1468 hugin1/hugin/PanoPanel.cpp:1549
+#: hugin1/hugin/PanoPanel.cpp:1447 hugin1/hugin/PanoPanel.cpp:1528
 msgid "Let me fix that"
 msgstr "让我修复它"
 
-#: hugin1/hugin/PanoPanel.cpp:1521
+#: hugin1/hugin/PanoPanel.cpp:1500
 msgid ""
 "There are no active images in the output region.\n"
 "Please check your settings, so that at least one image is in the output "
@@ -2852,7 +3089,7 @@ msgstr ""
 "在输入区域中不存在任何激活图像.\n"
 "请检查您的设置, 以便输入区域中存在至少一张图像."
 
-#: hugin1/hugin/PanoPanel.cpp:1542 hugin1/hugin/PanoPanel.cpp:1552
+#: hugin1/hugin/PanoPanel.cpp:1521 hugin1/hugin/PanoPanel.cpp:1531
 #, c-format
 msgid ""
 "The folder \"%s\" has only %.1f MiB free. This is not enough for stitching "
@@ -2872,6 +3109,10 @@ msgstr "系统默认"
 #: hugin1/hugin/PreferencesDialog.cpp:122
 msgid "Basque"
 msgstr "巴克斯"
+
+#: hugin1/hugin/PreferencesDialog.cpp:130
+msgid "Catalan"
+msgstr "加泰罗尼亚语"
 
 #: hugin1/hugin/PreferencesDialog.cpp:133
 msgid "Chinese (Simplified)"
@@ -2945,33 +3186,37 @@ msgstr "瑞典语"
 msgid "Finnish"
 msgstr "芬兰语"
 
-#: hugin1/hugin/PreferencesDialog.cpp:294
+#: hugin1/hugin/PreferencesDialog.cpp:202
+msgid "Valencian (Southern Catalan)"
+msgstr ""
+
+#: hugin1/hugin/PreferencesDialog.cpp:300
 msgid "Select Enblend"
 msgstr "选择 Enblend"
 
-#: hugin1/hugin/PreferencesDialog.cpp:297
-#: hugin1/hugin/PreferencesDialog.cpp:314
+#: hugin1/hugin/PreferencesDialog.cpp:303
+#: hugin1/hugin/PreferencesDialog.cpp:320
 msgid "Executables (*.exe)|*.exe"
 msgstr "可执行文件 (*.exe)|*.exe"
 
-#: hugin1/hugin/PreferencesDialog.cpp:311
+#: hugin1/hugin/PreferencesDialog.cpp:317
 msgid "Select Enfuse"
 msgstr "选择 Enfuse"
 
-#: hugin1/hugin/PreferencesDialog.cpp:340
-#: hugin1/hugin/PreferencesDialog.cpp:417 hugin1/hugin/xrc/pref_dialog.xrc:970
-#: hugin1/hugin/xrc/pref_dialog.xrc:1029
+#: hugin1/hugin/PreferencesDialog.cpp:346
+#: hugin1/hugin/PreferencesDialog.cpp:423 hugin1/hugin/xrc/pref_dialog.xrc:920
+#: hugin1/hugin/xrc/pref_dialog.xrc:979
 msgid "Select ExifTool argfile"
 msgstr "选择 ExifTool 参数文件"
 
-#: hugin1/hugin/PreferencesDialog.cpp:342
-#: hugin1/hugin/PreferencesDialog.cpp:390
-#: hugin1/hugin/PreferencesDialog.cpp:419
-#: hugin1/hugin/PreferencesDialog.cpp:455
+#: hugin1/hugin/PreferencesDialog.cpp:348
+#: hugin1/hugin/PreferencesDialog.cpp:396
+#: hugin1/hugin/PreferencesDialog.cpp:425
+#: hugin1/hugin/PreferencesDialog.cpp:461
 msgid "ExifTool Argfiles (*.arg)|*.arg|All Files(*)|*"
 msgstr "ExifTool 参数文件 (*.arg)|*.arg|所有文件(*)|*"
 
-#: hugin1/hugin/PreferencesDialog.cpp:373
+#: hugin1/hugin/PreferencesDialog.cpp:379
 #, c-format
 msgid ""
 "File %s does not exist.\n"
@@ -2980,14 +3225,14 @@ msgstr ""
 "文件 %s 不存在.\n"
 "应该使用默认标签来创建这个参数文件?"
 
-#: hugin1/hugin/PreferencesDialog.cpp:374
-#: hugin1/hugin/PreferencesDialog.cpp:384
-#: hugin1/hugin/PreferencesDialog.cpp:436
-#: hugin1/hugin/PreferencesDialog.cpp:449
+#: hugin1/hugin/PreferencesDialog.cpp:380
+#: hugin1/hugin/PreferencesDialog.cpp:390
+#: hugin1/hugin/PreferencesDialog.cpp:442
+#: hugin1/hugin/PreferencesDialog.cpp:455
 msgid "Exiftool argfile"
 msgstr "Exiftool 参数文件"
 
-#: hugin1/hugin/PreferencesDialog.cpp:383
+#: hugin1/hugin/PreferencesDialog.cpp:389
 msgid ""
 "No file selected.\n"
 "Should an argfile be created with default tags?"
@@ -2995,18 +3240,18 @@ msgstr ""
 "没有选择文件.\n"
 "应该使用默认标签来创建一个参数文件?"
 
-#: hugin1/hugin/PreferencesDialog.cpp:388
-#: hugin1/hugin/PreferencesDialog.cpp:453
+#: hugin1/hugin/PreferencesDialog.cpp:394
+#: hugin1/hugin/PreferencesDialog.cpp:459
 msgid "Select new ExifTool argfile"
 msgstr "选择新的 ExifTool 参数文件"
 
-#: hugin1/hugin/PreferencesDialog.cpp:408
-#: hugin1/hugin/PreferencesDialog.cpp:476
+#: hugin1/hugin/PreferencesDialog.cpp:414
+#: hugin1/hugin/PreferencesDialog.cpp:482
 #, c-format
 msgid "Could not save file \"%s\"."
 msgstr "不能保存文件 \"%s\"."
 
-#: hugin1/hugin/PreferencesDialog.cpp:435
+#: hugin1/hugin/PreferencesDialog.cpp:441
 #, fuzzy, c-format
 msgid ""
 "File %s does not exist.\n"
@@ -3015,7 +3260,7 @@ msgstr ""
 "文件 %s 不存在.\n"
 "应该使用默认标签来创建这个参数文件?"
 
-#: hugin1/hugin/PreferencesDialog.cpp:448
+#: hugin1/hugin/PreferencesDialog.cpp:454
 #, fuzzy
 msgid ""
 "No file selected.\n"
@@ -3024,24 +3269,24 @@ msgstr ""
 "没有选择文件.\n"
 "应该使用默认标签来创建一个参数文件?"
 
-#: hugin1/hugin/PreferencesDialog.cpp:770
+#: hugin1/hugin/PreferencesDialog.cpp:760
 msgid "Really reset displayed preferences to default values?"
 msgstr "真的要将显示的首选项重置成默认值吗?"
 
-#: hugin1/hugin/PreferencesDialog.cpp:770
-#: hugin1/hugin/xrc/pref_dialog.xrc:1473
+#: hugin1/hugin/PreferencesDialog.cpp:760
+#: hugin1/hugin/xrc/pref_dialog.xrc:1423
 msgid "Load Defaults"
 msgstr "加载默认值"
 
-#: hugin1/hugin/PreferencesDialog.cpp:1050
+#: hugin1/hugin/PreferencesDialog.cpp:1025
 msgid "Please select an entry first"
 msgstr "请选择一个条目再试一次"
 
-#: hugin1/hugin/PreferencesDialog.cpp:1050
+#: hugin1/hugin/PreferencesDialog.cpp:1025
 msgid "Select Entry"
 msgstr "选择条目"
 
-#: hugin1/hugin/PreferencesDialog.cpp:1070
+#: hugin1/hugin/PreferencesDialog.cpp:1045
 msgid ""
 "You can't delete the last setting.\n"
 "At least one setting is required."
@@ -3049,25 +3294,25 @@ msgstr ""
 "您不能删除最后一个设置.\n"
 "至少需要一个设置."
 
-#: hugin1/hugin/PreferencesDialog.cpp:1074
+#: hugin1/hugin/PreferencesDialog.cpp:1049
 #, c-format
 msgid "Do you really want to remove control point detector setting \"%s\"?"
 msgstr "您确实想移除控制点检测器设置 \"%s\"?"
 
-#: hugin1/hugin/PreferencesDialog.cpp:1075
+#: hugin1/hugin/PreferencesDialog.cpp:1050
 msgid "Delete control point detector setting"
 msgstr "删除控制点检测器设置"
 
-#: hugin1/hugin/PreferencesDialog.cpp:1132
+#: hugin1/hugin/PreferencesDialog.cpp:1107
 msgid "Load control point detector settings"
 msgstr "加载控制点检测器设置"
 
-#: hugin1/hugin/PreferencesDialog.cpp:1134
-#: hugin1/hugin/PreferencesDialog.cpp:1149
+#: hugin1/hugin/PreferencesDialog.cpp:1109
+#: hugin1/hugin/PreferencesDialog.cpp:1124
 msgid "Control point detector settings (*.setting)|*.setting"
 msgstr "控制点检测器设置 (*.setting)|*.setting"
 
-#: hugin1/hugin/PreferencesDialog.cpp:1147
+#: hugin1/hugin/PreferencesDialog.cpp:1122
 msgid "Save control point detector settings"
 msgstr "保存控制点检测器设置"
 
@@ -3086,12 +3331,12 @@ msgid ""
 "selected rectangle."
 msgstr ""
 
-#: hugin1/hugin/PreviewEditCPTool.cpp:129
+#: hugin1/hugin/PreviewEditCPTool.cpp:132
 #, fuzzy
 msgid "Create control points here"
 msgstr "创建控制点"
 
-#: hugin1/hugin/PreviewEditCPTool.cpp:132
+#: hugin1/hugin/PreviewEditCPTool.cpp:135
 #, fuzzy, c-format
 msgid "Remove %lu control points"
 msgstr "移除了 %lu 个控制点"
@@ -3134,7 +3379,7 @@ msgstr "EV:"
 msgid "Projection Parameters"
 msgstr "项目参数"
 
-#: hugin1/hugin/PreviewFrame.cpp:352 hugin1/hugin/PreviewPanel.cpp:797
+#: hugin1/hugin/PreviewFrame.cpp:352 hugin1/hugin/PreviewPanel.cpp:666
 msgid ""
 "Left click to define new center point, right click to move point to horizon."
 msgstr "左键点击以便定义新的中心点, 右键点击以便移动点到水平线."
@@ -3156,20 +3401,39 @@ msgstr "点击创建或者编辑这里的控制点."
 msgid "Click a connection to edit control points."
 msgstr "点击一条连接来编辑控制点."
 
-#: hugin1/hugin/PreviewPanel.cpp:499
+#: hugin1/hugin/PreviewPanel.cpp:401
 msgid "Error during Stitching"
 msgstr "缝合时出错"
 
-#: hugin1/hugin/huginApp.cpp:203
+#: hugin1/hugin/huginApp.cpp:206
 #, c-format
 msgid "Directory '%s' does not exists"
 msgstr "目录 '%s' 不存在"
 
-#: hugin1/hugin/huginApp.cpp:207
+#: hugin1/hugin/huginApp.cpp:210
 msgid "Could not set environment variable PYTHONHOME"
 msgstr "不能设置 PYTHONHOME 的环境变量"
 
-#: hugin1/hugin/wxPanoCommand.cpp:255 hugin1/hugin/wxPanoCommand.cpp:269
+#: hugin1/hugin/huginApp.cpp:339
+#, fuzzy
+msgid "Open Batch Processor"
+msgstr "批处理"
+
+#: hugin1/hugin/huginApp.cpp:340 hugin1/hugin/xrc/main_menu.xrc:184
+#: hugin1/hugin/xrc/main_menu.xrc:210 hugin1/hugin/xrc/preview_frame.xrc:1920
+msgid "Opens PTBatcher, the batch processor for Hugin's project files"
+msgstr "打开 PTBatcher, Hugin 项目文件的批处理器"
+
+#: hugin1/hugin/huginApp.cpp:345
+#, fuzzy
+msgid "Open Lens calibrate tool"
+msgstr "Hugin 镜头校准图形用户界面"
+
+#: hugin1/hugin/huginApp.cpp:346
+msgid "Opens Calibrate_lens_gui, a simple GUI for lens calibration"
+msgstr ""
+
+#: hugin1/hugin/wxPanoCommand.cpp:256 hugin1/hugin/wxPanoCommand.cpp:277
 #, c-format
 msgid ""
 "Could not decode image:\n"
@@ -3180,29 +3444,29 @@ msgstr ""
 "%s\n"
 "中断"
 
-#: hugin1/hugin/wxPanoCommand.cpp:255 hugin1/hugin/wxPanoCommand.cpp:269
+#: hugin1/hugin/wxPanoCommand.cpp:256 hugin1/hugin/wxPanoCommand.cpp:277
 msgid "Unsupported image file format"
 msgstr "不支持的图像文件格式"
 
-#: hugin1/hugin/wxPanoCommand.cpp:434
+#: hugin1/hugin/wxPanoCommand.cpp:442
 msgid ""
 "Hugin has image stacks detected in the added images and will assign "
 "corresponding stack numbers to the images."
 msgstr ""
 
-#: hugin1/hugin/wxPanoCommand.cpp:438
+#: hugin1/hugin/wxPanoCommand.cpp:446
 msgid ""
 "Hugin has image stacks detected in the whole project. Stack numbers will be "
 "re-assigned on base of this detection. Existing stack assignments will be "
 "overwritten."
 msgstr ""
 
-#: hugin1/hugin/wxPanoCommand.cpp:442 hugin1/hugin/wxPanoCommand.cpp:463
+#: hugin1/hugin/wxPanoCommand.cpp:450 hugin1/hugin/wxPanoCommand.cpp:471
 #, fuzzy
 msgid "Should the position of images in each stack be linked?"
 msgstr "应该跳过匹量队列的加载?"
 
-#: hugin1/hugin/wxPanoCommand.cpp:450 hugin1/hugin/xrc/main_frame.xrc:215
+#: hugin1/hugin/wxPanoCommand.cpp:458 hugin1/hugin/xrc/main_frame.xrc:215
 msgid ""
 "When shooting bracketed image stacks from a sturdy tripod the position of "
 "the images in each stack can be linked to help Hugin to process the "
@@ -3210,29 +3474,29 @@ msgid ""
 "position (e. g. when shooting hand held), then don't link the position."
 msgstr ""
 
-#: hugin1/hugin/wxPanoCommand.cpp:453 hugin1/hugin/wxPanoCommand.cpp:457
+#: hugin1/hugin/wxPanoCommand.cpp:461 hugin1/hugin/wxPanoCommand.cpp:465
 #: hugin1/hugin/xrc/main_frame.xrc:236
 #, fuzzy
 msgid "Link position"
 msgstr "重置位置"
 
-#: hugin1/hugin/wxPanoCommand.cpp:453 hugin1/hugin/wxPanoCommand.cpp:457
+#: hugin1/hugin/wxPanoCommand.cpp:461 hugin1/hugin/wxPanoCommand.cpp:465
 #: hugin1/hugin/xrc/main_frame.xrc:242
 #, fuzzy
 msgid "Don't link position"
 msgstr "命令行选项"
 
-#: hugin1/hugin/wxPanoCommand.cpp:453 hugin1/hugin/wxPanoCommand.cpp:470
+#: hugin1/hugin/wxPanoCommand.cpp:461 hugin1/hugin/wxPanoCommand.cpp:478
 #: hugin1/hugin/xrc/main_frame.xrc:247
 msgid "Don't assign stacks"
 msgstr ""
 
-#: hugin1/hugin/wxPanoCommand.cpp:457 hugin1/hugin/wxPanoCommand.cpp:474
+#: hugin1/hugin/wxPanoCommand.cpp:465 hugin1/hugin/wxPanoCommand.cpp:482
 #, fuzzy
 msgid "Keep existing stacks"
 msgstr "覆盖已经存在的图像"
 
-#: hugin1/hugin/wxPanoCommand.cpp:576
+#: hugin1/hugin/wxPanoCommand.cpp:584
 #, c-format
 msgid ""
 "Image file not found:\n"
@@ -3243,11 +3507,11 @@ msgstr ""
 "%s\n"
 "请选择正确图像"
 
-#: hugin1/hugin/wxPanoCommand.cpp:576
+#: hugin1/hugin/wxPanoCommand.cpp:584
 msgid "Image file not found"
 msgstr "没有发现图像文件"
 
-#: hugin1/hugin/wxPanoCommand.cpp:676
+#: hugin1/hugin/wxPanoCommand.cpp:692
 #, c-format
 msgid ""
 "%d invalid control point(s) found.\n"
@@ -3258,11 +3522,11 @@ msgstr ""
 "\n"
 "按确定继续."
 
-#: hugin1/hugin/wxPanoCommand.cpp:677
+#: hugin1/hugin/wxPanoCommand.cpp:693
 msgid "Error Detected"
 msgstr "检测到错误"
 
-#: hugin1/hugin/wxPanoCommand.cpp:839
+#: hugin1/hugin/wxPanoCommand.cpp:857
 #, c-format
 msgid ""
 "Error, template expects %d images,\n"
@@ -3271,19 +3535,19 @@ msgstr ""
 "错误, 模板需要 %d 张图像,\n"
 "当前项目包含 %d 张图像\n"
 
-#: hugin1/hugin/wxPanoCommand.cpp:840 hugin1/hugin/wxPanoCommand.cpp:865
+#: hugin1/hugin/wxPanoCommand.cpp:858 hugin1/hugin/wxPanoCommand.cpp:883
 msgid "Could not apply template"
 msgstr "不能应用模板"
 
-#: hugin1/hugin/wxPanoCommand.cpp:865
+#: hugin1/hugin/wxPanoCommand.cpp:883
 msgid "Error loading project file"
 msgstr "加载项目文件出错"
 
-#: hugin1/hugin/wxPanoCommand.cpp:879
+#: hugin1/hugin/wxPanoCommand.cpp:897
 msgid "Result"
 msgstr "结果"
 
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:220
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:225
 #, c-format
 msgid ""
 "Could not find \"%s\" in path.\n"
@@ -3293,26 +3557,26 @@ msgstr ""
 "不能找到目录内的 \"%s\".\n"
 "可能您没有正确安装或者在设置中指定了一个错误的目录."
 
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:344
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:349
 msgid "cleaning up temporary keypoint files"
 msgstr "清理临时关键点文件"
 
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:399
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:404
 #, c-format
 msgid ""
 "Please use %namefile, %i or %s to specify the input files for the control "
 "point detector"
 msgstr "请使用 %namefile, %i 或者 %s 来为控制点检测器指定输入文件"
 
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:400
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:527
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:533
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:405
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:532
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:538
 msgid "Error in control point detector command"
 msgstr "控制点检测器命令中有错误"
 
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:447
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:603
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:692
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:452
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:608
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:697
 msgid ""
 "Command line for control point detector too long.\n"
 "This is a Windows limitation\n"
@@ -3324,14 +3588,14 @@ msgstr ""
 "请选择较少的图像, 或者将图像放置在\n"
 "一个拥有较短目录名的文件夹中"
 
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:448
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:604
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:693
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:453
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:609
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:698
 msgid "Too many images selected"
 msgstr "选择了太多的图像"
 
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:460
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:703
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:465
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:708
 #, c-format
 msgid ""
 "Too many arguments (images). Try using the %%s parameter in preferences.\n"
@@ -3342,38 +3606,38 @@ msgstr ""
 "\n"
 " 不能执行命令: %s"
 
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:460
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:471
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:475
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:567
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:574
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:615
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:627
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:634
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:703
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:714
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:718
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:465
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:476
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:480
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:572
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:579
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:620
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:632
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:639
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:708
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:719
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:723
 msgid "wxExecute Error"
 msgstr "wxExecute 错误"
 
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:466
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:620
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:709
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:471
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:625
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:714
 msgid "finding control points"
 msgstr "正在查找控制点"
 
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:471
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:567
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:627
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:714
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:476
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:572
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:632
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:719
 #, c-format
 msgid "Could not execute command: %s"
 msgstr "不能执行命令: %s"
 
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:474
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:573
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:633
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:717
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:479
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:578
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:638
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:722
 #, c-format
 msgid ""
 "Command: %s\n"
@@ -3382,9 +3646,9 @@ msgstr ""
 "命令: %s\n"
 "错误代码: %d"
 
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:480
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:640
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:725
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:485
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:645
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:730
 #, c-format
 msgid ""
 "Could not open %s for reading\n"
@@ -3399,29 +3663,29 @@ msgstr ""
 "\n"
 "已执行的命令: %s"
 
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:481
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:641
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:726
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:486
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:646
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:731
 msgid "Control point detector failure"
 msgstr "控制点检测器故障"
 
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:526
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:531
 msgid ""
 "Please use %i to specify the input files and %k to specify the keypoint file "
 "for the generate keys step"
 msgstr "请使用 %i 指定输入文件, 使用 %k 指定用于创建关键步骤的关键点文件"
 
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:532
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:537
 msgid ""
 "Please use %k to specify the keypoint files and %o to specify the output "
 "project file for the matching step"
 msgstr "请为相关步骤使用 %k 指定关键点文件并且使用 %o 指定输出项目文件"
 
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:560
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:565
 msgid "generating key file"
 msgstr "创建关键文件"
 
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:615
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:620
 #, c-format
 msgid ""
 "Too many arguments (images). Try using a cp generator setting which supports "
@@ -3437,7 +3701,7 @@ msgstr ""
 msgid "Default"
 msgstr "默认"
 
-#: hugin1/ptbatcher/Batch.cpp:212
+#: hugin1/ptbatcher/Batch.cpp:225
 msgid ""
 "Cannot clear batch in progress.\n"
 "Do you want to cancel it?"
@@ -3445,216 +3709,241 @@ msgstr ""
 "不能清理进行中的批处理.\n"
 "您想取消它吗?"
 
-#: hugin1/ptbatcher/Batch.cpp:214 hugin1/ptbatcher/BatchFrame.cpp:689
-#: hugin1/ptbatcher/BatchFrame.cpp:735 hugin1/ptbatcher/BatchFrame.cpp:767
-#: hugin1/ptbatcher/BatchFrame.cpp:802 hugin1/ptbatcher/BatchFrame.cpp:831
-#: hugin1/ptbatcher/BatchFrame.cpp:1254 hugin1/ptbatcher/BatchFrame.cpp:1261
-#: hugin1/hugin/xrc/pref_dialog.xrc:854
+#: hugin1/ptbatcher/Batch.cpp:227 hugin1/ptbatcher/BatchFrame.cpp:735
+#: hugin1/ptbatcher/BatchFrame.cpp:781 hugin1/ptbatcher/BatchFrame.cpp:813
+#: hugin1/ptbatcher/BatchFrame.cpp:848 hugin1/ptbatcher/BatchFrame.cpp:877
+#: hugin1/ptbatcher/BatchFrame.cpp:1275 hugin1/ptbatcher/BatchFrame.cpp:1282
+#: hugin1/hugin/xrc/pref_dialog.xrc:812
 msgid "PTBatcherGUI"
 msgstr "PTBatcherGUI"
 
-#: hugin1/ptbatcher/Batch.cpp:227 hugin1/ptbatcher/Batch.cpp:237
+#: hugin1/ptbatcher/Batch.cpp:240 hugin1/ptbatcher/Batch.cpp:250
 msgid "Cleared batch."
 msgstr "已清理批处理."
 
-#: hugin1/ptbatcher/Batch.cpp:320
+#: hugin1/ptbatcher/Batch.cpp:333
 #, c-format
 msgid "Error: Could not get status, project with index %d is not in list."
 msgstr "错误: 不能获得状态, 编号 %d 的项目不在列表中."
 
-#: hugin1/ptbatcher/Batch.cpp:369
+#: hugin1/ptbatcher/Batch.cpp:382
 msgid "Error: Could not load batch file."
 msgstr "错误: 不能加载批处理文件."
 
-#: hugin1/ptbatcher/Batch.cpp:518
+#: hugin1/ptbatcher/Batch.cpp:531
 msgid "Batch successfully completed."
 msgstr "成功完成批处理."
 
-#: hugin1/ptbatcher/Batch.cpp:523
+#: hugin1/ptbatcher/Batch.cpp:536
 msgid "Batch completed with errors."
 msgstr "完成批处理但存在错误."
 
-#: hugin1/ptbatcher/Batch.cpp:541
+#: hugin1/ptbatcher/Batch.cpp:554
 msgid "Initializing shutdown..."
 msgstr "准备关机..."
 
-#: hugin1/ptbatcher/Batch.cpp:541 hugin1/ptbatcher/Batch.cpp:546
+#: hugin1/ptbatcher/Batch.cpp:554 hugin1/ptbatcher/Batch.cpp:559
 msgid "Shutting down..."
 msgstr "正在关机..."
 
-#: hugin1/ptbatcher/Batch.cpp:566
+#: hugin1/ptbatcher/Batch.cpp:579
 msgid "Prepare to hibernate..."
 msgstr ""
 
-#: hugin1/ptbatcher/Batch.cpp:567
+#: hugin1/ptbatcher/Batch.cpp:580
 #, fuzzy
 msgid "Initializing hibernating..."
 msgstr "准备关机..."
 
-#: hugin1/ptbatcher/Batch.cpp:570
+#: hugin1/ptbatcher/Batch.cpp:583
 msgid "Prepare to suspend..."
 msgstr ""
 
-#: hugin1/ptbatcher/Batch.cpp:571
+#: hugin1/ptbatcher/Batch.cpp:584
 #, fuzzy
 msgid "Initializing suspend mode..."
 msgstr "准备关机..."
 
-#: hugin1/ptbatcher/Batch.cpp:639
-#: hugin1/stitch_project/hugin_stitch_project.cpp:376
+#: hugin1/ptbatcher/Batch.cpp:634
+#: hugin1/stitch_project/hugin_stitch_project.cpp:373
 msgid "Specify project source project file"
 msgstr "指定项目源文件"
 
-#: hugin1/ptbatcher/Batch.cpp:660
+#: hugin1/ptbatcher/Batch.cpp:655
 msgid "No output prefix specified"
 msgstr "没有指定输出前缀"
 
-#: hugin1/ptbatcher/Batch.cpp:668
+#: hugin1/ptbatcher/Batch.cpp:663
 msgid "No project files specified"
 msgstr "没有指定项目文件"
 
-#: hugin1/ptbatcher/Batch.cpp:694
-#: hugin1/stitch_project/hugin_stitch_project.cpp:458
+#: hugin1/ptbatcher/Batch.cpp:689
+#: hugin1/stitch_project/hugin_stitch_project.cpp:455
 #, c-format
 msgid "%s - Stitching"
 msgstr "%s - 缝合中"
 
-#: hugin1/ptbatcher/Batch.cpp:727
+#: hugin1/ptbatcher/Batch.cpp:721
 #, c-format
 msgid "%s - Assistant"
 msgstr "%s - 助理"
 
-#: hugin1/ptbatcher/Batch.cpp:785
+#: hugin1/ptbatcher/Batch.cpp:779
 #, c-format
 msgid "Error removing, project with id %d is not in list."
 msgstr "移除过程错误, 编号 %d 的项目不在列表中."
 
-#: hugin1/ptbatcher/Batch.cpp:801
+#: hugin1/ptbatcher/Batch.cpp:795
 msgid "Error: Could not delete project file "
 msgstr "错误: 不能删除项目文件 "
 
-#: hugin1/ptbatcher/Batch.cpp:817
+#: hugin1/ptbatcher/Batch.cpp:811
 msgid "Running batch..."
 msgstr "正在运行批处理..."
 
-#: hugin1/ptbatcher/Batch.cpp:823
+#: hugin1/ptbatcher/Batch.cpp:817
 msgid "Batch already in progress."
 msgstr "已进行批处理."
 
-#: hugin1/ptbatcher/Batch.cpp:837
-msgid "Running command \""
+#: hugin1/ptbatcher/Batch.cpp:831
+#, fuzzy, c-format
+msgid "Running command \"%s\""
 msgstr "正在运行命令 \""
 
-#: hugin1/ptbatcher/Batch.cpp:859 hugin1/ptbatcher/Batch.cpp:892
+#: hugin1/ptbatcher/Batch.cpp:850
 #, c-format
 msgid "Now stitching: %s"
 msgstr "正在缝合: %s"
 
-#: hugin1/ptbatcher/Batch.cpp:866 hugin1/ptbatcher/Batch.cpp:899
+#: hugin1/ptbatcher/Batch.cpp:857
 #, c-format
 msgid "Now detecting: %s"
 msgstr "正在检测: %s"
 
-#: hugin1/ptbatcher/Batch.cpp:999
+#: hugin1/ptbatcher/Batch.cpp:955
 #, c-format
 msgid "Error: Could not set status, project with index %d is not in list."
 msgstr "错误: 不能设置状态, 编号 %d 的项目不在列表中."
 
-#: hugin1/ptbatcher/BatchFrame.cpp:149
+#: hugin1/ptbatcher/BatchFrame.cpp:154
 msgid "Not doing much..."
 msgstr "不再做..."
 
-#: hugin1/ptbatcher/BatchFrame.cpp:166 hugin1/ptbatcher/BatchFrame.cpp:176
+#: hugin1/ptbatcher/BatchFrame.cpp:171 hugin1/ptbatcher/BatchFrame.cpp:181
 msgid "Hugin's Batch processor"
 msgstr "Hugins 的批处理器"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:194 hugin1/hugin/xrc/main_frame.xrc:67
+#: hugin1/ptbatcher/BatchFrame.cpp:199 hugin1/hugin/xrc/main_frame.xrc:67
 msgid "You have pressed the Command key."
 msgstr "您已经按下了 Command 键."
 
-#: hugin1/ptbatcher/BatchFrame.cpp:196 hugin1/hugin/xrc/main_frame.xrc:66
+#: hugin1/ptbatcher/BatchFrame.cpp:201 hugin1/hugin/xrc/main_frame.xrc:66
 msgid "You have pressed the Control key."
 msgstr "您已经按下了 Control 键."
 
-#: hugin1/ptbatcher/BatchFrame.cpp:199
+#: hugin1/ptbatcher/BatchFrame.cpp:204
 msgid "Should the loading of the batch queue be skipped?"
 msgstr "应该跳过匹量队列的加载?"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:346
+#: hugin1/ptbatcher/BatchFrame.cpp:228
+#, fuzzy
+msgid "Do nothing"
+msgstr "无"
+
+#: hugin1/ptbatcher/BatchFrame.cpp:229
+#, fuzzy
+msgid "Close PTBatcherGUI"
+msgstr "PTBatcherGUI"
+
+#: hugin1/ptbatcher/BatchFrame.cpp:232
+#, fuzzy
+msgid "Shutdown computer"
+msgstr "完成后关机"
+
+#: hugin1/ptbatcher/BatchFrame.cpp:240
+msgid "Suspend computer"
+msgstr ""
+
+#: hugin1/ptbatcher/BatchFrame.cpp:244
+msgid "Hibernate computer"
+msgstr ""
+
+#: hugin1/ptbatcher/BatchFrame.cpp:396
 msgid "Please enter the command-line application to execute:"
 msgstr "请输入命令行程序来执行:"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:346
+#: hugin1/ptbatcher/BatchFrame.cpp:396
 msgid "Enter application"
 msgstr "进入程序"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:363 hugin1/ptbatcher/FindPanoDialog.cpp:231
+#: hugin1/ptbatcher/BatchFrame.cpp:413 hugin1/ptbatcher/FindPanoDialog.cpp:240
 msgid "Specify a directory to search for projects in"
 msgstr "为项目指定一个搜索目录"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:383 hugin1/ptbatcher/BatchFrame.cpp:411
+#: hugin1/ptbatcher/BatchFrame.cpp:433 hugin1/ptbatcher/BatchFrame.cpp:461
 msgid "Specify project source file(s)"
 msgstr "指定项目源文件"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:454
-msgid "Added projects from dir "
+#: hugin1/ptbatcher/BatchFrame.cpp:504
+#, fuzzy, c-format
+msgid "Added projects from dir %s"
 msgstr "已经从目录中增加项目"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:465
+#: hugin1/ptbatcher/BatchFrame.cpp:515
 #, c-format
 msgid "Add project %s to stitching queue."
 msgstr "增加项目 %s 到缝合队列."
 
-#: hugin1/ptbatcher/BatchFrame.cpp:468
+#: hugin1/ptbatcher/BatchFrame.cpp:518
 #, c-format
 msgid "Add project %s to assistant queue."
 msgstr "增加项目 %s 到助理队列."
 
-#: hugin1/ptbatcher/BatchFrame.cpp:482
+#: hugin1/ptbatcher/BatchFrame.cpp:532
 msgid "Batch stopped"
 msgstr "已经停止批处理"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:493
+#: hugin1/ptbatcher/BatchFrame.cpp:543
 msgid "Specify output prefix for project "
 msgstr "为项目指定输出前缀"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:534
+#: hugin1/ptbatcher/BatchFrame.cpp:584
 msgid "The prefix of an assistant target cannot be changed."
 msgstr "不能修改一个助理目标的前缀."
 
-#: hugin1/ptbatcher/BatchFrame.cpp:540
+#: hugin1/ptbatcher/BatchFrame.cpp:590
 msgid "Please select a project"
 msgstr "请选择一个项目"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:621
+#: hugin1/ptbatcher/BatchFrame.cpp:671
 msgid "help file: "
 msgstr "帮助文件: "
 
-#: hugin1/ptbatcher/BatchFrame.cpp:646
+#: hugin1/ptbatcher/BatchFrame.cpp:696
 msgid "Specify batch file to open"
 msgstr "指定要打开的批处理文件"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:648
+#: hugin1/ptbatcher/BatchFrame.cpp:698
 msgid "Batch files (*.ptb)|*.ptb;|All files (*)|*"
 msgstr "批处理文件 (*.ptb)|*.ptb;|所有文件 (*)|*"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:682
+#: hugin1/ptbatcher/BatchFrame.cpp:728
 msgid "Cannot open app in Hugin."
 msgstr "不能在 Hugin 中打开程序."
 
-#: hugin1/ptbatcher/BatchFrame.cpp:687
+#: hugin1/ptbatcher/BatchFrame.cpp:733
 msgid "No project selected. Open Hugin without project?"
 msgstr "没有选择项目. 不选择项目来打开 Hugin?"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:713
+#: hugin1/ptbatcher/BatchFrame.cpp:759
 msgid "Batch paused"
 msgstr "已停止批处理"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:719
+#: hugin1/ptbatcher/BatchFrame.cpp:765
 msgid "Continuing batch..."
 msgstr "继续批处理..."
 
-#: hugin1/ptbatcher/BatchFrame.cpp:733
+#: hugin1/ptbatcher/BatchFrame.cpp:779
 msgid ""
 "There are failed projects in the list.\n"
 "Remove them too?"
@@ -3662,7 +3951,7 @@ msgstr ""
 "列表中有失败项目.\n"
 "也移除它们?"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:765
+#: hugin1/ptbatcher/BatchFrame.cpp:811
 msgid ""
 "Cannot remove project in progress.\n"
 "Do you want to cancel it?"
@@ -3670,15 +3959,16 @@ msgstr ""
 "不能移除进行中的项目.\n"
 "您想取消它吗?"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:779
-msgid "Removed project "
+#: hugin1/ptbatcher/BatchFrame.cpp:825
+#, fuzzy, c-format
+msgid "Removed project %s"
 msgstr "移除项目"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:788
+#: hugin1/ptbatcher/BatchFrame.cpp:834
 msgid "Please select a project to remove"
 msgstr "请选择一个项目来移除"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:800
+#: hugin1/ptbatcher/BatchFrame.cpp:846
 msgid ""
 "Cannot reset project in progress.\n"
 "Do you want to cancel it?"
@@ -3686,15 +3976,16 @@ msgstr ""
 "不能重置正在处理的项目.\n"
 "您想取消它吗?"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:815
-msgid "Reset project "
+#: hugin1/ptbatcher/BatchFrame.cpp:861
+#, fuzzy, c-format
+msgid "Reset project %s"
 msgstr "重置项目"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:820
+#: hugin1/ptbatcher/BatchFrame.cpp:866
 msgid "Please select a project to reset"
 msgstr "请选择一个项目去重置"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:829
+#: hugin1/ptbatcher/BatchFrame.cpp:875
 msgid ""
 "Cannot reset projects in progress.\n"
 "Do you want to cancel the batch?"
@@ -3702,23 +3993,15 @@ msgstr ""
 "不能重置进行中的项目.\n"
 "您想取消这个批处理吗?"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:868
+#: hugin1/ptbatcher/BatchFrame.cpp:914
 msgid "Specify batch file to save"
 msgstr "指定批处理文件来保存"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:870
+#: hugin1/ptbatcher/BatchFrame.cpp:916
 msgid "Batch file (*.ptb)|*.ptb;|All files (*)|*"
 msgstr "批处理文件 (*.ptb)|*.ptb;|所有文件 (*)|*"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:1034
-msgid "Sorry. But this system does not support the hibernate mode."
-msgstr ""
-
-#: hugin1/ptbatcher/BatchFrame.cpp:1044
-msgid "Sorry. But this system does not support the suspend mode."
-msgstr ""
-
-#: hugin1/ptbatcher/BatchFrame.cpp:1172
+#: hugin1/ptbatcher/BatchFrame.cpp:1193
 msgid "Starting batch"
 msgstr "正在开始批处理"
 
@@ -3754,7 +4037,7 @@ msgstr "增加项目到助理队列..."
 msgid "E&xit"
 msgstr "退出 (&x)"
 
-#: hugin1/ptbatcher/FindPanoDialog.cpp:220
+#: hugin1/ptbatcher/FindPanoDialog.cpp:229
 msgid ""
 "The list contains possibly unprocessed panoramas.\n"
 "If you close the dialog, you will lose them.\n"
@@ -3764,11 +4047,11 @@ msgstr ""
 "假如您关闭这个对话框, 您将丢失它们.\n"
 "仍然要继续吗?"
 
-#: hugin1/ptbatcher/FindPanoDialog.cpp:245
+#: hugin1/ptbatcher/FindPanoDialog.cpp:254
 msgid "Accepted"
 msgstr "接受"
 
-#: hugin1/ptbatcher/FindPanoDialog.cpp:255
+#: hugin1/ptbatcher/FindPanoDialog.cpp:264
 msgid ""
 "The list contains still not yet processed panoramas.\n"
 "If you continue, they will be disregarded.\n"
@@ -3778,11 +4061,11 @@ msgstr ""
 "假如您继续, 它们将被忽视.\n"
 "您仍然想要继续?"
 
-#: hugin1/ptbatcher/FindPanoDialog.cpp:265
+#: hugin1/ptbatcher/FindPanoDialog.cpp:274
 msgid "Stop"
 msgstr "停止"
 
-#: hugin1/ptbatcher/FindPanoDialog.cpp:276
+#: hugin1/ptbatcher/FindPanoDialog.cpp:285
 #, c-format
 msgid ""
 "Directory %s does not exist.\n"
@@ -3791,7 +4074,7 @@ msgstr ""
 "目录 %s 不存在.\n"
 "请给出一个存在的目录."
 
-#: hugin1/ptbatcher/FindPanoDialog.cpp:298
+#: hugin1/ptbatcher/FindPanoDialog.cpp:307
 msgid ""
 "You have selected no possible panorama.\n"
 "Please select at least one panorama and try again."
@@ -3799,7 +4082,7 @@ msgstr ""
 "您选择的不可能是全景图像.\n"
 "请至少选择一张全景图像然后重试."
 
-#: hugin1/ptbatcher/FindPanoDialog.cpp:320
+#: hugin1/ptbatcher/FindPanoDialog.cpp:330
 msgid ""
 "Not all project files could be written successfully.\n"
 "Maybe you have no write permission for these directories or your disc is "
@@ -3808,35 +4091,35 @@ msgstr ""
 "没有成功写入所有项目文件.\n"
 "也许您没有这些目录的写入权限或者您的硬盘已经满了."
 
-#: hugin1/ptbatcher/FindPanoDialog.cpp:376
+#: hugin1/ptbatcher/FindPanoDialog.cpp:386
 #, c-format
 msgid "Reading file %s"
 msgstr "正在读取文件 %s"
 
-#: hugin1/ptbatcher/FindPanoDialog.cpp:462
-#: hugin1/hugin/xrc/batch_frame.xrc:229
+#: hugin1/ptbatcher/FindPanoDialog.cpp:483
+#: hugin1/hugin/xrc/batch_frame.xrc:216
 msgid "Start"
 msgstr "开始"
 
-#: hugin1/ptbatcher/FindPanoDialog.cpp:468
+#: hugin1/ptbatcher/FindPanoDialog.cpp:489
 #, c-format
 msgid "Found %d possible panoramas."
 msgstr "发现 %d 张图像有可能是全景图像."
 
-#: hugin1/ptbatcher/FindPanoDialog.cpp:472
+#: hugin1/ptbatcher/FindPanoDialog.cpp:493
 msgid "No possible panoramas found."
 msgstr "没有发现有可能是全景图像的图像."
 
-#: hugin1/ptbatcher/FindPanoDialog.cpp:579
+#: hugin1/ptbatcher/FindPanoDialog.cpp:600
 #, c-format
 msgid "%d images: %s"
 msgstr "%d 图像: %s"
 
-#: hugin1/ptbatcher/FindPanoDialog.cpp:810
+#: hugin1/ptbatcher/FindPanoDialog.cpp:831
 msgid "%M:%S min"
 msgstr ""
 
-#: hugin1/ptbatcher/FindPanoDialog.cpp:814
+#: hugin1/ptbatcher/FindPanoDialog.cpp:835
 #, c-format
 msgid "%S s"
 msgstr ""
@@ -3846,7 +4129,7 @@ msgid "stitch_project.pto [output prefix]|assistant_project.pto"
 msgstr "stitch_project.pto [输出前缀]|assistant_project.pto"
 
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:175
-#: hugin1/stitch_project/hugin_stitch_project.cpp:350
+#: hugin1/stitch_project/hugin_stitch_project.cpp:347
 msgid "Syntax error in parameters detected, aborting."
 msgstr "检测到参数语法错误, 中断."
 
@@ -3923,7 +4206,7 @@ msgid "Error, cannot convert id"
 msgstr "错误, 不能转换编号"
 
 #: hugin1/ptbatcher/ProjectListBox.cpp:303
-#: hugin1/hugin/xrc/pref_dialog.xrc:305 hugin1/hugin/xrc/preview_frame.xrc:244
+#: hugin1/hugin/xrc/pref_dialog.xrc:263 hugin1/hugin/xrc/preview_frame.xrc:244
 #: hugin1/hugin/xrc/preview_frame.xrc:1084
 msgid "Assistant"
 msgstr "助理"
@@ -3945,7 +4228,7 @@ msgstr "使用 Hugin 编辑"
 msgid "Remove"
 msgstr "移除"
 
-#: hugin1/stitch_project/hugin_stitch_project.cpp:141
+#: hugin1/stitch_project/hugin_stitch_project.cpp:136
 #, c-format
 msgid ""
 "HuginStitchProject. Application to stitch hugin project files.\n"
@@ -3954,7 +4237,7 @@ msgstr ""
 "HuginStitchProject. 缝合 hugin 项目文件的应用程序.\n"
 " 版本: %s"
 
-#: hugin1/stitch_project/hugin_stitch_project.cpp:176
+#: hugin1/stitch_project/hugin_stitch_project.cpp:171
 msgid ""
 "Error during stitching\n"
 "Please report the complete text to the bug tracker on https://bugs.launchpad."
@@ -3968,15 +4251,15 @@ msgstr ""
 "\n"
 "您想保存这份记录文件吗?"
 
-#: hugin1/stitch_project/hugin_stitch_project.cpp:181
+#: hugin1/stitch_project/hugin_stitch_project.cpp:176
 msgid "Specify log file"
 msgstr "指定记录文件"
 
-#: hugin1/stitch_project/hugin_stitch_project.cpp:183
+#: hugin1/stitch_project/hugin_stitch_project.cpp:178
 msgid "Log files (*.log)|*.log|All files (*)|*"
 msgstr "记录文件 (*.log)|*.log|所有文件 (*)|*"
 
-#: hugin1/stitch_project/hugin_stitch_project.cpp:410
+#: hugin1/stitch_project/hugin_stitch_project.cpp:407
 #, c-format
 msgid ""
 "The given filename contains one of the following invalid characters: %s\n"
@@ -4028,7 +4311,7 @@ msgstr "系统"
 #: hugin1/hugin/xrc/mask_editor_panel.xrc:491
 #: hugin1/hugin/xrc/pano_panel.xrc:49 hugin1/hugin/xrc/pano_panel.xrc:91
 #: hugin1/hugin/xrc/pano_panel.xrc:133 hugin1/hugin/xrc/pano_panel.xrc:1016
-#: hugin1/hugin/xrc/pano_panel.xrc:1346 hugin1/hugin/xrc/pref_dialog.xrc:1486
+#: hugin1/hugin/xrc/pano_panel.xrc:1346 hugin1/hugin/xrc/pref_dialog.xrc:1436
 #: hugin1/hugin/xrc/preview_frame.xrc:110
 #: hugin1/hugin/xrc/reset_dialog.xrc:117
 msgid "OK"
@@ -4059,192 +4342,161 @@ msgid "Move project down"
 msgstr "向下移动项目"
 
 #: hugin1/hugin/xrc/batch_frame.xrc:77
-msgid "Parallel execution"
-msgstr "并行执行"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:78
-msgid "Stitch several projects parallel."
-msgstr "并行缝合几个项目."
-
-#: hugin1/hugin/xrc/batch_frame.xrc:84
 msgid "Overwrite always"
 msgstr "总是覆写"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:85
+#: hugin1/hugin/xrc/batch_frame.xrc:78
 msgid "Overwrite existing image files without further notice."
 msgstr "不再提示地覆盖已经存在的图像."
 
-#: hugin1/hugin/xrc/batch_frame.xrc:91
+#: hugin1/hugin/xrc/batch_frame.xrc:84
 msgid "Remove finished project"
 msgstr "移除完成的项目"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:92
+#: hugin1/hugin/xrc/batch_frame.xrc:85
 msgid "Automatically remove successfully finished projects from queue."
 msgstr "自动从队列中移除成功完成的项目."
 
-#: hugin1/hugin/xrc/batch_frame.xrc:98
+#: hugin1/hugin/xrc/batch_frame.xrc:91
 msgid "Automatic stitch after assistant"
 msgstr "助理完成后自动缝合"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:99
+#: hugin1/hugin/xrc/batch_frame.xrc:92
 msgid "Automatically stitch projects after (successfully) running assistant."
 msgstr "(成功) 运行助理后自动缝合项目."
 
-#: hugin1/hugin/xrc/batch_frame.xrc:107
+#: hugin1/hugin/xrc/batch_frame.xrc:100
 msgid "When done"
 msgstr ""
 
-#: hugin1/hugin/xrc/batch_frame.xrc:114
-#, fuzzy
-msgid "Do nothing"
-msgstr "无"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:115
-#, fuzzy
-msgid "Close PTBatcherGUI"
-msgstr "PTBatcherGUI"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:116
-#, fuzzy
-msgid "Shutdown computer"
-msgstr "完成后关机"
-
 #: hugin1/hugin/xrc/batch_frame.xrc:117
-msgid "Suspend computer"
-msgstr ""
-
-#: hugin1/hugin/xrc/batch_frame.xrc:118
-msgid "Hibernate computer"
-msgstr ""
-
-#: hugin1/hugin/xrc/batch_frame.xrc:130
 msgid "Verbose output"
 msgstr "冗长的输出"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:131
+#: hugin1/hugin/xrc/batch_frame.xrc:118
 msgid "Show detailed output in separate window."
 msgstr "在分离窗口中显示细节."
 
-#: hugin1/hugin/xrc/batch_frame.xrc:137
+#: hugin1/hugin/xrc/batch_frame.xrc:124
 msgid "Always save log"
 msgstr "始终保存日志"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:172
+#: hugin1/hugin/xrc/batch_frame.xrc:159
 msgid "Directory:"
 msgstr "目录:"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:184
+#: hugin1/hugin/xrc/batch_frame.xrc:171
 #: hugin1/hugin/xrc/cpdetector_dialog.xrc:84
 #: hugin1/hugin/xrc/cpdetector_dialog.xrc:143
 #: hugin1/hugin/xrc/cpdetector_dialog.xrc:182
 #: hugin1/hugin/xrc/cpdetector_dialog.xrc:243
-#: hugin1/hugin/xrc/pref_dialog.xrc:969 hugin1/hugin/xrc/pref_dialog.xrc:1028
-#: hugin1/hugin/xrc/pref_dialog.xrc:1211 hugin1/hugin/xrc/pref_dialog.xrc:1290
+#: hugin1/hugin/xrc/pref_dialog.xrc:919 hugin1/hugin/xrc/pref_dialog.xrc:978
+#: hugin1/hugin/xrc/pref_dialog.xrc:1161 hugin1/hugin/xrc/pref_dialog.xrc:1240
 msgid "Choose..."
 msgstr "选择..."
 
-#: hugin1/hugin/xrc/batch_frame.xrc:191
+#: hugin1/hugin/xrc/batch_frame.xrc:178
 msgid "include sub-directories"
 msgstr "包括子目录"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:198
+#: hugin1/hugin/xrc/batch_frame.xrc:185
 msgid "Naming:"
 msgstr "命名:"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:206
+#: hugin1/hugin/xrc/batch_frame.xrc:193
 msgid "PanoramaXX.pto"
 msgstr "PanoramaXX.pto"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:207
+#: hugin1/hugin/xrc/batch_frame.xrc:194
 msgid "First file - last file.pto"
 msgstr "First file - last file.pto"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:208
+#: hugin1/hugin/xrc/batch_frame.xrc:195
 msgid "Foldername.pto"
 msgstr "Foldername.pto"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:209
+#: hugin1/hugin/xrc/batch_frame.xrc:196
 msgid "Template from preferences"
 msgstr "来自设置的模板"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:246
+#: hugin1/hugin/xrc/batch_frame.xrc:233
 msgid "Directories"
 msgstr "目录"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:256
+#: hugin1/hugin/xrc/batch_frame.xrc:243
 msgid "Minimum number of images:"
 msgstr "图像最小数量:"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:267
+#: hugin1/hugin/xrc/batch_frame.xrc:254
 msgid "Minimum number of images a panorama should contain."
 msgstr "一张全景图像应该关联的最少图像数量."
 
-#: hugin1/hugin/xrc/batch_frame.xrc:273
+#: hugin1/hugin/xrc/batch_frame.xrc:260
 msgid "Maximum time difference:"
 msgstr "最大时差:"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:286
+#: hugin1/hugin/xrc/batch_frame.xrc:273
 msgid ""
 "Maximal time difference in seconds between two consecutive images belonging "
 "to one panorama."
 msgstr "一张全景图像中的两张连续图像的最大秒数时差."
 
-#: hugin1/hugin/xrc/batch_frame.xrc:302
+#: hugin1/hugin/xrc/batch_frame.xrc:289
 msgid "Stacks:"
 msgstr "堆栈:"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:309
+#: hugin1/hugin/xrc/batch_frame.xrc:296
 msgid "Create links"
 msgstr "创建链接"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:310
+#: hugin1/hugin/xrc/batch_frame.xrc:297
 msgid "Check if the stacks were shot on a tripod."
 msgstr "检查是否使用了三角架来拍摄图像堆栈."
 
-#: hugin1/hugin/xrc/batch_frame.xrc:317
+#: hugin1/hugin/xrc/batch_frame.xrc:304
 msgid "Lens database:"
 msgstr "镜头数据库:"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:324
+#: hugin1/hugin/xrc/batch_frame.xrc:311
 msgid "Load distortion data"
 msgstr "加载畸变数据"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:325
+#: hugin1/hugin/xrc/batch_frame.xrc:312
 #, fuzzy
 msgid "Tries to load distortion data from lens database if checked."
 msgstr "选择后尝试从镜头数据库中加载畸变数据."
 
-#: hugin1/hugin/xrc/batch_frame.xrc:332
+#: hugin1/hugin/xrc/batch_frame.xrc:319
 msgid "Load vignetting data"
 msgstr "加载虚光数据"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:333
+#: hugin1/hugin/xrc/batch_frame.xrc:320
 #, fuzzy
 msgid "Tries to load vignetting data from lens database if checked."
 msgstr "选择后尝试从镜头数据库中加载虚光数据."
 
-#: hugin1/hugin/xrc/batch_frame.xrc:346 hugin1/hugin/xrc/lenscal_frame.xrc:200
+#: hugin1/hugin/xrc/batch_frame.xrc:350 hugin1/hugin/xrc/lenscal_frame.xrc:200
 #: hugin1/hugin/xrc/mask_editor_panel.xrc:204
 #: hugin1/hugin/xrc/pano_panel.xrc:749 hugin1/hugin/xrc/pano_panel.xrc:777
 #: hugin1/hugin/xrc/pano_panel.xrc:805 hugin1/hugin/xrc/pano_panel.xrc:833
-#: hugin1/hugin/xrc/pref_dialog.xrc:897
+#: hugin1/hugin/xrc/pref_dialog.xrc:847
 msgid "Options"
 msgstr "选项"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:354
+#: hugin1/hugin/xrc/batch_frame.xrc:358
 msgid "Found panoramas"
 msgstr "发现全景图像"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:372
+#: hugin1/hugin/xrc/batch_frame.xrc:376
 #, fuzzy
 msgid "Camera:"
 msgstr "照相机"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:380 hugin1/hugin/xrc/lensdb_dialogs.xrc:14
+#: hugin1/hugin/xrc/batch_frame.xrc:384 hugin1/hugin/xrc/lensdb_dialogs.xrc:14
 msgid "Lens:"
 msgstr "镜头:"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:388 hugin1/hugin/xrc/images_panel.xrc:165
+#: hugin1/hugin/xrc/batch_frame.xrc:392 hugin1/hugin/xrc/images_panel.xrc:165
 #: hugin1/hugin/xrc/images_panel.xrc:497 hugin1/hugin/xrc/lenscal_frame.xrc:86
 #: hugin1/hugin/xrc/lensdb_dialogs.xrc:31
 #: hugin1/hugin/xrc/lensdb_dialogs.xrc:231
@@ -4253,32 +4505,32 @@ msgstr "镜头:"
 msgid "Focal length:"
 msgstr "焦距:"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:396
+#: hugin1/hugin/xrc/batch_frame.xrc:400
 #, fuzzy
 msgid "Start date (duration):"
 msgstr "开始执行批处理"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:433
+#: hugin1/hugin/xrc/batch_frame.xrc:437
 msgid "Send selected panoramas to queue"
 msgstr "发送已选择的全景图像到队列中"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:460
+#: hugin1/hugin/xrc/batch_frame.xrc:464
 msgid "Close"
 msgstr "关闭"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:475
+#: hugin1/hugin/xrc/batch_frame.xrc:479
 msgid "Searching panoramas"
 msgstr "搜索全景图像"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:488
+#: hugin1/hugin/xrc/batch_frame.xrc:492
 msgid "Failed projects"
 msgstr "已经失败的项目"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:503 hugin1/hugin/xrc/pano_panel.xrc:1336
+#: hugin1/hugin/xrc/batch_frame.xrc:507 hugin1/hugin/xrc/pano_panel.xrc:1336
 msgid "Output"
 msgstr "输出"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:539
+#: hugin1/hugin/xrc/batch_frame.xrc:543
 msgid "Status report"
 msgstr "状态报告"
 
@@ -4471,7 +4723,7 @@ msgid "fit to window"
 msgstr "适合窗口"
 
 #: hugin1/hugin/xrc/cp_editor_panel.xrc:240
-#: hugin1/hugin/xrc/pref_dialog.xrc:464
+#: hugin1/hugin/xrc/pref_dialog.xrc:422
 msgid "Fine-tune"
 msgstr "调整"
 
@@ -4526,7 +4778,7 @@ msgstr "增加一个新点"
 msgid "Control Points"
 msgstr "控制点"
 
-#: hugin1/hugin/xrc/cp_list_frame.xrc:17 hugin1/hugin/xrc/pref_dialog.xrc:700
+#: hugin1/hugin/xrc/cp_list_frame.xrc:17 hugin1/hugin/xrc/pref_dialog.xrc:658
 msgid "Delete"
 msgstr "删除"
 
@@ -4820,7 +5072,7 @@ msgid "Camera Response"
 msgstr "照相机响应"
 
 #: hugin1/hugin/xrc/image_variable_dlg.xrc:645
-#: hugin1/hugin/xrc/pref_dialog.xrc:1497
+#: hugin1/hugin/xrc/pref_dialog.xrc:1447
 msgid "Help"
 msgstr "帮助"
 
@@ -4963,8 +5215,8 @@ msgstr "输入水平视角 (HFOV) 或者焦距和裁切系数."
 msgid "HFOV (v):"
 msgstr "水平视角 (v):"
 
-#: hugin1/hugin/xrc/images_panel.xrc:482 hugin1/hugin/xrc/pref_dialog.xrc:611
-#: hugin1/hugin/xrc/pref_dialog.xrc:630
+#: hugin1/hugin/xrc/images_panel.xrc:482 hugin1/hugin/xrc/pref_dialog.xrc:569
+#: hugin1/hugin/xrc/pref_dialog.xrc:588
 msgid "degrees"
 msgstr "度"
 
@@ -5402,11 +5654,6 @@ msgstr "列出最近使用过的项目文件"
 msgid "&Run Batch Processor"
 msgstr "运行批处理 (&R)"
 
-#: hugin1/hugin/xrc/main_menu.xrc:184 hugin1/hugin/xrc/main_menu.xrc:210
-#: hugin1/hugin/xrc/preview_frame.xrc:1920
-msgid "Opens PTBatcher, the batch processor for Hugin's project files"
-msgstr "打开 PTBatcher, Hugin 项目文件的批处理器"
-
 #: hugin1/hugin/xrc/main_menu.xrc:188 hugin1/hugin/xrc/main_menu.xrc:214
 msgid "&Merge project..."
 msgstr "合并项目(&M)..."
@@ -5448,8 +5695,8 @@ msgstr "打开"
 msgid "Open a project file"
 msgstr "打开一个项目文件"
 
-#: hugin1/hugin/xrc/main_tool.xrc:20 hugin1/hugin/xrc/pref_dialog.xrc:1527
-#: hugin1/hugin/xrc/pref_dialog.xrc:1585
+#: hugin1/hugin/xrc/main_tool.xrc:20 hugin1/hugin/xrc/pref_dialog.xrc:1477
+#: hugin1/hugin/xrc/pref_dialog.xrc:1535
 msgid "Save"
 msgstr "保存"
 
@@ -5544,12 +5791,12 @@ msgid "Exclude region from all images of this lens"
 msgstr "从带有这个镜头的所有图像中排除区域"
 
 #: hugin1/hugin/xrc/mask_editor_panel.xrc:88
-#: hugin1/hugin/xrc/pref_dialog.xrc:739
+#: hugin1/hugin/xrc/pref_dialog.xrc:697
 msgid "Export"
 msgstr "输出"
 
 #: hugin1/hugin/xrc/mask_editor_panel.xrc:95
-#: hugin1/hugin/xrc/pref_dialog.xrc:732
+#: hugin1/hugin/xrc/pref_dialog.xrc:690
 msgid "Import"
 msgstr "输入"
 
@@ -5728,39 +5975,39 @@ msgstr "照相机和镜头变量:"
 msgid "Interpolator (i):"
 msgstr "插补器 (i):"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:17 hugin1/hugin/xrc/pref_dialog.xrc:1132
+#: hugin1/hugin/xrc/pano_panel.xrc:17 hugin1/hugin/xrc/pref_dialog.xrc:1082
 msgid "Poly3 (Bicubic)"
 msgstr "多边形3 (双三次的)"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:18 hugin1/hugin/xrc/pref_dialog.xrc:1133
+#: hugin1/hugin/xrc/pano_panel.xrc:18 hugin1/hugin/xrc/pref_dialog.xrc:1083
 msgid "Spline 16"
 msgstr "样条 16"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:19 hugin1/hugin/xrc/pref_dialog.xrc:1134
+#: hugin1/hugin/xrc/pano_panel.xrc:19 hugin1/hugin/xrc/pref_dialog.xrc:1084
 msgid "Spline 36"
 msgstr "样条 36"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:20 hugin1/hugin/xrc/pref_dialog.xrc:1135
+#: hugin1/hugin/xrc/pano_panel.xrc:20 hugin1/hugin/xrc/pref_dialog.xrc:1085
 msgid "Sinc 256"
 msgstr "Sinc 256"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:21 hugin1/hugin/xrc/pref_dialog.xrc:1136
+#: hugin1/hugin/xrc/pano_panel.xrc:21 hugin1/hugin/xrc/pref_dialog.xrc:1086
 msgid "Spline 64"
 msgstr "样条 64"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:22 hugin1/hugin/xrc/pref_dialog.xrc:1137
+#: hugin1/hugin/xrc/pano_panel.xrc:22 hugin1/hugin/xrc/pref_dialog.xrc:1087
 msgid "Bilinear"
 msgstr "双线性"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:23 hugin1/hugin/xrc/pref_dialog.xrc:1138
+#: hugin1/hugin/xrc/pano_panel.xrc:23 hugin1/hugin/xrc/pref_dialog.xrc:1088
 msgid "Nearest neighbor"
 msgstr "最近相邻"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:24 hugin1/hugin/xrc/pref_dialog.xrc:1139
+#: hugin1/hugin/xrc/pano_panel.xrc:24 hugin1/hugin/xrc/pref_dialog.xrc:1089
 msgid "Sinc 1024"
 msgstr "Sinc 1024"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:27 hugin1/hugin/xrc/pref_dialog.xrc:1142
+#: hugin1/hugin/xrc/pano_panel.xrc:27 hugin1/hugin/xrc/pref_dialog.xrc:1092
 msgid "approximation of values between source pixels"
 msgstr "源像素之间的逼近值"
 
@@ -5787,10 +6034,6 @@ msgstr "Blender 选项"
 #: hugin1/hugin/xrc/pano_panel.xrc:147
 msgid "Enfuse options"
 msgstr "Enfuse 选项"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:166
-msgid "Projection:"
-msgstr "投影:"
 
 #: hugin1/hugin/xrc/pano_panel.xrc:188
 msgid "Field of View:"
@@ -5856,15 +6099,6 @@ msgid ""
 "without excess"
 msgstr "计算裁切边界以便最终图像具有不多余的最大区域"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:447
-msgid "Panorama Outputs:"
-msgstr "全景图像输出:"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:462 hugin1/hugin/xrc/pano_panel.xrc:624
-#: hugin1/hugin/xrc/pano_panel.xrc:1258
-msgid "Exposure corrected, low dynamic range"
-msgstr "曝光校正, 低动态范围"
-
 #: hugin1/hugin/xrc/pano_panel.xrc:463 hugin1/hugin/xrc/pano_panel.xrc:1266
 #: hugin1/hugin/xrc/pano_panel.xrc:1281
 msgid ""
@@ -5872,19 +6106,11 @@ msgid ""
 "Exposure tab"
 msgstr "融合所有图像到一张无缝全景图像, 使用曝光面板中的曝光设置"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:474 hugin1/hugin/xrc/pano_panel.xrc:1273
-msgid "Exposure fused from stacks"
-msgstr "从堆栈中融合曝光"
-
 #: hugin1/hugin/xrc/pano_panel.xrc:475
 msgid ""
 "Images will be remapped, stacks exposure fused, then blended into a seamless "
 "panorama"
 msgstr "图像将被重定位, 堆栈安全曝光, 然后合并成一张无缝全景图像"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:483 hugin1/hugin/xrc/pano_panel.xrc:1287
-msgid "Exposure fused from any arrangement"
-msgstr "按排列融合曝光"
 
 #: hugin1/hugin/xrc/pano_panel.xrc:484 hugin1/hugin/xrc/pano_panel.xrc:1295
 msgid ""
@@ -5895,11 +6121,6 @@ msgstr "图像将被重定位, 融合到无缝图层, 然后拼接图层成为�
 #: hugin1/hugin/xrc/pano_panel.xrc:493 hugin1/hugin/xrc/pano_panel.xrc:563
 msgid "Format:"
 msgstr "格式:"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:551 hugin1/hugin/xrc/pano_panel.xrc:644
-#: hugin1/hugin/xrc/pano_panel.xrc:1301
-msgid "High dynamic range"
-msgstr "高动态范围"
 
 #: hugin1/hugin/xrc/pano_panel.xrc:552 hugin1/hugin/xrc/pano_panel.xrc:1309
 msgid ""
@@ -5918,10 +6139,6 @@ msgid ""
 "exposure corrected panorama."
 msgstr "输出重定位的, 曝光校正的图像. 有利于人工混合一张曝光校正的全景图像."
 
-#: hugin1/hugin/xrc/pano_panel.xrc:635
-msgid "No exposure correction, low dynamic range"
-msgstr "没有曝光校正, 低动态范围"
-
 #: hugin1/hugin/xrc/pano_panel.xrc:636
 msgid ""
 "Output remapped images with unmodified exposure. Useful for manual exposure "
@@ -5931,14 +6148,6 @@ msgstr "输出使用未修改曝光的重定位图像. 有利于人工曝光融�
 #: hugin1/hugin/xrc/pano_panel.xrc:645
 msgid "Produce remapped, but not merged, linear color space images"
 msgstr "产生重定位的, 但是没有合并的, 线性颜色空间的图像"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:654
-msgid "Combined stacks:"
-msgstr "组合堆栈:"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:669
-msgid "Exposure fused stacks"
-msgstr "堆栈融合曝光"
 
 #: hugin1/hugin/xrc/pano_panel.xrc:670
 msgid "Output exposure fused stacks from highly overlapping images"
@@ -5953,14 +6162,6 @@ msgid ""
 "Output remapped, high dynamic range merged stacks from highly overlapping "
 "images"
 msgstr "从高重叠图像中输出重定位的, 高动态范围的合并堆栈"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:689
-msgid "Layers:"
-msgstr "层:"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:704
-msgid "Blended layers of similar exposure, without exposure correction"
-msgstr "混合相似曝光层, 不使用曝光校正"
 
 #: hugin1/hugin/xrc/pano_panel.xrc:705
 msgid ""
@@ -5989,18 +6190,6 @@ msgstr "enfuse"
 #: hugin1/hugin/xrc/pano_panel.xrc:786
 msgid "HDR merger:"
 msgstr "HDR 合并器:"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:795
-msgid "builtin"
-msgstr "内建"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:814
-msgid "Blender:"
-msgstr "Blender:"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:823
-msgid "enblend"
-msgstr "enblend"
 
 #: hugin1/hugin/xrc/pano_panel.xrc:862 hugin1/hugin/xrc/pano_panel.xrc:863
 msgid "Stitch!"
@@ -6113,40 +6302,27 @@ msgstr "图像缓存:"
 msgid "Keep fullsize images in memory, until this limit is exceeded"
 msgstr "在内存中保存实际大小的图像, 直到超过限制"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:46
-msgid "Number of CPUs:"
-msgstr "CPU 编号:"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:55
-msgid ""
-"Hugin's preview window can use multiple threads for processing.\n"
-"Set this to the number of processors or processor cores available in your "
-"system."
-msgstr ""
-"Hugin 的预览窗口能够使用多线程进行处理.\n"
-"将这个参数设置成为您的系统中的处理器或者处理器内核的数量"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:76
+#: hugin1/hugin/xrc/pref_dialog.xrc:53
 msgid "User Interface"
 msgstr "用户界面"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:83
+#: hugin1/hugin/xrc/pref_dialog.xrc:60
 msgid "Language:"
 msgstr "语言:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:97
+#: hugin1/hugin/xrc/pref_dialog.xrc:74
 msgid "(requires restarting hugin)"
 msgstr "(需要重启动 Hugin)"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:105
+#: hugin1/hugin/xrc/pref_dialog.xrc:82
 msgid "Undo:"
 msgstr "撤消:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:112
+#: hugin1/hugin/xrc/pref_dialog.xrc:89
 msgid "Skip over visibility toggles"
 msgstr "忽略可见开关"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:121
+#: hugin1/hugin/xrc/pref_dialog.xrc:98
 msgid ""
 "May have unforeseen consequences. \n"
 "(EXPERIMENTAL)"
@@ -6154,57 +6330,43 @@ msgstr ""
 "可能产生无法预料的结果. \n"
 "(试验性的)"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:128
+#: hugin1/hugin/xrc/pref_dialog.xrc:105
 msgid "Log messages:"
 msgstr "日志信息:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:135
+#: hugin1/hugin/xrc/pref_dialog.xrc:112
 msgid "Copy log messages to clipboard."
 msgstr "复制日志信息到剪贴板."
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:146
-msgid "Project save:"
-msgstr "保存项目:"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:153
-msgid "Create makefile automatically during project save"
-msgstr "在保存项目过程中自动创建 make 文件"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:154
-msgid ""
-"Saves a makefile (.mk) beside the project file (.pto) for command line "
-"stitching"
-msgstr "为了命令行缝合保存一个 make 文件(.mk) 到这个项目文件 (.pto) 的附近"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:169
+#: hugin1/hugin/xrc/pref_dialog.xrc:127
 msgid "Show hints about projections"
 msgstr "显示关于投影的提示"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:172
+#: hugin1/hugin/xrc/pref_dialog.xrc:130
 msgid "The hints are shown only in the fast preview window"
 msgstr "这些提示只在快速预览窗口中显示"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:197
+#: hugin1/hugin/xrc/pref_dialog.xrc:155
 msgid "File Options"
 msgstr "文件选项"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:204
+#: hugin1/hugin/xrc/pref_dialog.xrc:162
 msgid "Temporary dir:"
 msgstr "临时目录:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:217
+#: hugin1/hugin/xrc/pref_dialog.xrc:175
 msgid "(leave empty for OS default)"
 msgstr "(操作系统默认为空)"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:235
+#: hugin1/hugin/xrc/pref_dialog.xrc:193
 msgid "Default project filename:"
 msgstr "默认项目文件名:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:253
+#: hugin1/hugin/xrc/pref_dialog.xrc:211
 msgid "Default output prefix:"
 msgstr "默认输出前缀:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:272
+#: hugin1/hugin/xrc/pref_dialog.xrc:230
 #, c-format
 msgid ""
 "The following placeholder are replaced automatically:\n"
@@ -6235,47 +6397,47 @@ msgstr ""
 "%lens - 镜头 (第一张图像的)\n"
 "%projectname - 项目名称 (只用于输出前缀)"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:294
+#: hugin1/hugin/xrc/pref_dialog.xrc:252
 msgid "Default filenames"
 msgstr "默认文件名:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:302
+#: hugin1/hugin/xrc/pref_dialog.xrc:260
 msgid "Filenames"
 msgstr "文件名"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:311
+#: hugin1/hugin/xrc/pref_dialog.xrc:269
 msgid "Image loading"
 msgstr "图像加载中"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:315
+#: hugin1/hugin/xrc/pref_dialog.xrc:273
 msgid "Automatically align images after loading"
 msgstr "加载后自动排列图像"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:328
+#: hugin1/hugin/xrc/pref_dialog.xrc:286
 msgid "Detect vertical lines"
 msgstr "检测垂直线"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:329
+#: hugin1/hugin/xrc/pref_dialog.xrc:287
 msgid "Detects vertical lines in the images to level the pano"
 msgstr "检测垂直线以便使全景图像水平"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:336
+#: hugin1/hugin/xrc/pref_dialog.xrc:294
 msgid "Remove cloud-like control points (Celeste)"
 msgstr "移除似云控制点 (Celeste)"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:343
+#: hugin1/hugin/xrc/pref_dialog.xrc:301
 msgid "Remove outlying control points by statistical method"
 msgstr "通过统计方法移除边远控制点"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:348
+#: hugin1/hugin/xrc/pref_dialog.xrc:306
 msgid "Optional assistant steps"
 msgstr "可选的助理步骤"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:356
+#: hugin1/hugin/xrc/pref_dialog.xrc:314
 msgid "Auto align"
 msgstr "自动排列"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:363
+#: hugin1/hugin/xrc/pref_dialog.xrc:321
 msgid ""
 "Number of Control Points\n"
 "per overlap"
@@ -6283,67 +6445,67 @@ msgstr ""
 "控制点号码\n"
 "每重叠区域"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:385
+#: hugin1/hugin/xrc/pref_dialog.xrc:343
 msgid "Downscale final pano"
 msgstr "缩减最终全景图像"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:399
+#: hugin1/hugin/xrc/pref_dialog.xrc:357
 msgid "percent of max. width"
 msgstr "百分之最大宽度"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:417
+#: hugin1/hugin/xrc/pref_dialog.xrc:375
 msgid "Control Points Editor"
 msgstr "控制点编辑器"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:423
+#: hugin1/hugin/xrc/pref_dialog.xrc:381
 msgid "HDR and 16 Bit display"
 msgstr "HDR 和 16 位显示模式"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:432
+#: hugin1/hugin/xrc/pref_dialog.xrc:390
 msgid "Curve"
 msgstr "曲线"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:440
+#: hugin1/hugin/xrc/pref_dialog.xrc:398
 msgid "linear"
 msgstr "直线的"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:441
+#: hugin1/hugin/xrc/pref_dialog.xrc:399
 msgid "logarithmic"
 msgstr "对数的"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:442
+#: hugin1/hugin/xrc/pref_dialog.xrc:400
 msgid "gamma 2.2"
 msgstr "灰度 2.2"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:450
+#: hugin1/hugin/xrc/pref_dialog.xrc:408
 msgid "used for display in GUI"
 msgstr "用于图形用户界面输出"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:471
+#: hugin1/hugin/xrc/pref_dialog.xrc:429
 msgid "Patch width:"
 msgstr "面片宽度:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:485 hugin1/hugin/xrc/pref_dialog.xrc:527
+#: hugin1/hugin/xrc/pref_dialog.xrc:443 hugin1/hugin/xrc/pref_dialog.xrc:485
 msgid "pixels"
 msgstr "像素"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:492
+#: hugin1/hugin/xrc/pref_dialog.xrc:450
 msgid "Search area width:"
 msgstr "搜索区域宽度:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:506
+#: hugin1/hugin/xrc/pref_dialog.xrc:464
 msgid "percent of image width"
 msgstr "百分之图像宽度"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:513
+#: hugin1/hugin/xrc/pref_dialog.xrc:471
 msgid "Local search area width:"
 msgstr "局部搜索区域宽度:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:535
+#: hugin1/hugin/xrc/pref_dialog.xrc:493
 msgid "Correlation Threshold:"
 msgstr "相关阀值:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:547
+#: hugin1/hugin/xrc/pref_dialog.xrc:505
 msgid ""
 "0: no similarity\n"
 "1: maximum similarity"
@@ -6351,11 +6513,11 @@ msgstr ""
 "0: 不相似\n"
 "1: 最大相似"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:555
+#: hugin1/hugin/xrc/pref_dialog.xrc:513
 msgid "Peak Curvature Threshold:"
 msgstr "顶点曲率阀值:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:567
+#: hugin1/hugin/xrc/pref_dialog.xrc:525
 msgid ""
 "0: no peak\n"
 "0.2: distinctive peak"
@@ -6363,104 +6525,104 @@ msgstr ""
 "0: 无顶点\n"
 "0.2: 特殊顶点"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:584
+#: hugin1/hugin/xrc/pref_dialog.xrc:542
 msgid "Rotation search"
 msgstr "旋转搜索"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:588
+#: hugin1/hugin/xrc/pref_dialog.xrc:546
 msgid "Enable rotation search (slower, but more accurate)"
 msgstr "允许旋转搜索 (较慢, 但更加准确)"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:597
+#: hugin1/hugin/xrc/pref_dialog.xrc:555
 msgid "Start angle:"
 msgstr "起始角:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:618
+#: hugin1/hugin/xrc/pref_dialog.xrc:576
 msgid "Stop angle:"
 msgstr "终止角"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:637
+#: hugin1/hugin/xrc/pref_dialog.xrc:595
 msgid "Steps:"
 msgstr "步骤:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:664
+#: hugin1/hugin/xrc/pref_dialog.xrc:622
 msgid "Control Point Detectors"
 msgstr "控制点检测器"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:670
+#: hugin1/hugin/xrc/pref_dialog.xrc:628
 msgid "Control Point Detector Programs"
 msgstr "控制点检测器程序"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:686
+#: hugin1/hugin/xrc/pref_dialog.xrc:644
 msgid "New..."
 msgstr "新..."
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:693 hugin1/hugin/xrc/pref_dialog.xrc:977
-#: hugin1/hugin/xrc/pref_dialog.xrc:1036
+#: hugin1/hugin/xrc/pref_dialog.xrc:651 hugin1/hugin/xrc/pref_dialog.xrc:927
+#: hugin1/hugin/xrc/pref_dialog.xrc:986
 msgid "Edit..."
 msgstr "编辑..."
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:707
+#: hugin1/hugin/xrc/pref_dialog.xrc:665
 msgid "Move up"
 msgstr "向上移动"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:714
+#: hugin1/hugin/xrc/pref_dialog.xrc:672
 msgid "Move down"
 msgstr "向下移动"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:721
+#: hugin1/hugin/xrc/pref_dialog.xrc:679
 msgid "Set default"
 msgstr "默认设置"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:752
+#: hugin1/hugin/xrc/pref_dialog.xrc:710
 msgid "The assistant is using the default setting."
 msgstr "使用默认设置的助理."
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:774
+#: hugin1/hugin/xrc/pref_dialog.xrc:732
 msgid "Output Format"
 msgstr "输出格式"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:781
+#: hugin1/hugin/xrc/pref_dialog.xrc:739
 msgid "Default File Format:"
 msgstr "默认文件格式:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:794
+#: hugin1/hugin/xrc/pref_dialog.xrc:752
 msgid "default output format for final panorama"
 msgstr "默认最终全景图像的输出格式"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:801
+#: hugin1/hugin/xrc/pref_dialog.xrc:759
 msgid "TIFF Compression:"
 msgstr "TIFF 压缩:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:815
+#: hugin1/hugin/xrc/pref_dialog.xrc:773
 msgid "default TIFF compression"
 msgstr "默认 TIFF 压缩:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:821
+#: hugin1/hugin/xrc/pref_dialog.xrc:779
 msgid "JPEG Quality:"
 msgstr "JPEG 质量:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:832
+#: hugin1/hugin/xrc/pref_dialog.xrc:790
 msgid "default JPEG compression setting"
 msgstr "默认 JPEG 压缩设置"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:847
+#: hugin1/hugin/xrc/pref_dialog.xrc:805
 msgid "Processor"
 msgstr "处理器"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:855
+#: hugin1/hugin/xrc/pref_dialog.xrc:813
 msgid "Hugin&stitch&project"
 msgstr "Hugin&stitch&project"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:858
+#: hugin1/hugin/xrc/pref_dialog.xrc:816
 msgid "The engine that will run the stitch"
 msgstr "将运行缝合工作的引擎"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:867
+#: hugin1/hugin/xrc/pref_dialog.xrc:825
 msgid "Start stitching jobs immediately"
 msgstr "立即开始缝合工作"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:868
+#: hugin1/hugin/xrc/pref_dialog.xrc:826
 msgid ""
 "If selected, the processor will immediately resume processing the jobs "
 "queue.  Otherwise the processor is started in suspended state and the user "
@@ -6469,71 +6631,57 @@ msgstr ""
 "如果选择了, 处理器将立即继续队列中的工作.  否则处理器将处于暂停状态并且用户必"
 "须手动开启处理过程."
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:875
-msgid "Run stitching jobs in parallel"
-msgstr "并行运行缝合工作"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:876
-msgid ""
-"If selected, the processor will run multiple jobs contemporaneously.  "
-"Otherwise it will run one job at a time.  Note that selecting this option "
-"may actually result in slower stitches, depending on the system's resources "
-"and bottlenecks."
-msgstr ""
-"如果选择了, 处理器将会同时运行多个工作.  否则它将一次运行一个工作.  注意选择"
-"这个选项可能会减慢缝合工作, 取决于系统的资源和瓶颈."
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:883
+#: hugin1/hugin/xrc/pref_dialog.xrc:833
 msgid "Overwrite existing files"
 msgstr "覆盖已经存在的文件"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:884
+#: hugin1/hugin/xrc/pref_dialog.xrc:834
 msgid "WARNING: existing files will be silently overwritten."
 msgstr "警告: 已存在的文件将会被无提示地覆盖."
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:891
+#: hugin1/hugin/xrc/pref_dialog.xrc:841
 msgid "Verbose Output"
 msgstr "详细的输出"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:892
+#: hugin1/hugin/xrc/pref_dialog.xrc:842
 msgid ""
 "Enable to get the details, useful when reporting a bug or just to watch the "
 "project's progress."
 msgstr "允许显示细节, 适用于报告一个 bug 或者只是查看项目的进程."
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:914
+#: hugin1/hugin/xrc/pref_dialog.xrc:864
 msgid "Stitching"
 msgstr "缝合中"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:924
+#: hugin1/hugin/xrc/pref_dialog.xrc:874
 msgid "Copy metadata into final files using ExifTool"
 msgstr "使用 ExifTool 复制元数据到最终图像"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:929
+#: hugin1/hugin/xrc/pref_dialog.xrc:879
 msgid "ExifTool options"
 msgstr "ExifTool 选项"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:939
+#: hugin1/hugin/xrc/pref_dialog.xrc:889
 msgid ""
 "The following argfile will be used to copy tags from the first image to all "
 "intermediate images.\n"
 "Placeholders will not be replaced."
 msgstr ""
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:955
+#: hugin1/hugin/xrc/pref_dialog.xrc:905
 #, fuzzy
 msgid "Intermediate ExifTool argfile:"
 msgstr "编辑 ExifTool 参数文件"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:961 hugin1/hugin/xrc/pref_dialog.xrc:1020
+#: hugin1/hugin/xrc/pref_dialog.xrc:911 hugin1/hugin/xrc/pref_dialog.xrc:970
 msgid "Leave empty for default"
 msgstr "默认留空"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:978 hugin1/hugin/xrc/pref_dialog.xrc:1037
+#: hugin1/hugin/xrc/pref_dialog.xrc:928 hugin1/hugin/xrc/pref_dialog.xrc:987
 msgid "Edit selected ExifTool argfile"
 msgstr "编辑选择的 ExifTool 参数文件"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:997
+#: hugin1/hugin/xrc/pref_dialog.xrc:947
 msgid ""
 "The following argfile will be used to copy tags from the first image to the "
 "final panorma.\n"
@@ -6541,28 +6689,28 @@ msgid ""
 "Placeholders in this argfile will replaced before running exiftool."
 msgstr ""
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1014
+#: hugin1/hugin/xrc/pref_dialog.xrc:964
 #, fuzzy
 msgid "Final ExifTool argfile:"
 msgstr "ExifTool 参数文件:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1054
+#: hugin1/hugin/xrc/pref_dialog.xrc:1004
 msgid "Create Photo Sphere XMP data"
 msgstr "创建照片球形 XMP 数据"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1055
+#: hugin1/hugin/xrc/pref_dialog.xrc:1005
 msgid "This will only be done for equirectangular output images."
 msgstr "只用于等矩形输出图像."
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1070
+#: hugin1/hugin/xrc/pref_dialog.xrc:1020
 msgid "Advanced options"
 msgstr "高级选项"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1076
+#: hugin1/hugin/xrc/pref_dialog.xrc:1026
 msgid "Number of threads:"
 msgstr "线程编号:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1085
+#: hugin1/hugin/xrc/pref_dialog.xrc:1035
 msgid ""
 "Nona and the OpenMP enabled enblend/enfuse can use multiple threads for "
 "processing.\n"
@@ -6572,44 +6720,44 @@ msgstr ""
 "Nona 和 OpenMP 能够使用或者不使用多线程进行处理.\n"
 "将这个参数设置成为您的系统中的处理器或者处理器内核的数量"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1092
+#: hugin1/hugin/xrc/pref_dialog.xrc:1042
 msgid "0 for automatic detection"
 msgstr "0 个自动检测"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1108
+#: hugin1/hugin/xrc/pref_dialog.xrc:1058
 #, fuzzy
 msgid "Stitching (2)"
 msgstr "缝合中"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1124
+#: hugin1/hugin/xrc/pref_dialog.xrc:1074
 msgid "Default Interpolator (i):"
 msgstr "默认插补器 (i):"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1154
+#: hugin1/hugin/xrc/pref_dialog.xrc:1104
 msgid "Create cropped images by default"
 msgstr "默认创建裁切后的图像"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1161
+#: hugin1/hugin/xrc/pref_dialog.xrc:1111
 msgid "Use GPU for remapping (EXPERIMENTAL)"
 msgstr "重定位时使用 GPU (实验性质)"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1162
+#: hugin1/hugin/xrc/pref_dialog.xrc:1112
 msgid "Use video card GPU to speed up remapping"
 msgstr "使用显卡 GPU 加速重定位"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1185
+#: hugin1/hugin/xrc/pref_dialog.xrc:1135
 msgid "Use alternative Enblend program"
 msgstr "使用可选 Enblend 程序"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1195
+#: hugin1/hugin/xrc/pref_dialog.xrc:1145
 msgid "Enblend executable:"
 msgstr "Enblend 可执行:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1220 hugin1/hugin/xrc/pref_dialog.xrc:1299
+#: hugin1/hugin/xrc/pref_dialog.xrc:1170 hugin1/hugin/xrc/pref_dialog.xrc:1249
 msgid "Default Arguments:"
 msgstr "默认参数:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1240 hugin1/hugin/xrc/pref_dialog.xrc:1319
+#: hugin1/hugin/xrc/pref_dialog.xrc:1190 hugin1/hugin/xrc/pref_dialog.xrc:1269
 msgid ""
 "These are the default arguments for new projects.\n"
 "They can be changed for individual projects in the Stitcher tab.\n"
@@ -6619,35 +6767,35 @@ msgstr ""
 "可以为了单独项目在缝合器面板中改变它们.\n"
 "不要设置 -w, -o 和 --compression 参数, 它们由 hugin 指定"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1250
+#: hugin1/hugin/xrc/pref_dialog.xrc:1200
 msgid "Enblend"
 msgstr "Enblend"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1264
+#: hugin1/hugin/xrc/pref_dialog.xrc:1214
 msgid "Use alternative Enfuse program"
 msgstr "使用可供选择的 Enfuse 程序"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1274
+#: hugin1/hugin/xrc/pref_dialog.xrc:1224
 msgid "Enfuse executable:"
 msgstr "Enfuse 可执行:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1329
+#: hugin1/hugin/xrc/pref_dialog.xrc:1279
 msgid "Enfuse"
 msgstr "Enfuse"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1337
+#: hugin1/hugin/xrc/pref_dialog.xrc:1287
 msgid "Programs"
 msgstr "程序"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1345
+#: hugin1/hugin/xrc/pref_dialog.xrc:1295
 msgid "Celeste parameters"
 msgstr "Celeste 参数"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1352
+#: hugin1/hugin/xrc/pref_dialog.xrc:1302
 msgid "SVM threshold:"
 msgstr "SVM 阀值:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1364
+#: hugin1/hugin/xrc/pref_dialog.xrc:1314
 msgid ""
 "greater than 0.5: less sensitive\n"
 "less than 0.5: more sensitive"
@@ -6655,19 +6803,19 @@ msgstr ""
 "大于 0.5: 较小灵敏度\n"
 "小于 0.5: 较大灵敏度"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1371
+#: hugin1/hugin/xrc/pref_dialog.xrc:1321
 msgid "Gabor filter size"
 msgstr "Gabor 过滤尺寸"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1379
+#: hugin1/hugin/xrc/pref_dialog.xrc:1329
 msgid "small"
 msgstr "小"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1380
+#: hugin1/hugin/xrc/pref_dialog.xrc:1330
 msgid "large"
 msgstr "大"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1388
+#: hugin1/hugin/xrc/pref_dialog.xrc:1338
 msgid ""
 "large is more accurate\n"
 "small can examine control points close to image border"
@@ -6675,7 +6823,7 @@ msgstr ""
 "大的更精确\n"
 "小的能够检查靠近图像边界的控制点"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1406
+#: hugin1/hugin/xrc/pref_dialog.xrc:1356
 msgid ""
 "The vignetting and exposure correction is determined by analysing color "
 "values in the overlapping areas.\n"
@@ -6684,40 +6832,40 @@ msgstr ""
 "通过在重叠区域中分析颜色值来确定渐晕和曝光校正.\n"
 "为了提高运算速度, 只使用了一个随机点集."
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1415
+#: hugin1/hugin/xrc/pref_dialog.xrc:1365
 msgid "Number of points per image: "
 msgstr "每张图像的点的编号:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1430
+#: hugin1/hugin/xrc/pref_dialog.xrc:1380
 msgid "Photometric optimizer"
 msgstr "测光优化器"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1438
+#: hugin1/hugin/xrc/pref_dialog.xrc:1388
 #, fuzzy
 msgid "Warnings"
 msgstr "警告"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1442
+#: hugin1/hugin/xrc/pref_dialog.xrc:1392
 msgid "Show message about saving project file and output prefix"
 msgstr ""
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1449
+#: hugin1/hugin/xrc/pref_dialog.xrc:1399
 msgid "Show warning about big exposure difference when adding images"
 msgstr ""
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1460
+#: hugin1/hugin/xrc/pref_dialog.xrc:1410
 msgid "Misc"
 msgstr "其他"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1508
+#: hugin1/hugin/xrc/pref_dialog.xrc:1458
 msgid "Preferences - hugin"
 msgstr "首选项 - hugin"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1541 hugin1/hugin/xrc/pref_dialog.xrc:1599
+#: hugin1/hugin/xrc/pref_dialog.xrc:1491 hugin1/hugin/xrc/pref_dialog.xrc:1549
 msgid "Edit ExifTool argfile"
 msgstr "编辑 ExifTool 参数文件"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1558
+#: hugin1/hugin/xrc/pref_dialog.xrc:1508
 msgid ""
 "The following placeholders will replaced before invoking ExifTool:\n"
 "%projection - projection name (in English)\n"
@@ -6870,7 +7018,7 @@ msgstr "灰度拾取器"
 #: hugin1/hugin/xrc/preview_frame.xrc:404
 #: hugin1/hugin/xrc/preview_frame.xrc:1244
 #, fuzzy
-msgid "Delete all control points in selected rectangle."
+msgid "Create or delete control points in selected rectangle."
 msgstr "删除控制点检测器设置"
 
 #: hugin1/hugin/xrc/preview_frame.xrc:405
@@ -7335,6 +7483,69 @@ msgstr ""
 "只有当图像重叠程度很高并且有很多分布良好的控制点时, 对所有畸变参数进行优化的"
 "选项 \"everything\" 才会有效果."
 
+#~ msgid "Command Line Progress"
+#~ msgstr "命令行进程"
+
+#~ msgid "Stitching %s"
+#~ msgstr "缝合中 %s"
+
+#~ msgid "Program %s not found in preferences, reverting to default value"
+#~ msgstr "没有在首选项中发现程序 %s, 恢复成默认值"
+
+#, fuzzy
+#~ msgid "Finding interest points..."
+#~ msgstr "查找行..."
+
+#~ msgid ""
+#~ "Could not save project makefile \"%s\".\n"
+#~ "But the project file was saved.\n"
+#~ "Maybe the file or the folder is read-only.\n"
+#~ "\n"
+#~ "(Error code: %s)"
+#~ msgstr ""
+#~ "不能保存项目的 makefile 文件\"%s\".\n"
+#~ "但是已经保存了项目文件.\n"
+#~ "相关文件或者文件夹可能是只读的.\n"
+#~ "\n"
+#~ "(错误代码: %s)"
+
+#~ msgid "Parallel execution"
+#~ msgstr "并行执行"
+
+#~ msgid "Stitch several projects parallel."
+#~ msgstr "并行缝合几个项目."
+
+#~ msgid ""
+#~ "Hugin's preview window can use multiple threads for processing.\n"
+#~ "Set this to the number of processors or processor cores available in your "
+#~ "system."
+#~ msgstr ""
+#~ "Hugin 的预览窗口能够使用多线程进行处理.\n"
+#~ "将这个参数设置成为您的系统中的处理器或者处理器内核的数量"
+
+#~ msgid "Project save:"
+#~ msgstr "保存项目:"
+
+#~ msgid "Create makefile automatically during project save"
+#~ msgstr "在保存项目过程中自动创建 make 文件"
+
+#~ msgid ""
+#~ "Saves a makefile (.mk) beside the project file (.pto) for command line "
+#~ "stitching"
+#~ msgstr "为了命令行缝合保存一个 make 文件(.mk) 到这个项目文件 (.pto) 的附近"
+
+#~ msgid "Run stitching jobs in parallel"
+#~ msgstr "并行运行缝合工作"
+
+#~ msgid ""
+#~ "If selected, the processor will run multiple jobs contemporaneously.  "
+#~ "Otherwise it will run one job at a time.  Note that selecting this option "
+#~ "may actually result in slower stitches, depending on the system's "
+#~ "resources and bottlenecks."
+#~ msgstr ""
+#~ "如果选择了, 处理器将会同时运行多个工作.  否则它将一次运行一个工作.  注意选"
+#~ "择这个选项可能会减慢缝合工作, 取决于系统的资源和瓶颈."
+
 #~ msgid "%d lenses found."
 #~ msgstr "发现 %d 镜头."
 
@@ -7473,9 +7684,6 @@ msgstr ""
 #~ msgid "Bulgarian"
 #~ msgstr "保加利亚语"
 
-#~ msgid "Catalan"
-#~ msgstr "加泰罗尼亚语"
-
 #~ msgid "Korean"
 #~ msgstr "韩语"
 
@@ -7490,9 +7698,6 @@ msgstr ""
 
 #~ msgid "Specify output image filename"
 #~ msgstr "指定输出图像文件名"
-
-#~ msgid "Stitching Panorama"
-#~ msgstr "全景图像缝合中"
 
 #~ msgid "Wrong number of images specified on command line"
 #~ msgstr "在命令行中指定的图像数量出错"
@@ -7766,9 +7971,6 @@ msgstr ""
 #~ msgid "Use the currently selected images as color correction anchor image"
 #~ msgstr "选择当前选择的图像来作为颜色校正的锚定图像"
 
-#~ msgid "Filename:"
-#~ msgstr "文件名:"
-
 #~ msgid "Camera Model:"
 #~ msgstr "照相机型号:"
 
@@ -7995,12 +8197,6 @@ msgstr ""
 #~ msgid "overview"
 #~ msgstr "预览"
 
-#~ msgid "Exposure:"
-#~ msgstr "曝光:"
-
-#~ msgid "Aligning images"
-#~ msgstr "排列图像"
-
 #~ msgid "Finding corresponding points"
 #~ msgstr "正在查找相关点"
 
@@ -8027,9 +8223,6 @@ msgstr ""
 
 #~ msgid " not found, Hugin needs to be properly installed."
 #~ msgstr "没有发现, Hugin 需要正确安装."
-
-#~ msgid "classifying control points..."
-#~ msgstr "正在划分控制点"
 
 #~ msgid ""
 #~ "The panorama has been changed\n"
@@ -8479,13 +8672,6 @@ msgstr ""
 #~ msgid "%s not found. Please specify a valid path in the preferences"
 #~ msgstr "没有发现 %s. 请在首选项中指定一个有效目录"
 
-#~ msgid ""
-#~ "\n"
-#~ " current directory:"
-#~ msgstr ""
-#~ "\n"
-#~ " 当前目录:"
-
 #~ msgid "Autopano result"
 #~ msgstr "Autopano 结果"
 
@@ -8613,9 +8799,6 @@ msgstr ""
 
 #~ msgid "Keyboard Shortcuts"
 #~ msgstr "键盘快捷键"
-
-#~ msgid "Optimizing"
-#~ msgstr "优化中"
 
 #~ msgid "Abort"
 #~ msgstr "中断"
@@ -8857,9 +9040,6 @@ msgstr ""
 
 #~ msgid "QTVR"
 #~ msgstr "QTVR"
-
-#~ msgid "edit script before stitching"
-#~ msgstr "在缝合前编辑脚本"
 
 #~ msgid "Please use either %namefile or %i in the autopano-sift command line."
 #~ msgstr "请在 Autopano-SIFT 命令行中使用 %namefile 或者 %i."
