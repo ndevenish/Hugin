@@ -333,13 +333,19 @@ bool huginApp::OnInit()
     frame->SendSizeEvent();
 #if wxCHECK_VERSION(3,1,0)
     wxTaskBarJumpList jumpList;
-    wxFileName ptbatcher(wxStandardPaths::Get().GetExecutablePath());
-    ptbatcher.SetName("PTBatcherGUI");
+    wxFileName exeFile(wxStandardPaths::Get().GetExecutablePath());
+    exeFile.SetName("PTBatcherGUI");
     wxTaskBarJumpListItem *item1 = new wxTaskBarJumpListItem(
-        NULL, wxTASKBAR_JUMP_LIST_TASK, _("Open Batch Processor"), ptbatcher.GetFullPath(), wxEmptyString, 
+        NULL, wxTASKBAR_JUMP_LIST_TASK, _("Open Batch Processor"), exeFile.GetFullPath(), wxEmptyString,
         _("Opens PTBatcher, the batch processor for Hugin's project files"),
-        ptbatcher.GetFullPath(), 0);
+        exeFile.GetFullPath(), 0);
     jumpList.GetTasks().Append(item1);
+    exeFile.SetName("calibrate_lens_gui");
+    wxTaskBarJumpListItem *item2 = new wxTaskBarJumpListItem(
+        NULL, wxTASKBAR_JUMP_LIST_TASK, _("Open Lens calibrate tool"), exeFile.GetFullPath(), wxEmptyString,
+        _("Opens Calibrate_lens_gui, a simple GUI for lens calibration"),
+        exeFile.GetFullPath(), 0);
+    jumpList.GetTasks().Append(item2);
 #endif
 #endif
 
