@@ -32,7 +32,7 @@ checkpto(1)  cpclean(1)  cpfind(1)  deghosting_mask(1)  fulla(1)  geocpset(1)  h
 hugin_hdrmerge(1) hugin_stitch_project(1)  icpfind(1)  lensdb(1) linefind(1)  nona(1)  pano_modify(1)
 pano_trafo(1)  PTBatcherGUI(1)  pto_gen(1)  pto_merge(1)  pto_lensstack(1) 
 pto_mask(1)  pto_merge(1)  pto_move(1)  pto_template(1)  pto_var(1)  tca_correct(1)
-vig_optimize(1)
+verdandi(1) vig_optimize(1)
 
 =head1 AUTHORS
 
@@ -40,5 +40,5 @@ Written by Pablo d'Angelo. Also contains contributions from Kai-Uwe Behrmann, Do
 
 
 This man page was written by Cyril Brulebois
-<cyril.brulebois@enst-bretagne.fr> and is licensed under the same
+<cyril.brulebois@enst-bretagne.fr> and updated by Terry Duell, and is licensed under the same
 terms as the hugin package itself.

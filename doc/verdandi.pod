@@ -1,0 +1,36 @@
+=head1 NAME
+
+verdandi: Stitch images using watershed algorithm.
+
+
+=head1 USAGE
+
+B<verdandi> [options] images
+
+
+=head1 OPTIONS
+
+=over
+
+=item B<--output=FILE> Set the filename for the output file.
+
+=item B<--compression=value> Compression of the output files.
+
+
+=over
+
+For jpeg output: 1-100
+
+For tiff output: PACKBITS, DEFLATE, LZW
+
+=back
+
+=item B<-w, --wrap> Wraparound 360 deg border.
+
+=item B<-h, --help> Shows this help.
+
+=back
+
+=head1 AUTHORS
+
+Thomas Modes
