@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2015-02-21 14:55+0100\n"
-"PO-Revision-Date: 2015-02-16 10:51+0100\n"
+"POT-Creation-Date: 2015-03-01 11:14+0100\n"
+"PO-Revision-Date: 2015-03-01 11:46+0100\n"
 "Last-Translator: Kornel Benko <kornel@lyx.org>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
@@ -750,6 +750,9 @@ msgid ""
 "Hugin does not support this image type. Skipping this image.\n"
 "Convert image to grayscale image and try loading again."
 msgstr ""
+"Súbor \"%s\" je čierno-biely obraz.\n"
+"Hugin tento typ nepodporuje. Obraz sa preskakuje.\n"
+"Preveďte to na šedý obrázok a skúste to nahrať znovu."
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:392
 #, c-format
@@ -3505,13 +3508,12 @@ msgid "Opens PTBatcher, the batch processor for Hugin's project files"
 msgstr "Otvorí PTBatcher, dávkový procesor pre projektové súbory Huginu"
 
 #: hugin1/hugin/huginApp.cpp:345
-#, fuzzy
 msgid "Open Lens calibrate tool"
-msgstr "Hugin - rozhranie kalibrácie šošovky"
+msgstr "(Open Lens) rozhranie kalibrácie šošovky"
 
 #: hugin1/hugin/huginApp.cpp:346
 msgid "Opens Calibrate_lens_gui, a simple GUI for lens calibration"
-msgstr ""
+msgstr "Otvorí Calibrate_lens_gui, jednoduchá GUI na kalibráciu šošovky"
 
 #: hugin1/hugin/wxPanoCommand.cpp:256 hugin1/hugin/wxPanoCommand.cpp:277
 #, c-format
@@ -4387,6 +4389,10 @@ msgstr "Licencia"
 #: hugin1/hugin/xrc/about.xrc:147
 msgid "System"
 msgstr "Systém"
+
+#: hugin1/hugin/xrc/about.xrc:188
+msgid "Dedication"
+msgstr "Venovanie"
 
 #: hugin1/hugin/xrc/about.xrc:198 hugin1/hugin/xrc/cpdetector_dialog.xrc:328
 #: hugin1/hugin/xrc/dlg_warning.xrc:46
@@ -7677,9 +7683,6 @@ msgstr ""
 "Optimalizácia všetkých parametrov skreslenia \"všetko\" má zmysel iba vtedy, "
 "ak sa obrázky veľmi prekrývajú a použili ste tiež mnoho dobre rozprestrených "
 "kontrolných bodov."
-
-#~ msgid "Dedication"
-#~ msgstr "Venovanie"
 
 #~ msgid "Command Line Progress"
 #~ msgstr "Priebeh v príkazovom riadku"
