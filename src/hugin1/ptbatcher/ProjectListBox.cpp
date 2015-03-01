@@ -303,19 +303,25 @@ wxString ProjectListBox::GetAttributeString(int i, Project* project)
                 return _("Assistant");
             };
         case 7:
-            return project->GetStatusText();	//all following cases default to an empty string if file is missing
+            return project->GetStatusText();	
+        //all following cases default to an empty string if file is missing
         case 3:
             if(project->status!=Project::MISSING)
             {
-                return project->modDate.FormatDate()+_T(", ")+project->modDate.FormatTime();
-            }
+                if (project->modDate.IsValid())
+                {
+                    return project->modDate.Format();
+                };
+            };
+            return wxEmptyString;
         case 4:
             if(project->status!=Project::MISSING)
             {
                 str = GetLongerFormatName(project->options.outputImageType);
                 str = str+wxT(" (.")+wxString::FromAscii(project->options.outputImageType.c_str())+wxT(")");
                 return str;
-            }
+            };
+            return wxEmptyString;
         case 5:
             if(project->status!=Project::MISSING)
             {
@@ -330,6 +336,7 @@ wxString ProjectListBox::GetAttributeString(int i, Project* project)
                     return _T("");
                 }
             };
+            return wxEmptyString;
         case 6:
             if(project->status!=Project::MISSING)
             {
@@ -338,6 +345,7 @@ wxString ProjectListBox::GetAttributeString(int i, Project* project)
                 str = str << project->options.getHeight();
                 return str;
             }
+            return wxEmptyString;
         default:
             return _T("");
     }
