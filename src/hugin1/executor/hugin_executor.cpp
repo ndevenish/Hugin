@@ -99,7 +99,9 @@ class HuginExecutor : public APP
     virtual int OnRun()
     {
         HuginBase::Panorama pano;
-        std::string input(m_input.mb_str(HUGIN_CONV_FILENAME));
+        wxFileName inputFile(m_input);
+        inputFile.Normalize();
+        std::string input(inputFile.GetFullPath().mb_str(HUGIN_CONV_FILENAME));
         std::ifstream prjfile(input.c_str());
         if (!prjfile.good())
         {
@@ -140,7 +142,7 @@ class HuginExecutor : public APP
             wxFileName::SetCwd(outputPrefix.GetPath());
             wxString statusText;
             wxArrayString outputFiles;
-            commands = HuginQueue::GetStitchingCommandQueue(pano, m_utilsBinDir, m_input, outputPrefix.GetName(), statusText, outputFiles, tempfiles);
+            commands = HuginQueue::GetStitchingCommandQueue(pano, m_utilsBinDir, inputFile.GetFullPath(), outputPrefix.GetName(), statusText, outputFiles, tempfiles);
             if (!m_dryRun)
             {
                 std::cout << statusText.mb_str(wxConvLocal) << std::endl;
