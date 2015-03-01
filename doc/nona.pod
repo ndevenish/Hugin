@@ -27,7 +27,7 @@ line) are supported:
 
 =item JPEG, TIFF, PNG  : Single image formats without feathered blending
 
-=item TIFF_m          : multiple tiff files
+=item JPG_m, TIFF_m, PNG_m   : multiple tiff files
 
 =item TIFF_multilayer : Multilayer tiff files, readable by The Gimp 2.0
 
@@ -48,9 +48,13 @@ Create coordinate images (only TIFF_m output)
 
 Quiet, do not output progress indicators
 
-=item B<-t> I<num>
+=item B<-d>
 
-Number of threads to be used (default: number of available cores)
+print detailed output for GPU processing
+
+=item B<-g>
+
+perform image remapping on the GPU
 
 =back
 
@@ -65,7 +69,7 @@ Remap only image with number num (can be specified multiple times)
 
 =item B<-m> I<str>
 
-Set output file format (TIFF, TIFF_m, TIFF_multilayer, EXR, EXR_m)
+Set output file format (TIFF, TIFF_m, TIFF_multilayer, EXR, EXR_m, JPEG, JPEG_m, PNG, PNG_m)
 
 =item B<-r> I<ldr>/I<hdr>
 
@@ -109,7 +113,7 @@ Pixel type of the output. Can be one of:
 =for TODO: A blank line seems to be missing here.
 =end
 
-=item B<-z>
+=item B<-z|--compression>
 
 Set compression type. Possible options for tiff output:
 
@@ -117,11 +121,31 @@ Set compression type. Possible options for tiff output:
 
 =item NONE      no compression
 
+=item PACKBITS  packbits compression
+
 =item LZW       LZW compression
 
 =item DEFLATE   deflate compression
 
+For JPEG output set quality number
+
 =back
+
+=item B<--ignore-exposure>
+
+Don't correct exposure. (This doesn't work with the -e switch)
+
+=item B<--save-intermediate-images>
+
+Saves also the intermediate images (only when output is is TIFF, PNG or JPEG)
+
+=item B<--intermediate-suffix=SUFFIX>
+
+Suffix for intermediate images
+
+=item B<--create-exposure-layers>
+
+Create all exposure layers (this will always use TIFF)
 
 =back
 
@@ -133,5 +157,5 @@ Written by Pablo d'Angelo. Also contains contributions from Douglas Wilkins, Ipp
 
 
 This man page was written by Cyril Brulebois
-<cyril.brulebois@enst-bretagne.fr> and is licensed under the same
+<cyril.brulebois@enst-bretagne.fr> and updated by Terry Duell and is licensed under the same
 terms as the hugin package itself.
