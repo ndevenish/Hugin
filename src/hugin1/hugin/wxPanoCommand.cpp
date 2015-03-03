@@ -751,7 +751,7 @@ bool wxNewProjectCmd::processPanorama(Panorama& pano)
     // HDR disabled because there is no real choice at the moment:  HDR TIFF is broken and there is only EXR
     // opts.outputImageTypeHDR = config->Read(wxT("/output/hdr_format"), HUGIN_HDR_OUTPUT_FORMAT);
     opts.outputFormat = PanoramaOptions::TIFF_m;
-    opts.blendMode = PanoramaOptions::ENBLEND_BLEND;
+    opts.blendMode = static_cast<PanoramaOptions::BlendingMechanism>(config->Read(wxT("/default_blender"), HUGIN_DEFAULT_BLENDER));
     opts.enblendOptions = config->Read(wxT("Enblend/Args"),wxT(HUGIN_ENBLEND_ARGS)).mb_str(wxConvLocal);
     opts.enfuseOptions = config->Read(wxT("Enfuse/Args"),wxT(HUGIN_ENFUSE_ARGS)).mb_str(wxConvLocal);
     opts.interpolator = (vigra_ext::Interpolator)config->Read(wxT("Nona/Interpolator"),HUGIN_NONA_INTERPOLATOR);

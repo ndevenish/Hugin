@@ -31,6 +31,7 @@
 #include "panoinc.h"
 
 #include "base_wx/wxPlatform.h"
+#include "base_wx/LensTools.h"
 
 #include "hugin/huginApp.h"
 #include "hugin/config_defaults.h"
@@ -201,6 +202,9 @@ PreferencesDialog::PreferencesDialog(wxWindow* parent)
     *lp = wxLANGUAGE_VALENCIAN;
     lang_choice->Append(_("Valencian (Southern Catalan)"), lp);
     lang_choice->SetSelection(0);
+
+    // default blender settings
+    FillBlenderList(XRCCTRL(*this, "pref_default_blender", wxChoice));
 
 #if wxCHECK_VERSION(2,9,1)
     wxStaticText* preview=XRCCTRL(*this, "prefs_project_filename_preview", wxStaticText);
@@ -670,6 +674,9 @@ void PreferencesDialog::UpdateDisplayData(int panel)
         MY_SPIN_VAL("pref_jpeg_quality", cfg->Read(wxT("/output/jpeg_quality"), HUGIN_JPEG_QUALITY));
         UpdateFileFormatControls();
 
+        // default blender
+        SelectListValue(XRCCTRL(*this, "pref_default_blender", wxChoice), cfg->Read(wxT("/default_blender"), HUGIN_DEFAULT_BLENDER));
+
         /////
         /// PROCESSOR
         MY_CHOICE_VAL("pref_processor_gui", cfg->Read(wxT("/Processor/gui"), HUGIN_PROCESSOR_GUI));
@@ -830,6 +837,8 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent& e)
             // cfg->Write(wxT("/output/hdr_format"), HUGIN_HDR_OUTPUT_FORMAT);
             cfg->Write(wxT("/output/tiff_compression"), HUGIN_TIFF_COMPRESSION);
             cfg->Write(wxT("/output/jpeg_quality"), HUGIN_JPEG_QUALITY);
+            // default blender
+            cfg->Write(wxT("/default_blender"), static_cast<long>(HUGIN_DEFAULT_BLENDER));
             // stitching engine
             cfg->Write(wxT("/Processor/gui"), HUGIN_PROCESSOR_GUI);
             cfg->Write(wxT("/Processor/start"), HUGIN_PROCESSOR_START);
@@ -960,6 +969,8 @@ void PreferencesDialog::UpdateConfigData()
     // cfg->Write(wxT("/output/hdr_format"), MY_G_CHOICE_VAL("pref_hdr_output_file_format"));
     cfg->Write(wxT("/output/tiff_compression"), MY_G_CHOICE_VAL("pref_tiff_compression"));
     cfg->Write(wxT("/output/jpeg_quality"), MY_G_SPIN_VAL("pref_jpeg_quality"));
+
+    cfg->Write(wxT("/default_blender"), static_cast<long>(GetSelectedValue(XRCCTRL(*this, "pref_default_blender", wxChoice))));
 
     /////
     /// PROCESSOR

@@ -164,6 +164,9 @@
 # define HUGIN_JPEG_QUALITY                  90l
 # define HUGIN_HDR_OUTPUT_FORMAT              0l
 
+// default blender
+#define HUGIN_DEFAULT_BLENDER  HuginBase::PanoramaOptions::ENBLEND_BLEND
+
 // hdrmerge defaults
 #define HUGIN_HDRMERGE_ARGS                  "-m avg -c"
 

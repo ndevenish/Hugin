@@ -802,6 +802,34 @@ per overlap</label>
                 </object>
                 <object class="sizeritem">
                   <object class="wxStaticBoxSizer">
+                    <label>Blender</label>
+                    <orient>wxVERTICAL</orient>
+                    <object class="sizeritem">
+                      <object class="wxBoxSizer">
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            <label>Default blender:</label>
+                          </object>
+                          <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>5</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxChoice" name="pref_default_blender">
+                            <tooltip>Default blender which is used for new projects.</tooltip>
+                          </object>
+                          <flag>wxALL</flag>
+                          <border>5</border>
+                        </object>
+                        <orient>wxHORIZONTAL</orient>
+                      </object>
+                      <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                    </object>
+                  </object>
+                  <flag>wxALL|wxEXPAND</flag>
+                  <border>5</border>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticBoxSizer">
                     <label>Processor</label>
                     <orient>wxVERTICAL</orient>
                     <object class="sizeritem">
