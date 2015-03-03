@@ -85,7 +85,7 @@ namespace vigra_ext
         template <class ImageType>
         ImageType ResizeImage(const ImageType& image, const vigra::Size2D& newSize)
         {
-            ImageType newImage(newSize);
+            ImageType newImage(std::max(image.width(), newSize.width()), std::max(image.height(), newSize.height()));
             vigra::omp::copyImage(vigra::srcImageRange(image), vigra::destImage(newImage));
             return newImage;
         };
@@ -97,9 +97,9 @@ namespace vigra_ext
         const vigra::Point2D offsetPoint(offset);
         const vigra::Rect2D offsetRect(offsetPoint, mask2.size());
         //increase image size if necessary
-        if (!vigra::Rect2D(image1.size()).contains(offsetRect.lowerRight()))
+        if (image1.width() < offsetRect.lowerRight().x || image1.height() < offsetRect.lowerRight().y)
         {
-            image1=detail::ResizeImage(image1, vigra::Size2D(offsetRect.lowerRight()));
+            image1 = detail::ResizeImage(image1, vigra::Size2D(offsetRect.lowerRight()));
             mask1 = detail::ResizeImage(mask1, image1.size());
         }
         // generate seed mask
