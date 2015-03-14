@@ -842,7 +842,7 @@ wxBitmap CPImageCtrl::generateMagBitmap(FDiff2D point, wxPoint canvasPos) const
     invTransform.transformImgCoord(mx, my, point.x, point.y);
 
     // apply the transform
-    AppBase::MultiProgressDisplay progDisp;
+    AppBase::DummyProgressDisplay progDisp;
     vigra_ext::transformImageIntern(vigra::srcImageRange(*(m_img->image8)),
                          vigra::destImageRange(magImg),
                          vigra::destImage(maskImg),
@@ -852,7 +852,7 @@ wxBitmap CPImageCtrl::generateMagBitmap(FDiff2D point, wxPoint canvasPos) const
                                        hugin_utils::roundi(my - hw)),
                          vigra_ext::interp_cubic(),
                          false,
-                         progDisp);
+                         &progDisp);
 
     // TODO: contrast enhancement
     vigra::FindMinMax<vigra::UInt8> minmax;

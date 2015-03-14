@@ -65,8 +65,14 @@ bool CalculateOptimalROI::calcOptimalROI(PanoramaData& panorama)
         transfMap.insert(std::pair<unsigned int,PTools::Transform*>(*it,transf));
     }
     
-    printf("Calculate the cropping region\n");
-    autocrop();
+    if (!getProgressDisplay()->updateDisplay("Calculate the cropping region"))
+    {
+        return false;
+    };
+    if (!autocrop())
+    {
+        return false;
+    };
     
     o_optimalROI=vigra::Rect2D(best.left,best.top,best.right,best.bottom);
     printf("Crop %dx%d - %dx%d\n",o_optimalROI.left(),o_optimalROI.top(),o_optimalROI.right(),o_optimalROI.bottom());
@@ -376,7 +382,7 @@ void CalculateOptimalROI::nonreccheck(int left,int top,int right,int bottom,int 
     }
 }
 
-int CalculateOptimalROI::autocrop()
+bool CalculateOptimalROI::autocrop()
 {
     printf("Original Image: %dx%d\n",o_optimalSize.x,o_optimalSize.y);
     
@@ -397,6 +403,10 @@ int CalculateOptimalROI::autocrop()
         for(int acc=startacc;acc>=64;acc/=2)
         {
             nonreccheck(0,0,o_optimalSize.x,o_optimalSize.y,acc,2);
+            if (!getProgressDisplay()->updateDisplayValue())
+            {
+                return false;
+            };
             if(maxvalue>0)
             {
                 printf("Inner %d %ld: %d %d - %d %d\n",acc,maxvalue,best.left,best.right,best.top,best.bottom);
@@ -411,7 +421,11 @@ int CalculateOptimalROI::autocrop()
         for(int acc=startacc;acc>=1;acc/=2)
         {
             nonreccheck(0,0,o_optimalSize.x,o_optimalSize.y,acc,1);
-            if(maxvalue>0)
+            if (!getProgressDisplay()->updateDisplayValue())
+            {
+                return false;
+            };
+            if (maxvalue>0)
             {
                 printf("Inner %d %ld: %d %d - %d %d\n",acc,maxvalue,best.left,best.right,best.top,best.bottom);
                 break;
@@ -423,10 +437,14 @@ int CalculateOptimalROI::autocrop()
     {
         printf("Starting %d: %d %d - %d %d\n",acc,best.left,best.right,best.top,best.bottom);
         nonreccheck(best.left,best.top,best.right,best.bottom,acc,0);
+        if (!getProgressDisplay()->updateDisplayValue())
+        {
+            return false;
+        };
     }
 
     //printf("Final Image: %dx%d\n",outpano->width,outpano->height);
-    return 0;
+    return true;
 }
 
 void CalculateOptimalROI::setStacks(std::vector<UIntSet> hdr_stacks)

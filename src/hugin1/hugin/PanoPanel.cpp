@@ -961,15 +961,9 @@ void PanoPanel::DoCalcOptimalROI(wxCommandEvent & e)
     vigra::Rect2D newROI;
     vigra::Size2D newSize;
     {
-        ProgressReporterDialog progress(2, _("Autocrop"), _("Calculating optimal crop"), this, wxPD_AUTO_HIDE | wxPD_APP_MODAL | wxPD_ELAPSED_TIME);
-        progress.increaseProgress(1);
-        progress.Pulse();
-        pano->calcOptimalROI(newROI,newSize);
+        ProgressReporterDialog progress(0, _("Autocrop"), _("Calculating optimal crop"), this);
+        pano->calcOptimalROI(&progress, newROI, newSize);
     };
-#ifdef __WXMSW__
-    //try to workaround an issue that the main window lost it focus after wxProgressDialog is destroyed
-    MainFrame::Get()->Raise();
-#endif
 
     PanoramaOptions opt = pano->getOptions();
     //set the ROI - fail if the right/bottom is zero, meaning all zero

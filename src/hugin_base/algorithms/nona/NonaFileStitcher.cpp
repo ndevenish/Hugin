@@ -40,17 +40,12 @@ namespace HuginBase {
     
     bool NonaFileOutputStitcher::runStitcher()
     {
-        MultiProgressDisplay* progDisp
-            = MultiProgressDisplayAdaptor::newMultiProgressDisplay(getProgressDisplay());
-        
         stitchPanorama(o_panorama,
                        o_panoramaOptions,
-                       *progDisp,
+                       getProgressDisplay(),
                        o_filename,
                        o_usedImages,
                        m_advOptions);
-           
-        delete progDisp;
         
         return true;
     }

@@ -196,7 +196,8 @@ int main(int argc, char* argv[])
     // step 1 with pairwise optimisation
     if(!wholePano)
     {
-        CPtoRemove=getCPoutsideLimit_pair(pano,n);
+        AppBase::DummyProgressDisplay dummy;
+        CPtoRemove=getCPoutsideLimit_pair(pano, dummy, n);
         if (CPtoRemove.size()>0)
             for(UIntSet::reverse_iterator it = CPtoRemove.rbegin(); it != CPtoRemove.rend(); ++it)
             {

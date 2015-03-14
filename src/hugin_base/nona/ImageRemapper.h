@@ -50,7 +50,7 @@ namespace Nona {
                                                                         const PanoramaOptions & opts,
                                                                         unsigned int imgNr,
                                                                         vigra::Rect2D outputROI,
-                                                                        AppBase::MultiProgressDisplay& progress) = 0;
+                                                                        AppBase::ProgressDisplay* progress) = 0;
             
             virtual ~SingleImageRemapper() {};
             
@@ -110,7 +110,7 @@ namespace Nona {
         virtual RemappedPanoImage<ImageType, AlphaType>*
         getRemapped(const PanoramaData & pano, const PanoramaOptions & opts,
                     unsigned int imgNr, vigra::Rect2D outputROI,
-                    AppBase::MultiProgressDisplay & progress);
+                    AppBase::ProgressDisplay* progress);
 
         ///
         virtual void release(RemappedPanoImage<ImageType,AlphaType>* d)
@@ -160,7 +160,7 @@ template <typename ImageType, typename AlphaType>
 RemappedPanoImage<ImageType, AlphaType>*
     FileRemapper<ImageType,AlphaType>::getRemapped(const PanoramaData & pano, const PanoramaOptions & opts,
                               unsigned int imgNr, vigra::Rect2D outputROI,
-                               AppBase::MultiProgressDisplay & progress)
+                              AppBase::ProgressDisplay* progress)
 {
     typedef typename ImageType::value_type PixelType;
     
@@ -209,7 +209,7 @@ RemappedPanoImage<ImageType, AlphaType>*
     SrcPanoImage src = pano.getSrcImage(imgNr);
     
     // import the image
-    progress.setMessage(std::string("loading ") + hugin_utils::stripPath(img.getFilename()));
+    progress->setMessage("loading", hugin_utils::stripPath(img.getFilename()));
     
     if (alpha) {
         vigra::importImageAlpha(info, vigra::destImage(srcImg),
@@ -232,7 +232,7 @@ RemappedPanoImage<ImageType, AlphaType>*
     if (img.getVigCorrMode() & SrcPanoImage::VIGCORR_FLATFIELD) {
         // load flatfield image.
         vigra::ImageImportInfo ffInfo(img.getFlatfieldFilename().c_str());
-        progress.setMessage(std::string("flatfield vignetting correction ") + hugin_utils::stripPath(img.getFilename()));
+        progress->setMessage("flatfield vignetting correction", hugin_utils::stripPath(img.getFilename()));
         vigra_precondition(( ffInfo.numBands() == 1),
                            "flatfield vignetting correction: "
                            "Only single channel flatfield images are supported\n");

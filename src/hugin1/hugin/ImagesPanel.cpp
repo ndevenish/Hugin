@@ -49,7 +49,6 @@
 #include "hugin/huginApp.h"
 #include "icpfind/AutoCtrlPointCreator.h"
 #include "hugin/config_defaults.h"
-#include "base_wx/MyProgressDialog.h"
 #include "base_wx/PTWXDlg.h"
 #include <PT/PTOptimise.h>
 #include "base_wx/LensTools.h"

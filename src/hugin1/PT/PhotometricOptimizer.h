@@ -35,7 +35,7 @@ namespace PT
 
     static void optimizePhotometric(Panorama & pano, const OptimizeVector & vars,
                              const std::vector<vigra_ext::PointPairRGB> & correspondences,
-                             AppBase::ProgressReporter & progress,
+                             AppBase::ProgressDisplay* progress,
                              double & error)
     {
         HuginBase::PhotometricOptimizer::optimizePhotometric(pano, vars, correspondences, progress, error);
@@ -51,7 +51,7 @@ namespace PT
 
     static void smartOptimizePhotometric(Panorama & pano, PhotometricOptimizeMode mode,
                                   const std::vector<vigra_ext::PointPairRGB> & correspondences,
-                                  AppBase::ProgressReporter & progress,
+                                  AppBase::ProgressDisplay* progress,
                                   double & error)
     {
         HuginBase::SmartPhotometricOptimizer::smartOptimizePhotometric(pano, mode, correspondences, progress, error);

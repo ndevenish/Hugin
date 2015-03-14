@@ -37,7 +37,7 @@
 
 #include <hugin_math/hugin_math.h>
 #include <hugin_utils/utils.h>
-#include <appbase/ProgressDisplayOld.h>
+#include <appbase/ProgressDisplay.h>
 #include <hugin_config.h>
 #ifdef HAVE_OPENMP
 #include <omp.h>
@@ -106,7 +106,7 @@ void transformImageIntern(vigra::triple<SrcImageIterator, SrcImageIterator, SrcA
                           vigra::Diff2D destUL,
                           Interpolator interp,
                           bool warparound,
-                          AppBase::MultiProgressDisplay & prog)
+                          AppBase::ProgressDisplay* progress)
 {
     const vigra::Diff2D destSize = dest.second - dest.first;
 
@@ -114,8 +114,6 @@ void transformImageIntern(vigra::triple<SrcImageIterator, SrcImageIterator, SrcA
     const int xend   = destUL.x + destSize.x;
     const int ystart = destUL.y;
     const int yend   = destUL.y + destSize.y;
-
-    prog.pushTask(AppBase::ProgressTask("Remapping", "", 1.0/(yend-ystart)));
 
     vigra_ext::ImageInterpolator<SrcImageIterator, SrcAccessor, Interpolator>
                                  interpol (src, interp, warparound);
@@ -147,13 +145,7 @@ void transformImageIntern(vigra::triple<SrcImageIterator, SrcImageIterator, SrcA
                 alpha.second.set(0, xdm);
             }
         }
-        if (destSize.y > 100) {
-            if ((y-ystart)%(destSize.y/20) == 0) {
-                prog.setProgress(((double)y-ystart)/destSize.y);
-            }
-        }
     }
-    prog.popTask();
 }
 
 template <class SrcImageIterator, class SrcAccessor,
@@ -170,7 +162,7 @@ void transformImageInternOpenMP(vigra::triple<SrcImageIterator, SrcImageIterator
                           vigra::Diff2D destUL,
                           Interpolator interp,
                           bool warparound,
-                          AppBase::MultiProgressDisplay & prog)
+                          AppBase::ProgressDisplay* progress)
 {
     const vigra::Diff2D destSize = dest.second - dest.first;
 
@@ -178,8 +170,6 @@ void transformImageInternOpenMP(vigra::triple<SrcImageIterator, SrcImageIterator
     const int xend = destUL.x + destSize.x;
     const int ystart = destUL.y;
     const int yend = destUL.y + destSize.y;
-
-    prog.pushTask(AppBase::ProgressTask("Remapping", "", 1.0 / (yend - ystart)));
 
     vigra_ext::ImageInterpolator<SrcImageIterator, SrcAccessor, Interpolator>
         interpol(src, interp, warparound);
@@ -211,13 +201,7 @@ void transformImageInternOpenMP(vigra::triple<SrcImageIterator, SrcImageIterator
                 alpha.second.set(0, xdm);
             }
         }
-        if (destSize.y > 100) {
-            if ((y - ystart) % (destSize.y / 20) == 0) {
-                prog.setProgress(((double)y - ystart) / destSize.y);
-            }
-        }
     }
-    prog.popTask();
 }
 
 /** transform input images with alpha channel */
@@ -237,7 +221,7 @@ void transformImageAlphaIntern(vigra::triple<SrcImageIterator, SrcImageIterator,
                                vigra::Diff2D destUL,
                                Interpolator interp,
                                bool warparound,
-                               AppBase::MultiProgressDisplay & prog)
+                               AppBase::ProgressDisplay* progress)
 {
     const vigra::Diff2D destSize = dest.second - dest.first;
 
@@ -245,8 +229,6 @@ void transformImageAlphaIntern(vigra::triple<SrcImageIterator, SrcImageIterator,
     const int xend   = destUL.x + destSize.x;
     const int ystart = destUL.y;
     const int yend   = destUL.y + destSize.y;
-
-    prog.pushTask(AppBase::ProgressTask("Remapping", "", 1.0/(yend-ystart)));
 
     vigra_ext::ImageMaskInterpolator<SrcImageIterator, SrcAccessor, SrcAlphaIterator,
                                      SrcAlphaAccessor, Interpolator>
@@ -282,13 +264,7 @@ void transformImageAlphaIntern(vigra::triple<SrcImageIterator, SrcImageIterator,
                 alpha.second.set(0, xdist);
             }
         }
-        if (destSize.y > 100) {
-            if ((y-ystart)%(destSize.y/20) == 0) {
-                prog.setProgress(((double)y-ystart)/destSize.y);
-            }
-        }
     }
-    prog.popTask();
 };
 
 
@@ -308,7 +284,7 @@ void transformImageAlphaInternOpenMP(vigra::triple<SrcImageIterator, SrcImageIte
                                vigra::Diff2D destUL,
                                Interpolator interp,
                                bool warparound,
-                               AppBase::MultiProgressDisplay & prog)
+                               AppBase::ProgressDisplay* progress)
 {
     const vigra::Diff2D destSize = dest.second - dest.first;
 
@@ -316,8 +292,6 @@ void transformImageAlphaInternOpenMP(vigra::triple<SrcImageIterator, SrcImageIte
     const int xend   = destUL.x + destSize.x;
     const int ystart = destUL.y;
     const int yend   = destUL.y + destSize.y;
-
-    prog.pushTask(AppBase::ProgressTask("Remapping", "", 1.0/(yend-ystart)));
 
     vigra_ext::ImageMaskInterpolator<SrcImageIterator, SrcAccessor, SrcAlphaIterator,
                                      SrcAlphaAccessor, Interpolator>
@@ -350,13 +324,7 @@ void transformImageAlphaInternOpenMP(vigra::triple<SrcImageIterator, SrcImageIte
                 alpha.second.set(0, xdist);
             }
         }
-        if (destSize.y > 100) {
-            if ((y-ystart)%(destSize.y/20) == 0) {
-                prog.setProgress(((double)y-ystart)/destSize.y);
-            }
-        }
     }
-    prog.popTask();
 };
 
 /// multithreaded image transformation.
@@ -376,7 +344,7 @@ void transformImageAlphaInternMT(vigra::triple<SrcImageIterator, SrcImageIterato
                                  vigra::Diff2D destUL,
                                  Interpolator interp,
                                  bool warparound,
-                                 AppBase::MultiProgressDisplay & prog, 
+                                 AppBase::ProgressDisplay* prog,
                                  bool singleThreaded=false)
 {
     int nThreads = 1;
@@ -413,7 +381,7 @@ void transformImageInternMT(vigra::triple<SrcImageIterator, SrcImageIterator, Sr
                             vigra::Diff2D destUL,
                             Interpolator interp,
                             bool warparound,
-                            AppBase::MultiProgressDisplay & prog, 
+                            AppBase::ProgressDisplay* prog,
                             bool singleThreaded=false)
 {
     int nThreads = 1;
@@ -475,7 +443,7 @@ void transformImage(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccesso
                     PixelTransform & pixelTransform,
                     bool warparound,
                     Interpolator interpol,
-                    AppBase::MultiProgressDisplay & progress, bool singleThreaded=false)
+                    AppBase::ProgressDisplay* progress, bool singleThreaded = false)
 {
     switch (interpol) {
     case INTERP_CUBIC:
@@ -541,7 +509,7 @@ void transformImageAlpha(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAc
                          PixelTransform & pixelTransform,
                          bool warparound,
                          Interpolator interpol,
-                         AppBase::MultiProgressDisplay & progress, bool singleThreaded=false)
+                         AppBase::ProgressDisplay* progress, bool singleThreaded = false)
 {
     switch (interpol) {
     case INTERP_CUBIC:

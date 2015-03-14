@@ -47,7 +47,7 @@ SmallRemappedImageCache::getRemapped(const PanoramaData& pano,
                                      const PanoramaOptions & popts,
                                      unsigned int imgNr,
                                      vigra::Rect2D outputROI,
-                                     AppBase::MultiProgressDisplay& progress)
+                                     AppBase::ProgressDisplay* progress)
 {
     // always map to HDR mode. curve and exposure is applied in preview window, for speed
     PanoramaOptions opts = popts;
@@ -126,7 +126,7 @@ SmallRemappedImageCache::getRemapped(const PanoramaData& pano,
                       destImage(srcFlat));
         }
     }
-    progress.pushTask(AppBase::ProgressTask("remapping", "", 0));
+    progress->setMessage("remapping");
 
     // compute the bounding output rectangle here!
     vigra::Rect2D outROI = estimateOutputROI(pano, opts, imgNr);
@@ -162,8 +162,6 @@ SmallRemappedImageCache::getRemapped(const PanoramaData& pano,
                      *remapped,
                      progress);
     }
-
-    progress.popTask();
 
     m_images[imgNr] = remapped;
     m_imagesParam[imgNr] = pano.getSrcImage(imgNr);

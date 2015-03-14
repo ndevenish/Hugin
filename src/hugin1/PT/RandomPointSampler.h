@@ -36,7 +36,7 @@ namespace PT
     
     
     inline void extractPoints(Panorama pano, std::vector<vigra::FRGBImage*> images, int nPoints,
-                              bool randomPoints, AppBase::ProgressReporter & progress,
+                              bool randomPoints, AppBase::ProgressDisplay* progress,
                               std::vector<vigra_ext::PointPairRGB> & points  )
     {
         HuginBase::PointSampler::extractPoints(pano, images, nPoints, randomPoints, progress, points);
@@ -101,7 +101,7 @@ namespace PT
     
     
     // needs 2.0 progress steps
-    inline void loadImgsAndExtractPoints(Panorama pano, int nPoints, int pyrLevel, bool randomPoints, AppBase::ProgressReporter& progress, std::vector<vigra_ext::PointPairRGB> & points  )
+    inline void loadImgsAndExtractPoints(Panorama pano, int nPoints, int pyrLevel, bool randomPoints, AppBase::ProgressDisplay* progress, std::vector<vigra_ext::PointPairRGB> & points  )
     {
         // extract file names
         std::vector<std::string> files;

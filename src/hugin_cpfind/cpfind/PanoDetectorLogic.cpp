@@ -234,16 +234,16 @@ bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDet
             TRACE_IMG("Remap image...");
             RemappedPanoImage<vigra::FRGBImage,vigra::BImage>* remapped=new RemappedPanoImage<vigra::FRGBImage,vigra::BImage>;
             vigra::FImage ffImg;
-            MultiProgressDisplay* progress=new DummyMultiProgressDisplay();
+            ProgressDisplay* progress=new DummyProgressDisplay();
             remapped->setPanoImage(iPanoDetector._panoramaInfoCopy.getImage(ioImgInfo._number),
                                    ioImgInfo._projOpts, ioImgInfo._projOpts.getROI());
             if(mask.width()>0)
             {
-                remapped->remapImage(vigra::srcImageRange(RGBimg), vigra::srcImage(mask), vigra_ext::INTERP_CUBIC, *progress, true);
+                remapped->remapImage(vigra::srcImageRange(RGBimg), vigra::srcImage(mask), vigra_ext::INTERP_CUBIC, progress, true);
             }
             else
             {
-                remapped->remapImage(vigra::srcImageRange(RGBimg), vigra_ext::INTERP_CUBIC, *progress, true);
+                remapped->remapImage(vigra::srcImageRange(RGBimg), vigra_ext::INTERP_CUBIC, progress, true);
             };
             RGBimg.resize(0,0);
             mask.resize(0,0);

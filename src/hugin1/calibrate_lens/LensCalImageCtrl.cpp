@@ -362,7 +362,6 @@ void LensCalImageCtrl::SetEdgeImage()
 void LensCalImageCtrl::GenerateRemappedImage(const unsigned int newWidth,const unsigned int newHeight)
 {
     PT::RemappedPanoImage<vigra::BRGBImage,vigra::BImage>* remapped=new PT::RemappedPanoImage<vigra::BRGBImage,vigra::BImage>;
-    AppBase::MultiProgressDisplay* progress=new AppBase::DummyMultiProgressDisplay();
     //generate SrcPanoImage with current settings
     m_panoimage=*(m_imageLines->GetPanoImage());
     m_panoimage.setProjection(m_projection);
@@ -414,12 +413,10 @@ void LensCalImageCtrl::GenerateRemappedImage(const unsigned int newWidth,const u
     m_opts.setROI(vigra::Rect2D(0,0,m_opts.getWidth(),m_opts.getHeight()));
     //now remap image
     remapped->setPanoImage(m_panoimage,m_opts, m_opts.getROI());
-    remapped->remapImage(vigra::srcImageRange(*(img->get8BitImage())),vigra_ext::INTERP_CUBIC,*progress);
+    remapped->remapImage(vigra::srcImageRange(*(img->get8BitImage())),vigra_ext::INTERP_CUBIC, wxGetApp().GetLensCalFrame());
     m_remappedImage=remapped->m_image;
     m_remapped_img.SetData((unsigned char*)m_remappedImage.data(),m_remappedImage.width(),m_remappedImage.height(),true);
     delete remapped;
-    delete progress;
-
 };
 
 IMPLEMENT_DYNAMIC_CLASS(LensCalImageCtrl, wxPanel)

@@ -765,7 +765,8 @@ int main(int argc, char* argv[])
     if(doAutocrop)
     {
         cout << "Searching for best crop rectangle" << endl;
-        CalculateOptimalROI cropPano(pano);
+        DummyProgressDisplay dummy;
+        CalculateOptimalROI cropPano(pano, &dummy);
         if(autocropHDR)
         {
             cropPano.setStacks(getHDRStacks(pano,pano.getActiveImages(), pano.getOptions()));

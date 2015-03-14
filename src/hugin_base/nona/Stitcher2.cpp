@@ -30,7 +30,7 @@ using namespace vigra;
 
 void HuginBase::Nona::stitchPanoGray_8_16(const PanoramaData & pano,
                             const PanoramaOptions & opts,
-                            AppBase::MultiProgressDisplay & progress,
+                            AppBase::ProgressDisplay* progress,
                             const std::string & basename,
                             const UIntSet & usedImgs,
                             const char * pixelType,

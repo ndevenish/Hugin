@@ -97,25 +97,34 @@ public:
     
     /** Calculates the ROI to make the best ROI without excess for crop
          */
-    void calcOptimalROI(vigra::Rect2D & roi,vigra::Size2D & size)
+    bool calcOptimalROI(AppBase::ProgressDisplay* progress, vigra::Rect2D & roi,vigra::Size2D & size)
     {
         printf("calcOptimalROI Called\n");
-        HuginBase::CalculateOptimalROI cropPano(*this);
+        HuginBase::CalculateOptimalROI cropPano(*this, progress);
         
         cropPano.run();
-        
-        roi=cropPano.getResultOptimalROI();
-        size=cropPano.getResultOptimalSize();
+        if (cropPano.hasRunSuccessfully())
+        {
+            roi = cropPano.getResultOptimalROI();
+            size = cropPano.getResultOptimalSize();
+            return true;
+        }
+        else
+        {
+            roi = vigra::Rect2D();
+            size = vigra::Size2D();
+            return false;
+        };
     }
 
     /** Calculates the Stack-based ROI to make the best ROI without excess for crop
          */
-    void calcOptimalStackROI(vigra::Rect2D & roi,vigra::Size2D & size)
+    bool calcOptimalStackROI(AppBase::ProgressDisplay* progress, vigra::Rect2D & roi, vigra::Size2D & size)
     {
         printf("calcOptimalROI Called\n");
         UIntSet activeImages=getActiveImages();
-        std::vector<UIntSet> stackImgs=getHDRStacks(*this,activeImages, getOptions());
-        HuginBase::CalculateOptimalROI cropPano(*this);
+        std::vector<UIntSet> stackImgs=getHDRStacks(*this, activeImages, getOptions());
+        HuginBase::CalculateOptimalROI cropPano(*this, progress);
         //only use hdr autocrop for projects with stacks
         //otherwise fall back to "normal" autocrop
         if(stackImgs.size()<activeImages.size())
@@ -123,8 +132,18 @@ public:
             cropPano.setStacks(stackImgs);
         }
         cropPano.run();
-        roi=cropPano.getResultOptimalROI();
-        size=cropPano.getResultOptimalSize();
+        if (cropPano.hasRunSuccessfully())
+        {
+            roi = cropPano.getResultOptimalROI();
+            size = cropPano.getResultOptimalSize();
+            return true;
+        }
+        else
+        {
+            roi = vigra::Rect2D();
+            size = vigra::Size2D();
+            return false;
+        };
     }
 
 

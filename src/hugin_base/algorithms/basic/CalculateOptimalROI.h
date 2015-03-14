@@ -33,20 +33,20 @@
 
 namespace HuginBase {
 
-class IMPEX CalculateOptimalROI : public PanoramaAlgorithm
+class IMPEX CalculateOptimalROI : public TimeConsumingPanoramaAlgorithm
 {
     public:
         ///
-        CalculateOptimalROI(PanoramaData& panorama, bool intersect = false)
-         : PanoramaAlgorithm(panorama), intersection(intersect)
+        CalculateOptimalROI(PanoramaData& panorama, AppBase::ProgressDisplay* progress, bool intersect = false)
+         : TimeConsumingPanoramaAlgorithm(panorama, progress), intersection(intersect)
         {
             //set to zero for error condition
             o_optimalROI = vigra::Rect2D(0,0,0,0);
             o_optimalSize = vigra::Size2D(0,0);
         }
 
-        CalculateOptimalROI(PanoramaData& panorama, std::vector<UIntSet> hdr_stacks)
-         : PanoramaAlgorithm(panorama), intersection(true), stacks(hdr_stacks)
+        CalculateOptimalROI(PanoramaData& panorama, AppBase::ProgressDisplay* progress, std::vector<UIntSet> hdr_stacks)
+         : TimeConsumingPanoramaAlgorithm(panorama, progress), intersection(true), stacks(hdr_stacks)
         {
             //set to zero for error condition
             o_optimalROI = vigra::Rect2D(0,0,0,0);
@@ -66,8 +66,7 @@ class IMPEX CalculateOptimalROI : public PanoramaAlgorithm
         virtual bool runAlgorithm()
         {
             printf("Run called\n");
-            calcOptimalROI(o_panorama);
-            return true; // let's hope so.
+            return calcOptimalROI(o_panorama);
         }
         
     public:
@@ -119,7 +118,7 @@ class IMPEX CalculateOptimalROI : public PanoramaAlgorithm
         };
 
         void makecheck(int left,int top,int right,int bottom);
-        int autocrop();
+        bool autocrop();
         void nonreccheck(int left,int top,int right,int bottom,int acc,int searchStrategy);
         
         int count;

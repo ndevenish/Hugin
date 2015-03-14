@@ -37,6 +37,7 @@
 #include "base_wx/wxLensDB.h"
 #include "hugin/ResetDialog.h"
 #include "hugin/MainFrame.h"
+#include <vigra_ext/openmp_vigra.h>
 
 using namespace HuginBase;
 
@@ -652,10 +653,9 @@ bool CleanControlPointsOperation::IsEnabled(PT::Panorama& pano, HuginBase::UIntS
 PT::PanoCommand* CleanControlPointsOperation::GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images)
 {
     deregisterPTWXDlgFcn();
-    // work around a flaw in wxProgresDialog that results in incorrect layout
-    // by pre-allocting sufficient horizontal space
-    ProgressReporterDialog progress(2, _("Cleaning Control points"), _("Checking pairwise")+wxString((wxChar)' ',10),parent, wxPD_AUTO_HIDE | wxPD_APP_MODAL | wxPD_ELAPSED_TIME);
-    UIntSet removedCPs=getCPoutsideLimit_pair(pano,2.0);
+    ProgressReporterDialog progress(0, _("Cleaning Control points"), _("Checking pairwise"), parent);
+
+    UIntSet removedCPs=getCPoutsideLimit_pair(pano, progress, 2.0);
 
     //create a copy to work with
     //we copy remaining control points to new pano object for running second step
@@ -680,11 +680,14 @@ PT::PanoCommand* CleanControlPointsOperation::GetInternalCommand(wxWindow* paren
     createCPGraph(newPano, graph);
     CPComponents comps;
     int n=findCPComponents(graph, comps);
-    progress.increaseProgress(1, std::wstring(wxString(_("Checking whole project")).wc_str(wxConvLocal)));
+    if (!progress.updateDisplayValue(_("Checking whole project")))
+    {
+        return NULL;
+    }
     if (n <= 1)
     {
         //now run the second step
-        UIntSet removedCP2=getCPoutsideLimit(newPano,2.0);
+        UIntSet removedCP2=getCPoutsideLimit(newPano, 2.0);
         if(removedCP2.size()>0)
         {
             for(UIntSet::const_iterator it=removedCP2.begin();it!=removedCP2.end();++it)
@@ -693,9 +696,12 @@ PT::PanoCommand* CleanControlPointsOperation::GetInternalCommand(wxWindow* paren
             };
         };
     }
-    progress.increaseProgress(1, std::wstring(wxString(_("Finished cleaning")).wc_str(wxConvLocal)));
     registerPTWXDlgFcn();
-    if(removedCPs.size()>0)
+    if (!progress.updateDisplay(_("Finished cleaning")))
+    {
+        return NULL;
+    }
+    if (removedCPs.size()>0)
     {
         wxMessageBox(wxString::Format(_("Removed %lu control points"), removedCPs.size()), _("Cleaning"),wxOK|wxICON_INFORMATION,parent);
         return new PT::RemoveCtrlPointsCmd(pano,removedCPs);
@@ -710,14 +716,12 @@ wxString CelesteOperation::GetLabel()
 
 PT::PanoCommand* CelesteOperation::GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images)
 {
-    ProgressReporterDialog progress(images.size()+2, _("Running Celeste"), _("Running Celeste"),parent);
-    MainFrame::Get()->SetStatusText(_("searching for cloud-like control points..."),0);
-    progress.increaseProgress(1.0, std::wstring(wxString(_("Loading model file")).wc_str(wxConvLocal)));
+    ProgressReporterDialog progress(images.size() + 2, _("Running Celeste"), _("Running Celeste"), parent);
+    progress.updateDisplay(_("Loading model file"));
 
     struct celeste::svm_model* model=MainFrame::Get()->GetSVMModel();
-    if(model==NULL)
+    if (model == NULL || !progress.updateDisplay(_("Loading images")))
     {
-        MainFrame::Get()->SetStatusText(wxT(""),0);
         return NULL;
     };
 
@@ -739,7 +743,10 @@ PT::PanoCommand* CelesteOperation::GetInternalCommand(wxWindow* parent, PT::Pano
         HuginBase::CPointVector cps=pano.getCtrlPointsVectorForImage(*it);
         if(cps.size()==0)
         {
-            progress.increaseProgress(1.0, std::wstring(wxString(_("Running Celeste")).wc_str(wxConvLocal)));
+            if (!progress.updateDisplayValue())
+            {
+                return NULL;
+            };
             continue;
         };
         ImageCache::EntryPtr img=ImageCache::getInstance().getImage(pano.getImage(*it).getFilename());
@@ -747,16 +754,24 @@ PT::PanoCommand* CelesteOperation::GetInternalCommand(wxWindow* parent, PT::Pano
         if(img->image16->width()>0)
         {
             in.resize(img->image16->size());
-            vigra::copyImage(srcImageRange(*(img->image16)),destImage(in));
+            vigra::omp::copyImage(srcImageRange(*(img->image16)),destImage(in));
         }
         else
         {
             ImageCache::ImageCacheRGB8Ptr im8=img->get8BitImage();
             in.resize(im8->size());
-            vigra::transformImage(srcImageRange(*im8),destImage(in),vigra::functor::Arg1()*vigra::functor::Param(65535/255));
+            vigra::omp::transformImage(srcImageRange(*im8),destImage(in),vigra::functor::Arg1()*vigra::functor::Param(65535/255));
+        };
+        if (!progress.updateDisplay(_("Running Celeste")))
+        {
+            return NULL;
         };
         UIntSet cloudCP=celeste::getCelesteControlPoints(model,in,cps,radius,threshold,800);
         in.resize(0,0);
+        if (!progress.updateDisplay())
+        {
+            return NULL;
+        };
         if(cloudCP.size()>0)
         {
             for(UIntSet::const_iterator it2=cloudCP.begin();it2!=cloudCP.end();it2++)
@@ -764,19 +779,23 @@ PT::PanoCommand* CelesteOperation::GetInternalCommand(wxWindow* parent, PT::Pano
                 cpsToRemove.insert(*it2);
             };
         };
-        progress.increaseProgress(1.0, std::wstring(wxString(_("Running Celeste")).wc_str(wxConvLocal)));
+        if (!progress.updateDisplayValue(_("Loading images")))
+        {
+            return NULL;
+        };
     };
 
-    progress.increaseProgress(1.0, std::wstring(wxString(_("Running Celeste")).wc_str(wxConvLocal)));
-    if(cpsToRemove.size()>0)
+    if (!progress.updateDisplayValue())
+    {
+        return NULL;
+    }
+    if (cpsToRemove.size()>0)
     {
         wxMessageBox(wxString::Format(_("Removed %lu control points"), (unsigned long int) cpsToRemove.size()), _("Celeste result"),wxOK|wxICON_INFORMATION);
-        MainFrame::Get()->SetStatusText(wxT(""),0);
         return new PT::RemoveCtrlPointsCmd(pano,cpsToRemove);
     }
     else
     {
-        MainFrame::Get()->SetStatusText(wxT(""),0);
         return NULL;
     };
 };

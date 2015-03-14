@@ -52,7 +52,7 @@ inline double weightHuber(double x, double sigma)
 PhotometricOptimizer::OptimData::OptimData(const PanoramaData & pano, const OptimizeVector & optvars,
                                            const std::vector<vigra_ext::PointPairRGB> & data,
                                            double mEstimatorSigma, bool symmetric,
-                                           int maxIter, AppBase::ProgressReporter & progress)
+                                           int maxIter, AppBase::ProgressDisplay* progress)
   : m_pano(pano), m_data(data), huberSigma(mEstimatorSigma), symmetricError(symmetric),
     m_maxIter(maxIter), m_progress(progress)
 {
@@ -270,12 +270,12 @@ int PhotometricOptimizer::photometricVis(double *p, double *x, int m, int n, int
     tmp[199] = 0;
     double error = sqrt(sqerror/n)*255;
     snprintf(tmp,199, "Iteration: %d, error: %f", iter, error);
-    return dat->m_progress.increaseProgress(0.0, tmp) ? 1 : 0 ;
+    return dat->m_progress->updateDisplay(std::string(tmp)) ? 1 : 0 ;
 }
 
 void PhotometricOptimizer::optimizePhotometric(PanoramaData & pano, const OptimizeVector & vars,
                                                const std::vector<vigra_ext::PointPairRGB> & correspondences,
-                                               AppBase::ProgressReporter & progress,
+                                               AppBase::ProgressDisplay* progress,
                                                double & error)
 {
 
@@ -393,7 +393,7 @@ bool CheckStrangeWB(PanoramaData & pano)
 
 void SmartPhotometricOptimizer::smartOptimizePhotometric(PanoramaData & pano, PhotometricOptimizeMode mode,
                                                           const std::vector<vigra_ext::PointPairRGB> & correspondences,
-                                                          AppBase::ProgressReporter & progress,
+                                                          AppBase::ProgressDisplay* progress,
                                                           double & error)
 {
     std::vector<SrcPanoImage> ret;
@@ -469,21 +469,14 @@ void SmartPhotometricOptimizer::smartOptimizePhotometric(PanoramaData & pano, Ph
 
 bool PhotometricOptimizer::runAlgorithm()
 {
-    // is this correct? how much progress requierd?
-    AppBase::ProgressReporter* progRep = 
-        AppBase::ProgressReporterAdaptor::newProgressReporter(getProgressDisplay(), 0.0);    
-    
     optimizePhotometric(o_panorama, 
                         o_vars, o_correspondences,
-                        *progRep, o_resultError);
-    
-    delete progRep;
+                        getProgressDisplay(), o_resultError);
     
     // optimizePhotometric does not tell us if it's cancelled
-    if(hasProgressDisplay())
+    if (getProgressDisplay()->wasCancelled())
     {
-        if(getProgressDisplay()->wasCancelled())
-            cancelAlgorithm();
+        cancelAlgorithm();
     }
     
     return wasCancelled(); // let's hope so.
@@ -491,28 +484,16 @@ bool PhotometricOptimizer::runAlgorithm()
 
 bool SmartPhotometricOptimizer::runAlgorithm()
 {
-    AppBase::ProgressReporter* progRep;
-    
-    if(hasProgressDisplay()) {
-        // is this correct? how much progress requierd?
-        progRep = new AppBase::ProgressReporterAdaptor(*getProgressDisplay(), 0.0); 
-    } else {
-        progRep = new AppBase::DummyProgressReporter();
-    }
-    
     smartOptimizePhotometric(o_panorama,
                              o_optMode,
                              o_correspondences,
-                             *progRep, o_resultError);
-    
-    delete progRep;
+                             getProgressDisplay(), o_resultError);
     
     // smartOptimizePhotometric does not tell us if it's cancelled
-    if(hasProgressDisplay())
+    if (getProgressDisplay()->wasCancelled())
     {
-        if(getProgressDisplay()->wasCancelled())
-            cancelAlgorithm();
-    }
+        cancelAlgorithm();
+    };
     
     return !wasCancelled(); // let's hope so.
 }

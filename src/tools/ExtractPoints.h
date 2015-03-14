@@ -124,10 +124,10 @@ void loadImgsAndExtractPoints(Panorama pano, int nPoints, int pyrLevel, bool ran
     // try to load the images.
     images = loadImagesPyr<vigra::FRGBImage>(files, pyrLevel, verbose);
     
-    progress.startSubtask("Sampling points",0.0);
+    progress.setMessage("Sampling points");
     if(randomPoints)
         points = RandomPointSampler(pano, &progress, images, nPoints).execute().getResultPoints();
     else
         points = AllPointSampler(pano, &progress, images, nPoints).execute().getResultPoints();
-    progress.finishSubtask();
+    progress.taskFinished();
 }

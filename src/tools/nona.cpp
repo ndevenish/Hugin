@@ -74,7 +74,7 @@ static void usage(const char* name)
          << "Usage: " << name  << " [options] -o output project_file (image files)" << std::endl
          << "  Options: " << std::endl
          << "      -c         create coordinate images (only TIFF_m output)" << std::endl
-         << "      -v         quiet, do not output progress indicators" << std::endl
+         << "      -v         verbost output" << std::endl
          << "      -d         print detailed output for gpu processing" << std::endl
          << "      -g         perform image remapping on the GPU" << std::endl
          << std::endl

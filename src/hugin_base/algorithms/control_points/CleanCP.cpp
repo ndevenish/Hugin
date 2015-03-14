@@ -35,7 +35,7 @@
 namespace HuginBase {
 using namespace std;
 
-UIntSet getCPoutsideLimit_pair(Panorama pano, double n)
+UIntSet getCPoutsideLimit_pair(Panorama pano, AppBase::ProgressDisplay& progress, double n)
 {
     CPVector allCP=pano.getCtrlPoints();
     unsigned int nrImg=pano.getNrOfImages();
@@ -109,6 +109,10 @@ UIntSet getCPoutsideLimit_pair(Panorama pano, double n)
                         cpcounter++;
                     };
                 };
+            };
+            if (!progress.updateDisplayValue())
+            {
+                return CPtoRemove;
             };
         };
     };

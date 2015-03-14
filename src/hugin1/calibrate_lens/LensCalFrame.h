@@ -47,7 +47,7 @@ public:
 /** The main window frame.
  *
  */
-class LensCalFrame:public wxFrame, public AppBase::MultiProgressDisplay
+class LensCalFrame:public wxFrame, public AppBase::ProgressDisplay
 {
 public:
 
@@ -58,11 +58,6 @@ public:
 
     /** get the path to the xrc directory */
     const wxString & GetXRCPath();
-    // functions to handle progress message in statusbar
-    void resetProgress(double max);
-    bool increaseProgress(double delta);
-    bool increaseProgress(double delta, const std::string & msg);
-    void setMessage(const std::string & msg);
     void AddImages(wxArrayString files);
     void UpdateListString(unsigned int index);
     /** updates the list box with current values */

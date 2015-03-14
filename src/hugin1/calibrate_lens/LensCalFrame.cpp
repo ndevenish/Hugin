@@ -253,81 +253,20 @@ const wxString & LensCalFrame::GetXRCPath()
      return wxGetApp().GetXRCPath();
 };
 
-void LensCalFrame::resetProgress(double max)
-{
-    m_progressMax = max;
-    m_progress = 0;
-    m_progressMsg = wxT("");
-}
-
-bool LensCalFrame::increaseProgress(double delta)
-{
-    m_progress += delta;
-
-    // build the message:
-    int percentage = (int) floor(m_progress/m_progressMax*100);
-    if (percentage > 100) percentage = 100;
-
-    return displayProgress();
-}
-
-bool LensCalFrame::increaseProgress(double delta, const std::string & msg)
-{
-    m_progress += delta;
-    m_progressMsg = wxString(msg.c_str(), wxConvLocal);
-
-    return displayProgress();
-}
-
-
-void LensCalFrame::setMessage(const std::string & msg)
-{
-    m_progressMsg = wxString(msg.c_str(), wxConvLocal);
-}
-
-bool LensCalFrame::displayProgress()
-{
-    // build the message:
-    int percentage = (int) floor(m_progress/m_progressMax*100);
-    if (percentage > 100) percentage = 100;
-
-    wxStatusBar *statbar = GetStatusBar();
-    statbar->SetStatusText(wxString::Format(wxT("%s: %d%%"),m_progressMsg.c_str(), percentage),0);
-#ifdef __WXMSW__
-    UpdateWindow(NULL);
-#endif
-    return true;
-}
-
 /** update the display */
 void LensCalFrame::updateProgressDisplay()
 {
     wxString msg;
-    // build the message:
-    for (std::vector<AppBase::ProgressTask>::reverse_iterator it = tasks.rbegin();
-                 it != tasks.rend(); ++it)
+    if (!m_message.empty())
     {
-        wxString cMsg;
-        if (it->getProgress() > 0) {
-            cMsg.Printf(wxT("%s %s [%3.0f%%]"),
-                        wxString(it->getShortMessage().c_str(), wxConvLocal).c_str(),
-                        wxString(it->getMessage().c_str(), wxConvLocal).c_str(),
-                        100 * it->getProgress());
-        } else {
-            cMsg.Printf(wxT("%s %s"),wxString(it->getShortMessage().c_str(), wxConvLocal).c_str(),
-                        wxString(it->getMessage().c_str(), wxConvLocal).c_str());
-        }
-        // append to main message
-        if (it == tasks.rbegin()) {
-            msg = cMsg;
-        } else {
-            msg.Append(wxT(" | "));
-            msg.Append(cMsg);
-        }
-    }
-    wxStatusBar *m_statbar = GetStatusBar();
-    DEBUG_TRACE("Statusmb : " << msg.mb_str(wxConvLocal));
-    m_statbar->SetStatusText(msg,0);
+        msg = wxGetTranslation(wxString(m_message.c_str(), wxConvLocal));
+        if (!m_filename.empty())
+        {
+            msg.Append(wxT(" "));
+            msg.Append(wxString(m_filename.c_str(), HUGIN_CONV_FILENAME));
+        };
+    };
+    GetStatusBar()->SetStatusText(msg, 0);
 
 #ifdef __WXMSW__
     UpdateWindow(NULL);

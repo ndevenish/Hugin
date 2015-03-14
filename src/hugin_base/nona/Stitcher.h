@@ -73,8 +73,8 @@ class Stitcher
 {
 public:
     /** create a stitcher for the given panorama */
-    Stitcher(const PanoramaData & pano, AppBase::MultiProgressDisplay & prog)
-	: m_pano(pano), m_progress(prog)
+    Stitcher(const PanoramaData & pano, AppBase::ProgressDisplay* progress)
+	: m_pano(pano), m_progress(progress)
     {
     }
 
@@ -114,7 +114,7 @@ protected:
     }
 
     const PanoramaData & m_pano;
-    AppBase::MultiProgressDisplay & m_progress;
+    AppBase::ProgressDisplay* m_progress;
     UIntSet m_images;
     std::vector<vigra::Rect2D> m_rois;
 };
@@ -126,7 +126,7 @@ namespace detail
         unsigned int imgNr, unsigned int nImg,
         const PanoramaOptions & opts,
         const std::string basename,
-        AppBase::MultiProgressDisplay& progress)
+        AppBase::ProgressDisplay* progress)
     {
         ImageType * final_img = 0;
         AlphaType * alpha_img = 0;
@@ -174,7 +174,7 @@ namespace detail
             }
 
             // calculate real alpha for saving with the image
-            progress.setMessage("Calculating mask");
+            progress->setMessage("Calculating mask");
             remapped.calcAlpha();
         }
 
@@ -215,7 +215,7 @@ namespace detail
         std::ostringstream filename;
         filename << basename << std::setfill('0') << std::setw(4) << imgNr << "." + ext;
 
-        progress.setMessage(std::string("saving ") + hugin_utils::stripPath(filename.str()));
+        progress->setMessage("saving", hugin_utils::stripPath(filename.str()));
 
         vigra::ImageExportInfo exinfo(filename.str().c_str());
         exinfo.setXResolution(150);
@@ -285,7 +285,7 @@ public:
     typedef Stitcher<ImageType, AlphaType> Base;
 
     MultiImageRemapper(const PanoramaData & pano,
-                       AppBase::MultiProgressDisplay & progress)
+                       AppBase::ProgressDisplay* progress)
     : Stitcher<ImageType,AlphaType>(pano, progress)
     {
     }
@@ -313,7 +313,6 @@ public:
         prepareOutputFile(opts);
 
         unsigned int nImg = images.size();
-        Base::m_progress.pushTask(AppBase::ProgressTask("Remapping", "", 1.0/(nImg)));
         // remap each image and save
         int i=0;
         for (UIntSet::const_iterator it = images.begin();
@@ -339,13 +338,14 @@ public:
             remapper.release(remapped);
             i++;
         }
-        Base::m_progress.popTask();
         finalizeOutputFile(opts);
+        Base::m_progress->taskFinished();
     }
 
     /** prepare the output file (setup file structures etc.) */
     virtual void prepareOutputFile(const PanoramaOptions & opts)
     {
+        Base::m_progress->setMessage("Multiple images output");
     }
 
     /** save a remapped image, or layer */
@@ -359,7 +359,7 @@ public:
             vigra::UInt16Image xImg;
             vigra::UInt16Image yImg;
 
-            Base::m_progress.setMessage("creating coordinate images");
+            Base::m_progress->setMessage("creating coordinate images");
 
             remapped.calcSrcCoordImgs(xImg, yImg);
             vigra::UInt16Image dist;
@@ -410,6 +410,7 @@ public:
 
     virtual void finalizeOutputFile(const PanoramaOptions & opts)
     {
+        Base::m_progress->taskFinished();
     }
 
 protected:
@@ -426,7 +427,7 @@ public:
 
     typedef MultiImageRemapper<ImageType, AlphaImageType> Base;
     TiffMultiLayerRemapper(const PanoramaData & pano,
-                           AppBase::MultiProgressDisplay & progress)
+                           AppBase::ProgressDisplay* progress)
 	: MultiImageRemapper<ImageType, AlphaImageType> (pano, progress)
     {
     }
@@ -437,8 +438,9 @@ public:
 
     virtual void prepareOutputFile(const PanoramaOptions & opts)
     {
-        std::string filename = Base::m_basename + ".tif";
+        const std::string filename (Base::m_basename + ".tif");
         DEBUG_DEBUG("Layering image into a multi image tif file " << filename);
+        Base::m_progress->setMessage("Multiple layer output");
         m_tiff = TIFFOpen(filename.c_str(), "w");
         DEBUG_ASSERT(m_tiff && "could not open tiff output file");
     }
@@ -468,7 +470,9 @@ public:
     /** close the tiff file */
     virtual void finalizeOutputFile(const PanoramaOptions & opts)
     {
-	TIFFClose(m_tiff);
+	    TIFFClose(m_tiff);
+        Base::m_progress->setMessage("saved", hugin_utils::stripPath(Base::m_basename + ".tif"));
+        Base::m_progress->taskFinished();
     }
 
 
@@ -483,7 +487,7 @@ public:
 
     typedef Stitcher<ImageType, AlphaType> Base;
     WeightedStitcher(const PanoramaData & pano,
-                     AppBase::MultiProgressDisplay & progress)
+                     AppBase::ProgressDisplay* progress)
 	: Stitcher<ImageType, AlphaType>(pano, progress)
     {
     }
@@ -499,7 +503,7 @@ public:
     {
         const unsigned int nImg = imgSet.size();
 
-        Base::m_progress.pushTask(AppBase::ProgressTask("Stitching", "", 1.0/(nImg)));	
+        Base::m_progress->setMessage("Remapping and stitching");
 
         int i=0;
         const bool wrap = (opts.getHFOV() == 360.0) && (opts.getWidth()==opts.getROI().width());
@@ -533,7 +537,7 @@ public:
                 };
                 detail::saveRemapped(*remapped, *it, nImg, modOptions, finalFilename, Base::m_progress);
             }
-            Base::m_progress.setMessage("blending");
+            Base::m_progress->setMessage("blending", hugin_utils::stripPath(Base::m_pano.getImage(*it).getFilename()));
             // add image to pano and panoalpha, adjusts panoROI as well.
             try {
                 vigra_ext::MergeImages<ImageType, AlphaType>(pano, alpha, remapped->m_image, remapped->m_mask, vigra::Diff2D(remapped->boundingBox().upperLeft()), wrap);
@@ -576,7 +580,7 @@ public:
         std::string outputfile = basename + "." + ext;
         
 	// save the remapped image
-        Base::m_progress.setMessage("saving result: " + hugin_utils::stripPath(outputfile));
+        Base::m_progress->setMessage("saving result", hugin_utils::stripPath(outputfile));
         DEBUG_DEBUG("Saving panorama: " << outputfile);
         vigra::ImageExportInfo exinfo(outputfile.c_str());
         exinfo.setXResolution(150);
@@ -614,8 +618,6 @@ public:
 	vigra::exportImage(srcImageRange(panoMask), vigra::ImageExportInfo("pano_alpha.tif"));
 #endif
         */
-	Base::m_progress.popTask();
-
     }
 
 protected:
@@ -683,7 +685,7 @@ class ReduceStitcher : public Stitcher<ImageType, AlphaType>
     typedef Stitcher<ImageType, AlphaType> Base;
 public:
     ReduceStitcher(const PanoramaData & pano,
-                   AppBase::MultiProgressDisplay & progress)
+                   AppBase::ProgressDisplay* progress)
     : Stitcher<ImageType, AlphaType>(pano, progress)
     {
     }
@@ -773,7 +775,7 @@ public:
         typedef std::vector<RemappedPanoImage<ImageType, AlphaType> *> RemappedVector;
         unsigned int nImg = imgSet.size();
 
-        Base::m_progress.pushTask(AppBase::ProgressTask("Stitching", "", 1.0/(nImg)));	
+        Base::m_progress->setMessage("Stitching");
         // empty ROI
         //	vigra::Rect2D panoROI;
         // remap all images..
@@ -814,7 +816,6 @@ public:
                 alpha.second.set(maskRes, alpha.first, vigra::Diff2D(x,y));
             }
         }
-        Base::m_progress.popTask();
 
         for (typename RemappedVector::iterator it=remapped.begin();
              it != remapped.end(); ++it)
@@ -835,7 +836,7 @@ class SimpleStitcher : public Stitcher<ImageType, AlphaType>
     typedef Stitcher<ImageType, AlphaType> Base;
 public:
     SimpleStitcher(const PanoramaData & pano,
-		     AppBase::MultiProgressDisplay & progress)
+		     AppBase::ProgressDisplay* progress)
 	: Stitcher<ImageType, AlphaType>(pano, progress)
     {
     }
@@ -858,7 +859,7 @@ public:
 
         unsigned int nImg = imgSet.size();
 
-        Base::m_progress.pushTask(AppBase::ProgressTask("Stitching", "", 1.0/(nImg)));
+        Base::m_progress->setMessage("Remapping and stitching with watershed algorithm");
         // empty ROI
         vigra::Rect2D panoROI;
 
@@ -875,7 +876,7 @@ public:
                 // try to extract icc profile.
                 iccProfile = remapped->m_ICCProfile;
             }
-	    Base::m_progress.setMessage("blending");
+	    Base::m_progress->setMessage("blending");
 	    // add image to pano and panoalpha, adjusts panoROI as well.
             try {
                 blend(*remapped, pano, alpha, panoROI);
@@ -890,7 +891,7 @@ public:
             remapper.release(remapped);
             i++;
 	}
-	Base::m_progress.popTask();
+	Base::m_progress->taskFinished();
     }
 
     template <class BlendFunctor>
@@ -916,7 +917,7 @@ public:
         }
         std::string outputfile = basename + "." + ext;
 	
-        Base::m_progress.setMessage("saving result: " + hugin_utils::stripPath(outputfile));
+        Base::m_progress.setMessage("saving result:", hugin_utils::stripPath(outputfile));
 	DEBUG_DEBUG("Saving panorama: " << outputfile);
 	vigra::ImageExportInfo exinfo(outputfile.c_str());
 	exinfo.setXResolution(150);
@@ -994,7 +995,7 @@ public:
 template<typename ImageType, typename AlphaType>
 static void stitchPanoIntern(const PanoramaData & pano,
                              const PanoramaOptions & opts,
-                             AppBase::MultiProgressDisplay & progress,
+                             AppBase::ProgressDisplay* progress,
                              const std::string & basename,
                              UIntSet imgs,
                              const AdvancedOptions& advOptions)
@@ -1057,7 +1058,7 @@ static void stitchPanoIntern(const PanoramaData & pano,
  */
 IMPEX void stitchPanorama(const PanoramaData & pano,
                     const PanoramaOptions & opts,
-                    AppBase::MultiProgressDisplay & progress,
+                    AppBase::ProgressDisplay* progress,
                     const std::string & basename,
                     const UIntSet & usedImgs,
                     const AdvancedOptions& advOptions = AdvancedOptions());
@@ -1067,7 +1068,7 @@ IMPEX void stitchPanorama(const PanoramaData & pano,
 
 void stitchPanoGray_8_16(const PanoramaData & pano,
                          const PanoramaOptions & opts,
-                         AppBase::MultiProgressDisplay & progress,
+                         AppBase::ProgressDisplay* progress,
                          const std::string & basename,
                          const UIntSet & usedImgs,
                          const char * pixelType,
@@ -1075,7 +1076,7 @@ void stitchPanoGray_8_16(const PanoramaData & pano,
 
 void stitchPanoGray_32_float(const PanoramaData & pano,
                              const PanoramaOptions & opts,
-                             AppBase::MultiProgressDisplay & progress,
+                             AppBase::ProgressDisplay* progress,
                              const std::string & basename,
                              const UIntSet & usedImgs,
                              const char * pixelType,
@@ -1084,7 +1085,7 @@ void stitchPanoGray_32_float(const PanoramaData & pano,
 
 void stitchPanoRGB_8_16(const PanoramaData & pano,
                         const PanoramaOptions & opts,
-                        AppBase::MultiProgressDisplay & progress,
+                        AppBase::ProgressDisplay* progress,
                         const std::string & basename,
                         const UIntSet & usedImgs,
                         const char * pixelType,
@@ -1092,7 +1093,7 @@ void stitchPanoRGB_8_16(const PanoramaData & pano,
 
 void stitchPanoRGB_32_float(const PanoramaData & pano,
                             const PanoramaOptions & opts,
-                            AppBase::MultiProgressDisplay & progress,
+                            AppBase::ProgressDisplay* progress,
                             const std::string & basename,
                             const UIntSet & usedImgs,
                             const char * pixelType,
