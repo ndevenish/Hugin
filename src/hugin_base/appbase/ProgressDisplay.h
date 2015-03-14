@@ -28,7 +28,6 @@
 
 #include <iostream>
 #include <string>
-#include <vector>
 
 #include <hugin_shared.h>
 #include <hugin_utils/utils.h>
@@ -41,161 +40,37 @@ namespace AppBase {
  */
 class IMPEX ProgressDisplay
 {
-        
-    // -- Task object --
-        
-    protected:
+protected:
+    /** constructor */
+    ProgressDisplay(int maximum=0) : m_canceled(false), m_maximum(maximum), m_progress(0) {};
 
-        /**
-         *
-         */
-        struct ProgressSubtask
-        {
-            ///
-            std::string message;
-            ///
-            double maxProgress;
-            ///
-            double progressForParentTask;
-            ///
-            bool propagatesProgress;
-            ///
-            double progress;
-            
-            public:
-                
-                ///
-                ProgressSubtask() { };
-                
-                ///
-                ProgressSubtask(const std::string& message,
-                                const double& maxProgress,
-                                const double& progressForParentTask, 
-                                const bool& propagatesProgress)
-                    : message(message),
-                      maxProgress(maxProgress),
-                      progressForParentTask(progressForParentTask), 
-                      propagatesProgress(propagatesProgress),
-                      progress(0.0)
-                {};
-                
-                ///
-                inline bool measuresProgress()
-                    { return maxProgress != 0.0; };
-            
-        };
-        
-        
-    // -- Const/Destructors --
-        
-    protected:
-        ///
-        ProgressDisplay()
-            : o_canceled(false), o_newSubtaskProgress(0), o_newSubtaskPropagates(true)
-        {};
-        
-    public:
-        ///
-        virtual ~ProgressDisplay() {};
-        
-        
-    // -- task interface --
-        
-    protected:
-        ///
-        void startSubtaskWithTask(const ProgressSubtask& newSubtask);
-        
-    public:
-        ///
-        void setParentProgressOfNewSubtasks(double subtaskTotalProgress, bool propagatesProgress = false);
-        
-        ///
-        void startSubtask(const std::string& message,
-                          const double& maxProgress,
-                          const double& progressForParentTask,
-                          const bool& propagatesProgress = false);
-        
-        ///
-        void startSubtask(const std::string& message,
-                          const double& maxProgress = 0);
-        
-        ///
-        void startSubtask(const double& maxProgress);
-           
-        ///
-        virtual void setSubtaskMessage(const std::string& message);
-        
-        ///
-        virtual std::string getSubtaskMessage() const;
-        
-        ///
-        virtual double getSubtaskMaxProgress() const;
-            
-        ///
-        virtual double getSubtaskProgress() const;
-        
-        ///
-        virtual void updateSubtaskProgress(const double& newValue);
-        
-        ///
-        virtual void increaseSubtaskProgressBy(const double& deltaValue);
-        
-        ///
-        virtual void finishSubtask();
-        
-        ///
-        virtual bool wasCancelled();
-        
-    protected:
-        ///
-        virtual void cancelTask();
-        
-        
-    // -- callback interface --
-        
-    protected:
-        /** Template method, updates the display.
-         *  You should override this method with your code of updating the display.
-         */
-        virtual void updateProgressDisplay() =0;
-        
-        /** Template method, called when subtask is started.
-         *  The default implementation does nothing.
-         */
-        virtual void subtaskStarted()
-            { DEBUG_DEBUG("Subtask started."); };
-        
-        /** Template method, called when subtask is finishing.
-         *  The default implementation does nothing.
-         */
-        virtual void subtaskFinished()
-            { DEBUG_DEBUG("Subtask finished."); };
-             
-        
-    // -- utility methods --
-        
-    protected:
-        ///
-        virtual void propagateProgress(const double& newProgress);
+public:
+    /** sets the message to given string */
+    void setMessage(const std::string& message, const std::string& filename="");
+    /** call when a task has finished and the status message should be cleared */
+    void taskFinished();
+    /** updates the display, return true, if update was successfull, false if cancel was pressed */
+    bool updateDisplay();
+    bool updateDisplay(const std::string& message);
+    bool updateDisplayValue();
+    /** sets the new maximum value of the progress value */
+    void setMaximum(int newMaximum);
+    /** return true, if process should be canceled by user
+      *  e.g. user pressed cancel button */
+    bool wasCancelled();
 
-        ///
-        virtual ProgressSubtask& getCurrentSubtask() const;
+protected:
+    /** Template method, updates the display.
+    *  You should override this method with your code of updating the display.
+    */
+    virtual void updateProgressDisplay() = 0;
 
-        ///
-        virtual bool noSubtasksAvailable() const;
-        
-        
-    // -- accessable variables --
-        
-    protected:
-        ///
-        std::vector<ProgressSubtask> o_subtasks;
-        bool o_canceled;
-        
-        ///
-        double o_newSubtaskProgress;
-        bool o_newSubtaskPropagates;
-        
+protected:
+    bool m_canceled;
+    std::string m_message;
+    std::string m_filename;
+    int m_maximum;
+    int m_progress;
 };
 
 
@@ -203,19 +78,9 @@ class IMPEX ProgressDisplay
  */
 class IMPEX DummyProgressDisplay : public ProgressDisplay
 {
-    public:
-        ///
-        DummyProgressDisplay()
-            : ProgressDisplay()
-        {};
-
-        ///
-        virtual ~DummyProgressDisplay() {};
-
-        /** update the display */
-        virtual void updateProgressDisplay()
-        { };
-    protected:
+protected:
+    /** update the display, does output nothing */
+    virtual void updateProgressDisplay() {};
 };
 
 /** a progress display to print progress reports to a stream
@@ -223,25 +88,14 @@ class IMPEX DummyProgressDisplay : public ProgressDisplay
 class IMPEX StreamProgressDisplay : public ProgressDisplay
 {
     public:
-        ///
-        StreamProgressDisplay(std::ostream & o)
-            : ProgressDisplay(),
-              m_stream(o),
-              m_printedLines(0), m_whizz("-\\|/"), m_whizzCount(0)
-        {};
-
-        ///
-        virtual ~StreamProgressDisplay() {};
-
-        /** update the display */
+        /** constructor, connect with given outputstream */
+        StreamProgressDisplay(std::ostream & o) : ProgressDisplay(), m_stream(o) {};
+        /** update the display, print the message to stream */
         virtual void updateProgressDisplay();
     protected:
         std::ostream & m_stream;
-        int m_printedLines;
-        std::string m_whizz;
-        int m_whizzCount;
 };
 
-
 }; //namespace
+
 #endif // _H

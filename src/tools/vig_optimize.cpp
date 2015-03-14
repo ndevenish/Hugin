@@ -297,12 +297,12 @@ int main(int argc, char* argv[])
         }
 
 
-        progressDisplay.startSubtask("Vignetting Optimization", 0.0);
+        progressDisplay.setMessage("Vignetting Optimization");
         PhotometricOptimizer photoopt(pano, &progressDisplay, pano.getOptimizeVector(), points);
         photoopt.run();
         //		double error = photoopt.getResultError();
 
-        progressDisplay.finishSubtask();
+        progressDisplay.taskFinished();
 
         UIntSet allImgs;
         fill_set(allImgs,0, pano.getNrOfImages()-1);

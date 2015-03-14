@@ -47,7 +47,7 @@ using namespace vigra_ext;
  */
 void stitchPanorama(const PanoramaData & pano,
                         const PanoramaOptions & opt,
-                        AppBase::MultiProgressDisplay & progress,
+                        AppBase::ProgressDisplay* progress,
                         const std::string & basename,
                         const UIntSet & usedImgs,
                         const AdvancedOptions& advOptions)

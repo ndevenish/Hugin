@@ -873,11 +873,11 @@ CorrelationResult correlateImageFastRotationFFT(SrcImage & src, DestImage & dest
         vigra::FImage kernel(tmplSize);
         vigra::FImage alpha(kernel.size());
         vigra_ext::PassThroughFunctor<float> nf;
-        AppBase::DummyMultiProgressDisplay dummy;
+        AppBase::DummyProgressDisplay dummy;
 
         RotateTransform t(startAngle + i * step, hugin_utils::FDiff2D(templWidth, templWidth), templPos);
         vigra_ext::transformImage(srcImageRange(unrotatedKernel, vigra::RGBToGrayAccessor<typename KernelImage::value_type>()), destImageRange(kernel),
-            destImage(alpha), vigra::Diff2D(0, 0), t, nf, false, vigra_ext::INTERP_CUBIC, dummy);
+            destImage(alpha), vigra::Diff2D(0, 0), t, nf, false, vigra_ext::INTERP_CUBIC, &dummy, true);
 
         // calculate mean and variance of kernel/template
         vigra::FindAverageAndVariance<vigra::FImage::PixelType> kMean;

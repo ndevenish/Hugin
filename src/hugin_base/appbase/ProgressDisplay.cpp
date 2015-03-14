@@ -23,227 +23,74 @@
 *
 */
 
-#include <cmath>
-
-#include <iostream>
-#include <iomanip>
-#include <hugin_math/hugin_math.h>
-
 #include "ProgressDisplay.h"
 
-using namespace std;
-
-namespace AppBase {
-
-    
-
-
-void ProgressDisplay::startSubtaskWithTask(const ProgressSubtask& newSubtask)
+namespace AppBase
 {
-    o_subtasks.push_back(newSubtask);
-    subtaskStarted();
+
+void ProgressDisplay::setMessage(const std::string& message, const std::string& filename)
+{
+    m_message = message;
+    m_filename = filename;
     updateProgressDisplay();
 }
 
-void ProgressDisplay::setParentProgressOfNewSubtasks(double subtaskTotalProgress, bool propagatesProgress)
+void ProgressDisplay::taskFinished()
 {
-    if(subtaskTotalProgress < 0)
-        return;
-
-    o_newSubtaskProgress = subtaskTotalProgress;
-    o_newSubtaskPropagates = propagatesProgress;
-};
-
-
-void ProgressDisplay::startSubtask(const std::string& message,
-                                   const double& maxProgress,
-                                   const double& progressForParentTask,
-                                   const bool& propagatesProgress)
-{
-    ProgressSubtask newSubtask = ProgressSubtask(message, maxProgress, progressForParentTask, propagatesProgress);
-
-    startSubtaskWithTask(newSubtask);
-};
-
-
-void ProgressDisplay::startSubtask(const std::string& message,
-                                   const double& maxProgress)
-{
-    if(o_newSubtaskProgress > 0)
-        startSubtask(message, maxProgress, o_newSubtaskProgress, o_newSubtaskPropagates);
-    else
-        startSubtask(message, maxProgress, 0, false);
-};
-
-
-void ProgressDisplay::startSubtask(const double& maxProgress)
-{ 
-    startSubtask("", maxProgress);
-};
-   
-
-void ProgressDisplay::setSubtaskMessage(const std::string& message)
-    { getCurrentSubtask().message = message; }
-
-
-std::string ProgressDisplay::getSubtaskMessage() const
-{
-    return getCurrentSubtask().message;
+    setMessage("");
 }
 
-
-double ProgressDisplay::getSubtaskMaxProgress() const
+bool ProgressDisplay::updateDisplay()
 {
-    assert(!noSubtasksAvailable()); //[TODO] make it nicer:)
-    return getCurrentSubtask().maxProgress;
-}
-    
-
-double ProgressDisplay::getSubtaskProgress() const
-{
-    assert(!noSubtasksAvailable()); //[TODO] make it nicer:)
-    return getCurrentSubtask().progress;
+    return !m_canceled;
 }
 
-
-void ProgressDisplay::updateSubtaskProgress(const double& newValue)
+bool ProgressDisplay::updateDisplay(const std::string& message)
 {
-    if(noSubtasksAvailable())
+    setMessage(message);
+    return !m_canceled;
+}
+
+bool ProgressDisplay::updateDisplayValue()
+{
+    if (m_progress < m_maximum)
     {
-        DEBUG_INFO("No subtask available");
-        return;
-    }
-    
-    if(getCurrentSubtask().progress > newValue)
+        ++m_progress;
+    };
+    updateProgressDisplay();
+    return !m_canceled;
+}
+
+void ProgressDisplay::setMaximum(int newMaximum)
+{
+    m_maximum = newMaximum;
+    if (m_progress > m_maximum)
     {
-        DEBUG_INFO("Progress has already reached its max.");
-        return;
-    }
-    
-    propagateProgress(newValue);
-    //getCurrentSubtask().progress = std::min(newValue, getSubtaskMaxProgress());
-    updateProgressDisplay();
+        m_progress = m_maximum;
+    };
 }
-
-
-void ProgressDisplay::increaseSubtaskProgressBy(const double& deltaValue)
-{
-    updateSubtaskProgress(getSubtaskProgress() + deltaValue);
-}
-
-
-void ProgressDisplay::finishSubtask()
-{
-    subtaskFinished();
-    
-    if (!o_subtasks.back().measuresProgress() && o_subtasks.size()>1) {
-        o_subtasks[o_subtasks.size()-2].progress += o_subtasks[o_subtasks.size()-1].progressForParentTask;
-    }
-    
-    o_subtasks.pop_back();
-    updateProgressDisplay();
-}
-
-
-void ProgressDisplay::cancelTask()
-{
-    o_canceled = true;
-    // more to do?
-}
-
 
 bool ProgressDisplay::wasCancelled()
-    { return o_canceled; }
-    
-
-
-
-void ProgressDisplay::propagateProgress(const double& newProgress)
 {
-    std::vector<ProgressSubtask>::reverse_iterator itr = o_subtasks.rbegin();
-    
-    double diffFromPrev = newProgress - itr->progress;
-    
-    if(diffFromPrev <= 0)
-        return;
-    
-    do {
-        
-        DEBUG_INFO("Propagating progress:+" << diffFromPrev*100 << "%");
-        
-        itr->progress += diffFromPrev;
-        
-        if(!itr->propagatesProgress)
-        {
-            DEBUG_INFO("Propagation stopped.");
-            return;
-        }
-        
-        // scale previous change for higher level
-        diffFromPrev *= itr->progressForParentTask / itr->maxProgress;
-        ++itr;
-        
-    } while(itr != o_subtasks.rend());
+    return m_canceled;
 }
-
-
-ProgressDisplay::ProgressSubtask& ProgressDisplay::getCurrentSubtask() const
-    { return (ProgressSubtask& )o_subtasks.back(); }
-
-
-bool ProgressDisplay::noSubtasksAvailable() const
-    { return o_subtasks.empty(); }
-
-
 
 void StreamProgressDisplay::updateProgressDisplay()
 {
     // TODO: check for Ctrl-C then cancelTask() ?
-
-    // step back the line printed before.
-    if (m_printedLines == 0 )
+    if (!m_message.empty())
     {
-        m_stream << endl;
-    }
-    m_printedLines = 1;
-    // build the message
-
-    int strlen=0;
-    ostringstream stream;
-#if defined _WINDOWS
-    stream << setfill('\b') << setw(81);
-#else
-    stream << "\r";
-#endif
-    for (std::vector<ProgressSubtask>::iterator it = o_subtasks.begin();
-         it != o_subtasks.end(); ++it)
-    {
-        if (stream.str().size() + it->message.size() > 70) {
-            break;
+        // don't print empty messages
+        if (m_filename.empty())
+        {
+            m_stream << m_message << std::endl;
         }
-        if (it != o_subtasks.begin()) {
-            stream << ", ";
+        else
+        {
+            m_stream << m_message << " " << m_filename << std::endl;
         }
-        stream << it->message;
-
-        std::vector<ProgressSubtask>::iterator next = it;
-        ++next;
-    }
-    bool showProgress=false;
-    if(o_subtasks.size()>0)
-        showProgress=o_subtasks[0].measuresProgress();
-    if(showProgress){
-        stream << ": " << setw(3) << hugin_utils::roundi( 100.0 * o_subtasks[0].progress / o_subtasks[0].maxProgress) << "%";
-    } else {
-        m_whizzCount = (++m_whizzCount) % (int)m_whizz.size();
-        stream << ": "  << m_whizz[m_whizzCount] << "   ";
-    }
-
-    int fill = 81-stream.str().size();
-    stream << setw(fill) << " ";
-    m_stream << stream.str() << flush;
+        m_stream.flush();
+    };
 }
-
-
 
 }; //namespace

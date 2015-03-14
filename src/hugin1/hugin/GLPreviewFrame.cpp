@@ -2053,50 +2053,10 @@ void GLPreviewFrame::OnOutputChoice( wxCommandEvent & e)
 }
 */
 
-/** update the display */
-void GLPreviewFrame::updateProgressDisplay()
-{
-    wxString msg;
-    // build the message:
-    for (std::vector<AppBase::ProgressTask>::iterator it = tasks.begin();
-         it != tasks.end(); ++it)
-    {
-        wxString cMsg;
-        if (it->getProgress() > 0) {
-            cMsg.Printf(wxT("%s [%3.0f%%]: %s "),
-                        wxString(it->getShortMessage().c_str(), wxConvLocal).c_str(),
-                        100 * it->getProgress(),
-                        wxString(it->getMessage().c_str(), wxConvLocal).c_str());
-        } else {
-            cMsg.Printf(wxT("%s %s"),wxString(it->getShortMessage().c_str(), wxConvLocal).c_str(),
-                        wxString(it->getMessage().c_str(), wxConvLocal).c_str());
-        }
-        // append to main message
-        if (it == tasks.begin()) {
-            msg = cMsg;
-        } else {
-            msg.Append(wxT(" | "));
-            msg.Append(cMsg);
-        }
-    }
-//    wxStatusBar *m_statbar = GetStatusBar();
-    //DEBUG_TRACE("Statusmb : " << msg.mb_str(wxConvLocal));
-    //m_statbar->SetStatusText(msg,0);
-
-#ifdef __WXMSW__
-    UpdateWindow(NULL);
-#else
-    // This is a bad call.. we just want to repaint the window, instead we will
-    // process user events as well :( Unfortunately, there is not portable workaround...
-//    wxYield();
-#endif
-}
-
 void GLPreviewFrame::SetStatusMessage(wxString message)
 {
     SetStatusText(message, 0);
 }
-
 
 void GLPreviewFrame::OnPhotometric(wxCommandEvent & e)
 {
@@ -2591,11 +2551,9 @@ void GLPreviewFrame::OnAutocrop(wxCommandEvent &e)
 
     vigra::Rect2D newROI;
     {
-        ProgressReporterDialog progress(2, _("Autocrop"), _("Calculating optimal crop"),this, wxPD_AUTO_HIDE | wxPD_APP_MODAL | wxPD_ELAPSED_TIME);
-        progress.increaseProgress(1);
-        progress.Pulse();
+        ProgressReporterDialog progress(0, _("Autocrop"), _("Calculating optimal crop"), this);
         vigra::Size2D newSize;
-        m_pano.calcOptimalROI(newROI, newSize);
+        m_pano.calcOptimalROI(&progress, newROI, newSize);
     };
 
     PanoramaOptions opt = m_pano.getOptions();
@@ -2619,11 +2577,9 @@ void GLPreviewFrame::OnStackAutocrop(wxCommandEvent &e)
 
     vigra::Rect2D newROI;
     {
-        ProgressReporterDialog progress(2, _("Autocrop"), _("Calculating optimal crop"),this, wxPD_AUTO_HIDE | wxPD_APP_MODAL | wxPD_ELAPSED_TIME);
-        progress.increaseProgress(1);
-        progress.Pulse();
+        ProgressReporterDialog progress(0, _("Autocrop"), _("Calculating optimal crop"), this);
         vigra::Size2D newSize;
-        m_pano.calcOptimalStackROI(newROI, newSize);
+        m_pano.calcOptimalStackROI(&progress, newROI, newSize);
     };
 
     PanoramaOptions opt = m_pano.getOptions();
@@ -3352,45 +3308,35 @@ void GLPreviewFrame::OnCreateCP(wxCommandEvent & e)
     };
     HuginBase::CPVector cps;
     {
-#if wxCHECK_VERSION(2,9,0)
-#define INCREASEPROGRESS progress.GetValue()+1
-        wxProgressDialog progress(_("Searching control points"), _("Processing"), 2 * imgs.size() + 1, this, wxPD_AUTO_HIDE | wxPD_APP_MODAL | wxPD_ELAPSED_TIME | wxPD_CAN_ABORT);
-#else
-#define INCREASEPROGRESS ++progValue
-        size_t progValue = 0;
-        size_t progMaxValue = 2 * imgs.size() + 1;
-        wxProgressDialog progress(_("Searching control points"), _("Processing"), progMaxValue, this, wxPD_AUTO_HIDE | wxPD_APP_MODAL | wxPD_ELAPSED_TIME);
-#endif
+        ProgressReporterDialog progress(2*imgs.size()+1, _("Searching control points"), _("Processing"), this);
         // remap all images to panorama projection
         FindVector cpInfos;
         HuginBase::CPVector tempCps;
         for (HuginBase::UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); ++it)
         {
             const size_t imgNr = *it;
-            progress.Update(INCREASEPROGRESS, _("Remap image to panorama projection..."));
+            if (!progress.updateDisplayValue(_("Remap image to panorama projection...")))
+            {
+                return;
+            };
             FindStruct findStruct;
             findStruct.imgNr = imgNr;
             // remap image to panorama projection
             ImageCache::ImageCacheRGB8Ptr CachedImg = ImageCache::getInstance().getImage(m_pano.getImage(imgNr).getFilename())->get8BitImage();
 
             RemappedPanoImage<vigra::BRGBImage, vigra::BImage>* remapped = new RemappedPanoImage<vigra::BRGBImage, vigra::BImage>;
-            AppBase::MultiProgressDisplay* dummyProgress = new AppBase::DummyMultiProgressDisplay();
             HuginBase::SrcPanoImage srcImg = m_pano.getSrcImage(imgNr);
             // don't correct exposure
             srcImg.setExposureValue(0);
             remapped->setPanoImage(srcImg, opts, roi);
-            remapped->remapImage(vigra::srcImageRange(*CachedImg), vigra_ext::INTERP_CUBIC, *dummyProgress);
-#if wxCHECK_VERSION(2,9,0)
-            // can cancel only supported with newer wxWidgets versions
-            if (progress.WasCancelled())
+            remapped->remapImage(vigra::srcImageRange(*CachedImg), vigra_ext::INTERP_CUBIC, &progress);
+            if (!progress.updateDisplay())
             {
                 return;
             };
-#endif
             findStruct.image = remapped->m_image;
             findStruct.mask = remapped->m_mask;
             delete remapped;
-            delete dummyProgress;
             cpInfos.push_back(findStruct);
         };
         if (cpInfos.size() > 1)
@@ -3414,7 +3360,10 @@ void GLPreviewFrame::OnCreateCP(wxCommandEvent & e)
             // match all images with all
             for (size_t img1 = 0; img1 < cpInfos.size() - 1; ++img1)
             {
-                progress.Update(INCREASEPROGRESS, _("Matching interest points..."));
+                if (!progress.updateDisplayValue(_("Matching interest points...")))
+                {
+                    return;
+                };
                 vigra::Size2D size(cpInfos[img1].image.width(), cpInfos[img1].image.height());
                 // create a number of sub-regions
                 std::vector<vigra::Rect2D> rects;
@@ -3432,13 +3381,10 @@ void GLPreviewFrame::OnCreateCP(wxCommandEvent & e)
                     };
                 };
 
-#if wxCHECK_VERSION(2,9,0)
-                // can cancel only supported with newer wxWidgets versions
-                if (progress.WasCancelled())
+                if (!progress.updateDisplay())
                 {
                     return;
                 };
-#endif
 
 #pragma omp parallel for schedule(dynamic)
                 for (int i = 0; i < rects.size(); ++i)
@@ -3533,7 +3479,10 @@ void GLPreviewFrame::OnCreateCP(wxCommandEvent & e)
                 // now create a subpano with only the selected images
                 Panorama subPano = copyPano.getSubset(imgs);
                 // clean control points
-                progress.Update(INCREASEPROGRESS, _("Checking results..."));
+                if (!progress.updateDisplayValue(_("Checking results...")))
+                {
+                    return;
+                };
                 deregisterPTWXDlgFcn();
                 HuginBase::UIntSet invalidCP = HuginBase::getCPoutsideLimit(subPano);
                 registerPTWXDlgFcn();
@@ -3545,11 +3494,10 @@ void GLPreviewFrame::OnCreateCP(wxCommandEvent & e)
                     };
                 }
                 // force closing progress dialog
-#if wxCHECK_VERSION(2,9,0)
-                progress.Update(progress.GetRange());
-#else
-                progress.Update(progMaxValue);
-#endif
+                if (!progress.updateDisplayValue())
+                {
+                    return;
+                };
                 GlobalCmdHist::getInstance().addCommand(new PT::AddCtrlPointsCmd(m_pano, cps));
                 // ask user, if pano should be optimized
                 wxMessageDialog message(this,

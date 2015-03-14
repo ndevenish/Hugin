@@ -33,7 +33,7 @@
 #include <vigra/flatmorphology.hxx>
 #include <vigra_ext/ROIImage.h>
 
-#include <appbase/ProgressDisplayOld.h>
+#include <appbase/ProgressDisplay.h>
 
 #include <panodata/SrcPanoImage.h>
 #include <panodata/Mask.h>
@@ -149,7 +149,7 @@ class RemappedPanoImage : public vigra_ext::ROIImage<RemapImage, AlphaImage>
         template <class ImgIter, class ImgAccessor>
         void remapImage(vigra::triple<ImgIter, ImgIter, ImgAccessor> srcImg,
                         vigra_ext::Interpolator interpol,
-                        AppBase::MultiProgressDisplay & progress, bool singleThreaded=false);
+                        AppBase::ProgressDisplay* progress, bool singleThreaded = false);
 
 
         /** remap a image, with alpha channel */
@@ -158,7 +158,7 @@ class RemappedPanoImage : public vigra_ext::ROIImage<RemapImage, AlphaImage>
         void remapImage(vigra::triple<ImgIter, ImgIter, ImgAccessor> srcImg,
                         std::pair<AlphaIter, AlphaAccessor> alphaImg,
                         vigra_ext::Interpolator interp,
-                        AppBase::MultiProgressDisplay & progress, bool singleThreaded=false);
+                        AppBase::ProgressDisplay* progress, bool singleThreaded = false);
         
         
     public:
@@ -184,7 +184,7 @@ void remapImage(SrcImgType & srcImg,
                 const PanoramaOptions & dest,
                 vigra::Rect2D outputRect,
                 RemappedPanoImage<DestImgType, MaskImgType> & remapped,
-                AppBase::MultiProgressDisplay & progress);
+                AppBase::ProgressDisplay* progress);
 
 
 } // namespace
@@ -427,7 +427,7 @@ template<class RemapImage, class AlphaImage>
 template<class ImgIter, class ImgAccessor>
 void RemappedPanoImage<RemapImage,AlphaImage>::remapImage(vigra::triple<ImgIter, ImgIter, ImgAccessor> srcImg,
                                                           vigra_ext::Interpolator interpol,
-                                                          AppBase::MultiProgressDisplay & progress, bool singleThreaded)
+                                                          AppBase::ProgressDisplay* progress, bool singleThreaded)
 {
 
     //        std::ostringstream msg;
@@ -611,12 +611,14 @@ template<class ImgIter, class ImgAccessor,
 void RemappedPanoImage<RemapImage,AlphaImage>::remapImage(vigra::triple<ImgIter, ImgIter, ImgAccessor> srcImg,
                                                           std::pair<AlphaIter, AlphaAccessor> alphaImg,
                                                           vigra_ext::Interpolator interp,
-                                                          AppBase::MultiProgressDisplay & progress, bool singleThreaded)
+                                                          AppBase::ProgressDisplay* progress, bool singleThreaded)
 {
     const bool useGPU = m_destImg.remapUsingGPU;
 
     if (Base::boundingBox().isEmpty())
         return;
+
+    progress->setMessage("remapping", hugin_utils::stripPath(m_srcImg.getFilename()));
 
     vigra::Diff2D srcImgSize = srcImg.second - srcImg.first;
 
@@ -767,7 +769,7 @@ void remapImage(SrcImgType & srcImg,
                 vigra::Rect2D outputROI,
 //                vigra_ext::Interpolator interpolator,
                 RemappedPanoImage<DestImgType, MaskImgType> & remapped,
-                AppBase::MultiProgressDisplay & progress)
+                AppBase::ProgressDisplay* progress)
 {
     typedef typename SrcImgType::value_type SrcPixelType;
     typedef typename DestImgType::value_type DestPixelType;
@@ -787,7 +789,7 @@ void remapImage(SrcImgType & srcImg,
     }
 #endif
 
-    progress.setMessage(std::string("remapping ") + hugin_utils::stripPath(src.getFilename()));
+    progress->setMessage("remapping", hugin_utils::stripPath(src.getFilename()));
     // set pano image
     DEBUG_DEBUG("setting src image with size: " << src.getSize());
     remapped.setPanoImage(src, dest, outputROI);

@@ -39,7 +39,7 @@
 #endif
 #include <vigra/impex.hxx>
 #include <vigra_ext/utils.h>
-#include <appbase/ProgressReporterOld.h>
+#include <appbase/ProgressDisplay.h>
 #include <panodata/PanoramaData.h>
 
 namespace HuginBase
@@ -64,7 +64,7 @@ namespace HuginBase
         public:
             /// for compatibility deprecated
             static void extractPoints(PanoramaData& pano, std::vector<vigra::FRGBImage*> images, int nPoints,
-                                      bool randomPoints, AppBase::ProgressReporter& progress,
+                                      bool randomPoints, AppBase::ProgressDisplay* progress,
                                       std::vector<vigra_ext::PointPairRGB>& points);
         
         protected:
@@ -74,7 +74,7 @@ namespace HuginBase
                                                  vigra_ext::interp_cubic           > InterpolImg;
             
             ///
-            void sampleAndExtractPoints(AppBase::ProgressReporter& progress);
+            void sampleAndExtractPoints(AppBase::ProgressDisplay* progress);
             
             ///
             virtual void samplePoints(const std::vector<InterpolImg>& imgs,
@@ -86,7 +86,7 @@ namespace HuginBase
                                       std::vector<std::multimap<double,vigra_ext::PointPairRGB> >& radiusHist,
                                       unsigned& nGoodPoints,
                                       unsigned& nBadPoints,
-                                      AppBase::ProgressReporter& progress) =0;
+                                      AppBase::ProgressDisplay*) = 0;
             
             /** extract some random points out of the bins.
             *  This should ensure that the radius distribution is
@@ -96,7 +96,7 @@ namespace HuginBase
             static void sampleRadiusUniform(const std::vector<std::multimap<double,PointPairClass> >& radiusHist,
                                             unsigned nPoints,
                                             std::vector<PointPairClass>& selectedPoints,
-                                            AppBase::ProgressReporter& progress);
+                                            AppBase::ProgressDisplay*);
             
         public:
             ///
@@ -164,7 +164,7 @@ namespace HuginBase
                                      std::vector<std::multimap<double, PP > > & radiusHist,
                                      unsigned & nGoodPoints,
                                      unsigned & nBadPoints,
-                                     AppBase::ProgressReporter & progress);
+                                     AppBase::ProgressDisplay* progress);
             
         protected:
             ///
@@ -177,7 +177,7 @@ namespace HuginBase
                                       std::vector<std::multimap<double,vigra_ext::PointPairRGB> >& radiusHist,
                                       unsigned& nGoodPoints,
                                       unsigned& nBadPoints,
-                                      AppBase::ProgressReporter& progress)
+                                      AppBase::ProgressDisplay* progress)
             {
                 sampleAllPanoPoints(imgs,
                                     voteImgs,
@@ -223,7 +223,7 @@ namespace HuginBase
                                                float maxI,
                                                std::vector<std::multimap<double, PP > > & radiusHist,
                                                unsigned & nBadPoints,
-                                               AppBase::ProgressReporter & progress);
+                                               AppBase::ProgressDisplay* progress);
             
         protected:
             ///
@@ -236,7 +236,7 @@ namespace HuginBase
                                       std::vector<std::multimap<double,vigra_ext::PointPairRGB> >& radiusHist,
                                       unsigned& nGoodPoints,
                                       unsigned& nBadPoints,
-                                      AppBase::ProgressReporter& progress)
+                                      AppBase::ProgressDisplay* progress)
             {
                  sampleRandomPanoPoints(imgs,
                                         voteImgs,
@@ -271,7 +271,7 @@ template<class PointPairClass>
 void PointSampler::sampleRadiusUniform(const std::vector<std::multimap<double, PointPairClass> >& radiusHist,
                                        unsigned nPoints,
                                        std::vector<PointPairClass> &selectedPoints,
-                                       AppBase::ProgressReporter & progress)
+                                       AppBase::ProgressDisplay* progress)
 {
     typedef std::multimap<double,PointPairClass> PointPairMap;
     
@@ -293,7 +293,6 @@ void PointSampler::sampleRadiusUniform(const std::vector<std::multimap<double, P
             if (i == 0)
                 break;
         }
-        progress.increaseProgress(1.0/radiusHist.size());
     }
 }
     
@@ -311,7 +310,7 @@ void AllPointSampler::sampleAllPanoPoints(const std::vector<Img> &imgs,
                                           std::vector<std::multimap<double, PP > > & radiusHist,
                                           unsigned & nGoodPoints,
                                           unsigned & nBadPoints,
-                                          AppBase::ProgressReporter& progress)
+                                          AppBase::ProgressDisplay* progress)
 {
     typedef typename Img::PixelType PixelType;
 
@@ -432,10 +431,6 @@ void AllPointSampler::sampleAllPanoPoints(const std::vector<Img> &imgs,
                 }
             }
         }
-        int h = dest.getROI().bottom() - dest.getROI().top();
-        if ((y-dest.getROI().top())%(h/10) == 0) {
-            progress.increaseProgress(0.1);
-        }
     }
 
     for(unsigned i=0; i < imgs.size(); i++) {
@@ -456,7 +451,7 @@ void RandomPointSampler::sampleRandomPanoPoints(const std::vector<Img>& imgs,
                                                 //std::vector<PP> &points,
                                                 std::vector<std::multimap<double, PP > > & radiusHist,
                                                 unsigned & nBadPoints,
-                                                AppBase::ProgressReporter & progress)
+                                                AppBase::ProgressDisplay* progress)
 {
     typedef typename Img::PixelType PixelType;
 
@@ -610,19 +605,12 @@ void RandomPointSampler::sampleRandomPanoPoints(const std::vector<Img>& imgs,
                 }
             }
         }
-        double pc = (allPoints - nPoints);
-        double percentNow = (pc / allPoints) * 100.0;
-        if (percentNow - percentReported >= 10) {
-            percentReported = percentNow;
-            progress.increaseProgress(0.1);
-        }
     }
     for(unsigned i=0; i < imgs.size(); i++) {
         delete transf[i];
     }
     
     DEBUG_INFO("Point sampled: " << allPoints-nPoints)
-    progress.increaseProgress(1.0 - percentReported/100.0);
 }
 
 

@@ -282,7 +282,7 @@ void PreviewPanel::updatePreview()
                 DEBUG_DEBUG("HDR output merge");
 
                 ReduceToHDRFunctor<RGBValue<float> > hdrmerge;
-                ReduceStitcher<FRGBImage, BImage> stitcher(*pano, *parentWindow);
+                ReduceStitcher<FRGBImage, BImage> stitcher(*pano, parentWindow);
                 stitcher.stitch(opts, displayedImages,
                                 destImageRange(panoImg), destImage(alpha),
                                 m_remapCache,
@@ -314,7 +314,7 @@ void PreviewPanel::updatePreview()
                 case BLEND_COPY:
                 {
                     StackingBlender blender;
-                    SimpleStitcher<FRGBImage, BImage> stitcher(*pano, *parentWindow);
+                    SimpleStitcher<FRGBImage, BImage> stitcher(*pano, parentWindow);
                     stitcher.stitch(opts, displayedImages,
                                     destImageRange(panoImg), destImage(alpha),
                                     m_remapCache,
@@ -324,7 +324,7 @@ void PreviewPanel::updatePreview()
                 case BLEND_DIFFERENCE:
                 {
                     ReduceToDifferenceFunctor<RGBValue<float> > func;
-                    ReduceStitcher<FRGBImage, BImage> stitcher(*pano, *parentWindow);
+                    ReduceStitcher<FRGBImage, BImage> stitcher(*pano, parentWindow);
                     stitcher.stitch(opts, displayedImages,
                                     destImageRange(panoImg), destImage(alpha),
                                     m_remapCache,

@@ -35,7 +35,6 @@
 #include "PT/Panorama.h"
 #include "PT/utils.h"
 #include "base_wx/huginConfig.h"
-#include "base_wx/MyProgressDialog.h"
 #include "base_wx/MyExternalCmdExecDialog.h"
 #include "base_wx/Executor.h"
 #include "base_wx/AssistantExecutor.h"

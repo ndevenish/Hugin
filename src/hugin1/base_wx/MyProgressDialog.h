@@ -25,83 +25,31 @@
 #define _MYPROGRESSDIALOG_H
 
 #include <hugin_shared.h>
-#include "panoinc.h"
-#include "panoinc_WX.h"
-#include <appbase/ProgressDisplayOld.h>
-#include <appbase/ProgressReporterOld.h>
+#include <wx/progdlg.h>
+#include <appbase/ProgressDisplay.h>
 
-class WXIMPEX ProgressReporterDialog : public AppBase::ProgressReporter, public wxProgressDialog
+class WXIMPEX ProgressReporterDialog : public wxProgressDialog, public AppBase::ProgressDisplay
 {
 public:
-    ProgressReporterDialog(double maxProgress, const wxString& title, const wxString& message,
+    ProgressReporterDialog(int maxProgress, const wxString& title, const wxString& message,
                          wxWindow * parent = NULL, 
-                         int style = wxPD_AUTO_HIDE | wxPD_APP_MODAL | wxPD_CAN_ABORT | wxPD_ELAPSED_TIME,
-                         const wxSize & sz = wxDefaultSize)
-    : wxProgressDialog(title, message+wxString((wxChar)' ',10), 100, parent, style), 
-      m_progress(0),m_maxProgress(maxProgress), m_abort(false)
+                         int style = wxPD_AUTO_HIDE | wxPD_APP_MODAL | wxPD_CAN_ABORT | wxPD_ELAPSED_TIME)
+                         : wxProgressDialog(title, message + wxString((wxChar)' ', 10), 100, parent, style), 
+                         ProgressDisplay(maxProgress)
       {  };
-
-    virtual bool increaseProgress(double delta);
-    virtual bool increaseProgress(double delta, const std::string & msg);
-    
-    // TODO entire ProgressReporter and ProgressDisplay API needs be updated to use wstring.
-    // Temporarily implemented only for this function. from here -->
-    virtual bool increaseProgress(double delta, const std::wstring & msg);
-    // <- to here
-
-    virtual void setMessage(const std::string & msg);
+    // overwritten to work with wxString
+    void setMessage(const std::string& message, const std::string& filename = "");
+    // wxString versions for GUI
+    void setMessage(const wxString& message, const wxString& filename = wxEmptyString);
+    using ProgressDisplay::updateDisplay;
+    bool updateDisplay(const wxString& message);
+    using ProgressDisplay::updateDisplayValue;
+    bool updateDisplayValue(const wxString& message, const wxString& filename = wxEmptyString);
 
 protected:
-    double m_progress;
-    double m_maxProgress;
-    wxString m_message;
-    bool m_abort;
-};
-
-/** wxProgressDialog with interface for my progress dialog
- *
- *  Also allows cancellation
- */
-class WXIMPEX MyProgressDialog : public wxProgressDialog, public AppBase::MultiProgressDisplay
-{
-public:
-    /** ctor.
-     */
-    MyProgressDialog(const wxString& title, const wxString& message,
-                     wxWindow * parent = NULL, 
-                     int style = wxPD_AUTO_HIDE | wxPD_APP_MODAL,
-                     const wxSize & sz = wxDefaultSize)
-        : wxProgressDialog(title, message, 100, parent, style)
-        { 
-            SetSize(sz);
-        }
-    /** dtor.
-     */
-    virtual ~MyProgressDialog() {};
-
-    /** update the progress display */
     virtual void updateProgressDisplay();
-
-    // override to abort the current operation.
-    virtual void abortOperation()
-    {
-        DEBUG_TRACE("");
-    }
-private:
+    wxString m_wxmessage;
+    wxString m_wxfilename;
 };
-
-class OptProgressDialog : public MyProgressDialog
-{
-public:
-    // work around a flaw in wxProgresDialog that results in incorrect layout
-	// by pre-allocting sufficient horizontal and vertical space
-    OptProgressDialog(wxWindow * parent = NULL,
-                      int style = wxPD_AUTO_HIDE | wxPD_APP_MODAL | wxPD_CAN_ABORT )
-        : MyProgressDialog(_("Optimizing Panorama"), (wxString((wxChar)' ', 80) + wxT("\n \n \n \n ")), parent, style)
-        { }
-
-    virtual void abortOperation();
-};
-
 
 #endif // _MYPROGRESSDIALOG_H

@@ -36,8 +36,7 @@
 #include "wx/msw/helpchm.h"
 #endif
 
-#include <appbase/ProgressDisplayOld.h>
-#include <appbase/ProgressReporterOld.h>
+#include <appbase/ProgressDisplay.h>
 
 #include "hugin/OptimizePanel.h"
 #include "hugin/PreferencesDialog.h"
@@ -83,7 +82,7 @@ private:
  *  it therefor also hold operations that determine the lifecycle
  *  of the panorama object (new, open, save, quit).
  */
-class MainFrame : public wxFrame, public PT::PanoramaObserver, public AppBase::MultiProgressDisplay, public AppBase::ProgressReporter
+class MainFrame : public wxFrame, public PT::PanoramaObserver, public AppBase::ProgressDisplay
 {
 public:
 
@@ -150,11 +149,6 @@ public:
     void ShowMaskEditor(size_t imgNr);
     /** opens the stitcher tab */
     void ShowStitcherTab();
-
-    void resetProgress(double max);
-    bool increaseProgress(double delta);
-    bool increaseProgress(double delta, const std::string & msg);
-    void setMessage(const std::string & msg);
 
     void OnCPListFrameClosed();
     /** returns default cp detector setting */
@@ -229,9 +223,6 @@ private:
     void OnShowDonate(wxCommandEvent &e);
     void OnShowPanel(wxCommandEvent &e);
 
-    // update progress display
-    bool displayProgress();
-
     wxFileHistory m_mruFiles;
     wxNotebook * m_notebook;
     // tab panels
@@ -269,10 +260,6 @@ private:
     wxMenu* m_menu_file_simple;
     wxMenu* m_menu_file_advanced;
 
-    // progress reporter
-    double m_progressMax;
-    double m_progress;
-    wxString m_progressMsg;
 #ifdef __WXMSW__
     wxCHMHelpController     m_msHtmlHelp;
 #endif

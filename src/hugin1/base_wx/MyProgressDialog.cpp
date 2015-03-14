@@ -30,112 +30,65 @@
 
 #include "MyProgressDialog.h"
 
-#include "PT/PTOptimise.h"
+// provide some more translations for strings in huginbase
+#if 0
+_("Sampling points");
+_("Loading image:");
+_("Scaling image:");
+_("sampling points");
+_("extracting good points");
+_("Elapsed time : ")
+#endif
 
-// So that the translation is captured
-#define ELAPSED_TIME _("Elapsed time : ")
-
-bool ProgressReporterDialog::increaseProgress(double i)
+void ProgressReporterDialog::setMessage(const std::string& message, const std::string& filename)
 {
-    if (m_abort) return false;
-
-    m_progress += i;
-    // build the message:
-    int percentage = (int) floor(m_progress/m_maxProgress*100);
-    if (percentage > 100) percentage = 100;
-
-    std::cerr << m_message.c_str() << ": " << percentage << "%" << std::endl;
-
-    if (!Update(percentage, m_message)) {
-        return false;
-    }
-    return true;
+    setMessage(wxString(message.c_str(), wxConvLocal), wxString(filename.c_str(), wxConvLocal));
 }
 
-bool ProgressReporterDialog::increaseProgress(double i, const std::string & msg)
+void ProgressReporterDialog::setMessage(const wxString& message, const wxString& filename)
 {
-    if (m_abort) return false;
-
-    m_progress += i;
-    m_message = wxString(msg.c_str(), wxConvLocal);
-    // build the message:
-    int percentage = (int) floor(m_progress/m_maxProgress*100);
-    if (percentage > 100) percentage = 100;
-    std::cerr << msg << ": " << percentage << "%" << std::endl;
-    if (!Update(percentage, m_message)) {
-        return false;
-    }
-    return true;
+    m_wxmessage = message;
+    m_wxfilename = filename;
+    updateProgressDisplay();
 }
 
-// TODO entire ProgressReporter and ProgressDisplay API needs be updated to use wstring.
-// Temporarily implemented only for this function. from here -->
-bool ProgressReporterDialog::increaseProgress(double i, const std::wstring & msg)
+bool ProgressReporterDialog::updateDisplay(const wxString& message)
 {
-    if (m_abort) return false;
-    
-    m_progress += i;
-    m_message = wxString(msg.c_str());
-    // build the message:
-    int percentage = (int) floor(m_progress/m_maxProgress*100);
-    if (percentage > 100) percentage = 100;
-    std::cerr << m_message << ": " << percentage << "%" << std::endl;
-    if (!Update(percentage, m_message)) {
-        return false;
-    }
-    return true;
-}
-// <- to here
-
-void ProgressReporterDialog::setMessage(const std::string & msg)
-{
-    m_message = wxString(msg.c_str(), wxConvLocal);
-    int percentage = (int) floor(m_progress/m_maxProgress*100);
-    if (percentage > 100) percentage = 100;
-    std::cerr << m_message.c_str() << ": " << percentage << "%" << std::endl;
-    if (!Update(percentage, m_message)) {
-        m_abort = true;
-    }
+    setMessage(message);
+    return !m_canceled;
 }
 
-void MyProgressDialog::updateProgressDisplay()
+bool ProgressReporterDialog::updateDisplayValue(const wxString& message, const wxString& filename)
+{
+    m_wxmessage = message;
+    m_wxfilename = filename;
+    return ProgressDisplay::updateDisplayValue();
+}
+
+void ProgressReporterDialog::updateProgressDisplay()
 {
     wxString msg;
-    // build the message:
-    for (std::vector<AppBase::ProgressTask>::iterator it = tasks.begin();
-         it != tasks.end(); ++it)
+    if (!m_wxmessage.empty())
     {
-        wxString cMsg;
-        if (it->getProgress() > 0) {
-            cMsg.Printf(wxT("%s: %s [%3.0f%%]\n"),
-                        wxString(it->getShortMessage().c_str(), wxConvLocal).c_str(),
-                        wxString(it->getMessage().c_str(), wxConvLocal).c_str(),
-                        100 * it->getProgress());
-        } else {
-            cMsg.Printf(wxT("%s %s\n"),
-	                wxString(it->getShortMessage().c_str(), wxConvLocal).c_str(),
-                        wxString(it->getMessage().c_str(), wxConvLocal).c_str());
+        msg = wxGetTranslation(m_wxmessage);
+        if (!m_wxfilename.empty())
+        {
+            msg.Append(wxT(" "));
+            msg.Append(m_wxfilename);
+        };
+    };
+    if (ProgressDisplay::m_maximum == 0)
+    {
+        if (!wxProgressDialog::Pulse(msg))
+        {
+            m_canceled = true;
         }
-        // append to main message
-        msg.Append(cMsg);
     }
-    int percentage = 0;
-    if (tasks.size() > 0 && tasks.front().measureProgress) {
-        percentage = (int) (tasks.front().getProgress() * 100.0);
+    else
+    {
+        if (!wxProgressDialog::Update(m_progress * 100 / ProgressDisplay::m_maximum, msg))
+        {
+            m_canceled = true;
+        }
     }
-    if (!Update(percentage, msg)) {
-        abortOperation();
-    }
-
-    // finally redraw
-	Layout();
 }
-
-void OptProgressDialog::abortOperation()
-{
-#if PT_CUSTOM_OPT
-    PTools::stopOptimiser();
-#endif
-}
-
-

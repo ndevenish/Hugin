@@ -37,7 +37,7 @@
 #include <vigra/stdimage.hxx>
 #include <vigra/imageinfo.hxx>
 #include <hugin_utils/utils.h>
-#include <appbase/ProgressDisplayOld.h>
+#include <appbase/ProgressDisplay.h>
 
 #define HUGIN_IMGCACHE_MAPPING_INTEGER        0l
 #define HUGIN_IMGCACHE_MAPPING_FLOAT          1l
@@ -310,11 +310,11 @@ class IMPEX ImageCache
         
     public:
         ///
-        void setProgressDisplay(AppBase::MultiProgressDisplay* disp)
+        void setProgressDisplay(AppBase::ProgressDisplay* disp)
             { m_progress = disp; }
         
         ///
-        void clearProgressDisplay(AppBase::MultiProgressDisplay* disp)
+        void clearProgressDisplay(AppBase::ProgressDisplay* disp)
             { m_progress = NULL; }
         
         
@@ -322,7 +322,7 @@ class IMPEX ImageCache
         std::map<std::string, EntryPtr> images;
 
         // our progress display
-        AppBase::MultiProgressDisplay* m_progress;
+        AppBase::ProgressDisplay* m_progress;
 
         int m_accessCounter;
         

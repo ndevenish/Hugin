@@ -54,7 +54,7 @@ public:
                                         const PanoramaOptions & opts,
                                         unsigned int imgNr,
                                         vigra::Rect2D outputROI,
-                                        AppBase::MultiProgressDisplay & progress);
+                                        AppBase::ProgressDisplay* progress);
 
     
     virtual	void release(MRemappedImage* d)

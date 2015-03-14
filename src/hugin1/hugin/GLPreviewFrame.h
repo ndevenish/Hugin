@@ -184,7 +184,7 @@ private:
  *  it is not created with XRC, because it is highly dynamic, buttons
  *  have to be added etc.
  */
-class GLPreviewFrame : public wxFrame, public PT::PanoramaObserver, public AppBase::MultiProgressDisplay
+class GLPreviewFrame : public wxFrame, public PT::PanoramaObserver
 {
 public:
 
@@ -198,8 +198,6 @@ public:
 
     void panoramaChanged(PT::Panorama &pano);
     void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet &changed);
-    
-    void updateProgressDisplay();
     
     void MakePreviewTools(PreviewToolHelper * helper);
     void MakePanosphereOverviewTools(PanosphereOverviewToolHelper * helper);

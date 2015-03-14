@@ -405,7 +405,8 @@ void alignStereoWindow(Panorama& pano, bool pop_out)
 
 void autoCrop(Panorama& pano)
 {
-    CalculateOptimalROI cropPano(pano, true);
+    AppBase::DummyProgressDisplay dummy;
+    CalculateOptimalROI cropPano(pano, &dummy, true);
     cropPano.run();
 
     vigra::Rect2D roi=cropPano.getResultOptimalROI();
@@ -844,17 +845,17 @@ int main2(std::vector<std::string> files, Parameters param)
             pano.setOptions(opts);
 
             // remap all images
-            MultiProgressDisplay* progress;
+            ProgressDisplay* progress;
             if(g_verbose > 0)
             {
-                progress = new StreamMultiProgressDisplay(cout);
+                progress = new StreamProgressDisplay(cout);
             }
             else
             {
-                progress = new DummyMultiProgressDisplay();
+                progress = new DummyProgressDisplay();
             };
             stitchPanorama(pano, pano.getOptions(),
-                           *progress, opts.outfile, imgs);
+                           progress, opts.outfile, imgs);
             std::cout << "Written HDR output to " << opts.outfile << std::endl;
             delete progress;
         }
@@ -876,17 +877,17 @@ int main2(std::vector<std::string> files, Parameters param)
                 pano.setSrcImage(i, img);
             }
             // remap all images
-            MultiProgressDisplay* progress;
+            ProgressDisplay* progress;
             if(g_verbose > 0)
             {
-                progress = new StreamMultiProgressDisplay(cout);
+                progress = new StreamProgressDisplay(cout);
             }
             else
             {
-                progress = new DummyMultiProgressDisplay();
+                progress = new DummyProgressDisplay();
             };
             stitchPanorama(pano, pano.getOptions(),
-                           *progress, opts.outfile, imgs);
+                           progress, opts.outfile, imgs);
             delete progress;
             std::cout << "Written aligned images to files with prefix \"" << opts.outfile << "\"" << std::endl;
         }

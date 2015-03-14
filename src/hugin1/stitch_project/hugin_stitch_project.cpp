@@ -39,7 +39,6 @@
 #include "PT/utils.h"
 #include "base_wx/RunStitchPanel.h"
 #include "base_wx/huginConfig.h"
-#include "base_wx/MyProgressDialog.h"
 #include "base_wx/MyExternalCmdExecDialog.h"
 #include "base_wx/platform.h"
 #include "base_wx/wxPlatform.h"

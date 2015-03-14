@@ -22,8 +22,6 @@ algorithms/optimizer/PTOptimizer.cpp
 algorithms/point_sampler/PointSampler.cpp
 algorithms/control_points/CleanCP.cpp
 appbase/ProgressDisplay.cpp
-appbase/ProgressDisplayOld.cpp
-appbase/ProgressReporterOld.cpp
 huginapp/CachedImageRemapper.cpp
 huginapp/ImageCache.cpp
 hugin_math/eig_jacobi.cpp
@@ -85,8 +83,6 @@ algorithms/control_points/CleanCP.h
 appbase/Command.h
 appbase/DocumentData.h
 appbase/ProgressDisplay.h
-appbase/ProgressDisplayOld.h
-appbase/ProgressReporterOld.h
 huginapp/CachedImageRemapper.h
 huginapp/ImageCache.h
 hugin_math/eig_jacobi.h

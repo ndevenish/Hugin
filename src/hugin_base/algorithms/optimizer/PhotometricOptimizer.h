@@ -30,7 +30,7 @@
 
 #include <vector>
 #include <panodata/PanoramaData.h>
-#include <appbase/ProgressReporterOld.h>
+#include <appbase/ProgressDisplay.h>
 #include <vigra_ext/VignettingCorrection.h>
 
 namespace HuginBase
@@ -59,7 +59,7 @@ namespace HuginBase
             ///
             static void optimizePhotometric(PanoramaData& pano, const OptimizeVector& vars,
                                             const PointPairs& correspondences,
-                                            AppBase::ProgressReporter& progress,
+                                            AppBase::ProgressDisplay* progress,
                                             double& error);
         
         protected:
@@ -82,14 +82,14 @@ namespace HuginBase
                 bool symmetricError;
 
                 int m_maxIter;
-                AppBase::ProgressReporter& m_progress;
+                AppBase::ProgressDisplay* m_progress;
 
 
                 ///
                 OptimData(const PanoramaData& pano, const OptimizeVector& optvars,
                           const std::vector<vigra_ext::PointPairRGB>& data,
                           double mEstimatorSigma, bool symmetric,
-                          int maxIter, AppBase::ProgressReporter& progress);
+                          int maxIter, AppBase::ProgressDisplay* progress);
 
                 /// copy optimisation variables into x
                 void ToX(double * x);
@@ -159,7 +159,7 @@ namespace HuginBase
              */
             static void smartOptimizePhotometric(PanoramaData & pano, PhotometricOptimizeMode mode,
                                                  const std::vector<vigra_ext::PointPairRGB> & correspondences,
-                                                 AppBase::ProgressReporter & progress,
+                                                 AppBase::ProgressDisplay* progress,
                                                  double & error);
             
             ///

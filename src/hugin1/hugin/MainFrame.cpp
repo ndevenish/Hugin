@@ -269,8 +269,6 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     : cp_frame(0), pano(pano)
 {
     preview_frame = 0;
-    m_progressMax = 1;
-    m_progress = 0;
     svmModel=NULL;
 
     bool disableOpenGL=false;
@@ -593,7 +591,7 @@ MainFrame::~MainFrame()
     {
         delete m_menu_file_simple;
     };
-    ImageCache::getInstance().setProgressDisplay(0);
+    ImageCache::getInstance().setProgressDisplay(NULL);
 	delete & ImageCache::getInstance();
 	delete & GlobalCmdHist::getInstance();
 //    delete cpe;
@@ -1518,7 +1516,7 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
     const long sWidth = templWidth + cfg->Read(wxT("/Finetune/LocalSearchWidth"), HUGIN_FT_LOCAL_SEARCH_WIDTH);
 
     {
-    ProgressReporterDialog progress(unoptimized.size(),_("Fine-tuning all points"),_("Fine-tuning"),wxTheApp->GetTopWindow());
+    ProgressReporterDialog progress(unoptimized.size(), _("Fine-tuning all points"), _("Fine-tuning"), wxTheApp->GetTopWindow());
 
     ImageCache & imgCache = ImageCache::getInstance();
 
@@ -1532,7 +1530,10 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
 
         while (it != unoptimized.end()) {
             if (cps[*it].image1Nr == imgNr || cps[*it].image2Nr == imgNr) {
-                progress.increaseProgress(1);
+                if (!progress.updateDisplayValue())
+                {
+                    return;
+                };
                 if (cps[*it].mode == ControlPoint::X_Y) {
                     // finetune only normal points
                     DEBUG_DEBUG("fine tuning point: " << *it);
@@ -1726,38 +1727,19 @@ void MainFrame::ShowStitcherTab()
 void MainFrame::updateProgressDisplay()
 {
     wxString msg;
-    // build the message:
-    for (std::vector<AppBase::ProgressTask>::reverse_iterator it = tasks.rbegin();
-                 it != tasks.rend(); ++it)
+    if (!m_message.empty())
     {
-        wxString cMsg;
-        if (it->getProgress() > 0) {
-            cMsg.Printf(wxT("%s %s [%3.0f%%]"),
-                        wxString(it->getShortMessage().c_str(), wxConvLocal).c_str(),
-                        wxString(it->getMessage().c_str(), wxConvLocal).c_str(),
-                        100 * it->getProgress());
-        } else {
-            cMsg.Printf(wxT("%s %s"),wxString(it->getShortMessage().c_str(), wxConvLocal).c_str(),
-                        wxString(it->getMessage().c_str(), wxConvLocal).c_str());
-        }
-        // append to main message
-        if (it == tasks.rbegin()) {
-            msg = cMsg;
-        } else {
-            msg.Append(wxT(" | "));
-            msg.Append(cMsg);
-        }
-    }
-    wxStatusBar *m_statbar = GetStatusBar();
-    DEBUG_TRACE("Statusmb : " << msg.mb_str(wxConvLocal));
-    m_statbar->SetStatusText(msg,0);
+        msg = wxGetTranslation(wxString(m_message.c_str(), wxConvLocal));
+        if (!m_filename.empty())
+        {
+            msg.Append(wxT(" "));
+            msg.Append(wxString(m_filename.c_str(), HUGIN_CONV_FILENAME));
+        };
+    };
+    GetStatusBar()->SetStatusText(msg, 0);
 
 #ifdef __WXMSW__
     UpdateWindow(NULL);
-#else
-    // This is a bad call.. we just want to repaint the window, instead we will
-    // process user events as well :( Unfortunately, there is not portable workaround...
-    //wxYield();
 #endif
 }
 
@@ -1814,56 +1796,6 @@ MainFrame * MainFrame::Get()
         DEBUG_ASSERT(m_this);
         return 0;
     }
-}
-
-void MainFrame::resetProgress(double max)
-{
-    m_progressMax = max;
-    m_progress = 0;
-    m_progressMsg = wxT("");
-}
-
-bool MainFrame::increaseProgress(double delta)
-{
-    m_progress += delta;
-
-    // build the message:
-    int percentage = (int) floor(m_progress/m_progressMax*100);
-    if (percentage > 100) percentage = 100;
-
-    return displayProgress();
-}
-
-bool MainFrame::increaseProgress(double delta, const std::string & msg)
-{
-    m_progress += delta;
-    m_progressMsg = wxString(msg.c_str(), wxConvLocal);
-
-    return displayProgress();
-}
-
-
-void MainFrame::setMessage(const std::string & msg)
-{
-    m_progressMsg = wxString(msg.c_str(), wxConvLocal);
-}
-
-bool MainFrame::displayProgress()
-{
-    // build the message:
-    int percentage = (int) floor(m_progress/m_progressMax*100);
-    if (percentage > 100) percentage = 100;
-
-    wxStatusBar *statbar = GetStatusBar();
-    statbar->SetStatusText(wxString::Format(wxT("%s: %d%%"),m_progressMsg.c_str(), percentage),0);
-#ifdef __WXMSW__
-    UpdateWindow(NULL);
-#else
-    // This is a bad call.. we just want to repaint the window, instead we will
-    // process user events as well :( Unfortunately, there is not portable workaround...
-    //wxYield();
-#endif
-    return true;
 }
 
 wxString MainFrame::getProjectName()

@@ -291,10 +291,6 @@ void ImageCache::softFlush()
                 break;
             }
         }
-//        m_progress->progressMessage(
-//            wxString::Format(_("Purged %d MB from image cache. Current cache usage: %d MB"),
-//                             purgedMem>>20, (usedMem - purgedMem)>>20
-//                ).c_str(),0);
         DEBUG_DEBUG("purged: " << (purgedMem>>20) << " MB, memory used for images: " << ((usedMem - purgedMem)>>20) << " MB");
 
     }
@@ -522,13 +518,13 @@ ImageCache::EntryPtr ImageCache::getImage(const std::string & filename)
         return it->second;
     } else {
         if (m_progress) {
-            m_progress->pushTask(AppBase::ProgressTask("Loading image: "+hugin_utils::stripPath(filename), "", 0));
+            m_progress->setMessage("Loading image:", hugin_utils::stripPath(filename));
         }
         
         EntryPtr e = loadImageSafely(filename);
         
         if (m_progress) {
-            m_progress->popTask();
+            m_progress->taskFinished();
         }
         
         if (!e.get())
@@ -739,7 +735,7 @@ ImageCache::EntryPtr ImageCache::getSmallImage(const std::string & filename)
     } else {
         if (m_progress)
         {
-            m_progress->pushTask(AppBase::ProgressTask("Scaling image: "+hugin_utils::stripPath(filename), "", 0));
+            m_progress->setMessage("Scaling image:", hugin_utils::stripPath(filename));
         }
         DEBUG_DEBUG("creating small image " << name );
         EntryPtr entry = getImage(filename);
@@ -749,7 +745,7 @@ ImageCache::EntryPtr ImageCache::getSmallImage(const std::string & filename)
         images[name] = small_entry;
         DEBUG_INFO ( "created small image: " << name);
         if (m_progress) {
-            m_progress->popTask();
+            m_progress->taskFinished();
         }
         return small_entry;
     }

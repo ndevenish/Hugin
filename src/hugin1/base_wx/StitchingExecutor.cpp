@@ -392,7 +392,7 @@ namespace HuginQueue
         // prepare some often needed variables
         const wxString quotedProject(wxEscapeFilename(project));
         // prepare nona arguments
-        wxString nonaArgs;
+        wxString nonaArgs(wxT("-v "));
         wxString enLayersCompressionArgs;
         if (!opts.outputLayersCompression.empty())
         {
@@ -505,7 +505,7 @@ namespace HuginQueue
             const wxString finalFilename(prefix + wxT(".") + WXSTRING(opts.outputImageType));
             if (opts.blendMode == HuginBase::PanoramaOptions::INTERNAL_BLEND && opts.outputLDRBlended)
             {
-                wxString finalNonaArgs(wxT("-r ldr "));
+                wxString finalNonaArgs(wxT("-v -r ldr "));
                 if (opts.remapUsingGPU)
                 {
                     finalNonaArgs.Append(wxT("-g "));

@@ -297,9 +297,9 @@ HuginBase::CPVector _getVerticalLines(const HuginBase::Panorama& pano,const unsi
 
         //finally remap image
         HuginBase::Nona::RemappedPanoImage<ImageType,vigra::BImage>* remapped=new HuginBase::Nona::RemappedPanoImage<ImageType,vigra::BImage>;
-        AppBase::MultiProgressDisplay* progress=new AppBase::DummyMultiProgressDisplay();
+        AppBase::ProgressDisplay* progress=new AppBase::DummyProgressDisplay();
         remapped->setPanoImage(remappedImage,opts,opts.getROI());
-        remapped->remapImage(vigra::srcImageRange(image),vigra_ext::INTERP_CUBIC,*progress);
+        remapped->remapImage(vigra::srcImageRange(image),vigra_ext::INTERP_CUBIC, progress);
         ImageType remappedBitmap=remapped->m_image;
         //detect edges
         edge=detectEdges(remappedBitmap,2,4,std::max(remappedBitmap.width(),remappedBitmap.height())+10,size_factor);

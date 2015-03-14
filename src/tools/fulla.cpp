@@ -36,7 +36,7 @@
 #include <unistd.h>
 #endif
 
-#include <appbase/ProgressDisplayOld.h>
+#include <appbase/ProgressDisplay.h>
 #include <nona/SpaceTransform.h>
 #include <photometric/ResponseTransform.h>
 
@@ -63,11 +63,11 @@ void correctImage(SrcImgType& srcImg,
                   DestImgType& destImg,
                   AlphaImgType& destAlpha,
                   bool doCrop,
-                  AppBase::MultiProgressDisplay* progress);
+                  AppBase::ProgressDisplay* progress);
 
 template <class PIXELTYPE>
 void correctRGB(SrcPanoImage& src, ImageImportInfo& info, const char* outfile,
-                bool crop, const std::string& compression, AppBase::MultiProgressDisplay* progress);
+                bool crop, const std::string& compression, AppBase::ProgressDisplay* progress);
 
 static void usage(const char* name)
 {
@@ -399,14 +399,14 @@ int main(int argc, char* argv[])
     // suppress tiff warnings
     TIFFSetWarningHandler(0);
 
-    AppBase::MultiProgressDisplay* pdisp;
+    AppBase::ProgressDisplay* pdisp;
     if (verbose > 0)
     {
-        pdisp = new AppBase::StreamMultiProgressDisplay(cout);
+        pdisp = new AppBase::StreamProgressDisplay(cout);
     }
     else
     {
-        pdisp = new AppBase::DummyMultiProgressDisplay();
+        pdisp = new AppBase::DummyProgressDisplay();
     };
 
     HuginBase::LensDB::LensDB& lensDB = HuginBase::LensDB::LensDB::GetSingleton();
@@ -605,13 +605,13 @@ void correctImage(SrcImgType& srcImg,
                   DestImgType& destImg,
                   AlphaImgType& destAlpha,
                   bool doCrop,
-                  AppBase::MultiProgressDisplay* progress)
+                  AppBase::ProgressDisplay* progress)
 {
     typedef typename SrcImgType::value_type SrcPixelType;
     typedef typename DestImgType::value_type DestPixelType;
 
     // prepare some information required by multiple types of vignetting correction
-    progress->pushTask(AppBase::ProgressTask("correcting image", ""));
+    progress->setMessage("correcting image");
 
     vigra::Diff2D shiftXY(- roundi(src.getRadialDistortionCenterShift().x),
                           - roundi(src.getRadialDistortionCenterShift().y));
@@ -641,7 +641,7 @@ void correctImage(SrcImgType& srcImg,
         NullTransform transform;
         // dummy alpha channel
         BImage alpha(destImg.size());
-        vigra_ext::transformImage(srcImageRange(srcImg), destImageRange(srcImg), destImage(alpha), vigra::Diff2D(0, 0), transform, invResp, false, vigra_ext::INTERP_SPLINE_16, *progress);
+        vigra_ext::transformImage(srcImageRange(srcImg), destImageRange(srcImg), destImage(alpha), vigra::Diff2D(0, 0), transform, invResp, false, vigra_ext::INTERP_SPLINE_16, progress);
     }
 
     double scaleFactor=1.0;
@@ -691,7 +691,7 @@ void correctImage(SrcImgType& srcImg,
                                       ptf,
                                       false,
                                       vigra_ext::INTERP_SPLINE_16,
-                                      *progress);
+                                      progress);
         }
 
         Nona::SpaceTransform transfg;
@@ -714,7 +714,7 @@ void correctImage(SrcImgType& srcImg,
                            ptf,
                            false,
                            vigra_ext::INTERP_SPLINE_16,
-                           *progress);
+                           progress);
         }
 
         Nona::SpaceTransform transfb;
@@ -738,7 +738,7 @@ void correctImage(SrcImgType& srcImg,
                            ptf,
                            false,
                            vigra_ext::INTERP_SPLINE_16,
-                           *progress);
+                           progress);
         }
         vigra::combineThreeImages(srcImageRange(redAlpha), srcImage(greenAlpha), srcImage(blueAlpha), destImage(destAlpha),
             vigra::functor::Arg1() & vigra::functor::Arg2() & vigra::functor::Arg3());
@@ -767,7 +767,7 @@ void correctImage(SrcImgType& srcImg,
                            ptfRGB,
                            false,
                            vigra_ext::INTERP_SPLINE_16,
-                           *progress);
+                           progress);
         }
     }
 }
@@ -776,7 +776,7 @@ void correctImage(SrcImgType& srcImg,
 //void correctRGB(SrcImageInfo & src, ImageImportInfo & info, const char * outfile)
 template <class PIXELTYPE>
 void correctRGB(SrcPanoImage& src, ImageImportInfo& info, const char* outfile,
-                bool crop, const std::string& compression, AppBase::MultiProgressDisplay* progress)
+                bool crop, const std::string& compression, AppBase::ProgressDisplay* progress)
 {
     vigra::BasicImage<RGBValue<double> > srcImg(info.size());
     vigra::BasicImage<PIXELTYPE> output(info.size());

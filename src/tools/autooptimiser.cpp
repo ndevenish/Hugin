@@ -37,7 +37,7 @@
 
 #include <hugin_basic.h>
 #include <hugin_utils/stl_utils.h>
-#include <appbase/ProgressDisplayOld.h>
+#include <appbase/ProgressDisplay.h>
 #include <algorithms/optimizer/PTOptimizer.h>
 #include <algorithms/nona/CenterHorizontally.h>
 #include <algorithms/basic/StraightenPanorama.h>
@@ -363,7 +363,7 @@ int main(int argc, char* argv[])
             return 1;
         }
 
-        progressDisplay->startSubtask("Photometric Optimization", 0.0);
+        progressDisplay->setMessage("Photometric Optimization");
         // first, ensure that vignetting and response coefficients are linked
         const HuginBase::ImageVariableGroup::ImageVariableEnum vars[] =
         {
@@ -408,7 +408,7 @@ int main(int argc, char* argv[])
         // calculate the mean exposure.
         opts.outputExposureValue = CalculateMeanExposure::calcMeanExposure(pano);
         pano.setOptions(opts);
-        progressDisplay->finishSubtask();
+        progressDisplay->taskFinished();
         delete progressDisplay;
     };
 

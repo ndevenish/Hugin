@@ -1021,12 +1021,12 @@ CorrelationResult PointFineTuneProjectionAware(const SrcPanoImage& templ, const 
     transform.transformImgCoord(searchX, searchY, searchPos.x, searchPos.y);
     // now transform the images
     vigra_ext::PassThroughFunctor<vigra::UInt8> ptf;
-    AppBase::DummyMultiProgressDisplay dummy;
+    AppBase::DummyProgressDisplay dummy;
     transform.createTransform(searchMod, opts);
     vigra::UInt8RGBImage searchImgMod(opts.getSize());
     vigra::BImage alpha(opts.getSize());
     vigra_ext::transformImage(srcImageRange(searchImg), destImageRange(searchImgMod), destImage(alpha),
-        vigra::Diff2D(0, 0), transform, ptf, false, vigra_ext::INTERP_CUBIC, dummy);
+        vigra::Diff2D(0, 0), transform, ptf, false, vigra_ext::INTERP_CUBIC, &dummy);
     // now remap template, we need to remap a little bigger area to have enough information when the template
     // is rotated in PointFineTuneRotSearch
     Diff2D templPointInt(hugin_utils::roundi(templX), hugin_utils::roundi(templY));
@@ -1036,7 +1036,7 @@ CorrelationResult PointFineTuneProjectionAware(const SrcPanoImage& templ, const 
     transform.createTransform(templMod, opts);
     vigra::UInt8RGBImage templImgMod(opts.getSize());
     vigra_ext::transformImage(srcImageRange(templImg), destImageRange(templImgMod, rect), destImage(alpha),
-        vigra::Diff2D(rect.left(), rect.top()), transform, ptf, false, vigra_ext::INTERP_CUBIC, dummy);
+        vigra::Diff2D(rect.left(), rect.top()), transform, ptf, false, vigra_ext::INTERP_CUBIC, &dummy);
 #if defined DEBUG_EXPORT_FINE_TUNE_REMAPPING
     {
         vigra::ImageExportInfo templExport("template_remapped.tif");
@@ -1889,14 +1889,12 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
     }
     else
     {
-        ProgressReporterDialog progress(4, _("Running Celeste"), _("Running Celeste"),this);
-        MainFrame::Get()->SetStatusText(_("searching for cloud-like control points..."),0);
-        progress.increaseProgress(1.0, std::wstring(wxString(_("Loading model file")).wc_str(wxConvLocal)));
+        ProgressReporterDialog progress(4, _("Running Celeste"), _("Running Celeste"), this);
+        progress.updateDisplayValue(_("Loading model file"));
 
         struct celeste::svm_model* model=MainFrame::Get()->GetSVMModel();
         if(model==NULL)
         {
-            MainFrame::Get()->SetStatusText(wxT(""),0);
             return;
         };
 
@@ -1911,7 +1909,10 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
         int radius=(t)?10:20;
         DEBUG_TRACE("Running Celeste");
 
-        progress.increaseProgress(1.0, std::wstring(wxString(_("Running Celeste")).wc_str(wxConvLocal)));
+        if (!progress.updateDisplayValue(_("Running Celeste")))
+        {
+            return;
+        }
         // Image to analyse
         ImageCache::EntryPtr img=ImageCache::getInstance().getImage(m_pano->getImage(m_leftImageNr).getFilename());
         vigra::UInt16RGBImage in;
@@ -1926,9 +1927,16 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
             in.resize(im8->size());
             vigra::transformImage(srcImageRange(*im8),destImage(in),vigra::functor::Arg1()*vigra::functor::Param(65535/255));
         };
+        if (!progress.updateDisplayValue())
+        {
+            return;
+        };
         UIntSet cloudCP=celeste::getCelesteControlPoints(model,in,currentPoints,radius,threshold,800);
         in.resize(0,0);
-        progress.increaseProgress(1.0, std::wstring(wxString(_("Running Celeste")).wc_str(wxConvLocal)));
+        if (!progress.updateDisplay())
+        {
+            return;
+        }
 
         if(cloudCP.size()>0)
         {
@@ -1937,10 +1945,9 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
                 );
         };
 
-        progress.increaseProgress(1.0, std::wstring(wxString(_("Running Celeste")).wc_str(wxConvLocal)));
+        progress.updateDisplayValue();
         wxMessageBox(wxString::Format(_("Removed %d control points"), cloudCP.size()), _("Celeste result"),wxOK|wxICON_INFORMATION,this);
         DEBUG_TRACE("Finished running Celeste");
-        MainFrame::Get()->SetStatusText(wxT(""),0);
     }
 }
 
