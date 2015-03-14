@@ -24,7 +24,3 @@ IF(wxWidgets_FOUND)
   add_subdirectory(calibrate_lens)
 ENDIF(wxWidgets_FOUND)
 
-IF(VIPS_FOUND)
-#  add_subdirectory(tools_vips)
-ENDIF(VIPS_FOUND)
-
