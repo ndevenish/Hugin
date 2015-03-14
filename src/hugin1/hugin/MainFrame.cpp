@@ -1733,7 +1733,7 @@ void MainFrame::updateProgressDisplay()
         if (!m_filename.empty())
         {
             msg.Append(wxT(" "));
-            msg.Append(wxString(m_filename.c_str(), HUGIN_CONV_FILENAME));
+            msg.Append(wxString(ProgressDisplay::m_filename.c_str(), HUGIN_CONV_FILENAME));
         };
     };
     GetStatusBar()->SetStatusText(msg, 0);
