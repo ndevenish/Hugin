@@ -85,7 +85,7 @@ namespace vigra_ext
         template <class ImageType>
         ImageType ResizeImage(const ImageType& image, const vigra::Size2D& newSize)
         {
-            ImageType newImage(std::max(image.width(), newSize.width()), std::max(image.height(), newSize.height()));
+            ImageType newImage(std::max(image.size().width(), newSize.width()), std::max(image.size().height(), newSize.height()));
             vigra::omp::copyImage(vigra::srcImageRange(image), vigra::destImage(newImage));
             return newImage;
         };
