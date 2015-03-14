@@ -37,6 +37,7 @@
 #include "base_wx/wxLensDB.h"
 #include "hugin/ResetDialog.h"
 #include "hugin/MainFrame.h"
+#include <vigra_ext/openmp_vigra.h>
 
 using namespace HuginBase;
 
@@ -753,13 +754,13 @@ PT::PanoCommand* CelesteOperation::GetInternalCommand(wxWindow* parent, PT::Pano
         if(img->image16->width()>0)
         {
             in.resize(img->image16->size());
-            vigra::copyImage(srcImageRange(*(img->image16)),destImage(in));
+            vigra::omp::copyImage(srcImageRange(*(img->image16)),destImage(in));
         }
         else
         {
             ImageCache::ImageCacheRGB8Ptr im8=img->get8BitImage();
             in.resize(im8->size());
-            vigra::transformImage(srcImageRange(*im8),destImage(in),vigra::functor::Arg1()*vigra::functor::Param(65535/255));
+            vigra::omp::transformImage(srcImageRange(*im8),destImage(in),vigra::functor::Arg1()*vigra::functor::Param(65535/255));
         };
         if (!progress.updateDisplay(_("Running Celeste")))
         {

@@ -34,6 +34,7 @@
 #include <PT/PTOptimise.h>
 
 #include <vigra_ext/Pyramid.h>
+#include <vigra_ext/openmp_vigra.h>
 #include "hugin/OptimizePhotometricPanel.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/MainFrame.h"
@@ -281,7 +282,7 @@ void OptimizePhotometricPanel::runOptimizer(const UIntSet & imgs)
             if (e->image8 && e->image8->width() > 0)
             {
                 reduceToNextLevel(*(e->image8), *img);
-                transformImage(vigra::srcImageRange(*img), vigra::destImage(*img),
+                vigra::omp::transformImage(vigra::srcImageRange(*img), vigra::destImage(*img),
                                 vigra::functor::Arg1()/vigra::functor::Param(255.0));
             }
             else
@@ -289,7 +290,7 @@ void OptimizePhotometricPanel::runOptimizer(const UIntSet & imgs)
                 if (e->image16 && e->image16->width() > 0)
                 {
                     reduceToNextLevel(*(e->image16), *img);
-                    transformImage(vigra::srcImageRange(*img), vigra::destImage(*img),
+                    vigra::omp::transformImage(vigra::srcImageRange(*img), vigra::destImage(*img),
                                    vigra::functor::Arg1()/vigra::functor::Param(65535.0));
                 }
                 else
