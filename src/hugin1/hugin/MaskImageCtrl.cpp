@@ -1049,9 +1049,12 @@ void MaskImageCtrl::DrawPolygon(wxDC &dc, HuginBase::MaskPolygon poly, bool isSe
         switch(poly.getMaskType())
         {
             case HuginBase::MaskPolygon::Mask_negative:
+            case HuginBase::MaskPolygon::Mask_Stack_negative:
+            case HuginBase::MaskPolygon::Mask_negative_lens:
                 dc.SetPen(wxPen(m_colour_polygon_negative, 1, wxPENSTYLE_SOLID));
                 break;
             case HuginBase::MaskPolygon::Mask_positive:
+            case HuginBase::MaskPolygon::Mask_Stack_positive:
                 dc.SetPen(wxPen(m_colour_polygon_positive, 1, wxPENSTYLE_SOLID));
                  break;
         };
