@@ -34,7 +34,7 @@
 #include <utility>
 #include <string>
 
-#include <PT/Panorama.h>
+#include <panodata/Panorama.h>
 
 #include "MyExternalCmdExecDialog.h"
 

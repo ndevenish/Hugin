@@ -24,7 +24,7 @@
 #ifndef _OPTIMIZE_PANEL_H
 #define _OPTIMIZE_PANEL_H
 
-#include <PT/Panorama.h>
+#include <panodata/Panorama.h>
 #include <wx/xrc/xmlres.h>
 #include "GuiLevel.h"
 
@@ -35,7 +35,7 @@ class wxCheckBox;
  *
  *  it will emit an event that
  */
-class OptimizePanel : public wxPanel, public PT::PanoramaObserver
+class OptimizePanel : public wxPanel, public HuginBase::PanoramaObserver
 {
 
 
@@ -47,12 +47,12 @@ public:
 
     virtual ~OptimizePanel();
 
-    void Init(PT::Panorama * pano);
+    void Init(HuginBase::Panorama * pano);
 
     /** receives notification about panorama changes */
-    virtual void panoramaChanged(PT::Panorama & pano);
+    virtual void panoramaChanged(HuginBase::Panorama & pano);
     /** receives notification about panorama changes */
-    virtual void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
+    virtual void panoramaImagesChanged(HuginBase::Panorama &pano, const HuginBase::UIntSet & imgNr);
 
     /** run the optimizer */
     void OnOptimizeButton(wxCommandEvent & e);
@@ -63,9 +63,9 @@ protected:
     void OnClose(wxCloseEvent& e);
     void OnReset(wxCommandEvent& e);
 
-    void runOptimizer(const PT::UIntSet & img);
+    void runOptimizer(const HuginBase::UIntSet & img);
 
-    bool AskApplyResult(wxWindow* activeWindow, const PT::Panorama & pano);
+    bool AskApplyResult(wxWindow* activeWindow, const HuginBase::Panorama & pano);
 
     ImagesTreeCtrl* m_images_tree_list;
     ImagesTreeCtrl* m_lens_tree_list;
@@ -73,7 +73,7 @@ protected:
     wxCheckBox * m_only_active_images_cb;
     wxCheckBox * m_edit_cb;
 
-    PT::Panorama * m_pano;
+    HuginBase::Panorama * m_pano;
 private:
 
     DECLARE_EVENT_TABLE()

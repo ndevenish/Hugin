@@ -25,9 +25,9 @@
 #include "panoinc.h"
 
 #include "DragTool.h"
-#include "CommandHistory.h"
-#include "PT/PanoCommand.h"
-#include "PT/ImageGraph.h"
+#include "base_wx/CommandHistory.h"
+#include "base_wx/PanoCommand.h"
+#include "algorithms/optimizer/ImageGraph.h"
 
 #include <math.h>
 #include <wx/platform.h>
@@ -269,10 +269,10 @@ void DragTool::MouseButtonEvent(wxMouseEvent &e)
                 } else {
 
 
-                    PT::CPGraph graph;
-                    PT::createCPGraph(*helper->GetPanoramaPtr(), graph);
-                    PT::CPComponents components;
-                    unsigned int n = PT::findCPComponents(graph, components);
+                    HuginBase::CPGraph graph;
+                    HuginBase::createCPGraph(*helper->GetPanoramaPtr(), graph);
+                    HuginBase::CPComponents components;
+                    unsigned int n = HuginBase::findCPComponents(graph, components);
                     // If there is only component, we can drag everything. Otherwise the
                     // component we want is the lowest numbered image under the mouse.
                     if (n == 1)
@@ -348,8 +348,8 @@ void DragTool::MouseButtonEvent(wxMouseEvent &e)
 	        src_images[count].setRoll(nroll);
 	        count++;
         }
-        GlobalCmdHist::getInstance().addCommand(
-            new PT::UpdateSrcImagesCmd(*helper->GetPanoramaPtr(),
+        PanoCommand::GlobalCmdHist::getInstance().addCommand(
+            new PanoCommand::UpdateSrcImagesCmd(*helper->GetPanoramaPtr(),
                                             draging_images,
                                             src_images)
             );

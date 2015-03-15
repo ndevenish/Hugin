@@ -95,8 +95,8 @@ PanoramaOptions Project::ReadOptions(wxString projectFile)
     wxFileName::SplitPath(projectFile, &pathToPTO, NULL, NULL);
     pathToPTO.Append(wxT("/"));
 
-    PT::Panorama pano;
-    PT::PanoramaMemento newPano;
+    HuginBase::Panorama pano;
+    HuginBase::PanoramaMemento newPano;
     int ptoVersion = 0;
     if (newPano.loadPTScript(prjfile, ptoVersion, (const char*)pathToPTO.mb_str(HUGIN_CONV_FILENAME)))
     {

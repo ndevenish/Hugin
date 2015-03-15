@@ -26,19 +26,19 @@
 #define _IMAGESTREE_H
 
 #include <map>
-#include "PT/Panorama.h"
+#include "panodata/Panorama.h"
 #include <panodata/StandardImageVariableGroups.h>
 #include "treelistctrl.h"
 #include "GuiLevel.h"
 #include "hugin/PanoOperation.h"
 
-using namespace PT;
+using namespace HuginBase;
 
 /** the main images tree control, used on images and optimizer tabs */
 #if wxCHECK_VERSION(2,9,0)
-class ImagesTreeCtrl: public wxcode::wxTreeListCtrl, public PT::PanoramaObserver
+class ImagesTreeCtrl: public wxcode::wxTreeListCtrl, public HuginBase::PanoramaObserver
 #else
-class ImagesTreeCtrl: public wxTreeListCtrl, public PT::PanoramaObserver
+class ImagesTreeCtrl: public wxTreeListCtrl, public HuginBase::PanoramaObserver
 #endif
 {
 public:
@@ -69,7 +69,7 @@ public:
     bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL, const wxString& name = wxT("panel"));
 
     /** initialization, connects all control with Panorama, register observer */
-    void Init(PT::Panorama * pano);
+    void Init(HuginBase::Panorama * pano);
    
     /** destructor */
     virtual ~ImagesTreeCtrl(void) ;
@@ -87,10 +87,10 @@ public:
      *  also activates the context menu for optimizer */
     void SetOptimizerMode();
     /** receives notification about panorama changes */
-    virtual void panoramaChanged(PT::Panorama & pano);
+    virtual void panoramaChanged(HuginBase::Panorama & pano);
     /** receive the update signal and update display accordingly
      */
-    void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
+    void panoramaImagesChanged(HuginBase::Panorama &pano, const HuginBase::UIntSet & imgNr);
     /** returns the selected images
      *
      *  if a lens or stack is selected it returns all images of the selected lens/stack */

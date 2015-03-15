@@ -40,7 +40,7 @@ struct CPListItem
  *
  *  useful to jump to a specific point, or see which point are bad
  */
-class CPListCtrl : public wxListView, public PT::PanoramaObserver
+class CPListCtrl : public wxListView, public HuginBase::PanoramaObserver
 {
 public:
     CPListCtrl();
@@ -53,8 +53,9 @@ public:
         const wxValidator& validator = wxDefaultValidator,
         const wxString& name = wxListCtrlNameStr);
 
-    void Init(PT::Panorama* pano);
-    void panoramaChanged(PT::Panorama &pano);
+    void Init(HuginBase::Panorama* pano);
+    virtual void panoramaChanged(HuginBase::Panorama &pano);
+    virtual void panoramaImagesChanged(HuginBase::Panorama &pano, const HuginBase::UIntSet& changed) {};
     /** Delete the selected points */
     void DeleteSelected();
     /** select all cp with the given error bigger than the threshold */
@@ -76,7 +77,7 @@ private:
     void UpdateInternalCPList();
     void SortInternalList(bool isAscending);
 
-    PT::Panorama* m_pano;
+    HuginBase::Panorama* m_pano;
     // current sorting column
     int m_sortCol;
     bool m_sortAscend;
@@ -106,7 +107,7 @@ class CPListFrame : public wxFrame
 public:
     /** ctor.
      */
-    CPListFrame(wxFrame* parent, PT::Panorama & pano);
+    CPListFrame(wxFrame* parent, HuginBase::Panorama & pano);
 	
     /** dtor.
      */
@@ -118,7 +119,7 @@ protected:
     void OnClose(wxCloseEvent& event);
 private:
     CPListCtrl* m_list;
-    PT::Panorama& m_pano;
+    HuginBase::Panorama& m_pano;
     // needed for receiving events.
     DECLARE_EVENT_TABLE();
 };

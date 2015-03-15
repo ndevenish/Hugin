@@ -30,6 +30,7 @@
 #include <hugin_shared.h>
 #include "panoinc_WX.h"
 #include "panoinc.h"
+#include "base_wx/Command.h"
 
 /** Fills a wxControlWithItem with all input projection formats, 
   * the client data contains the associated projection number */
@@ -51,16 +52,16 @@ WXIMPEX wxString getResponseString(const HuginBase::SrcPanoImage& img);
 /** save the lens parameters of the image to a lens file named filename */
 WXIMPEX void SaveLensParameters(const wxString filename, HuginBase::Panorama* pano, unsigned int imgNr);
 /** saves the lens parameters to ini files, provides all necessary dialogs */
-WXIMPEX void SaveLensParametersToIni(wxWindow * parent, PT::Panorama *pano, const HuginBase::UIntSet images);
+WXIMPEX void SaveLensParametersToIni(wxWindow * parent, HuginBase::Panorama *pano, const HuginBase::UIntSet images);
 
 /** applies lens parameter from user selected file to pano using GlobalCmdHist
   *  @param parent parent window for showing message boxes
   *  @param pano Panorama in which the lens data should read 
   *  @param images images for which the lens parameters should be set, check image sizes before running this function
-  *  @param command pointer to PT::PanoCommand for insertion into command history
+  *  @param command pointer to PanoCommand::PanoCommand for insertion into command history
   *  @returns true if sucessful loaded lens parameters
   */
-WXIMPEX bool ApplyLensParameters(wxWindow * parent, PT::Panorama *pano, HuginBase::UIntSet images,PT::PanoCommand*& command);
+WXIMPEX bool ApplyLensParameters(wxWindow * parent, HuginBase::Panorama *pano, HuginBase::UIntSet images,PanoCommand::PanoCommand*& command);
 /** load lens parameters from lens ini file 
   *  @param parent parent window, for showing messageboxes
   *  @param lens lens, for reading projection and lensparameters

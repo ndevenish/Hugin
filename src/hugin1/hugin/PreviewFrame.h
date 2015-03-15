@@ -37,20 +37,20 @@ class wxCheckBox;
  *  it is not created with XRC, because it is highly dynamic, buttons
  *  have to be added etc.
  */
-class PreviewFrame : public wxFrame, public PT::PanoramaObserver, public AppBase::ProgressDisplay
+class PreviewFrame : public wxFrame, public HuginBase::PanoramaObserver, public AppBase::ProgressDisplay
 {
 public:
 
     /** ctor.
      */
-    PreviewFrame(wxFrame * frame, PT::Panorama &pano);
+    PreviewFrame(wxFrame * frame, HuginBase::Panorama &pano);
 
     /** dtor.
      */
     virtual ~PreviewFrame();
 
-    void panoramaChanged(PT::Panorama &pano);
-    void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet &changed);
+    void panoramaChanged(HuginBase::Panorama &pano);
+    void panoramaImagesChanged(HuginBase::Panorama &pano, const HuginBase::UIntSet &changed);
     void OnUpdate(wxCommandEvent& event);
     
     void updateProgressDisplay();
@@ -88,7 +88,7 @@ protected:
     void updatePano();
 private:
 
-    PT::Panorama & m_pano;
+    HuginBase::Panorama & m_pano;
 
     PreviewPanel * m_PreviewPanel;
     wxToolBar * m_ToolBar;

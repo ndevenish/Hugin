@@ -30,6 +30,9 @@
 #include "platform.h"
 #include "base_wx/wxPlatform.h"
 #include "panodata/ImageVariableTranslate.h"
+#include "panodata/ImageVariableGroup.h"
+#include "base_wx/PanoCommand.h"
+#include <set>
 
 using namespace std;
 
@@ -271,7 +274,7 @@ void LoadLensDBDialog::OnCheckChanged(wxCommandEvent & e)
     XRCCTRL(*this,"wxID_OK",wxButton)->Enable(sel!=wxNOT_FOUND && (m_loadDistortion->GetValue() || m_loadVignetting->GetValue()));
 };
 
-bool ApplyLensDBParameters(wxWindow * parent, PT::Panorama *pano, HuginBase::UIntSet images, PT::PanoCommand*& cmd)
+bool ApplyLensDBParameters(wxWindow * parent, HuginBase::Panorama *pano, HuginBase::UIntSet images, PanoCommand::PanoCommand*& cmd)
 {
     LoadLensDBDialog dlg(parent);
     const HuginBase::SrcPanoImage & img=pano->getImage(*images.begin());
@@ -284,17 +287,17 @@ bool ApplyLensDBParameters(wxWindow * parent, PT::Panorama *pano, HuginBase::UIn
         HuginBase::LensDB::LensDB & lensDB=HuginBase::LensDB::LensDB::GetSingleton();
         const double focal=dlg.GetFocalLength();
         const std::string lensname = dlg.GetLensName();
-        std::vector<PT::PanoCommand*> cmds;
+        std::vector<PanoCommand::PanoCommand*> cmds;
         HuginBase::BaseSrcPanoImage::Projection proj;
         if(lensDB.GetProjection(lensname, proj))
         {
-            cmds.push_back(new PT::ChangeImageProjectionCmd(*pano,images,proj));
+            cmds.push_back(new PanoCommand::ChangeImageProjectionCmd(*pano,images,proj));
         };
         vigra::Rect2D cropRect;
         if(lensDB.GetCrop(lensname, focal, img.getSize(), cropRect))
         {
-            cmds.push_back(new PT::ChangeImageCropModeCmd(*pano, images, img.isCircularCrop() ? HuginBase::BaseSrcPanoImage::CROP_CIRCLE : HuginBase::BaseSrcPanoImage::CROP_RECTANGLE));
-            cmds.push_back(new PT::ChangeImageCropRectCmd(*pano, images, cropRect));
+            cmds.push_back(new PanoCommand::ChangeImageCropModeCmd(*pano, images, img.isCircularCrop() ? HuginBase::BaseSrcPanoImage::CROP_CIRCLE : HuginBase::BaseSrcPanoImage::CROP_RECTANGLE));
+            cmds.push_back(new PanoCommand::ChangeImageCropRectCmd(*pano, images, cropRect));
         };
         //load lens distortion from database
         if(dlg.GetLoadDistortion())
@@ -307,9 +310,9 @@ bool ApplyLensDBParameters(wxWindow * parent, PT::Panorama *pano, HuginBase::UIn
                 const double newFov = HuginBase::SrcPanoImage::calcHFOV(img.getProjection(), newFocal, img.getCropFactor(), img.getSize());
                 std::set<HuginBase::ImageVariableGroup::ImageVariableEnum> linkedVariables;
                 linkedVariables.insert(HuginBase::ImageVariableGroup::IVE_HFOV);
-                cmds.push_back(new PT::ChangePartImagesLinkingCmd(*pano, images, linkedVariables,
+                cmds.push_back(new PanoCommand::ChangePartImagesLinkingCmd(*pano, images, linkedVariables,
                     true,HuginBase::StandardImageVariableGroups::getLensVariables()));
-                cmds.push_back(new PT::ChangeImageHFOVCmd(*pano, images, newFov));
+                cmds.push_back(new PanoCommand::ChangeImageHFOVCmd(*pano, images, newFov));
             };
             std::vector<double> dist;
             if(lensDB.GetDistortion(lensname, focal, dist))
@@ -319,9 +322,9 @@ bool ApplyLensDBParameters(wxWindow * parent, PT::Panorama *pano, HuginBase::UIn
                     dist.push_back(1.0 - dist[0] - dist[1] - dist[2]);
                     std::set<HuginBase::ImageVariableGroup::ImageVariableEnum> linkedVariables;
                     linkedVariables.insert(HuginBase::ImageVariableGroup::IVE_RadialDistortion);
-                    cmds.push_back(new PT::ChangePartImagesLinkingCmd(*pano, images, linkedVariables,
+                    cmds.push_back(new PanoCommand::ChangePartImagesLinkingCmd(*pano, images, linkedVariables,
                         true, HuginBase::StandardImageVariableGroups::getLensVariables()));
-                    cmds.push_back(new PT::ChangeImageRadialDistortionCmd(*pano, images, dist));
+                    cmds.push_back(new PanoCommand::ChangeImageRadialDistortionCmd(*pano, images, dist));
                 };
             };
         };
@@ -334,13 +337,13 @@ bool ApplyLensDBParameters(wxWindow * parent, PT::Panorama *pano, HuginBase::UIn
                 {
                     std::set<HuginBase::ImageVariableGroup::ImageVariableEnum> linkedVariables;
                     linkedVariables.insert(HuginBase::ImageVariableGroup::IVE_RadialVigCorrCoeff);
-                    cmds.push_back(new PT::ChangePartImagesLinkingCmd(*pano, images, linkedVariables,
+                    cmds.push_back(new PanoCommand::ChangePartImagesLinkingCmd(*pano, images, linkedVariables,
                         true, HuginBase::StandardImageVariableGroups::getLensVariables()));
-                    cmds.push_back(new PT::ChangeImageRadialVigCorrCoeffCmd(*pano, images, vig));
+                    cmds.push_back(new PanoCommand::ChangeImageRadialVigCorrCoeffCmd(*pano, images, vig));
                 };
             };
         };
-        cmd=new PT::CombinedPanoCommand(*pano, cmds);
+        cmd=new PanoCommand::CombinedPanoCommand(*pano, cmds);
         return true;
     };
     return false;

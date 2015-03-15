@@ -23,12 +23,11 @@ ENDIF(APPLE)
 # sources
 set(hugin_SOURCES
 huginApp.cpp ImagesList.cpp MainFrame.cpp CPImageCtrl.cpp CPImagesComboBox.cpp CPEditorPanel.cpp CPDetectorDialog.cpp  
-ImagesPanel.cpp CommandHistory.cpp PanoPanel.cpp NonaOptionsDialog.cpp HDRMergeOptionDialog.cpp
+ImagesPanel.cpp PanoPanel.cpp NonaOptionsDialog.cpp HDRMergeOptionDialog.cpp
 PreviewFrame.cpp PreviewPanel.cpp GLPreviewFrame.cpp GLViewer.cpp GLRenderer.cpp 
 OptimizePhotometricPanel.cpp OptimizePanel.cpp CPListFrame.cpp
 TextKillFocusHandler.cpp PreferencesDialog.cpp ResetDialog.cpp
-LocalizedFileTipProvider.cpp  wxPanoCommand.cpp 
-HFOVDialog.cpp TextureManager.cpp MeshRemapper.cpp VertexCoordRemapper.cpp
+LocalizedFileTipProvider.cpp TextureManager.cpp MeshRemapper.cpp VertexCoordRemapper.cpp
 TexCoordRemapper.cpp ChoosyRemapper.cpp MeshManager.cpp ViewState.cpp
 OutputProjectionInfo.cpp ToolHelper.cpp Tool.cpp  OverviewCameraTool.cpp ProjectionGridTool.cpp OverviewOutlinesTool.cpp
 PreviewCropTool.cpp DragTool.cpp PreviewIdentifyTool.cpp PanosphereSphereTool.cpp
@@ -40,12 +39,11 @@ GuiLevel.cpp ImageVariableDialog.cpp PreviewEditCPTool.cpp)
 
 set(hugin_HEADERS
 huginApp.h ImagesList.h MainFrame.h CPImageCtrl.h CPImagesComboBox.h CPEditorPanel.h CPDetectorDialog.h 
-ImagesPanel.h CommandHistory.h PanoPanel.h NonaOptionsDialog.h HDRMergeOptionDialog.h
+ImagesPanel.h PanoPanel.h NonaOptionsDialog.h HDRMergeOptionDialog.h
 PreviewFrame.h PreviewPanel.h GLPreviewFrame.h GLViewer.h GLRenderer.h 
 OptimizePhotometricPanel.h OptimizePanel.h CPListFrame.h
 TextKillFocusHandler.h PreferencesDialog.h ResetDialog.h
-LocalizedFileTipProvider.h  wxPanoCommand.h 
-HFOVDialog.h TextureManager.h MeshRemapper.h VertexCoordRemapper.h
+LocalizedFileTipProvider.h TextureManager.h MeshRemapper.h VertexCoordRemapper.h
 TexCoordRemapper.h ChoosyRemapper.h MeshManager.h ViewState.h
 OutputProjectionInfo.h ToolHelper.h Tool.h OverviewCameraTool.h ProjectionGridTool.h OverviewOutlinesTool.h
 PreviewCropTool.h DragTool.h PreviewIdentifyTool.h PanosphereSphereTool.h

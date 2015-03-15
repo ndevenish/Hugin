@@ -152,7 +152,7 @@ void PreviewEditCPTool::MouseButtonEvent(wxMouseEvent &e)
 // find all cp in the given rectangle
 void PreviewEditCPTool::FindCPInRect(const hugin_utils::FDiff2D& pos1, const hugin_utils::FDiff2D& pos2)
 {
-    PT::Panorama* pano = helper->GetPanoramaPtr();
+    HuginBase::Panorama* pano = helper->GetPanoramaPtr();
     HuginBase::UIntSet activeImages = pano->getActiveImages();
     const hugin_utils::FDiff2D panoPos1(pos1.x < pos2.x ? pos1.x : pos2.x, pos1.y < pos2.y ? pos1.y : pos2.y);
     const hugin_utils::FDiff2D panoPos2(pos1.x > pos2.x ? pos1.x : pos2.x, pos1.y > pos2.y ? pos1.y : pos2.y);

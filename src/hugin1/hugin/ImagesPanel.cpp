@@ -41,7 +41,7 @@
 #endif
 
 #include "hugin/ImagesPanel.h"
-#include "hugin/CommandHistory.h"
+#include "base_wx/CommandHistory.h"
 #include "hugin/TextKillFocusHandler.h"
 #include "hugin/CPEditorPanel.h"
 #include "hugin/ImagesList.h"
@@ -50,14 +50,14 @@
 #include "icpfind/AutoCtrlPointCreator.h"
 #include "hugin/config_defaults.h"
 #include "base_wx/PTWXDlg.h"
-#include <PT/PTOptimise.h>
 #include "base_wx/LensTools.h"
 #include "hugin/ImagesTree.h"
 #include "panodata/OptimizerSwitches.h"
+#include "base_wx/PanoCommand.h"
 
 #include <panodata/StandardImageVariableGroups.h>
 
-using namespace PT;
+using namespace HuginBase;
 using namespace hugin_utils;
 using namespace vigra;
 using namespace vigra_ext;
@@ -213,7 +213,7 @@ void ImagesPanel::OnSize( wxSizeEvent & e )
     e.Skip();
 }
 
-void ImagesPanel::panoramaChanged(PT::Panorama & pano)
+void ImagesPanel::panoramaChanged(HuginBase::Panorama & pano)
 {
     //update optimizer choice selection
     int optSwitch=m_pano->getOptimizerSwitch();
@@ -228,8 +228,8 @@ void ImagesPanel::panoramaChanged(PT::Panorama & pano)
     };
     if(found==wxNOT_FOUND)
     {
-        GlobalCmdHist::getInstance().addCommand(
-            new PT::UpdateOptimizerSwitchCmd(*m_pano, 0)
+        PanoCommand::GlobalCmdHist::getInstance().addCommand(
+            new PanoCommand::UpdateOptimizerSwitchCmd(*m_pano, 0)
         );
     }
     else
@@ -250,20 +250,20 @@ void ImagesPanel::panoramaChanged(PT::Panorama & pano)
     };
     if(found==wxNOT_FOUND)
     {
-        GlobalCmdHist::getInstance().addCommand(
-            new PT::UpdatePhotometricOptimizerSwitchCmd(*m_pano, 0)
+        PanoCommand::GlobalCmdHist::getInstance().addCommand(
+            new PanoCommand::UpdatePhotometricOptimizerSwitchCmd(*m_pano, 0)
         );
     }
     else
     {
         m_optPhotoChoice->SetSelection(found);
     };
-    const PanoramaOptions opts=m_pano->getOptions();
+    const HuginBase::PanoramaOptions opts = m_pano->getOptions();
     m_overlap->SetValue(hugin_utils::doubleTowxString(opts.outputStacksMinOverlap,3));
     m_maxEv->SetValue(hugin_utils::doubleTowxString(opts.outputLayersExposureDiff,2));
 }
 
-void ImagesPanel::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & _imgNr)
+void ImagesPanel::panoramaImagesChanged(HuginBase::Panorama &pano, const HuginBase::UIntSet & _imgNr)
 {
     DEBUG_TRACE("");
 
@@ -333,12 +333,12 @@ void ImagesPanel::CPGenerate(wxCommandEvent & e)
     };
 
     AutoCtrlPointCreator matcher;
-    CPVector cps = matcher.automatch(cpdetector_config.settings[m_CPDetectorChoice->GetSelection()],
+    HuginBase::CPVector cps = matcher.automatch(cpdetector_config.settings[m_CPDetectorChoice->GetSelection()],
         *m_pano, selImg, nFeatures,this);
     wxString msg;
     wxMessageBox(wxString::Format(_("Added %lu control points"), (unsigned long) cps.size()), _("Control point detector result"),wxOK|wxICON_INFORMATION,this);
-    GlobalCmdHist::getInstance().addCommand(
-            new PT::AddCtrlPointsCmd(*m_pano, cps)
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+            new PanoCommand::AddCtrlPointsCmd(*m_pano, cps)
                                            );
 
 };
@@ -514,11 +514,11 @@ void ImagesPanel::OnLensTypeChanged (wxCommandEvent & e)
     {
         const SrcPanoImage & img=m_pano->getImage(*(images.begin()));
         double focal_length = SrcPanoImage::calcFocalLength(img.getProjection(),img.getHFOV(),img.getCropFactor(),img.getSize());
-        std::vector<PanoCommand*> commands;
-        commands.push_back(new PT::ChangeImageProjectionCmd(*m_pano, images,(HuginBase::SrcPanoImage::Projection) var));
-        commands.push_back(new PT::UpdateFocalLengthCmd(*m_pano, images, focal_length));
-        GlobalCmdHist::getInstance().addCommand(
-            new PT::CombinedPanoCommand(*m_pano, commands)
+        std::vector<PanoCommand::PanoCommand*> commands;
+        commands.push_back(new PanoCommand::ChangeImageProjectionCmd(*m_pano, images,(HuginBase::SrcPanoImage::Projection) var));
+        commands.push_back(new PanoCommand::UpdateFocalLengthCmd(*m_pano, images, focal_length));
+        PanoCommand::GlobalCmdHist::getInstance().addCommand(
+            new PanoCommand::CombinedPanoCommand(*m_pano, commands)
         );
     };
 };
@@ -569,8 +569,8 @@ void ImagesPanel::OnFocalLengthChanged(wxCommandEvent & e)
             };
         };
     };
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::UpdateFocalLengthCmd(*m_pano, images, val)
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+        new PanoCommand::UpdateFocalLengthCmd(*m_pano, images, val)
     );
 }
 
@@ -599,8 +599,8 @@ void ImagesPanel::OnCropFactorChanged(wxCommandEvent & e)
     };
 
     UIntSet images=m_images_tree->GetSelectedImages();
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::UpdateCropFactorCmd(*m_pano,images,val)
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+        new PanoCommand::UpdateCropFactorCmd(*m_pano,images,val)
     );
 }
 
@@ -631,10 +631,10 @@ void ImagesPanel::OnMinimumOverlapChanged(wxCommandEvent & e)
     {
         val = -1;
     };
-    PanoramaOptions opt = m_pano->getOptions();
+    HuginBase::PanoramaOptions opt = m_pano->getOptions();
     opt.outputStacksMinOverlap=val;
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::SetPanoOptionsCmd(*m_pano,opt)
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+        new PanoCommand::SetPanoOptionsCmd(*m_pano,opt)
     );
 };
 
@@ -661,10 +661,10 @@ void ImagesPanel::OnMaxEvDiffChanged(wxCommandEvent& e)
             wxOK | wxICON_INFORMATION, this);
         return;
     };
-    PanoramaOptions opt=m_pano->getOptions();
+    HuginBase::PanoramaOptions opt = m_pano->getOptions();
     opt.outputLayersExposureDiff=val;
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::SetPanoOptionsCmd(*m_pano,opt)
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+        new PanoCommand::SetPanoOptionsCmd(*m_pano,opt)
     );
 };
 
@@ -807,8 +807,8 @@ void ImagesPanel::OnOptimizerSwitchChanged(wxCommandEvent &e)
     int optSwitch=*static_cast<int*>(m_optChoice->GetClientData(m_optChoice->GetSelection()));
     if(optSwitch!=m_pano->getOptimizerSwitch())
     {
-        GlobalCmdHist::getInstance().addCommand(
-            new PT::UpdateOptimizerSwitchCmd(*m_pano,optSwitch)
+        PanoCommand::GlobalCmdHist::getInstance().addCommand(
+            new PanoCommand::UpdateOptimizerSwitchCmd(*m_pano,optSwitch)
         );
     };
 };
@@ -818,8 +818,8 @@ void ImagesPanel::OnPhotometricOptimizerSwitchChanged(wxCommandEvent &e)
     int optSwitch=*static_cast<int*>(m_optPhotoChoice->GetClientData(m_optPhotoChoice->GetSelection()));
     if(optSwitch!=m_pano->getPhotometricOptimizerSwitch())
     {
-        GlobalCmdHist::getInstance().addCommand(
-            new PT::UpdatePhotometricOptimizerSwitchCmd(*m_pano,optSwitch)
+        PanoCommand::GlobalCmdHist::getInstance().addCommand(
+            new PanoCommand::UpdatePhotometricOptimizerSwitchCmd(*m_pano,optSwitch)
         );
     };
 };

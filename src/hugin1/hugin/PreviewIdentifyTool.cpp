@@ -553,13 +553,13 @@ void PreviewIdentifyTool::UpdateWithNewImageSet(std::set<unsigned int> new_image
     // buttons back to the system colour.
     if (!image_set.empty())
     {
-        UIntSet difference;
+        HuginBase::UIntSet difference;
         std::set_difference (image_set.begin(), image_set.end(),
                              new_image_set.begin(), new_image_set.end(),
                              std::inserter(difference,difference.end()));
         if (!difference.empty())
         {
-            for (UIntSet::iterator iterator = difference.begin(); iterator != difference.end(); iterator++)
+            for (HuginBase::UIntSet::iterator iterator = difference.begin(); iterator != difference.end(); iterator++)
             {
                 DEBUG_ASSERT(*iterator < helper->GetPanoramaPtr()->getNrOfImages());
                 // reset this button to its default system colour.
@@ -573,13 +573,13 @@ void PreviewIdentifyTool::UpdateWithNewImageSet(std::set<unsigned int> new_image
     // now request to be notified when drawing the new ones.
     if (!new_image_set.empty())
     {
-        UIntSet difference;
+        HuginBase::UIntSet difference;
         std::set_difference(new_image_set.begin(), new_image_set.end(),
             image_set.begin(), image_set.end(),
             std::inserter(difference, difference.end()));
         if (!difference.empty())
         {
-            for (UIntSet::iterator iterator = difference.begin(); iterator != difference.end(); iterator++)
+            for (HuginBase::UIntSet::iterator iterator = difference.begin(); iterator != difference.end(); iterator++)
             {
                 DEBUG_ASSERT(*iterator < helper->GetPanoramaPtr()->getNrOfImages());
                 // get notification of when this is about to be drawn.

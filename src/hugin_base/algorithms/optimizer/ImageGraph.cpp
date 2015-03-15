@@ -143,7 +143,7 @@ struct OverlapSizeCounter
 
 /* not needed so far, probably still buggy
 
-void PT::createOverlapGraph(const Panorama & pano, OverlapGraph & graph)
+void PanoCommand::createOverlapGraph(const Panorama & pano, OverlapGraph & graph)
 {
     // clear old graph
     graph.clear();
@@ -158,7 +158,7 @@ void PT::createOverlapGraph(const Panorama & pano, OverlapGraph & graph)
     // small area, for alpha mask overlap analysis.
     opts.width = 500;
     // find intersecting regions, on a small version of the panorama.
-    std::vector< PT::RemappedPanoImage<vigra::BRGBImage, vigra::BImage> > rimg(nImg, PT::RemappedPanoImage<vigra::BRGBImage, vigra::BImage>(pano) );
+    std::vector< PanoCommand::RemappedPanoImage<vigra::BRGBImage, vigra::BImage> > rimg(nImg, PanoCommand::RemappedPanoImage<vigra::BRGBImage, vigra::BImage>(pano) );
 
     for (unsigned int imgNr = 0; imgNr < nImg ; imgNr++) {
 	// calculate alpha channel

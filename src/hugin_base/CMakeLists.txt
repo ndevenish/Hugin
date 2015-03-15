@@ -80,7 +80,6 @@ algorithms/optimizer/PhotometricOptimizer.h
 algorithms/optimizer/PTOptimizer.h
 algorithms/point_sampler/PointSampler.h
 algorithms/control_points/CleanCP.h
-appbase/Command.h
 appbase/DocumentData.h
 appbase/ProgressDisplay.h
 huginapp/CachedImageRemapper.h

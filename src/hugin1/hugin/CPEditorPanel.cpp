@@ -37,16 +37,17 @@
 // hugin's
 #include "hugin/huginApp.h"
 #include "hugin/config_defaults.h"
-#include "hugin/CommandHistory.h"
+#include "base_wx/CommandHistory.h"
 #include "base_wx/wxImageCache.h"
 #include "hugin/CPImageCtrl.h"
 #include "hugin/TextKillFocusHandler.h"
 #include "hugin/CPEditorPanel.h"
-#include "hugin/wxPanoCommand.h"
+#include "base_wx/wxPanoCommand.h"
 #include "base_wx/MyProgressDialog.h"
 #include "algorithms/optimizer/PTOptimizer.h"
 #include "algorithms/basic/CalculateOptimalScale.h"
 #include "base_wx/PTWXDlg.h"
+#include "base_wx/wxPlatform.h"
 
 // more standard includes if needed
 #include <algorithm>
@@ -63,7 +64,7 @@
 #include "Celeste.h"
 
 using namespace std;
-using namespace PT;
+using namespace HuginBase;
 using namespace vigra;
 using namespace vigra_ext;
 using namespace vigra::functor;
@@ -214,7 +215,7 @@ bool CPEditorPanel::Create(wxWindow* parent, wxWindowID id,
     return true;
 }
 
-void CPEditorPanel::Init(PT::Panorama * pano)
+void CPEditorPanel::Init(HuginBase::Panorama * pano)
 {
     m_pano=pano;
     // observe the panorama
@@ -351,7 +352,7 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
     case CPEvent::NEW_LINE_ADDED:
         {
             float vertBias = getVerticalCPBias();
-            ControlPoint cp=ev.getControlPoint();
+            HuginBase::ControlPoint cp = ev.getControlPoint();
             cp.image1Nr=m_leftImageNr;
             cp.image2Nr=m_rightImageNr;
             bool  hor = abs(cp.x1 - cp.x2) > (abs(cp.y1 - cp.y2) * vertBias);
@@ -360,20 +361,20 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
                 case CPImageCtrl::ROT0:
                 case CPImageCtrl::ROT180:
                     if (hor)
-                        cp.mode = PT::ControlPoint::Y;
+                        cp.mode = HuginBase::ControlPoint::Y;
                     else
-                        cp.mode = PT::ControlPoint::X;
+                        cp.mode = HuginBase::ControlPoint::X;
                     break;
                 default:
                     if (hor)
-                        cp.mode = PT::ControlPoint::X;
+                        cp.mode = HuginBase::ControlPoint::X;
                     else
-                        cp.mode = PT::ControlPoint::Y;
+                        cp.mode = HuginBase::ControlPoint::Y;
                     break;
             }
             changeState(NO_POINT);
             // create points
-            GlobalCmdHist::getInstance().addCommand(new PT::AddCtrlPointCmd(*m_pano, cp));
+            PanoCommand::GlobalCmdHist::getInstance().addCommand(new PanoCommand::AddCtrlPointCmd(*m_pano, cp));
             // select new control Point
             unsigned int lPoint = m_pano->getNrOfCtrlPoints()-1;
             SelectGlobalPoint(lPoint);
@@ -390,13 +391,13 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
                 DEBUG_ERROR("invalid point number while moving point")
                 return;
             }
-            ControlPoint cp = ev.getControlPoint();
+            HuginBase::ControlPoint cp = ev.getControlPoint();
             changeState(NO_POINT);
             DEBUG_DEBUG("changing point to: " << cp.x1 << "," << cp.y1
                         << "  " << cp.x2 << "," << cp.y2);
 
-            GlobalCmdHist::getInstance().addCommand(
-                new PT::ChangeCtrlPointCmd(*m_pano, currentPoints[nr].first, cp)
+            PanoCommand::GlobalCmdHist::getInstance().addCommand(
+                new PanoCommand::ChangeCtrlPointCmd(*m_pano, currentPoints[nr].first, cp)
                 );
 
             break;
@@ -429,8 +430,8 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
                 wxRect rect=ev.getRect();
                 for(unsigned int i=0;i<currentPoints.size();i++)
                 {
-                    ControlPoint cp=currentPoints[i].second;
-                    if(cp.mode==ControlPoint::X_Y)
+                    HuginBase::ControlPoint cp = currentPoints[i].second;
+                    if (cp.mode == HuginBase::ControlPoint::X_Y)
                     {
                         //checking only normal control points
                         if(left)
@@ -453,7 +454,7 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
             changeState(NO_POINT);
             if(cpToRemove.size()>0)
             {
-                GlobalCmdHist::getInstance().addCommand(new PT::RemoveCtrlPointsCmd(*m_pano,cpToRemove));
+                PanoCommand::GlobalCmdHist::getInstance().addCommand(new PanoCommand::RemoveCtrlPointsCmd(*m_pano, cpToRemove));
             };
             break;
         }
@@ -468,7 +469,7 @@ void CPEditorPanel::CreateNewPoint()
     DEBUG_TRACE("");
     FDiff2D p1 = m_leftImg->getNewPoint();
     FDiff2D p2 = m_rightImg->getNewPoint();
-    ControlPoint point;
+    HuginBase::ControlPoint point;
     point.image1Nr = m_leftImageNr;
     point.x1 = p1.x;
     point.y1 = p1.y;
@@ -488,27 +489,27 @@ void CPEditorPanel::CreateNewPoint()
                 case CPImageCtrl::ROT0:
                 case CPImageCtrl::ROT180:
                     if (hor)
-                        point.mode = PT::ControlPoint::Y;
+                        point.mode = HuginBase::ControlPoint::Y;
                     else
-                        point.mode = PT::ControlPoint::X;
+                        point.mode = HuginBase::ControlPoint::X;
                     break;
                 default:
                     if (hor)
-                        point.mode = PT::ControlPoint::X;
+                        point.mode = HuginBase::ControlPoint::X;
                     else
-                        point.mode = PT::ControlPoint::Y;
+                        point.mode = HuginBase::ControlPoint::Y;
                     break;
             }
         }
     } else {
-        point.mode = PT::ControlPoint::X_Y;
+        point.mode = HuginBase::ControlPoint::X_Y;
     }
 
     changeState(NO_POINT);
 
     // create points
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::AddCtrlPointCmd(*m_pano, point)
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+        new PanoCommand::AddCtrlPointCmd(*m_pano, point)
         );
 
 
@@ -524,12 +525,12 @@ void CPEditorPanel::CreateNewPoint()
 
 const float CPEditorPanel::getVerticalCPBias()
 {
-    PanoramaOptions opts = m_pano->getOptions();
-    PanoramaOptions::ProjectionFormat projFormat = opts.getProjection();
+    HuginBase::PanoramaOptions opts = m_pano->getOptions();
+    HuginBase::PanoramaOptions::ProjectionFormat projFormat = opts.getProjection();
     float bias;
     switch (projFormat)
     {
-        case PanoramaOptions::RECTILINEAR:
+        case HuginBase::PanoramaOptions::RECTILINEAR:
             bias = 1.0;
             break;
         default:
@@ -567,7 +568,7 @@ void CPEditorPanel::SelectLocalPoint(unsigned int LVpointNr)
     }
     m_selectedPoint = LVpointNr;
 
-    const ControlPoint & p = currentPoints[LVpointNr].second;
+    const HuginBase::ControlPoint & p = currentPoints[LVpointNr].second;
     m_x1Text->SetValue(wxString::Format(wxT("%.2f"),p.x1));
     m_y1Text->SetValue(wxString::Format(wxT("%.2f"),p.y1));
     m_x2Text->SetValue(wxString::Format(wxT("%.2f"),p.x2));
@@ -880,13 +881,13 @@ SrcPanoImage GetImageRotatedTo(const SrcPanoImage& img, const vigra::Diff2D& poi
     imgMod.setProjection(img.getProjection());
     imgMod.setHFOV(img.getHFOV());
     // calculate, where the interest point lies
-    PanoramaOptions opt;
+    HuginBase::PanoramaOptions opt;
     opt.setProjection(HuginBase::PanoramaOptions::EQUIRECTANGULAR);
     opt.setHFOV(360);
     opt.setWidth(360);
     opt.setHeight(180);
 
-    PTools::Transform transform;
+    HuginBase::PTools::Transform transform;
     transform.createInvTransform(imgMod, opt);
     double x1, y1;
     if (!transform.transformImgCoord(x1, y1, point.x, point.y))
@@ -1005,8 +1006,8 @@ CorrelationResult PointFineTuneProjectionAware(const SrcPanoImage& templ, const 
         return res;
     }
     // populate PanoramaOptions
-    PanoramaOptions opts;
-    opts.setProjection(PanoramaOptions::STEREOGRAPHIC);
+    HuginBase::PanoramaOptions opts;
+    opts.setProjection(HuginBase::PanoramaOptions::STEREOGRAPHIC);
     opts.setHFOV(std::max(templHFOV, searchHFOV));
     // calculate a sensible scale factor
     double scaleTempl = HuginBase::CalculateOptimalScale::calcOptimalPanoScale(templMod, opts);
@@ -1014,7 +1015,7 @@ CorrelationResult PointFineTuneProjectionAware(const SrcPanoImage& templ, const 
     opts.setWidth(std::max<unsigned int>(opts.getWidth()*std::min(scaleTempl, scaleSearch), 3 * templSize));
     opts.setHeight(opts.getWidth());
     // transform coordinates to transform system
-    PTools::Transform transform;
+    HuginBase::PTools::Transform transform;
     transform.createInvTransform(templMod, opts);
     double templX, templY, searchX, searchY;
     transform.transformImgCoord(templX, templY, templPos.x, templPos.y);
@@ -1153,7 +1154,7 @@ bool CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
     return true;
 }
 
-void CPEditorPanel::panoramaChanged(PT::Panorama &pano)
+void CPEditorPanel::panoramaChanged(Panorama &pano)
 {
     int nGui = m_cpModeChoice->GetCount();
     int nPano = pano.getNextCPTypeLineNumber()+1;
@@ -1367,7 +1368,7 @@ void CPEditorPanel::UpdateDisplay(bool newPair)
     m_rightImg->setSameImage(m_leftImageNr==m_rightImageNr);
 
     // update control points
-    const PT::CPVector & controlPoints = m_pano->getCtrlPoints();
+    const HuginBase::CPVector & controlPoints = m_pano->getCtrlPoints();
     currentPoints.clear();
     mirroredPoints.clear();
 
@@ -1375,8 +1376,8 @@ void CPEditorPanel::UpdateDisplay(bool newPair)
     unsigned int i = 0;
     m_leftImg->clearCtrlPointList();
     m_rightImg->clearCtrlPointList();
-    for (PT::CPVector::const_iterator it = controlPoints.begin(); it != controlPoints.end(); ++it) {
-        PT::ControlPoint point = *it;
+    for (HuginBase::CPVector::const_iterator it = controlPoints.begin(); it != controlPoints.end(); ++it) {
+        HuginBase::ControlPoint point = *it;
         if ((point.image1Nr == m_leftImageNr) && (point.image2Nr == m_rightImageNr)){
             m_leftImg->setCtrlPoint(point, false);
             m_rightImg->setCtrlPoint(point, true);
@@ -1405,7 +1406,7 @@ void CPEditorPanel::UpdateDisplay(bool newPair)
     m_cpList->DeleteAllItems();
 
     for (unsigned int i=0; i < currentPoints.size(); ++i) {
-        const ControlPoint & p = currentPoints[i].second;
+        const HuginBase::ControlPoint & p(currentPoints[i].second);
         DEBUG_DEBUG("inserting LVItem " << i);
         m_cpList->InsertItem(i,wxString::Format(wxT("%d"),i));
         m_cpList->SetItem(i,1,wxString::Format(wxT("%.2f"),p.x1));
@@ -1414,13 +1415,13 @@ void CPEditorPanel::UpdateDisplay(bool newPair)
         m_cpList->SetItem(i,4,wxString::Format(wxT("%.2f"),p.y2));
         wxString mode;
         switch (p.mode) {
-        case ControlPoint::X_Y:
+        case HuginBase::ControlPoint::X_Y:
             mode = _("normal");
             break;
-        case ControlPoint::X:
+        case HuginBase::ControlPoint::X:
             mode = _("vert. Line");
             break;
-        case ControlPoint::Y:
+        case HuginBase::ControlPoint::Y:
             mode = _("horiz. Line");
             break;
         default:
@@ -1439,7 +1440,7 @@ void CPEditorPanel::UpdateDisplay(bool newPair)
         m_selectedPoint = selectedCP;
         EnablePointEdit(true);
 
-        const ControlPoint & p = currentPoints[m_selectedPoint].second;
+        const HuginBase::ControlPoint & p = currentPoints[m_selectedPoint].second;
         m_x1Text->SetValue(wxString::Format(wxT("%.2f"),p.x1));
         m_y1Text->SetValue(wxString::Format(wxT("%.2f"),p.y1));
         m_x2Text->SetValue(wxString::Format(wxT("%.2f"),p.x2));
@@ -1490,7 +1491,7 @@ void CPEditorPanel::OnTextPointChange(wxCommandEvent &e)
     }
     unsigned int nr = (unsigned int) item;
     assert(nr < currentPoints.size());
-    ControlPoint cp = currentPoints[nr].second;
+    HuginBase::ControlPoint cp = currentPoints[nr].second;
 
     // update point state
     double oldValue=cp.x1;
@@ -1535,8 +1536,8 @@ void CPEditorPanel::OnTextPointChange(wxCommandEvent &e)
     if (set_contains(mirroredPoints, nr)) {
         cp.mirror();
     }
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::ChangeCtrlPointCmd(*m_pano, currentPoints[nr].first, cp)
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+        new PanoCommand::ChangeCtrlPointCmd(*m_pano, currentPoints[nr].first, cp)
         );
 
 }
@@ -1645,8 +1646,8 @@ void CPEditorPanel::OnKey(wxKeyEvent & e)
             }
             unsigned int pNr = localPNr2GlobalPNr((unsigned int) item);
             DEBUG_DEBUG("about to delete point " << pNr);
-            GlobalCmdHist::getInstance().addCommand(
-                new PT::RemoveCtrlPointCmd(*m_pano,pNr)
+            PanoCommand::GlobalCmdHist::getInstance().addCommand(
+                new PanoCommand::RemoveCtrlPointCmd(*m_pano,pNr)
                 );
         }
     } else if (e.m_keyCode == '0') {
@@ -1693,8 +1694,8 @@ void CPEditorPanel::OnKey(wxKeyEvent & e)
         try {
             wxBusyCursor busy;
             DEBUG_DEBUG("corner threshold: " << th << "  scale: " << scale);
-            GlobalCmdHist::getInstance().addCommand(
-                    new wxAddCtrlPointGridCmd(*m_pano, m_leftImageNr, m_rightImageNr, scale, th)
+            PanoCommand::GlobalCmdHist::getInstance().addCommand(
+                new PanoCommand::wxAddCtrlPointGridCmd(*m_pano, m_leftImageNr, m_rightImageNr, scale, th)
                             );
         } catch (std::exception & e) {
             wxLogError(_("Error during control point creation:\n") + wxString(e.what(), wxConvLocal));
@@ -1732,8 +1733,8 @@ void CPEditorPanel::OnDeleteButton(wxCommandEvent & e)
         // get the global point number
         unsigned int pNr = localPNr2GlobalPNr((unsigned int) item);
 
-        GlobalCmdHist::getInstance().addCommand(
-            new PT::RemoveCtrlPointCmd(*m_pano,pNr )
+        PanoCommand::GlobalCmdHist::getInstance().addCommand(
+            new PanoCommand::RemoveCtrlPointCmd(*m_pano,pNr )
             );
         m_leftChoice->CalcCPDistance(m_pano);
         m_rightChoice->CalcCPDistance(m_pano);
@@ -1743,7 +1744,7 @@ void CPEditorPanel::OnDeleteButton(wxCommandEvent & e)
 // show a global control point
 void CPEditorPanel::ShowControlPoint(unsigned int cpNr)
 {
-    const ControlPoint & p = m_pano->getCtrlPoint(cpNr);
+    const HuginBase::ControlPoint & p = m_pano->getCtrlPoint(cpNr);
     setLeftImage(p.image1Nr);
     setRightImage(p.image2Nr);
     // FIXME reset display state
@@ -1941,8 +1942,8 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
 
         if(cloudCP.size()>0)
         {
-            GlobalCmdHist::getInstance().addCommand(
-                new PT::RemoveCtrlPointsCmd(*m_pano,cloudCP)
+            PanoCommand::GlobalCmdHist::getInstance().addCommand(
+                new PanoCommand::RemoveCtrlPointsCmd(*m_pano,cloudCP)
                 );
         };
 
@@ -1982,7 +1983,7 @@ void CPEditorPanel::FineTuneSelectedPoint(bool left)
     if (m_selectedPoint == UINT_MAX) return;
     DEBUG_ASSERT(m_selectedPoint < currentPoints.size());
 
-    ControlPoint cp = currentPoints[m_selectedPoint].second;
+    HuginBase::ControlPoint cp = currentPoints[m_selectedPoint].second;
 
     unsigned int srcNr = cp.image1Nr;
     unsigned int moveNr = cp.image2Nr;
@@ -2020,8 +2021,8 @@ void CPEditorPanel::FineTuneSelectedPoint(bool left)
     if (set_contains(mirroredPoints, m_selectedPoint)) {
         cp.mirror();
     }
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::ChangeCtrlPointCmd(*m_pano, currentPoints[m_selectedPoint].first, cp)
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+        new PanoCommand::ChangeCtrlPointCmd(*m_pano, currentPoints[m_selectedPoint].first, cp)
         );
 }
 
@@ -2107,7 +2108,7 @@ FDiff2D CPEditorPanel::EstimatePoint(const FDiff2D & p, bool left)
     optPano.addImage(leftImg);
     optPano.addImage(rightImg);
     // construct OptimizeVector
-    OptimizeVector optVec;
+    HuginBase::OptimizeVector optVec;
     std::set<std::string> opt;
     optVec.push_back(opt);
     opt.insert("y");

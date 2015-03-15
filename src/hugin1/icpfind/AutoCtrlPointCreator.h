@@ -27,8 +27,7 @@
 
 #include <hugin_shared.h>
 #include "CPDetectorConfig.h"
-#include "PT/Panorama.h"
-#include "PT/PanoramaMemento.h"
+#include "panodata/Panorama.h"
 #include "panodata/ControlPoint.h"
 #include "panoinc_WX.h"
 
@@ -50,16 +49,16 @@ public:
     /** Do cp matching, calles the right routines, based
      *  on the matcher selected
      */
-    virtual HuginBase::CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
+    virtual HuginBase::CPVector automatch(CPDetectorSetting &setting, HuginBase::Panorama & pano, const HuginBase::UIntSet & imgs,
                            int nFeatures, int & ret_value, wxWindow *parent=NULL);
-    virtual HuginBase::CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
+    virtual HuginBase::CPVector automatch(CPDetectorSetting &setting, HuginBase::Panorama & pano, const HuginBase::UIntSet & imgs,
                            int nFeatures, wxWindow *parent=NULL);
-    virtual void Cleanup(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
+    virtual void Cleanup(CPDetectorSetting &setting, HuginBase::Panorama & pano, const HuginBase::UIntSet & imgs,
                            std::vector<wxString> &keyFiles, wxWindow *parent=NULL);
 
 protected:
     HuginBase::CPVector readUpdatedControlPoints(const std::string & file,
-                                  PT::Panorama & pano, const PT::UIntSet & imgs, bool reordered);
+                                  HuginBase::Panorama & pano, const HuginBase::UIntSet & imgs, bool reordered);
 };
 
 /** A matcher that uses Sebastians Nowozin's excellent sift matcher */
@@ -75,9 +74,9 @@ public:
      */
     virtual ~AutoPanoSift() {} ;
 
-    virtual HuginBase::CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
+    virtual HuginBase::CPVector automatch(CPDetectorSetting &setting, HuginBase::Panorama & pano, const HuginBase::UIntSet & imgs,
                            int nFeatures, int & ret_value, wxWindow *parent=NULL);
-    virtual HuginBase::CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
+    virtual HuginBase::CPVector automatch(CPDetectorSetting &setting, HuginBase::Panorama & pano, const HuginBase::UIntSet & imgs,
                            int nFeatures, std::vector<wxString> &keyFiles, int & ret_value, wxWindow *parent=NULL);
 };
 
@@ -94,7 +93,7 @@ public:
      */
     virtual ~AutoPanoKolor() {} ;
 
-    virtual HuginBase::CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
+    virtual HuginBase::CPVector automatch(CPDetectorSetting &setting, HuginBase::Panorama & pano, const HuginBase::UIntSet & imgs,
                            int nFeatures, int & ret_value, wxWindow *parent=NULL);
 };
 
@@ -111,7 +110,7 @@ public:
      */
     virtual ~AutoPanoSiftStack() {} ;
 
-    virtual HuginBase::CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
+    virtual HuginBase::CPVector automatch(CPDetectorSetting &setting, HuginBase::Panorama & pano, const HuginBase::UIntSet & imgs,
                            int nFeatures, int & ret_value, wxWindow *parent=NULL);
 };
 
@@ -128,7 +127,7 @@ public:
      */
     virtual ~AutoPanoSiftMultiRow() {} ;
 
-    virtual HuginBase::CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
+    virtual HuginBase::CPVector automatch(CPDetectorSetting &setting, HuginBase::Panorama & pano, const HuginBase::UIntSet & imgs,
                            int nFeatures, int & ret_value, wxWindow *parent=NULL);
 };
 
@@ -145,7 +144,7 @@ public:
      */
     virtual ~AutoPanoSiftMultiRowStack() {} ;
 
-    virtual HuginBase::CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
+    virtual HuginBase::CPVector automatch(CPDetectorSetting &setting, HuginBase::Panorama & pano, const HuginBase::UIntSet & imgs,
                            int nFeatures, int & ret_value, wxWindow *parent=NULL);
 };
 
@@ -162,9 +161,9 @@ public:
      */
     virtual ~AutoPanoSiftPreAlign() {} ;
 
-    virtual HuginBase::CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
+    virtual HuginBase::CPVector automatch(CPDetectorSetting &setting, HuginBase::Panorama & pano, const HuginBase::UIntSet & imgs,
                            int nFeatures, int & ret_value, wxWindow *parent=NULL);
-    virtual HuginBase::CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
+    virtual HuginBase::CPVector automatch(CPDetectorSetting &setting, HuginBase::Panorama & pano, const HuginBase::UIntSet & imgs,
                            int nFeatures, std::vector<wxString> &keyFiles, int & ret_value, wxWindow *parent=NULL);
 };
 

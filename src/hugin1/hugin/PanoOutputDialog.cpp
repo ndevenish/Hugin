@@ -31,6 +31,8 @@
 #include "hugin/huginApp.h"
 #include "base_wx/platform.h"
 #include "hugin/config_defaults.h"
+#include "algorithms/basic/LayerStacks.h"
+#include "algorithms/basic/CalculateOptimalScale.h"
 
 BEGIN_EVENT_TABLE(PanoOutputDialog,wxDialog)
     EVT_BUTTON(wxID_OK, PanoOutputDialog::OnOk)
@@ -44,7 +46,7 @@ BEGIN_EVENT_TABLE(PanoOutputDialog,wxDialog)
     EVT_SPINCTRL(XRCID("output_height"), PanoOutputDialog::OnHeightChanged)
 END_EVENT_TABLE()
 
-PanoOutputDialog::PanoOutputDialog(wxWindow *parent, PT::Panorama& pano, GuiLevel guiLevel) : m_pano(pano), m_aspect(0)
+PanoOutputDialog::PanoOutputDialog(wxWindow *parent, HuginBase::Panorama& pano, GuiLevel guiLevel) : m_pano(pano), m_aspect(0)
 {
     // load our children. some children might need special
     // initialization. this will be done later.
@@ -75,8 +77,9 @@ PanoOutputDialog::PanoOutputDialog(wxWindow *parent, PT::Panorama& pano, GuiLeve
     m_stacks=getHDRStacks(m_pano, images, m_pano.getOptions());
     m_exposureLayers=getExposureLayers(m_pano, images, m_pano.getOptions());
     // set initial width
-    long opt_width=m_pano.calcOptimalWidth();
-    m_newOpt=m_pano.getOptions();
+    m_newOpt = m_pano.getOptions();
+    long opt_width = hugin_utils::roundi(HuginBase::CalculateOptimalScale::calcOptimalScale(m_pano) * m_newOpt.getWidth());
+
     double sizeFactor = HUGIN_ASS_PANO_DOWNSIZE_FACTOR;
     wxConfigBase* config = wxConfigBase::Get();
     config->Read(wxT("/Assistant/panoDownsizeFactor"), &sizeFactor, HUGIN_ASS_PANO_DOWNSIZE_FACTOR);

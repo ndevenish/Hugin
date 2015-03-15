@@ -32,7 +32,7 @@
 #include <set>
 
 #include "panoinc_WX.h"
-#include "PT/Panorama.h"
+#include "panodata/Panorama.h"
 #include "lines/FindLines.h"
 #include "LensCalTypes.h"
 #include "LensCalImageCtrl.h"

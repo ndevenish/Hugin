@@ -29,10 +29,13 @@
 
 #include "panoinc.h"
 
-#include "PT/PTOptimise.h"
+#include <panotools/PanoToolsOptimizerWrapper.h>
+#include <algorithms/optimizer/PTOptimizer.h>
+#include <algorithms/basic/CalculateCPStatistics.h>
 
 #include "hugin/OptimizePanel.h"
-#include "hugin/CommandHistory.h"
+#include "base_wx/CommandHistory.h"
+#include "base_wx/PanoCommand.h"
 #include "hugin/MainFrame.h"
 #include "base_wx/PTWXDlg.h"
 #include "hugin/config_defaults.h"
@@ -42,7 +45,7 @@
 #include "base_wx/LensTools.h"
 
 using namespace std;
-using namespace PT;
+using namespace HuginBase;
 using namespace hugin_utils;
 
 //============================================================================
@@ -107,7 +110,7 @@ bool OptimizePanel::Create(wxWindow* parent, wxWindowID id , const wxPoint& pos,
     return true;
 }
 
-void OptimizePanel::Init(PT::Panorama * pano)
+void OptimizePanel::Init(HuginBase::Panorama * pano)
 {
     DEBUG_TRACE("");
     m_pano = pano;
@@ -139,7 +142,7 @@ OptimizePanel::~OptimizePanel()
     DEBUG_TRACE("dtor end");
 }
 
-void OptimizePanel::panoramaChanged(PT::Panorama & pano)
+void OptimizePanel::panoramaChanged(HuginBase::Panorama & pano)
 {
     //Show(m_pano->getOptimizerSwitch()==0);
     m_images_tree_list->Enable(m_pano->getOptimizerSwitch()==0);
@@ -147,8 +150,8 @@ void OptimizePanel::panoramaChanged(PT::Panorama & pano)
     m_edit_cb->Enable(m_pano->getOptimizerSwitch()==0);
 }
 
-void OptimizePanel::panoramaImagesChanged(PT::Panorama &pano,
-                                          const PT::UIntSet & imgNr)
+void OptimizePanel::panoramaImagesChanged(HuginBase::Panorama &pano,
+                                          const HuginBase::UIntSet & imgNr)
 {
     XRCCTRL(*this, "optimize_panel_optimize", wxButton)->Enable(pano.getNrOfImages()>0);
     XRCCTRL(*this, "optimize_panel_reset", wxButton)->Enable(pano.getNrOfImages()>0);    
@@ -196,16 +199,16 @@ void OptimizePanel::runOptimizer(const UIntSet & imgs)
     wxWindow* activeWindow = wxGetActiveWindow();
 
     Panorama optPano = m_pano->getSubset(imgs);
-    PanoramaOptions opts = optPano.getOptions();
+    HuginBase::PanoramaOptions opts = optPano.getOptions();
     switch(opts.getProjection())
     {
-        case PanoramaOptions::RECTILINEAR:
-        case PanoramaOptions::CYLINDRICAL:
-        case PanoramaOptions::EQUIRECTANGULAR:
+        case HuginBase::PanoramaOptions::RECTILINEAR:
+        case HuginBase::PanoramaOptions::CYLINDRICAL:
+        case HuginBase::PanoramaOptions::EQUIRECTANGULAR:
             break;
         default:
             // temporarily change to equirectangular
-            opts.setProjection(PanoramaOptions::EQUIRECTANGULAR);
+            opts.setProjection(HuginBase::PanoramaOptions::EQUIRECTANGULAR);
             optPano.setOptions(opts);
             break;
     }
@@ -223,7 +226,7 @@ void OptimizePanel::runOptimizer(const UIntSet & imgs)
         {
             wxBusyCursor bc;
             // run pairwise optimizer
-            PTools::autoOptimise(optPano);
+            HuginBase::AutoOptimise(optPano).run();
         }
 #ifdef DEBUG
         // print optimized script to cout
@@ -233,7 +236,7 @@ void OptimizePanel::runOptimizer(const UIntSet & imgs)
 
         registerPTWXDlgFcn();
         // do global optimisation
-        PTools::optimize(optPano);
+        HuginBase::PTools::optimize(optPano);
 #ifdef DEBUG
         // print optimized script to cout
         DEBUG_DEBUG("panorama after optimise():");
@@ -264,12 +267,12 @@ void OptimizePanel::runOptimizer(const UIntSet & imgs)
                 free(oldlocale);
                 return;
             }
-            PTools::optimize(optPano, script);
+            HuginBase::PTools::optimize(optPano, script);
             free(script);
         }
         else
         {
-            PTools::optimize(optPano);
+            HuginBase::PTools::optimize(optPano);
         }
 #ifdef DEBUG
         // print optimized script to cout
@@ -289,8 +292,8 @@ void OptimizePanel::runOptimizer(const UIntSet & imgs)
     // calculate control point errors and display text.
     if (AskApplyResult(activeWindow, optPano))
     {
-        GlobalCmdHist::getInstance().addCommand(
-            new PT::UpdateVariablesCPSetCmd(*m_pano, imgs, optPano.getVariables(), optPano.getCtrlPoints())
+        PanoCommand::GlobalCmdHist::getInstance().addCommand(
+            new PanoCommand::UpdateVariablesCPSetCmd(*m_pano, imgs, optPano.getVariables(), optPano.getCtrlPoints())
         );
     }
 }
@@ -301,13 +304,14 @@ bool OptimizePanel::AskApplyResult(wxWindow* activeWindow, const Panorama & pano
     double max;
     double mean;
     double var;
-    pano.calcCtrlPntsErrorStats( min, max, mean, var);
+    HuginBase::CalculateCPStatisticsError::calcCtrlPntsErrorStats(pano, min, max, mean, var);
+
     // check for HFOV lines. if smaller than 1 report a warning;
     // also check for high distortion coefficients.
     bool smallHFOV=false;
     bool highDist = false;
-    const VariableMapVector & vars = pano.getVariables();
-    for (VariableMapVector::const_iterator it = vars.begin() ; it != vars.end(); ++it)
+    const HuginBase::VariableMapVector & vars = pano.getVariables();
+    for (HuginBase::VariableMapVector::const_iterator it = vars.begin(); it != vars.end(); ++it)
     {
         if (const_map_get(*it,"v").getValue() < 1.0) smallHFOV = true;
         if (fabs(const_map_get(*it,"a").getValue()) > 0.8) highDist = true;
@@ -363,10 +367,10 @@ void OptimizePanel::OnClose(wxCloseEvent& event)
 void OptimizePanel::OnReset(wxCommandEvent& e)
 {
     PanoOperation::ResetOperation op(PanoOperation::ResetOperation::RESET_DIALOG_LENS);
-    PT::PanoCommand* cmd=op.GetCommand(this,*m_pano, m_images_tree_list->GetSelectedImages(), MainFrame::Get()->GetGuiLevel());
+    PanoCommand::PanoCommand* cmd=op.GetCommand(this,*m_pano, m_images_tree_list->GetSelectedImages(), MainFrame::Get()->GetGuiLevel());
     if(cmd!=NULL)
     {
-        GlobalCmdHist::getInstance().addCommand(cmd);
+        PanoCommand::GlobalCmdHist::getInstance().addCommand(cmd);
     };
 
 };

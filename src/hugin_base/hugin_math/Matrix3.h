@@ -65,7 +65,7 @@ public:
     
     // [Ippei note]: Why the hell is this a method of general Matrix3 class?
     //  Should be subclassed or externally provided
-    //  eg. static Matrix3 RotationMatrixPT::makeRotationMatrixPT(double yaw, double pitch, double roll)
+    //  eg. static Matrix3 RotationMatrixPanoCommand::makeRotationMatrixPT(double yaw, double pitch, double roll)
 
     /** set rotation in panotools style, 
      *  code adapted from Panotools-Script by Bruno Postle

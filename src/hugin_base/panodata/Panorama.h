@@ -64,11 +64,9 @@ class IMPEX PanoramaMemento : public PanoramaDataMemento
         
         virtual ~PanoramaMemento();
         
-        
-    protected:
-        /** load a PTScript file
+        /** load a Hugin file
         *
-        *  initializes the PanoramaMemento from a PTScript file
+        *  initializes the PanoramaMemento from a script file
         */
         bool loadPTScript(std::istream & i, int & ptoVersion, const std::string & prefix = "");
 

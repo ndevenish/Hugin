@@ -51,7 +51,7 @@
 
 const double MeshManager::PanosphereOverviewMeshInfo::scale_diff=1.5;
 
-MeshManager::MeshManager(PT::Panorama *pano, VisualizationState *visualization_state)
+MeshManager::MeshManager(HuginBase::Panorama *pano, VisualizationState *visualization_state)
     :   m_pano(pano),
         visualization_state(visualization_state),
         layout_mode_on(false)
@@ -124,7 +124,7 @@ void MeshManager::SetLayoutScale(double scale)
 };
 
 
-MeshManager::MeshInfo::MeshInfo(PT::Panorama * m_pano_in,
+MeshManager::MeshInfo::MeshInfo(HuginBase::Panorama * m_pano_in,
                                 HuginBase::SrcPanoImage * image,
                                 VisualizationState * visualization_state_in,
                                 bool layout_mode_on_in)

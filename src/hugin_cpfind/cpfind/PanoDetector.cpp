@@ -31,13 +31,14 @@
 #include "hugin_base/hugin_utils/platform.h"
 
 #include <algorithms/nona/ComputeImageROI.h>
+#include <algorithms/basic/CalculateOptimalScale.h>
 #include <nona/RemappedPanoImage.h>
 #include <nona/ImageRemapper.h>
 
 //for multi row strategy
 #include <panodata/StandardImageVariableGroups.h>
-#include <PT/Panorama.h>
-#include <PT/ImageGraph.h>
+#include <panodata/Panorama.h>
+#include <algorithms/optimizer/ImageGraph.h>
 #include <algorithms/optimizer/PTOptimizer.h>
 #include <algorithms/basic/CalculateOverlap.h>
 
@@ -1023,10 +1024,10 @@ bool PanoDetector::matchMultiRow()
     queue.clear();
     matchesData.clear();
     Panorama mediumPano=_panoramaInfo->getSubset(_image_layer);
-    CPGraph graph;
-    createCPGraph(mediumPano, graph);
-    CPComponents comps;
-    unsigned int n = findCPComponents(graph, comps);
+    HuginBase::CPGraph graph;
+    HuginBase::createCPGraph(mediumPano, graph);
+    HuginBase::CPComponents comps;
+    unsigned int n = HuginBase::findCPComponents(graph, comps);
     if(n>1)
     {
         vector<unsigned int> ImagesGroups;
@@ -1090,9 +1091,9 @@ bool PanoDetector::matchMultiRow()
     // step 3: now connect all overlapping images
     queue.clear();
     matchesData.clear();
-    PT::Panorama optPano=_panoramaInfo->getSubset(_image_layer);
-    createCPGraph(optPano, graph);
-    if(findCPComponents(graph, comps)==1)
+    HuginBase::Panorama optPano=_panoramaInfo->getSubset(_image_layer);
+    HuginBase::createCPGraph(optPano, graph);
+    if(HuginBase::findCPComponents(graph, comps)==1)
     {
         if(_image_layer.size()>2)
         {
@@ -1116,7 +1117,7 @@ bool PanoDetector::matchMultiRow()
             opts.setHeight(15000);
 
             optPano.setOptions(opts);
-            int w = optPano.calcOptimalWidth();
+            int w = hugin_utils::roundi(HuginBase::CalculateOptimalScale::calcOptimalScale(optPano) * opts.getWidth());
             opts.setWidth(w);
             opts.setHeight(w/2);
             optPano.setOptions(opts);

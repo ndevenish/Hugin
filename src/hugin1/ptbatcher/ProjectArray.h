@@ -31,7 +31,7 @@
 #include <wx/string.h>
 #include "panodata/PanoramaOptions.h"
 #include <wx/log.h>
-#include "PT/Panorama.h"
+#include "panodata/Panorama.h"
 #include "base_wx/platform.h"
 
 using namespace HuginBase;

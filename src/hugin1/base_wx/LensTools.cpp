@@ -29,6 +29,8 @@
 #include "LensTools.h"
 #include <algorithm>
 #include "panodata/ImageVariableTranslate.h"
+#include "panodata/StandardImageVariableGroups.h"
+#include "base_wx/PanoCommand.h"
 
 using namespace std;
 
@@ -168,7 +170,7 @@ void SaveLensParameters(const wxString filename, HuginBase::Panorama* pano, unsi
     free(old_locale);
 };
 
-bool ApplyLensParameters(wxWindow * parent, PT::Panorama *pano, HuginBase::UIntSet images, PT::PanoCommand*& cmd)
+bool ApplyLensParameters(wxWindow * parent, HuginBase::Panorama *pano, HuginBase::UIntSet images, PanoCommand::PanoCommand*& cmd)
 {
     HuginBase::StandardImageVariableGroups variable_groups(*pano);
     HuginBase::Lens lens=variable_groups.getLensForImage(*images.begin());
@@ -196,7 +198,7 @@ bool ApplyLensParameters(wxWindow * parent, PT::Panorama *pano, HuginBase::UIntS
         /** @todo I think the sensor size should be copied over,
             * but SrcPanoImage doesn't have such a variable yet.
             */
-        std::vector<PT::PanoCommand*> cmds;
+        std::vector<PanoCommand::PanoCommand*> cmds;
         // update links
         std::set<HuginBase::ImageVariableGroup::ImageVariableEnum> linkedVariables;
         std::set<HuginBase::ImageVariableGroup::ImageVariableEnum> unlinkedVariables;
@@ -219,32 +221,32 @@ bool ApplyLensParameters(wxWindow * parent, PT::Panorama *pano, HuginBase::UIntS
         }
         if (!linkedVariables.empty())
         {
-            cmds.push_back(new PT::ChangePartImagesLinkingCmd(*pano, images, linkedVariables,
+            cmds.push_back(new PanoCommand::ChangePartImagesLinkingCmd(*pano, images, linkedVariables,
                 true,HuginBase::StandardImageVariableGroups::getLensVariables()));
         }
         if (!unlinkedVariables.empty())
         {
-            cmds.push_back(new PT::ChangePartImagesLinkingCmd(*pano, images, unlinkedVariables,
+            cmds.push_back(new PanoCommand::ChangePartImagesLinkingCmd(*pano, images, unlinkedVariables,
                 false,HuginBase::StandardImageVariableGroups::getLensVariables()));
         }
         //update lens parameters
-        cmds.push_back(new PT::UpdateImagesVariablesCmd(*pano, images, vars));
+        cmds.push_back(new PanoCommand::UpdateImagesVariablesCmd(*pano, images, vars));
 
         // Set the lens projection type.
-        cmds.push_back(new PT::ChangeImageProjectionCmd(*pano, images, (HuginBase::SrcPanoImage::Projection) lens.getProjection()));
+        cmds.push_back(new PanoCommand::ChangeImageProjectionCmd(*pano, images, (HuginBase::SrcPanoImage::Projection) lens.getProjection()));
         // update crop factor
-        cmds.push_back(new PT::ChangeImageCropFactorCmd(*pano,images,lens.getCropFactor()));
+        cmds.push_back(new PanoCommand::ChangeImageCropFactorCmd(*pano,images,lens.getCropFactor()));
         // update the crop rect
-        cmds.push_back(new PT::ChangeImageAutoCenterCropCmd(*pano,images,autoCenterCrop));
+        cmds.push_back(new PanoCommand::ChangeImageAutoCenterCropCmd(*pano,images,autoCenterCrop));
         if(cropped)
         {
-            cmds.push_back(new PT::ChangeImageCropRectCmd(*pano,images,cropRect));
+            cmds.push_back(new PanoCommand::ChangeImageCropRectCmd(*pano,images,cropRect));
         }
         else
         {
-            cmds.push_back(new PT::ChangeImageCropModeCmd(*pano,images,HuginBase::BaseSrcPanoImage::NO_CROP));
+            cmds.push_back(new PanoCommand::ChangeImageCropModeCmd(*pano,images,HuginBase::BaseSrcPanoImage::NO_CROP));
         };
-        cmd=new PT::CombinedPanoCommand(*pano, cmds);
+        cmd=new PanoCommand::CombinedPanoCommand(*pano, cmds);
         return true;
     }
     else
@@ -378,7 +380,7 @@ bool LoadLensParametersChoose(wxWindow * parent, HuginBase::Lens & lens,
     };
 };
 
-void SaveLensParametersToIni(wxWindow * parent, PT::Panorama *pano, const HuginBase::UIntSet images)
+void SaveLensParametersToIni(wxWindow * parent, HuginBase::Panorama *pano, const HuginBase::UIntSet images)
 {
     if (images.size() == 1)
     {

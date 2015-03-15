@@ -28,9 +28,8 @@
 #define _Hgn1_huginConfig_H
 
 #include <hugin_shared.h>
+#include <panodata/Panorama.h>
 #include <panoinc_WX.h>
-
-#include "PT/Panorama.h"
 
 /** gets the default project name, as defined in the preferences */
 WXIMPEX wxString getDefaultProjectName(const HuginBase::Panorama & pano, const wxString filenameTemplate=wxT(""));

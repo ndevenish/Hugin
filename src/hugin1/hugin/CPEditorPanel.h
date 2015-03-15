@@ -40,11 +40,12 @@
 #include "CelesteGlobals.h"
 #include "Utilities.h"
 
-#include <PT/Panorama.h>
+#include <panodata/Panorama.h>
 
 #include "CPImagesComboBox.h"
 
 #include "CPImageCtrl.h"
+#include <panotools/PanoToolsInterface.h>
 
 namespace vigra {
     class Diff2D;
@@ -60,7 +61,7 @@ namespace vigra_ext{
  *
  *  @todo support control lines
  */
-class CPEditorPanel : public wxPanel, public PT::PanoramaObserver
+class CPEditorPanel : public wxPanel, public HuginBase::PanoramaObserver
 {
 public:
     /** ctor.
@@ -69,7 +70,7 @@ public:
 
     bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL, const wxString& name = wxT("panel"));
 
-    void Init(PT::Panorama * pano);
+    void Init(HuginBase::Panorama * pano);
 
     /** dtor.
      */
@@ -80,14 +81,14 @@ public:
     /// set right image
     void setRightImage(unsigned int imgNr);
 
-    void SetPano(PT::Panorama * panorama)
+    void SetPano(HuginBase::Panorama * panorama)
         { m_pano = panorama; };
 
     /** called when the panorama changes and we should
      *  update our display
      */
-    void panoramaChanged(PT::Panorama &pano);
-    void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
+    void panoramaChanged(HuginBase::Panorama &pano);
+    void panoramaImagesChanged(HuginBase::Panorama &pano, const HuginBase::UIntSet & imgNr);
 
 
     /** Select a point.
@@ -234,7 +235,7 @@ private:
     wxPanel *m_cp_ctrls;
 
     // my data
-    PT::Panorama * m_pano;
+    HuginBase::Panorama * m_pano;
     // the current images
     unsigned int m_leftImageNr;
     unsigned int m_rightImageNr;
@@ -243,10 +244,10 @@ private:
     bool m_listenToPageChange;
     double m_detailZoomFactor;
     // store transformation for drawing line control points
-    PTools::Transform m_leftTransform;
-    PTools::Transform m_leftInvTransform;
-    PTools::Transform m_rightTransform;
-    PTools::Transform m_rightInvTransform;
+    HuginBase::PTools::Transform m_leftTransform;
+    HuginBase::PTools::Transform m_leftInvTransform;
+    HuginBase::PTools::Transform m_rightTransform;
+    HuginBase::PTools::Transform m_rightInvTransform;
 
     unsigned int m_selectedPoint;
 
@@ -267,7 +268,7 @@ private:
 };
 
 /** function for fine-tune with remapping to stereographic projection */
-vigra_ext::CorrelationResult PointFineTuneProjectionAware(const SrcPanoImage& templ, const vigra::UInt8RGBImage& templImg,
+vigra_ext::CorrelationResult PointFineTuneProjectionAware(const HuginBase::SrcPanoImage& templ, const vigra::UInt8RGBImage& templImg,
     vigra::Diff2D templPos, int templSize,
     const SrcPanoImage& search, const vigra::UInt8RGBImage& searchImg,
     vigra::Diff2D searchPos, int sWidth);

@@ -29,9 +29,6 @@
 #include "hugin/config_defaults.h"
 #include "platform.h"
 
-
-using namespace PT;
-
 // functions to handle with default project/output filenames
 typedef std::map<wxString, wxString> Placeholdersmap;
 
@@ -75,7 +72,7 @@ void FillPlaceholders(Placeholdersmap & placeholder, const HuginBase::Panorama &
     wxFileName lastImg(wxString(pano.getImage(pano.getNrOfImages()-1).getFilename().c_str(),HUGIN_CONV_FILENAME));
     placeholder[wxT("%lastimage")]=lastImg.GetName();
     placeholder[wxT("%#images")]=wxString::Format(wxT("%lu"), (unsigned long)pano.getNrOfImages());
-    PanoramaOptions opts=pano.getOptions();
+    HuginBase::PanoramaOptions opts = pano.getOptions();
     pano_projection_features proj;
     if (panoProjectionFeaturesQuery(opts.getProjection(), &proj))
     {

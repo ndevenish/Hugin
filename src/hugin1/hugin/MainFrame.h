@@ -29,7 +29,7 @@
 #include <set>
 #include <map>
 
-#include "PT/Panorama.h"
+#include "panodata/Panorama.h"
 
 #include "wx/docview.h"
 #ifdef __WXMSW__
@@ -44,8 +44,6 @@
 // Celeste header
 #include "Celeste.h"
 #include "GuiLevel.h"
-
-using namespace PT;
 
 // forward declarations, to save the #include statements
 class CPEditorPanel;
@@ -63,14 +61,14 @@ class CPListFrame;
 class PanoDropTarget : public wxFileDropTarget
 {
 public:
-    PanoDropTarget(PT::Panorama & p, bool imageOnly = false)
+    PanoDropTarget(HuginBase::Panorama & p, bool imageOnly = false)
         : pano(p)
     { m_imageOnly = imageOnly; }
 
     bool OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames);
 
 private:
-    PT::Panorama & pano;
+    HuginBase::Panorama & pano;
     bool m_imageOnly;
 };
 
@@ -82,13 +80,13 @@ private:
  *  it therefor also hold operations that determine the lifecycle
  *  of the panorama object (new, open, save, quit).
  */
-class MainFrame : public wxFrame, public PT::PanoramaObserver, public AppBase::ProgressDisplay
+class MainFrame : public wxFrame, public HuginBase::PanoramaObserver, public AppBase::ProgressDisplay
 {
 public:
 
     /** ctor.
      */
-    MainFrame(wxWindow* parent, PT::Panorama & pano);
+    MainFrame(wxWindow* parent, HuginBase::Panorama & pano);
 
     /** dtor.
      */
@@ -97,10 +95,10 @@ public:
     /** Enable or disable undo and redo.
      *  They should be enabled only when there is a command to act upon.
      */
-    virtual void panoramaChanged(PT::Panorama &pano);
-    void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
+    virtual void panoramaChanged(HuginBase::Panorama &pano);
+    void panoramaImagesChanged(HuginBase::Panorama &pano, const HuginBase::UIntSet & imgNr);
     /** returns panorama object */
-    const PT::Panorama & getPanorama() { return pano; };
+    const HuginBase::Panorama & getPanorama() { return pano; };
 
     // called when a control point in CPListFrame is selected
     void ShowCtrlPoint(unsigned int cpNr);
@@ -249,7 +247,7 @@ private:
     //PreferencesDialog * pref_dlg;
 
     // the model
-    PT::Panorama & pano;
+    HuginBase::Panorama & pano;
 
     // filename of the current project
     wxString m_filename;
@@ -271,7 +269,5 @@ private:
 
     DECLARE_EVENT_TABLE()
 };
-
-bool getLensDataFromUser(wxWindow * parent, SrcPanoImage & srcImg);
 
 #endif // _MAINFRAME_H

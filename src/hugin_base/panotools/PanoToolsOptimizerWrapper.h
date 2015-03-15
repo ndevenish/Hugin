@@ -35,11 +35,11 @@ namespace PTools
 {
     
     /*
-     unsigned int optimize_PT(const PT::Panorama & pano,
-                      const PT::UIntVector &imgs,
-                      const PT::OptimizeVector & optvec,
-                      PT::VariableMapVector & vars,
-                      PT::CPVector & cps,
+     unsigned int optimize_PT(const HuginBase::Panorama & pano,
+                      const PanoCommand::UIntVector &imgs,
+                      const PanoCommand::OptimizeVector & optvec,
+                      PanoCommand::VariableMapVector & vars,
+                      PanoCommand::CPVector & cps,
                       int maxIter=1000);
      */
 

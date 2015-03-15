@@ -27,6 +27,7 @@
 #include <string>
 #include <vector>
 
+#include <panotools/PanoToolsInterface.h>
 #include <base_wx/wxImageCache.h>
 
 class CPEditorPanel;
@@ -257,10 +258,10 @@ public:
     /// its current image
     void setImage (const std::string & filename, ImageRotation rot);
     void setSameImage(bool sameImage);
-    void setTransforms(PTools::Transform* firstTrans, PTools::Transform* firstInvTrans, PTools::Transform* secondInvTrans);
-    PTools::Transform* getFirstTrans() const { return m_firstTrans; };
-    PTools::Transform* getFirstInvTrans() const { return m_firstInvTrans; };
-    PTools::Transform* getSecondInvTrans() const { return m_secondInvTrans; };
+    void setTransforms(HuginBase::PTools::Transform* firstTrans, HuginBase::PTools::Transform* firstInvTrans, HuginBase::PTools::Transform* secondInvTrans);
+    HuginBase::PTools::Transform* getFirstTrans() const { return m_firstTrans; };
+    HuginBase::PTools::Transform* getFirstInvTrans() const { return m_firstInvTrans; };
+    HuginBase::PTools::Transform* getSecondInvTrans() const { return m_secondInvTrans; };
 
     /** add control piont to internal cp list */
     void setCtrlPoint(const HuginBase::ControlPoint& cp, const bool mirrored);
@@ -487,9 +488,9 @@ private:
 
     EditorState editState;
     // store pointer to transformation object to draw line control points
-    PTools::Transform* m_firstTrans;
-    PTools::Transform* m_firstInvTrans;
-    PTools::Transform* m_secondInvTrans;
+    HuginBase::PTools::Transform* m_firstTrans;
+    HuginBase::PTools::Transform* m_firstInvTrans;
+    HuginBase::PTools::Transform* m_secondInvTrans;
 
     // colors for the different points
     std::vector<wxColour> pointColors;

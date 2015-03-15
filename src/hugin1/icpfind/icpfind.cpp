@@ -35,6 +35,11 @@
 #include "hugin/config_defaults.h"
 #include <vigra/impex.hxx>
 
+extern "C"
+{
+    #include <pano13/filter.h>  // for PT_setProgressFcn, PT_setInfoDlgFcn
+}
+
 using namespace std;
  
 void iCPApp::ReadDetectorConfig()
@@ -101,7 +106,7 @@ int iCPApp::OnRun()
 {
     ReadDetectorConfig();
     //read input project
-    PT::PanoramaMemento newPano;
+    HuginBase::PanoramaMemento newPano;
     int ptoVersion = 0;
     wxFileName file(m_input);
     file.MakeAbsolute();

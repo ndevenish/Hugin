@@ -28,13 +28,14 @@
 
 #include "panoinc_WX.h"
 #include "panoinc.h"
-#include "base_wx/wxPlatform.h"
-#include "base_wx/LensTools.h"
+#include <wx/window.h> 
+#include "wxPlatform.h"
+#include "LensTools.h"
 
-#include <base_wx/wxImageCache.h>
-#include <base_wx/platform.h>
-#include <hugin/wxPanoCommand.h>
-#include <hugin/MainFrame.h>
+#include "wxImageCache.h"
+#include "platform.h"
+#include "wxPanoCommand.h"
+#include "HFOVDialog.h"
 #include <panodata/OptimizerSwitches.h>
 
 #include <vigra/cornerdetection.hxx>
@@ -51,14 +52,14 @@ using namespace std;
 using namespace vigra;
 using namespace hugin_utils;
 
-namespace PT {
+namespace PanoCommand
+{
 
-bool wxAddCtrlPointGridCmd::processPanorama(Panorama& pano)
+bool wxAddCtrlPointGridCmd::processPanorama(HuginBase::Panorama& pano)
 {
     // TODO: rewrite, and use same function for modular image creation.
-#if 1
-    const SrcPanoImage & i1 = pano.getImage(img1);
-    const SrcPanoImage & i2 = pano.getImage(img1);
+    const HuginBase::SrcPanoImage & i1 = pano.getImage(img1);
+    const HuginBase::SrcPanoImage & i2 = pano.getImage(img1);
 
     // run both images through the harris corner detector
     ImageCache::EntryPtr eptr = ImageCache::getInstance().getSmallImage(i1.getFilename());
@@ -106,11 +107,11 @@ bool wxAddCtrlPointGridCmd::processPanorama(Panorama& pano)
 //    exportImage(srcImageRange(leftCorners), vigra::ImageExportInfo("c:/corner_response_threshold.png"));
 
     // create transform from img1 -> sphere
-    PTools::Transform img1ToSphere;
-    PTools::Transform sphereToImg2;
+    HuginBase::PTools::Transform img1ToSphere;
+    HuginBase::PTools::Transform sphereToImg2;
 
-    PanoramaOptions opts;
-    opts.setProjection(PanoramaOptions::EQUIRECTANGULAR);
+    HuginBase::PanoramaOptions opts;
+    opts.setProjection(HuginBase::PanoramaOptions::EQUIRECTANGULAR);
     opts.setHFOV(360);
     opts.setWidth(360);
     opts.setVFOV(180);
@@ -134,23 +135,22 @@ bool wxAddCtrlPointGridCmd::processPanorama(Panorama& pano)
                     && img2y > border && img2y < i2.getHeight() - border )
                 {
                     // add control point
-                    ControlPoint p(img1, scale*x, scale*y, img2, img2x, img2y);
+                    HuginBase::ControlPoint p(img1, scale*x, scale*y, img2, img2x, img2y);
                     pano.addCtrlPoint(p);
                 }
             }
         }
     }
-#endif
     return true;
 }
 
-void applyColorBalanceValue(SrcPanoImage& srcImg, Panorama& pano)
+void applyColorBalanceValue(HuginBase::SrcPanoImage& srcImg, HuginBase::Panorama& pano)
 {
     double redBal=1;
     double blueBal=1;
     if(pano.getNrOfImages()>=1)
     {
-        const SrcPanoImage &anchor=pano.getImage(pano.getOptions().colorReferenceImage);
+        const HuginBase::SrcPanoImage &anchor = pano.getImage(pano.getOptions().colorReferenceImage);
         // use EXIF Red/BlueBalance data only if image and anchor image are from the same camera
         if(srcImg.getExifMake() == anchor.getExifMake() &&
             srcImg.getExifModel() == anchor.getExifModel())
@@ -181,7 +181,7 @@ void applyColorBalanceValue(SrcPanoImage& srcImg, Panorama& pano)
     srcImg.setWhiteBalanceBlue(blueBal);
 };
 
-void copySrcImageExif(SrcPanoImage& destImg, SrcPanoImage srcImg)
+void copySrcImageExif(HuginBase::SrcPanoImage& destImg, HuginBase::SrcPanoImage srcImg)
 {
     destImg.setExifExposureTime(srcImg.getExifExposureTime());
     destImg.setExifAperture(srcImg.getExifAperture());
@@ -213,7 +213,28 @@ public:
 };
 #endif
 
-bool wxAddImagesCmd::processPanorama(Panorama& pano)
+bool getLensDataFromUser(wxWindow * parent, HuginBase::SrcPanoImage & srcImg)
+{
+    // display lens dialog
+    HFOVDialog dlg(parent, srcImg);
+    dlg.CenterOnParent();
+    int ret = dlg.ShowModal();
+    if (ret == wxID_OK)
+    {
+        // assume a cancel dialog.
+        srcImg = dlg.GetSrcImage();
+        if (dlg.GetCropFactor() <= 0)
+        {
+            srcImg.setCropFactor(1);
+        }
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+bool wxAddImagesCmd::processPanorama(HuginBase::Panorama& pano)
 {
     // check if the files should be sorted by date
     long sort = wxConfigBase::Get()->Read(wxT("General/SortNewImgOnAdd"), HUGIN_GUI_SORT_NEW_IMG_ON_ADD);
@@ -233,9 +254,9 @@ bool wxAddImagesCmd::processPanorama(Panorama& pano)
     }
 
     std::vector<std::string>::const_iterator it;
-    Lens lens;
-    SrcPanoImage srcImg;
-    SrcPanoImage srcImgExif;
+    HuginBase::Lens lens;
+    HuginBase::SrcPanoImage srcImg;
+    HuginBase::SrcPanoImage srcImgExif;
     HuginBase::StandardImageVariableGroups variable_groups(pano);
     HuginBase::ImageVariableGroup & lenses = variable_groups.getLenses();
     const size_t oldImgCount = pano.getNrOfImages();
@@ -297,7 +318,7 @@ bool wxAddImagesCmd::processPanorama(Panorama& pano)
                  // search for image with matching size and exif data
                  // and re-use it.
                 for (unsigned int i=0; i < pano.getNrOfImages(); i++) {
-                    SrcPanoImage other = pano.getSrcImage(i);
+                    HuginBase::SrcPanoImage other = pano.getSrcImage(i);
                     if ( other.getSize() == srcImg.getSize() &&
                          other.getExifModel() == srcImg.getExifModel() &&
                          other.getExifMake()  == srcImg.getExifMake() &&
@@ -328,7 +349,7 @@ bool wxAddImagesCmd::processPanorama(Panorama& pano)
         int matchingLensNr=-1;
         // if no similar image found, ask user
         if (! ok) {
-            if (!getLensDataFromUser(wxTheApp->GetTopWindow(), srcImg)) {
+            if (!getLensDataFromUser(wxGetActiveWindow(), srcImg)) {
                 // assume a standart lens
                 srcImg.setHFOV(50);
                 srcImg.setCropFactor(1);
@@ -349,7 +370,7 @@ bool wxAddImagesCmd::processPanorama(Panorama& pano)
         double ev = 0;
         bool set_exposure = false;
         for (unsigned int i=0; i < pano.getNrOfImages(); i++) {
-            SrcPanoImage other = pano.getSrcImage(i);
+            HuginBase::SrcPanoImage other = pano.getSrcImage(i);
             if (other.getExifFocalLength()>0) {
                 if (other.getSize() == srcImg.getSize()
                     && other.getExifModel() == srcImg.getExifModel()
@@ -408,7 +429,7 @@ bool wxAddImagesCmd::processPanorama(Panorama& pano)
                 //don't link image size, this will foul the photometric optimizer
                 lenses.unlinkVariableImage(HuginBase::ImageVariableGroup::IVE_Size, imgNr);
                 /// @todo avoid copying the SrcPanoImage.
-                SrcPanoImage t = pano.getSrcImage(imgNr);
+                HuginBase::SrcPanoImage t = pano.getSrcImage(imgNr);
                 t.setExposureValue(ev);
                 t.setWhiteBalanceRed(redBal);
                 t.setWhiteBalanceBlue(blueBal);
@@ -417,7 +438,7 @@ bool wxAddImagesCmd::processPanorama(Panorama& pano)
         }
         if (imgNr == 0) {
             // get initial value for output exposure
-            PanoramaOptions opts = pano.getOptions();
+            HuginBase::PanoramaOptions opts = pano.getOptions();
             opts.outputExposureValue = srcImg.getExposureValue();
             pano.setOptions(opts);
             // set the exposure, but there isn't anything to link to so don't try unlinking.
@@ -425,7 +446,7 @@ bool wxAddImagesCmd::processPanorama(Panorama& pano)
             if (set_exposure)
             {
                 /// @todo avoid copying the SrcPanoImage.
-                SrcPanoImage t = pano.getSrcImage(imgNr);
+                HuginBase::SrcPanoImage t = pano.getSrcImage(imgNr);
                 t.setExposureValue(ev);
                 t.setWhiteBalanceRed(redBal);
                 t.setWhiteBalanceBlue(blueBal);
@@ -529,17 +550,17 @@ bool wxAddImagesCmd::processPanorama(Panorama& pano)
 }
 
 
-bool wxLoadPTProjectCmd::processPanorama(Panorama& pano)
+bool wxLoadPTProjectCmd::processPanorama(HuginBase::Panorama& pano)
 {
-    PanoramaMemento newPano;
+    HuginBase::PanoramaMemento newPano;
     int ptoVersion = 0;
     std::ifstream in(filename.c_str());
     if (newPano.loadPTScript(in, ptoVersion, prefix))
     {
         pano.setMemento(newPano);
-        PanoramaOptions opts = pano.getOptions();
+        HuginBase::PanoramaOptions opts = pano.getOptions();
         // always reset to TIFF_m ...
-        opts.outputFormat = PanoramaOptions::TIFF_m;
+        opts.outputFormat = HuginBase::PanoramaOptions::TIFF_m;
         // get enblend and enfuse options from preferences
         if (ptoVersion < 2)
         {
@@ -558,7 +579,7 @@ bool wxLoadPTProjectCmd::processPanorama(Panorama& pano)
         unsigned int nImg = pano.getNrOfImages();
         wxString basedir;
         bool autopanoSiftFile=false;
-        SrcPanoImage autopanoSiftRefImg;
+        HuginBase::SrcPanoImage autopanoSiftRefImg;
         for (unsigned int i = 0; i < nImg; i++) {
             wxFileName fname(wxString (pano.getImage(i).getFilename().c_str(), HUGIN_CONV_FILENAME));
             while (! fname.FileExists()){
@@ -588,7 +609,7 @@ bool wxLoadPTProjectCmd::processPanorama(Panorama& pano)
                 }
 
                 // open file dialog
-                wxFileDialog dlg(MainFrame::Get(), _("Add images"),
+                wxFileDialog dlg(wxGetActiveWindow(), _("Add images"),
                                  basedir, fname.GetFullName(),
                                  HUGIN_WX_FILE_IMG_FILTER, wxFD_OPEN  | wxFD_FILE_MUST_EXIST | wxFD_PREVIEW, wxDefaultPosition);
                 dlg.SetDirectory(basedir);
@@ -598,7 +619,7 @@ bool wxLoadPTProjectCmd::processPanorama(Panorama& pano)
                     basedir = dlg.GetDirectory();
                     DEBUG_INFO("basedir is: " << basedir.mb_str(wxConvLocal));
                 } else {
-                    PanoramaMemento emptyPano;
+                    HuginBase::PanoramaMemento emptyPano;
                     pano.setMemento(emptyPano);
                             // set an empty panorama
                     return true;
@@ -606,7 +627,7 @@ bool wxLoadPTProjectCmd::processPanorama(Panorama& pano)
                 fname.Assign(dlg.GetPath());
             }
             // check if image size is correct
-            SrcPanoImage srcImg = pano.getSrcImage(i);
+            HuginBase::SrcPanoImage srcImg = pano.getSrcImage(i);
             //
             vigra::ImageImportInfo imginfo(srcImg.getFilename().c_str());
             if (srcImg.getSize() != imginfo.size()) {
@@ -666,15 +687,15 @@ bool wxLoadPTProjectCmd::processPanorama(Panorama& pano)
     // Verify control points are valid
     // loop through entire list of points, confirming they are inside the
     // bounding box of their images
-    const PT::CPVector & oldCPs = pano.getCtrlPoints();
-    PT::CPVector goodCPs;
+    const HuginBase::CPVector & oldCPs = pano.getCtrlPoints();
+    HuginBase::CPVector goodCPs;
     int bad_cp_count = 0;
-    for (PT::CPVector::const_iterator it = oldCPs.begin();
+    for (HuginBase::CPVector::const_iterator it = oldCPs.begin();
             it != oldCPs.end(); ++it)
     {
-        PT::ControlPoint point = *it;
-        const SrcPanoImage & img1 = pano.getImage(point.image1Nr);
-        const SrcPanoImage & img2 = pano.getImage(point.image2Nr);
+        HuginBase::ControlPoint point = *it;
+        const HuginBase::SrcPanoImage & img1 = pano.getImage(point.image1Nr);
+        const HuginBase::SrcPanoImage & img2 = pano.getImage(point.image2Nr);
         if (0 > point.x1 || point.x1 > img1.getSize().x ||
             0 > point.y1 || point.y1 > img1.getSize().y ||
             0 > point.x2 || point.x2 > img2.getSize().x ||
@@ -705,12 +726,12 @@ bool wxLoadPTProjectCmd::processPanorama(Panorama& pano)
     return true;
 }
 
-bool wxNewProjectCmd::processPanorama(Panorama& pano)
+bool wxNewProjectCmd::processPanorama(HuginBase::Panorama& pano)
 {
     pano.reset();
 
     // Setup pano with options from preferences
-    PanoramaOptions opts = pano.getOptions();
+    HuginBase::PanoramaOptions opts = pano.getOptions();
     wxConfigBase* config = wxConfigBase::Get();
     opts.quality = config->Read(wxT("/output/jpeg_quality"),HUGIN_JPEG_QUALITY);
     switch(config->Read(wxT("/output/tiff_compression"), HUGIN_TIFF_COMPRESSION))
@@ -750,14 +771,14 @@ bool wxNewProjectCmd::processPanorama(Panorama& pano)
     }
     // HDR disabled because there is no real choice at the moment:  HDR TIFF is broken and there is only EXR
     // opts.outputImageTypeHDR = config->Read(wxT("/output/hdr_format"), HUGIN_HDR_OUTPUT_FORMAT);
-    opts.outputFormat = PanoramaOptions::TIFF_m;
-    opts.blendMode = static_cast<PanoramaOptions::BlendingMechanism>(config->Read(wxT("/default_blender"), HUGIN_DEFAULT_BLENDER));
+    opts.outputFormat = HuginBase::PanoramaOptions::TIFF_m;
+    opts.blendMode = static_cast<HuginBase::PanoramaOptions::BlendingMechanism>(config->Read(wxT("/default_blender"), HUGIN_DEFAULT_BLENDER));
     opts.enblendOptions = config->Read(wxT("Enblend/Args"),wxT(HUGIN_ENBLEND_ARGS)).mb_str(wxConvLocal);
     opts.enfuseOptions = config->Read(wxT("Enfuse/Args"),wxT(HUGIN_ENFUSE_ARGS)).mb_str(wxConvLocal);
     opts.interpolator = (vigra_ext::Interpolator)config->Read(wxT("Nona/Interpolator"),HUGIN_NONA_INTERPOLATOR);
     opts.remapUsingGPU = config->Read(wxT("Nona/useGPU"),HUGIN_NONA_USEGPU)!=0;
     opts.tiff_saveROI = config->Read(wxT("Nona/CroppedImages"),HUGIN_NONA_CROPPEDIMAGES)!=0;
-    opts.hdrMergeMode = PanoramaOptions::HDRMERGE_AVERAGE;
+    opts.hdrMergeMode = HuginBase::PanoramaOptions::HDRMERGE_AVERAGE;
     opts.hdrmergeOptions = HUGIN_HDRMERGE_ARGS;
     pano.setOptions(opts);
 
@@ -767,14 +788,14 @@ bool wxNewProjectCmd::processPanorama(Panorama& pano)
 }
 
 
-bool wxApplyTemplateCmd::processPanorama(Panorama& pano)
+bool wxApplyTemplateCmd::processPanorama(HuginBase::Panorama& pano)
 {
     wxConfigBase* config = wxConfigBase::Get();
 
     if (pano.getNrOfImages() == 0) {
         // TODO: prompt for images!
         wxString path = config->Read(wxT("actualPath"), wxT(""));
-        wxFileDialog dlg(MainFrame::Get(), _("Add images"),
+        wxFileDialog dlg(wxGetActiveWindow(), _("Add images"),
                 path, wxT(""),
                 HUGIN_WX_FILE_IMG_FILTER, wxFD_OPEN|wxFD_MULTIPLE | wxFD_FILE_MUST_EXIST | wxFD_PREVIEW , wxDefaultPosition);
         dlg.SetDirectory(path);
@@ -831,7 +852,7 @@ bool wxApplyTemplateCmd::processPanorama(Panorama& pano)
             for (unsigned int i=0; i< Pathnames.GetCount(); i++) {
                 std::string filename = (const char *)Pathnames[i].mb_str(HUGIN_CONV_FILENAME);
                 vigra::ImageImportInfo inf(filename.c_str());
-                SrcPanoImage img;
+                HuginBase::SrcPanoImage img;
                 img.setFilename(filename);
                 img.setSize(inf.size());
                 img.readEXIF();
@@ -845,11 +866,11 @@ bool wxApplyTemplateCmd::processPanorama(Panorama& pano)
     }
 
     unsigned int nOldImg = pano.getNrOfImages();
-    PanoramaMemento newPanoMem;
+    HuginBase::PanoramaMemento newPanoMem;
 
     int ptoVersion = 0;
     if (newPanoMem.loadPTScript(in, ptoVersion, "")) {
-        Panorama newPano;
+        HuginBase::Panorama newPano;
         newPano.setMemento(newPanoMem);
 
         unsigned int nNewImg = newPano.getNrOfImages();
@@ -863,8 +884,8 @@ bool wxApplyTemplateCmd::processPanorama(Panorama& pano)
         for (unsigned int i = 0; i < nNewImg; i++) {
 
             // check if image size is correct
-            const SrcPanoImage & oldSrcImg = pano.getImage(i);
-            SrcPanoImage newSrcImg = newPano.getSrcImage(i);
+            const HuginBase::SrcPanoImage & oldSrcImg = pano.getImage(i);
+            HuginBase::SrcPanoImage newSrcImg = newPano.getSrcImage(i);
 
             // just keep the file name
             DEBUG_DEBUG("apply template fn:" <<  newSrcImg.getFilename() << " real fn: " << oldSrcImg.getFilename());
@@ -886,12 +907,12 @@ bool wxApplyTemplateCmd::processPanorama(Panorama& pano)
 }
 
 #ifdef HUGIN_HSI
-bool PythonScriptPanoCmd::processPanorama(Panorama& pano)
+bool PythonScriptPanoCmd::processPanorama(HuginBase::Panorama& pano)
 {
     std::cout << "run python script: " << m_scriptFile.c_str() << std::endl;
 
     int success = hpi::callhpi ( m_scriptFile.c_str() , 1 ,
-                   "HuginBase::Panorama*" , &pano ) ;
+                   "HuginBase::HuginBase::Panorama*" , &pano ) ;
 
     if(success!=0)
         wxMessageBox(wxString::Format(wxT("Script returned %d"),success),_("Result"), wxICON_INFORMATION);

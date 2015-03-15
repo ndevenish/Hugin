@@ -27,11 +27,9 @@
 #define _IMAGESLIST_H
 
 
-#include "PT/Panorama.h"
+#include "panodata/Panorama.h"
 #include <panodata/StandardImageVariableGroups.h>
 //#include "hugin/MainFrame.h"
-
-using namespace PT;
 
 //declare 2 event types to communicate with parent about adding/deleting images
 #if wxCHECK_VERSION(2,9,0)
@@ -69,20 +67,21 @@ using namespace PT;
  *
  *  @todo   make the listcontents editable -> wxListCtrl->wxGrid?
  */
-class ImagesList: public wxListCtrl, public PT::PanoramaObserver
+class ImagesList: public wxListCtrl, public HuginBase::PanoramaObserver
 {
 public:
     ImagesList();
 
     bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL, const wxString& name = wxT("panel"));
 
-    void Init(PT::Panorama * pano);
+    void Init(HuginBase::Panorama * pano);
    
     virtual ~ImagesList(void) ;
 
     /** receive the update signal and update display accordingly
      */
-    void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
+    virtual void panoramaImagesChanged(HuginBase::Panorama &pano, const HuginBase::UIntSet & imgNr);
+    virtual void panoramaChanged(HuginBase::Panorama &pano) {};
 
     /** create an list item for imgNr
      *
@@ -133,11 +132,11 @@ public:
     void DeselectAll();
 
     /** get the currently selected images */
-    const UIntSet & GetSelected() const;
+    const HuginBase::UIntSet & GetSelected() const;
 
 protected:
     // the model
-    Panorama * pano;
+    HuginBase::Panorama * pano;
     
     // image variable group information
     HuginBase::StandardImageVariableGroups * variable_groups;
@@ -154,7 +153,7 @@ protected:
     /** create icons for an image */
     //void createIcon(wxBitmap & bitmap, unsigned int imgNr, unsigned int size);
 
-    UIntSet selectedItems;
+    HuginBase::UIntSet selectedItems;
 
     // image icons.
     wxImageList *m_smallIcons;
@@ -182,7 +181,7 @@ public:
 
     bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL, const wxString& name = wxT("panel"));
 
-    void Init(PT::Panorama * pano);
+    void Init(HuginBase::Panorama * pano);
 
     /** update the information in an already existing list item
      */

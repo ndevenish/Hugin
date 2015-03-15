@@ -57,7 +57,7 @@ OverviewOutlinesTool::~OverviewOutlinesTool()
 {
 }
 
-void OverviewOutlinesTool::panoramaChanged(HuginBase::PanoramaData &pano)
+void OverviewOutlinesTool::panoramaChanged(HuginBase::Panorama &pano)
 {
 
     dirty_meshes = true;

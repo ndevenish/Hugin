@@ -34,7 +34,7 @@ private:
     wxString m_input;
     wxString m_output;
     CPDetectorSetting m_cpsetting;
-    PT::Panorama pano;
+    HuginBase::Panorama pano;
 };
 
 DECLARE_APP(iCPApp)

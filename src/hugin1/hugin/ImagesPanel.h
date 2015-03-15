@@ -28,7 +28,7 @@
 
 #include "base_wx/wxImageCache.h"
 
-using namespace PT;
+using namespace HuginBase;
 
 // forward declarations, to save the #include statements
 class ImagesTreeCtrl;
@@ -39,14 +39,14 @@ class ImagesTreeCtrl;
  *  Here one can set first values vor the camera orientation and
  *  link these parameters for the optimization.
  */
-class ImagesPanel: public wxPanel, public PT::PanoramaObserver
+class ImagesPanel: public wxPanel, public HuginBase::PanoramaObserver
 {
 public:
     ImagesPanel();
 
     bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL, const wxString& name = wxT("panel"));
 
-    void Init(PT::Panorama * pano);
+    void Init(HuginBase::Panorama * pano);
 
     ~ImagesPanel();
 
@@ -66,10 +66,10 @@ public:
      *
      *  @todo   react on different update signals more special
      */
-//    virtual void panoramaChanged(PT::Panorama &pano);
+//    virtual void panoramaChanged(HuginBase::Panorama &pano);
     /** receives notification about panorama changes */
-    virtual void panoramaChanged(PT::Panorama & pano);
-    virtual void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
+    virtual void panoramaChanged(HuginBase::Panorama & pano);
+    virtual void panoramaImagesChanged(HuginBase::Panorama &pano, const HuginBase::UIntSet & imgNr);
     /** Reloads the cp detector settings from config, necessary after edit preferences */
     void ReloadCPDetectorSettings();
     /** returns the default cp detector settings */

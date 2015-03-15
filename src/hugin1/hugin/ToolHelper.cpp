@@ -29,7 +29,7 @@
 #include "GLViewer.h"
 #include "MeshManager.h"
 
-ToolHelper::ToolHelper(PT::Panorama *pano_in,
+ToolHelper::ToolHelper(HuginBase::Panorama *pano_in,
                                      VisualizationState *visualization_state_in,
                                      GLPreviewFrame *frame_in)
 {
@@ -289,7 +289,7 @@ ViewState *ToolHelper::GetViewStatePtr()
     return visualization_state->getViewState();
 }
 
-PT::Panorama *ToolHelper::GetPanoramaPtr()
+HuginBase::Panorama *ToolHelper::GetPanoramaPtr()
 {
     return pano;
 }
@@ -652,7 +652,7 @@ void PanosphereOverviewToolHelper::MouseMoved(int x, int y, wxMouseEvent & e)
     ToolHelper::MouseMoved(x,y,e);
 }
 
-PanosphereOverviewToolHelper::PanosphereOverviewToolHelper(PT::Panorama *pano,
+PanosphereOverviewToolHelper::PanosphereOverviewToolHelper(HuginBase::Panorama *pano,
                   VisualizationState *visualization_state,
                   GLPreviewFrame * frame) : OverviewToolHelper(pano, visualization_state, frame) {}
 
@@ -743,7 +743,7 @@ void PanosphereOverviewToolHelper::DeactivateTool(Tool *tool)
 }
 
 
-PlaneOverviewToolHelper::PlaneOverviewToolHelper(PT::Panorama *pano,
+PlaneOverviewToolHelper::PlaneOverviewToolHelper(HuginBase::Panorama *pano,
                   VisualizationState *visualization_state,
                   GLPreviewFrame * frame) : OverviewToolHelper(pano, visualization_state, frame) {}
 

@@ -30,19 +30,19 @@
 #include "panoinc.h"
 
 #include <vigra/basicimageview.hxx>
-#include "PT/Stitcher.h"
+#include "nona/Stitcher.h"
 
 #include "base_wx/wxImageCache.h"
 #include "hugin/PreviewPanel.h"
 #include "hugin/PreviewFrame.h"
 #include "hugin/MainFrame.h"
-#include "hugin/CommandHistory.h"
+#include "base_wx/CommandHistory.h"
+#include "base_wx/PanoCommand.h"
 #include "hugin/config_defaults.h"
 #include "hugin/huginApp.h"
 
 #include <math.h>
 
-using namespace PT;
 using namespace std;
 using namespace vigra;
 using namespace vigra_ext;
@@ -90,7 +90,7 @@ bool PreviewPanel::Create(wxWindow* parent, wxWindowID id,
 }
 
 
-void PreviewPanel::Init(PreviewFrame *parent, PT::Panorama * panorama )
+void PreviewPanel::Init(PreviewFrame *parent, HuginBase::Panorama * panorama )
 {
     pano = panorama;
     parentWindow = parent;
@@ -112,13 +112,13 @@ PreviewPanel::~PreviewPanel()
     DEBUG_TRACE("dtor end");
 }
 
-void PreviewPanel::panoramaChanged(Panorama &pano)
+void PreviewPanel::panoramaChanged(HuginBase::Panorama &pano)
 {
     // avoid recursive calls.. don't know if they can happen at all,
     // but they might lead to crashes.
     bool dirty = false;
 
-    const PanoramaOptions & newOpts = pano.getOptions();
+    const HuginBase::PanoramaOptions & newOpts = pano.getOptions();
 
     // check if an important options has been changed
     if (newOpts.getHFOV() != opts.getHFOV()) {
@@ -161,7 +161,7 @@ void PreviewPanel::panoramaChanged(Panorama &pano)
     }
 }
 
-void PreviewPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
+void PreviewPanel::panoramaImagesChanged(HuginBase::Panorama &pano, const HuginBase::UIntSet &changed)
 {
     DEBUG_TRACE("");
     m_imgsDirty = true;
@@ -257,7 +257,7 @@ void PreviewPanel::updatePreview()
         DEBUG_DEBUG("landscape: " << m_panoImgSize);
     }
 
-    PanoramaOptions opts = pano->getOptions();
+    HuginBase::PanoramaOptions opts = pano->getOptions();
     //don't use GPU for preview
     opts.remapUsingGPU = false;
     opts.setWidth(m_panoImgSize.x, false);
@@ -276,13 +276,13 @@ void PreviewPanel::updatePreview()
         BImage alpha(m_panoImgSize);
 
         DEBUG_DEBUG("about to stitch images, pano size: " << m_panoImgSize);
-        UIntSet displayedImages = pano->getActiveImages();
+        HuginBase::UIntSet displayedImages = pano->getActiveImages();
         if (displayedImages.size() > 0) {
-            if (opts.outputMode == PanoramaOptions::OUTPUT_HDR) {
+            if (opts.outputMode == HuginBase::PanoramaOptions::OUTPUT_HDR) {
                 DEBUG_DEBUG("HDR output merge");
 
                 ReduceToHDRFunctor<RGBValue<float> > hdrmerge;
-                ReduceStitcher<FRGBImage, BImage> stitcher(*pano, parentWindow);
+                HuginBase::Nona::ReduceStitcher<FRGBImage, BImage> stitcher(*pano, parentWindow);
                 stitcher.stitch(opts, displayedImages,
                                 destImageRange(panoImg), destImage(alpha),
                                 m_remapCache,
@@ -313,8 +313,8 @@ void PreviewPanel::updatePreview()
                 switch (m_blendMode) {
                 case BLEND_COPY:
                 {
-                    StackingBlender blender;
-                    SimpleStitcher<FRGBImage, BImage> stitcher(*pano, parentWindow);
+                    HuginBase::Nona::StackingBlender blender;
+                    HuginBase::Nona::SimpleStitcher<FRGBImage, BImage> stitcher(*pano, parentWindow);
                     stitcher.stitch(opts, displayedImages,
                                     destImageRange(panoImg), destImage(alpha),
                                     m_remapCache,
@@ -323,8 +323,8 @@ void PreviewPanel::updatePreview()
                 }
                 case BLEND_DIFFERENCE:
                 {
-                    ReduceToDifferenceFunctor<RGBValue<float> > func;
-                    ReduceStitcher<FRGBImage, BImage> stitcher(*pano, parentWindow);
+                    HuginBase::Nona::ReduceToDifferenceFunctor<RGBValue<float> > func;
+                    HuginBase::Nona::ReduceStitcher<FRGBImage, BImage> stitcher(*pano, parentWindow);
                     stitcher.stitch(opts, displayedImages,
                                     destImageRange(panoImg), destImage(alpha),
                                     m_remapCache,
@@ -346,7 +346,7 @@ void PreviewPanel::updatePreview()
 #endif
 
                 // apply default exposure and convert to 8 bit
-                SrcPanoImage src = pano->getSrcImage(0);
+                HuginBase::SrcPanoImage src = pano->getSrcImage(0);
 
                 // apply the exposure
                 double scale = 1.0/pow(2.0,opts.outputExposureValue);
@@ -355,7 +355,7 @@ void PreviewPanel::updatePreview()
                                       vigra::functor::Arg1()*vigra::functor::Param(scale));
 
                 DEBUG_DEBUG("LDR output, with response: " << src.getResponseType());
-                if (src.getResponseType() == SrcPanoImage::RESPONSE_LINEAR) {
+                if (src.getResponseType() == HuginBase::SrcPanoImage::RESPONSE_LINEAR) {
                     vigra::transformImage(srcImageRange(panoImg), destImage(panoImg8),
                                           vigra::functor::Arg1()*vigra::functor::Param(255));
                 } else {
@@ -364,10 +364,10 @@ void PreviewPanel::updatePreview()
                     LUT lut;
                     switch(src.getResponseType())
                     {
-                        case SrcPanoImage::RESPONSE_EMOR:
+                        case HuginBase::SrcPanoImage::RESPONSE_EMOR:
                             EMoR::createEMoRLUT(src.getEMoRParams(), lut);
                             break;
-                        case SrcPanoImage::RESPONSE_GAMMA:
+                        case HuginBase::SrcPanoImage::RESPONSE_GAMMA:
                             lut.resize(256);
                             createGammaLUT(1/src.getGamma(), lut);
                             break;
@@ -404,11 +404,11 @@ void PreviewPanel::updatePreview()
 
     // update the transform for pano -> erect coordinates
     if (m_pano2erect) delete m_pano2erect;
-    SrcPanoImage src;
-    src.setProjection(SrcPanoImage::EQUIRECTANGULAR);
+    HuginBase::SrcPanoImage src;
+    src.setProjection(HuginBase::SrcPanoImage::EQUIRECTANGULAR);
     src.setHFOV(360);
     src.setSize(Size2D(360,180));
-    m_pano2erect = new PTools::Transform;
+    m_pano2erect = new HuginBase::PTools::Transform;
     m_pano2erect->createTransform(src, opts);
 
     if (m_panoBitmap) {
@@ -623,8 +623,8 @@ void PreviewPanel::mousePressLMBEvent(wxMouseEvent & e)
     r = RAD_TO_DEG(r);
     DEBUG_DEBUG("rotation angles pitch*yaw: " << y << " " << p << " " << r);
 
-    GlobalCmdHist::getInstance().addCommand(
-            new PT::RotatePanoCmd(*pano, y, p, r)
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+            new PanoCommand::RotatePanoCmd(*pano, y, p, r)
         );
     if (!m_autoPreview) {
         ForceUpdate();
@@ -649,8 +649,8 @@ void PreviewPanel::mousePressRMBEvent(wxMouseEvent & e)
 
     DEBUG_DEBUG("roll correction: " << roll);
 
-    GlobalCmdHist::getInstance().addCommand(
-            new PT::RotatePanoCmd(*pano, 0, 0, roll)
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+            new PanoCommand::RotatePanoCmd(*pano, 0, 0, roll)
         );
     if (!m_autoPreview) {
         ForceUpdate();

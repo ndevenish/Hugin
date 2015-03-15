@@ -64,7 +64,7 @@
 
 #include <hugin_math/hugin_math.h>
 #include "ViewState.h"
-#include "PT/Panorama.h"
+#include "panodata/Panorama.h"
 
 class Tool;
 class PreviewTool;
@@ -83,7 +83,7 @@ public:
         IMAGES_UNDER_MOUSE_CHANGE, REALLY_DRAW_OVER_IMAGES,
         MOUSE_WHEEL
     };
-    ToolHelper(PT::Panorama *pano,
+    ToolHelper(HuginBase::Panorama *pano,
                       VisualizationState *visualization_state,
                       GLPreviewFrame * frame);
     ~ToolHelper();
@@ -119,7 +119,7 @@ public:
 
     VisualizationState *GetVisualizationStatePtr();
     ViewState* GetViewStatePtr();
-    PT::Panorama *GetPanoramaPtr();
+    HuginBase::Panorama *GetPanoramaPtr();
     
     // Setting up notifications
     void NotifyMe(Event event, Tool *tool);
@@ -138,7 +138,7 @@ public:
     
 protected:
     std::set<Tool *> tools_deactivated;
-    PT::Panorama *pano;
+    HuginBase::Panorama *pano;
     VisualizationState *visualization_state;
     GLPreviewFrame *frame;
     
@@ -180,7 +180,7 @@ protected:
 class PreviewToolHelper : public ToolHelper
 {
 public:
-    PreviewToolHelper(PT::Panorama *pano,
+    PreviewToolHelper(HuginBase::Panorama *pano,
                       VisualizationState *visualization_state,
                       GLPreviewFrame * frame) : ToolHelper(pano, visualization_state, frame) {}
     ~PreviewToolHelper() {}
@@ -193,7 +193,7 @@ public:
 class OverviewToolHelper : public ToolHelper
 {
 public:
-    OverviewToolHelper(PT::Panorama *pano,
+    OverviewToolHelper(HuginBase::Panorama *pano,
                       VisualizationState *visualization_state,
                       GLPreviewFrame * frame) : ToolHelper(pano, visualization_state, frame) {}
     ~OverviewToolHelper() {}
@@ -203,7 +203,7 @@ public:
 class PanosphereOverviewToolHelper : public OverviewToolHelper
 {
 public:
-    PanosphereOverviewToolHelper(PT::Panorama *pano,
+    PanosphereOverviewToolHelper(HuginBase::Panorama *pano,
                       VisualizationState *visualization_state,
                       GLPreviewFrame * frame);
     ~PanosphereOverviewToolHelper();
@@ -238,7 +238,7 @@ protected:
 class PlaneOverviewToolHelper : public OverviewToolHelper
 {
 public:
-    PlaneOverviewToolHelper(PT::Panorama *pano,
+    PlaneOverviewToolHelper(HuginBase::Panorama *pano,
                       VisualizationState *visualization_state,
                       GLPreviewFrame * frame);
     ~PlaneOverviewToolHelper();

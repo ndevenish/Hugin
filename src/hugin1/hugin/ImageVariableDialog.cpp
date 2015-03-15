@@ -32,7 +32,9 @@
 #include <string>
 
 #include "hugin/huginApp.h"
-#include "CommandHistory.h"
+#include "base_wx/CommandHistory.h"
+#include "base_wx/PanoCommand.h"
+#include "panotools/PanoToolsInterface.h"
 
 using namespace HuginBase;
 
@@ -44,7 +46,7 @@ BEGIN_EVENT_TABLE(ImageVariableDialog,wxDialog)
     EVT_BUTTON(XRCID("image_show_response_graph"), ImageVariableDialog::OnShowResponseGraph)
 END_EVENT_TABLE()
 
-ImageVariableDialog::ImageVariableDialog(wxWindow *parent, PT::Panorama* pano, HuginBase::UIntSet imgs)
+ImageVariableDialog::ImageVariableDialog(wxWindow *parent, HuginBase::Panorama* pano, HuginBase::UIntSet imgs)
 {
     // load our children. some children might need special
     // initialization. this will be done later.
@@ -175,7 +177,7 @@ void ImageVariableDialog::SetGuiLevel(GuiLevel newLevel)
 
 bool ImageVariableDialog::ApplyNewVariables()
 {
-    std::vector<PT::PanoCommand*> commands;
+    std::vector<PanoCommand::PanoCommand*> commands;
     VariableMap varMap;
     for (const char** varname = m_varNames; *varname != 0; ++varname)
     {
@@ -234,20 +236,20 @@ bool ImageVariableDialog::ApplyNewVariables()
             img.setResponseType((SrcPanoImage::ResponseType)sel);
             SrcImgs.push_back(img);
         }
-        commands.push_back(new PT::UpdateSrcImagesCmd( *m_pano, m_images, SrcImgs ));
+        commands.push_back(new PanoCommand::UpdateSrcImagesCmd( *m_pano, m_images, SrcImgs ));
     }
     if(varMap.size()>0)
     {
         for(UIntSet::const_iterator it=m_images.begin();it!=m_images.end();++it)
         {
             commands.push_back(
-                new PT::UpdateImageVariablesCmd(*m_pano,*it,varMap)
+                new PanoCommand::UpdateImageVariablesCmd(*m_pano,*it,varMap)
                 );
         };
     };
     if(commands.size()>0)
     {
-        GlobalCmdHist::getInstance().addCommand(new PT::CombinedPanoCommand(*m_pano, commands));
+        PanoCommand::GlobalCmdHist::getInstance().addCommand(new PanoCommand::CombinedPanoCommand(*m_pano, commands));
         return true;
     }
     else

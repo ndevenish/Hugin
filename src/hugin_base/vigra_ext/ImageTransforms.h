@@ -2,7 +2,7 @@
 /** @file ImageTransforms.h
  *
  *  Contains functions to transform whole images.
- *  Can use PTools::Transform or PT::SpaceTransform for the calculations
+ *  Can use PTools::Transform or PanoCommand::SpaceTransform for the calculations
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *

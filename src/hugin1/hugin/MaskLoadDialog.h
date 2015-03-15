@@ -30,7 +30,7 @@
 
 #include "panoinc_WX.h"
 #include "panoinc.h"
-#include <PT/Panorama.h>
+#include <panodata/Panorama.h>
 #include <base_wx/wxImageCache.h>
 #include <hugin/MaskImageCtrl.h>
 

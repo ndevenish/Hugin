@@ -27,23 +27,24 @@
 #include "panoinc.h"
 #include "panoinc_WX.h"
 
-#include "PT/Panorama.h"
+#include "panodata/Panorama.h"
+#include "hugin_shared.h"
 
 /** A dialog for HFOV
  *
  *  Also allows cancellation
  */
-class HFOVDialog : public wxDialog
+class WXIMPEX HFOVDialog : public wxDialog
 {
 public:
     /** ctor.
      */
-    HFOVDialog(wxWindow * parent, PT::SrcPanoImage & srcImg);
+    HFOVDialog(wxWindow * parent, HuginBase::SrcPanoImage & srcImg);
     /** dtor.
      */
     virtual ~HFOVDialog() {};
 
-    PT::SrcPanoImage GetSrcImage();
+    HuginBase::SrcPanoImage GetSrcImage();
     double GetCropFactor();
     double GetFocalLength();
 
@@ -62,17 +63,13 @@ private:
     wxChoice   * m_projChoice;
     wxButton   * m_okButton;
 
-    PT::SrcPanoImage m_srcImg;
+    HuginBase::SrcPanoImage m_srcImg;
     wxString m_focalLengthStr;
     double m_focalLength;
     wxString m_cropFactorStr;
     double m_cropFactor;
     wxString m_HFOVStr;
     double m_HFOV;
-
-//    bool m_ignoreHFOV;
-//    bool m_ignoreCrop;
-//    bool m_ignoreFL;
 
     DECLARE_EVENT_TABLE()
 };

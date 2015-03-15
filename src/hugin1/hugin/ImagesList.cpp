@@ -37,7 +37,7 @@
 #include "hugin/MainFrame.h"
 #endif
 
-using namespace PT;
+using namespace HuginBase;
 using namespace hugin_utils;
 
 #if wxCHECK_VERSION(2,9,0)
@@ -100,7 +100,7 @@ bool ImagesList::Create(wxWindow* parent, wxWindowID id,
     return true;
 }
 
-void ImagesList::Init(PT::Panorama * panorama)
+void ImagesList::Init(HuginBase::Panorama * panorama)
 {
     pano = panorama;
     pano->addObserver(this);
@@ -468,7 +468,7 @@ bool ImagesListMask::Create(wxWindow* parent, wxWindowID id,
 }
 
 
-void ImagesListMask::Init(PT::Panorama * panorama)
+void ImagesListMask::Init(HuginBase::Panorama * panorama)
 {
     ImagesList::Init(panorama);
 }

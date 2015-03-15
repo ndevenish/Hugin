@@ -67,7 +67,7 @@
 #include "exiv2/exiv2.hpp"
 #include "exiv2/preview.hpp"
 
-TextureManager::TextureManager(PT::Panorama *pano, ViewState *view_state_in)
+TextureManager::TextureManager(HuginBase::Panorama *pano, ViewState *view_state_in)
 {
     m_pano = pano;
     photometric_correct = false;

@@ -26,13 +26,12 @@
 
 #include "config.h"
 #include <huginapp/ImageCache.h>
-#include <PT/ImageGraph.h>
+#include <algorithms/optimizer/ImageGraph.h>
 
 #include "hugin/MainFrame.h"
 
 // utility functions
-bool str2double(wxString s, double & d);
-wxString Components2Str(const CPComponents & comp);
+wxString Components2Str(const HuginBase::CPComponents & comp);
 
 /// Store window size and position in configfile/registry
 void StoreFramePosition(wxTopLevelWindow * frame, const wxString & basename);
@@ -173,7 +172,7 @@ private:
     static huginApp * m_this;
 
     // the model
-    Panorama pano;
+    HuginBase::Panorama pano;
 
 	// folder for xrc (GUI resources)
     wxString m_xrcPrefix;

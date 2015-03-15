@@ -39,13 +39,11 @@
 #include "vigra/imageinfo.hxx"
 #include "vigra_ext/Correlation.h"
 
-#include "PT/utils.h"
-
 #include "hugin/config_defaults.h"
 #include "hugin/PreferencesDialog.h"
 #include "hugin/MainFrame.h"
-#include "hugin/wxPanoCommand.h"
-#include "hugin/CommandHistory.h"
+#include "base_wx/wxPanoCommand.h"
+#include "base_wx/CommandHistory.h"
 #include "hugin/PanoPanel.h"
 #include "hugin/ImagesPanel.h"
 #include "hugin/MaskEditorPanel.h"
@@ -57,7 +55,6 @@
 #include "hugin/CPEditorPanel.h"
 #include "hugin/CPListFrame.h"
 #include "hugin/LocalizedFileTipProvider.h"
-#include "hugin/HFOVDialog.h"
 #include "algorithms/control_points/CleanCP.h"
 #include "hugin/PanoOperation.h"
 
@@ -67,7 +64,7 @@
 #include "base_wx/PTWXDlg.h"
 #include "base_wx/MyExternalCmdExecDialog.h"
 #include "base_wx/AssistantExecutor.h"
-#include "PT/ImageGraph.h"
+#include "algorithms/optimizer/ImageGraph.h"
 
 #include "base_wx/huginConfig.h"
 #include "hugin/AboutDialog.h"
@@ -76,7 +73,7 @@
 #include "PluginItems.h"
 #endif
 
-using namespace PT;
+using namespace HuginBase;
 using namespace std;
 using namespace hugin_utils;
 
@@ -179,15 +176,15 @@ bool PanoDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& file
         wxBusyCursor();
         if(pano.getNrOfCtrlPoints()>0)
         {
-            GlobalCmdHist::getInstance().addCommand(new wxAddImagesCmd(pano,filesv));
+            PanoCommand::GlobalCmdHist::getInstance().addCommand(new PanoCommand::wxAddImagesCmd(pano, filesv));
         }
         else
         {
-            std::vector<PanoCommand*> cmds;
-            cmds.push_back(new wxAddImagesCmd(pano, filesv));
-            cmds.push_back(new PT::DistributeImagesCmd(pano));
-            cmds.push_back(new PT::CenterPanoCmd(pano));
-            GlobalCmdHist::getInstance().addCommand(new PT::CombinedPanoCommand(pano, cmds));
+            std::vector<PanoCommand::PanoCommand*> cmds;
+            cmds.push_back(new PanoCommand::wxAddImagesCmd(pano, filesv));
+            cmds.push_back(new PanoCommand::DistributeImagesCmd(pano));
+            cmds.push_back(new PanoCommand::CenterPanoCmd(pano));
+            PanoCommand::GlobalCmdHist::getInstance().addCommand(new PanoCommand::CombinedPanoCommand(pano, cmds));
         };
 
     }
@@ -593,7 +590,7 @@ MainFrame::~MainFrame()
     };
     ImageCache::getInstance().setProgressDisplay(NULL);
 	delete & ImageCache::getInstance();
-	delete & GlobalCmdHist::getInstance();
+    delete & PanoCommand::GlobalCmdHist::getInstance();
 //    delete cpe;
 //    delete images_panel;
     DEBUG_DEBUG("removing observer");
@@ -618,14 +615,14 @@ MainFrame::~MainFrame()
     DEBUG_TRACE("dtor end");
 }
 
-void MainFrame::panoramaChanged(PT::Panorama &pano)
+void MainFrame::panoramaChanged(HuginBase::Panorama &pano)
 {
     wxToolBar* theToolBar = GetToolBar();
     wxMenuBar* theMenuBar = GetMenuBar();
-    bool can_undo = GlobalCmdHist::getInstance().canUndo();
+    bool can_undo = PanoCommand::GlobalCmdHist::getInstance().canUndo();
     theMenuBar->Enable    (XRCID("ID_EDITUNDO"), can_undo);
     theToolBar->EnableTool(XRCID("ID_EDITUNDO"), can_undo);
-    bool can_redo = GlobalCmdHist::getInstance().canRedo();
+    bool can_redo = PanoCommand::GlobalCmdHist::getInstance().canRedo();
     theMenuBar->Enable    (XRCID("ID_EDITREDO"), can_redo);
     theToolBar->EnableTool(XRCID("ID_EDITREDO"), can_redo);
 
@@ -668,8 +665,8 @@ void MainFrame::panoramaChanged(PT::Panorama &pano)
     theMenuBar->Enable(XRCID("ID_SHOW_PANEL_OPTIMIZER_PHOTOMETRIC"), m_show_opt_photo_panel);
 }
 
-//void MainFrame::panoramaChanged(PT::Panorama &panorama)
-void MainFrame::panoramaImagesChanged(PT::Panorama &panorama, const PT::UIntSet & changed)
+//void MainFrame::panoramaChanged(HuginBase::Panorama &panorama)
+void MainFrame::panoramaImagesChanged(HuginBase::Panorama &panorama, const HuginBase::UIntSet & changed)
 {
     DEBUG_TRACE("");
     assert(&pano == &panorama);
@@ -775,7 +772,7 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
         DEBUG_DEBUG("stripping " << path << " from image filenames");
         std::ofstream script(scriptName.GetFullPath().mb_str(HUGIN_CONV_FILENAME));
         script.exceptions ( std::ofstream::eofbit | std::ofstream::failbit | std::ofstream::badbit );
-        PT::UIntSet all;
+        HuginBase::UIntSet all;
         if (pano.getNrOfImages() > 0) {
            fill_set(all, 0, pano.getNrOfImages()-1);
         }
@@ -861,7 +858,7 @@ void MainFrame::OnSavePTStitcherAs(wxCommandEvent & e)
         wxString fname = dlg.GetPath();
         // the project file is just a PTStitcher script...
         wxFileName scriptName = fname;
-        PT::UIntSet all;
+        HuginBase::UIntSet all;
         if (pano.getNrOfImages() > 0) {
             fill_set(all, 0, pano.getNrOfImages()-1);
         }
@@ -888,10 +885,10 @@ void MainFrame::LoadProjectFile(const wxString & filename)
     if (fname.IsOk() && fname.FileExists()) {
         wxBusyCursor wait;
         deregisterPTWXDlgFcn();
-        GlobalCmdHist::getInstance().addCommand(
-           new wxLoadPTProjectCmd(pano,(const char *)filename.mb_str(HUGIN_CONV_FILENAME), (const char *)path.mb_str(HUGIN_CONV_FILENAME), true)
+        PanoCommand::GlobalCmdHist::getInstance().addCommand(
+            new PanoCommand::wxLoadPTProjectCmd(pano, (const char *)filename.mb_str(HUGIN_CONV_FILENAME), (const char *)path.mb_str(HUGIN_CONV_FILENAME), true)
            );
-        GlobalCmdHist::getInstance().clear();
+        PanoCommand::GlobalCmdHist::getInstance().clear();
         registerPTWXDlgFcn();
         DEBUG_DEBUG("project contains " << pano.getNrOfImages() << " after load");
         GuiLevel reqGuiLevel=GetMinimumGuiLevel(pano);
@@ -999,8 +996,8 @@ void MainFrame::OnNewProject(wxCommandEvent & e)
     if(!CloseProject(true)) return; //if closing current project is canceled
 
     m_filename = wxT("");
-    GlobalCmdHist::getInstance().addCommand( new wxNewProjectCmd(pano));
-    GlobalCmdHist::getInstance().clear();
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(new PanoCommand::wxNewProjectCmd(pano));
+    PanoCommand::GlobalCmdHist::getInstance().clear();
     // remove old images from cache
     ImageCache::getInstance().flush();
     if(m_guiLevel==GUI_SIMPLE)
@@ -1025,10 +1022,10 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
     DEBUG_TRACE("");
     PanoOperation::AddImageOperation addImage;
     UIntSet images;
-    PanoCommand* cmd=addImage.GetCommand(wxTheApp->GetTopWindow(), pano, images, m_guiLevel);
+    PanoCommand::PanoCommand* cmd=addImage.GetCommand(wxTheApp->GetTopWindow(), pano, images, m_guiLevel);
     if(cmd!=NULL)
     {
-        GlobalCmdHist::getInstance().addCommand(cmd);
+        PanoCommand::GlobalCmdHist::getInstance().addCommand(cmd);
     }
     else
     {
@@ -1065,8 +1062,8 @@ void MainFrame::AddImages(wxArrayString& filenameArray)
             // use a Command to ensure proper undo and updating of GUI
             // parts
             wxBusyCursor();
-            GlobalCmdHist::getInstance().addCommand(
-                new wxAddImagesCmd(pano,filesv)
+            PanoCommand::GlobalCmdHist::getInstance().addCommand(
+                new PanoCommand::wxAddImagesCmd(pano, filesv)
                 );
         };
     };
@@ -1076,10 +1073,10 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
 {
     PanoOperation::AddImagesSeriesOperation imageSeriesOp;
     UIntSet images;
-    PT::PanoCommand* cmd=imageSeriesOp.GetCommand(wxTheApp->GetTopWindow(), pano, images, m_guiLevel);
+    PanoCommand::PanoCommand* cmd=imageSeriesOp.GetCommand(wxTheApp->GetTopWindow(), pano, images, m_guiLevel);
     if(cmd!=NULL)
     {
-        GlobalCmdHist::getInstance().addCommand(cmd);
+        PanoCommand::GlobalCmdHist::getInstance().addCommand(cmd);
     };
 };
 
@@ -1408,15 +1405,15 @@ void MainFrame::OnMergeProject(wxCommandEvent & e)
         if (fname.IsOk() && fname.FileExists())
         {
             wxBusyCursor wait;
-            PanoramaMemento newPano;
+            HuginBase::PanoramaMemento newPano;
             std::ifstream in((const char *)fname.GetFullPath().mb_str(HUGIN_CONV_FILENAME));
             int ptoversion=0;
             if (newPano.loadPTScript(in, ptoversion, (const char *)path.mb_str(HUGIN_CONV_FILENAME)))
             {
                 Panorama new_pano;
                 new_pano.setMemento(newPano);
-                GlobalCmdHist::getInstance().addCommand(
-                    new MergePanoCmd(pano, new_pano)
+                PanoCommand::GlobalCmdHist::getInstance().addCommand(
+                    new PanoCommand::MergePanoCmd(pano, new_pano)
                 );
                 m_mruFiles.AddFileToHistory(fname.GetFullPath());
                 // force update of preview window
@@ -1451,8 +1448,8 @@ void MainFrame::OnApplyTemplate(wxCommandEvent & e)
 
         std::ifstream file((const char *)filename.mb_str(HUGIN_CONV_FILENAME));
 
-        GlobalCmdHist::getInstance().addCommand(
-                new wxApplyTemplateCmd(pano, file));
+        PanoCommand::GlobalCmdHist::getInstance().addCommand(
+            new PanoCommand::wxApplyTemplateCmd(pano, file));
 
     }
 }
@@ -1494,7 +1491,7 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
     DEBUG_TRACE("");
     // fine-tune all points
 
-    CPVector cps = pano.getCtrlPoints();
+    HuginBase::CPVector cps = pano.getCtrlPoints();
 
     // create a map of all control points.
     std::set<unsigned int> unoptimized;
@@ -1534,7 +1531,7 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
                 {
                     return;
                 };
-                if (cps[*it].mode == ControlPoint::X_Y) {
+                if (cps[*it].mode == HuginBase::ControlPoint::X_Y) {
                     // finetune only normal points
                     DEBUG_DEBUG("fine tuning point: " << *it);
                     wxImage wxSearchImg;
@@ -1591,8 +1588,8 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
                   nGood, nBad, corrThresh);
     wxMessageBox(result, _("Fine-tune result"), wxOK);
     // set newly optimized points
-    GlobalCmdHist::getInstance().addCommand(
-        new UpdateCPsCmd(pano,cps,false)
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+        new PanoCommand::UpdateCPsCmd(pano, cps, false)
         );
 }
 
@@ -1603,8 +1600,8 @@ void MainFrame::OnRemoveCPinMasks(wxCommandEvent & e)
     UIntSet cps=getCPinMasks(pano);
     if(cps.size()>0)
     {
-        GlobalCmdHist::getInstance().addCommand(
-                    new PT::RemoveCtrlPointsCmd(pano,cps)
+        PanoCommand::GlobalCmdHist::getInstance().addCommand(
+                    new PanoCommand::RemoveCtrlPointsCmd(pano,cps)
                     );
         wxMessageBox(wxString::Format(_("Removed %d control points"), cps.size()),
                    _("Removing control points in masks"),wxOK|wxICON_INFORMATION);
@@ -1627,8 +1624,8 @@ void MainFrame::OnPythonScript(wxCommandEvent & e)
         wxString filename = dlg.GetPath();
         wxConfig::Get()->Write(wxT("/pythonScriptPath"), dlg.GetDirectory());
         std::string scriptfile((const char *)filename.mb_str(HUGIN_CONV_FILENAME));
-        GlobalCmdHist::getInstance().addCommand(
-            new PythonScriptPanoCmd(pano,scriptfile)
+        PanoCommand::GlobalCmdHist::getInstance().addCommand(
+            new PanoCommand::PythonScriptPanoCmd(pano,scriptfile)
             );
     }
 }
@@ -1639,8 +1636,8 @@ void MainFrame::OnPlugin(wxCommandEvent & e)
     if(file.FileExists())
     {
         std::string scriptfile((const char *)file.GetFullPath().mb_str(HUGIN_CONV_FILENAME));
-        GlobalCmdHist::getInstance().addCommand(
-                                 new PythonScriptPanoCmd(pano,scriptfile)
+        PanoCommand::GlobalCmdHist::getInstance().addCommand(
+                                 new PanoCommand::PythonScriptPanoCmd(pano,scriptfile)
                                  );
     }
     else
@@ -1654,9 +1651,9 @@ void MainFrame::OnPlugin(wxCommandEvent & e)
 void MainFrame::OnUndo(wxCommandEvent & e)
 {
     DEBUG_TRACE("OnUndo");
-    if(GlobalCmdHist::getInstance().canUndo())
+    if (PanoCommand::GlobalCmdHist::getInstance().canUndo())
     {
-        GlobalCmdHist::getInstance().undo();
+        PanoCommand::GlobalCmdHist::getInstance().undo();
     }
     else
     {
@@ -1667,9 +1664,9 @@ void MainFrame::OnUndo(wxCommandEvent & e)
 void MainFrame::OnRedo(wxCommandEvent & e)
 {
     DEBUG_TRACE("OnRedo");
-    if(GlobalCmdHist::getInstance().canRedo())
+    if (PanoCommand::GlobalCmdHist::getInstance().canRedo())
     {
-        GlobalCmdHist::getInstance().redo();
+        PanoCommand::GlobalCmdHist::getInstance().redo();
     };
 }
 
@@ -1803,24 +1800,6 @@ wxString MainFrame::getProjectName()
     return m_filename;
 }
 
-bool getLensDataFromUser(wxWindow * parent, SrcPanoImage & srcImg)
-{
-    // display lens dialog
-    HFOVDialog dlg(parent, srcImg);
-    dlg.CenterOnParent();
-    int ret = dlg.ShowModal();
-    if (ret == wxID_OK) {
-        // assume a cancel dialog.
-        srcImg = dlg.GetSrcImage();
-        if (dlg.GetCropFactor() <= 0) {
-            srcImg.setCropFactor(1);
-        }
-        return true;
-    } else {
-        return false;
-    }
-}
-
 void MainFrame::OnMRUFiles(wxCommandEvent &e)
 {
     size_t index = e.GetId() - wxID_FILE1;
@@ -1887,7 +1866,7 @@ void MainFrame::SetGuiLevel(GuiLevel newLevel)
     if(m_guiLevel==GUI_EXPERT && newLevel!=GUI_EXPERT && pano.getOptimizerSwitch()==0)
     {
         bool needsUpdateOptimizerVar=false;
-        OptimizeVector optVec=pano.getOptimizeVector();
+        HuginBase::OptimizeVector optVec = pano.getOptimizeVector();
         for(size_t i=0; i<optVec.size(); i++)
         {
             bool hasTrX=optVec[i].erase("TrX")>0;
@@ -1901,15 +1880,15 @@ void MainFrame::SetGuiLevel(GuiLevel newLevel)
         };
         if(needsUpdateOptimizerVar)
         {
-            GlobalCmdHist::getInstance().addCommand(
-                new PT::UpdateOptimizeVectorCmd(pano, optVec)
+            PanoCommand::GlobalCmdHist::getInstance().addCommand(
+                new PanoCommand::UpdateOptimizeVectorCmd(pano, optVec)
             );
         };
     };
     if(newLevel==GUI_SIMPLE && pano.getPhotometricOptimizerSwitch()==0)
     {
         bool needsUpdateOptimizerVar=false;
-        OptimizeVector optVec=pano.getOptimizeVector();
+        HuginBase::OptimizeVector optVec = pano.getOptimizeVector();
         for(size_t i=0; i<optVec.size(); i++)
         {
             bool hasVx=optVec[i].erase("Vx")>0;
@@ -1918,8 +1897,8 @@ void MainFrame::SetGuiLevel(GuiLevel newLevel)
         };
         if(needsUpdateOptimizerVar)
         {
-            GlobalCmdHist::getInstance().addCommand(
-                new PT::UpdateOptimizeVectorCmd(pano, optVec)
+            PanoCommand::GlobalCmdHist::getInstance().addCommand(
+                new PanoCommand::UpdateOptimizeVectorCmd(pano, optVec)
             );
         };
     };
@@ -2073,7 +2052,7 @@ void MainFrame::RunAssistant(wxWindow* mainWin)
     wxFileName scriptFileName(wxFileName::CreateTempFileName(tempDir+wxT("ha")));
     std::ofstream script(scriptFileName.GetFullPath().mb_str(HUGIN_CONV_FILENAME));
     script.exceptions ( std::ofstream::eofbit | std::ofstream::failbit | std::ofstream::badbit );
-    PT::UIntSet all;
+    HuginBase::UIntSet all;
     fill_set(all, 0, pano.getNrOfImages()-1);
     pano.printPanoramaScript(script, pano.getOptimizeVector(), pano.getOptions(), all, false);
     script.close();
@@ -2085,7 +2064,7 @@ void MainFrame::RunAssistant(wxWindow* mainWin)
     int ret = MyExecuteCommandQueue(commands, mainWin, _("Running assistant"));
 
     //read back panofile
-    GlobalCmdHist::getInstance().addCommand(new wxLoadPTProjectCmd(pano,
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(new PanoCommand::wxLoadPTProjectCmd(pano,
         (const char *)scriptFileName.GetFullPath().mb_str(HUGIN_CONV_FILENAME), 
         (const char *)scriptFileName.GetPath(wxPATH_NATIVE | wxPATH_GET_SEPARATOR).mb_str(HUGIN_CONV_FILENAME), 
         ret==0, false));
@@ -2096,10 +2075,10 @@ void MainFrame::RunAssistant(wxWindow* mainWin)
     if(ret!=0)
     {
         //check for unconnected images
-        CPGraph graph;
-        createCPGraph(pano, graph);
-        CPComponents comps;
-        int n = findCPComponents(graph, comps);
+        HuginBase::CPGraph graph;
+        HuginBase::createCPGraph(pano, graph);
+        HuginBase::CPComponents comps;
+        int n = HuginBase::findCPComponents(graph, comps);
         if(n > 1)
         {
             // switch to images panel.

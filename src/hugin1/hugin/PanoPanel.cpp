@@ -31,18 +31,18 @@
 #include "panoinc_WX.h"
 #include "panoinc.h"
 #include "base_wx/platform.h"
-
+#include "base_wx/PanoCommand.h"
 
 #include <hugin/config_defaults.h>
 
-#include "PT/Stitcher.h"
+#include "nona/Stitcher.h"
 #include "base_wx/wxPlatform.h"
 
 extern "C" {
 #include <pano13/queryfeature.h>
 }
 
-#include "hugin/CommandHistory.h"
+#include "base_wx/CommandHistory.h"
 #include "hugin/CPImageCtrl.h"
 #include "hugin/CPImagesComboBox.h"
 #include "hugin/PanoPanel.h"
@@ -56,11 +56,13 @@ extern "C" {
 #include "base_wx/huginConfig.h"
 #include "base_wx/LensTools.h"
 #include "algorithms/basic/LayerStacks.h"
+#include "algorithms/basic/CalculateOptimalScale.h"
+#include "algorithms/basic/CalculateOptimalROI.h"
+#include "algorithms/nona/FitPanorama.h"
 #include "lensdb/LensDB.h"
 
 #define WX_BROKEN_SIZER_UNKNOWN
 
-using namespace PT;
 using namespace std;
 using namespace hugin_utils;
 
@@ -287,7 +289,7 @@ PanoPanel::~PanoPanel(void)
 }
 
 
-void PanoPanel::panoramaChanged (PT::Panorama &pano)
+void PanoPanel::panoramaChanged (HuginBase::Panorama &pano)
 {
     DEBUG_TRACE("");
 
@@ -297,7 +299,7 @@ void PanoPanel::panoramaChanged (PT::Panorama &pano)
     const bool hasStacks = false;
 #endif
 
-    PanoramaOptions opt = pano.getOptions();
+    HuginBase::PanoramaOptions opt = pano.getOptions();
 
     // update all options for dialog and notebook tab
     UpdateDisplay(opt,hasStacks);
@@ -306,10 +308,10 @@ void PanoPanel::panoramaChanged (PT::Panorama &pano)
 }
 
 
-bool PanoPanel::StackCheck(PT::Panorama &pano)
+bool PanoPanel::StackCheck(HuginBase::Panorama &pano)
 {
     DEBUG_TRACE("");
-    PanoramaOptions opt = pano.getOptions();
+    HuginBase::PanoramaOptions opt = pano.getOptions();
 
     // Determine if there are stacks in the pano.
     UIntSet activeImages = pano.getActiveImages();
@@ -356,7 +358,7 @@ bool PanoPanel::StackCheck(PT::Panorama &pano)
 }
 
 
-void PanoPanel::UpdateDisplay(const PanoramaOptions & opt, const bool hasStacks)
+void PanoPanel::UpdateDisplay(const HuginBase::PanoramaOptions & opt, const bool hasStacks)
 {
 
 //    m_HFOVSpin->SetRange(1,opt.getMaxHFOV());
@@ -589,16 +591,16 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt, const bool hasStacks)
 void PanoPanel::ProjectionChanged ( wxCommandEvent & e )
 {
     if (updatesDisabled) return;
-    PanoramaOptions opt = pano->getOptions();
+    HuginBase::PanoramaOptions opt = pano->getOptions();
 //    PanoramaOptions::ProjectionFormat oldP = opt.getProjection();
 
-    PanoramaOptions::ProjectionFormat newP = (PanoramaOptions::ProjectionFormat) m_ProjectionChoice->GetSelection();
+    HuginBase::PanoramaOptions::ProjectionFormat newP = (HuginBase::PanoramaOptions::ProjectionFormat) m_ProjectionChoice->GetSelection();
 //    int w = opt.getWidth();
 //    int h = opt.getHeight();
     opt.setProjection(newP);
 
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::SetPanoOptionsCmd( *pano, opt )
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+        new PanoCommand::SetPanoOptionsCmd( *pano, opt )
         );
     DEBUG_DEBUG ("Projection changed: "  << newP)
 }
@@ -606,7 +608,7 @@ void PanoPanel::ProjectionChanged ( wxCommandEvent & e )
 void PanoPanel::HFOVChanged ( wxCommandEvent & e )
 {
     if (updatesDisabled) return;
-    PanoramaOptions opt = pano->getOptions();
+    HuginBase::PanoramaOptions opt = pano->getOptions();
 
 
     wxString text = m_HFOVText->GetValue();
@@ -628,8 +630,8 @@ void PanoPanel::HFOVChanged ( wxCommandEvent & e )
     }
     opt.setHFOV(hfov);
     // recalculate panorama height...
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::SetPanoOptionsCmd( *pano, opt )
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+        new PanoCommand::SetPanoOptionsCmd( *pano, opt )
         );
 
     DEBUG_INFO ( "new hfov: " << hfov )
@@ -638,7 +640,7 @@ void PanoPanel::HFOVChanged ( wxCommandEvent & e )
 void PanoPanel::VFOVChanged ( wxCommandEvent & e )
 {
     if (updatesDisabled) return;
-    PanoramaOptions opt = pano->getOptions();
+    HuginBase::PanoramaOptions opt = pano->getOptions();
 
     wxString text = m_VFOVText->GetValue();
     DEBUG_INFO ("VFOV = " << text.mb_str(wxConvLocal) );
@@ -660,8 +662,8 @@ void PanoPanel::VFOVChanged ( wxCommandEvent & e )
     }
     opt.setVFOV(vfov);
     // recalculate panorama height...
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::SetPanoOptionsCmd( *pano, opt )
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+        new PanoCommand::SetPanoOptionsCmd( *pano, opt )
         );
 
     DEBUG_INFO ( "new vfov: " << vfov )
@@ -678,7 +680,7 @@ void PanoPanel::VFOVChanged ( wxCommandEvent & e )
     if (vfov != opt.getVFOV()) {
         opt.setVFOV(vfov);
         GlobalCmdHist::getInstance().addCommand(
-            new PT::SetPanoOptionsCmd( pano, opt )
+            new PanoCommand::SetPanoOptionsCmd( pano, opt )
             );
         DEBUG_INFO ( "new vfov: " << vfov << " => height: " << opt.getHeight() );
     } else {
@@ -690,13 +692,13 @@ void PanoPanel::VFOVChanged ( wxCommandEvent & e )
 void PanoPanel::WidthChanged ( wxCommandEvent & e )
 {
     if (updatesDisabled) return;
-    PanoramaOptions opt = pano->getOptions();
+    HuginBase::PanoramaOptions opt = pano->getOptions();
     long nWidth;
     if (m_WidthTxt->GetValue().ToLong(&nWidth)) {
         if (nWidth <= 0) return;
         opt.setWidth((unsigned int) nWidth, m_keepViewOnResize);
-        GlobalCmdHist::getInstance().addCommand(
-            new PT::SetPanoOptionsCmd( *pano, opt )
+        PanoCommand::GlobalCmdHist::getInstance().addCommand(
+            new PanoCommand::SetPanoOptionsCmd( *pano, opt )
             );
         DEBUG_INFO(nWidth );
     } else {
@@ -707,13 +709,13 @@ void PanoPanel::WidthChanged ( wxCommandEvent & e )
 void PanoPanel::HeightChanged ( wxCommandEvent & e )
 {
     if (updatesDisabled) return;
-    PanoramaOptions opt = pano->getOptions();
+    HuginBase::PanoramaOptions opt = pano->getOptions();
     long nHeight;
     if (m_HeightTxt->GetValue().ToLong(&nHeight)) {
         if(nHeight <= 0) return;
         opt.setHeight((unsigned int) nHeight);
-        GlobalCmdHist::getInstance().addCommand(
-                new PT::SetPanoOptionsCmd( *pano, opt )
+        PanoCommand::GlobalCmdHist::getInstance().addCommand(
+                new PanoCommand::SetPanoOptionsCmd( *pano, opt )
                                                );
         DEBUG_INFO(nHeight);
     } else {
@@ -724,7 +726,7 @@ void PanoPanel::HeightChanged ( wxCommandEvent & e )
 void PanoPanel::ROIChanged ( wxCommandEvent & e )
 {
     if (updatesDisabled) return;
-    PanoramaOptions opt = pano->getOptions();
+    HuginBase::PanoramaOptions opt = pano->getOptions();
     long left, right, top, bottom;
     if (!m_ROITopTxt->GetValue().ToLong(&top)) {
         wxLogError(_("Top needs to be an integer bigger than 0"));
@@ -757,8 +759,8 @@ void PanoPanel::ROIChanged ( wxCommandEvent & e )
         return;
     }
 
-    GlobalCmdHist::getInstance().addCommand(
-            new PT::SetPanoOptionsCmd( *pano, opt )
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+            new PanoCommand::SetPanoOptionsCmd( *pano, opt )
                                            );
 }
 
@@ -780,22 +782,22 @@ void PanoPanel::RemapperChanged(wxCommandEvent & e)
     int remapper = m_RemapperChoice->GetSelection();
     DEBUG_DEBUG("changing remapper to " << remapper);
 
-    PanoramaOptions opt = pano->getOptions();
+    HuginBase::PanoramaOptions opt = pano->getOptions();
     if (remapper == 1) {
-        opt.remapper = PanoramaOptions::PTMENDER;
+        opt.remapper = HuginBase::PanoramaOptions::PTMENDER;
     } else {
-        opt.remapper = PanoramaOptions::NONA;
+        opt.remapper = HuginBase::PanoramaOptions::NONA;
     }
 
-    GlobalCmdHist::getInstance().addCommand(
-            new PT::SetPanoOptionsCmd( *pano, opt )
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+            new PanoCommand::SetPanoOptionsCmd( *pano, opt )
             );
 }
 
 void PanoPanel::OnRemapperOptions(wxCommandEvent & e)
 {
-    PanoramaOptions opt = pano->getOptions();
-    if (opt.remapper == PanoramaOptions::NONA) {
+    HuginBase::PanoramaOptions opt = pano->getOptions();
+    if (opt.remapper == HuginBase::PanoramaOptions::NONA) {
         wxDialog dlg;
         wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("nona_options_dialog"));
         wxChoice * interpol_choice = XRCCTRL(dlg, "nona_choice_interpolator", wxChoice);
@@ -810,8 +812,8 @@ void PanoPanel::OnRemapperOptions(wxCommandEvent & e)
                 opt.interpolator = (vigra_ext::Interpolator) interpol;
             }
             opt.tiff_saveROI = cropped_cb->GetValue();
-            GlobalCmdHist::getInstance().addCommand(
-                new PT::SetPanoOptionsCmd( *pano, opt )
+            PanoCommand::GlobalCmdHist::getInstance().addCommand(
+                new PanoCommand::SetPanoOptionsCmd( *pano, opt )
                 );
         }
     } else {
@@ -821,18 +823,18 @@ void PanoPanel::OnRemapperOptions(wxCommandEvent & e)
 
 void PanoPanel::BlenderChanged(wxCommandEvent & e)
 {
-    PanoramaOptions opt = pano->getOptions();
+    HuginBase::PanoramaOptions opt = pano->getOptions();
     opt.blendMode = static_cast<HuginBase::PanoramaOptions::BlendingMechanism>(GetSelectedValue(m_BlenderChoice));
 
-    GlobalCmdHist::getInstance().addCommand(
-            new PT::SetPanoOptionsCmd( *pano, opt )
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+            new PanoCommand::SetPanoOptionsCmd( *pano, opt )
             );
 }
 
 void PanoPanel::OnBlenderOptions(wxCommandEvent & e)
 {
-    PanoramaOptions opt = pano->getOptions();
-    if (opt.blendMode == PanoramaOptions::ENBLEND_BLEND) {
+    HuginBase::PanoramaOptions opt = pano->getOptions();
+    if (opt.blendMode == HuginBase::PanoramaOptions::ENBLEND_BLEND) {
         wxDialog dlg;
         wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("enblend_options_dialog"));
         wxTextCtrl * enblend_opts_text = XRCCTRL(dlg, "blender_arguments_text", wxTextCtrl);
@@ -847,8 +849,8 @@ void PanoPanel::OnBlenderOptions(wxCommandEvent & e)
             {
                 opt.enblendOptions = wxConfigBase::Get()->Read(wxT("Enblend/Args"),wxT(HUGIN_ENBLEND_ARGS)).mb_str(wxConvLocal);
             };
-            GlobalCmdHist::getInstance().addCommand(
-                new PT::SetPanoOptionsCmd( *pano, opt )
+            PanoCommand::GlobalCmdHist::getInstance().addCommand(
+                new PanoCommand::SetPanoOptionsCmd( *pano, opt )
                 );
         }
     } else {
@@ -864,7 +866,7 @@ void PanoPanel::FusionChanged(wxCommandEvent & e)
 
 void PanoPanel::OnFusionOptions(wxCommandEvent & e)
 {
-    PanoramaOptions opt = pano->getOptions();
+    HuginBase::PanoramaOptions opt = pano->getOptions();
     wxDialog dlg;
     wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("enfuse_options_dialog"));
     wxTextCtrl * enfuse_opts_text = XRCCTRL(dlg, "enfuse_arguments_text", wxTextCtrl);
@@ -879,8 +881,8 @@ void PanoPanel::OnFusionOptions(wxCommandEvent & e)
         {
             opt.enfuseOptions = wxConfigBase::Get()->Read(wxT("Enfuse/Args"),wxT(HUGIN_ENFUSE_ARGS)).mb_str(wxConvLocal);
         };
-        GlobalCmdHist::getInstance().addCommand(
-            new PT::SetPanoOptionsCmd( *pano, opt )
+        PanoCommand::GlobalCmdHist::getInstance().addCommand(
+            new PanoCommand::SetPanoOptionsCmd( *pano, opt )
             );
     }
 }
@@ -894,15 +896,15 @@ void PanoPanel::HDRMergeChanged(wxCommandEvent & e)
 
 void PanoPanel::OnHDRMergeOptions(wxCommandEvent & e)
 {
-    PanoramaOptions opt = pano->getOptions();
-    if (opt.hdrMergeMode == PanoramaOptions::HDRMERGE_AVERAGE) {
+    HuginBase::PanoramaOptions opt = pano->getOptions();
+    if (opt.hdrMergeMode == HuginBase::PanoramaOptions::HDRMERGE_AVERAGE) {
         HDRMergeOptionsDialog dlg(this);
         dlg.SetCommandLineArgument(wxString(opt.hdrmergeOptions.c_str(), wxConvLocal));
         if (dlg.ShowModal() == wxOK) 
         {
             opt.hdrmergeOptions=dlg.GetCommandLineArgument().mb_str(wxConvLocal);
-            GlobalCmdHist::getInstance().addCommand(
-                new PT::SetPanoOptionsCmd( *pano, opt )
+            PanoCommand::GlobalCmdHist::getInstance().addCommand(
+                new PanoCommand::SetPanoOptionsCmd( *pano, opt )
                 );
         }
     } else {
@@ -917,19 +919,19 @@ void PanoPanel::DoCalcFOV(wxCommandEvent & e)
     DEBUG_TRACE("");
     if (pano->getActiveImages().size() == 0) return;
 
-    double hfov, height;
-    pano->fitPano(hfov, height);
-    PanoramaOptions opt = pano->getOptions();
-    opt.setHFOV(hfov);
-    opt.setHeight(roundi(height));
+    HuginBase::PanoramaOptions opt = pano->getOptions();
+    HuginBase::CalculateFitPanorama fitPano(*pano);
+    fitPano.run();
+    opt.setHFOV(fitPano.getResultHorizontalFOV());
+    opt.setHeight(roundi(fitPano.getResultHeight()));
 
     DEBUG_INFO ( "hfov: " << opt.getHFOV() << "  w: " << opt.getWidth() << " h: " << opt.getHeight() << "  => vfov: " << opt.getVFOV()  << "  before update");
 
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::SetPanoOptionsCmd( *pano, opt )
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+        new PanoCommand::SetPanoOptionsCmd( *pano, opt )
         );
 
-    PanoramaOptions opt2 = pano->getOptions();
+    HuginBase::PanoramaOptions opt2 = pano->getOptions();
     DEBUG_INFO ( "hfov: " << opt2.getHFOV() << "  w: " << opt2.getWidth() << " h: " << opt2.getHeight() << "  => vfov: " << opt2.getVFOV()  << "  after update");
 
 }
@@ -938,12 +940,13 @@ void PanoPanel::DoCalcOptimalWidth(wxCommandEvent & e)
 {
     if (pano->getActiveImages().size() == 0) return;
 
-    PanoramaOptions opt = pano->getOptions();
-    unsigned width = pano->calcOptimalWidth();
+    HuginBase::PanoramaOptions opt = pano->getOptions();
+    unsigned width = hugin_utils::roundi(HuginBase::CalculateOptimalScale::calcOptimalScale(*pano) * opt.getWidth());
+
     if (width > 0) {
         opt.setWidth( width );
-        GlobalCmdHist::getInstance().addCommand(
-            new PT::SetPanoOptionsCmd( *pano, opt )
+        PanoCommand::GlobalCmdHist::getInstance().addCommand(
+            new PanoCommand::SetPanoOptionsCmd( *pano, opt )
             );
     }
     DEBUG_INFO ( "new optimal width: " << opt.getWidth() );
@@ -959,19 +962,23 @@ void PanoPanel::DoCalcOptimalROI(wxCommandEvent & e)
     };
 
     vigra::Rect2D newROI;
-    vigra::Size2D newSize;
     {
         ProgressReporterDialog progress(0, _("Autocrop"), _("Calculating optimal crop"), this);
-        pano->calcOptimalROI(&progress, newROI, newSize);
+        HuginBase::CalculateOptimalROI cropPano(*pano, &progress);
+        cropPano.run();
+        if (cropPano.hasRunSuccessfully())
+        {
+            newROI = cropPano.getResultOptimalROI();
+        };
     };
 
-    PanoramaOptions opt = pano->getOptions();
+    HuginBase::PanoramaOptions opt = pano->getOptions();
     //set the ROI - fail if the right/bottom is zero, meaning all zero
     if(newROI.right() != 0 && newROI.bottom() != 0)
     {
         opt.setROI(newROI);
-        GlobalCmdHist::getInstance().addCommand(
-            new PT::SetPanoOptionsCmd( *pano, opt )
+        PanoCommand::GlobalCmdHist::getInstance().addCommand(
+            new PanoCommand::SetPanoOptionsCmd( *pano, opt )
             );
     };
 };
@@ -1007,7 +1014,7 @@ void PanoPanel::DoStitch()
     DEBUG_DEBUG("tmp PTO file: " << (const char *)currentPTOfn.mb_str(wxConvLocal));
     // copy is not enough, need to adjust image path names...
     ofstream script(currentPTOfn.mb_str(HUGIN_CONV_FILENAME));
-    PT::UIntSet all;
+    HuginBase::UIntSet all;
     if (pano->getNrOfImages() > 0) {
         fill_set(all, 0, pano->getNrOfImages()-1);
     }
@@ -1266,7 +1273,7 @@ void PanoPanel::FileFormatChanged(wxCommandEvent & e)
     int fmt = m_FileFormatChoice->GetSelection();
     DEBUG_DEBUG("changing file format to " << fmt);
 
-    PanoramaOptions opt = pano->getOptions();
+    HuginBase::PanoramaOptions opt = pano->getOptions();
     switch (fmt) {
         case 1:
             opt.outputImageType ="jpg";
@@ -1283,8 +1290,8 @@ void PanoPanel::FileFormatChanged(wxCommandEvent & e)
             break;
     }
 
-    GlobalCmdHist::getInstance().addCommand(
-            new PT::SetPanoOptionsCmd( *pano, opt )
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+            new PanoCommand::SetPanoOptionsCmd( *pano, opt )
             );
 }
 
@@ -1294,7 +1301,7 @@ void PanoPanel::HDRFileFormatChanged(wxCommandEvent & e)
     int fmt = m_HDRFileFormatChoice->GetSelection();
     DEBUG_DEBUG("changing file format to " << fmt);
 
-    PanoramaOptions opt = pano->getOptions();
+    HuginBase::PanoramaOptions opt = pano->getOptions();
     switch (fmt) {
         case 1:
             opt.outputImageTypeHDR ="tif";
@@ -1305,28 +1312,28 @@ void PanoPanel::HDRFileFormatChanged(wxCommandEvent & e)
             break;
     }
 
-    GlobalCmdHist::getInstance().addCommand(
-            new PT::SetPanoOptionsCmd( *pano, opt )
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+            new PanoCommand::SetPanoOptionsCmd( *pano, opt )
             );
 }
 
 void PanoPanel::OnJPEGQualityText(wxCommandEvent & e)
 {
-    PanoramaOptions opt = pano->getOptions();
+    HuginBase::PanoramaOptions opt = pano->getOptions();
     long l = 100;
     m_FileFormatJPEGQualityText->GetValue().ToLong(&l);
     if (l < 0) l=1;
     if (l > 100) l=100;
     DEBUG_DEBUG("Setting jpeg quality to " << l);
     opt.quality = l;
-    GlobalCmdHist::getInstance().addCommand(
-            new PT::SetPanoOptionsCmd( *pano, opt )
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+            new PanoCommand::SetPanoOptionsCmd( *pano, opt )
             );
 }
 
 void PanoPanel::OnNormalTIFFCompression(wxCommandEvent & e)
 {
-    PanoramaOptions opt = pano->getOptions();
+    HuginBase::PanoramaOptions opt = pano->getOptions();
     switch(e.GetSelection()) {
         case 0:
         default:
@@ -1346,14 +1353,14 @@ void PanoPanel::OnNormalTIFFCompression(wxCommandEvent & e)
             opt.tiffCompression = "DEFLATE";
             break;
     }
-    GlobalCmdHist::getInstance().addCommand(
-            new PT::SetPanoOptionsCmd( *pano, opt )
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+            new PanoCommand::SetPanoOptionsCmd( *pano, opt )
             );
 }
 
 void PanoPanel::OnHDRTIFFCompression(wxCommandEvent & e)
 {
-    PanoramaOptions opt = pano->getOptions();
+    HuginBase::PanoramaOptions opt = pano->getOptions();
     switch(e.GetSelection()) {
         case 0:
         default:
@@ -1369,15 +1376,15 @@ void PanoPanel::OnHDRTIFFCompression(wxCommandEvent & e)
             opt.outputImageTypeHDRCompression = "DEFLATE";
             break;
     }
-    GlobalCmdHist::getInstance().addCommand(
-            new PT::SetPanoOptionsCmd( *pano, opt )
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+            new PanoCommand::SetPanoOptionsCmd( *pano, opt )
             );
 }
 
 void PanoPanel::OnOutputFilesChanged(wxCommandEvent & e)
 {
     int id = e.GetId();
-    PanoramaOptions opts = pano->getOptions();
+    HuginBase::PanoramaOptions opts = pano->getOptions();
 
     if (id == XRCID("pano_cb_ldr_output_blended") ) {
         opts.outputLDRBlended = e.IsChecked();
@@ -1401,8 +1408,8 @@ void PanoPanel::OnOutputFilesChanged(wxCommandEvent & e)
         opts.outputHDRLayers = e.IsChecked();
     }
     
-    GlobalCmdHist::getInstance().addCommand(
-            new PT::SetPanoOptionsCmd( *pano, opts )
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+            new PanoCommand::SetPanoOptionsCmd( *pano, opts )
         );
 }
 

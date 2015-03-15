@@ -24,7 +24,8 @@
 
 #include "hugin/PanoOperation.h"
 #include "hugin/config_defaults.h"
-#include "hugin/wxPanoCommand.h"
+#include "base_wx/PanoCommand.h"
+#include "base_wx/wxPanoCommand.h"
 #include "huginapp/ImageCache.h"
 #include "base_wx/MyProgressDialog.h"
 #include "base_wx/PTWXDlg.h"
@@ -49,12 +50,12 @@ wxString PanoOperation::GetLabel()
     return wxEmptyString;
 };
 
-bool PanoOperation::IsEnabled(PT::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel)
+bool PanoOperation::IsEnabled(HuginBase::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel)
 {
     return true;
 };
 
-PT::PanoCommand* PanoOperation::GetCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel)
+PanoCommand::PanoCommand* PanoOperation::GetCommand(wxWindow* parent, HuginBase::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel)
 {
     //remember gui level, only used by some PanoOperation's
     m_guiLevel=guiLevel;
@@ -68,12 +69,12 @@ PT::PanoCommand* PanoOperation::GetCommand(wxWindow* parent, PT::Panorama& pano,
     };
 };
 
-bool PanoSingleImageOperation::IsEnabled(PT::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel)
+bool PanoSingleImageOperation::IsEnabled(HuginBase::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel)
 {
     return images.size()==1;
 };
 
-bool PanoMultiImageOperation::IsEnabled(PT::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel)
+bool PanoMultiImageOperation::IsEnabled(HuginBase::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel)
 {
     return images.size()>0;
 };
@@ -169,14 +170,14 @@ wxString AddImageOperation::GetLabel()
     return _("Add individual images...");
 };
 
-PT::PanoCommand* AddImageOperation::GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images)
+PanoCommand::PanoCommand* AddImageOperation::GetInternalCommand(wxWindow* parent, HuginBase::Panorama& pano, HuginBase::UIntSet images)
 {
     std::vector<std::string> files;
     if(AddImageDialog(parent, files))
     {
         if(files.size()>0)
         {
-            return new PT::wxAddImagesCmd(pano,files);
+            return new PanoCommand::wxAddImagesCmd(pano,files);
         };
     };
     return NULL;
@@ -258,7 +259,7 @@ wxString AddImagesSeriesOperation::GetLabel()
     return _("Add time-series of images...");
 };
 
-PT::PanoCommand* AddImagesSeriesOperation::GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images)
+PanoCommand::PanoCommand* AddImagesSeriesOperation::GetInternalCommand(wxWindow* parent, HuginBase::Panorama& pano, HuginBase::UIntSet images)
 {
     //load image if pano contains no images
     std::vector<std::string> files;
@@ -363,7 +364,7 @@ PT::PanoCommand* AddImagesSeriesOperation::GetInternalCommand(wxWindow* parent, 
         sortbytime spred(timeMap);
         sort(files.begin(), files.end(), spred);
         // Load all of the named files.
-        return new PT::wxAddImagesCmd(pano,files);
+        return new PanoCommand::wxAddImagesCmd(pano,files);
     }
     else
     {
@@ -384,14 +385,14 @@ wxString RemoveImageOperation::GetLabel()
     return _("Remove selected image(s)");
 };
 
-PT::PanoCommand* RemoveImageOperation::GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images)
+PanoCommand::PanoCommand* RemoveImageOperation::GetInternalCommand(wxWindow* parent, HuginBase::Panorama& pano, HuginBase::UIntSet images)
 {
     //remove images from cache
     for (UIntSet::iterator it = images.begin(); it != images.end(); ++it)
     {
         ImageCache::getInstance().removeImage(pano.getImage(*it).getFilename());
     }
-    return new PT::RemoveImagesCmd(pano, images);
+    return new PanoCommand::RemoveImagesCmd(pano, images);
 };
 
 wxString ChangeAnchorImageOperation::GetLabel()
@@ -399,11 +400,11 @@ wxString ChangeAnchorImageOperation::GetLabel()
     return _("Anchor this image for position");
 };
 
-PT::PanoCommand* ChangeAnchorImageOperation::GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images)
+PanoCommand::PanoCommand* ChangeAnchorImageOperation::GetInternalCommand(wxWindow* parent, HuginBase::Panorama& pano, HuginBase::UIntSet images)
 {
     PanoramaOptions opt = pano.getOptions();
     opt.optimizeReferenceImage = *(images.begin());
-    return new PT::SetPanoOptionsCmd(pano,opt);
+    return new PanoCommand::SetPanoOptionsCmd(pano,opt);
 };
 
 wxString ChangeColorAnchorImageOperation::GetLabel()
@@ -411,7 +412,7 @@ wxString ChangeColorAnchorImageOperation::GetLabel()
     return _("Anchor this image for exposure");
 };
 
-PT::PanoCommand* ChangeColorAnchorImageOperation::GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images)
+PanoCommand::PanoCommand* ChangeColorAnchorImageOperation::GetInternalCommand(wxWindow* parent, HuginBase::Panorama& pano, HuginBase::UIntSet images)
 {
     PanoramaOptions opt = pano.getOptions();
     opt.colorReferenceImage = *(images.begin());
@@ -420,10 +421,10 @@ PT::PanoCommand* ChangeColorAnchorImageOperation::GetInternalCommand(wxWindow* p
     {
         opt.colorCorrection = (PanoramaOptions::ColorCorrection) 1;
     }
-    return new PT::SetPanoOptionsCmd(pano, opt);
+    return new PanoCommand::SetPanoOptionsCmd(pano, opt);
 };
 
-bool NewLensOperation::IsEnabled(PT::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel)
+bool NewLensOperation::IsEnabled(HuginBase::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel)
 {
     if(pano.getNrOfImages()==0 || images.size()==0)
     {
@@ -441,12 +442,12 @@ wxString NewLensOperation::GetLabel()
     return _("New lens");
 };
 
-PT::PanoCommand* NewLensOperation::GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images)
+PanoCommand::PanoCommand* NewLensOperation::GetInternalCommand(wxWindow* parent, HuginBase::Panorama& pano, HuginBase::UIntSet images)
 {
-    return new PT::NewPartCmd(pano, images, HuginBase::StandardImageVariableGroups::getLensVariables());
+    return new PanoCommand::NewPartCmd(pano, images, HuginBase::StandardImageVariableGroups::getLensVariables());
 };
 
-bool ChangeLensOperation::IsEnabled(PT::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel)
+bool ChangeLensOperation::IsEnabled(HuginBase::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel)
 {
     if(pano.getNrOfImages()==0 || images.size()==0)
     {
@@ -465,7 +466,7 @@ wxString ChangeLensOperation::GetLabel()
     return _("Change lens...");
 };
 
-PT::PanoCommand* ChangeLensOperation::GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images)
+PanoCommand::PanoCommand* ChangeLensOperation::GetInternalCommand(wxWindow* parent, HuginBase::Panorama& pano, HuginBase::UIntSet images)
 {
     HuginBase::StandardImageVariableGroups variable_groups(pano);
     long nr = wxGetNumberFromUser(
@@ -477,7 +478,7 @@ PT::PanoCommand* ChangeLensOperation::GetInternalCommand(wxWindow* parent, PT::P
     if (nr >= 0)
     {
         // user accepted
-        return new PT::ChangePartNumberCmd(pano, images, nr, HuginBase::StandardImageVariableGroups::getLensVariables());
+        return new PanoCommand::ChangePartNumberCmd(pano, images, nr, HuginBase::StandardImageVariableGroups::getLensVariables());
     }
     else
     {
@@ -502,7 +503,7 @@ wxString LoadLensOperation::GetLabel()
     };
 };
 
-PT::PanoCommand* LoadLensOperation::GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images)
+PanoCommand::PanoCommand* LoadLensOperation::GetInternalCommand(wxWindow* parent, HuginBase::Panorama& pano, HuginBase::UIntSet images)
 {
     HuginBase::StandardImageVariableGroups variable_groups(pano);
     if(images.size()==1)
@@ -534,7 +535,7 @@ PT::PanoCommand* LoadLensOperation::GetInternalCommand(wxWindow* parent, PT::Pan
             return NULL;
         };
     };
-    PT::PanoCommand* cmd=NULL;
+    PanoCommand::PanoCommand* cmd=NULL;
     bool isLoaded=false;
     if (m_fromDatabase)
     {
@@ -571,7 +572,7 @@ wxString SaveLensOperation::GetLabel()
     };
 };
 
-PT::PanoCommand* SaveLensOperation::GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images)
+PanoCommand::PanoCommand* SaveLensOperation::GetInternalCommand(wxWindow* parent, HuginBase::Panorama& pano, HuginBase::UIntSet images)
 {
     unsigned int imgNr = *(images.begin());
     if (m_database)
@@ -590,12 +591,12 @@ wxString RemoveControlPointsOperation::GetLabel()
     return _("Remove control points");
 };
 
-bool RemoveControlPointsOperation::IsEnabled(PT::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel)
+bool RemoveControlPointsOperation::IsEnabled(HuginBase::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel)
 {
     return pano.getNrOfImages()>0 && pano.getNrOfCtrlPoints()>0;
 };
 
-PT::PanoCommand* RemoveControlPointsOperation::GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images)
+PanoCommand::PanoCommand* RemoveControlPointsOperation::GetInternalCommand(wxWindow* parent, HuginBase::Panorama& pano, HuginBase::UIntSet images)
 {
     UIntSet selImages;
     if(images.size()==0)
@@ -632,7 +633,7 @@ PT::PanoCommand* RemoveControlPointsOperation::GetInternalCommand(wxWindow* pare
                         wxICON_QUESTION | wxYES_NO);
     if (r == wxYES)
     {
-        return new PT::RemoveCtrlPointsCmd(pano, cpsToDelete );
+        return new PanoCommand::RemoveCtrlPointsCmd(pano, cpsToDelete );
     }
     else
     {
@@ -645,12 +646,12 @@ wxString CleanControlPointsOperation::GetLabel()
     return _("Clean control points");
 };
 
-bool CleanControlPointsOperation::IsEnabled(PT::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel)
+bool CleanControlPointsOperation::IsEnabled(HuginBase::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel)
 {
     return pano.getNrOfCtrlPoints()>2;
 };
 
-PT::PanoCommand* CleanControlPointsOperation::GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images)
+PanoCommand::PanoCommand* CleanControlPointsOperation::GetInternalCommand(wxWindow* parent, HuginBase::Panorama& pano, HuginBase::UIntSet images)
 {
     deregisterPTWXDlgFcn();
     ProgressReporterDialog progress(0, _("Cleaning Control points"), _("Checking pairwise"), parent);
@@ -704,7 +705,7 @@ PT::PanoCommand* CleanControlPointsOperation::GetInternalCommand(wxWindow* paren
     if (removedCPs.size()>0)
     {
         wxMessageBox(wxString::Format(_("Removed %lu control points"), removedCPs.size()), _("Cleaning"),wxOK|wxICON_INFORMATION,parent);
-        return new PT::RemoveCtrlPointsCmd(pano,removedCPs);
+        return new PanoCommand::RemoveCtrlPointsCmd(pano,removedCPs);
     };
     return NULL;
 };
@@ -714,7 +715,7 @@ wxString CelesteOperation::GetLabel()
     return _("Remove control points on clouds");
 };
 
-PT::PanoCommand* CelesteOperation::GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images)
+PanoCommand::PanoCommand* CelesteOperation::GetInternalCommand(wxWindow* parent, HuginBase::Panorama& pano, HuginBase::UIntSet images)
 {
     ProgressReporterDialog progress(images.size() + 2, _("Running Celeste"), _("Running Celeste"), parent);
     progress.updateDisplay(_("Loading model file"));
@@ -792,7 +793,7 @@ PT::PanoCommand* CelesteOperation::GetInternalCommand(wxWindow* parent, PT::Pano
     if (cpsToRemove.size()>0)
     {
         wxMessageBox(wxString::Format(_("Removed %lu control points"), (unsigned long int) cpsToRemove.size()), _("Celeste result"),wxOK|wxICON_INFORMATION);
-        return new PT::RemoveCtrlPointsCmd(pano,cpsToRemove);
+        return new PanoCommand::RemoveCtrlPointsCmd(pano,cpsToRemove);
     }
     else
     {
@@ -844,7 +845,7 @@ wxString ResetOperation::GetLabel()
     return wxEmptyString;
 };
 
-bool ResetOperation::IsEnabled(PT::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel)
+bool ResetOperation::IsEnabled(HuginBase::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel)
 {
     switch(m_resetMode)
     {
@@ -856,7 +857,7 @@ bool ResetOperation::IsEnabled(PT::Panorama& pano, HuginBase::UIntSet images, Gu
     };
 };
 
-PT::PanoCommand* ResetOperation::GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images)
+PanoCommand::PanoCommand* ResetOperation::GetInternalCommand(wxWindow* parent, HuginBase::Panorama& pano, HuginBase::UIntSet images)
 {
     if(m_resetMode==RESET_DIALOG || m_resetMode==RESET_DIALOG_LENS || m_resetMode==RESET_DIALOG_PHOTOMETRICS)
     {
@@ -1018,14 +1019,14 @@ PT::PanoCommand* ResetOperation::GetInternalCommand(wxWindow* parent, PT::Panora
         };
         vars.push_back(ImgVars);
     };
-    std::vector<PT::PanoCommand *> reset_commands;
+    std::vector<PanoCommand::PanoCommand *> reset_commands;
     if (needs_unlink_exposure)
     {
         std::set<HuginBase::ImageVariableGroup::ImageVariableEnum> variables;
         variables.insert(HuginBase::ImageVariableGroup::IVE_ExposureValue);
         
         reset_commands.push_back(
-                new ChangePartImagesLinkingCmd(
+                new PanoCommand::ChangePartImagesLinkingCmd(
                             pano,
                             images,
                             variables,
@@ -1039,7 +1040,7 @@ PT::PanoCommand* ResetOperation::GetInternalCommand(wxWindow* parent, PT::Panora
         variables.insert(HuginBase::ImageVariableGroup::IVE_WhiteBalanceRed);
         
         reset_commands.push_back(
-                new ChangePartImagesLinkingCmd(
+                new PanoCommand::ChangePartImagesLinkingCmd(
                             pano,
                             images,
                             variables,
@@ -1053,7 +1054,7 @@ PT::PanoCommand* ResetOperation::GetInternalCommand(wxWindow* parent, PT::Panora
         variables.insert(HuginBase::ImageVariableGroup::IVE_WhiteBalanceBlue);
         
         reset_commands.push_back(
-                new ChangePartImagesLinkingCmd(
+                new PanoCommand::ChangePartImagesLinkingCmd(
                             pano,
                             images,
                             variables,
@@ -1062,14 +1063,14 @@ PT::PanoCommand* ResetOperation::GetInternalCommand(wxWindow* parent, PT::Panora
                 );
     }
     reset_commands.push_back(
-                            new PT::UpdateImagesVariablesCmd(pano, images, vars)
+                            new PanoCommand::UpdateImagesVariablesCmd(pano, images, vars)
                                            );
     if(m_resetExposure>0)
     {
         //reset panorama output exposure value
-        reset_commands.push_back(new PT::ResetToMeanExposure(pano));
+        reset_commands.push_back(new PanoCommand::ResetToMeanExposure(pano));
     };
-    return new PT::CombinedPanoCommand(pano, reset_commands);
+    return new PanoCommand::CombinedPanoCommand(pano, reset_commands);
 };
 
 bool ResetOperation::ShowDialog(wxWindow* parent)
@@ -1145,7 +1146,7 @@ bool ResetOperation::ShowDialog(wxWindow* parent)
     };
 };
 
-bool NewStackOperation::IsEnabled(PT::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel)
+bool NewStackOperation::IsEnabled(HuginBase::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel)
 {
     if(pano.getNrOfImages()==0 || images.size()==0)
     {
@@ -1163,12 +1164,12 @@ wxString NewStackOperation::GetLabel()
     return _("New stack");
 };
 
-PT::PanoCommand* NewStackOperation::GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images)
+PanoCommand::PanoCommand* NewStackOperation::GetInternalCommand(wxWindow* parent, HuginBase::Panorama& pano, HuginBase::UIntSet images)
 {
-    return new PT::NewPartCmd(pano, images, HuginBase::StandardImageVariableGroups::getStackVariables());
+    return new PanoCommand::NewPartCmd(pano, images, HuginBase::StandardImageVariableGroups::getStackVariables());
 };
 
-bool ChangeStackOperation::IsEnabled(PT::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel)
+bool ChangeStackOperation::IsEnabled(HuginBase::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel)
 {
     if(pano.getNrOfImages()==0 || images.size()==0)
     {
@@ -1187,7 +1188,7 @@ wxString ChangeStackOperation::GetLabel()
     return _("Change stack...");
 };
 
-PT::PanoCommand* ChangeStackOperation::GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images)
+PanoCommand::PanoCommand* ChangeStackOperation::GetInternalCommand(wxWindow* parent, HuginBase::Panorama& pano, HuginBase::UIntSet images)
 {
     HuginBase::StandardImageVariableGroups variable_groups(pano);
     long nr = wxGetNumberFromUser(
@@ -1199,7 +1200,7 @@ PT::PanoCommand* ChangeStackOperation::GetInternalCommand(wxWindow* parent, PT::
     if (nr >= 0)
     {
         // user accepted
-        return new PT::ChangePartNumberCmd(pano, images, nr, HuginBase::StandardImageVariableGroups::getStackVariables());
+        return new PanoCommand::ChangePartNumberCmd(pano, images, nr, HuginBase::StandardImageVariableGroups::getStackVariables());
     }
     else
     {
@@ -1207,7 +1208,7 @@ PT::PanoCommand* ChangeStackOperation::GetInternalCommand(wxWindow* parent, PT::
     };
 };
 
-bool AssignStacksOperation::IsEnabled(PT::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel)
+bool AssignStacksOperation::IsEnabled(HuginBase::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel)
 {
     return pano.getNrOfImages()>1;
 };
@@ -1217,7 +1218,7 @@ wxString AssignStacksOperation::GetLabel()
     return _("Set stack size...");
 };
 
-PT::PanoCommand* AssignStacksOperation::GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images)
+PanoCommand::PanoCommand* AssignStacksOperation::GetInternalCommand(wxWindow* parent, HuginBase::Panorama& pano, HuginBase::UIntSet images)
 {
     wxConfigBase* cfg = wxConfigBase::Get();
     wxDialog dlg;
@@ -1242,7 +1243,7 @@ PT::PanoCommand* AssignStacksOperation::GetInternalCommand(wxWindow* parent, PT:
     {
         return NULL;
     };
-    std::vector<PT::PanoCommand *> commands;
+    std::vector<PanoCommand::PanoCommand *> commands;
     HuginBase::StandardImageVariableGroups variable_groups(pano);
     if(variable_groups.getStacks().getNumberOfParts()<pano.getNrOfImages())
     {
@@ -1251,7 +1252,7 @@ PT::PanoCommand* AssignStacksOperation::GetInternalCommand(wxWindow* parent, PT:
         {
             UIntSet imgs;
             imgs.insert(i);
-            commands.push_back(new PT::NewPartCmd(pano, imgs, HuginBase::StandardImageVariableGroups::getStackVariables()));
+            commands.push_back(new PanoCommand::NewPartCmd(pano, imgs, HuginBase::StandardImageVariableGroups::getStackVariables()));
         };
     };
 
@@ -1267,7 +1268,7 @@ PT::PanoCommand* AssignStacksOperation::GetInternalCommand(wxWindow* parent, PT:
                 imgs.insert(imgNr);
                 imgNr++;
             };
-            commands.push_back(new PT::ChangePartNumberCmd(pano, imgs, stackNr, HuginBase::StandardImageVariableGroups::getStackVariables()));
+            commands.push_back(new PanoCommand::ChangePartNumberCmd(pano, imgs, stackNr, HuginBase::StandardImageVariableGroups::getStackVariables()));
             stackNr++;
         };
     };
@@ -1286,9 +1287,9 @@ PT::PanoCommand* AssignStacksOperation::GetInternalCommand(wxWindow* parent, PT:
         variables.insert(HuginBase::ImageVariableGroup::IVE_Z);
         variables.insert(HuginBase::ImageVariableGroup::IVE_TranslationPlaneYaw);
         variables.insert(HuginBase::ImageVariableGroup::IVE_TranslationPlanePitch);
-        commands.push_back(new PT::ChangePartImagesLinkingCmd(pano, imgs, variables, false, HuginBase::StandardImageVariableGroups::getStackVariables()));
+        commands.push_back(new PanoCommand::ChangePartImagesLinkingCmd(pano, imgs, variables, false, HuginBase::StandardImageVariableGroups::getStackVariables()));
     };
-    return new PT::CombinedPanoCommand(pano, commands);
+    return new PanoCommand::CombinedPanoCommand(pano, commands);
 };
 
 static PanoOperationVector PanoOpImages;

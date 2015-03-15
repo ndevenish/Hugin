@@ -42,7 +42,7 @@
 #include <map>
 #include "hugin_utils/shared_ptr.h"
 #include <huginapp/ImageCache.h>
-#include "PT/Panorama.h"
+#include "panodata/Panorama.h"
 
 //class GLViewer;
 class ViewState;
@@ -50,7 +50,7 @@ class ViewState;
 class TextureManager
 {
 public:
-    TextureManager(PT::Panorama *pano, ViewState *view);
+    TextureManager(HuginBase::Panorama *pano, ViewState *view);
     virtual ~TextureManager();
     // selct the texture for the requested image in opengl
     void DrawImage(unsigned int image_number, unsigned int display_list);
@@ -77,7 +77,7 @@ public:
         const HuginBase::SrcPanoImage &state);
 
 protected:
-    PT::Panorama  * m_pano;
+    HuginBase::Panorama  * m_pano;
     ViewState *view_state;
     float viewer_exposure;
     // remove textures for deleted images.

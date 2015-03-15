@@ -69,7 +69,7 @@ public:
     void SetPreviewBackgroundColor(const wxColour c);
 
 protected:
-    PT::Panorama  * m_pano;
+    HuginBase::Panorama  * m_pano;
     TextureManager * m_tex_man;
     MeshManager * m_mesh_man;
     ToolHelper *m_tool_helper;
@@ -84,7 +84,7 @@ protected:
 class GLPreviewRenderer : public GLRenderer
 {
 public:
-    GLPreviewRenderer(PT::Panorama * pano, TextureManager *tex_man,
+    GLPreviewRenderer(HuginBase::Panorama * pano, TextureManager *tex_man,
                MeshManager *mesh_man, VisualizationState *visualization_state,
                PreviewToolHelper *tool_helper, const wxColour backgroundColour);
 
@@ -101,7 +101,7 @@ protected:
 class GLPanosphereOverviewRenderer : public GLRenderer
 {
 public:
-    GLPanosphereOverviewRenderer(PT::Panorama * pano, TextureManager *tex_man,
+    GLPanosphereOverviewRenderer(HuginBase::Panorama * pano, TextureManager *tex_man,
                MeshManager *mesh_man, PanosphereOverviewVisualizationState *visualization_state,
                PanosphereOverviewToolHelper *tool_helper, const wxColour backgroundColour);
 
@@ -118,7 +118,7 @@ protected:
 class GLPlaneOverviewRenderer : public GLRenderer
 {
 public:
-    GLPlaneOverviewRenderer(PT::Panorama * pano, TextureManager *tex_man,
+    GLPlaneOverviewRenderer(HuginBase::Panorama * pano, TextureManager *tex_man,
                MeshManager *mesh_man, PlaneOverviewVisualizationState *visualization_state,
                PlaneOverviewToolHelper *tool_helper, const wxColour backgroundColour);
 

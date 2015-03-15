@@ -35,11 +35,13 @@
 #include "base_wx/wxPlatform.h"
 #include "hugin/CPListFrame.h"
 #include "hugin/MainFrame.h"
-#include "hugin/CommandHistory.h"
+#include "base_wx/CommandHistory.h"
+#include "base_wx/PanoCommand.h"
 #include "hugin/huginApp.h"
+#include "hugin_base/panotools/PanoToolsUtils.h"
 #include "algorithms/basic/CalculateCPStatistics.h"
 
-using namespace PT;
+using namespace HuginBase;
 using namespace std;
 using namespace hugin_utils;
 
@@ -127,7 +129,7 @@ wxString CPListCtrl::OnGetItemText(long item, long column) const
     {
         return wxEmptyString;
     };
-    const ControlPoint& cp = m_pano->getCtrlPoint(m_internalCPList[item].globalIndex);
+    const HuginBase::ControlPoint& cp = m_pano->getCtrlPoint(m_internalCPList[item].globalIndex);
     switch (column)
     {
         case 0:
@@ -145,13 +147,13 @@ wxString CPListCtrl::OnGetItemText(long item, long column) const
         case 4:
             switch (cp.mode)
             {
-                case ControlPoint::X_Y:
+                case HuginBase::ControlPoint::X_Y:
                     return wxString(_("normal"));
                     break;
-                case ControlPoint::X:
+                case HuginBase::ControlPoint::X:
                     return wxString(_("vert. Line"));
                     break;
-                case ControlPoint::Y:
+                case HuginBase::ControlPoint::Y:
                     return wxString(_("horiz. Line"));
                     break;
                 default:
@@ -168,7 +170,7 @@ wxString CPListCtrl::OnGetItemText(long item, long column) const
     return wxEmptyString;
 };
 
-void CPListCtrl::panoramaChanged(PT::Panorama &pano)
+void CPListCtrl::panoramaChanged(HuginBase::Panorama &pano)
 {
     UpdateInternalCPList();
     SetItemCount(m_pano->getNrOfCtrlPoints());
@@ -177,7 +179,7 @@ void CPListCtrl::panoramaChanged(PT::Panorama &pano)
 
 void CPListCtrl::UpdateInternalCPList()
 {
-    const CPVector& cps = m_pano->getCtrlPoints();
+    const HuginBase::CPVector& cps = m_pano->getCtrlPoints();
     // Rebuild the global->local CP map on each update as CPs might have been
     // removed.
     m_localIds.clear();
@@ -189,7 +191,7 @@ void CPListCtrl::UpdateInternalCPList()
     for (size_t i = 0; i < cps.size(); i++)
     {
         m_internalCPList[i].globalIndex = i;
-        const ControlPoint& cp = cps[i];
+        const HuginBase::ControlPoint& cp = cps[i];
         string pairId = makePairId(cp.image1Nr, cp.image2Nr);
         std::map<std::string, int>::iterator it = m_localIds.find(pairId);
         if (it != m_localIds.end())
@@ -407,7 +409,7 @@ void CPListCtrl::DeleteSelected()
         item = GetNextSelected(item);
     }
     DEBUG_DEBUG("about to delete " << selected.size() << " points");
-    GlobalCmdHist::getInstance().addCommand(new PT::RemoveCtrlPointsCmd(*m_pano, selected));
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(new PanoCommand::RemoveCtrlPointsCmd(*m_pano, selected));
 
     if (newSelection >= 0)
     {
@@ -426,7 +428,7 @@ void CPListCtrl::SelectDistanceThreshold(double threshold)
     {
         threshold = -threshold;
     };
-    const CPVector& cps = m_pano->getCtrlPoints();
+    const HuginBase::CPVector& cps = m_pano->getCtrlPoints();
     Freeze();
     for (size_t i = 0; i < m_internalCPList.size(); i++)
     {
@@ -544,7 +546,7 @@ void CPListFrame::OnDeleteButton(wxCommandEvent & e)
 void CPListFrame::OnSelectButton(wxCommandEvent & e)
 {
     // calculate the mean error and the standard deviation
-    const CPVector & cps = m_pano.getCtrlPoints();
+    const HuginBase::CPVector & cps = m_pano.getCtrlPoints();
     HuginBase::PTools::calcCtrlPointErrors(m_pano);
     double min, max, mean, var;
     HuginBase::CalculateCPStatisticsError::calcCtrlPntsErrorStats(m_pano, min, max, mean, var);

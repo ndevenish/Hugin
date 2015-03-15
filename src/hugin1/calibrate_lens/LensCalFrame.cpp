@@ -39,6 +39,7 @@
 #include <algorithms/optimizer/PTOptimizer.h>
 #include "lensdb/LensDB.h"
 #include "base_wx/wxLensDB.h"
+#include "panodata/StandardImageVariableGroups.h"
 
 using namespace HuginBase;
 
@@ -48,16 +49,6 @@ const unsigned int cps_per_line=10;
 #define DEFAULT_LENSCAL_THRESHOLD 4.0
 #define DEFAULT_RESIZE_DIMENSION 1600
 #define DEFAULT_MINLINELENGTH 0.3
-
-// utility functions
-bool str2double(wxString s, double & d)
-{
-    if (!hugin_utils::stringToDouble(std::string(s.mb_str(wxConvLocal)), d)) 
-    {
-        return false;
-    }
-    return true;
-}
 
 /** file drag and drop handler method */
 bool FileDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames)
@@ -786,7 +777,7 @@ void LensCalFrame::OnSaveProject(wxCommandEvent &e)
         std::string path = getPathPrefix(std::string(filename.GetFullPath().mb_str(HUGIN_CONV_FILENAME)));
         std::ofstream script(filename.GetFullPath().mb_str(HUGIN_CONV_FILENAME));
         script.exceptions ( std::ofstream::eofbit | std::ofstream::failbit | std::ofstream::badbit );
-        PT::UIntSet all;
+        HuginBase::UIntSet all;
         fill_set(all, 0, pano.getNrOfImages()-1);
         pano.printPanoramaScript(script, pano.getOptimizeVector(), pano.getOptions(), all, false, path);
         script.close();

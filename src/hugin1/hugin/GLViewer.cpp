@@ -201,7 +201,7 @@ END_EVENT_TABLE()
 
 GLViewer::GLViewer(
             wxWindow* parent, 
-            PT::Panorama &pano, 
+            HuginBase::Panorama &pano, 
             int args[], 
             GLPreviewFrame *frame_in,
             wxGLContext * shared_context

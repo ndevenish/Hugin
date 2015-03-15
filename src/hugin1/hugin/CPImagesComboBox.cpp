@@ -271,7 +271,7 @@ void CPImagesComboBox::CalcCPDistance(Panorama * pano)
     // loop over all points to get the maximum error and to count the number of CPs
     for (unsigned int ptIdx = 0 ; ptIdx < noPts ; ptIdx++)
     {
-        const ControlPoint & cp = pano->getCtrlPoint(ptIdx);
+        const HuginBase::ControlPoint & cp = pano->getCtrlPoint(ptIdx);
         if(cp.image1Nr==refImage)
         {
             CPConnection[cp.image2Nr]=max<double>(cp.error,CPConnection[cp.image2Nr]);

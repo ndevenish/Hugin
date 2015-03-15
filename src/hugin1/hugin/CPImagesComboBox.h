@@ -37,7 +37,7 @@
 
 
 using namespace std;
-using namespace PT;
+using namespace HuginBase;
 
 /**  Owner Drawn ComboBox for showing connected images on CP tab */
 class CPImagesComboBox : public wxOwnerDrawnComboBox

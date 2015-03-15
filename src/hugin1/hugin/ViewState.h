@@ -66,7 +66,6 @@
 #include "hugin_utils/utils.h"
 #include <panodata/PanoramaData.h>
 #include <panodata/Panorama.h>
-#include "PT/Panorama.h"
 #include "OutputProjectionInfo.h"
 #include <vigra/diff2d.hxx>
 #include "TextureManager.h"
@@ -82,12 +81,12 @@ class ViewState : public HuginBase::PanoramaObserver
 {
 public:
     // constructor: we need to know what panorama we deal with.
-    ViewState(PT::Panorama *pano,  bool supportMultiTexture);
+    ViewState(HuginBase::Panorama *pano,  bool supportMultiTexture);
     ~ViewState();
     // when the real panorama changes, we want to update ourself to reflect it.
     // we will force a redraw if anything worthwhile changes.
-    void panoramaChanged(HuginBase::PanoramaData &pano);
-    void panoramaImagesChanged(HuginBase::PanoramaData&, const HuginBase::UIntSet&);
+    void panoramaChanged(HuginBase::Panorama &pano);
+    void panoramaImagesChanged(HuginBase::Panorama&, const HuginBase::UIntSet&);
 
     // For interactive control, the real panorama does not change. Instead one
     // of the following functions will be called:
@@ -129,7 +128,7 @@ public:
 
 protected:
 
-    PT::Panorama *m_pano;
+    HuginBase::Panorama *m_pano;
     std::map<unsigned int, HuginBase::SrcPanoImage> img_states;
     HuginBase::PanoramaOptions opts;
     OutputProjectionInfo *projection_info;
@@ -162,7 +161,7 @@ class VisualizationState
 public:
 
     template <class M>
-    VisualizationState(PT::Panorama* pano, ViewState* view_state, GLViewer * viewer, void (*RefreshFunction)(void*), void *arg, M* classArg)
+    VisualizationState(HuginBase::Panorama* pano, ViewState* view_state, GLViewer * viewer, void (*RefreshFunction)(void*), void *arg, M* classArg)
     {
         m_pano = pano;
         m_view_state = view_state;
@@ -239,7 +238,7 @@ public:
 
 protected:
 
-    PT::Panorama *m_pano;
+    HuginBase::Panorama *m_pano;
 
     class fbool // a bool that initialises to false.
     {
@@ -271,7 +270,7 @@ class OverviewVisualizationState : public VisualizationState
 {
 public:
     template <class M>
-    OverviewVisualizationState(PT::Panorama* pano, ViewState* view_state, GLViewer * viewer, void (*RefreshFunction)(void*), void *arg, M* classArg)
+    OverviewVisualizationState(HuginBase::Panorama* pano, ViewState* view_state, GLViewer * viewer, void(*RefreshFunction)(void*), void *arg, M* classArg)
         : VisualizationState(pano, view_state, viewer, RefreshFunction, arg, (M*) classArg) {}
 
 };
@@ -280,7 +279,7 @@ class PanosphereOverviewVisualizationState : public OverviewVisualizationState
 {
 public:
 
-    PanosphereOverviewVisualizationState(PT::Panorama* pano, ViewState* view_state, GLViewer * viewer, void (*RefreshFunction)(void*), void *arg);
+    PanosphereOverviewVisualizationState(HuginBase::Panorama* pano, ViewState* view_state, GLViewer * viewer, void(*RefreshFunction)(void*), void *arg);
     ~PanosphereOverviewVisualizationState();
 
     HuginBase::PanoramaOptions *GetOptions();
@@ -324,7 +323,7 @@ class PlaneOverviewVisualizationState : public OverviewVisualizationState
 {
 public:
 
-    PlaneOverviewVisualizationState(PT::Panorama* pano, ViewState* view_state, GLViewer * viewer, void (*RefreshFunction)(void*), void *arg);
+    PlaneOverviewVisualizationState(HuginBase::Panorama* pano, ViewState* view_state, GLViewer * viewer, void(*RefreshFunction)(void*), void *arg);
     ~PlaneOverviewVisualizationState();
 
     HuginBase::PanoramaOptions *GetOptions();

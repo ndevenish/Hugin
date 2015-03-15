@@ -99,7 +99,7 @@ class ImageToogleButtonEventHandler : public wxEvtHandler
 public:
     ImageToogleButtonEventHandler(unsigned int image_number,
                                   wxToolBarToolBase* identify_toolbutton_in,
-                                  PT::Panorama * m_pano);
+                                  HuginBase::Panorama * m_pano);
     void OnChange(wxCommandEvent &e);
     void AddIdentifyTool(PreviewIdentifyTool** identify_tool_in);
 protected:
@@ -110,13 +110,13 @@ private:
     unsigned int image_number;
     std::vector<PreviewIdentifyTool**> identify_tools;
     wxToolBarToolBase *identify_toolbutton;
-    PT::Panorama * m_pano;
+    HuginBase::Panorama * m_pano;
 };
 
 class ImageGroupButtonEventHandler : public wxEvtHandler
 {
 public:
-    ImageGroupButtonEventHandler(unsigned int image_number, GLPreviewFrame* frame_in, PT::Panorama* m_pano);
+    ImageGroupButtonEventHandler(unsigned int image_number, GLPreviewFrame* frame_in, HuginBase::Panorama* m_pano);
     void OnChange(wxCommandEvent &e);
     void AddDragTool(DragTool** drag_tool_in);
     void AddIdentifyTool(PreviewIdentifyTool** identify_tool_in);
@@ -129,7 +129,7 @@ private:
     std::vector<DragTool**> drag_tools;
     std::vector<PreviewIdentifyTool**> identify_tools;
     GLPreviewFrame* frame;
-    PT::Panorama * m_pano;
+    HuginBase::Panorama * m_pano;
 };
 
 
@@ -184,20 +184,20 @@ private:
  *  it is not created with XRC, because it is highly dynamic, buttons
  *  have to be added etc.
  */
-class GLPreviewFrame : public wxFrame, public PT::PanoramaObserver
+class GLPreviewFrame : public wxFrame, public HuginBase::PanoramaObserver
 {
 public:
 
     /** ctor.
      */
-    GLPreviewFrame(wxFrame * frame, PT::Panorama &pano);
+    GLPreviewFrame(wxFrame * frame, HuginBase::Panorama &pano);
 
     /** dtor.
      */
     virtual ~GLPreviewFrame();
 
-    void panoramaChanged(PT::Panorama &pano);
-    void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet &changed);
+    virtual void panoramaChanged(HuginBase::Panorama &pano);
+    virtual void panoramaImagesChanged(HuginBase::Panorama &pano, const HuginBase::UIntSet &changed);
     
     void MakePreviewTools(PreviewToolHelper * helper);
     void MakePanosphereOverviewTools(PanosphereOverviewToolHelper * helper);
@@ -239,8 +239,8 @@ public:
     void ToggleImageInDragGroup(unsigned int image_nr, bool update_check_box = true);
     void RemoveImageFromDragGroup(unsigned int image_nr, bool update_check_box = true);
     void AddImageToDragGroup(unsigned int image_nr, bool update_check_box = true);
-    void SetDragGroupImages(PT::UIntSet imageDragGroup_in, bool update_check_box = true);
-    PT::UIntSet GetDragGroupImages();
+    void SetDragGroupImages(HuginBase::UIntSet imageDragGroup_in, bool update_check_box = true);
+    HuginBase::UIntSet GetDragGroupImages();
     void ClearDragGroupImages(bool update_check_box = true);
     /** updates the global white balance 
      * @param redFactor multiplies all WhiteBalanceRed of individuel images with this factor
@@ -357,7 +357,7 @@ private:
     GLwxAuiManager * m_mgr;
 
     void SetMode(int newMode);
-    PT::Panorama & m_pano;
+    HuginBase::Panorama & m_pano;
 
     GLPreview * m_GLPreview;
     GLOverview * m_GLOverview;
@@ -445,7 +445,7 @@ private:
     PreviewToolHelper *preview_helper;
     
     PreviewCropTool *crop_tool;
-    PT::UIntSet imageDragGroup;
+    HuginBase::UIntSet imageDragGroup;
     PreviewDragTool *drag_tool;
     PreviewColorPickerTool *color_picker_tool;
     PreviewEditCPTool* edit_cp_tool;

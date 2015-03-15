@@ -47,8 +47,8 @@
 #include "hugin/PreviewPanel.h"
 #include "hugin/GLPreviewFrame.h"
 #include "base_wx/PTWXDlg.h"
-#include "hugin/CommandHistory.h"
-#include "hugin/wxPanoCommand.h"
+#include "base_wx/CommandHistory.h"
+#include "base_wx/wxPanoCommand.h"
 #include "hugin/HtmlWindow.h"
 #include "hugin/treelistctrl.h"
 #include "hugin/ImagesTree.h"
@@ -79,22 +79,12 @@ bool checkVersion(wxString v1, wxString v2)
 
 using namespace hugin_utils;
 
-// utility functions
-bool str2double(wxString s, double & d)
-{
-    if (!stringToDouble(std::string(s.mb_str(wxConvLocal)), d)) {
-        wxLogError(_("Value must be numeric."));
-        return false;
-    }
-    return true;
-}
-
-wxString Components2Str(const CPComponents & comp)
+wxString Components2Str(const HuginBase::CPComponents & comp)
 {
     wxString ret;
     for (unsigned i=0; i < comp.size(); i++) {
         ret = ret + wxT("[");
-        CPComponents::value_type::const_iterator it;
+        HuginBase::CPComponents::value_type::const_iterator it;
         size_t c=0;
         for (it = comp[i].begin();
             it != comp[i].end();
@@ -401,8 +391,8 @@ bool huginApp::OnInit()
     DEBUG_DEBUG("using temp dir: " << m_workDir.mb_str(wxConvLocal));
 
     // set some suitable defaults
-    GlobalCmdHist::getInstance().addCommand(new wxNewProjectCmd(pano));
-    GlobalCmdHist::getInstance().clear();
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(new PanoCommand::wxNewProjectCmd(pano));
+    PanoCommand::GlobalCmdHist::getInstance().clear();
 
     // suppress tiff warnings
     TIFFSetWarningHandler(0);
@@ -485,11 +475,11 @@ bool huginApp::OnInit()
             }
             if(filesv.size()>0)
             {
-                std::vector<PT::PanoCommand*> cmds;
-                cmds.push_back(new PT::wxAddImagesCmd(pano,filesv));
-                cmds.push_back(new PT::DistributeImagesCmd(pano));
-                cmds.push_back(new PT::CenterPanoCmd(pano));
-                GlobalCmdHist::getInstance().addCommand(new PT::CombinedPanoCommand(pano, cmds));
+                std::vector<PanoCommand::PanoCommand*> cmds;
+                cmds.push_back(new PanoCommand::wxAddImagesCmd(pano,filesv));
+                cmds.push_back(new PanoCommand::DistributeImagesCmd(pano));
+                cmds.push_back(new PanoCommand::CenterPanoCmd(pano));
+                PanoCommand::GlobalCmdHist::getInstance().addCommand(new PanoCommand::CombinedPanoCommand(pano, cmds));
             }
         }
     }

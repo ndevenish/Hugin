@@ -36,7 +36,8 @@
 #include "base_wx/platform.h"
 #include "hugin/MainFrame.h"
 #include "hugin/config_defaults.h"
-#include "hugin/CommandHistory.h"
+#include "base_wx/CommandHistory.h"
+#include "base_wx/PanoCommand.h"
 #include "hugin/MaskEditorPanel.h"
 #include "hugin/MaskLoadDialog.h"
 #include <wx/clipbrd.h>
@@ -197,7 +198,7 @@ bool MaskEditorPanel::Create(wxWindow* parent, wxWindowID id,
     return true;
 }
 
-void MaskEditorPanel::Init(PT::Panorama * pano)
+void MaskEditorPanel::Init(HuginBase::Panorama * pano)
 {
     m_pano=pano;
     m_imagesListMask->Init(m_pano);
@@ -252,7 +253,7 @@ void MaskEditorPanel::setImage(unsigned int imgNr, bool updateListSelection)
     } 
     else 
     {
-        const SrcPanoImage& image=m_pano->getImage(imgNr);
+        const HuginBase::SrcPanoImage& image=m_pano->getImage(imgNr);
         updateImage=(m_File!=image.getFilename());
         if(updateImage)
             m_File=image.getFilename();
@@ -310,7 +311,7 @@ void MaskEditorPanel::UpdateMask()
     if(GetImgNr()<UINT_MAX)
     {
         m_currentMasks=m_editImg->getNewMask();
-        GlobalCmdHist::getInstance().addCommand(new PT::UpdateMaskForImgCmd(*m_pano,GetImgNr(),m_currentMasks));
+        PanoCommand::GlobalCmdHist::getInstance().addCommand(new PanoCommand::UpdateMaskForImgCmd(*m_pano, GetImgNr(), m_currentMasks));
     };
 };
 
@@ -320,7 +321,7 @@ void MaskEditorPanel::AddMask()
     {
         m_currentMasks=m_editImg->getNewMask();
         m_currentMasks[m_currentMasks.size()-1].setMaskType(m_defaultMaskType);
-        GlobalCmdHist::getInstance().addCommand(new PT::UpdateMaskForImgCmd(*m_pano,GetImgNr(),m_currentMasks));
+        PanoCommand::GlobalCmdHist::getInstance().addCommand(new PanoCommand::UpdateMaskForImgCmd(*m_pano, GetImgNr(), m_currentMasks));
         //select added mask
         SelectMask(m_currentMasks.size()-1);
         m_editImg->selectAllMarkers();
@@ -336,11 +337,11 @@ void MaskEditorPanel::SelectMask(unsigned int newMaskNr)
             m_maskList->SetItemState(m_MaskNr,0,wxLIST_STATE_SELECTED);
 };
 
-void MaskEditorPanel::panoramaChanged(PT::Panorama &pano)
+void MaskEditorPanel::panoramaChanged(HuginBase::Panorama &pano)
 {
 };
 
-void MaskEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
+void MaskEditorPanel::panoramaImagesChanged(HuginBase::Panorama &pano, const HuginBase::UIntSet &changed)
 {
     unsigned int nrImages = pano.getNrOfImages();
     ImageCache::getInstance().softFlush();
@@ -406,7 +407,7 @@ void MaskEditorPanel::OnMaskTypeChange(wxCommandEvent &e)
     {
         m_currentMasks[m_MaskNr].setMaskType((HuginBase::MaskPolygon::MaskType)e.GetSelection());
         m_defaultMaskType=(HuginBase::MaskPolygon::MaskType)e.GetSelection();
-        GlobalCmdHist::getInstance().addCommand(new PT::UpdateMaskForImgCmd(*m_pano,GetImgNr(),m_currentMasks));
+        PanoCommand::GlobalCmdHist::getInstance().addCommand(new PanoCommand::UpdateMaskForImgCmd(*m_pano, GetImgNr(), m_currentMasks));
     };
 };
 
@@ -495,7 +496,7 @@ void MaskEditorPanel::OnMaskLoad(wxCommandEvent &e)
         for(unsigned int i=0;i<loadedMasks.size();i++)
             m_currentMasks.push_back(loadedMasks[i]);
         // Update the pano with the imported masks
-        GlobalCmdHist::getInstance().addCommand(new PT::UpdateMaskForImgCmd(*m_pano,GetImgNr(),m_currentMasks));
+        PanoCommand::GlobalCmdHist::getInstance().addCommand(new PanoCommand::UpdateMaskForImgCmd(*m_pano, GetImgNr(), m_currentMasks));
     }
 };
 
@@ -552,7 +553,7 @@ void MaskEditorPanel::OnMaskPaste(wxCommandEvent &e)
             for(unsigned int i=0;i<loadedMasks.size();i++)
                 m_currentMasks.push_back(loadedMasks[i]);
             // Update the pano with the imported masks
-            GlobalCmdHist::getInstance().addCommand(new PT::UpdateMaskForImgCmd(*m_pano,GetImgNr(),m_currentMasks));
+            PanoCommand::GlobalCmdHist::getInstance().addCommand(new PanoCommand::UpdateMaskForImgCmd(*m_pano, GetImgNr(), m_currentMasks));
         };
     };
 };
@@ -564,7 +565,7 @@ void MaskEditorPanel::OnMaskDelete(wxCommandEvent &e)
         HuginBase::MaskPolygonVector editedMasks=m_currentMasks;
         editedMasks.erase(editedMasks.begin()+m_MaskNr);
         //setMask(UINT_MAX);
-        GlobalCmdHist::getInstance().addCommand(new PT::UpdateMaskForImgCmd(*m_pano,GetImgNr(),editedMasks));
+        PanoCommand::GlobalCmdHist::getInstance().addCommand(new PanoCommand::UpdateMaskForImgCmd(*m_pano, GetImgNr(), editedMasks));
     };
 };
 
@@ -729,7 +730,7 @@ void MaskEditorPanel::OnShowActiveMasks(wxCommandEvent &e)
 
 void MaskEditorPanel::DisplayCrop(int imgNr)
 {
-    const SrcPanoImage & img = m_pano->getImage(imgNr);
+    const HuginBase::SrcPanoImage & img = m_pano->getImage(imgNr);
     m_cropMode=img.getCropMode();
     m_cropRect=img.getCropRect();
     m_autoCenterCrop=img.getAutoCenterCrop();
@@ -750,17 +751,17 @@ void MaskEditorPanel::UpdateCrop(bool updateFromImgCtrl)
     {
         m_cropRect=m_editImg->getCrop();
     };
-    vector<SrcPanoImage> imgs;
-    for (UIntSet::iterator it = m_selectedImages.begin(); it != m_selectedImages.end(); ++it)
+    vector<HuginBase::SrcPanoImage> imgs;
+    for (HuginBase::UIntSet::iterator it = m_selectedImages.begin(); it != m_selectedImages.end(); ++it)
     {
-        SrcPanoImage img=m_pano->getSrcImage(*it);
+        HuginBase::SrcPanoImage img=m_pano->getSrcImage(*it);
         img.setCropRect(m_cropRect);
         img.setAutoCenterCrop(m_autoCenterCrop);
         imgs.push_back(img);
     };
 
-    GlobalCmdHist::getInstance().addCommand(
-            new PT::UpdateSrcImagesCmd(*m_pano, m_selectedImages, imgs)
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+            new PanoCommand::UpdateSrcImagesCmd(*m_pano, m_selectedImages, imgs)
     );
 }
 
@@ -864,7 +865,7 @@ void MaskEditorPanel::OnResetButton(wxCommandEvent & e)
     m_cropRect.setUpperLeft(vigra::Point2D(0,0));
     m_cropRect.setLowerRight(vigra::Point2D(0,0));
     m_autoCenterCrop = true;
-    m_cropMode=SrcPanoImage::NO_CROP;
+    m_cropMode=HuginBase::SrcPanoImage::NO_CROP;
     UpdateCropDisplay();
     UpdateCrop();
 }

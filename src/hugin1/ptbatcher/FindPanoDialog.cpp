@@ -38,6 +38,7 @@
 #include <CommCtrl.h>
 #endif
 #include "base_wx/LensTools.h"
+#include "panodata/StandardImageVariableGroups.h"
 
 BEGIN_EVENT_TABLE(FindPanoDialog,wxDialog)
     EVT_BUTTON(XRCID("find_pano_close"), FindPanoDialog::OnButtonClose)
@@ -788,7 +789,7 @@ wxString PossiblePano::GeneratePanorama(NamingConvention nc, bool createLinks, H
     {
         return wxEmptyString;
     };
-    PT::UIntSet all;
+    HuginBase::UIntSet all;
     fill_set(all, 0, pano.getNrOfImages()-1);
     try
     {

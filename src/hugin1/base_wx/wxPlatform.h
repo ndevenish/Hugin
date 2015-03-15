@@ -27,9 +27,8 @@
 #ifndef HUGIN_WXPLATFORM_H
 #define HUGIN_WXPLATFORM_H
 
-#include <wx/wxchar.h>
+#include "hugin_shared.h"
 #include <wx/string.h>
-#include <hugin_utils/utils.h>
 
 namespace hugin_utils {
 
@@ -94,11 +93,8 @@ str wxQuoteFilename(const str & arg)
 #endif
     }
 
-inline wxString doubleTowxString(double d, int digits=-1)
-{
-    std::string t = hugin_utils::doubleToString(d, digits);
-    return wxString(t.c_str(), wxConvLocal);
-}
+WXIMPEX wxString doubleTowxString(double d, int digits=-1);
+WXIMPEX bool str2double(const wxString& s, double & d);
 
 } // namespace
 

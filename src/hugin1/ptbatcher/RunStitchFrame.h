@@ -40,7 +40,6 @@
 #endif
 
 using namespace vigra;
-using namespace PT;
 using namespace std;
 
 class RunStitchFrame: public wxFrame

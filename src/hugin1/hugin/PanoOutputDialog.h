@@ -35,7 +35,7 @@ class PanoOutputDialog : public wxDialog
 {
 public:
     /** Constructor, read from xrc ressource; restore last uses settings, size and position */
-    PanoOutputDialog(wxWindow *parent, PT::Panorama& pano, GuiLevel guiLevel);
+    PanoOutputDialog(wxWindow *parent, HuginBase::Panorama& pano, GuiLevel guiLevel);
     /** destructor, save position */
     ~PanoOutputDialog();
     HuginBase::PanoramaOptions GetNewPanoramaOptions() {return m_newOpt; } ;
@@ -57,7 +57,7 @@ private:
     void EnableOutputOptions();
 
     HuginBase::PanoramaOptions m_newOpt;
-    PT::Panorama& m_pano;
+    HuginBase::Panorama& m_pano;
     double m_initalWidth;
     double m_initalROIWidth;
     double m_aspect;

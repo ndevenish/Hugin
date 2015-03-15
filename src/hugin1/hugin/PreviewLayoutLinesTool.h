@@ -54,8 +54,8 @@ public:
      * When we next redraw, we recalculate the statistics for the lines if the
      * flag is set.
      */
-    void panoramaChanged(HuginBase::PanoramaData &pano);
-    void panoramaImagesChanged(HuginBase::PanoramaData&, const HuginBase::UIntSet&);
+    void panoramaChanged(HuginBase::Panorama &pano);
+    void panoramaImagesChanged(HuginBase::Panorama&, const HuginBase::UIntSet&);
     
     /// Start using the PreviewLayoutLinesTool.
     void Activate();

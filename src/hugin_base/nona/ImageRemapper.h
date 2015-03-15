@@ -2,7 +2,7 @@
 /** @file nona/RemappedPanoImage.h
  *
  *  Contains functions to transform whole images.
- *  Can use PTools::Transform or PT::SpaceTransform for the calculations
+ *  Can use PTools::Transform or PanoCommand::SpaceTransform for the calculations
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *
@@ -176,7 +176,7 @@ RemappedPanoImage<ImageType, AlphaType>*
     
     vigra::Size2D origSrcSize = img.getSize();
     // DGSW FIXME - Unreferenced
-    //		const PT::VariableMap & srcVars = pano.getImageVariables(imgNr);
+    //		const PanoCommand::VariableMap & srcVars = pano.getImageVariables(imgNr);
     //		const Lens & lens = pano.getLens(img.getLensNr());
     
     vigra::Size2D destSize(opts.getWidth(), opts.getHeight());

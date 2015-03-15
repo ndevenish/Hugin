@@ -35,8 +35,6 @@
 
 #include <fstream>
 #include <sstream>
-#include "PT/Panorama.h"
-#include "PT/utils.h"
 #include "base_wx/RunStitchPanel.h"
 #include "base_wx/huginConfig.h"
 #include "base_wx/MyExternalCmdExecDialog.h"
@@ -53,7 +51,6 @@
 #include <wx/cmdline.h>
 
 using namespace vigra;
-using namespace PT;
 using namespace std;
 using namespace hugin_utils;
 

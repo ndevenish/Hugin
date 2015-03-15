@@ -29,14 +29,11 @@
 #include "panoinc_WX.h"
 #include "panoinc.h"
 
-#include "base_wx/wxPlatform.h"
-#include "base_wx/platform.h"
-#include "base_wx/LensTools.h"
-#include "hugin/huginApp.h"
-#include "hugin/HFOVDialog.h"
-#include "hugin/MainFrame.h"
+#include "wxPlatform.h"
+#include "platform.h"
+#include "LensTools.h"
+#include "HFOVDialog.h"
 
-using namespace PT;
 using namespace std;
 using namespace hugin_utils;
 
@@ -49,7 +46,7 @@ BEGIN_EVENT_TABLE(HFOVDialog, wxDialog)
     EVT_BUTTON ( wxID_OK, HFOVDialog::OnOk)
 END_EVENT_TABLE()
 
-HFOVDialog::HFOVDialog(wxWindow * parent, SrcPanoImage & srcImg)
+HFOVDialog::HFOVDialog(wxWindow * parent, HuginBase::SrcPanoImage & srcImg)
     : m_srcImg(srcImg)
 {
     m_HFOV = srcImg.getHFOV();
@@ -115,7 +112,7 @@ HFOVDialog::HFOVDialog(wxWindow * parent, SrcPanoImage & srcImg)
 
 void HFOVDialog::OnTypeChanged(wxCommandEvent & e)
 {
-    SrcPanoImage::Projection new_proj = (SrcPanoImage::Projection)(GetSelectedValue(m_projChoice));
+    HuginBase::SrcPanoImage::Projection new_proj = (HuginBase::SrcPanoImage::Projection)(GetSelectedValue(m_projChoice));
     DEBUG_DEBUG("new type: " << new_proj);
     m_srcImg.setProjection(new_proj);
     if (m_cropFactor > 0 && m_focalLength > 0) {
@@ -165,7 +162,7 @@ void HFOVDialog::OnHFOVChanged(wxCommandEvent & e)
         return;
     }
 
-    if (m_srcImg.getProjection() == SrcPanoImage::RECTILINEAR && m_HFOV > 179) {
+    if (m_srcImg.getProjection() == HuginBase::SrcPanoImage::RECTILINEAR && m_HFOV > 179) {
         DEBUG_DEBUG("HFOV " << m_HFOV << " too big, resetting to 179");
         m_HFOV=179;
         m_HFOVStr = doubleTowxString(m_HFOV,2);
@@ -268,7 +265,7 @@ void HFOVDialog::OnCropFactorChanged(wxCommandEvent & e)
 
 void HFOVDialog::OnLoadLensParameters(wxCommandEvent & e)
 {
-    Lens lens;
+    HuginBase::Lens lens;
     lens.setImageSize(m_srcImg.getSize());
 
     bool cropped=false;
@@ -282,7 +279,7 @@ void HFOVDialog::OnLoadLensParameters(wxCommandEvent & e)
         m_srcImg.setCropFactor(lens.getCropFactor());
         m_srcImg.setExifFocalLength(lens.getFocalLength());
         m_srcImg.setHFOV(const_map_get(lens.variables,"v").getValue());
-        m_srcImg.setProjection((SrcPanoImage::Projection) lens.getProjection());
+        m_srcImg.setProjection((HuginBase::SrcPanoImage::Projection) lens.getProjection());
 
         m_focalLength = HuginBase::SrcPanoImage::calcFocalLength(m_srcImg.getProjection(), m_HFOV, m_cropFactor, m_srcImg.getSize());
 
@@ -326,17 +323,17 @@ void HFOVDialog::OnLoadLensParameters(wxCommandEvent & e)
 
         if (!cropped)
         {
-            m_srcImg.setCropMode(SrcPanoImage::NO_CROP);
+            m_srcImg.setCropMode(HuginBase::SrcPanoImage::NO_CROP);
         }
         else
         {
             if (m_srcImg.isCircularCrop())
             {
-                m_srcImg.setCropMode(SrcPanoImage::CROP_CIRCLE);
+                m_srcImg.setCropMode(HuginBase::SrcPanoImage::CROP_CIRCLE);
             }
             else
             {
-                m_srcImg.setCropMode(SrcPanoImage::CROP_RECTANGLE);
+                m_srcImg.setCropMode(HuginBase::SrcPanoImage::CROP_RECTANGLE);
             };
             m_srcImg.setCropRect(cropRect);
         };
@@ -356,7 +353,7 @@ void HFOVDialog::OnLoadLensParameters(wxCommandEvent & e)
 }
 
 
-SrcPanoImage HFOVDialog::GetSrcImage()
+HuginBase::SrcPanoImage HFOVDialog::GetSrcImage()
 {
     m_srcImg.setExifFocalLength(m_focalLength);
     m_srcImg.setCropFactor(m_cropFactor);
@@ -376,7 +373,7 @@ double HFOVDialog::GetFocalLength()
 
 void HFOVDialog::OnOk(wxCommandEvent & e)
 {
-    if(m_srcImg.getProjection()==SrcPanoImage::FISHEYE_ORTHOGRAPHIC && m_HFOV>190)
+    if (m_srcImg.getProjection() == HuginBase::SrcPanoImage::FISHEYE_ORTHOGRAPHIC && m_HFOV>190)
     {
         if(wxMessageBox(
             wxString::Format(_("You have given a field of view of %.2f degrees.\n But the orthographic projection is limited to a field of view of 180 degress.\nDo you want still use that high value?"), m_HFOV),

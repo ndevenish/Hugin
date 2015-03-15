@@ -31,7 +31,7 @@
 // Headers
 //-----------------------------------------------------------------------------
 
-#include <PT/Panorama.h>
+#include <panodata/Panorama.h>
 #include <wx/clrpicker.h>
 #include "MaskImageCtrl.h"
 #include "ImagesList.h"
@@ -41,7 +41,7 @@
  *  This panel is used to create/change/edit masks
  *
  */
-class MaskEditorPanel : public wxPanel, public PT::PanoramaObserver
+class MaskEditorPanel : public wxPanel, public HuginBase::PanoramaObserver
 {
 public:
     /** ctor.
@@ -50,13 +50,13 @@ public:
 
     bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL, const wxString& name = wxT("panel"));
 
-    void Init(PT::Panorama * pano);
+    void Init(HuginBase::Panorama * pano);
 
     /** dtor.
      */
     virtual ~MaskEditorPanel();
 
-    void SetPano(PT::Panorama * panorama)
+    void SetPano(HuginBase::Panorama * panorama)
         { m_pano = panorama; };
     /** sets the image, which is currently edited 
          @param imgNr the image which should be shown, use UINT_MAX for no image selected 
@@ -85,8 +85,8 @@ public:
     /** called when the panorama changes and we should
      *  update our display
      */
-    void panoramaChanged(PT::Panorama &pano);
-    void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
+    void panoramaChanged(HuginBase::Panorama &pano);
+    void panoramaImagesChanged(HuginBase::Panorama &pano, const HuginBase::UIntSet & imgNr);
 
     /** called when user selected an other image */
     void OnImageSelect(wxListEvent &e);
@@ -151,7 +151,7 @@ private:
     wxNotebook *m_maskCropCtrl;
 
     // my data
-    PT::Panorama * m_pano;
+    HuginBase::Panorama * m_pano;
     // current masks vector
     HuginBase::MaskPolygonVector m_currentMasks;
     HuginBase::MaskPolygon::MaskType m_defaultMaskType;

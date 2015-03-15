@@ -2,7 +2,7 @@
 /** @file nona/RemappedPanoImage.h
  *
  *  Contains functions to transform whole images.
- *  Can use PTools::Transform or PT::SpaceTransform for the calculations
+ *  Can use PTools::Transform or PanoCommand::SpaceTransform for the calculations
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *
@@ -115,16 +115,16 @@ class RemappedPanoImage : public vigra_ext::ROIImage<RemapImage, AlphaImage>
     //     *  calculates bounding box, and outline
     //     */
     //    void setPanoImage(const vigra::Size2D & srcSize,
-    //                      const PT::VariableMap & srcVars,
-    //                      PT::Lens::LensProjectionFormat srcProj,
-    //                      const PT::PanoImage & img,
+    //                      const PanoCommand::VariableMap & srcVars,
+    //                      PanoCommand::Lens::LensProjectionFormat srcProj,
+    //                      const PanoCommand::PanoImage & img,
     //                      const vigra::Diff2D &destSize,
-    //                      PT::PanoramaOptions::ProjectionFormat destProj,
+    //                      HuginBase::PanoramaOptions::ProjectionFormat destProj,
     //                      double destHFOV);
     //    
     //    ///
-    //    void setPanoImage(const PT::Panorama & pano, unsigned int imgNr,
-    //                      vigra::Size2D srcSize, const PT::PanoramaOptions & opts);
+    //    void setPanoImage(const HuginBase::Panorama & pano, unsigned int imgNr,
+    //                      vigra::Size2D srcSize, const HuginBase::PanoramaOptions & opts);
         
 
     public:
@@ -248,11 +248,11 @@ void RemappedPanoImage<RemapImage,AlphaImage>::setPanoImage(const SrcPanoImage &
  */
 template <class RemapImage, class AlphaImage>
 void RemappedPanoImage<RemapImage,AlphaImage>::setPanoImage(const vigra::Size2D & srcSize,
-                  const PT::VariableMap & srcVars,
-                  PT::Lens::LensProjectionFormat srcProj,
-                  const PT::PanoImage & img,
+                  const PanoCommand::VariableMap & srcVars,
+                  PanoCommand::Lens::LensProjectionFormat srcProj,
+                  const PanoCommand::PanoImage & img,
                   const vigra::Diff2D &destSize,
-                  PT::PanoramaOptions::ProjectionFormat destProj,
+                  HuginBase::PanoramaOptions::ProjectionFormat destProj,
                   double destHFOV)
 {
     m_srcSize = srcSize;
@@ -292,10 +292,10 @@ void RemappedPanoImage<RemapImage,AlphaImage>::setPanoImage(const vigra::Size2D 
 }
 
 template <class RemapImage, class AlphaImage>
-void RemappedPanoImage<RemapImage,AlphaImage>::setPanoImage(const PT::Panorama & pano, unsigned int imgNr,
-                  vigra::Size2D srcSize, const PT::PanoramaOptions & opts)
+void RemappedPanoImage<RemapImage,AlphaImage>::setPanoImage(const HuginBase::Panorama & pano, unsigned int imgNr,
+                  vigra::Size2D srcSize, const HuginBase::PanoramaOptions & opts)
 {
-    const PT::PanoImage & img = pano.getImage(imgNr);
+    const PanoCommand::PanoImage & img = pano.getImage(imgNr);
 
     m_srcSize = srcSize;
     m_srcOrigSize.x = img.getWidth();

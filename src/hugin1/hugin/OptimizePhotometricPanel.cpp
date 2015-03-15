@@ -29,14 +29,15 @@
 
 #include "panoinc.h"
 
-#include <PT/RandomPointSampler.h>
-#include <PT/PhotometricOptimizer.h>
-#include <PT/PTOptimise.h>
+#include <algorithms/point_sampler/PointSampler.h>
+#include <algorithms/optimizer/PhotometricOptimizer.h>
+#include <algorithms/basic/CalculateMeanExposure.h>
 
 #include <vigra_ext/Pyramid.h>
 #include <vigra_ext/openmp_vigra.h>
 #include "hugin/OptimizePhotometricPanel.h"
-#include "hugin/CommandHistory.h"
+#include "base_wx/CommandHistory.h"
+#include "base_wx/PanoCommand.h"
 #include "hugin/MainFrame.h"
 #include "base_wx/MyProgressDialog.h"
 #include "hugin/config_defaults.h"
@@ -46,8 +47,6 @@
 #include "hugin/PanoOperation.h"
 
 using namespace std;
-using namespace PT;
-using namespace PTools;
 using namespace hugin_utils;
 using namespace vigra;
 using namespace vigra_ext;
@@ -167,14 +166,14 @@ void OptimizePhotometricPanel::OnOptimizeButton(wxCommandEvent & e)
     runOptimizer(imgs);
 }
 
-void OptimizePhotometricPanel::panoramaChanged(PT::Panorama & pano)
+void OptimizePhotometricPanel::panoramaChanged(HuginBase::Panorama & pano)
 {
     m_images_tree->Enable(m_pano->getPhotometricOptimizerSwitch()==0);
     m_lens_tree->Enable(m_pano->getPhotometricOptimizerSwitch()==0);
 }
 
-void OptimizePhotometricPanel::panoramaImagesChanged(PT::Panorama &pano,
-                                          const PT::UIntSet & imgNr)
+void OptimizePhotometricPanel::panoramaImagesChanged(HuginBase::Panorama &pano,
+                                          const HuginBase::UIntSet & imgNr)
 {
     XRCCTRL(*this, "optimize_photo_panel_optimize", wxButton)->Enable(pano.getNrOfImages()>1);
     XRCCTRL(*this, "optimize_photo_panel_reset", wxButton)->Enable(pano.getNrOfImages()>0);    
@@ -195,7 +194,7 @@ void OptimizePhotometricPanel::runOptimizer(const UIntSet & imgs)
             HuginBase::ImageVariableGroup::IVE_RadialVigCorrCenterShift
         };
     // keep a list of commands needed to fix it:
-    std::vector<PT::PanoCommand *> commands;
+    std::vector<PanoCommand::PanoCommand *> commands;
     HuginBase::ConstStandardImageVariableGroups variable_groups(*m_pano);
     HuginBase::ConstImageVariableGroup & lenses = variable_groups.getLenses();
     for (size_t i = 0; i < lenses.getNumberOfParts(); i++)
@@ -211,7 +210,7 @@ void OptimizePhotometricPanel::runOptimizer(const UIntSet & imgs)
         };
         if (!links_needed.empty())
         {
-            commands.push_back(new PT::LinkLensVarsCmd(*m_pano, i, links_needed));
+            commands.push_back(new PanoCommand::LinkLensVarsCmd(*m_pano, i, links_needed));
         }
     }
     // if the list of commands is empty, all is good and we don't need a warning.
@@ -220,15 +219,15 @@ void OptimizePhotometricPanel::runOptimizer(const UIntSet & imgs)
         if (ok == wxYES)
         {
             // perform all the commands we stocked up earilier.
-            for (std::vector<PT::PanoCommand *>::iterator it = commands.begin(); it != commands.end(); ++it)
+            for (std::vector<PanoCommand::PanoCommand *>::iterator it = commands.begin(); it != commands.end(); ++it)
             {
-                GlobalCmdHist::getInstance().addCommand(*it);
+                PanoCommand::GlobalCmdHist::getInstance().addCommand(*it);
             }
         }
         else
         {
             // free all the commands, the user doesn't want them used.
-            for (std::vector<PT::PanoCommand *>::iterator it = commands.begin(); it != commands.end(); ++it)
+            for (std::vector<PanoCommand::PanoCommand *>::iterator it = commands.begin(); it != commands.end(); ++it)
             {
                 delete *it;
             }
@@ -236,9 +235,9 @@ void OptimizePhotometricPanel::runOptimizer(const UIntSet & imgs)
     }
 
     Panorama optPano = m_pano->getSubset(imgs);
-    PanoramaOptions opts = optPano.getOptions();
+    HuginBase::PanoramaOptions opts = optPano.getOptions();
 
-    OptimizeVector optvars;
+    HuginBase::OptimizeVector optvars;
     if(mode==0)
     {
         optvars = optPano.getOptimizeVector();
@@ -305,8 +304,7 @@ void OptimizePhotometricPanel::runOptimizer(const UIntSet & imgs)
                 return;
             };
         }   
-        bool randomPoints = true;
-        extractPoints(optPano, srcImgs, nPoints, randomPoints, &progress, points);
+        HuginBase::PointSampler::extractPoints(optPano, srcImgs, nPoints, true, &progress, points);
 
         if (!progress.updateDisplayValue())
         {
@@ -326,37 +324,37 @@ void OptimizePhotometricPanel::runOptimizer(const UIntSet & imgs)
             {
                 // run automatic optimisation
                 // ensure that we have a valid anchor.
-                PanoramaOptions opts = optPano.getOptions();
+                HuginBase::PanoramaOptions opts = optPano.getOptions();
                 if (opts.colorReferenceImage >= optPano.getNrOfImages())
                 {
                     opts.colorReferenceImage = 0;
                     optPano.setOptions(opts);
                 }
-                PhotometricOptimizeMode optMode;
+                HuginBase::SmartPhotometricOptimizer::PhotometricOptimizeMode optMode;
                 switch(mode)
                 {
                     case (HuginBase::OPT_EXPOSURE | HuginBase::OPT_VIGNETTING | HuginBase::OPT_RESPONSE):
-                        optMode=OPT_PHOTOMETRIC_LDR;
+                        optMode = HuginBase::SmartPhotometricOptimizer::OPT_PHOTOMETRIC_LDR;
                         break;
                     case (HuginBase::OPT_EXPOSURE | HuginBase::OPT_VIGNETTING | HuginBase::OPT_RESPONSE | HuginBase::OPT_WHITEBALANCE):
-                        optMode=OPT_PHOTOMETRIC_LDR_WB;
+                        optMode = HuginBase::SmartPhotometricOptimizer::OPT_PHOTOMETRIC_LDR_WB;
                         break;
                     case (HuginBase::OPT_VIGNETTING | HuginBase::OPT_RESPONSE):
-                        optMode=OPT_PHOTOMETRIC_HDR;
+                        optMode = HuginBase::SmartPhotometricOptimizer::OPT_PHOTOMETRIC_HDR;
                         break;
                     case (HuginBase::OPT_WHITEBALANCE | HuginBase::OPT_VIGNETTING | HuginBase::OPT_RESPONSE):
-                        optMode=OPT_PHOTOMETRIC_HDR_WB;
+                        optMode = HuginBase::SmartPhotometricOptimizer::OPT_PHOTOMETRIC_HDR_WB;
                         break;
                     default:
                         //invalid combination
                         return;
                 };
-                smartOptimizePhotometric(optPano, optMode, points, &progress, error);
+                HuginBase::SmartPhotometricOptimizer::smartOptimizePhotometric(optPano, optMode, points, &progress, error);
             }
             else
             {
                 // optimize selected parameters
-                optimizePhotometric(optPano, optvars, points, &progress, error);
+                HuginBase::PhotometricOptimizer::optimizePhotometric(optPano, optvars, points, &progress, error);
             }
             if (progress.wasCancelled())
             {
@@ -379,15 +377,15 @@ void OptimizePhotometricPanel::runOptimizer(const UIntSet & imgs)
     {
         DEBUG_DEBUG("Applying vignetting corr");
         // TODO: merge into a single update command
-        const VariableMapVector & vars = optPano.getVariables();
-        GlobalCmdHist::getInstance().addCommand(
-                new PT::UpdateImagesVariablesCmd(*m_pano, imgs, vars)
+        const HuginBase::VariableMapVector & vars = optPano.getVariables();
+        PanoCommand::GlobalCmdHist::getInstance().addCommand(
+                new PanoCommand::UpdateImagesVariablesCmd(*m_pano, imgs, vars)
                                                );
         //now update panorama exposure value
-        PanoramaOptions opts = m_pano->getOptions();
-        opts.outputExposureValue = calcMeanExposure(*m_pano);
-        GlobalCmdHist::getInstance().addCommand(
-                new PT::SetPanoOptionsCmd(*m_pano, opts)
+        HuginBase::PanoramaOptions opts = m_pano->getOptions();
+        opts.outputExposureValue = HuginBase::CalculateMeanExposure::calcMeanExposure(*m_pano);
+        PanoCommand::GlobalCmdHist::getInstance().addCommand(
+                new PanoCommand::SetPanoOptionsCmd(*m_pano, opts)
                                                );
     }
 }
@@ -412,10 +410,10 @@ void OptimizePhotometricPanel::OnClose(wxCloseEvent& event)
 void OptimizePhotometricPanel::OnReset(wxCommandEvent& e)
 {
     PanoOperation::ResetOperation op(PanoOperation::ResetOperation::RESET_DIALOG_PHOTOMETRICS);
-    PT::PanoCommand* cmd=op.GetCommand(this,*m_pano, m_images_tree->GetSelectedImages(), MainFrame::Get()->GetGuiLevel());
+    PanoCommand::PanoCommand* cmd=op.GetCommand(this,*m_pano, m_images_tree->GetSelectedImages(), MainFrame::Get()->GetGuiLevel());
     if(cmd!=NULL)
     {
-        GlobalCmdHist::getInstance().addCommand(cmd);
+        PanoCommand::GlobalCmdHist::getInstance().addCommand(cmd);
     };
 };
 

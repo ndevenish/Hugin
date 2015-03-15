@@ -32,8 +32,6 @@
 #include <fstream>
 #include <sstream>
 #include <vigra/error.hxx>
-#include "PT/Panorama.h"
-#include "PT/utils.h"
 #include "base_wx/huginConfig.h"
 #include "base_wx/MyExternalCmdExecDialog.h"
 #include "base_wx/Executor.h"
@@ -48,7 +46,6 @@
 #include "hugin/config_defaults.h"
 
 using namespace vigra;
-using namespace PT;
 using namespace std;
 using namespace hugin_utils;
 
@@ -118,8 +115,8 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname)
         wxLogError( wxString::Format(_("could not open script : %s"), scriptFile.c_str()) );
         return false;
     }
-    PT::Panorama pano;
-    PT::PanoramaMemento newPano;
+    HuginBase::Panorama pano;
+    HuginBase::PanoramaMemento newPano;
     int ptoVersion = 0;
     if (newPano.loadPTScript(prjfile, ptoVersion, (const char *)pathToPTO.mb_str(HUGIN_CONV_FILENAME))) {
         pano.setMemento(newPano);
@@ -145,8 +142,8 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname)
         return false;
     }
     // get options and correct for correct makefile
-    PanoramaOptions opts = pano.getOptions();
-    opts.outputFormat = PanoramaOptions::TIFF_m;
+    HuginBase::PanoramaOptions opts = pano.getOptions();
+    opts.outputFormat = HuginBase::PanoramaOptions::TIFF_m;
     if (opts.enblendOptions.length() == 0) {
         // no options stored in file, use default arguments in config file
         opts.enblendOptions = wxConfigBase::Get()->Read(wxT("/Enblend/Args"), wxT(HUGIN_ENBLEND_ARGS)).mb_str(wxConvLocal);
@@ -179,7 +176,7 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname)
         DEBUG_DEBUG("tmpPTOfn file: " << (const char *)m_currentPTOfn.mb_str(wxConvLocal));
         // copy is not enough, need to adjust image path names...
         ofstream script(m_currentPTOfn.mb_str(HUGIN_CONV_FILENAME));
-        PT::UIntSet all;
+        HuginBase::UIntSet all;
         fill_set(all, 0, pano.getNrOfImages()-1);
         pano.printPanoramaScript(script, pano.getOptimizeVector(), pano.getOptions(), all, false, "");
         script.close();
@@ -255,8 +252,8 @@ bool RunStitchPanel::DetectProject(wxString scriptFile)
         wxLogError( wxString::Format(_("could not open script : %s"), scriptFile.c_str()));
         return false;
     }
-    PT::Panorama pano;
-    PT::PanoramaMemento newPano;
+    HuginBase::Panorama pano;
+    HuginBase::PanoramaMemento newPano;
     int ptoVersion = 0;
     if (!newPano.loadPTScript(prjfile, ptoVersion))
     {

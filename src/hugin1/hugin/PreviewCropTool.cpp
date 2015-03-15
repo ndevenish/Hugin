@@ -26,8 +26,8 @@
 #include <config.h>
 #include "base_wx/platform.h"
 #include "hugin/config_defaults.h"
-#include "CommandHistory.h"
-#include "wxPanoCommand.h"
+#include "base_wx/CommandHistory.h"
+#include "base_wx/wxPanoCommand.h"
 
 #include <wx/platform.h>
 #ifdef __WXMAC__
@@ -265,8 +265,8 @@ void PreviewCropTool::MouseButtonEvent(wxMouseEvent &e)
                 moving_top = false;
                 moving_bottom = false;
                 // set the new cropping region permanently.
-                GlobalCmdHist::getInstance().addCommand(
-                    new PT::SetPanoOptionsCmd(*(helper->GetPanoramaPtr()),
+                PanoCommand::GlobalCmdHist::getInstance().addCommand(
+                    new PanoCommand::SetPanoOptionsCmd(*(helper->GetPanoramaPtr()),
                                               opts));
             }
         }

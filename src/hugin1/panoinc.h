@@ -67,9 +67,7 @@
 // ===== Hugin specific with no dependencies to WX
 // =====
 
-#include "PT/Panorama.h"
-#include "PT/PanoramaMemento.h"
-#include "PT/PanoCommand.h"
+#include "panodata/Panorama.h"
 
 #endif
 

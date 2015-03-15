@@ -361,7 +361,7 @@ void LensCalImageCtrl::SetEdgeImage()
 
 void LensCalImageCtrl::GenerateRemappedImage(const unsigned int newWidth,const unsigned int newHeight)
 {
-    PT::RemappedPanoImage<vigra::BRGBImage,vigra::BImage>* remapped=new PT::RemappedPanoImage<vigra::BRGBImage,vigra::BImage>;
+    HuginBase::Nona::RemappedPanoImage<vigra::BRGBImage,vigra::BImage>* remapped=new HuginBase::Nona::RemappedPanoImage<vigra::BRGBImage,vigra::BImage>;
     //generate SrcPanoImage with current settings
     m_panoimage=*(m_imageLines->GetPanoImage());
     m_panoimage.setProjection(m_projection);

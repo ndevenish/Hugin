@@ -30,7 +30,7 @@
 
 #include <vector>
 #include "panoinc_WX.h"
-#include "PT/Panorama.h"
+#include "panodata/Panorama.h"
 #include "lines/FindLines.h"
 
 class ImageLineList

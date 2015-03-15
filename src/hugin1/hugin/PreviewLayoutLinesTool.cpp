@@ -156,11 +156,11 @@ PreviewLayoutLinesTool::~PreviewLayoutLinesTool()
     helper->GetPanoramaPtr()->removeObserver(this);
 }
 
-void PreviewLayoutLinesTool::panoramaChanged(HuginBase::PanoramaData &pano)
+void PreviewLayoutLinesTool::panoramaChanged(HuginBase::Panorama &pano)
 {
     m_updateStatistics = true;
 }
-void PreviewLayoutLinesTool::panoramaImagesChanged(HuginBase::PanoramaData&,
+void PreviewLayoutLinesTool::panoramaImagesChanged(HuginBase::Panorama&,
                                                    const HuginBase::UIntSet&)
 {
     m_updateStatistics = true;
@@ -380,7 +380,7 @@ void PreviewLayoutLinesTool::MouseButtonEvent(wxMouseEvent & e)
 void PreviewLayoutLinesTool::updateLineInformation()
 {
     m_lines.clear();
-    const PT::Panorama & pano = *(helper->GetPanoramaPtr());
+    const HuginBase::Panorama & pano = *(helper->GetPanoramaPtr());
     unsigned int numberOfImages = pano.getNrOfImages();
     HuginBase::UIntSet active_images = pano.getActiveImages();
     // make a line for every image pair, but set the unneeded ones as dud.
@@ -390,7 +390,7 @@ void PreviewLayoutLinesTool::updateLineInformation()
     // loop over all control points to count them and get error statistics.
     for (unsigned int cpi = 0 ; cpi < numberOfControlPoints ; cpi++)
     {
-        const ControlPoint & cp = pano.getCtrlPoint(cpi);
+        const HuginBase::ControlPoint & cp = pano.getCtrlPoint(cpi);
         unsigned int low_index, high_index;
         if (cp.image1Nr < cp.image2Nr)
         {

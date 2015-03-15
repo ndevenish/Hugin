@@ -35,12 +35,13 @@
 #include "hugin_base/algorithms/basic/LayerStacks.h"
 #include <panodata/ImageVariableGroup.h>
 #include <panodata/StandardImageVariableGroups.h>
-#include "hugin/CommandHistory.h"
+#include "base_wx/CommandHistory.h"
+#include "base_wx/PanoCommand.h"
 #include <hugin_utils/stl_utils.h>
 #include "hugin/ImageVariableDialog.h"
 #include "hugin/huginApp.h"
 
-using namespace PT;
+using namespace HuginBase;
 using namespace hugin_utils;
 
 enum
@@ -204,7 +205,7 @@ void ImagesTreeCtrl::CreateColumns()
     }
 };
 
-void ImagesTreeCtrl::Init(PT::Panorama * panorama)
+void ImagesTreeCtrl::Init(HuginBase::Panorama * panorama)
 {
     m_pano = panorama;
     m_pano->addObserver(this);
@@ -225,7 +226,7 @@ ImagesTreeCtrl::~ImagesTreeCtrl(void)
     delete m_variable_groups;
 };
 
-void ImagesTreeCtrl::panoramaChanged(PT::Panorama & pano)
+void ImagesTreeCtrl::panoramaChanged(HuginBase::Panorama & pano)
 {
     if(m_optimizerMode)
     {
@@ -1258,14 +1259,14 @@ void ImagesTreeCtrl::UnLinkImageVariables(bool linked)
         };
         if(m_groupMode==GROUP_LENS)
         {
-            GlobalCmdHist::getInstance().addCommand(
-                new PT::ChangePartImagesLinkingCmd(*m_pano, images, variables, linked, HuginBase::StandardImageVariableGroups::getLensVariables())
+            PanoCommand::GlobalCmdHist::getInstance().addCommand(
+                new PanoCommand::ChangePartImagesLinkingCmd(*m_pano, images, variables, linked, HuginBase::StandardImageVariableGroups::getLensVariables())
             );
         }
         else
         {
-            GlobalCmdHist::getInstance().addCommand(
-                new PT::ChangePartImagesLinkingCmd(*m_pano, images, variables, linked, HuginBase::StandardImageVariableGroups::getStackVariables())
+            PanoCommand::GlobalCmdHist::getInstance().addCommand(
+                new PanoCommand::ChangePartImagesLinkingCmd(*m_pano, images, variables, linked, HuginBase::StandardImageVariableGroups::getStackVariables())
             );
         };
     };
@@ -1381,8 +1382,8 @@ void ImagesTreeCtrl::OnEndDrag(wxMouseEvent &e)
             {
                 if(img1!=img2)
                 {
-                    GlobalCmdHist::getInstance().addCommand(
-                        new PT::MoveImageCmd(*m_pano, img1, img2)
+                    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+                        new PanoCommand::MoveImageCmd(*m_pano, img1, img2)
                     );
                 };
             };
@@ -1411,14 +1412,14 @@ void ImagesTreeCtrl::OnEndDrag(wxMouseEvent &e)
                 {
                     if(m_groupMode==GROUP_LENS)
                     {
-                        GlobalCmdHist::getInstance().addCommand(
-                            new PT::ChangePartNumberCmd(*m_pano, m_draggingImages, groupNr, HuginBase::StandardImageVariableGroups::getLensVariables())
+                        PanoCommand::GlobalCmdHist::getInstance().addCommand(
+                            new PanoCommand::ChangePartNumberCmd(*m_pano, m_draggingImages, groupNr, HuginBase::StandardImageVariableGroups::getLensVariables())
                         );
                     }
                     else
                     {
-                        GlobalCmdHist::getInstance().addCommand(
-                            new PT::ChangePartNumberCmd(*m_pano, m_draggingImages, groupNr, HuginBase::StandardImageVariableGroups::getStackVariables())
+                        PanoCommand::GlobalCmdHist::getInstance().addCommand(
+                            new PanoCommand::ChangePartNumberCmd(*m_pano, m_draggingImages, groupNr, HuginBase::StandardImageVariableGroups::getStackVariables())
                         );
                     };
                 };
@@ -1427,14 +1428,14 @@ void ImagesTreeCtrl::OnEndDrag(wxMouseEvent &e)
             {
                 if(m_groupMode==GROUP_LENS)
                 {
-                    GlobalCmdHist::getInstance().addCommand(
-                        new PT::NewPartCmd(*m_pano, m_draggingImages, HuginBase::StandardImageVariableGroups::getLensVariables())
+                    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+                        new PanoCommand::NewPartCmd(*m_pano, m_draggingImages, HuginBase::StandardImageVariableGroups::getLensVariables())
                     );
                 }
                 else
                 {
-                    GlobalCmdHist::getInstance().addCommand(
-                        new PT::NewPartCmd(*m_pano, m_draggingImages, HuginBase::StandardImageVariableGroups::getStackVariables())
+                    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+                        new PanoCommand::NewPartCmd(*m_pano, m_draggingImages, HuginBase::StandardImageVariableGroups::getStackVariables())
                     );
                 }
             };
@@ -1551,8 +1552,8 @@ void ImagesTreeCtrl::OnLeftDown(wxMouseEvent &e)
                                 };
                             };
                         };
-                        GlobalCmdHist::getInstance().addCommand(
-                            new PT::UpdateOptimizeVectorCmd(*m_pano, optVec)
+                        PanoCommand::GlobalCmdHist::getInstance().addCommand(
+                            new PanoCommand::UpdateOptimizeVectorCmd(*m_pano, optVec)
                         );
                         return;
                     };
@@ -1634,7 +1635,7 @@ void ImagesTreeCtrl::SelectAllParameters(bool select, bool allImages)
         };
     };
 
-    OptimizeVector optVec=m_pano->getOptimizeVector();
+    HuginBase::OptimizeVector optVec = m_pano->getOptimizeVector();
     for(UIntSet::iterator img=imgs.begin(); img!=imgs.end(); ++img)
     {
         for(std::set<std::string>::const_iterator it=imgVars.begin(); it!=imgVars.end(); ++it)
@@ -1660,8 +1661,8 @@ void ImagesTreeCtrl::SelectAllParameters(bool select, bool allImages)
             };
         };
     };
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::UpdateOptimizeVectorCmd(*m_pano, optVec)
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+        new PanoCommand::UpdateOptimizeVectorCmd(*m_pano, optVec)
     );
 };
 
@@ -1700,8 +1701,8 @@ void ImagesTreeCtrl::OnChar(wxTreeEvent &e)
                 HuginBase::UIntSet imgs=GetSelectedImages();
                 if(imgs.size()>0)
                 {
-                    GlobalCmdHist::getInstance().addCommand(
-                        new PT::RemoveImagesCmd(*m_pano, imgs)
+                    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+                        new PanoCommand::RemoveImagesCmd(*m_pano, imgs)
                     );
                 };
                 break;
@@ -1792,9 +1793,9 @@ void ImagesTreeCtrl::OnEndEdit(wxTreeEvent &e)
                         };
                     };
                 };
-                Variable var(m_columnVector[e.GetInt()], val);
-                GlobalCmdHist::getInstance().addCommand(
-                    new PT::SetVariableCmd(*m_pano, imgs, var)
+                HuginBase::Variable var(m_columnVector[e.GetInt()], val);
+                PanoCommand::GlobalCmdHist::getInstance().addCommand(
+                    new PanoCommand::SetVariableCmd(*m_pano, imgs, var)
                 );
                 //we need to veto the event otherwise the internal
                 //function does update the text to the full number
@@ -1814,10 +1815,10 @@ void ImagesTreeCtrl::OnEndEdit(wxTreeEvent &e)
 void ImagesTreeCtrl::OnExecuteOperation(wxCommandEvent & e)
 {
     PanoOperation::PanoOperation* op=m_menuOperation[e.GetId()];
-    PT::PanoCommand* cmd=op->GetCommand(this,*m_pano, GetSelectedImages(), m_guiLevel);
+    PanoCommand::PanoCommand* cmd=op->GetCommand(this,*m_pano, GetSelectedImages(), m_guiLevel);
     if(cmd!=NULL)
     {
-        GlobalCmdHist::getInstance().addCommand(cmd);
+        PanoCommand::GlobalCmdHist::getInstance().addCommand(cmd);
     };
 };
 

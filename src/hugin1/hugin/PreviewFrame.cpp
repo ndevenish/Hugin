@@ -43,8 +43,12 @@
 #include "hugin/huginApp.h"
 #include "hugin/PreviewPanel.h"
 #include "hugin/ImagesPanel.h"
-#include "hugin/CommandHistory.h"
+#include "base_wx/CommandHistory.h"
+#include "base_wx/PanoCommand.h"
 #include "hugin/TextKillFocusHandler.h"
+#include "algorithms/nona/FitPanorama.h"
+#include "algorithms/basic/CalculateMeanExposure.h"
+#include "base_wx/wxPlatform.h"
 
 #include <vigra_ext/ImageTransforms.h>
 
@@ -116,7 +120,7 @@ END_EVENT_TABLE()
 
 #define PF_STYLE (wxMAXIMIZE_BOX | wxMINIMIZE_BOX | wxRESIZE_BORDER | wxSYSTEM_MENU | wxCAPTION | wxCLOSE_BOX | wxCLIP_CHILDREN)
 
-PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
+PreviewFrame::PreviewFrame(wxFrame * frame, HuginBase::Panorama &pano)
     : wxFrame(frame,-1, _("Panorama preview"), wxDefaultPosition, wxDefaultSize,
               PF_STYLE),
       m_pano(pano)
@@ -439,8 +443,8 @@ void PreviewFrame::OnChangeDisplayedImgs(wxCommandEvent & e)
             activeImages.erase(id);
         }
 //        m_PreviewPanel->SetDisplayedImages(m_displayedImgs);
-    	GlobalCmdHist::getInstance().addCommand(
-            new PT::SetActiveImagesCmd(m_pano, activeImages)
+        PanoCommand::GlobalCmdHist::getInstance().addCommand(
+            new PanoCommand::SetActiveImagesCmd(m_pano, activeImages)
         );
     } else {
         DEBUG_ERROR("invalid Togglebutton ID");
@@ -449,14 +453,14 @@ void PreviewFrame::OnChangeDisplayedImgs(wxCommandEvent & e)
 
 void PreviewFrame::panoramaChanged(Panorama &pano)
 {
-    const PanoramaOptions & opts = pano.getOptions();
+    const HuginBase::PanoramaOptions & opts = pano.getOptions();
 
     wxString projection;
     m_ProjectionChoice->SetSelection(opts.getProjection());
     m_VFOVSlider->Enable( opts.fovCalcSupported(opts.getProjection()) );
 
     m_outputModeChoice->SetSelection(opts.outputMode);
-    if (opts.outputMode == PanoramaOptions::OUTPUT_HDR) {
+    if (opts.outputMode == HuginBase::PanoramaOptions::OUTPUT_HDR) {
         /*
         m_exposureTextCtrl->Hide();
         m_defaultExposureBut->Hide();
@@ -643,8 +647,8 @@ void PreviewFrame::OnProjectionChanged()
     case PanoramaOptions::EQUIRECTANGULAR:   Ip = _("Equirectangular"); break;
     }
     opt.projectionFormat = (PanoramaOptions::ProjectionFormat) lt;
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::SetPanoOptionsCmd( pano, opt )
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+        new PanoCommand::SetPanoOptionsCmd( pano, opt )
         );
     DEBUG_DEBUG ("Projection changed: "  << lt << ":" << Ip )
 
@@ -656,8 +660,8 @@ void PreviewFrame::OnCenterHorizontally(wxCommandEvent & e)
 {
     if (m_pano.getActiveImages().size() == 0) return;
 
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::CenterPanoCmd(m_pano)
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+        new PanoCommand::CenterPanoCmd(m_pano)
         );
 }
 
@@ -665,8 +669,8 @@ void PreviewFrame::OnStraighten(wxCommandEvent & e)
 {
     if (m_pano.getNrOfImages() == 0) return;
 
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::StraightenPanoCmd(m_pano)
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+        new PanoCommand::StraightenPanoCmd(m_pano)
         );
 }
 
@@ -687,15 +691,14 @@ void PreviewFrame::OnFitPano(wxCommandEvent & e)
     if (m_pano.getActiveImages().size() == 0) return;
 
     DEBUG_TRACE("");
-    PanoramaOptions opt = m_pano.getOptions();
+    HuginBase::PanoramaOptions opt = m_pano.getOptions();
+    HuginBase::CalculateFitPanorama fitPano(m_pano);
+    fitPano.run();
+    opt.setHFOV(fitPano.getResultHorizontalFOV());
+    opt.setHeight(roundi(fitPano.getResultHeight()));
 
-    double hfov, height;
-    m_pano.fitPano(hfov, height);
-    opt.setHFOV(hfov);
-    opt.setHeight(roundi(height));
-
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::SetPanoOptionsCmd( m_pano, opt )
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+        new PanoCommand::SetPanoOptionsCmd( m_pano, opt )
         );
 
     DEBUG_INFO ( "new fov: [" << opt.getHFOV() << " "<< opt.getVFOV() << "] => height: " << opt.getHeight() );
@@ -711,8 +714,8 @@ void PreviewFrame::OnShowAll(wxCommandEvent & e)
     for (unsigned int i=0; i < m_pano.getNrOfImages(); i++) {
         displayedImgs.insert(i);
     }
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::SetActiveImagesCmd(m_pano, displayedImgs)
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+        new PanoCommand::SetActiveImagesCmd(m_pano, displayedImgs)
         );
     updatePano();
 }
@@ -726,8 +729,8 @@ void PreviewFrame::OnShowNone(wxCommandEvent & e)
         m_ToggleButtons[i]->SetValue(false);
     }
     UIntSet displayedImgs;
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::SetActiveImagesCmd(m_pano, displayedImgs)
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+        new PanoCommand::SetActiveImagesCmd(m_pano, displayedImgs)
         );
     updatePano();
 }
@@ -758,8 +761,8 @@ void PreviewFrame::OnNumTransform(wxCommandEvent & e)
             wxLogError(_("Roll value must be numeric."));
             return;
         }
-        GlobalCmdHist::getInstance().addCommand(
-            new PT::RotatePanoCmd(m_pano, y, p, r)
+        PanoCommand::GlobalCmdHist::getInstance().addCommand(
+            new PanoCommand::RotatePanoCmd(m_pano, y, p, r)
             );
         // update preview panel
         updatePano();
@@ -770,7 +773,7 @@ void PreviewFrame::OnNumTransform(wxCommandEvent & e)
 
 void PreviewFrame::OnTextCtrlChanged(wxCommandEvent & e)
 {
-    PanoramaOptions opts = m_pano.getOptions();
+    HuginBase::PanoramaOptions opts = m_pano.getOptions();
     if (e.GetEventObject() == m_exposureTextCtrl) {
         // exposure
         wxString text = m_exposureTextCtrl->GetValue();
@@ -802,8 +805,8 @@ void PreviewFrame::OnTextCtrlChanged(wxCommandEvent & e)
         }
         opts.setProjectionParameters(para);
     }
-    GlobalCmdHist::getInstance().addCommand(
-            new PT::SetPanoOptionsCmd( m_pano, opts )
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+            new PanoCommand::SetPanoOptionsCmd( m_pano, opts )
                                            );
     // update preview panel
     updatePano();
@@ -812,10 +815,10 @@ void PreviewFrame::OnTextCtrlChanged(wxCommandEvent & e)
 
 void PreviewFrame::OnProjParameterReset(wxCommandEvent &e)
 {
-    PanoramaOptions opts=m_pano.getOptions();
+    HuginBase::PanoramaOptions opts = m_pano.getOptions();
     opts.resetProjectionParameters();
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::SetPanoOptionsCmd(m_pano, opts)
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+        new PanoCommand::SetPanoOptionsCmd(m_pano, opts)
         );
 };
 
@@ -823,7 +826,7 @@ void PreviewFrame::OnChangeFOV(wxScrollEvent & e)
 {
     DEBUG_TRACE("");
 
-    PanoramaOptions opt = m_pano.getOptions();
+    HuginBase::PanoramaOptions opt = m_pano.getOptions();
 
     if (e.GetEventObject() == m_HFOVSlider) {
         DEBUG_DEBUG("HFOV changed (slider): " << e.GetInt() << " == " << m_HFOVSlider->GetValue());
@@ -845,8 +848,8 @@ void PreviewFrame::OnChangeFOV(wxScrollEvent & e)
 		opt.setVFOV(m_VFOVSlider->GetValue());
     }
 
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::SetPanoOptionsCmd( m_pano, opt )
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+        new PanoCommand::SetPanoOptionsCmd( m_pano, opt )
         );
 }
 
@@ -873,10 +876,10 @@ void PreviewFrame::OnBlendChoice(wxCommandEvent & e)
 void PreviewFrame::OnDefaultExposure( wxCommandEvent & e )
 {
     if (m_pano.getNrOfImages() > 0) {
-        PanoramaOptions opt = m_pano.getOptions();
-        opt.outputExposureValue = calcMeanExposure(m_pano);
-        GlobalCmdHist::getInstance().addCommand(
-                new PT::SetPanoOptionsCmd( m_pano, opt )
+        HuginBase::PanoramaOptions opt = m_pano.getOptions();
+        opt.outputExposureValue = HuginBase::CalculateMeanExposure::calcMeanExposure(m_pano);
+        PanoCommand::GlobalCmdHist::getInstance().addCommand(
+                new PanoCommand::SetPanoOptionsCmd( m_pano, opt )
                                                );
         updatePano();
     }
@@ -884,20 +887,20 @@ void PreviewFrame::OnDefaultExposure( wxCommandEvent & e )
 
 void PreviewFrame::OnIncreaseExposure( wxSpinEvent & e )
 {
-    PanoramaOptions opt = m_pano.getOptions();
+    HuginBase::PanoramaOptions opt = m_pano.getOptions();
     opt.outputExposureValue = opt.outputExposureValue + 1.0/3;
-    GlobalCmdHist::getInstance().addCommand(
-            new PT::SetPanoOptionsCmd( m_pano, opt )
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+            new PanoCommand::SetPanoOptionsCmd( m_pano, opt )
                                             );
     updatePano();
 }
 
 void PreviewFrame::OnDecreaseExposure( wxSpinEvent & e )
 {
-    PanoramaOptions opt = m_pano.getOptions();
+    HuginBase::PanoramaOptions opt = m_pano.getOptions();
     opt.outputExposureValue = opt.outputExposureValue - 1.0/3;
-    GlobalCmdHist::getInstance().addCommand(
-            new PT::SetPanoOptionsCmd( m_pano, opt )
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+            new PanoCommand::SetPanoOptionsCmd( m_pano, opt )
                                            );
     updatePano();
 }
@@ -905,12 +908,12 @@ void PreviewFrame::OnDecreaseExposure( wxSpinEvent & e )
 void PreviewFrame::OnProjectionChoice( wxCommandEvent & e )
 {
     if (e.GetEventObject() == m_ProjectionChoice) {
-        PanoramaOptions opt = m_pano.getOptions();
+        HuginBase::PanoramaOptions opt = m_pano.getOptions();
         int lt = m_ProjectionChoice->GetSelection();
         wxString Ip;
-        opt.setProjection( (PanoramaOptions::ProjectionFormat) lt );
-        GlobalCmdHist::getInstance().addCommand(
-                new PT::SetPanoOptionsCmd( m_pano, opt )
+        opt.setProjection((HuginBase::PanoramaOptions::ProjectionFormat) lt);
+        PanoCommand::GlobalCmdHist::getInstance().addCommand(
+                new PanoCommand::SetPanoOptionsCmd( m_pano, opt )
                                             );
         DEBUG_DEBUG ("Projection changed: "  << lt);
         updatePano();
@@ -923,12 +926,12 @@ void PreviewFrame::OnProjectionChoice( wxCommandEvent & e )
 void PreviewFrame::OnOutputChoice( wxCommandEvent & e)
 {
     if (e.GetEventObject() == m_outputModeChoice) {
-        PanoramaOptions opt = m_pano.getOptions();
+        HuginBase::PanoramaOptions opt = m_pano.getOptions();
         int lt = m_outputModeChoice->GetSelection();
         wxString Ip;
-        opt.outputMode = ( (PanoramaOptions::OutputMode) lt );
-        GlobalCmdHist::getInstance().addCommand(
-                new PT::SetPanoOptionsCmd( m_pano, opt )
+        opt.outputMode = ((HuginBase::PanoramaOptions::OutputMode) lt);
+        PanoCommand::GlobalCmdHist::getInstance().addCommand(
+                new PanoCommand::SetPanoOptionsCmd( m_pano, opt )
                                                );
         updatePano();
 
@@ -969,7 +972,7 @@ void PreviewFrame::OnFullScreen(wxCommandEvent & e)
 
 void PreviewFrame::OnUndo(wxCommandEvent &e)
 {
-    if(GlobalCmdHist::getInstance().canUndo())
+    if(PanoCommand::GlobalCmdHist::getInstance().canUndo())
     {
         wxCommandEvent dummy(wxEVT_COMMAND_MENU_SELECTED, XRCID("ID_EDITUNDO"));
         m_parent->GetEventHandler()->AddPendingEvent(dummy);
@@ -982,7 +985,7 @@ void PreviewFrame::OnUndo(wxCommandEvent &e)
 
 void PreviewFrame::OnRedo(wxCommandEvent &e)
 {
-    if(GlobalCmdHist::getInstance().canRedo())
+    if(PanoCommand::GlobalCmdHist::getInstance().canRedo())
     {
         wxCommandEvent dummy(wxEVT_COMMAND_MENU_SELECTED, XRCID("ID_EDITREDO"));
         m_parent->GetEventHandler()->AddPendingEvent(dummy);

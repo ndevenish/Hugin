@@ -50,7 +50,7 @@ class ImageVariableDialog : public wxDialog
 {
 public:
     /** Constructor, read from xrc ressource; restore last uses settings and position */
-    ImageVariableDialog(wxWindow *parent, PT::Panorama* pano, HuginBase::UIntSet imgs);
+    ImageVariableDialog(wxWindow *parent, HuginBase::Panorama* pano, HuginBase::UIntSet imgs);
     /** destructor, saves position */
     ~ImageVariableDialog();
     /** sets the GuiLevel */
@@ -71,7 +71,7 @@ protected:
     void OnShowResponseGraph(wxCommandEvent & e);
 
 private:
-    PT::Panorama* m_pano;
+    HuginBase::Panorama* m_pano;
     HuginBase::UIntSet m_images;
     static const char *m_varNames[];
     GraphPopupWindow* m_popup;

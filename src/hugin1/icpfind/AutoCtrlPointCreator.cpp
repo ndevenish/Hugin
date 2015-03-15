@@ -32,15 +32,16 @@
 #include <ext/stdio_filebuf.h>
 #endif
 
-#include "PT/Panorama.h"
-#include "PT/ImageGraph.h"
+#include "algorithms/optimizer/ImageGraph.h"
 
 #include <hugin_utils/platform.h>
 #include <wx/app.h>
 #include "hugin/config_defaults.h"
+#include "panodata/StandardImageVariableGroups.h"
 #include "icpfind/AutoCtrlPointCreator.h"
 #include <algorithms/optimizer/PTOptimizer.h>
 #include <algorithms/basic/CalculateOverlap.h>
+#include <algorithms/basic/CalculateOptimalScale.h>
 
 #include "base_wx/MyExternalCmdExecDialog.h"
 #include "base_wx/platform.h"
@@ -64,7 +65,7 @@
 #endif
 
 using namespace std;
-using namespace PT;
+using namespace HuginBase;
 using namespace hugin_utils;
 
 void CPMessage(const wxString message,const wxString caption, wxWindow *parent)
@@ -92,17 +93,17 @@ int CPExecute(wxString prog, wxString args, wxString caption, wxWindow *parent)
     };
 };
 
-CPVector AutoCtrlPointCreator::readUpdatedControlPoints(const std::string & file,
-                                                    PT::Panorama & pano, const PT::UIntSet & imgs, bool reordered)
+HuginBase::CPVector AutoCtrlPointCreator::readUpdatedControlPoints(const std::string & file,
+                                                    HuginBase::Panorama & pano, const HuginBase::UIntSet & imgs, bool reordered)
 {
     ifstream stream(file.c_str());
     if (! stream.is_open()) {
         DEBUG_ERROR("Could not open control point detector output: " << file);
-        return CPVector();
+        return HuginBase::CPVector();
     }
 
     Panorama tmpp;
-    PanoramaMemento newPano;
+    HuginBase::PanoramaMemento newPano;
     int ptoVersion = 0;
     newPano.loadPTScript(stream, ptoVersion, "");
     tmpp.setMemento(newPano);
@@ -110,7 +111,7 @@ CPVector AutoCtrlPointCreator::readUpdatedControlPoints(const std::string & file
     //check if sizes matches
     if(tmpp.getNrOfImages()!=imgs.size())
     {
-        return CPVector();
+        return HuginBase::CPVector();
     };
 
     // create mapping between the panorama images.
@@ -130,7 +131,7 @@ CPVector AutoCtrlPointCreator::readUpdatedControlPoints(const std::string & file
             }
             if (! set_contains(imgMapping, ni)) {
                 DEBUG_ERROR("Could not find image " << ni << ", name: " << tmpp.getImage(ni).getFilename() << " in autopano output");
-                return CPVector();
+                return HuginBase::CPVector();
             }
         }
     } else {
@@ -142,9 +143,9 @@ CPVector AutoCtrlPointCreator::readUpdatedControlPoints(const std::string & file
     }
     
     // get control points
-    CPVector ctrlPoints = tmpp.getCtrlPoints();
+    HuginBase::CPVector ctrlPoints = tmpp.getCtrlPoints();
     // make sure they are in correct order
-    for (CPVector::iterator it= ctrlPoints.begin(); it != ctrlPoints.end(); ++it) {
+    for (HuginBase::CPVector::iterator it = ctrlPoints.begin(); it != ctrlPoints.end(); ++it) {
         (*it).image1Nr = imgMapping[(*it).image1Nr];
         (*it).image2Nr = imgMapping[(*it).image2Nr];
     }
@@ -227,21 +228,21 @@ bool CanStartProg(wxString progName,wxWindow* parent)
     return canStart;
 };
 
-CPVector AutoCtrlPointCreator::automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
+HuginBase::CPVector AutoCtrlPointCreator::automatch(CPDetectorSetting &setting, HuginBase::Panorama & pano, const HuginBase::UIntSet & imgs,
                            int nFeatures, wxWindow *parent)
 {
     int return_value;
     return automatch(setting,pano,imgs,nFeatures,return_value,parent);
 };
 
-CPVector AutoCtrlPointCreator::automatch(CPDetectorSetting &setting, 
+HuginBase::CPVector AutoCtrlPointCreator::automatch(CPDetectorSetting &setting,
                                          Panorama & pano,
                                          const UIntSet & imgs,
                                          int nFeatures,
                                          int & ret_value, 
                                          wxWindow *parent)
 {
-    CPVector cps;
+    HuginBase::CPVector cps;
     CPDetectorType t = setting.GetType();
     //check, if the cp generators exists
     if(!CanStartProg(setting.GetProg(),parent))
@@ -308,7 +309,7 @@ CPVector AutoCtrlPointCreator::automatch(CPDetectorSetting &setting,
     return cps;
 }
 
-void AutoCtrlPointCreator::Cleanup(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
+void AutoCtrlPointCreator::Cleanup(CPDetectorSetting &setting, HuginBase::Panorama & pano, const HuginBase::UIntSet & imgs,
                            std::vector<wxString> &keyFiles, wxWindow *parent)
 {
     if(setting.IsTwoStepDetector())
@@ -359,10 +360,10 @@ void AutoCtrlPointCreator::Cleanup(CPDetectorSetting &setting, PT::Panorama & pa
     };
 };
         
-CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, Panorama & pano, const UIntSet & imgs,
+HuginBase::CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, Panorama & pano, const UIntSet & imgs,
                                      int nFeatures, int & ret_value, wxWindow *parent)
 {
-    CPVector cps;
+    HuginBase::CPVector cps;
     if (imgs.size() == 0) {
         return cps;
     }
@@ -442,7 +443,7 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, Panorama & pano, co
         //delete all existing control points in temp project
         //otherwise the existing control points will be loaded again
         Panorama tempPano=pano.duplicate();
-        CPVector emptyCPV;
+        HuginBase::CPVector emptyCPV;
         tempPano.setCtrlPoints(emptyCPV);
         tempPano.printPanoramaScript(ptoinstream, tempPano.getOptimizeVector(), tempPano.getOptions(), imgs, false);
     }
@@ -506,10 +507,10 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, Panorama & pano, co
     return cps;
 }
 
-CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
+HuginBase::CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, HuginBase::Panorama & pano, const HuginBase::UIntSet & imgs,
                            int nFeatures, vector<wxString> &keyFiles, int & ret_value, wxWindow *parent)
 {
-    CPVector cps;
+    HuginBase::CPVector cps;
     if (imgs.size() == 0) 
     {
         return cps;
@@ -657,10 +658,10 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, PT::Panorama & pano
     return cps;
 };
 
-CPVector AutoPanoKolor::automatch(CPDetectorSetting &setting, Panorama & pano, const UIntSet & imgs,
+HuginBase::CPVector AutoPanoKolor::automatch(CPDetectorSetting &setting, Panorama & pano, const UIntSet & imgs,
                               int nFeatures, int & ret_value, wxWindow *parent)
 {
-    CPVector cps;
+    HuginBase::CPVector cps;
     wxString autopanoExe = setting.GetProg();
 
     // write default autopano.kolor.com flags
@@ -752,7 +753,7 @@ struct stack_img
 };
 bool sort_img_ev (img_ev i1, img_ev i2) { return (i1.ev<i2.ev); };
 
-void AddControlPointsWithCheck(CPVector &cpv, CPVector &new_cp, Panorama *pano=NULL)
+void AddControlPointsWithCheck(HuginBase::CPVector &cpv, HuginBase::CPVector &new_cp, Panorama *pano = NULL)
 {
     for(unsigned int i=0;i<new_cp.size();i++)
     {
@@ -775,10 +776,10 @@ void AddControlPointsWithCheck(CPVector &cpv, CPVector &new_cp, Panorama *pano=N
     };
 };
 
-CPVector AutoPanoSiftStack::automatch(CPDetectorSetting &setting, Panorama & pano, const UIntSet & imgs,
+HuginBase::CPVector AutoPanoSiftStack::automatch(CPDetectorSetting &setting, Panorama & pano, const UIntSet & imgs,
                                      int nFeatures, int & ret_value, wxWindow *parent)
 {
-    CPVector cps;
+    HuginBase::CPVector cps;
     if (imgs.size() == 0) {
         return cps;
     };
@@ -849,7 +850,7 @@ CPVector AutoPanoSiftStack::automatch(CPDetectorSetting &setting, Panorama & pan
             if(images_stack.size()>1)
             {
                 AutoPanoSift matcher;
-                CPVector new_cps=matcher.automatch(stack_setting, pano, images_stack, nFeatures, ret_value, parent);
+                HuginBase::CPVector new_cps = matcher.automatch(stack_setting, pano, images_stack, nFeatures, ret_value, parent);
                 if(new_cps.size()>0)
                     AddControlPointsWithCheck(cps,new_cps);
                 if(ret_value!=0)
@@ -860,10 +861,10 @@ CPVector AutoPanoSiftStack::automatch(CPDetectorSetting &setting, Panorama & pan
     return cps;
 };
 
-CPVector AutoPanoSiftMultiRow::automatch(CPDetectorSetting &setting, Panorama & pano, const UIntSet & imgs,
+HuginBase::CPVector AutoPanoSiftMultiRow::automatch(CPDetectorSetting &setting, Panorama & pano, const UIntSet & imgs,
                                      int nFeatures, int & ret_value, wxWindow *parent)
 {
-    CPVector cps;
+    HuginBase::CPVector cps;
     if (imgs.size() < 2) 
     {
         return cps;
@@ -882,7 +883,7 @@ CPVector AutoPanoSiftMultiRow::automatch(CPDetectorSetting &setting, Panorama & 
         ++it;
         ImagePair.insert(*it);
         AutoPanoSift matcher;
-        CPVector new_cps;
+        HuginBase::CPVector new_cps;
         new_cps.clear();
         if(setting.IsTwoStepDetector())
             new_cps=matcher.automatch(setting, pano, ImagePair, nFeatures, keyFiles, ret_value, parent);
@@ -901,13 +902,13 @@ CPVector AutoPanoSiftMultiRow::automatch(CPDetectorSetting &setting, Panorama & 
     UIntSet allImgs;
     fill_set(allImgs, 0, pano.getNrOfImages()-1);
     Panorama optPano=pano.getSubset(allImgs);
-    for (CPVector::const_iterator it=cps.begin();it!=cps.end();++it)
+    for (HuginBase::CPVector::const_iterator it = cps.begin(); it != cps.end(); ++it)
         optPano.addCtrlPoint(*it);
 
-    CPGraph graph;
-    createCPGraph(optPano, graph);
-    CPComponents comps;
-    int n = findCPComponents(graph, comps);
+    HuginBase::CPGraph graph;
+    HuginBase::createCPGraph(optPano, graph);
+    HuginBase::CPComponents comps;
+    int n = HuginBase::findCPComponents(graph, comps);
     if(n>1)
     {
         UIntSet ImagesGroups;
@@ -918,7 +919,7 @@ CPVector AutoPanoSiftMultiRow::automatch(CPDetectorSetting &setting, Panorama & 
                 ImagesGroups.insert(*(comps[i].rbegin()));
         };
         AutoPanoSift matcher;
-        CPVector new_cps;
+        HuginBase::CPVector new_cps;
         if(setting.IsTwoStepDetector())
             new_cps=matcher.automatch(setting, optPano, ImagesGroups, nFeatures, keyFiles, ret_value, parent);
         else
@@ -930,28 +931,29 @@ CPVector AutoPanoSiftMultiRow::automatch(CPDetectorSetting &setting, Panorama & 
             Cleanup(setting, pano, imgs, keyFiles, parent);
             return cps;
         };
-        createCPGraph(optPano,graph);
-        n=findCPComponents(graph, comps);
+        HuginBase::createCPGraph(optPano,graph);
+        n=HuginBase::findCPComponents(graph, comps);
     };
     if(n==1 && setting.GetOption())
     {
         //next steps happens only when all images are connected;
         //now optimize panorama
-        PanoramaOptions opts = pano.getOptions();
-        opts.setProjection(PanoramaOptions::EQUIRECTANGULAR);
+        HuginBase::PanoramaOptions opts = pano.getOptions();
+        opts.setProjection(HuginBase::PanoramaOptions::EQUIRECTANGULAR);
         // calculate proper scaling, 1:1 resolution.
         // Otherwise optimizer distances are meaningless.
         opts.setWidth(30000, false);
         opts.setHeight(15000);
 
         optPano.setOptions(opts);
-        int w = optPano.calcOptimalWidth();
+        int w = hugin_utils::roundi(HuginBase::CalculateOptimalScale::calcOptimalScale(optPano) * optPano.getOptions().getWidth());
+
         opts.setWidth(w);
         opts.setHeight(w/2);
         optPano.setOptions(opts);
 
         //generate optimize vector, optimize only yaw and pitch
-        OptimizeVector optvars;
+        HuginBase::OptimizeVector optvars;
         const SrcPanoImage & anchorImage = optPano.getImage(opts.optimizeReferenceImage);
         for (unsigned i=0; i < optPano.getNrOfImages(); i++) 
         {
@@ -975,10 +977,10 @@ CPVector AutoPanoSiftMultiRow::automatch(CPDetectorSetting &setting, Panorama & 
         optPano.setOptimizeVector(optvars);
 
         // remove vertical and horizontal control points
-        CPVector backupOldCPS = optPano.getCtrlPoints();
-        CPVector backupNewCPS;
-        for (CPVector::const_iterator it = backupOldCPS.begin(); it != backupOldCPS.end(); ++it) {
-            if (it->mode == ControlPoint::X_Y)
+        HuginBase::CPVector backupOldCPS = optPano.getCtrlPoints();
+        HuginBase::CPVector backupNewCPS;
+        for (HuginBase::CPVector::const_iterator it = backupOldCPS.begin(); it != backupOldCPS.end(); ++it) {
+            if (it->mode == HuginBase::ControlPoint::X_Y)
             {
                 backupNewCPS.push_back(*it);
             }
@@ -1000,7 +1002,7 @@ CPVector AutoPanoSiftMultiRow::automatch(CPDetectorSetting &setting, Panorama & 
             newSetting.SetArgsMatcher(setting.GetArgsMatcher());
         };
         newSetting.SetOption(true);
-        CPVector new_cps;
+        HuginBase::CPVector new_cps;
         if(setting.IsTwoStepDetector())
             new_cps=matcher.automatch(newSetting, optPano, imgs, nFeatures, keyFiles, ret_value, parent);
         else
@@ -1012,10 +1014,10 @@ CPVector AutoPanoSiftMultiRow::automatch(CPDetectorSetting &setting, Panorama & 
     return cps;
 };
 
-CPVector AutoPanoSiftMultiRowStack::automatch(CPDetectorSetting &setting, Panorama & pano, const UIntSet & imgs,
+HuginBase::CPVector AutoPanoSiftMultiRowStack::automatch(CPDetectorSetting &setting, Panorama & pano, const UIntSet & imgs,
                                      int nFeatures, int & ret_value, wxWindow *parent)
 {
-    CPVector cps;
+    HuginBase::CPVector cps;
     if (imgs.size() == 0) {
         return cps;
     };
@@ -1078,7 +1080,7 @@ CPVector AutoPanoSiftMultiRowStack::automatch(CPDetectorSetting &setting, Panora
             if(images_stack.size()>1)
             {
                 AutoPanoSift matcher;
-                CPVector new_cps=matcher.automatch(stack_setting, pano, images_stack, nFeatures, ret_value, parent);
+                HuginBase::CPVector new_cps = matcher.automatch(stack_setting, pano, images_stack, nFeatures, ret_value, parent);
                 if(new_cps.size()>0)
                     AddControlPointsWithCheck(cps,new_cps);
                 if(ret_value!=0)
@@ -1097,28 +1099,28 @@ CPVector AutoPanoSiftMultiRowStack::automatch(CPDetectorSetting &setting, Panora
         fill_set(allImgs, 0, pano.getNrOfImages()-1);
         Panorama newPano=pano.getSubset(allImgs);
         if(cps.size()>0)
-            for (CPVector::const_iterator it=cps.begin();it!=cps.end();++it)
+            for (HuginBase::CPVector::const_iterator it = cps.begin(); it != cps.end(); ++it)
                 newPano.addCtrlPoint(*it);
 
         AutoPanoSiftMultiRow matcher;
-        CPVector new_cps=matcher.automatch(setting, newPano, images_layer, nFeatures, ret_value, parent);
+        HuginBase::CPVector new_cps = matcher.automatch(setting, newPano, images_layer, nFeatures, ret_value, parent);
         if(new_cps.size()>0)
             AddControlPointsWithCheck(cps,new_cps);
     };
     return cps;
 };
 
-CPVector AutoPanoSiftPreAlign::automatch(CPDetectorSetting &setting, Panorama & pano, const UIntSet & imgs,
+HuginBase::CPVector AutoPanoSiftPreAlign::automatch(CPDetectorSetting &setting, Panorama & pano, const UIntSet & imgs,
                                      int nFeatures, int & ret_value, wxWindow *parent)
 {
     std::vector<wxString> keyFiles(pano.getNrOfImages());
     return automatch(setting, pano, imgs, nFeatures, keyFiles, ret_value, parent);
 };
 
-CPVector AutoPanoSiftPreAlign::automatch(CPDetectorSetting &setting, Panorama & pano, const UIntSet & imgs,
+HuginBase::CPVector AutoPanoSiftPreAlign::automatch(CPDetectorSetting &setting, Panorama & pano, const UIntSet & imgs,
                                          int nFeatures, std::vector<wxString> &keyFiles, int & ret_value, wxWindow *parent)
 {
-    CPVector cps;
+    HuginBase::CPVector cps;
     if (imgs.size()<2) 
         return cps;
     DEBUG_ASSERT(keyFiles.size()==pano.getNrOfImages());
@@ -1128,10 +1130,10 @@ CPVector AutoPanoSiftPreAlign::automatch(CPDetectorSetting &setting, Panorama & 
     if(setting.GetOption())
     {
         //only work on not connected image pairs
-        CPVector oldCps=pano.getCtrlPoints();
+        HuginBase::CPVector oldCps = pano.getCtrlPoints();
         for(unsigned i=0;i<oldCps.size();i++)
         {
-            if(oldCps[i].mode==ControlPoint::X_Y)
+            if (oldCps[i].mode == HuginBase::ControlPoint::X_Y)
             {
                 usedImages[oldCps[i].image1Nr].insert(oldCps[i].image2Nr);
                 usedImages[oldCps[i].image2Nr].insert(oldCps[i].image1Nr);
@@ -1164,7 +1166,7 @@ CPVector AutoPanoSiftPreAlign::automatch(CPDetectorSetting &setting, Panorama & 
             for(UIntSet::const_iterator img_it2=images.begin();img_it2!=images.end();++img_it2)
                 usedImages[*img_it].insert(*img_it2);
         AutoPanoSift matcher;
-        CPVector new_cps;
+        HuginBase::CPVector new_cps;
         if(setting.IsTwoStepDetector())
             new_cps=matcher.automatch(setting, pano, images, nFeatures, keyFiles, ret_value, parent);
         else

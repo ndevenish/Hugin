@@ -237,7 +237,7 @@ void MaskImageCtrl::selectAllMarkers()
 MaskImageCtrl::ClickPos MaskImageCtrl::GetClickPos(vigra::Point2D pos)
 {
     vigra::Rect2D testRect(pos.x-maxSelectionDistance, pos.y-maxSelectionDistance, pos.x+maxSelectionDistance, pos.y+maxSelectionDistance);
-    if(m_cropMode==SrcPanoImage::CROP_CIRCLE)
+    if (m_cropMode == HuginBase::SrcPanoImage::CROP_CIRCLE)
     {
         double radius=std::min<int>(m_cropRect.width(), m_cropRect.height())/2.0;
         vigra::Point2D pos_center((m_cropRect.left()+m_cropRect.right())/2, (m_cropRect.top()+m_cropRect.bottom())/2);
@@ -608,14 +608,14 @@ void MaskImageCtrl::OnLeftMouseDown(wxMouseEvent& mouse)
             };
             if(m_maskEditState!=CROP_SHOWING)
             {
-                if(m_cropMode==SrcPanoImage::NO_CROP && m_cropCircle)
+                if (m_cropMode == HuginBase::SrcPanoImage::NO_CROP && m_cropCircle)
                 {
 #if defined SUPPORTS_WXINVERT
                     DrawCrop();
-                    m_cropMode=SrcPanoImage::CROP_CIRCLE;
+                    m_cropMode = HuginBase::SrcPanoImage::CROP_CIRCLE;
                     DrawCrop();
 #else
-                    m_cropMode=SrcPanoImage::CROP_CIRCLE;
+                    m_cropMode=HuginBase::SrcPanoImage::CROP_CIRCLE;
                     update();
 #endif
                 };
@@ -1148,13 +1148,13 @@ void MaskImageCtrl::OnDraw(wxDC & dc)
                 dc.DrawRectangle(0,m_bitmap.GetHeight()+2*offset,clientSize.GetWidth(),clientSize.GetHeight()-m_bitmap.GetHeight()+2*offset);
             };
         };
-        if(m_maskMode && m_showActiveMasks && (m_cropMode!=SrcPanoImage::NO_CROP || m_masksToDraw.size()>0))
+        if (m_maskMode && m_showActiveMasks && (m_cropMode != HuginBase::SrcPanoImage::NO_CROP || m_masksToDraw.size()>0))
         {
             //whole image, we need it several times
             wxRegion wholeImage(transform(applyRot(hugin_utils::FDiff2D(0,0))),
                                 transform(applyRot(hugin_utils::FDiff2D(m_realSize.GetWidth(),m_realSize.GetHeight()))));
             wxRegion region;
-            if(m_cropMode!=SrcPanoImage::NO_CROP)
+            if (m_cropMode != HuginBase::SrcPanoImage::NO_CROP)
             {
                 region.Union(wholeImage);
                 //now the crop

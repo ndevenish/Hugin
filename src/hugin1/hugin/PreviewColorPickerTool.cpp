@@ -66,7 +66,7 @@ void PreviewColorPickerTool::CalcCorrection(hugin_utils::FDiff2D pos)
     m_red=0;
     m_blue=0;
     m_count=0;
-    PT::Panorama* pano=helper->GetPanoramaPtr();
+    HuginBase::Panorama* pano=helper->GetPanoramaPtr();
     UIntSet activeImages=pano->getActiveImages();
     if(activeImages.size()>0)
     {

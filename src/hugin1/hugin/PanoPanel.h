@@ -41,7 +41,7 @@ class wxComboBox;
  *  - it is for the settings of the final panorama.
  *    Maybe here goes the preview to.
  */
-class PanoPanel: public wxPanel, public PT::PanoramaObserver
+class PanoPanel: public wxPanel, public HuginBase::PanoramaObserver
 {
 public:
 
@@ -49,7 +49,7 @@ public:
 
     bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL, const wxString& name = wxT("panel"));
 
-    void Init(PT::Panorama * pano);
+    void Init(HuginBase::Panorama * pano);
 
     virtual ~PanoPanel(void) ;
 
@@ -69,8 +69,8 @@ public:
      *
      *  @todo   react on different update signals more special
      */
-    virtual void panoramaChanged(PT::Panorama &pano);
-//    void panoramaImageChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
+    virtual void panoramaChanged(HuginBase::Panorama &pano);
+    virtual void panoramaImagesChanged(HuginBase::Panorama &pano, const HuginBase::UIntSet & imgNr) {};
 
     /** set the image */
 // TODO remove
@@ -96,9 +96,9 @@ public:
 
 
     // apply changes from the model
-    bool StackCheck (PT::Panorama & pano);
-    void UpdateDisplay(const PT::PanoramaOptions & opt, const bool hasStacks);
-    void SetStitcher(PanoramaOptions::Remapper stitcher);
+    bool StackCheck (HuginBase::Panorama & pano);
+    void UpdateDisplay(const HuginBase::PanoramaOptions & opt, const bool hasStacks);
+    void SetStitcher(HuginBase::PanoramaOptions::Remapper stitcher);
 
     // apply changes to the model. (gui values -> Panorama)
     void QuickModeChanged(wxCommandEvent & e);
@@ -170,7 +170,7 @@ public:
     bool CheckFreeSpace(const wxString& folder);
 
     // the model
-    Panorama * pano;
+    HuginBase::Panorama * pano;
     //current gui level
     GuiLevel m_guiLevel;
 
@@ -178,7 +178,7 @@ public:
     // updating the gui from the model, to prevent recursion,
     // because the gui might report changes as well.
     bool updatesDisabled;
-    PanoramaOptions m_oldOpt;
+    HuginBase::PanoramaOptions m_oldOpt;
     double m_oldVFOV;
 
     bool m_keepViewOnResize;

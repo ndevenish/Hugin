@@ -35,10 +35,10 @@ class wxComboBox;
  *
  *  - This window will contain the stitcher specific options.
  */
-class NonaOptionsDialog: public wxDialog, public PT::PanoramaObserver
+class NonaOptionsDialog: public wxDialog, public HuginBase::PanoramaObserver
 {
 public:
-    NonaOptionsDialog(wxWindow *parent, PT::Panorama & pano);
+    NonaOptionsDialog(wxWindow *parent, HuginBase::Panorama & pano);
     virtual ~NonaOptionsDialog();
 
     /** this is called whenever the panorama has changed.
@@ -57,26 +57,26 @@ public:
      *
      *  @todo   react on different update signals more special
      */
-    virtual void panoramaChanged(PT::Panorama &pano);
+    virtual void panoramaChanged(HuginBase::Panorama &pano);
 
 
  private:
 
     // apply changes from the model
-    void UpdateDisplay(const PT::PanoramaOptions & opt);
+    void UpdateDisplay(const HuginBase::PanoramaOptions & opt);
 
     // apply changes to the model. (gui values -> Panorama)
     void InterpolatorChanged(wxCommandEvent & e);
     void OnSaveCropped(wxCommandEvent & e);
 
     // the model
-    PT::Panorama &pano;
+    HuginBase::Panorama &pano;
 
     // don't listen to input on gui elements during
     // updating the gui from the model, to prevent recursion,
     // because the gui might report changes as well.
     bool updatesDisabled;
-    PT::PanoramaOptions m_oldOpt;
+    HuginBase::PanoramaOptions m_oldOpt;
 
     wxChoice    * m_InterpolatorChoice;
 

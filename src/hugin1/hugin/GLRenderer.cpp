@@ -65,7 +65,7 @@ GLRenderer::~GLRenderer()
 {
 }
 
-GLPreviewRenderer::GLPreviewRenderer(PT::Panorama *pano, TextureManager *tex_man,
+GLPreviewRenderer::GLPreviewRenderer(HuginBase::Panorama *pano, TextureManager *tex_man,
                        MeshManager *mesh_man, VisualizationState *visualization_state,
                        PreviewToolHelper *tool_helper,const wxColour backgroundColour) : GLRenderer(backgroundColour)
 {
@@ -76,7 +76,7 @@ GLPreviewRenderer::GLPreviewRenderer(PT::Panorama *pano, TextureManager *tex_man
     m_tool_helper = tool_helper;
 }
 
-GLPanosphereOverviewRenderer::GLPanosphereOverviewRenderer(PT::Panorama *pano, TextureManager *tex_man,
+GLPanosphereOverviewRenderer::GLPanosphereOverviewRenderer(HuginBase::Panorama *pano, TextureManager *tex_man,
                        MeshManager *mesh_man, PanosphereOverviewVisualizationState *visualization_state,
                        PanosphereOverviewToolHelper *tool_helper, const wxColour backgroundColour) : GLRenderer(backgroundColour)
 {
@@ -87,7 +87,7 @@ GLPanosphereOverviewRenderer::GLPanosphereOverviewRenderer(PT::Panorama *pano, T
     m_tool_helper = tool_helper;
 }
 
-GLPlaneOverviewRenderer::GLPlaneOverviewRenderer(PT::Panorama *pano, TextureManager *tex_man,
+GLPlaneOverviewRenderer::GLPlaneOverviewRenderer(HuginBase::Panorama *pano, TextureManager *tex_man,
                        MeshManager *mesh_man, PlaneOverviewVisualizationState *visualization_state,
                        PlaneOverviewToolHelper *tool_helper, const wxColour backgroundColour) : GLRenderer(backgroundColour)
 {

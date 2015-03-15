@@ -429,7 +429,7 @@ class PanoramaObserver
         *  panoramaChanged().
         *
         */
-        virtual void panoramaChanged(PanoramaData &pano) =0;
+        virtual void panoramaChanged(Panorama &pano) =0;
         
         /** notifies about changes to images
         *
@@ -440,32 +440,9 @@ class PanoramaObserver
         *  @param changed set of changed images
         *
         */
-        virtual void panoramaImagesChanged(PanoramaData& pano,
+        virtual void panoramaImagesChanged(Panorama& pano,
                                            const UIntSet& changed) =0;
         
-        /** notification about a new image.
-        *
-        *  It is called whenever an image has been added.
-        */
-    //  virtual void panoramaImageAdded(PanoramaData &pano, unsigned int imgNr)
-    //        { DEBUG_WARN("DEFAULT handler method"); };
-        
-        /** notifiy about the removal of an image.
-        *
-        *  always called when an image is removed.
-        *  Beware: the image might already destroyed when this is called.
-        */
-    //  virtual void panoramaImageRemoved(PanoramaData &pano, unsigned int imgNr)
-    //        { DEBUG_WARN("DEFAULT handler method"); };
-        
-        /** notify about an image change.
-        *
-        *  This is called whenever the image (for example the filename)
-        *  or something the image depends on (for example: Lens, Control
-        *  Points) has changed.
-        */
-    //  virtual void panoramaImageChanged(PanoramaData &pano, unsigned int imgNr)
-    //        { DEBUG_TRACE(""); };
         
 };
 

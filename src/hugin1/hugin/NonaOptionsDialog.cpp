@@ -31,14 +31,15 @@
 
 #include "panoinc.h"
 
-#include "PT/Stitcher.h"
+#include "nona/Stitcher.h"
 
 #include "base_wx/wxPlatform.h"
 #include "hugin/config_defaults.h"
-#include "hugin/CommandHistory.h"
+#include "base_wx/CommandHistory.h"
+#include "base_wx/PanoCommand.h"
 #include "hugin/NonaOptionsDialog.h"
 
-using namespace PT;
+using namespace HuginBase;
 using namespace std;
 using namespace hugin_utils;
 
@@ -90,16 +91,16 @@ NonaOptionsDialog::~NonaOptionsDialog(void)
 }
 
 
-void NonaOptionsDialog::panoramaChanged (PT::Panorama &pano)
+void NonaOptionsDialog::panoramaChanged (HuginBase::Panorama &pano)
 {
 	DEBUG_TRACE("");
-    PanoramaOptions opt = pano.getOptions();
+    HuginBase::PanoramaOptions opt = pano.getOptions();
     // update all options for dialog and notebook tab
     UpdateDisplay(opt);
     m_oldOpt = opt;
 }
 
-void NonaOptionsDialog::UpdateDisplay(const PanoramaOptions & opt)
+void NonaOptionsDialog::UpdateDisplay(const HuginBase::PanoramaOptions & opt)
 {
     m_InterpolatorChoice->SetSelection(opt.interpolator);
     m_SaveCroppedCB->SetValue(opt.tiff_saveROI);
@@ -109,24 +110,24 @@ void NonaOptionsDialog::UpdateDisplay(const PanoramaOptions & opt)
 void NonaOptionsDialog::InterpolatorChanged ( wxCommandEvent & e )
 {
     if (updatesDisabled) return;
-    PanoramaOptions opt = pano.getOptions();
+    HuginBase::PanoramaOptions opt = pano.getOptions();
     //Interpolator from PanoramaMemento.h
     int lt = m_InterpolatorChoice->GetSelection();
 
     opt.interpolator = (vigra_ext::Interpolator) lt;
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::SetPanoOptionsCmd( pano, opt )
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+        new PanoCommand::SetPanoOptionsCmd( pano, opt )
         );
     DEBUG_DEBUG ("Interpolator changed to: " << lt );
 }
 
 void NonaOptionsDialog::OnSaveCropped(wxCommandEvent & e)
 {
-    PanoramaOptions opt = pano.getOptions();
+    HuginBase::PanoramaOptions opt = pano.getOptions();
 
     opt.tiff_saveROI= m_SaveCroppedCB->GetValue();
 
-    GlobalCmdHist::getInstance().addCommand(
-            new PT::SetPanoOptionsCmd( pano, opt )
+    PanoCommand::GlobalCmdHist::getInstance().addCommand(
+            new PanoCommand::SetPanoOptionsCmd( pano, opt )
                                            );
 }

@@ -254,7 +254,7 @@ void DisplayedControlPoint::Draw(wxDC& dc, bool selected, bool newPoint)
     }
     else
     {
-        if(m_cp.mode!=ControlPoint::X_Y)
+        if (m_cp.mode != HuginBase::ControlPoint::X_Y)
         {
             DrawLineSegment(dc);
         };
@@ -601,7 +601,7 @@ void DisplayedControlPoint::StartLineControlPoint(hugin_utils::FDiff2D newPoint)
     m_cp.image2Nr=m_cp.image1Nr;
     m_cp.x2=m_cp.x1;
     m_cp.y2=m_cp.y1;
-    m_cp.mode=ControlPoint::X;
+    m_cp.mode = HuginBase::ControlPoint::X;
 };
 
 hugin_utils::FDiff2D DisplayedControlPoint::GetPos() const
@@ -941,7 +941,7 @@ void CPImageCtrl::setImage(const std::string & file, ImageRotation imgRot)
     }
 }
 
-void CPImageCtrl::setTransforms(PTools::Transform* firstTrans, PTools::Transform* firstInvTrans, PTools::Transform* secondInvTrans)
+void CPImageCtrl::setTransforms(HuginBase::PTools::Transform* firstTrans, HuginBase::PTools::Transform* firstInvTrans, HuginBase::PTools::Transform* secondInvTrans)
 {
     m_firstTrans=firstTrans;
     m_firstInvTrans=firstInvTrans;

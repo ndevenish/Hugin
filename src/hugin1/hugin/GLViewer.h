@@ -53,7 +53,7 @@ class GLViewer: public wxGLCanvas
 public:
     GLViewer(
             wxWindow* parent, 
-            PT::Panorama &pano, 
+            HuginBase::Panorama &pano, 
             int args[], 
             GLPreviewFrame *frame,
             wxGLContext * shared_context = NULL
@@ -102,7 +102,7 @@ protected:
 #if defined __WXGTK__ || wxCHECK_VERSION(2,9,0)
     wxGLContext *m_glContext;
 #endif
-    PT::Panorama  * m_pano;
+    HuginBase::Panorama  * m_pano;
 
     wxString m_overlayText;
     bool m_overlay;
@@ -123,7 +123,7 @@ class GLPreview : public GLViewer
 public:
     GLPreview(
             wxWindow* parent, 
-            PT::Panorama &pano, 
+            HuginBase::Panorama &pano,
             int args[], 
             GLPreviewFrame *frame,
             wxGLContext * shared_context = NULL
@@ -137,7 +137,7 @@ class GLOverview : public GLViewer
 public:
     GLOverview(
             wxWindow* parent, 
-            PT::Panorama &pano, 
+            HuginBase::Panorama &pano,
             int args[], 
             GLPreviewFrame *frame,
             wxGLContext * shared_context = NULL

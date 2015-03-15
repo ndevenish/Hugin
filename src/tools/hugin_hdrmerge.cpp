@@ -42,8 +42,6 @@
 #include <vigra_ext/HDRUtils.h>
 #include <vigra_ext/ReduceOpenEXR.h>
 
-//#include <PT/PTOptimise.h>
-
 #ifdef WIN32
 #include <getopt.h>
 #else

@@ -25,9 +25,7 @@
 #define _WXIMAGECACHE_H
 
 #include <hugin_shared.h>
-#include <map>
 #include <panoinc_WX.h>
-#include <PT/RemappedPanoImage.h>
 
 #include <huginapp/ImageCache.h>
 #include <huginapp/CachedImageRemapper.h>

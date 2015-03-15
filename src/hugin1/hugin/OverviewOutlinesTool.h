@@ -47,8 +47,8 @@ class OverviewOutlinesTool : public HuginBase::PanoramaObserver
         virtual ~OverviewOutlinesTool();
 
 
-        void panoramaChanged(HuginBase::PanoramaData &pano);
-        void panoramaImagesChanged(HuginBase::PanoramaData&, const HuginBase::UIntSet&) {}
+        virtual void panoramaChanged(HuginBase::Panorama &pano);
+        virtual void panoramaImagesChanged(HuginBase::Panorama&, const HuginBase::UIntSet&) {}
 
         /**
          * class to represent a single rectangle

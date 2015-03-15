@@ -37,9 +37,9 @@ class PreviewFrame;
  *
  *  Lets hope this works out fine..
  */
-class PreviewPanel : public wxPanel, public PT::PanoramaObserver
+class PreviewPanel : public wxPanel, public HuginBase::PanoramaObserver
 {
-    typedef PT::RemappedPanoImage<vigra::BRGBImage, vigra::BImage> RemappedImage;
+    typedef HuginBase::Nona::RemappedPanoImage<vigra::BRGBImage, vigra::BImage> RemappedImage;
 public:
 
     /** ctor.
@@ -48,14 +48,14 @@ public:
 
     bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL, const wxString& name = wxT("panel"));
 
-    void Init(PreviewFrame *parent, PT::Panorama * pano );
+    void Init(PreviewFrame *parent, HuginBase::Panorama * pano );
 
     /** dtor.
      */
     virtual ~PreviewPanel();
 
-    void panoramaChanged(PT::Panorama &pano);
-    void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
+    void panoramaChanged(HuginBase::Panorama &pano);
+    void panoramaImagesChanged(HuginBase::Panorama &pano, const HuginBase::UIntSet & imgNr);
 
     void SetAutoUpdate(bool enabled);
 
@@ -63,7 +63,7 @@ public:
     void ForceUpdate();
 
     // select which images should be shown.
-//    void SetDisplayedImages(const PT::UIntSet &images);
+//    void SetDisplayedImages(const HuginBase::UIntSet &images);
     
     // blending modes available
     enum BlendMode { BLEND_COPY, BLEND_DIFFERENCE };
@@ -93,7 +93,7 @@ private:
     void mouse2erect(int xm, int ym, double &xd, double & yd);
 
     /** the model */
-    PT::Panorama  * pano;
+    HuginBase::Panorama  * pano;
 
     bool m_autoPreview;
 
@@ -102,13 +102,13 @@ private:
 	wxBitmap * m_panoBitmap;
     // currently updating the preview.
 
-    PT::UIntSet m_dirtyImgs;
+    HuginBase::UIntSet m_dirtyImgs;
 
     // panorama options
-    PT::PanoramaOptions opts;
+    HuginBase::PanoramaOptions opts;
 
     // transformation for current preview coordinates into equirect coordinates
-    PTools::Transform * m_pano2erect;
+    HuginBase::PTools::Transform * m_pano2erect;
 
     // cache for remapped images
     SmallRemappedImageCache m_remapCache;

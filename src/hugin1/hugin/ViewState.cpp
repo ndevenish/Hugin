@@ -31,7 +31,7 @@
 
 
 
-ViewState::ViewState(PT::Panorama *pano, bool supportMultiTexture)
+ViewState::ViewState(HuginBase::Panorama *pano, bool supportMultiTexture)
 {
 
 
@@ -61,7 +61,7 @@ ViewState::~ViewState()
 }
 
 
-void ViewState::panoramaChanged(HuginBase::PanoramaData &pano)
+void ViewState::panoramaChanged(HuginBase::Panorama &pano)
 {
 
     bool require_draw=false;
@@ -112,7 +112,7 @@ void ViewState::panoramaChanged(HuginBase::PanoramaData &pano)
 
 }
 
-void ViewState::panoramaImagesChanged(HuginBase::PanoramaData&,
+void ViewState::panoramaImagesChanged(HuginBase::Panorama&,
                                       const HuginBase::UIntSet&)
 {
     // actually this stuff is handled by panoramaChanged.
@@ -482,7 +482,7 @@ HuginBase::SrcPanoImage * VisualizationState::GetSrcImage(unsigned int image_nr)
 
 
 
-PanosphereOverviewVisualizationState::PanosphereOverviewVisualizationState(PT::Panorama* pano, ViewState* view_state, GLViewer * viewer, void (*RefreshFunction)(void*), void *arg)
+PanosphereOverviewVisualizationState::PanosphereOverviewVisualizationState(HuginBase::Panorama* pano, ViewState* view_state, GLViewer * viewer, void (*RefreshFunction)(void*), void *arg)
         : OverviewVisualizationState(pano, view_state, viewer, RefreshFunction, arg, (PanosphereOverviewMeshManager*) NULL) 
 {
     scale = 1;
@@ -538,7 +538,7 @@ void PanosphereOverviewVisualizationState::setAngY(double angy_in)
 }
 
 
-PlaneOverviewVisualizationState::PlaneOverviewVisualizationState(PT::Panorama* pano, ViewState* view_state, GLViewer * viewer, void (*RefreshFunction)(void*), void *arg)
+PlaneOverviewVisualizationState::PlaneOverviewVisualizationState(HuginBase::Panorama* pano, ViewState* view_state, GLViewer * viewer, void(*RefreshFunction)(void*), void *arg)
         : OverviewVisualizationState(pano, view_state, viewer, RefreshFunction, arg, (PlaneOverviewMeshManager*) NULL) 
 {
 
