@@ -103,10 +103,10 @@ void TextureManager::DrawImage(unsigned int image_number,
         // components to get the white balance and exposure correct.
         HuginBase::SrcPanoImage *img = view_state->GetSrcImage(image_number);    
         // we adjust the intensity by using a darker colour
-        float es = viewer_exposure / img->getExposure();
-        float scale[4] = {es / img->getWhiteBalanceRed(),
+        float es = static_cast<float>(viewer_exposure / img->getExposure());
+        float scale[4] = {static_cast<float>(es / img->getWhiteBalanceRed()),
                           es,
-                          es / img->getWhiteBalanceBlue(),
+                          static_cast<float>(es /img->getWhiteBalanceBlue()),
                           1.0};
         glColor3fv(scale);
         glCallList(display_list);

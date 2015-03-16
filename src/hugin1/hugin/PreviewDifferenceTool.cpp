@@ -131,10 +131,10 @@ void PreviewDifferenceTool::AfterDrawImagesEvent()
         img = helper->GetViewStatePtr()->GetSrcImage(image_number);
         float viewer_exposure = 1.0 / pow(2.0,
                     helper->GetPanoramaPtr()->getOptions().outputExposureValue);
-        float es = viewer_exposure / img->getExposure();
-        float scale[3] = {es / img->getWhiteBalanceRed(),
+        float es = static_cast<float>(viewer_exposure / img->getExposure());
+        float scale[3] = { static_cast<float>(es / img->getWhiteBalanceRed()),
                           es,
-                          es / img->getWhiteBalanceBlue()};
+                          static_cast<float>(es / img->getWhiteBalanceBlue()) };
         // now we draw repeatedly until the image has been exposed properly.
         while (scale[0] > 0.0 && scale[1] > 0.0 && scale[2] > 0.0)
         {
