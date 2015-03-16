@@ -54,7 +54,7 @@ class Lock
 {
 public:
     void Set() {}
-    void UnSet() {}
+    void Unset() {}
     bool Test() { return false; }
 };
 #endif
