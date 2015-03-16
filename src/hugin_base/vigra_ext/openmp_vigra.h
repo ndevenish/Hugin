@@ -20,12 +20,12 @@
 #ifndef OPENMP_VIGRA_H_INCLUDED_
 #define OPENMP_VIGRA_H_INCLUDED_
 
-//#include <vigra/diff2d.hxx>
-//#include <vigra/initimage.hxx>
-//#include <vigra/inspectimage.hxx>
-//#include <vigra/transformimage.hxx>
-//#include <vigra/combineimages.hxx>
-//#include <vigra/convolution.hxx>
+#include <vigra/diff2d.hxx>
+#include <vigra/initimage.hxx>
+#include <vigra/inspectimage.hxx>
+#include <vigra/transformimage.hxx>
+#include <vigra/combineimages.hxx>
+#include <vigra/convolution.hxx>
 
 #ifdef _OPENMP
 #define OPENMP
@@ -150,6 +150,32 @@ namespace vigra
 
                     vigra::copyImage(src_upperleft + begin, src_upperleft + end, src_acc,
                                      dest_upperleft + begin, dest_acc);
+                }
+            } // omp parallel
+        }
+
+
+        template <class SrcImageIterator, class SrcAccessor,
+                  class MaskImageIterator, class MaskAccessor,
+                  class DestImageIterator, class DestAccessor>
+        inline void
+        copyImageIf(SrcImageIterator src_upperleft, SrcImageIterator src_lowerright, SrcAccessor src_acc,
+                    MaskImageIterator mask_upperleft, MaskAccessor mask_acc,
+                    DestImageIterator dest_upperleft, DestAccessor dest_acc)
+        {
+#pragma omp parallel
+            {
+                const vigra::Size2D size(src_lowerright - src_upperleft);
+
+#pragma omp for schedule(guided) nowait
+                for (int y = 0; y < size.y; ++y)
+                {
+                    const vigra::Diff2D begin(0, y);
+                    const vigra::Diff2D end(size.x, y + 1);
+
+                    vigra::copyImageIf(src_upperleft + begin, src_upperleft + end, src_acc,
+                                       mask_upperleft + begin, mask_acc,
+                                       dest_upperleft + begin, dest_acc);
                 }
             } // omp parallel
         }
@@ -284,6 +310,20 @@ namespace vigra
 
 
         template <class SrcImageIterator, class SrcAccessor,
+                  class MaskImageIterator, class MaskAccessor,
+                  class DestImageIterator, class DestAccessor>
+        inline void
+        copyImageIf(SrcImageIterator src_upperleft, SrcImageIterator src_lowerright, SrcAccessor src_acc,
+                    MaskImageIterator mask_upperleft, MaskAccessor mask_acc,
+                    DestImageIterator dest_upperleft, DestAccessor dest_acc)
+        {
+            vigra::copyImageIf(src_upperleft, src_lowerright, src_acc,
+                               mask_upperleft, mask_acc,
+                               dest_upperleft, dest_acc);
+        }
+
+
+        template <class SrcImageIterator, class SrcAccessor,
                   class DestImageIterator, class DestAccessor,
                   class Functor>
         inline void
@@ -311,20 +351,6 @@ namespace vigra
                                     mask_upperleft, mask_acc,
                                     dest_upperleft, dest_acc,
                                     func);
-        }
-
-
-        template <class SrcImageIterator, class SrcAccessor,
-                  class DestImageIterator, class DestAccessor,
-                  class ValueType>
-        void
-        distanceTransform(SrcImageIterator src_upperleft, SrcImageIterator src_lowerright, SrcAccessor src_acc,
-                          DestImageIterator dest_upperleft, DestAccessor dest_acc,
-                          ValueType background, int norm)
-        {
-            vigra::distanceTransform(src_upperleft, src_lowerright, src_acc,
-                                     dest_upperleft, dest_acc,
-                                     background, norm);
         }
 
 #endif // OPENMP
@@ -418,6 +444,20 @@ namespace vigra
 
         template <class SrcImageIterator, class SrcAccessor,
                   class MaskImageIterator, class MaskAccessor,
+                  class DestImageIterator, class DestAccessor>
+        inline void
+        copyImageIf(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src,
+                    vigra::pair<MaskImageIterator, MaskAccessor> mask,
+                    vigra::pair<DestImageIterator, DestAccessor> dest)
+        {
+            vigra::omp::copyImageIf(src.first, src.second, src.third,
+                                    mask.first, mask.second,
+                                    dest.first, dest.second);
+        }
+
+
+        template <class SrcImageIterator, class SrcAccessor,
+                  class MaskImageIterator, class MaskAccessor,
                   class DestImageIterator, class DestAccessor,
                   class Functor>
         inline void
@@ -432,19 +472,6 @@ namespace vigra
                                          functor);
         }
 
-
-        template <class SrcImageIterator, class SrcAccessor,
-                  class DestImageIterator, class DestAccessor,
-                  class ValueType>
-        inline void
-        distanceTransform(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src,
-                          vigra::pair<DestImageIterator, DestAccessor> dest,
-                          ValueType background, int norm)
-        {
-            vigra::omp::distanceTransform(src.first, src.second, src.third,
-                                          dest.first, dest.second,
-                                          background, norm);
-        }
     } // namespace omp
 } // namespace vigra
 
