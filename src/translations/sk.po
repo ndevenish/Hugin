@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2015-03-01 11:14+0100\n"
+"POT-Creation-Date: 2015-03-19 11:44+0100\n"
 "PO-Revision-Date: 2015-03-01 11:46+0100\n"
 "Last-Translator: Kornel Benko <kornel@lyx.org>\n"
 "Language: sk\n"
@@ -245,13 +245,29 @@ msgstr "Chyba pri pozastavovaní procesu %ld, kód 1"
 msgid "Cancel"
 msgstr "Zrušiť"
 
+#: hugin1/base_wx/MyProgressDialog.cpp:35
+msgid "Sampling points"
+msgstr "Vyberám kontrolné body"
+
+#: hugin1/base_wx/MyProgressDialog.cpp:36
+msgid "Loading image:"
+msgstr "Nahrávam obrázok:"
+
+#: hugin1/base_wx/MyProgressDialog.cpp:37
+msgid "Scaling image:"
+msgstr "Mením veľkosť obrázku:"
+
+#: hugin1/base_wx/MyProgressDialog.cpp:38
+msgid "sampling points"
+msgstr "vyberám kontrolné body"
+
+#: hugin1/base_wx/MyProgressDialog.cpp:39
+msgid "extracting good points"
+msgstr "Vyberám dobré body"
+
 #: hugin1/base_wx/MyProgressDialog.cpp:36
 msgid "Elapsed time : "
 msgstr "Uplynutý čas: "
-
-#: hugin1/base_wx/MyProgressDialog.h:100
-msgid "Optimizing Panorama"
-msgstr "Optimalizujem panorámu"
 
 #: hugin1/base_wx/PTWXDlg.cpp:47 hugin1/base_wx/PTWXDlg.cpp:66
 #: hugin1/base_wx/PTWXDlg.cpp:120
@@ -917,7 +933,7 @@ msgstr "Architektúra: %s"
 
 #: hugin1/hugin/AboutDialog.cpp:148
 #, c-format
-msgid "Free memory: %ld kiB"
+msgid "Free memory: %lld kiB"
 msgstr "Voľná pamäť: %ld kB"
 
 #: hugin1/hugin/AboutDialog.cpp:151
@@ -1154,10 +1170,6 @@ msgstr ""
 #: hugin1/hugin/PanoOperation.cpp:767 hugin1/hugin/PanoOperation.cpp:770
 msgid "Running Celeste"
 msgstr "Spúšťam Celeste"
-
-#: hugin1/hugin/CPEditorPanel.cpp:1893 hugin1/hugin/PanoOperation.cpp:714
-msgid "searching for cloud-like control points..."
-msgstr "vyhľadávam body, ktoré vyzerajú ako oblaky..."
 
 #: hugin1/hugin/CPEditorPanel.cpp:1894 hugin1/hugin/PanoOperation.cpp:715
 msgid "Loading model file"
@@ -2791,6 +2803,10 @@ msgid "Error: no overlapping points found, Photometric optimization aborted"
 msgstr ""
 "Chyba: neboli nájdené žiadne prekrývajúce sa body. fotometrická "
 "optimalizácia bola zrušená"
+
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:320
+msgid "Optimize..."
+msgstr "Optimalizovať..."
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:352
 msgid "Internal error during photometric optimization:\n"
@@ -6743,6 +6759,18 @@ msgid "default JPEG compression setting"
 msgstr "štandardné nastavenie JPEG kompresie"
 
 #: hugin1/hugin/xrc/pref_dialog.xrc:805
+msgid "Blender"
+msgstr "Miešač"
+
+#: hugin1/hugin/xrc/pref_dialog.xrc:811
+msgid "Default blender:"
+msgstr "Štandardný miešač:"
+
+#: hugin1/hugin/xrc/pref_dialog.xrc:818
+msgid "Default blender which is used for new projects."
+msgstr "Štandardný miešač pre nové projekty."
+
+#: hugin1/hugin/xrc/pref_dialog.xrc:805
 msgid "Processor"
 msgstr "Procesor"
 
@@ -7683,6 +7711,12 @@ msgstr ""
 "Optimalizácia všetkých parametrov skreslenia \"všetko\" má zmysel iba vtedy, "
 "ak sa obrázky veľmi prekrývajú a použili ste tiež mnoho dobre rozprestrených "
 "kontrolných bodov."
+
+#~ msgid "Optimizing Panorama"
+#~ msgstr "Optimalizujem panorámu"
+
+#~ msgid "searching for cloud-like control points..."
+#~ msgstr "vyhľadávam body, ktoré vyzerajú ako oblaky..."
 
 #~ msgid "Command Line Progress"
 #~ msgstr "Priebeh v príkazovom riadku"
@@ -9052,9 +9086,6 @@ msgstr ""
 #~ msgid "Save project and stitch"
 #~ msgstr "Uložiť projekt a zošiť"
 
-#~ msgid "extracting good points"
-#~ msgstr "Vytvoriť kontrolné body"
-
 #~ msgid "Could not read image size"
 #~ msgstr "Nemožno prečítať veľkosť obrázku"
 
@@ -9499,3 +9530,6 @@ msgstr ""
 
 #~ msgid "ExifTool argfile:"
 #~ msgstr "Exiftool súbor argumentov:"
+
+#~ msgid "Free memory: %ld kiB"
+#~ msgstr "Voľná pamäť: %ld kB"
