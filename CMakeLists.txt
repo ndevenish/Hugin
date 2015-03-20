@@ -502,6 +502,7 @@ SET(LINKDIR share/applications)
 SET(LIBDIR  lib${LIB_SUFFIX})
 SET(INSTALL_XRC_DIR ${CMAKE_INSTALL_PREFIX}/share/hugin/xrc)
 SET(INSTALL_DATA_DIR ${CMAKE_INSTALL_PREFIX}/share/hugin/data)
+SET(INSTALL_LOCALE_DIR ${CMAKE_INSTALL_PREFIX}/${LOCALEDIR})
 
 # setup bundle install prefix
 IF (APPLE)
