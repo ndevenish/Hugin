@@ -96,6 +96,8 @@ static void usage(const char* name)
          << "    --hdr-file=EXR|TIF      Sets the filetype for HDR panorama output" << endl
          << "    --hdr-compression=str   Sets the compression for HDR panorama output" << endl
          << "                              For TIF: NONE|PACKBITS|LZW|DEFLATE" << endl
+         << "    --blender=ENBLEND|INTERNAL  Sets the blender to be used at stitching" << endl
+         << "                            stage." << endl
          << "    --rotate=yaw,pitch,roll Rotates the whole panorama with the given angles" << endl
          << "    --translate=x,y,z       Translate the whole panorama with the given values" << endl
          << "    -h, --help             Shows this help" << endl
@@ -116,6 +118,7 @@ int main(int argc, char* argv[])
         SWITCH_TRANSLATE,
         SWITCH_EXPOSURE,
         SWITCH_OUTPUT_TYPE,
+        SWITCH_BLENDER,
         SWITCH_LDRFILETYPE,
         SWITCH_LDRCOMPRESSION,
         SWITCH_HDRFILETYPE,
@@ -132,6 +135,7 @@ int main(int argc, char* argv[])
         {"crop", required_argument, NULL, SWITCH_CROP },
         {"output-exposure", required_argument, NULL, SWITCH_EXPOSURE },
         {"output-type", required_argument, NULL, SWITCH_OUTPUT_TYPE },
+        {"blender", required_argument, NULL, SWITCH_BLENDER },
         {"ldr-file", required_argument,NULL, SWITCH_LDRFILETYPE },
         {"ldr-compression", required_argument, NULL, SWITCH_LDRCOMPRESSION },
         {"hdr-file", required_argument, NULL, SWITCH_HDRFILETYPE },
@@ -172,6 +176,7 @@ int main(int argc, char* argv[])
     std::string hdrcompression;
     string output;
     string param;
+    std::string blender;
     while ((c = getopt_long (argc, argv, optstring, longOptions,&optionIndex)) != -1)
     {
         switch (c)
@@ -355,6 +360,9 @@ int main(int argc, char* argv[])
                     outputType.append(",");
                 };
                 outputType.append(optarg);
+                break;
+            case SWITCH_BLENDER:
+                blender = hugin_utils::tolower(hugin_utils::StrTrim(optarg));
                 break;
             case SWITCH_LDRFILETYPE:
                 ldrfiletype = hugin_utils::tolower(hugin_utils::StrTrim(optarg));
@@ -572,6 +580,30 @@ int main(int argc, char* argv[])
             std::cout << "No matching output type given. The whole output-type is ignored." << std::endl;
         };
     };
+    // blender type
+    if (!blender.empty())
+    {
+        PanoramaOptions opt = pano.getOptions();
+        if (blender == "enblend")
+        {
+            opt.blendMode = PanoramaOptions::ENBLEND_BLEND;
+            std::cout << "Setting blender type to \"ENBLEND\"." << std::endl;
+        }
+        else
+        {
+            if (blender == "internal" || blender == "verdandi")
+            {
+                opt.blendMode = PanoramaOptions::INTERNAL_BLEND;
+                std::cout << "Setting blender type to \"INTERNAL\"." << std::endl;
+            }
+            else
+            {
+                std::cout << "Blender \"" << blender << "\" is not a valid blender ." << std::endl
+                    << "Ignoring parameter." << std::endl;
+            };
+        };
+        pano.setOptions(opt);
+    }
     // ldr output file type
     if (!ldrfiletype.empty())
     {
