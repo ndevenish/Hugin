@@ -191,25 +191,25 @@ void OverviewOutlinesTool::draw()
     glDisable(GL_TEXTURE_2D);
 
     glEnable(GL_BLEND);
-    glColor4f(0,0,0,0.50);        
+    glColor4f(0, 0, 0, 0.50f);
     glBlendFunc(GL_ZERO, GL_SRC_ALPHA);
     drawBackground();
 
 
-    glColor4f(1.0,1.0,1.0,0.20);
+    glColor4f(1.0f, 1.0f, 1.0f, 0.20f);
     glBlendFunc(GL_DST_COLOR, GL_SRC_ALPHA);
     glCallList(display_list_number_canvas);
 
 //    std::cout << "outlines " << roi.left() << " " << roi.top() << " " << roi.right() << " " << roi.bottom() << std::endl;
 
-    glColor4f(1.0,1.0,1.0,0.66);
+    glColor4f(1.0f, 1.0f, 1.0f, 0.66f);
     glBlendFunc(GL_DST_COLOR, GL_SRC_ALPHA);
     glCallList(display_list_number_crop);
 
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glColor4f(0.8,0.8,0.8,0.5);
+    glColor4f(0.8f, 0.8f, 0.8f, 0.5f);
     glCallList(display_list_number_canvas_outline);
-    glColor4f(0.8,0.8,0.8,0.6);
+    glColor4f(0.8f, 0.8f, 0.8f, 0.6f);
     glCallList(display_list_number_crop_outline);
 
     glEnable(GL_TEXTURE_2D);

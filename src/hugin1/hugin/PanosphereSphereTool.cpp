@@ -53,7 +53,7 @@ void PanosphereSphereTool::BeforeDrawImagesBackEvent()
 {
     helper->GetViewStatePtr()->GetTextureManager()->DisableTexture();
     glDisable(GL_TEXTURE_2D);
-    glColor4f((float)m_background_color.Red()/255, (float)m_background_color.Green()/255, (float)m_background_color.Blue()/255, 0.8);
+    glColor4f((float)m_background_color.Red() / 255, (float)m_background_color.Green() / 255, (float)m_background_color.Blue() / 255, 0.8f);
  
     glEnable(GL_BLEND);
     glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

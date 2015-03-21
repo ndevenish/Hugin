@@ -306,7 +306,7 @@ namespace deghosting
                 // TODO: change to the GammaFunctor in the future
                 vigra::FindMinMax<float> minmax;
                 vigra::inspectImage(srcImageRange(*pInputImg), minmax);
-                transformImage(srcImageRange(*pInputImg),destImage(*pInputImg),BrightnessContrastFunctor<PixelType>(0.45,1.0,minmax.min, minmax.max));
+                transformImage(srcImageRange(*pInputImg),destImage(*pInputImg),BrightnessContrastFunctor<PixelType>(0.45f,1.0,minmax.min, minmax.max));
             } else {
                 // take logarithm
                 transformImage(srcImageRange(*pInputImg),destImage(*pInputImg),LogarithmFunctor<PixelType>(1.0));

@@ -81,7 +81,7 @@ void PreviewCropTool::ReallyAfterDrawImagesEvent()
         glEnable(GL_BLEND);
         helper->GetVisualizationStatePtr()->getViewState()->GetTextureManager()->DisableTexture();
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        glColor4f(1.0, 1.0, 1.0, 0.38197);
+        glColor4f(1.0f, 1.0f, 1.0f, 0.38197f);
         glBegin(GL_QUADS);
             if (moving_left)
             {
