@@ -77,17 +77,17 @@ static void usage(const char* name)
          << "Usage: " << name  << " [options] inputfile(s) " << std::endl
          << "   option are: " << std::endl
          << "      --green=db|a:b:c:d  Correct radial distortion for all channels" << std::endl
-         << "                            Specifiy 'db' for database lookup or" << std::endl
+         << "                            Specify 'db' for database lookup or" << std::endl
          << "                            the 4 coefficients a:b:c:d" << std::endl
          << "      --blue=db|a:b:c:d   Correct radial distortion for blue channel," << std::endl
          << "                            this is applied on top of the --green" << std::endl
          << "                            distortion coefficients, use for TCA corr" << std::endl
-         << "                            Specifiy 'db' for database lookup or" << std::endl
+         << "                            Specify 'db' for database lookup or" << std::endl
          << "                            the 4 coefficients a:b:c:d" << std::endl
          << "      --red=db|a:b:c:d    Correct radial distortion for red channel," << std::endl
          << "                            this is applied on top of the --green" << std::endl
          << "                            distortion coefficients, use for TCA corr" << std::endl
-         << "                            Specifiy 'db' for database lookup or" << std::endl
+         << "                            Specify 'db' for database lookup or" << std::endl
          << "                            the 4 coefficients a:b:c:d" << std::endl
          << "      --camera-maker=Maker Camera manufacturer, for database query" << std::endl
          << "      --camera-model=Cam Camera name, for database query" << std::endl
