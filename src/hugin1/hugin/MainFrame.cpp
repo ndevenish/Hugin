@@ -367,46 +367,49 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     wxMenu *pluginMenu=new wxMenu();
     // search for all .py files in plugins directory
     wxDir dir(GetDataPath()+wxT("plugins"));
-    wxString filename;
-    bool cont=dir.GetFirst(&filename,wxT("*.py"),wxDIR_FILES|wxDIR_HIDDEN);
-    PluginItems items;
-    while(cont)
+    if (dir.IsOpened())
     {
-        wxFileName file(dir.GetName(),filename);
-        file.MakeAbsolute();
-        PluginItem item(file);
-        if(item.IsAPIValid())
+        wxString filename;
+        bool cont = dir.GetFirst(&filename, wxT("*.py"), wxDIR_FILES | wxDIR_HIDDEN);
+        PluginItems items;
+        while (cont)
         {
-            items.push_back(item);
+            wxFileName file(dir.GetName(), filename);
+            file.MakeAbsolute();
+            PluginItem item(file);
+            if (item.IsAPIValid())
+            {
+                items.push_back(item);
+            };
+            cont = dir.GetNext(&filename);
         };
-        cont=dir.GetNext(&filename);
-    };
-    items.sort(comparePluginItem);
+        items.sort(comparePluginItem);
 
-    int pluginID=wxID_HIGHEST+2000;
-    for(PluginItems::const_iterator it=items.begin();it!=items.end();++it)
-    {
-        PluginItem item=*it;
-        int categoryID=pluginMenu->FindItem(item.GetCategory());
-        wxMenu* categoryMenu;
-        if(categoryID==wxNOT_FOUND)
+        int pluginID = wxID_HIGHEST + 2000;
+        for (PluginItems::const_iterator it = items.begin(); it != items.end(); ++it)
         {
-            categoryMenu=new wxMenu();
-            pluginMenu->AppendSubMenu(categoryMenu,item.GetCategory());
-        }
-        else
-        {
-            categoryMenu=pluginMenu->FindItem(categoryID)->GetSubMenu();
+            PluginItem item = *it;
+            int categoryID = pluginMenu->FindItem(item.GetCategory());
+            wxMenu* categoryMenu;
+            if (categoryID == wxNOT_FOUND)
+            {
+                categoryMenu = new wxMenu();
+                pluginMenu->AppendSubMenu(categoryMenu, item.GetCategory());
+            }
+            else
+            {
+                categoryMenu = pluginMenu->FindItem(categoryID)->GetSubMenu();
+            };
+            categoryMenu->Append(pluginID, item.GetName(), item.GetDescription());
+            m_plugins[pluginID] = item.GetFilename();
+            Connect(pluginID, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrame::OnPlugin));
+            pluginID++;
         };
-        categoryMenu->Append(pluginID,item.GetName(),item.GetDescription());
-        m_plugins[pluginID]=item.GetFilename();
-        Connect(pluginID, wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(MainFrame::OnPlugin));
-        pluginID++;
-    };
-    // show the new menu
-    if(pluginMenu->GetMenuItemCount()>0)
-    {
-        menubar->Insert(menubar->GetMenuCount()-2,pluginMenu,_("&Actions"));
+        // show the new menu
+        if (pluginMenu->GetMenuItemCount() > 0)
+        {
+            menubar->Insert(menubar->GetMenuCount() - 2, pluginMenu, _("&Actions"));
+        };
     };
 #else
     GetMenuBar()->Enable(XRCID("action_python_script"), false);
