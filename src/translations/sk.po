@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2015-03-19 20:30+0100\n"
-"PO-Revision-Date: 2015-03-21 11:17+0100\n"
+"POT-Creation-Date: 2015-03-21 11:39+0100\n"
+"PO-Revision-Date: 2015-03-21 16:32+0000\n"
 "Last-Translator: Kornel Benko <kornel@lyx.org>\n"
 "Language-Team: Slovak <kornel@lyx.org>\n"
 "Language: sk\n"
@@ -1995,9 +1995,9 @@ msgstr "Šošovka č."
 msgid "Assigned lens number"
 msgstr "Pridelené číslo šošovky"
 
-#: hugin1/hugin/ImagesTree.cpp:148
+#: hugin1/hugin/ImagesTree.cpp:149
 msgid "Stack no."
-msgstr "Číslo štósu"
+msgstr "Štós č."
 
 #: hugin1/hugin/ImagesTree.cpp:148
 msgid "Assigned stack number"
@@ -4726,7 +4726,7 @@ msgstr "Pomocník pre Batch Stitcher"
 
 #: hugin1/hugin/xrc/batch_menu.xrc:53
 msgid "Open Batch Stitcher help."
-msgstr "Otvoriť pomocníka pre Batch Stitcher"
+msgstr "Otvoriť pomocníka pre Batch Stitcher."
 
 #: hugin1/hugin/xrc/batch_toolbar.xrc:11
 msgid "clear"
@@ -4976,8 +4976,8 @@ msgstr "Detektor štósov"
 #: hugin1/hugin/xrc/cpdetector_dialog.xrc:218
 msgid "Leave empty when no control point detector should run on stacks."
 msgstr ""
-"Ponechať prázdne, ak by nemal byť pre štósy spustený žiaden detektor "
-"kontrolných bodov"
+"Ponechať prázdne, ak by nemal byť spustený detektor kontrolných bodov pre "
+"štósy."
 
 #: hugin1/hugin/xrc/cpdetector_dialog.xrc:273
 msgid "Advanced option"
