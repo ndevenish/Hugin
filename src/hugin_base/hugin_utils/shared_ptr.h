@@ -29,6 +29,7 @@
 namespace sharedPtrNamespace = std;
 #else
 #include <boost/shared_ptr.hpp>
+#include <boost/make_shared.hpp>
 namespace sharedPtrNamespace = boost;
 #endif
 
