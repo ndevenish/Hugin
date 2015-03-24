@@ -485,8 +485,8 @@ void RandomPointSampler::sampleRandomPanoPoints(const std::vector<Img>& imgs,
     std::uniform_int_distribution<unsigned int> distribx(dest.getROI().left(), dest.getROI().right()-1);
     std::uniform_int_distribution<unsigned int> distriby(dest.getROI().top(), dest.getROI().bottom()-1);
 
-    auto randX = std::bind(distribx, rng);
-    auto randY = std::bind(distriby, rng);
+    auto randX = std::bind(distribx, std::ref(rng));
+    auto randY = std::bind(distriby, std::ref(rng));
 #else
     boost::mt19937 rng;
     // start with a different seed every time.
