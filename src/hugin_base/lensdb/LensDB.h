@@ -105,8 +105,14 @@ public:
         @return true, if lenses were found */
     bool GetLensNames(const bool distortion, const bool vignetting, const bool tca, LensList& lensList) const;
     /** compress database by remove all entries and insert instead the average values
-        @return true, if cleanup was successfull */
+        @return true, if cleanup was successful */
     bool CleanUpDatabase();
+    /** remove all database entry which refers to given lens 
+        @return true, if all was successful, false, if there were errors */
+    bool RemoveLens(const std::string& lensname);
+    /** remove all database entry which refers to given camera
+        @return true, if all was successful, false, if there were errors */
+    bool RemoveCamera(const std::string& maker, const std::string& model);
 
     //routines to save to database
     /** save the camera with the given cropfactor into the database

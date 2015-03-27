@@ -750,6 +750,38 @@ public:
         EndTransaction();
         return sqlite3_exec(m_db, "VACUUM;", NULL, NULL, NULL) == SQLITE_OK;
     };
+    // remove lens from all tables
+    bool RemoveLens(const std::string& lensname)
+    {
+        if (m_db == NULL)
+        {
+            return false;
+        };
+        BeginTransaction();
+        bool result = RemoveLensFromTable("LensProjectionTable", lensname);
+        result &= RemoveLensFromTable("LensHFOVTable", lensname);
+        result &= RemoveLensFromTable("LensCropTable", lensname);
+        result &= RemoveLensFromTable("DistortionTable", lensname);
+        result &= RemoveLensFromTable("VignettingTable", lensname);
+        result &= RemoveLensFromTable("TCATable", lensname);
+        EndTransaction();
+        return result;
+    };
+    // remove camera from database
+    bool RemoveCamera(const std::string& maker, const std::string& model)
+    {
+        if (m_db == NULL)
+        {
+            return false;
+        };
+        BeginTransaction();
+        bool result = RemoveCameraFromTable("CameraCropTable", maker, model);
+        result &= RemoveCameraFromTable("EMORTable", maker, model);
+        EndTransaction();
+        return result;
+    };
+
+private:
     // helper functions for BEGIN/COMMIT TRANSACTION
     void BeginTransaction()
     {
@@ -767,7 +799,42 @@ public:
         };
     };
 
-private:
+    // removes the given lens from the selected table
+    bool RemoveLensFromTable(const std::string& table, const std::string& lens)
+    {
+        sqlite3_stmt *statement;
+        const char *tail;
+        int returnValue = 0;
+        std::string sqlStatement("DELETE FROM ");
+        sqlStatement.append(table);
+        sqlStatement.append(" WHERE Lens=?;");
+        if (sqlite3_prepare_v2(m_db, sqlStatement.c_str(), -1, &statement, &tail) == SQLITE_OK)
+        {
+            sqlite3_bind_text(statement, 1, lens.c_str(), -1, NULL);
+            returnValue = sqlite3_step(statement);
+        };
+        sqlite3_finalize(statement);
+        return returnValue == SQLITE_DONE;
+    };
+    // remove given camera from selected table
+    bool RemoveCameraFromTable(const std::string& table, const std::string& maker, const std::string& model)
+    {
+        sqlite3_stmt *statement;
+        const char *tail;
+        int returnValue = 0;
+        std::string sqlStatement("DELETE FROM ");
+        sqlStatement.append(table);
+        sqlStatement.append(" WHERE Maker=?1 AND Model=?2;");
+        if (sqlite3_prepare_v2(m_db, sqlStatement.c_str(), -1, &statement, &tail) == SQLITE_OK)
+        {
+            sqlite3_bind_text(statement, 1, maker.c_str(), -1, NULL);
+            sqlite3_bind_text(statement, 2, model.c_str(), -1, NULL);
+            returnValue = sqlite3_step(statement);
+        };
+        sqlite3_finalize(statement);
+        return returnValue == SQLITE_DONE;
+    };
+
     std::string m_filename;
     sqlite3 *m_db;
     bool m_runningTransaction;
@@ -1290,6 +1357,24 @@ bool LensDB::CleanUpDatabase()
         return false;
     };
     return m_db->CleanUp();
+};
+
+bool LensDB::RemoveLens(const std::string& lensname)
+{
+    if (m_db == NULL)
+    {
+        return false;
+    };
+    return m_db->RemoveLens(lensname);
+};
+
+bool LensDB::RemoveCamera(const std::string& maker, const std::string& model)
+{
+    if (m_db == NULL)
+    {
+        return false;
+    };
+    return m_db->RemoveCamera(maker, model);
 };
 
 bool SaveLensDataFromPano(const HuginBase::Panorama& pano)

@@ -145,6 +145,10 @@ static void usage(const char* name)
               << "        lensdb --compress" << std::endl
               << "             Compresses the database by replacing single values" << std::endl
               << "             with averaged values." << std::endl
+              << "        lensdb --remove-lens=LENS" << std::endl
+              << "             Removes given lens from the database." << std::endl
+              << "        lensdb --remove-camera=MAKER|MODEL" << std::endl
+              << "             Removes given camera from the database." << std::endl
               << std::endl;
 };
 
@@ -152,13 +156,20 @@ int main(int argc, char* argv[])
 {
     // parse arguments
     const char* optstring = "crph";
+    enum
+    {
+        REMOVE_LENS=1000,
+        REMOVE_CAM=1001,
+    };
 
     static struct option longOptions[] =
     {
-        {"compress", no_argument, NULL, 'c' },
-        {"recursive", no_argument, NULL, 'r' },
-        {"populate", no_argument, NULL, 'p' },
-        {"help", no_argument, NULL, 'h' },
+        { "compress", no_argument, NULL, 'c' },
+        { "recursive", no_argument, NULL, 'r' },
+        { "populate", no_argument, NULL, 'p' },
+        { "remove-lens", required_argument, NULL, REMOVE_LENS },
+        { "remove-camera", required_argument, NULL, REMOVE_CAM },
+        { "help", no_argument, NULL, 'h' },
         0
     };
 
@@ -166,6 +177,8 @@ int main(int argc, char* argv[])
     bool populate = false;
     bool compress = false;
     std::string basepath;
+    std::string lensToRemove;
+    std::string camToRemove;
     int c;
     int optionIndex = 0;
     while ((c = getopt_long (argc, argv, optstring, longOptions,&optionIndex)) != -1)
@@ -183,6 +196,12 @@ int main(int argc, char* argv[])
                 break;
             case 'p':
                 populate = true;
+                break;
+            case REMOVE_LENS:
+                lensToRemove = hugin_utils::StrTrim(std::string(optarg));
+                break;
+            case REMOVE_CAM:
+                camToRemove = hugin_utils::StrTrim(std::string(optarg));
                 break;
             case '?':
                 break;
@@ -202,7 +221,7 @@ int main(int argc, char* argv[])
         basepath = argv[optind];
     };
 
-    if (!populate && !compress)
+    if (!populate && !compress && lensToRemove.empty() && camToRemove.empty())
     {
         std::cout << "Lensdatabase file: " << HuginBase::LensDB::LensDB::GetSingleton().GetDBFilename() << std::endl;
         std::cout << "Nothing to do." << std::endl;
@@ -252,6 +271,41 @@ int main(int argc, char* argv[])
         {
             std::cout << "FAILED." << std::endl;
         }
+    };
+    // remove lens
+    if (!lensToRemove.empty())
+    {
+        std::cout << "Removing lens \"" << lensToRemove << "\"..." << std::endl;
+        if (HuginBase::LensDB::LensDB::GetSingleton().RemoveLens(lensToRemove))
+        {
+            std::cout << "Successful." << std::endl;
+        }
+        else
+        {
+            std::cout << "FAILED." << std::endl;
+        }
+    };
+    // remove camera
+    if (!camToRemove.empty())
+    {
+        std::vector<std::string> input = hugin_utils::SplitString(camToRemove, "|");
+        if (input.size() == 2)
+        {
+            std::cout << "Removing camera \"" << input[1] << "\" (Maker: \"" << input[0] << "\")..." << std::endl;
+            if (HuginBase::LensDB::LensDB::GetSingleton().RemoveCamera(input[0], input[1]))
+            {
+                std::cout << "Successful." << std::endl;
+            }
+            else
+            {
+                std::cout << "FAILED." << std::endl;
+            }
+        }
+        else
+        {
+            std::cout << "\"" << camToRemove << "\" is not a valid string for the camera." << std::endl
+                << "    Use syntax MAKER|MODEL (separate camera maker and model by |)" << std::endl;
+        };
     };
     HuginBase::LensDB::LensDB::Clean();
     return 0;
