@@ -2,23 +2,27 @@
 
 lensdb - Tool for lens database maintenance
 
-=head1 SYNOPSIS
 
-B<lensdb> [--recursive] --populate BASEPATH
-
-B<lensdb> --compress
-
-=head1 DESCRIPTION
-
-B<lensdb> will populate database with information from all pto files in given BASEPATH
- 
-with the --recursive switch all subfolders/directories will also be searched
-
-The --compress switch compresses the database by replacing single values with averaged values
-
-=head1 OPTIONS
+=head1 USAGE
 
 =over
+
+=item B<lensdb [--recursive] --populate BASEPATH>
+
+Populate database with information from all pto files in given BASEPATH.
+With the --recursive switch all subfolders/directories will also be searched.
+
+=item B<lensdb --compress>
+
+Compresses the database by replacing single values with averaged values
+
+=item B<lensdb --remove-lens=LENS>
+
+Removes given lens from the database
+
+=item B<lensdb --remove-camera=MAKER|MODEL>
+
+Removes given camera from the database
 
 =item B<-h>
 
@@ -26,7 +30,7 @@ Shows help
 
 =back
 
-=head1 AUTHORS
-
 Thomas Modes
+
+=head1 AUTHORS
 
