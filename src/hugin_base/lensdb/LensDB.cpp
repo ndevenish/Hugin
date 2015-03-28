@@ -745,7 +745,11 @@ public:
             "INSERT INTO VignettingTable(Lens, Focallength, Aperture, Distance, Vb, Vc, Vd, Weight) "
               "SELECT Lens, Focallength, Aperture, Distance, SUM(Vb*Weight)/SUM(Weight), SUM(Vc*Weight)/SUM(Weight), SUM(Vd*Weight)/SUM(Weight), SUM(Weight*Weight)/SUM(Weight)*-1 FROM VignettingTable GROUP By Lens, Focallength, Aperture, Distance;"
             "DELETE FROM VignettingTable WHERE Weight>=0;"
-            "UPDATE VignettingTable SET Weight=-Weight WHERE Weight<0;",
+            "UPDATE VignettingTable SET Weight=-Weight WHERE Weight<0;"
+            "INSERT INTO EMORTable(Maker, Model, ISO, Ra, Rb, Rc, Rd, Re, Weight) "
+            "SELECT Maker, Model, ISO, SUM(Ra*Weight)/SUM(Weight), SUM(Rb*Weight)/SUM(Weight), SUM(Rc*Weight)/SUM(Weight), SUM(Rd*Weight)/SUM(Weight), SUM(Re*Weight)/SUM(Weight), SUM(Weight*Weight)/SUM(Weight)*-1 FROM EMORTable GROUP By Maker, Model, ISO;"
+            "DELETE FROM EMORTable WHERE Weight>=0;"
+            "UPDATE EMORTable SET Weight=-Weight WHERE Weight<0;",
             NULL, NULL, NULL);
         EndTransaction();
         return sqlite3_exec(m_db, "VACUUM;", NULL, NULL, NULL) == SQLITE_OK;
