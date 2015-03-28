@@ -24,6 +24,7 @@
 #include "LensDB.h"
 #include <iostream>
 #include <sstream>
+#include <fstream>
 #include <hugin_utils/stl_utils.h>
 #include <hugin_utils/utils.h>
 #include <sqlite3.h>
@@ -784,7 +785,213 @@ public:
         EndTransaction();
         return result;
     };
-
+    // export to file
+    bool ExportToFile(const std::string& filename)
+    {
+        if (m_db == NULL)
+        {
+            return false;
+        };
+        CleanUp();
+        std::ofstream output(filename.c_str());
+        if (output.is_open())
+        {
+            output << "TABLE=CameraCropTable" << std::endl
+                << "COLUMNS=Maker;Model;Cropfactor" << std::endl;
+            OutputSQLToStream("SELECT Maker, Model, Cropfactor FROM CameraCropTable;", output);
+            output << "ENDTABLE" << std::endl
+                << "TABLE=LensProjectionTable" << std::endl
+                << "COLUMNS=Lens;Projection" << std::endl;
+            OutputSQLToStream("SELECT Lens, Projection FROM LensProjectionTable;", output);
+            output << "ENDTABLE" << std::endl
+                << "TABLE=LensHFOVTable" << std::endl
+                << "COLUMNS=Lens;Focallength;HFOV;Weight" << std::endl;
+            OutputSQLToStream("SELECT Lens, Focallength, HFOV, Weight FROM LensHFOVTable;", output);
+            output << "ENDTABLE" << std::endl
+                << "TABLE=LensCropTable" << std::endl
+                << "COLUMNS=Lens;Focallength;Width;Height;CropLeft;CropRight;CropTop;CropBottom" << std::endl;
+            OutputSQLToStream("SELECT Lens, Focallength, Width, Height, CropLeft, CropRight, CropTop, CropBottom FROM TABLE LensCropTable;", output);
+            output << "ENDTABLE" << std::endl
+                << "TABLE=DistortionTable" << std::endl
+                << "COLUMNS=Lens;Focallength;a;b;c;Weight" << std::endl;
+            OutputSQLToStream("SELECT Lens, Focallength, a, b, c, Weight FROM DistortionTable;", output);
+            output << "ENDTABLE" << std::endl
+                << "TABLE=VignettingTable" << std::endl
+                << "COLUMNS=Lens;Focallength;Aperture;Distance;Vb;Vc;Vd;Weight" << std::endl;
+            OutputSQLToStream("SELECT Lens, Focallength, Aperture, Distance, Vb, Vc, Vd, Weight FROM VignettingTable;", output);
+            output << "ENDTABLE" << std::endl
+                << "TABLE=TCATable" << std::endl
+                << "COLUMNS=Lens;Focallength;ra;rb;rc;rd;ba;bb;bc;bd;Weight" << std::endl;
+            OutputSQLToStream("SELECT Lens, Focallength, ra, rb, rc, rd, ba, bb, bc, bd, Weight FROM TCATable;", output);
+            output << "ENDTABLE" << std::endl
+                << "TABLE=EMORTable" << std::endl
+                << "COLUMNS=Maker;Model;ISO;Ra;Rb;Rc;Rd;Re;Weight" << std::endl;
+            OutputSQLToStream("SELECT Maker, Model, ISO, Ra, Rb, Rc, Rd, Re, Weight FROM EMORTable;", output);
+            output << "ENDTABLE" << std::endl;
+            output.close();
+            return true;
+        }
+        else
+        {
+            std::cerr << "Could not open file \"" << filename << "\"." << std::endl;
+            return false;
+        };
+    };
+    // import data from external file 
+    bool ImportFromFile(const std::string& filename)
+    {
+        if (m_db == NULL)
+        {
+            return false;
+        };
+        std::ifstream input(filename);
+        if (input.is_open())
+        {
+            while (!input.eof())
+            {
+                std::string line;
+                std::getline(input, line);
+                if (line.empty())
+                {
+                    continue;
+                };
+                if (line.compare(0, 6, "TABLE=") == 0)
+                {
+                    std::vector<std::string> substring = hugin_utils::SplitString(line, "=");
+                    if (substring.size() == 2)
+                    {
+                        if (substring[1] == "CameraCropTable")
+                        {
+                            std::cout << "\tImporting CameraCropTable..." << std::endl;
+                            if (!ImportCropFactor(input))
+                            {
+                                input.close();
+                                std::cerr << "Error in input file." << std::endl;
+                                return false;
+                            };
+                        }
+                        else
+                        {
+                            if (substring[1] == "LensProjectionTable")
+                            {
+                                std::cout << "\tImporting LensProjectionTable..." << std::endl;
+                                if (!ImportProjection(input))
+                                {
+                                    input.close();
+                                    std::cerr << "Error in input file." << std::endl;
+                                    return false;
+                                };
+                            }
+                            else
+                            {
+                                if (substring[1] == "LensHFOVTable")
+                                {
+                                    std::cout << "\tImporting LensHFOVTable..." << std::endl;
+                                    if (!ImportHFOV(input))
+                                    {
+                                        input.close();
+                                        std::cerr << "Error in input file." << std::endl;
+                                        return false;
+                                    };
+                                }
+                                else
+                                {
+                                    if (substring[1] == "LensCropTable")
+                                    {
+                                        std::cout << "\tImporting LensCropTable..." << std::endl;
+                                        if (!ImportLensCrop(input))
+                                        {
+                                            input.close();
+                                            std::cerr << "Error in input file." << std::endl;
+                                            return false;
+                                        };
+                                    }
+                                    else
+                                    {
+                                        if (substring[1] == "DistortionTable")
+                                        {
+                                            std::cout << "\tImporting DistortionTable..." << std::endl;
+                                            if (!ImportDistortion(input))
+                                            {
+                                                input.close();
+                                                std::cerr << "Error in input file." << std::endl;
+                                                return false;
+                                            };
+                                        }
+                                        else
+                                        {
+                                            if (substring[1] == "VignettingTable")
+                                            {
+                                                std::cout << "\tImporting VignettingTable..." << std::endl;
+                                                if (!ImportVignetting(input))
+                                                {
+                                                    input.close();
+                                                    std::cerr << "Error in input file." << std::endl;
+                                                    return false;
+                                                };
+                                            }
+                                            else
+                                            {
+                                                if (substring[1] == "TCATable")
+                                                {
+                                                    std::cout << "\tImporting TCATable..." << std::endl;
+                                                    if (!ImportTCA(input))
+                                                    {
+                                                        input.close();
+                                                        std::cerr << "Error in input file." << std::endl;
+                                                        return false;
+                                                    };
+                                                }
+                                                else
+                                                {
+                                                    if (substring[1] == "EMORTable")
+                                                    {
+                                                        std::cout << "\tImporting EMORTable..." << std::endl;
+                                                        if (!ImportEMOR(input))
+                                                        {
+                                                            input.close();
+                                                            std::cerr << "Error in input file." << std::endl;
+                                                            return false;
+                                                        };
+                                                    }
+                                                    else
+                                                    {
+                                                        input.close();
+                                                        std::cerr << "Error in input file (Unknown table \"" << substring[1] << "\")." << std::endl;
+                                                        return false;
+                                                    };
+                                                };
+                                            };
+                                        };
+                                    };
+                                };
+                            };
+                        };
+                    }
+                    else
+                    {
+                        std::cerr << "Error in input file (Could not parse table name)." << std::endl;
+                        input.close();
+                        return false;
+                    };
+                }
+                else
+                {
+                    std::cerr << "Error in input file (Could not find TABLE section)." << std::endl;
+                    input.close();
+                    return false;
+                };
+            };
+            input.close();
+            CleanUp();
+            return true;
+        }
+        else
+        {
+            std::cerr << "Could not open file \"" << filename << "\"." << std::endl;
+            return false;
+        };
+    };
 private:
     // helper functions for BEGIN/COMMIT TRANSACTION
     void BeginTransaction()
@@ -837,6 +1044,900 @@ private:
         };
         sqlite3_finalize(statement);
         return returnValue == SQLITE_DONE;
+    };
+    // write result of sql statement to stream, the columns are separated by ;
+    void OutputSQLToStream(const std::string& sqlstatement, std::ostream& stream)
+    {
+        sqlite3_stmt *statement;
+        const char *tail;
+        if (sqlite3_prepare_v2(m_db, sqlstatement.c_str(), -1, &statement, &tail) == SQLITE_OK)
+        {
+            while (sqlite3_step(statement) == SQLITE_ROW)
+            {
+                const int count = sqlite3_column_count(statement);
+                if (count > 0)
+                {
+                    for (int i = 0; i < count; ++i)
+                    {
+                        stream << sqlite3_column_text(statement, i);
+                        if (i + 1 < count)
+                        {
+                            stream << ";";
+                        };
+                    };
+                };
+                stream << std::endl;
+            };
+        };
+        sqlite3_finalize(statement);
+    }
+    // import cropfactors from stream
+    bool ImportCropFactor(std::istream& input)
+    {
+        std::string s;
+        std::getline(input, s);
+        // first line should contains the column list
+        if (s.compare(0, 8, "COLUMNS=") != 0)
+        {
+            return false;
+        };
+        std::vector<std::string> columns = hugin_utils::SplitString(s.substr(8), ";");
+        size_t indexMaker = -1;
+        size_t indexModel = -1;
+        size_t indexCropfactor = -1;
+        for (size_t i = 0; i < columns.size(); ++i)
+        {
+            if (columns[i] == "Maker")
+            {
+                indexMaker = i;
+            };
+            if (columns[i] == "Model")
+            {
+                indexModel = i;
+            };
+            if (columns[i] == "Cropfactor")
+            {
+                indexCropfactor = i;
+            };
+        };
+        if (indexMaker == -1)
+        {
+            std::cerr << "ERROR: Missing column \"Maker\"." << std::endl;
+            return false;
+        };
+        if (indexModel == -1)
+        {
+            std::cerr << "ERROR: Missing column \"Model\"." << std::endl;
+            return false;
+        };
+        if (indexCropfactor == -1)
+        {
+            std::cerr << "ERROR: Missing column \"Cropfactor\"." << std::endl;
+            return false;
+        };
+        if (input.eof())
+        {
+            return false;
+        };
+        std::getline(input, s);
+        while (!input.eof())
+        {
+            if (s == "ENDTABLE")
+            {
+                return true;
+            }
+            std::vector<std::string> items = hugin_utils::SplitString(s, ";");
+            if (items.size() == columns.size())
+            {
+                //ignore lines with not matching count of items
+                double cropfactor;
+                if (hugin_utils::stringToDouble(items[indexCropfactor], cropfactor))
+                {
+                    SaveCropFactor(items[indexMaker], items[indexModel], cropfactor);
+                };
+            };
+            std::getline(input, s);
+        };
+        return false;
+    };
+    // import projection settings from stream
+    bool ImportProjection(std::istream& input)
+    {
+        std::string s;
+        std::getline(input, s);
+        // first line should contains the column list
+        if (s.compare(0, 8, "COLUMNS=") != 0)
+        {
+            return false;
+        };
+        std::vector<std::string> columns = hugin_utils::SplitString(s.substr(8), ";");
+        size_t indexLens = -1;
+        size_t indexProjection = -1;
+        for (size_t i = 0; i < columns.size(); ++i)
+        {
+            if (columns[i] == "Lens")
+            {
+                indexLens = i;
+            };
+            if (columns[i] == "Projection")
+            {
+                indexProjection = i;
+            };
+        };
+        if (indexLens == -1)
+        {
+            std::cerr << "ERROR: Missing column \"Lens\"." << std::endl;
+            return false;
+        };
+        if (indexProjection == -1)
+        {
+            std::cerr << "ERROR: Missing column \"Projection\"." << std::endl;
+            return false;
+        };
+        if (input.eof())
+        {
+            return false;
+        };
+        std::getline(input, s);
+        while (!input.eof())
+        {
+            if (s == "ENDTABLE")
+            {
+                return true;
+            }
+            std::vector<std::string> items = hugin_utils::SplitString(s, ";");
+            if (items.size() == columns.size())
+            {
+                //ignore lines with not matching count of items
+                int projection;
+                if (hugin_utils::stringToInt(items[indexProjection], projection))
+                {
+                    SaveLensProjection(items[indexLens], projection);
+                };
+            };
+            std::getline(input, s);
+        };
+        return false;
+    };
+    // import hfov values from stream
+    bool ImportHFOV(std::istream& input)
+    {
+        std::string s;
+        std::getline(input, s);
+        // first line should contains the column list
+        if (s.compare(0, 8, "COLUMNS=") != 0)
+        {
+            return false;
+        };
+        std::vector<std::string> columns = hugin_utils::SplitString(s.substr(8), ";");
+        size_t indexLens = -1;
+        size_t indexFocallength = -1;
+        size_t indexHFOV = -1;
+        size_t indexWeight = -1;
+        for (size_t i = 0; i < columns.size(); ++i)
+        {
+            if (columns[i] == "Lens")
+            {
+                indexLens = i;
+            };
+            if (columns[i] == "Focallength")
+            {
+                indexFocallength = i;
+            };
+            if (columns[i] == "HFOV")
+            {
+                indexHFOV = i;
+            };
+            if (columns[i] == "Weight")
+            {
+                indexWeight = i;
+            };
+        };
+        if (indexLens == -1)
+        {
+            std::cerr << "ERROR: Missing column \"Lens\"." << std::endl;
+            return false;
+        };
+        if (indexFocallength == -1)
+        {
+            std::cerr << "ERROR: Missing column \"Focallength\"." << std::endl;
+            return false;
+        };
+        if (indexHFOV == -1)
+        {
+            std::cerr << "ERROR: Missing column \"HFOV\"." << std::endl;
+            return false;
+        };
+        if (indexWeight == -1)
+        {
+            std::cerr << "ERROR: Missing column \"Weight\"." << std::endl;
+            return false;
+        };
+        if (input.eof())
+        {
+            return false;
+        };
+        std::getline(input, s);
+        while (!input.eof())
+        {
+            if (s == "ENDTABLE")
+            {
+                return true;
+            }
+            std::vector<std::string> items = hugin_utils::SplitString(s, ";");
+            if (items.size() == columns.size())
+            {
+                //ignore lines with not matching count of items
+                double focallength;
+                double hfov;
+                int weight;
+                bool valid = hugin_utils::stringToDouble(items[indexFocallength], focallength);
+                valid &= hugin_utils::stringToDouble(items[indexHFOV], hfov);
+                valid &= hugin_utils::stringToInt(items[indexWeight], weight);
+                if (valid)
+                {
+                    SaveHFOV(items[indexLens], focallength, hfov, weight);
+                };
+            };
+            std::getline(input, s);
+        };
+        return false;
+    };
+    // import crop values from stream
+    bool ImportLensCrop(std::istream& input)
+    {
+        std::string s;
+        std::getline(input, s);
+        // first line should contains the column list
+        if (s.compare(0, 8, "COLUMNS=") != 0)
+        {
+            return false;
+        };
+        std::vector<std::string> columns = hugin_utils::SplitString(s.substr(8), ";");
+        size_t indexLens = -1;
+        size_t indexFocallength = -1;
+        size_t indexWidth = -1;
+        size_t indexHeight = -1;
+        size_t indexCropLeft = -1;
+        size_t indexCropRight = -1;
+        size_t indexCropTop = -1;
+        size_t indexCropBottom = -1;
+        for (size_t i = 0; i < columns.size(); ++i)
+        {
+            if (columns[i] == "Lens")
+            {
+                indexLens = i;
+            };
+            if (columns[i] == "Focallength")
+            {
+                indexFocallength = i;
+            };
+            if (columns[i] == "Width")
+            {
+                indexWidth = i;
+            };
+            if (columns[i] == "Height")
+            {
+                indexHeight = i;
+            };
+            if (columns[i] == "CropLeft")
+            {
+                indexCropLeft = i;
+            };
+            if (columns[i] == "CropRight")
+            {
+                indexCropRight = i;
+            };
+            if (columns[i] == "CropTop")
+            {
+                indexCropTop = i;
+            };
+            if (columns[i] == "CropBottom")
+            {
+                indexCropBottom = i;
+            };
+        };
+        if (indexLens == -1)
+        {
+            std::cerr << "ERROR: Missing column \"Lens\"." << std::endl;
+            return false;
+        };
+        if (indexFocallength == -1)
+        {
+            std::cerr << "ERROR: Missing column \"Focallength\"." << std::endl;
+            return false;
+        };
+        if (indexWidth == -1)
+        {
+            std::cerr << "ERROR: Missing column \"Width\"." << std::endl;
+            return false;
+        };
+        if (indexHeight == -1)
+        {
+            std::cerr << "ERROR: Missing column \"Height\"." << std::endl;
+            return false;
+        };
+        if (indexCropLeft == -1)
+        {
+            std::cerr << "ERROR: Missing column \"CropLeft\"." << std::endl;
+            return false;
+        };
+        if (indexCropRight == -1)
+        {
+            std::cerr << "ERROR: Missing column \"CropRight\"." << std::endl;
+            return false;
+        };
+        if (indexCropTop == -1)
+        {
+            std::cerr << "ERROR: Missing column \"CropTop\"." << std::endl;
+            return false;
+        };
+        if (indexCropBottom == -1)
+        {
+            std::cerr << "ERROR: Missing column \"CropBottom\"." << std::endl;
+            return false;
+        };
+        if (input.eof())
+        {
+            return false;
+        };
+        std::getline(input, s);
+        while (!input.eof())
+        {
+            if (s == "ENDTABLE")
+            {
+                return true;
+            }
+            std::vector<std::string> items = hugin_utils::SplitString(s, ";");
+            if (items.size() == columns.size())
+            {
+                //ignore lines with not matching count of items
+                double focallength;
+                int width, height, cropLeft, cropRight, cropTop, cropBottom;
+                bool valid = hugin_utils::stringToDouble(items[indexFocallength], focallength);
+                valid &= hugin_utils::stringToInt(items[indexWidth], width);
+                valid &= hugin_utils::stringToInt(items[indexHeight], height);
+                valid &= hugin_utils::stringToInt(items[indexCropLeft], cropLeft);
+                valid &= hugin_utils::stringToInt(items[indexCropRight], cropRight);
+                valid &= hugin_utils::stringToInt(items[indexCropTop], cropTop);
+                valid &= hugin_utils::stringToInt(items[indexCropBottom], cropBottom);
+                if (valid)
+                {
+                    SaveLensCrop(items[indexLens], focallength, width, height, cropLeft, cropRight, cropTop, cropBottom);
+                };
+            };
+            std::getline(input, s);
+        };
+        return false;
+    };
+    // import distortion values from stream
+    bool ImportDistortion(std::istream& input)
+    {
+        std::string s;
+        std::getline(input, s);
+        // first line should contains the column list
+        if (s.compare(0, 8, "COLUMNS=") != 0)
+        {
+            return false;
+        };
+        std::vector<std::string> columns = hugin_utils::SplitString(s.substr(8), ";");
+        size_t indexLens = -1;
+        size_t indexFocallength = -1;
+        size_t indexA = -1;
+        size_t indexB = -1;
+        size_t indexC = -1;
+        size_t indexWeight = -1;
+        for (size_t i = 0; i < columns.size(); ++i)
+        {
+            if (columns[i] == "Lens")
+            {
+                indexLens = i;
+            };
+            if (columns[i] == "Focallength")
+            {
+                indexFocallength = i;
+            };
+            if (columns[i] == "a")
+            {
+                indexA = i;
+            };
+            if (columns[i] == "b")
+            {
+                indexB = i;
+            };
+            if (columns[i] == "c")
+            {
+                indexC = i;
+            };
+            if (columns[i] == "Weight")
+            {
+                indexWeight = i;
+            };
+        };
+        if (indexLens == -1)
+        {
+            std::cerr << "ERROR: Missing column \"Lens\"." << std::endl;
+            return false;
+        };
+        if (indexFocallength == -1)
+        {
+            std::cerr << "ERROR: Missing column \"Focallength\"." << std::endl;
+            return false;
+        };
+        if (indexA == -1)
+        {
+            std::cerr << "ERROR: Missing column \"a\"." << std::endl;
+            return false;
+        };
+        if (indexB == -1)
+        {
+            std::cerr << "ERROR: Missing column \"b\"." << std::endl;
+            return false;
+        };
+        if (indexC == -1)
+        {
+            std::cerr << "ERROR: Missing column \"c\"." << std::endl;
+            return false;
+        };
+        if (indexWeight == -1)
+        {
+            std::cerr << "ERROR: Missing column \"Weight\"." << std::endl;
+            return false;
+        };
+        if (input.eof())
+        {
+            return false;
+        };
+        std::getline(input, s);
+        while (!input.eof())
+        {
+            if (s == "ENDTABLE")
+            {
+                return true;
+            }
+            std::vector<std::string> items = hugin_utils::SplitString(s, ";");
+            if (items.size() == columns.size())
+            {
+                //ignore lines with not matching count of items
+                double focallength, a, b, c;
+                int weight;
+                bool valid = hugin_utils::stringToDouble(items[indexFocallength], focallength);
+                valid &= hugin_utils::stringToDouble(items[indexA], a);
+                valid &= hugin_utils::stringToDouble(items[indexB], b);
+                valid &= hugin_utils::stringToDouble(items[indexC], c);
+                valid &= hugin_utils::stringToInt(items[indexWeight], weight);
+                if (valid)
+                {
+                    SaveDistortion(items[indexLens], focallength, a, b, c, weight);
+                };
+            };
+            std::getline(input, s);
+        };
+        return false;
+    };
+    // import vignetting values from stream
+    bool ImportVignetting(std::istream& input)
+    {
+        std::string s;
+        std::getline(input, s);
+        // first line should contains the column list
+        if (s.compare(0, 8, "COLUMNS=") != 0)
+        {
+            return false;
+        };
+        std::vector<std::string> columns = hugin_utils::SplitString(s.substr(8), ";");
+        size_t indexLens = -1;
+        size_t indexFocallength = -1;
+        size_t indexAperture = -1;
+        size_t indexDistance = -1;
+        size_t indexVb = -1;
+        size_t indexVc = -1;
+        size_t indexVd = -1;
+        size_t indexWeight = -1;
+        for (size_t i = 0; i < columns.size(); ++i)
+        {
+            if (columns[i] == "Lens")
+            {
+                indexLens = i;
+            };
+            if (columns[i] == "Focallength")
+            {
+                indexFocallength = i;
+            };
+            if (columns[i] == "Aperture")
+            {
+                indexAperture = i;
+            };
+            if (columns[i] == "Distance")
+            {
+                indexDistance = i;
+            };
+            if (columns[i] == "Vb")
+            {
+                indexVb = i;
+            };
+            if (columns[i] == "Vc")
+            {
+                indexVc = i;
+            };
+            if (columns[i] == "Vd")
+            {
+                indexVd = i;
+            };
+            if (columns[i] == "Weight")
+            {
+                indexWeight = i;
+            };
+        };
+        if (indexLens == -1)
+        {
+            std::cerr << "ERROR: Missing column \"Lens\"." << std::endl;
+            return false;
+        };
+        if (indexFocallength == -1)
+        {
+            std::cerr << "ERROR: Missing column \"Focallength\"." << std::endl;
+            return false;
+        };
+        if (indexAperture == -1)
+        {
+            std::cerr << "ERROR: Missing column \"Aperture\"." << std::endl;
+            return false;
+        };
+        if (indexDistance == -1)
+        {
+            std::cerr << "ERROR: Missing column \"Distance\"." << std::endl;
+            return false;
+        };
+        if (indexVb == -1)
+        {
+            std::cerr << "ERROR: Missing column \"Vb\"." << std::endl;
+            return false;
+        };
+        if (indexVc == -1)
+        {
+            std::cerr << "ERROR: Missing column \"Vc\"." << std::endl;
+            return false;
+        };
+        if (indexVd == -1)
+        {
+            std::cerr << "ERROR: Missing column \"Vd\"." << std::endl;
+            return false;
+        };
+        if (indexWeight == -1)
+        {
+            std::cerr << "ERROR: Missing column \"Weight\"." << std::endl;
+            return false;
+        };
+        if (input.eof())
+        {
+            return false;
+        };
+        std::getline(input, s);
+        while (!input.eof())
+        {
+            if (s == "ENDTABLE")
+            {
+                return true;
+            }
+            std::vector<std::string> items = hugin_utils::SplitString(s, ";");
+            if (items.size() == columns.size())
+            {
+                //ignore lines with not matching count of items
+                double focallength, aperture, distance, Vb, Vc, Vd;
+                int weight;
+                bool valid = hugin_utils::stringToDouble(items[indexFocallength], focallength);
+                valid &= hugin_utils::stringToDouble(items[indexAperture], aperture);
+                valid &= hugin_utils::stringToDouble(items[indexDistance], distance);
+                valid &= hugin_utils::stringToDouble(items[indexVb], Vb);
+                valid &= hugin_utils::stringToDouble(items[indexVc], Vc);
+                valid &= hugin_utils::stringToDouble(items[indexVd], Vd);
+                valid &= hugin_utils::stringToInt(items[indexWeight], weight);
+                if (valid)
+                {
+                    SaveVignetting(items[indexLens], focallength, aperture, distance, Vb, Vc, Vd, weight);
+                };
+            };
+            std::getline(input, s);
+        };
+        return false;
+    };
+    // import tca values from stream
+    bool ImportTCA(std::istream& input)
+    {
+        std::string s;
+        std::getline(input, s);
+        // first line should contains the column list
+        if (s.compare(0, 8, "COLUMNS=") != 0)
+        {
+            return false;
+        };
+        std::vector<std::string> columns = hugin_utils::SplitString(s.substr(8), ";");
+        size_t indexLens = -1;
+        size_t indexFocallength = -1;
+        size_t indexRa = -1;
+        size_t indexRb = -1;
+        size_t indexRc = -1;
+        size_t indexRd = -1;
+        size_t indexBa = -1;
+        size_t indexBb = -1;
+        size_t indexBc = -1;
+        size_t indexBd = -1;
+        size_t indexWeight = -1;
+        for (size_t i = 0; i < columns.size(); ++i)
+        {
+            if (columns[i] == "Lens")
+            {
+                indexLens = i;
+            };
+            if (columns[i] == "Focallength")
+            {
+                indexFocallength = i;
+            };
+            if (columns[i] == "ra")
+            {
+                indexRa = i;
+            };
+            if (columns[i] == "rb")
+            {
+                indexRb = i;
+            };
+            if (columns[i] == "rc")
+            {
+                indexRc = i;
+            };
+            if (columns[i] == "rd")
+            {
+                indexRd = i;
+            };
+            if (columns[i] == "ba")
+            {
+                indexBa = i;
+            };
+            if (columns[i] == "bb")
+            {
+                indexBb = i;
+            };
+            if (columns[i] == "bc")
+            {
+                indexBc = i;
+            };
+            if (columns[i] == "bd")
+            {
+                indexBd = i;
+            };
+            if (columns[i] == "Weight")
+            {
+                indexWeight = i;
+            };
+        };
+        if (indexLens == -1)
+        {
+            std::cerr << "ERROR: Missing column \"Lens\"." << std::endl;
+            return false;
+        };
+        if (indexFocallength == -1)
+        {
+            std::cerr << "ERROR: Missing column \"Focallength\"." << std::endl;
+            return false;
+        };
+        if (indexRa == -1)
+        {
+            std::cerr << "ERROR: Missing column \"ra\"." << std::endl;
+            return false;
+        };
+        if (indexRb == -1)
+        {
+            std::cerr << "ERROR: Missing column \"rb\"." << std::endl;
+            return false;
+        };
+        if (indexRc == -1)
+        {
+            std::cerr << "ERROR: Missing column \"rc\"." << std::endl;
+            return false;
+        };
+        if (indexRd == -1)
+        {
+            std::cerr << "ERROR: Missing column \"rd\"." << std::endl;
+            return false;
+        };
+        if (indexBa == -1)
+        {
+            std::cerr << "ERROR: Missing column \"ba\"." << std::endl;
+            return false;
+        };
+        if (indexBb == -1)
+        {
+            std::cerr << "ERROR: Missing column \"bb\"." << std::endl;
+            return false;
+        };
+        if (indexBc == -1)
+        {
+            std::cerr << "ERROR: Missing column \"bc\"." << std::endl;
+            return false;
+        };
+        if (indexBd == -1)
+        {
+            std::cerr << "ERROR: Missing column \"bd\"." << std::endl;
+            return false;
+        };
+        if (indexWeight == -1)
+        {
+            std::cerr << "ERROR: Missing column \"Weight\"." << std::endl;
+            return false;
+        };
+        if (input.eof())
+        {
+            return false;
+        };
+        std::getline(input, s);
+        while (!input.eof())
+        {
+            if (s == "ENDTABLE")
+            {
+                return true;
+            }
+            std::vector<std::string> items = hugin_utils::SplitString(s, ";");
+            if (items.size() == columns.size())
+            {
+                //ignore lines with not matching count of items
+                double focallength, ra, rb, rc, rd, ba, bb, bc, bd;
+                int weight;
+                bool valid = hugin_utils::stringToDouble(items[indexFocallength], focallength);
+                valid &= hugin_utils::stringToDouble(items[indexRa], ra);
+                valid &= hugin_utils::stringToDouble(items[indexRb], rb);
+                valid &= hugin_utils::stringToDouble(items[indexRc], rc);
+                valid &= hugin_utils::stringToDouble(items[indexRd], rd);
+                valid &= hugin_utils::stringToDouble(items[indexBa], ba);
+                valid &= hugin_utils::stringToDouble(items[indexBb], bb);
+                valid &= hugin_utils::stringToDouble(items[indexBc], bc);
+                valid &= hugin_utils::stringToDouble(items[indexBd], bd);
+                valid &= hugin_utils::stringToInt(items[indexWeight], weight);
+                if (valid)
+                {
+                    SaveTCAData(items[indexLens], focallength, ra, rb, rc, rd, ba, bb, bc, bd, weight);
+                };
+            };
+            std::getline(input, s);
+        };
+        return false;
+    };
+    // import emor values from stream
+    bool ImportEMOR(std::istream& input)
+    {
+        std::string s;
+        std::getline(input, s);
+        // first line should contains the column list
+        if (s.compare(0, 8, "COLUMNS=") != 0)
+        {
+            return false;
+        };
+        std::vector<std::string> columns = hugin_utils::SplitString(s.substr(8), ";");
+        size_t indexMaker = -1;
+        size_t indexModel = -1;
+        size_t indexISO = -1;
+        size_t indexRa = -1;
+        size_t indexRb = -1;
+        size_t indexRc = -1;
+        size_t indexRd = -1;
+        size_t indexRe = -1;
+        size_t indexWeight = -1;
+        for (size_t i = 0; i < columns.size(); ++i)
+        {
+            if (columns[i] == "Maker")
+            {
+                indexMaker = i;
+            };
+            if (columns[i] == "Model")
+            {
+                indexModel = i;
+            };
+            if (columns[i] == "ISO")
+            {
+                indexISO = i;
+            };
+            if (columns[i] == "Ra")
+            {
+                indexRa = i;
+            };
+            if (columns[i] == "Rb")
+            {
+                indexRb = i;
+            };
+            if (columns[i] == "Rc")
+            {
+                indexRc = i;
+            };
+            if (columns[i] == "Rd")
+            {
+                indexRd = i;
+            };
+            if (columns[i] == "Re")
+            {
+                indexRe = i;
+            };
+            if (columns[i] == "Weight")
+            {
+                indexWeight = i;
+            };
+        };
+        if (indexMaker == -1)
+        {
+            std::cerr << "ERROR: Missing column \"Maker\"." << std::endl;
+            return false;
+        };
+        if (indexModel == -1)
+        {
+            std::cerr << "ERROR: Missing column \"Model\"." << std::endl;
+            return false;
+        };
+        if (indexISO == -1)
+        {
+            std::cerr << "ERROR: Missing column \"ISO\"." << std::endl;
+            return false;
+        };
+        if (indexRa == -1)
+        {
+            std::cerr << "ERROR: Missing column \"Ra\"." << std::endl;
+            return false;
+        };
+        if (indexRb == -1)
+        {
+            std::cerr << "ERROR: Missing column \"Rb\"." << std::endl;
+            return false;
+        };
+        if (indexRc == -1)
+        {
+            std::cerr << "ERROR: Missing column \"Rc\"." << std::endl;
+            return false;
+        };
+        if (indexRd == -1)
+        {
+            std::cerr << "ERROR: Missing column \"Rd\"." << std::endl;
+            return false;
+        };
+        if (indexRe == -1)
+        {
+            std::cerr << "ERROR: Missing column \"Re\"." << std::endl;
+            return false;
+        };
+        if (indexWeight == -1)
+        {
+            std::cerr << "ERROR: Missing column \"Weight\"." << std::endl;
+            return false;
+        };
+        if (input.eof())
+        {
+            return false;
+        };
+        std::getline(input, s);
+        while (!input.eof())
+        {
+            if (s == "ENDTABLE")
+            {
+                return true;
+            }
+            std::vector<std::string> items = hugin_utils::SplitString(s, ";");
+            if (items.size() == columns.size())
+            {
+                //ignore lines with not matching count of items
+                double Ra, Rb, Rc, Rd, Re;
+                int iso, weight;
+                bool valid = hugin_utils::stringToInt(items[indexISO], iso);
+                valid &= hugin_utils::stringToDouble(items[indexRa], Ra);
+                valid &= hugin_utils::stringToDouble(items[indexRb], Rb);
+                valid &= hugin_utils::stringToDouble(items[indexRc], Rc);
+                valid &= hugin_utils::stringToDouble(items[indexRd], Rd);
+                valid &= hugin_utils::stringToDouble(items[indexRe], Re);
+                valid &= hugin_utils::stringToInt(items[indexWeight], weight);
+                if (valid)
+                {
+                    SaveEMoR(items[indexMaker], items[indexModel], iso, Ra, Rb, Rc, Rd, Re, weight);
+                };
+            };
+            std::getline(input, s);
+        };
+        return false;
     };
 
     std::string m_filename;
@@ -1379,6 +2480,24 @@ bool LensDB::RemoveCamera(const std::string& maker, const std::string& model)
         return false;
     };
     return m_db->RemoveCamera(maker, model);
+};
+
+bool LensDB::ExportToFile(const std::string& filename)
+{
+    if (m_db == NULL)
+    {
+        return false;
+    };
+    return m_db->ExportToFile(filename);
+};
+
+bool LensDB::ImportFromFile(const std::string& filename)
+{
+    if (m_db == NULL)
+    {
+        return false;
+    };
+    return m_db->ImportFromFile(filename);
 };
 
 bool SaveLensDataFromPano(const HuginBase::Panorama& pano)

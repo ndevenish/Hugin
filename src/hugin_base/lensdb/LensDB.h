@@ -181,6 +181,10 @@ public:
     static LensDB& GetSingleton();
     /** cleanup the static LensDB instance, must be called at the end of the program */
     static void Clean();
+    /** export database to file */
+    bool ExportToFile(const std::string& filename);
+    /** import data from external file */
+    bool ImportFromFile(const std::string& filename);
 private:
     class Database;
     Database *m_db;

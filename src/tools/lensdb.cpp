@@ -149,6 +149,10 @@ static void usage(const char* name)
               << "             Removes given lens from the database." << std::endl
               << "        lensdb --remove-camera=MAKER|MODEL" << std::endl
               << "             Removes given camera from the database." << std::endl
+              << "        lensdb --export-database=FILENAME" << std::endl
+              << "             Export data from database to external file." << std::endl
+              << "        lensdb --import-from-file=FILENAME" << std::endl
+              << "             Import data from external file." << std::endl
               << std::endl;
 };
 
@@ -160,6 +164,8 @@ int main(int argc, char* argv[])
     {
         REMOVE_LENS=1000,
         REMOVE_CAM=1001,
+        EXPORT_DB=1002,
+        IMPORT_DB=1003,
     };
 
     static struct option longOptions[] =
@@ -169,6 +175,8 @@ int main(int argc, char* argv[])
         { "populate", no_argument, NULL, 'p' },
         { "remove-lens", required_argument, NULL, REMOVE_LENS },
         { "remove-camera", required_argument, NULL, REMOVE_CAM },
+        { "export-database", required_argument, NULL, EXPORT_DB },
+        { "import-from-file", required_argument, NULL, IMPORT_DB },
         { "help", no_argument, NULL, 'h' },
         0
     };
@@ -179,6 +187,8 @@ int main(int argc, char* argv[])
     std::string basepath;
     std::string lensToRemove;
     std::string camToRemove;
+    std::string exportDatabase;
+    std::string importDatabase;
     int c;
     int optionIndex = 0;
     while ((c = getopt_long (argc, argv, optstring, longOptions,&optionIndex)) != -1)
@@ -203,12 +213,24 @@ int main(int argc, char* argv[])
             case REMOVE_CAM:
                 camToRemove = hugin_utils::StrTrim(std::string(optarg));
                 break;
+            case EXPORT_DB:
+                exportDatabase = hugin_utils::StrTrim(std::string(optarg));
+                break;
+            case IMPORT_DB:
+                importDatabase = hugin_utils::StrTrim(std::string(optarg));
+                break;
             case '?':
                 break;
             default:
                 abort ();
         }
     }
+
+    if (!exportDatabase.empty() && !importDatabase.empty())
+    {
+        std::cerr << "ERROR: Export and import can not be done at the same time. " << std::endl;
+        return -1;
+    };
 
     if (populate)
     {
@@ -221,7 +243,7 @@ int main(int argc, char* argv[])
         basepath = argv[optind];
     };
 
-    if (!populate && !compress && lensToRemove.empty() && camToRemove.empty())
+    if (!populate && !compress && lensToRemove.empty() && camToRemove.empty() && exportDatabase.empty() && importDatabase.empty())
     {
         std::cout << "Lensdatabase file: " << HuginBase::LensDB::LensDB::GetSingleton().GetDBFilename() << std::endl;
         std::cout << "Nothing to do." << std::endl;
@@ -305,6 +327,32 @@ int main(int argc, char* argv[])
         {
             std::cout << "\"" << camToRemove << "\" is not a valid string for the camera." << std::endl
                 << "    Use syntax MAKER|MODEL (separate camera maker and model by |)" << std::endl;
+        };
+    };
+    // export database
+    if (!exportDatabase.empty())
+    {
+        std::cout << "Exporting database to \"" << exportDatabase << "\"..." << std::endl;
+        if (HuginBase::LensDB::LensDB::GetSingleton().ExportToFile(exportDatabase))
+        {
+            std::cout << "Successful." << std::endl;
+        }
+        else
+        {
+            std::cout << "FAILED." << std::endl;
+        };
+    };
+    // import database
+    if (!importDatabase.empty())
+    {
+        std::cout << "Importing data from \"" << importDatabase << "\"..." << std::endl;
+        if (HuginBase::LensDB::LensDB::GetSingleton().ImportFromFile(importDatabase))
+        {
+            std::cout << "Successful." << std::endl;
+        }
+        else
+        {
+            std::cout << "FAILED." << std::endl;
         };
     };
     HuginBase::LensDB::LensDB::Clean();
