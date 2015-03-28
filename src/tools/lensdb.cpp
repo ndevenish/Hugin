@@ -137,7 +137,7 @@ static void usage(const char* name)
     std::cout << name << ": tool for lens database maintenance" << std::endl
               << name << " version " << hugin_utils::GetHuginVersion() << std::endl
               << std::endl
-              << "Usage:  lensdb [--recrusive] --populate BASEPATH " << std::endl
+              << "Usage:  lensdb [--recursive] --populate BASEPATH " << std::endl
               << "             Populate database with information from all pto files" << std::endl
               << "             in given BASEPATH" << std::endl
               << "             With --recursive switch all subfolders will also be" << std::endl
