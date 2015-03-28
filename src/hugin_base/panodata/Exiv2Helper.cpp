@@ -146,7 +146,7 @@ namespace HuginBase
         {
             if(it!=exifData.end() && it->count())
             {
-                return it->toString();
+                return hugin_utils::StrTrim(it->toString());
             };
             return std::string("");
         };
@@ -156,7 +156,7 @@ namespace HuginBase
             std::string s;
             if(_getExiv2Value(exifData, keyName, s))
             {
-                return s;
+                return hugin_utils::StrTrim(s);
             }
             return std::string("");
         };
