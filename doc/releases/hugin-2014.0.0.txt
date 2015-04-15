@@ -1,0 +1,139 @@
+==========
+Hugin-2014.0 RELEASE NOTES
+
+ABOUT
+
+Hugin is more than just a panorama stitcher.
+
+Hugin can be found at
+* SourceForge:  http://hugin.sourceforge.net/
+* Launchpad:    https://launchpad.net/hugin
+
+
+DOWNLOAD
+
+The 2014.0 source tarball can be downloaded
+
+* from SourceForge at
+http://sourceforge.net/projects/hugin/files/hugin/hugin-2014.0/hugin-2014.0.0.tar.bz2/download
+
+* from Launchpad at
+https://launchpad.net/hugin/2014.0/2014.0.0/+download/hugin-2014.0.0.tar.bz2
+
+This is a source code release.  For executables see below.
+
+This tarball is equivalent to rev/changeset 483c40467492 in our Mercurial
+repository, where it is also tagged 2014.0.0
+
+Verify its SHA1SUM 7b4ae181f664b9e0a68f55f298cdaa210fa09aa9  hugin-2014.0.0.tar.bz2
+
+EXECUTABLES
+
+Users communities produce executables for their respective platforms.
+
+These executables are then added to the download section on SourceForge at
+http://sourceforge.net/projects/hugin/files/hugin/
+
+A number of users have built recent snapshots and executables are likely to be
+announced within a few days of this tarball release.
+
+Watch http://groups.google.com/group/hugin-ptx for the announcements of binary
+releases.  If you don't see a binary for your platform it has most likely not
+been produced yet.  Consider stepping up to the task.  Instructions at
+
+http://wiki.panotools.org/Development_of_Open_Source_tools#Supported_Platforms
+
+Announce your build on http://groups.google.com/group/hugin-ptx
+
+CHANGES SINCE 2014.0RC4
+    Updated Danish translation (Thomas Pryds)
+    icpfind: Fixes parsing of command line parameters [1276350]
+    [OSX] changes to xcode4 project and redefinition of an include in treelistctr
+
+CHANGES SINCE 2014.0RC3
+    Fixed typo in last commit (grafted from
+    More fixes for crash when loading multiple images in assistant
+
+CHANGES SINCE 2014.0RC2
+    Fix for wxCode::wxTreeListCtrl to compile with wx 2.8 again
+    Updated wxCode::wxTreeListCtrl
+    Fixes crash when loading multiple images in assistant [1316702]
+
+CHANGES SINCE 2014.0RC1
+    Fixes for Exiftool argfiles
+    Fixes for mask display
+    Update api-min for woa.py (grafted from
+
+CHANGES SINCE 2014.0beta1
+    python plugins functional again
+    Appdata added (to be used in GNOME Software Center)
+    Updates to Mac OS X builds and for MSVC2013 Windows builds
+    Many translations updated
+    Minor bugs fixed
+
+CHANGES SINCE 2013.0.0
+
+    inherit many of the libpano improvements (of version 2.9.19)
+    the translation plane variables Tpy and Tpp have been added to the GUI (better support for translation parameters, e.g. for nadir images. A pano with translation parameters can now be rotated)
+    improvement of the GPU remapping code (bug fixes in the glue code, added some missing GPU transformations. Now fisheye lenses are supported by GPU code as well)
+    better support for line control point in Control points tab (it still requires that the same image is displayed left and right for full features, but also better support for line control points above several images)
+    obsolete programs matchpoint, nona_gui and PTBatcher have been removed
+    outdated translations have been removed from the default install
+    initialize the colour balance values during loading with EXIF values (this information is only stored and decoded by some cameras (mainly models by Panasonic, Pentax, Olympus, Nikon))
+    improved the assistant
+    allow customization of exiftool command used to copy metadata to output images
+
+
+New tools added:
+
+    pto_mask: manipulate mask in project file
+    pto_template: apply template to project file
+    pto_move: move or copy project files with all associated images
+
+
+
+Other Improvements
+* Many more improvements and bug fixes.
+
+UPGRADING
+
+Upgrading from previous versions of Hugin should be seamless. If you do have
+problems with old settings, these can be reset in the Preferences by clicking
+'Load defaults'.
+
+It is strongly recommeded to set the default control point detector to
+Hugin's CPFind.  It is the only control point generator endorsed by Hugin.
+Third-party generators may be compatible with the plug-in architecture.
+
+
+COMPILING
+
+Users compiling from source refer to the dependencies listed at
+http://wiki.panotools.org/Development_of_Open_Source_tools#Dependencies
+
+and the build processes listed at
+http://wiki.panotools.org/Development_of_Open_Source_tools#Build_your_Own_Test_Builds
+
+More information in the README and INSTALL_cmake files in the tarball.
+
+
+KNOWN ISSUES AND WORKAROUNDS
+
+There is a known problem building Hugin with CMake 2.8.5rc2.
+Workaround: Upgrade to a newer CMake version.
+
+An updated list of issues deemed to be critical, including discussions
+and workarounds is in the issue tracker.
+https://bugs.launchpad.net/hugin/+bugs?search=Search&field.importance=Critical
+
+
+THANKS
+Thanks to all the contributors to this release and members of the hugin-ptx
+mailing list, too many to mention here.
+
+Hugin can be found at http://hugin.sourceforge.net/ and at https://launchpad.net/hugin
+
+
+CHANGELOG
+
+A detailed complete changelog can be found in the file Changelog.
