@@ -168,7 +168,7 @@ bool LoadAndMergeImages(std::vector<vigra::ImageImportInfo> imageInfos, const st
 /** prints help screen */
 static void usage(const char* name)
 {
-    std::cout << name << ": stitch images using watershed algorithm" << std::endl
+    std::cout << name << ": blend images using watershed algorithm" << std::endl
         << name << " version " << hugin_utils::GetHuginVersion() << std::endl
         << std::endl
         << "Usage:  " << name << " [options] images" << std::endl
