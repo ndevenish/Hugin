@@ -36,16 +36,15 @@
 </pre>
 <p>If you don't need the project file after stitching it can be deleted automatic at the end of the stitching with the switch <code>--delete</code>.
 </p><p><b>Hugin_stitch_project</b> checks for the existence of the generated files and ask for confirmation for overwriting these files. This confirmation can be suppressed by supplying the switch <code>/w</code> or <code>--overwrite</code> on the command line.
-</p><p>Internal it creates a temporary makefile for stitching and executes the makefile with make. If you need this functionality without a GUI you can use the following commands on the command line
+</p><p>If you want to stitch from the command line without a GUI you can use the following command:
 </p>
-<pre>    pto2mk -o makefile.mk -p prefix project.pto
-    make -f makefile.mk all
+<pre>    hugin_executor --prefix=prefix project.pto
 </pre>
-<p><b>Hugin_stitch_project</b> makes use of specified alternative programs for enblend and enfuse and their default command line switches. pto2mk<a class="external" href="http://wiki.panotools.org/Pto2mk">[*]</a> can not read the <a href="Hugin_Preferences.html" title="Hugin Preferences">Hugin Preferences</a> and does not use the specified alternative programs.
+<p><b>Hugin_stitch_project</b> and <a href="Hugin_executor.html" title="Hugin executor">Hugin_executor</a> makes use of specified alternative programs for enblend and enfuse and their default command line switches as specified in <a href="Hugin_Preferences.html" title="Hugin Preferences">Hugin Preferences</a>.
 </p>
 
 
 
 </div>								<div class="printfooter">
-				Retrieved from "http://wiki.panotools.org/index.php?title=Hugin_stitch_project&amp;oldid=13556<a class="external" href="http://wiki.panotools.org/index.php?title=Hugin_stitch_project&amp;oldid=13556">[*]</a>"				</div>
+				Retrieved from "http://wiki.panotools.org/index.php?title=Hugin_stitch_project&amp;oldid=15696<a class="external" href="http://wiki.panotools.org/index.php?title=Hugin_stitch_project&amp;oldid=15696">[*]</a>"				</div>
 												</div></div></body></html>

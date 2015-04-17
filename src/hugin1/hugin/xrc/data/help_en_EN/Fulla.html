@@ -59,51 +59,121 @@
 <p>fulla can work with the same range of image types as <a href="Nona.html" title="Nona">nona</a>, including 8bit and 16bit <a href="TIFF.html" title="TIFF">TIFF</a> and 32bit floating-point <a href="HDR.html" title="HDR">HDR</a> TIFF data.
 </p>
 <h2><span class="mw-headline" id="Command-line_usage">Command-line usage</span></h2>
-<pre> Usage: fulla [options] inputfile(s)
-  option are:
-     --green=db|a:b:c:d  Correct radial distortion for all channels
-                           Specifiy 'db' for database lookup or
-                           the 4 coefficients a:b:c:d
-     --blue=db|a:b:c:d   Correct radial distortion for blue channel,
-                           this is applied on top of the --green
-                           distortion coefficients, use for TCA corr
-                           Specifiy 'db' for database lookup or
-                           the 4 coefficients a:b:c:d
-     --red=db|a:b:c:d    Correct radial distortion for red channel,
-                           this is applied on top of the --green
-                           distortion coefficients, use for TCA corr
-                           Specifiy 'db' for database lookup or
-                           the 4 coefficients a:b:c:d
-     --camera-maker=Maker Camera manufacturer, for database query
-     --camera-model=Cam Camera name, for database query
-     --lensname=Lens    Lens name, for database query
-                           Specify --camera-maker and --camera-model
-                           for fixed lens cameras or --lensname
-                           for interchangeable lenses.
-     --focallength=50   Specify focal length in mm, for database query
-     --aperture=3.5     Specify aperture for vignetting data database query
-     --dont-rescale     Do not rescale the image to avoid black borders.
-     
-     --flatfield=filename  Vignetting correction by flatfield division
-                             I = I / c, c = flatfield / mean(flatfield)
-     --vignetting=db|a:b:c:d  Correct vignetting (by division)
-                           Specify db for database look up or the
-                           the 4 coefficients a:b:c:d
-                             I = I / ( a + b*r^2 + c*r^4 + d*r^6)
-     --linear           Do vignetting correction in linear color space
-     --gamma=value      Gamma of input data. used for gamma correction
-                          before and after flatfield correction
-     --threads=n        Number of threads that should be used
-     --help             Display help (this text)
-     --output=name      Set output filename. If more than one image is given,
-                           the name will be uses as suffix
-                           (default suffix: _corr)
-     --compression=value Compression of the output files
-                           For jpeg output: 0-100
-                           For tiff output: PACKBITS, DEFLATE, LZW
-     --offset=X:Y       Horizontal and vertical shift
-     --verbose          Verbose
+<p>Usage: 
+</p>
+<pre>  fulla [options] inputfile(s)
 </pre>
+<p><br />
+The following options can be specified:
+</p>
+<ul>
+<li> <tt>--green=db|a:b:c:d</tt> or <tt>-g db|a:b:c:d</tt>
+</li>
+</ul>
+<p>Correct radial distortion for all channels. Specify 'db' for database lookup or the 4 coefficients a:b:c:d.
+</p>
+<ul>
+<li> <tt>--blue=db|a:b:c:d</tt> or <tt>-b db|a:b:c:d</tt>
+</li>
+</ul>
+<p>Correct radial distortion for blue channel, this is applied on top of the <tt>--green</tt> distortion coefficients, use for TCA corr. Specify 'db' for database lookup or the 4 coefficients a:b:c:d.
+</p>
+<ul>
+<li> <tt>--red=db|a:b:c:d</tt> or <tt>-r db|a:b:c:d</tt>
+</li>
+</ul>
+<p>Correct radial distortion for red channel, this is applied on top of the <tt>--green</tt> distortion coefficients, use for TCA corr. Specify 'db' for database lookup or the 4 coefficients a:b:c:d
+</p>
+<ul>
+<li> <tt>--camera-maker=Maker</tt> or <tt>-m Maker</tt>
+</li>
+</ul>
+<p>Camera manufacturer, for database query
+</p>
+<ul>
+<li> <tt>--camera-model=Cam</tt> or <tt>-n Model</tt>
+</li>
+</ul>
+<p>Camera name, for database query
+</p>
+<ul>
+<li> <tt>--lensname=Lens</tt> or <tt>-l Lens</tt>
+</li>
+</ul>
+<p>Lens name, for database query. Specify <tt>--camera-maker</tt> and <tt>--camera-model</tt> for fixed lens cameras or <tt>--lensname</tt> for interchangeable lenses.
+</p>
+<ul>
+<li> <tt>--focallength=50</tt> or <tt>-d 50</tt>
+</li>
+</ul>
+<p>Specify focal length in mm, for database query
+</p>
+<ul>
+<li> <tt>--aperture=3.5</tt> or <tt>-a 3.5</tt>
+</li>
+</ul>
+<p>Specify aperture for vignetting data database query
+</p>
+<ul>
+<li> <tt>--dont-rescale</tt> or <tt>-s</tt>
+</li>
+</ul>
+<p>Do not rescale the image to avoid black borders.
+</p>
+<ul>
+<li> <tt>--flatfield=filename</tt> or <tt>-f filename</tt>
+</li>
+</ul>
+<p>Vignetting correction by flatfield division: I = I / c, c = flatfield / mean(flatfield)
+</p>
+<ul>
+<li> <tt>--vignetting=db|a:b:c:d</tt> or <tt>-c db|a:b:c:d</tt>
+</li>
+</ul>
+<p>Correct vignetting (by division). Specify db for database look up or the the 4 coefficients a:b:c:d: I = I / ( a + b*r^2 + c*r^4 + d*r^6)
+</p>
+<ul>
+<li> <tt>--linear</tt>
+</li>
+</ul>
+<p>Do vignetting correction in linear color space
+</p>
+<ul>
+<li> <tt>--gamma=value</tt> or <tt>-i value</tt>
+</li>
+</ul>
+<p>Gamma of input data. used for gamma correction before and after flatfield correction
+</p>
+<ul>
+<li> <tt>--help</tt> or <tt>-h</tt>
+</li>
+</ul>
+<p>Display help
+</p>
+<ul>
+<li> <tt>--output=name</tt> or <tt>-o name</tt>
+</li>
+</ul>
+<p>Set output filename. If more than one image is given, the name will be uses as suffix (default suffix: _corr)
+</p>
+<ul>
+<li> <tt>--compression=value</tt> or <tt>-e value</tt>
+</li>
+</ul>
+<p>Compression of the output files. For jpeg output: 0-100, For tiff output: PACKBITS, DEFLATE, LZW
+</p>
+<ul>
+<li> <tt>--offset=X:Y</tt> or <tt>-x X:Y</tt>
+</li>
+</ul>
+<p>Horizontal and vertical shift
+</p>
+<ul>
+<li> <tt>--verbose</tt> or <tt>-v</tt>
+</li>
+</ul>
+<p>Verbose output
+</p>
 <h2><span class="mw-headline" id="Notes">Notes</span></h2>
 <p>Finding the correct lens correction parameters can be done using several approaches (see <a href="Lens_correction_model.html" title="Lens correction model">Lens correction model</a> and external links for details). Note parameter d for radial distortion (default 1.0) is not available in GUI frontends - the d mentioned in frontends is typically a different parameter related to image shift.
 </p>
@@ -145,5 +215,5 @@ for batch correcting photos like so:
 
 
 </div>								<div class="printfooter">
-				Retrieved from "http://wiki.panotools.org/index.php?title=Fulla&amp;oldid=15622<a class="external" href="http://wiki.panotools.org/index.php?title=Fulla&amp;oldid=15622">[*]</a>"				</div>
+				Retrieved from "http://wiki.panotools.org/index.php?title=Fulla&amp;oldid=15710<a class="external" href="http://wiki.panotools.org/index.php?title=Fulla&amp;oldid=15710">[*]</a>"				</div>
 												</div></div></body></html>

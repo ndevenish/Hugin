@@ -30,7 +30,7 @@
 								<div id="siteSub">From PanoTools.org Wiki</div>
 								
 												
-				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><b>lensdb</b> is a maintenance tools for Hugins camera and lens database.
+				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><b>lensdb</b> is a maintenance tool for Hugins camera and lens database.
 </p><p>The database is automatically filled when stitching a project file from Hugin. Entries can also manually added from <a href="Hugin.html" title="Hugin">Hugin</a> and <a href="Calibrate_lens_gui.html" title="Calibrate lens gui">calibrate_lens_gui</a>.
 </p><p>The information are used when adding image files to a project. Distortion and vignetting data can also manually loaded inside Hugin.
 </p>
@@ -43,9 +43,28 @@
 </pre>
 <p>Compresses the database by replacing all single entries with the average values.
 </p>
+<h2><span class="mw-headline" id="Database_maintenance">Database maintenance</span></h2>
+<p><b>lensdb</b> provides also some functions to maintain the database. Use these functions with responsibility.
+</p>
+<pre> lensdb --export-database=FILENAME
+</pre>
+<p>Exports all entries of the database into the given (text) file.
+</p>
+<pre> lensdb --import-from-file=FILENAME
+</pre>
+<p>Import the entries of the given (text) file into the existing database.
+</p>
+<pre> lensdb --remove-lens=LENS
+</pre>
+<p>Removes all entries for the given lens from the database. For cameras with fixed lens use <tt>MAKER|MODEL</tt> as search string.
+</p>
+<pre> lensdb --remove-camera=MAKER|MODEL
+</pre>
+<p>Removes all entries for the given camera from the database.
+</p>
 
 
 
 </div>								<div class="printfooter">
-				Retrieved from "http://wiki.panotools.org/index.php?title=Lensdb&amp;oldid=15618<a class="external" href="http://wiki.panotools.org/index.php?title=Lensdb&amp;oldid=15618">[*]</a>"				</div>
+				Retrieved from "http://wiki.panotools.org/index.php?title=Lensdb&amp;oldid=15712<a class="external" href="http://wiki.panotools.org/index.php?title=Lensdb&amp;oldid=15712">[*]</a>"				</div>
 												</div></div></body></html>
