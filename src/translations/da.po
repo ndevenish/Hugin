@@ -1,13 +1,13 @@
 # Danish translation for hugin package.
 # Copyright (C) 2004 Pablo dAngelo
 # This file is distributed under the same license as the hugin package.
-# Thomas Pryds <thomas@pryds.eu>, 2011, 2012, 2013, 2014.
+# Thomas Pryds <thomas@pryds.eu>, 2011, 2012, 2013, 2014, 2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: da\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2015-04-17 17:31+0200\n"
-"PO-Revision-Date: 2014-08-30 17:00+0200\n"
+"PO-Revision-Date: 2015-04-26 15:32+0200\n"
 "Last-Translator: Thomas Pryds <thomas@pryds.eu>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -18,34 +18,28 @@ msgstr ""
 "X-Generator: Lokalize 1.5\n"
 
 #: hugin1/base_wx/AssistantExecutor.cpp:71
-#, fuzzy
 msgid "Searching for control points..."
-msgstr "Søger efter kontrolpunkter"
+msgstr "Søger efter kontrolpunkter …"
 
 #: hugin1/base_wx/AssistantExecutor.cpp:83
-#, fuzzy
 msgid "Removing control points in clouds..."
-msgstr "Fjern kontrolpunkter i skyer"
+msgstr "Fjerner kontrolpunkter i skyer …"
 
 #: hugin1/base_wx/AssistantExecutor.cpp:89
-#, fuzzy
 msgid "Statistically cleaning of control points..."
-msgstr "Rydder kontrolpunkter"
+msgstr "Statistisk oprydning i kontrolpunkter …"
 
 #: hugin1/base_wx/AssistantExecutor.cpp:107
-#, fuzzy
 msgid "Searching for vertical lines..."
-msgstr "Detektér lodrette linier"
+msgstr "Søger efter lodrette linier …"
 
 #: hugin1/base_wx/AssistantExecutor.cpp:113
-#, fuzzy
 msgid "Optimizing..."
-msgstr "Optimér"
+msgstr "Optimerer …"
 
 #: hugin1/base_wx/AssistantExecutor.cpp:122
-#, fuzzy
 msgid "Searching for best crop..."
-msgstr "søger efter cloud-like kontrolpunkter..."
+msgstr "Søger efter bedste beskæring …"
 
 #: hugin1/base_wx/Executor.cpp:132 hugin1/base_wx/platform.cpp:131
 #: hugin1/hugin/MainFrame.cpp:1479 hugin1/hugin/MainFrame.cpp:2131
@@ -57,21 +51,23 @@ msgstr ""
 "systemsti"
 
 #: hugin1/base_wx/Executor.cpp:155 hugin1/base_wx/Executor.cpp:207
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "WARNING: External program %s not found as specified in preferences, "
 "reverting to bundled version"
 msgstr ""
-"Eksternt program %s blev ikke fundet som angivet i indstillingerne; bruger i "
+"ADVARSEL: Eksternt program %s blev ikke fundet som angivet i indstillingerne; "
+"bruger i "
 "stedet versionen i programpakken"
 
 #: hugin1/base_wx/Executor.cpp:168 hugin1/base_wx/Executor.cpp:179
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "WARNING: External program %s not found in the bundle, reverting to system "
 "path"
 msgstr ""
-"Eksternt program %s blev ikke fundet i programpakken; bruger i stedet "
+"ADVARSEL: Eksternt program %s blev ikke fundet i programpakken; bruger i "
+"stedet "
 "systemsti"
 
 #: hugin1/base_wx/HFOVDialog.cpp:76
@@ -244,6 +240,10 @@ msgid ""
 "This will result in unwanted results.\n"
 "Please check and correct this before proceeding."
 msgstr ""
+"Dette projekt indeholder stakke med sammenkædede positioner. Men "
+"objektivparametrene er ikke sammenkædede for disse billeder.\n"
+"Dette vil give uønskede resultater.\n"
+"Tjek og ret venligst dette før du fortsætter."
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:124
 #, c-format
@@ -273,28 +273,24 @@ msgid "Cancel"
 msgstr "Annullér"
 
 #: hugin1/base_wx/MyProgressDialog.cpp:35
-#, fuzzy
 msgid "Sampling points"
-msgstr "Søger efter kontrolpunkter"
+msgstr "Prøvepunkter"
 
 #: hugin1/base_wx/MyProgressDialog.cpp:36
-#, fuzzy
 msgid "Loading image:"
-msgstr "Indlæser billeder"
+msgstr "Indlæser billede:"
 
 #: hugin1/base_wx/MyProgressDialog.cpp:37
-#, fuzzy
 msgid "Scaling image:"
-msgstr "Indlæser billeder"
+msgstr "Skalerer billede:"
 
 #: hugin1/base_wx/MyProgressDialog.cpp:38
 msgid "sampling points"
-msgstr ""
+msgstr "prøvepunkter"
 
 #: hugin1/base_wx/MyProgressDialog.cpp:39
-#, fuzzy
 msgid "extracting good points"
-msgstr "Søger efter kontrolpunkter"
+msgstr "udtrækker gode punkter"
 
 #: hugin1/base_wx/MyProgressDialog.cpp:40
 msgid "Elapsed time : "
@@ -318,7 +314,7 @@ msgstr "kunne ikke åbne script: %s"
 #: hugin1/base_wx/RunStitchPanel.cpp:125
 #, c-format
 msgid "Project %s does not contain any active images."
-msgstr ""
+msgstr "Projekt %s indeholder ingen aktive billeder."
 
 #: hugin1/base_wx/RunStitchPanel.cpp:141 hugin1/base_wx/RunStitchPanel.cpp:260
 #: hugin1/ptbatcher/ProjectArray.cpp:128
@@ -332,7 +328,7 @@ msgstr "Kunne ikke oprette midlertidig fil"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:194 hugin1/base_wx/RunStitchPanel.cpp:282
 msgid "Queue is empty. This should never happen."
-msgstr ""
+msgstr "Køen er tom. Dette burde aldrig ske."
 
 #: hugin1/base_wx/RunStitchPanel.cpp:194 hugin1/base_wx/RunStitchPanel.cpp:228
 #: hugin1/base_wx/RunStitchPanel.cpp:234
@@ -376,93 +372,84 @@ msgstr ""
 "%s"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:208
-#, fuzzy
 msgid "Stitching panorama..."
-msgstr "Sammenføjer panorama"
+msgstr "Sammenføjer panorama …"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:211
 msgid "Platform:"
-msgstr ""
+msgstr "Platform:"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:212
-#, fuzzy
 msgid "Version:"
-msgstr "Version: %s"
+msgstr "Version:"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:213
-#, fuzzy
 msgid "Working directory:"
-msgstr "mappe"
+msgstr "Arbejdsmappe:"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:214
-#, fuzzy
 msgid "Output prefix:"
-msgstr "Outputpræfiks"
+msgstr "Outputpræfiks:"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:226
 #: hugin1/base_wx/StitchingExecutor.cpp:230
 #: hugin1/base_wx/StitchingExecutor.cpp:235 translations/xrc.cpp:51
 #: translations/xrc.cpp:615
 msgid "Blender:"
-msgstr "Bløde overgange:"
+msgstr "Blander:"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:230
 msgid "Unknown blender (enblend --version failed)"
-msgstr ""
+msgstr "Ukendt blander (enblend --version mislykkedes)"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:235
-#, fuzzy
 msgid "internal"
-msgstr "Intern fejl"
+msgstr "intern"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:244
 #: hugin1/base_wx/StitchingExecutor.cpp:248
-#, fuzzy
 msgid "Exposure fusion:"
-msgstr "Eksponering"
+msgstr "Eksponeringsfusion:"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:248
 msgid "Unknown exposure fusion (enfuse --version failed)"
-msgstr ""
+msgstr "Ukendt eksponeringsfusion (enfuse --version mislykkedes)"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:256
-#, fuzzy
 msgid "ExifTool version:"
-msgstr "ExifTool-valgmuligheder"
+msgstr "ExifTool-version:"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:261
-#, fuzzy
 msgid "ExifTool:"
-msgstr "ExifTool-valgmuligheder"
+msgstr "ExifTool:"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:261
 msgid "FAILED"
-msgstr ""
+msgstr "MISLYKKEDES"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:267
-#, fuzzy
 msgid "Number of active images:"
-msgstr "Antal punkter pr. billede:"
+msgstr "Antal aktive billeder:"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:268
-#, fuzzy, c-format
+#, c-format
 msgid "Output exposure value: %.1f"
-msgstr "Output eksponeringslag %ld"
+msgstr "Værdi for output-eksponering: %.1f"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:269
-#, fuzzy, c-format
+#, c-format
 msgid "Canvas size: %ldx%ld"
-msgstr "Lærredstørrelse:"
+msgstr "Lærredstørrelse: %ldx%ld"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:270
 #, c-format
 msgid "ROI: (%ld, %ld) - (%ld, %ld)"
-msgstr ""
+msgstr "Interesseregion: (%ld, %ld) - (%ld, %ld)"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:271
 #, c-format
 msgid "FOV: %.0fx%.0f"
-msgstr ""
+msgstr "FOV: %.0fx%.0f"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:277
 #: hugin1/base_wx/StitchingExecutor.cpp:283
@@ -471,17 +458,16 @@ msgid "Projection:"
 msgstr "Projektion:"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:286
-#, fuzzy
 msgid "Using GPU for remapping:"
-msgstr "Brug GPU for remapping (EKSPERIMENTEL)"
+msgstr "Bruger GPU til remapping:"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:286
 msgid "true"
-msgstr ""
+msgstr "sand"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:286
 msgid "false"
-msgstr ""
+msgstr "falsk"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:290 translations/xrc.cpp:576
 msgid "Panorama Outputs:"
@@ -511,7 +497,6 @@ msgid "High dynamic range"
 msgstr "High Dynamic Range"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:311
-#, fuzzy
 msgid "Remapped Images :"
 msgstr "Remappede billeder:"
 
@@ -538,14 +523,12 @@ msgstr ""
 "uden eksponeringskorrektion"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:346
-#, fuzzy
 msgid "First input image"
-msgstr "første billede"
+msgstr "Første inputbillede"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:347
-#, fuzzy
 msgid "Number:"
-msgstr "Antal CPUer:"
+msgstr "Antal:"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:348
 msgid "Filename:"
@@ -554,85 +537,80 @@ msgstr "Filnavn:"
 #: hugin1/base_wx/StitchingExecutor.cpp:349
 #, c-format
 msgid "Size: %ldx%ld"
-msgstr ""
+msgstr "Størrelse: %ldx%ld"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:351
-#, fuzzy
 msgid "Response type:"
-msgstr "Responstype"
+msgstr "Responstype:"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:352
 #, c-format
 msgid "HFOV: %.0f"
-msgstr ""
+msgstr "HFOV: %.0f"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:353
-#, fuzzy, c-format
+#, c-format
 msgid "Exposure value: %.1f"
-msgstr "Eksponeringsværdi (Eev)"
+msgstr "Eksponeringsværdi: %.1f"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:548
 msgid "Remapping and blending LDR images..."
-msgstr ""
+msgstr "Remapper og blander LDR-billeder …"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:559
-#, fuzzy
 msgid "Remapping LDR images..."
-msgstr "Remappede billeder:"
+msgstr "Remapper LDR-billeder …"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:569
-#, fuzzy
 msgid "Blending images..."
-msgstr "Tilføj billeder..."
+msgstr "Blander billeder …"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:612
 msgid "Remapping LDR images and blending exposure layers..."
-msgstr ""
+msgstr "Remapper LDR-billeder og blander eksponeringslag …"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:630
-#, fuzzy
 msgid "Remapping LDR images without exposure correction..."
-msgstr "Remap billede til panoramaprojektion …"
+msgstr "Remapper LDR-billeder uden eksponeringskorrektion …"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:651
 #: hugin1/base_wx/StitchingExecutor.cpp:656
-#, fuzzy, c-format
+#, c-format
 msgid "Blending exposure layer %u..."
-msgstr "Output eksponeringslag %ld"
+msgstr "Blander eksponeringslag %u …"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:677
 msgid "Fusing all exposure layers..."
-msgstr ""
+msgstr "Fusionerer alle eksponeringslag …"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:698
-#, fuzzy, c-format
+#, c-format
 msgid "Fusing stack number %u..."
-msgstr "Tildelte staknummer"
+msgstr "Fusionerer stak nummer %u …"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:719
 #: hugin1/base_wx/StitchingExecutor.cpp:728
 msgid "Blending all stacks..."
-msgstr ""
+msgstr "Blander alle stakke …"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:745
-#, fuzzy
 msgid "Remapping HDR images..."
-msgstr "Remappede billeder:"
+msgstr "Remapper HDR-billeder …"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:767
-#, fuzzy, c-format
+#, c-format
 msgid "Merging hdr stack number %u..."
-msgstr "Tildelte staknummer"
+msgstr "Kombinerer hdr-stak nummer %u …"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:782
 #: hugin1/base_wx/StitchingExecutor.cpp:786
 msgid "Blending hdr stacks..."
-msgstr ""
+msgstr "Blander hdr-stakke …"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:803
 #: hugin1/base_wx/StitchingExecutor.cpp:809
 msgid "Updating metadata..."
-msgstr ""
+msgstr "Opdaterer metadata …"
 
 #: hugin1/base_wx/huginConfig.cpp:37
 msgid "first image"
@@ -700,7 +678,7 @@ msgstr ""
 #: hugin1/base_wx/platform.cpp:487
 #, c-format
 msgid "Debug report generated in \"%s\"."
-msgstr ""
+msgstr "Fejlretningsrapport genereret i \"%s\"."
 
 #: hugin1/base_wx/platform.h:43
 msgid ""
@@ -784,6 +762,9 @@ msgid ""
 "Hugin does not support this image type. Skipping this image.\n"
 "Convert image to grayscale image and try loading again."
 msgstr ""
+"Fil \"%s\" er et sort/hvidt billede.\n"
+"Hugin understøtter ikke denne billedtype. Springer dette billede over.\n"
+"Omdan billede til et gråskalabillede og prøv at indlæse det igen."
 
 #: hugin1/base_wx/wxPanoCommand.cpp:463
 msgid ""
@@ -1044,36 +1025,32 @@ msgid "Project files (*.pto)|*.pto|All files (*)|*"
 msgstr "Projektfiler (*.pto)|*.pto|Alle filer (*)|*"
 
 #: hugin1/executor/hugin_executor.cpp:179
-#, fuzzy
 msgid "Removing temporary files..."
-msgstr "rydder op i midlertidige nøglepunktfiler"
+msgstr "Fjerner midlertidige filer …"
 
 #: hugin1/executor/hugin_executor.cpp:197
 msgid "shows this help message"
-msgstr ""
+msgstr "viser denne hjælpebesked"
 
 #: hugin1/executor/hugin_executor.cpp:198
-#, fuzzy
 msgid "execute assistant"
-msgstr "Kører a&ssistent"
+msgstr "kør assistent"
 
 #: hugin1/executor/hugin_executor.cpp:199
 msgid "execute stitching with given project"
-msgstr ""
+msgstr "udfør sammenføjning med givent projekt"
 
 #: hugin1/executor/hugin_executor.cpp:200
-#, fuzzy
 msgid "number of used threads"
-msgstr "Antal tråde:"
+msgstr "antal tråde i brug"
 
 #: hugin1/executor/hugin_executor.cpp:201
 msgid "prefix used for stitching"
-msgstr ""
+msgstr "præfiks der bruges til sammenføjning"
 
 #: hugin1/executor/hugin_executor.cpp:202
-#, fuzzy
 msgid "only print commands"
-msgstr "Kører kommando \""
+msgstr "udskriv kun kommandoer"
 
 #: hugin1/hugin/AboutDialog.cpp:139
 #, c-format
@@ -1094,9 +1071,9 @@ msgid "Architecture: %s"
 msgstr "Arkitektur: %s"
 
 #: hugin1/hugin/AboutDialog.cpp:148
-#, fuzzy, c-format
+#, c-format
 msgid "Free memory: %lld kiB"
-msgstr "Ledig hukommelse: %ld kiB"
+msgstr "Ledig hukommelse: %lld kiB"
 
 #: hugin1/hugin/AboutDialog.cpp:151
 #, c-format
@@ -1125,11 +1102,11 @@ msgstr "Hugins kamera- og objektivdatabase: %s"
 
 #: hugin1/hugin/AboutDialog.cpp:189
 msgid "Multi-threading using C++11 std::thread and OpenMP"
-msgstr ""
+msgstr "Multitråde ved brug af C++11 std::thread og OpenMP"
 
 #: hugin1/hugin/AboutDialog.cpp:191
 msgid "Multi-threading using boost::thread and OpenMP"
-msgstr ""
+msgstr "Multitråde ved brug af boost::thread and OpenMP"
 
 #: hugin1/hugin/AboutDialog.cpp:193
 msgid "Libraries"
@@ -2912,9 +2889,8 @@ msgstr ""
 "Fejl: ingen overlappende punkter fundet. Fotometrisk optimering afbrudt"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:320
-#, fuzzy
 msgid "Optimize..."
-msgstr "Optimér"
+msgstr "Optimér …"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:366
 msgid "Internal error during photometric optimization:\n"
@@ -3312,11 +3288,11 @@ msgstr "Systemstandard"
 
 #: hugin1/hugin/PreferencesDialog.cpp:123
 msgid "Basque"
-msgstr "baskisk"
+msgstr "Baskisk"
 
 #: hugin1/hugin/PreferencesDialog.cpp:131
 msgid "Catalan"
-msgstr "Catalan"
+msgstr "Catalansk"
 
 #: hugin1/hugin/PreferencesDialog.cpp:134
 msgid "Chinese (Simplified)"
@@ -3368,7 +3344,7 @@ msgstr "Polsk"
 
 #: hugin1/hugin/PreferencesDialog.cpp:175
 msgid "Portuguese (Brazilian)"
-msgstr "Portugisisk (Braziliansk)"
+msgstr "Portugisisk (braziliansk)"
 
 #: hugin1/hugin/PreferencesDialog.cpp:178
 msgid "Russian"
@@ -3392,7 +3368,7 @@ msgstr "Finsk"
 
 #: hugin1/hugin/PreferencesDialog.cpp:203
 msgid "Valencian (Southern Catalan)"
-msgstr ""
+msgstr "Valenciansk (sydcatalansk)"
 
 #: hugin1/hugin/PreferencesDialog.cpp:304
 msgid "Select Enblend"
@@ -3622,9 +3598,8 @@ msgid "Could not set environment variable PYTHONHOME"
 msgstr "Kunne ikke angive miljøvariabel PYTHONHOME"
 
 #: hugin1/hugin/huginApp.cpp:329
-#, fuzzy
 msgid "Open Batch Processor"
-msgstr "Jobliste-processor"
+msgstr "Åbn jobliste-processor"
 
 #: hugin1/hugin/huginApp.cpp:330 translations/xrc.cpp:417
 #: translations/xrc.cpp:427 translations/xrc.cpp:1071
@@ -3632,13 +3607,14 @@ msgid "Opens PTBatcher, the batch processor for Hugin's project files"
 msgstr "Åbner PTBatcher, joblistekørselsprogrammet til Hugins projektfiler"
 
 #: hugin1/hugin/huginApp.cpp:335
-#, fuzzy
 msgid "Open Lens calibrate tool"
-msgstr "Hugin objektivkalibrering GUI"
+msgstr "Åbn værktøj til objektivkalibrering"
 
 #: hugin1/hugin/huginApp.cpp:336
 msgid "Opens Calibrate_lens_gui, a simple GUI for lens calibration"
 msgstr ""
+"Åbner Calibrate_lens_gui, en simpel grafisk brugerflade til "
+"objektivkalibrering"
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:226
 #, c-format
@@ -3906,9 +3882,9 @@ msgid "Batch already in progress."
 msgstr "Jobliste kører allerede."
 
 #: hugin1/ptbatcher/Batch.cpp:831
-#, fuzzy, c-format
+#, c-format
 msgid "Running command \"%s\""
-msgstr "Kører kommando \""
+msgstr "Kører kommando \"%s\""
 
 #: hugin1/ptbatcher/Batch.cpp:850
 #, c-format
@@ -3982,9 +3958,9 @@ msgid "Specify project source file(s)"
 msgstr "Specificér projektkildefil(er)"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:504
-#, fuzzy, c-format
+#, c-format
 msgid "Added projects from dir %s"
-msgstr "Tilføjede projekter fra mappe"
+msgstr "Tilføjede projekter fra mappe %s"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:515
 #, c-format
@@ -4057,9 +4033,9 @@ msgstr ""
 "Vil du annullere det?"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:825
-#, fuzzy, c-format
+#, c-format
 msgid "Removed project %s"
-msgstr "Fjernede projekt"
+msgstr "Fjernede projekt %s"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:834
 msgid "Please select a project to remove"
@@ -4074,9 +4050,9 @@ msgstr ""
 "Vil du annullere det?"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:861
-#, fuzzy, c-format
+#, c-format
 msgid "Reset project %s"
-msgstr "Nulstil projekt"
+msgstr "Nulstillede projekt %s"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:866
 msgid "Please select a project to reset"
@@ -6064,7 +6040,7 @@ msgstr "Kommandolinievalgmuligheder"
 
 #: translations/xrc.cpp:551
 msgid "Blender Options"
-msgstr "Blender-valgmuligheder"
+msgstr "Valgmuligheder for blander"
 
 #: translations/xrc.cpp:555
 msgid "Enfuse options"
@@ -6659,18 +6635,16 @@ msgid "default JPEG compression setting"
 msgstr "standard-JPEG-komprimeringsindstilling"
 
 #: translations/xrc.cpp:742
-#, fuzzy
 msgid "Blender"
-msgstr "Bløde overgange:"
+msgstr "Blander:"
 
 #: translations/xrc.cpp:743
-#, fuzzy
 msgid "Default blender:"
-msgstr "Standardfilnavne"
+msgstr "Standard-blander:"
 
 #: translations/xrc.cpp:744
 msgid "Default blender which is used for new projects."
-msgstr ""
+msgstr "Standardblander, der bruges i nye projekter."
 
 #: translations/xrc.cpp:745
 msgid "Processor"
@@ -7092,9 +7066,8 @@ msgid "Gray picker"
 msgstr "Grå-vælger"
 
 #: translations/xrc.cpp:879 translations/xrc.cpp:964
-#, fuzzy
 msgid "Create or delete control points in selected rectangle."
-msgstr "Fjern alle kontrolpunkter i valgt rektangel."
+msgstr "Opret eller fjern kontrolpunkter i valgt rektangel."
 
 #: translations/xrc.cpp:880 translations/xrc.cpp:881 translations/xrc.cpp:965
 #: translations/xrc.cpp:966
