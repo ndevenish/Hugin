@@ -256,6 +256,7 @@ private:
     // this set contains all points that are mirrored (point 1 in right window,
     // point 2 in left window), in local point numbers
     std::set<unsigned int> mirroredPoints;
+    size_t m_countCP;
 
     CPImageCtrl::ImageRotation m_leftRot;
     CPImageCtrl::ImageRotation m_rightRot;
