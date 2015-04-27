@@ -704,7 +704,7 @@ PanoCommand::PanoCommand* CleanControlPointsOperation::GetInternalCommand(wxWind
     }
     if (removedCPs.size()>0)
     {
-        wxMessageBox(wxString::Format(_("Removed %lu control points"), removedCPs.size()), _("Cleaning"),wxOK|wxICON_INFORMATION,parent);
+        wxMessageBox(wxString::Format(_("Removed %lu control points"), (unsigned long int)removedCPs.size()), _("Cleaning"), wxOK | wxICON_INFORMATION, parent);
         return new PanoCommand::RemoveCtrlPointsCmd(pano,removedCPs);
     };
     return NULL;
