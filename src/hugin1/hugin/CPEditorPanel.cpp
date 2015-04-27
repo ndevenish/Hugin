@@ -96,6 +96,7 @@ CPEditorPanel::CPEditorPanel()
 {
     DEBUG_TRACE("**********************");
     m_pano = 0;
+    m_countCP = 0;
 }
 
 bool CPEditorPanel::Create(wxWindow* parent, wxWindowID id,
@@ -1183,6 +1184,12 @@ void CPEditorPanel::panoramaChanged(Panorama &pano)
         m_cpModeChoice->Thaw();
     }
     UpdateTransforms();
+    // check if number of control points has changed, if so we need to update our variables
+    if (pano.getNrOfCtrlPoints() != m_countCP)
+    {
+        m_countCP = pano.getNrOfCtrlPoints();
+        UpdateDisplay(false);
+    };
     DEBUG_TRACE("");
 }
 
@@ -1321,6 +1328,12 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
             update=true;
         }
     }
+    // check if number of control points has changed, if so we need to update our variables
+    if (pano.getNrOfCtrlPoints() != m_countCP)
+    {
+        m_countCP = pano.getNrOfCtrlPoints();
+        update = true;
+    };
 
     // if there is no selection, select the first one.
     if (m_rightImageNr == UINT_MAX && nrImages > 0) {
