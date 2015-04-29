@@ -912,7 +912,7 @@ bool PythonScriptPanoCmd::processPanorama(HuginBase::Panorama& pano)
     std::cout << "run python script: " << m_scriptFile.c_str() << std::endl;
 
     int success = hpi::callhpi ( m_scriptFile.c_str() , 1 ,
-                   "HuginBase::HuginBase::Panorama*" , &pano ) ;
+                   "HuginBase::Panorama*" , &pano ) ;
 
     if(success!=0)
         wxMessageBox(wxString::Format(wxT("Script returned %d"),success),_("Result"), wxICON_INFORMATION);
