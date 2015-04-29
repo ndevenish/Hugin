@@ -24,7 +24,7 @@ gpl = r"""
 # @category Control Points
 # @name     Crop Control Points
 # @api-min  2011.1
-# @api-max  2014.1
+# @api-max  2015.1
 
 # crop_cps will function as a hugin plugin and as a standalone
 # Python script. It can also serve as a template for a slightly
