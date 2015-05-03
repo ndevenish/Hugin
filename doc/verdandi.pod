@@ -1,6 +1,6 @@
 =head1 NAME
 
-verdandi: Blend images using watershed algorithm.
+verdandi - Blend images using watershed algorithm.
 
 
 =head1 USAGE
