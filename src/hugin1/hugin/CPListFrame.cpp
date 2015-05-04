@@ -133,16 +133,16 @@ wxString CPListCtrl::OnGetItemText(long item, long column) const
     switch (column)
     {
         case 0:
-            return wxString::Format(wxT("%d"), m_internalCPList[item].globalIndex);
+            return wxString::Format(wxT("%lu"), static_cast<unsigned long>(m_internalCPList[item].globalIndex));
             break;
         case 1:
-            return wxString::Format(wxT("%d"), cp.image1Nr);
+            return wxString::Format(wxT("%u"), cp.image1Nr);
             break;
         case 2:
-            return wxString::Format(wxT("%d"), cp.image2Nr);
+            return wxString::Format(wxT("%u"), cp.image2Nr);
             break;
         case 3:
-            return wxString::Format(wxT("%d"), m_internalCPList[item].localNumber);
+            return wxString::Format(wxT("%lu"), static_cast<unsigned long>(m_internalCPList[item].localNumber));
             break;
         case 4:
             switch (cp.mode)

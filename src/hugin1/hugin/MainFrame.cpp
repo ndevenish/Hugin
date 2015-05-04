@@ -1606,7 +1606,7 @@ void MainFrame::OnRemoveCPinMasks(wxCommandEvent & e)
         PanoCommand::GlobalCmdHist::getInstance().addCommand(
                     new PanoCommand::RemoveCtrlPointsCmd(pano,cps)
                     );
-        wxMessageBox(wxString::Format(_("Removed %d control points"), cps.size()),
+        wxMessageBox(wxString::Format(_("Removed %lu control points"), static_cast<unsigned long>(cps.size())),
                    _("Removing control points in masks"),wxOK|wxICON_INFORMATION);
     };
 }
