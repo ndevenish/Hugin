@@ -255,4 +255,84 @@
     <title>Hugin</title>
     <style>wxDEFAULT_DIALOG_STYLE|wxCAPTION|wxSTAY_ON_TOP</style>
   </object>
+  <object class="wxDialog" name="edit_cp_optimize_dialog">
+    <object class="wxBoxSizer">
+      <orient>wxVERTICAL</orient>
+      <object class="sizeritem">
+        <object class="wxBoxSizer">
+          <object class="sizeritem">
+            <object class="wxStaticBitmap">
+              <bitmap stock_id="wxART_WARNING"/>
+            </object>
+            <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+            <border>12</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxBoxSizer">
+              <object class="sizeritem">
+                <object class="wxStaticText" name="edit_cp_text1">
+                  <font>
+                    <weight>bold</weight>
+                  </font>
+                  <style>wxALIGN_LEFT</style>
+                </object>
+                <option>1</option>
+                <flag>wxEXPAND</flag>
+              </object>
+              <object class="sizeritem">
+                <object class="wxStaticText" name="edit_cp_text2">
+                  <style>wxALIGN_LEFT</style>
+                </object>
+                <flag>wxTOP|wxEXPAND</flag>
+                <border>12</border>
+              </object>
+              <orient>wxVERTICAL</orient>
+            </object>
+            <flag>wxALIGN_CENTRE_VERTICAL</flag>
+          </object>
+          <orient>wxHORIZONTAL</orient>
+        </object>
+        <option>1</option>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>12</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxBoxSizer">
+          <object class="sizeritem">
+            <object class="wxCheckBox" name="edit_cp_dont_show_again_checkbox">
+              <label>Don't show again</label>
+            </object>
+            <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+            <border>6</border>
+          </object>
+          <object class="spacer">
+            <option>1</option>
+            <flag>wxEXPAND</flag>
+          </object>
+          <orient>wxHORIZONTAL</orient>
+          <object class="sizeritem">
+            <object class="wxStdDialogButtonSizer">
+              <object class="button">
+                <object class="wxButton" name="wxID_OK">
+                  <label>Re-optimize</label>
+                  <default>1</default>
+                </object>
+              </object>
+              <object class="button">
+                <object class="wxButton" name="wxID_CANCEL">
+                  <label>Don't optimize now</label>
+                </object>
+              </object>
+            </object>
+            <flag>wxALL|wxEXPAND</flag>
+            <border>6</border>
+          </object>
+        </object>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>6</border>
+      </object>
+    </object>
+    <title>Edit cp tools</title>
+    <style>wxDEFAULT_DIALOG_STYLE|wxTAB_TRAVERSAL</style>
+  </object>
 </resource>
