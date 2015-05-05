@@ -1433,6 +1433,32 @@ Do not set -w, -o and --compression arguments, they are set by hugin</label>
                   <flag>wxALL|wxEXPAND</flag>
                   <border>5</border>
                 </object>
+                <object class="sizeritem">
+                  <object class="wxStaticBoxSizer">
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>After &quot;edit cp&quot; tool</label>
+                      </object>
+                      <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                      <border>5</border>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxChoice" name="pref_editcp_action">
+                        <content>
+                          <item>Ask user</item>
+                          <item>Re-optimize panorama</item>
+                          <item>Don't optimize panorama</item>
+                        </content>
+                      </object>
+                      <flag>wxALL|wxALIGN_CENTRE_HORIZONTAL</flag>
+                      <border>5</border>
+                    </object>
+                    <label>Edit cp tool (on fast preview window)</label>
+                    <orient>wxHORIZONTAL</orient>
+                  </object>
+                  <flag>wxALL|wxEXPAND</flag>
+                  <border>5</border>
+                </object>
               </object>
             </object>
             <label>Misc</label>

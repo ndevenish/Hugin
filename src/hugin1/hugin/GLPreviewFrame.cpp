@@ -3255,6 +3255,39 @@ void GLPreviewFrame::OnRemoveCP(wxCommandEvent & e)
 {
     edit_cp_tool->SetMenuProcessed();
     PanoCommand::GlobalCmdHist::getInstance().addCommand(new PanoCommand::RemoveCtrlPointsCmd(m_pano, edit_cp_tool->GetFoundCPs()));
+    // ask user, if pano should be optimized
+    long afterEditCPAction = wxConfig::Get()->Read(wxT("/EditCPAfterAction"), 0l);
+    bool optimize = false;
+    if (afterEditCPAction == 0)
+    {
+        wxDialog dlg;
+        wxXmlResource::Get()->LoadDialog(&dlg, NULL, wxT("edit_cp_optimize_dialog"));
+        XRCCTRL(dlg, "edit_cp_text1", wxStaticText)->SetLabel(wxString::Format(_("%lu control points were removed from the panorama.\n\nShould the panorama now re-optimized?"), static_cast<unsigned long int>(edit_cp_tool->GetFoundCPs().size())));
+        XRCCTRL(dlg, "edit_cp_text2", wxStaticText)->SetLabel(wxString::Format(_("Current selected optimizer strategy is \"%s\"."), MainFrame::Get()->GetCurrentOptimizerString().c_str()));
+        dlg.Fit();
+        optimize = (dlg.ShowModal() == wxID_OK);
+        if (XRCCTRL(dlg, "edit_cp_dont_show_again_checkbox", wxCheckBox)->GetValue())
+        {
+            if (optimize)
+            {
+                wxConfig::Get()->Write(wxT("/EditCPAfterAction"), 1l);
+            }
+            else
+            {
+                wxConfig::Get()->Write(wxT("/EditCPAfterAction"), 2l);
+            };
+        };
+    }
+    else
+    {
+        optimize = (afterEditCPAction == 1);
+    }
+    if (optimize)
+    {
+        // invoke optimization routine
+        wxCommandEvent ev(wxEVT_COMMAND_BUTTON_CLICKED, XRCID("action_optimize"));
+        MainFrame::Get()->GetEventHandler()->AddPendingEvent(ev);
+    };
 };
 
 // some helper for cp generation
@@ -3519,19 +3552,33 @@ void GLPreviewFrame::OnCreateCP(wxCommandEvent & e)
                 };
                 PanoCommand::GlobalCmdHist::getInstance().addCommand(new PanoCommand::AddCtrlPointsCmd(m_pano, cps));
                 // ask user, if pano should be optimized
-                wxMessageDialog message(this,
-                    wxString::Format(_("%lu control points were added to the panorama.\n\nShould the panorama now re-optimized to take the new control points into account?"), static_cast<unsigned long int>(cps.size())),
-#ifdef __WXMSW__
-                    _("Hugin"),
-#else
-                    wxT(""),
-#endif
-                    wxYES_NO);
-#if wxCHECK_VERSION(2,9,0)
-                message.SetExtendedMessage(wxString::Format(_("Current selected optimizer strategy is \"%s\"."), MainFrame::Get()->GetCurrentOptimizerString().c_str()));
-                message.SetYesNoLabels(_("Re-optimize"), _("Don't optimize now"));
-#endif
-                if(message.ShowModal() == wxID_YES)
+                long afterEditCPAction = wxConfig::Get()->Read(wxT("/EditCPAfterAction"), 0l);
+                bool optimize = false;
+                if (afterEditCPAction == 0)
+                {
+                    wxDialog dlg;
+                    wxXmlResource::Get()->LoadDialog(&dlg, NULL, wxT("edit_cp_optimize_dialog"));
+                    XRCCTRL(dlg, "edit_cp_text1", wxStaticText)->SetLabel(wxString::Format(_("%lu control points were added to the panorama.\n\nShould the panorama now re-optimized to take the new control points into account?"), static_cast<unsigned long int>(cps.size())));
+                    XRCCTRL(dlg, "edit_cp_text2", wxStaticText)->SetLabel(wxString::Format(_("Current selected optimizer strategy is \"%s\"."), MainFrame::Get()->GetCurrentOptimizerString().c_str()));
+                    dlg.Fit();
+                    optimize = (dlg.ShowModal() == wxID_OK);
+                    if (XRCCTRL(dlg, "edit_cp_dont_show_again_checkbox", wxCheckBox)->GetValue())
+                    {
+                        if (optimize)
+                        {
+                            wxConfig::Get()->Write(wxT("/EditCPAfterAction"), 1l);
+                        }
+                        else
+                        {
+                            wxConfig::Get()->Write(wxT("/EditCPAfterAction"), 2l);
+                        };
+                    };
+                }
+                else
+                {
+                    optimize = (afterEditCPAction == 1);
+                }
+                if (optimize)
                 {
                     // invoke optimization routine
                     wxCommandEvent ev(wxEVT_COMMAND_BUTTON_CLICKED, XRCID("action_optimize"));
