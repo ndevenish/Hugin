@@ -61,7 +61,8 @@ void ProgressStatusBar::SetProgress(int progress)
 {
     m_progressValue = progress;
     m_progress->Show(m_progressValue >= 0);
-    m_progress->SetValue(m_progressValue);
+    // SetValue expects values >=0 and < max value, but we are using -1 to indicate that progress bar is hidden
+    m_progress->SetValue(m_progressValue < 0 ? 0 : m_progressValue);
 };
 
 int ProgressStatusBar::GetProgress()
