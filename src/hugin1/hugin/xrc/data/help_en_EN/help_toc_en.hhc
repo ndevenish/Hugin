@@ -212,8 +212,8 @@
 			<param name="Local" value="Hugin_Batch_Processor.html">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
-			<param name="Name" value="Lensdb">
-			<param name="Local" value="Lensdb.html">
+			<param name="Name" value="Hugin_lensdb">
+			<param name="Local" value="Hugin_lensdb.html">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="External programs">

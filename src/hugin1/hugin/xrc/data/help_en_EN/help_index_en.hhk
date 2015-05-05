@@ -456,6 +456,11 @@
 		<param name="Local" value="Hugin_executor.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Hugin_lensdb">
+		<param name="Name" value="Hugin lensdb - PanoTools.org Wiki">
+		<param name="Local" value="Hugin_lensdb.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Hugin_stitch_project">
 		<param name="Name" value="Hugin stitch project - PanoTools.org Wiki">
 		<param name="Local" value="Hugin_stitch_project.html">
@@ -523,8 +528,8 @@
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Lens database">
-		<param name="Name" value="Lensdb - PanoTools.org Wiki">
-		<param name="Local" value="Lensdb.html">
+		<param name="Name" value="Hugin lensdb - PanoTools.org Wiki">
+		<param name="Local" value="Hugin_lensdb.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Lens distortion">

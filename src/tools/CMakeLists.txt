@@ -75,8 +75,8 @@ endif(MSVC)
 add_executable(hugin_hdrmerge hugin_hdrmerge.cpp ../deghosting/deghosting.cpp ../deghosting/deghosting.h ../deghosting/khan.h ../deghosting/support.h ../deghosting/algtinyvector.h)
 target_link_libraries(hugin_hdrmerge ${common_libs} ${image_libs} )
 
-add_executable(lensdb lensdb.cpp)
-target_link_libraries(lensdb ${common_libs})
+add_executable(hugin_lensdb hugin_lensdb.cpp)
+target_link_libraries(hugin_lensdb ${common_libs})
 
 add_executable(verdandi verdandi.cpp)
 target_link_libraries(verdandi ${common_libs} ${image_libs})
@@ -89,7 +89,7 @@ endif(MSVC)
 
 install(TARGETS nona vig_optimize autooptimiser fulla align_image_stack linefind geocpset
         tca_correct cpclean checkpto hugin_hdrmerge pano_trafo pano_modify pto_merge 
-        pto_gen pto_var pto_lensstack pto_template pto_mask pto_move lensdb verdandi
+        pto_gen pto_var pto_lensstack pto_template pto_mask pto_move hugin_lensdb verdandi
         DESTINATION ${BINDIR})
 
 IF(UNIX)

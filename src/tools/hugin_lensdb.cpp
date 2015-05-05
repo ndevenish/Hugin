@@ -1,6 +1,6 @@
 // -*- c-basic-offset: 4 -*-
 
-/** @file lensdb.cpp
+/** @file hugin_lensdb.cpp
  *
  *  @brief helper program for working with lens database
  *
@@ -137,21 +137,21 @@ static void usage(const char* name)
     std::cout << name << ": tool for lens database maintenance" << std::endl
               << name << " version " << hugin_utils::GetHuginVersion() << std::endl
               << std::endl
-              << "Usage:  lensdb [--recursive] --populate BASEPATH " << std::endl
+              << "Usage:  hugin_lensdb [--recursive] --populate BASEPATH " << std::endl
               << "             Populate database with information from all pto files" << std::endl
               << "             in given BASEPATH" << std::endl
               << "             With --recursive switch all subfolders will also be" << std::endl
               << "             searched." << std::endl
-              << "        lensdb --compress" << std::endl
+              << "        hugin_lensdb --compress" << std::endl
               << "             Compresses the database by replacing single values" << std::endl
               << "             with averaged values." << std::endl
-              << "        lensdb --remove-lens=LENS" << std::endl
+              << "        hugin_lensdb --remove-lens=LENS" << std::endl
               << "             Removes given lens from the database." << std::endl
-              << "        lensdb --remove-camera=MAKER|MODEL" << std::endl
+              << "        hugin_lensdb --remove-camera=MAKER|MODEL" << std::endl
               << "             Removes given camera from the database." << std::endl
-              << "        lensdb --export-database=FILENAME" << std::endl
+              << "        hugin_lensdb --export-database=FILENAME" << std::endl
               << "             Export data from database to external file." << std::endl
-              << "        lensdb --import-from-file=FILENAME" << std::endl
+              << "        hugin_lensdb --import-from-file=FILENAME" << std::endl
               << "             Import data from external file." << std::endl
               << std::endl;
 };

@@ -67,6 +67,7 @@ Hugin_Exposure_tab
 Hugin_FAQ
 Hugin_Fast_Preview_window
 Hugin_Keyboard_shortcuts
+Hugin_lensdb
 Hugin_Main_window
 Hugin_Mask_tab
 Hugin_move_drag_tab
@@ -90,7 +91,6 @@ Interpolation
 Icpfind
 JPEG
 Landscape
-Lensdb
 Lens_correction_model
 Lens_distortion
 Lightprobe
