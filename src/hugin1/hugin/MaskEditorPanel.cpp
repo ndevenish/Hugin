@@ -330,11 +330,20 @@ void MaskEditorPanel::AddMask()
 
 void MaskEditorPanel::SelectMask(unsigned int newMaskNr)
 {
-    if(GetImgNr()<UINT_MAX)
-        if(newMaskNr<m_currentMasks.size())
-            m_maskList->SetItemState(newMaskNr,wxLIST_STATE_SELECTED,wxLIST_STATE_SELECTED);
+    if (GetImgNr() < UINT_MAX)
+    {
+        if (newMaskNr < m_currentMasks.size())
+        {
+            m_maskList->SetItemState(newMaskNr, wxLIST_STATE_SELECTED, wxLIST_STATE_SELECTED);
+        }
         else
-            m_maskList->SetItemState(m_MaskNr,0,wxLIST_STATE_SELECTED);
+        {
+            if (m_MaskNr < UINT_MAX)
+            {
+                m_maskList->SetItemState(m_MaskNr, 0, wxLIST_STATE_SELECTED);
+            };
+        };
+    };
 };
 
 void MaskEditorPanel::panoramaChanged(HuginBase::Panorama &pano)
