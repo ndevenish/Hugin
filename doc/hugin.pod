@@ -29,7 +29,7 @@ Hugin has no command-line options.
 
 align_image_stack(1)  autooptimiser(1)  calibrate_lens(1)  celeste_standalone(1)
 checkpto(1)  cpclean(1)  cpfind(1)  deghosting_mask(1)  fulla(1)  geocpset(1)  hugin_executor(1)
-hugin_hdrmerge(1) hugin_stitch_project(1)  icpfind(1)  lensdb(1) linefind(1)  nona(1)  pano_modify(1)
+hugin_hdrmerge(1) hugin_lensdb(1) hugin_stitch_project(1)  icpfind(1)  linefind(1)  nona(1)  pano_modify(1)
 pano_trafo(1)  PTBatcherGUI(1)  pto_gen(1)  pto_merge(1)  pto_lensstack(1) 
 pto_mask(1)  pto_merge(1)  pto_move(1)  pto_template(1)  pto_var(1)  tca_correct(1)
 verdandi(1) vig_optimize(1)
