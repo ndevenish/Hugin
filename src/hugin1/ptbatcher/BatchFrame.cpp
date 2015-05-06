@@ -736,7 +736,7 @@ void BatchFrame::OnButtonOpenWithHugin(wxCommandEvent& event)
 #else
                                 wxT(""),
 #endif
-                                wxYES | wxNO | wxICON_INFORMATION );
+                                wxYES_NO | wxICON_INFORMATION );
         if(message.ShowModal() == wxID_YES)
         {
 #ifdef __WXMAC__
@@ -782,7 +782,7 @@ void BatchFrame::OnButtonRemoveComplete(wxCommandEvent& event)
 #else
                                 wxT(""),
 #endif
-                                wxYES | wxNO | wxICON_INFORMATION );
+                                wxYES_NO | wxICON_INFORMATION );
         if(message.ShowModal()==wxID_YES)
         {
             removeErrors=true;
@@ -814,7 +814,7 @@ void BatchFrame::OnButtonRemoveFromList(wxCommandEvent& event)
 #else
                                     wxT(""),
 #endif
-                                    wxYES | wxCANCEL | wxICON_INFORMATION);
+                                    wxYES_NO | wxICON_INFORMATION);
             if(message.ShowModal()==wxID_YES)
             {
                 OnButtonSkip(event);
@@ -878,7 +878,7 @@ void BatchFrame::OnButtonResetAll(wxCommandEvent& event)
 #else
                                 wxT(""),
 #endif
-                                wxYES | wxCANCEL | wxICON_INFORMATION);
+                                wxYES_NO | wxICON_INFORMATION);
         if(message.ShowModal()==wxID_YES)
         {
             OnButtonCancel(event);
