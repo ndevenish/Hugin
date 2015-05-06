@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2015-04-17 17:31+0200\n"
-"PO-Revision-Date: 2015-03-21 16:32+0000\n"
+"POT-Creation-Date: 2015-05-06 11:46+0200\n"
+"PO-Revision-Date: 2015-05-06 09:57+0000\n"
 "Last-Translator: Kornel Benko <kornel@lyx.org>\n"
 "Language-Team: Slovak <kornel@lyx.org>\n"
 "Language: sk\n"
@@ -1771,6 +1771,17 @@ msgstr "Panosféra"
 msgid "Mosaic plane"
 msgstr "Mozaiková plocha"
 
+#: hugin1/hugin/GLPreviewFrame.cpp:3265
+#, c-format
+msgid ""
+"%lu control points were removed from the panorama.\n"
+"\n"
+"Should the panorama now re-optimized?"
+msgstr ""
+"%lu kontrolných bodov bolo odstránených z panorámy.\n"
+"\n"
+"Re-optimalizovať panorámu?"
+
 #: hugin1/hugin/GLPreviewFrame.cpp:3283
 msgid ""
 "The selected region contains no active image.\n"
@@ -1845,6 +1856,10 @@ msgstr "Znovu-optimalizovať"
 #: hugin1/hugin/GLPreviewFrame.cpp:3532
 msgid "Don't optimize now"
 msgstr "Teraz neoptimalizovať"
+
+#: hugin1/hugin/xrc/main_frame.xrc:335
+msgid "Edit cp tools"
+msgstr "Upraviť nástroje kontrolných bodov"
 
 #: hugin1/hugin/GLViewer.cpp:288
 msgid ""
@@ -4364,6 +4379,10 @@ msgstr "Licencia"
 #: translations/xrc.cpp:8
 msgid "System"
 msgstr "Systém"
+
+#: hugin1/hugin/xrc/about.xrc:188
+msgid "Dedication"
+msgstr "Venovanie"
 
 #: translations/xrc.cpp:9 translations/xrc.cpp:171 translations/xrc.cpp:175
 #: translations/xrc.cpp:219 translations/xrc.cpp:227 translations/xrc.cpp:263
@@ -6897,6 +6916,26 @@ msgstr "Ukázať správu o uložení projektového súboru a prefixu výstupu"
 msgid "Show warning about big exposure difference when adding images"
 msgstr "Ukázať varovanie o veľkom rozdieli expozície pri pridávaní obrázkov"
 
+#: hugin1/hugin/xrc/pref_dialog.xrc:1440
+msgid "After \"edit cp\" tool"
+msgstr "Po upravení nástroja kontrolných bodov"
+
+#: hugin1/hugin/xrc/pref_dialog.xrc:1448
+msgid "Ask user"
+msgstr "Spýtať sa užívateľa"
+
+#: hugin1/hugin/xrc/pref_dialog.xrc:1449
+msgid "Re-optimize panorama"
+msgstr "Re-Optimalizovať panorámu"
+
+#: hugin1/hugin/xrc/pref_dialog.xrc:1450
+msgid "Don't optimize panorama"
+msgstr "Neoptimalizovať panorámu"
+
+#: hugin1/hugin/xrc/pref_dialog.xrc:1456
+msgid "Edit cp tool (on fast preview window)"
+msgstr "Upraviť nástroj kontrolných bodov (v okne s rýchlym náhľadom)"
+
 #: translations/xrc.cpp:819
 msgid "Misc"
 msgstr "Ostatné"
@@ -7511,9 +7550,6 @@ msgstr ""
 "Optimalizácia všetkých parametrov skreslenia \"všetko\" má zmysel iba vtedy, "
 "ak sa obrázky veľmi prekrývajú a použili ste tiež mnoho dobre rozprestrených "
 "kontrolných bodov."
-
-#~ msgid "Dedication"
-#~ msgstr "Venovanie"
 
 #~ msgid "Optimizing Panorama"
 #~ msgstr "Optimalizujem panorámu"
