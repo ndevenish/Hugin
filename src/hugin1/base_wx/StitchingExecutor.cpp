@@ -59,7 +59,7 @@ namespace HuginQueue
             wxArrayString filenames;
             for (HuginBase::UIntSet::const_iterator it = img.begin(); it != img.end(); ++it)
             {
-                filenames.Add(wxString::Format(wxT("%s%04d%s"), prefix.c_str(), *it, postfix.c_str()));
+                filenames.Add(wxString::Format(wxT("%s%04u%s"), prefix.c_str(), *it, postfix.c_str()));
             };
             return filenames;
         };
@@ -266,8 +266,8 @@ namespace HuginQueue
                 << wxEndl
                 << _("Number of active images:") << wxT(" ") << allActiveImages.size() << wxEndl
                 << wxString::Format(_("Output exposure value: %.1f"), opts.outputExposureValue) << wxEndl
-                << wxString::Format(_("Canvas size: %ldx%ld"), opts.getSize().width(), opts.getSize().height()) << wxEndl
-                << wxString::Format(_("ROI: (%ld, %ld) - (%ld, %ld)"), opts.getROI().left(), opts.getROI().top(), opts.getROI().right(), opts.getROI().bottom()) << wxT(" ") << wxEndl
+                << wxString::Format(_("Canvas size: %dx%d"), opts.getSize().width(), opts.getSize().height()) << wxEndl
+                << wxString::Format(_("ROI: (%d, %d) - (%d, %d)"), opts.getROI().left(), opts.getROI().top(), opts.getROI().right(), opts.getROI().bottom()) << wxT(" ") << wxEndl
                 << wxString::Format(_("FOV: %.0fx%.0f"), opts.getHFOV(), opts.getVFOV()) << wxEndl;
             pano_projection_features proj;
             const bool readProjectionName = panoProjectionFeaturesQuery(opts.getProjection(), &proj) != 0;
@@ -346,7 +346,7 @@ namespace HuginQueue
             output << _("First input image") << wxEndl
                 << _("Number:") << wxT(" ") << *allActiveImages.begin() << wxEndl
                 << _("Filename:") << wxT(" ") << WXSTRING(img.getFilename()) << wxEndl
-                << wxString::Format(_("Size: %ldx%ld"), img.getWidth(), img.getHeight()) << wxEndl
+                << wxString::Format(_("Size: %dx%d"), img.getWidth(), img.getHeight()) << wxEndl
                 << _("Projection:") << wxT(" ") << getProjectionString(img) << wxEndl
                 << _("Response type:") << wxT(" ") << getResponseString(img) << wxEndl
                 << wxString::Format(_("HFOV: %.0f"), img.getHFOV()) << wxEndl
