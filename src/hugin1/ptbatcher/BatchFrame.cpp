@@ -849,7 +849,7 @@ void BatchFrame::OnButtonReset(wxCommandEvent& event)
 #else
                                     wxT(""),
 #endif
-                                    wxYES | wxCANCEL | wxICON_INFORMATION);
+                                    wxYES_NO | wxICON_INFORMATION);
             if(message.ShowModal()==wxID_YES)
             {
                 OnButtonSkip(event);
