@@ -3262,7 +3262,7 @@ void GLPreviewFrame::OnRemoveCP(wxCommandEvent & e)
     {
         wxDialog dlg;
         wxXmlResource::Get()->LoadDialog(&dlg, NULL, wxT("edit_cp_optimize_dialog"));
-        XRCCTRL(dlg, "edit_cp_text1", wxStaticText)->SetLabel(wxString::Format(_("%lu control points were removed from the panorama.\n\nShould the panorama now re-optimized?"), static_cast<unsigned long int>(edit_cp_tool->GetFoundCPs().size())));
+        XRCCTRL(dlg, "edit_cp_text1", wxStaticText)->SetLabel(wxString::Format(_("%lu control points were removed from the panorama.\n\nShould the panorama now be re-optimized?"), static_cast<unsigned long int>(edit_cp_tool->GetFoundCPs().size())));
         XRCCTRL(dlg, "edit_cp_text2", wxStaticText)->SetLabel(wxString::Format(_("Current selected optimizer strategy is \"%s\"."), MainFrame::Get()->GetCurrentOptimizerString().c_str()));
         dlg.Fit();
         optimize = (dlg.ShowModal() == wxID_OK);
@@ -3558,7 +3558,7 @@ void GLPreviewFrame::OnCreateCP(wxCommandEvent & e)
                 {
                     wxDialog dlg;
                     wxXmlResource::Get()->LoadDialog(&dlg, NULL, wxT("edit_cp_optimize_dialog"));
-                    XRCCTRL(dlg, "edit_cp_text1", wxStaticText)->SetLabel(wxString::Format(_("%lu control points were added to the panorama.\n\nShould the panorama now re-optimized to take the new control points into account?"), static_cast<unsigned long int>(cps.size())));
+                    XRCCTRL(dlg, "edit_cp_text1", wxStaticText)->SetLabel(wxString::Format(_("%lu control points were added to the panorama.\n\nShould the panorama now be re-optimized?"), static_cast<unsigned long int>(cps.size())));
                     XRCCTRL(dlg, "edit_cp_text2", wxStaticText)->SetLabel(wxString::Format(_("Current selected optimizer strategy is \"%s\"."), MainFrame::Get()->GetCurrentOptimizerString().c_str()));
                     dlg.Fit();
                     optimize = (dlg.ShowModal() == wxID_OK);
