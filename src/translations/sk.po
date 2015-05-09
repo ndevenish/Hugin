@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2015-05-09 09:35+0200\n"
-"PO-Revision-Date: 2015-05-06 09:57+0000\n"
+"POT-Creation-Date: 2015-05-09 11:04+0200\n"
+"PO-Revision-Date: 2015-05-09 09:11+0000\n"
 "Last-Translator: Kornel Benko <kornel@lyx.org>\n"
 "Language-Team: Slovak <kornel@lyx.org>\n"
 "Language: sk\n"
@@ -441,14 +441,14 @@ msgid "Output exposure value: %.1f"
 msgstr "Výstupná hodnota expozície %.1f"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:269
-#, fuzzy, c-format
+#, c-format
 msgid "Canvas size: %dx%d"
-msgstr "Veľkosť plátna: %ldx%ld"
+msgstr "Veľkosť plátna: %dx%d"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:270
-#, fuzzy, c-format
+#, c-format
 msgid "ROI: (%d, %d) - (%d, %d)"
-msgstr "ROI: (%ld, %ld) - (%ld, %ld)"
+msgstr "ROI: (%d, %d) - (%d, %d)"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:271
 #, c-format
@@ -537,9 +537,9 @@ msgid "Filename:"
 msgstr "Názov súboru:"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:349
-#, fuzzy, c-format
+#, c-format
 msgid "Size: %dx%d"
-msgstr "Rozmer: %ldx%ld"
+msgstr "Rozmer: %dx%d"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:351
 msgid "Response type:"
@@ -1772,15 +1772,15 @@ msgid "Mosaic plane"
 msgstr "Mozaiková plocha"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:3265
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%lu control points were removed from the panorama.\n"
 "\n"
 "Should the panorama now be re-optimized?"
 msgstr ""
-"%lu kontrolných bodov bolo odstránených z panorámy.\n"
+"Zmizlo %lu kontrolných bodov z panorámy.\n"
 "\n"
-"Re-optimalizovať panorámu?"
+"Re-optimalizovať teraz panorámu?"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:3266 hugin1/hugin/GLPreviewFrame.cpp:3562
 #, c-format
@@ -1838,15 +1838,15 @@ msgid "Checking results..."
 msgstr "Kontrolujem výsledky..."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:3561
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%lu control points were added to the panorama.\n"
 "\n"
 "Should the panorama now be re-optimized?"
 msgstr ""
-"%lu kontrolných bodov bolo odstránených z panorámy.\n"
+"Pribudlo %lu kontrolných bodov do panorámy.\n"
 "\n"
-"Re-optimalizovať panorámu?"
+"Re-optimalizovať teraz panorámu?"
 
 #: hugin1/hugin/GLViewer.cpp:288
 msgid ""
@@ -4367,6 +4367,10 @@ msgstr "Licencia"
 #: translations/xrc.cpp:8
 msgid "System"
 msgstr "Systém"
+
+#: hugin1/hugin/xrc/about.xrc:188
+msgid "Dedication"
+msgstr "Venovanie"
 
 #: translations/xrc.cpp:9 translations/xrc.cpp:171 translations/xrc.cpp:175
 #: translations/xrc.cpp:219 translations/xrc.cpp:227 translations/xrc.cpp:263
@@ -7562,9 +7566,6 @@ msgstr ""
 #~ "%lu kontrolných bodov bolo pridané do panorámy.\n"
 #~ "\n"
 #~ "Re-optimalizovať panorámu aby sa zohľadňovali aj nové kontrolné body?"
-
-#~ msgid "Dedication"
-#~ msgstr "Venovanie"
 
 #~ msgid "Optimizing Panorama"
 #~ msgstr "Optimalizujem panorámu"
