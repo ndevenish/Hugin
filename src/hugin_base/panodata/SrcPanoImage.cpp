@@ -305,6 +305,24 @@ bool SrcPanoImage::readEXIF()
 {
     std::string filename = getFilename();
     double roll = 0;
+    // clear all old values
+    setFileMetadata(FileMetaData());
+    setExifExposureTime(0);
+    setExifAperture(0);
+    setExifExposureMode(0);
+    setExifISO(0);
+    setExifMake(std::string(""));
+    setExifModel(std::string(""));
+    setExifLens(std::string(""));
+    setExifOrientation(0);
+    setExifFocalLength(0);
+    setExifFocalLength35(0);
+    setExifCropFactor(0);
+    setExifDistance(0);
+    setExifDate(std::string(""));
+    setExifRedBalance(1);
+    setExifBlueBalance(1);
+
     if(!checkImageSizeKnown())
     {
         return false;
