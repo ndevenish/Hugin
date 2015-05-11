@@ -27,7 +27,7 @@ line) are supported:
 
 =item JPEG, TIFF, PNG  : Single image formats without feathered blending
 
-=item JPG_m, TIFF_m, PNG_m   : multiple tiff files
+=item JPEG_m, TIFF_m, PNG_m   : multiple tiff files
 
 =item TIFF_multilayer : Multilayer tiff files, readable by The Gimp 2.0
 
