@@ -67,8 +67,8 @@ static void usage(const char* name)
          << " The following output formats (n option of panotools p script line)" << std::endl
          << " are supported:"<< std::endl
          << std::endl
-         << "  JPG, TIFF, PNG  : Single image formats with internal blender"<< std::endl
-         << "  JPG_m, TIFF_m, PNG_m : multiple image files"<< std::endl
+         << "  JPEG, TIFF, PNG  : Single image formats with internal blender"<< std::endl
+         << "  JPEG_m, TIFF_m, PNG_m : multiple image files"<< std::endl
          << "  TIFF_multilayer : Multilayer tiff files, readable by The Gimp 2.0" << std::endl
          << std::endl
          << "Usage: " << name  << " [options] -o output project_file (image files)" << std::endl
