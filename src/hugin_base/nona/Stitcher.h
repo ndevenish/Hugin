@@ -552,6 +552,13 @@ public:
             remapper.release(remapped);
             i++;
         }
+        // check if our intermediate image covers whole canvas
+        // if not update m_panoROI
+        if (m_panoROI.width() < opts.getROI().width() || m_panoROI.height() < opts.getROI().height())
+        {
+            // update m_panoROI
+            m_panoROI.setSize(opts.getROI().size());
+        }
     }
 
     void stitch(const PanoramaOptions & opts, UIntSet & imgSet,
