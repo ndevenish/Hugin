@@ -557,7 +557,7 @@ public:
         if (m_panoROI.width() < opts.getROI().width() || m_panoROI.height() < opts.getROI().height())
         {
             // update m_panoROI
-            m_panoROI.setSize(opts.getROI().size());
+            m_panoROI = opts.getROI();
         }
     }
 
