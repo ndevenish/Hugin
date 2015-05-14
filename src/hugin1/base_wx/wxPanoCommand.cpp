@@ -286,6 +286,16 @@ bool wxAddImagesCmd::processPanorama(HuginBase::Panorama& pano)
                     _("Warning"), wxOK|wxICON_EXCLAMATION);
                 continue;
             }
+            // check if images is grayscale or RGB image, maybe with alpha channel
+            // reject CMYK or other images
+            const int bands = info.numBands();
+            const int extraBands = info.numExtraBands();
+            if (bands != 1 && bands != 3 && !(bands == 2 && extraBands == 1) && !(bands == 4 && extraBands == 1))
+            {
+                wxMessageBox(wxString::Format(_("Hugin supports only grayscale and RGB images (without and with alpha channel).\nBut file \"%s\" has %d channels and %d extra channels (probably alpha channels).\nHugin does not support this image type. Skipping this image.\nConvert this image to grayscale or RGB image and try loading again."), fname.c_str(), bands, extraBands),
+                    _("Warning"), wxOK | wxICON_EXCLAMATION);
+                continue;
+            };
             if((pixelType=="UINT8") || (pixelType=="UINT16") || (pixelType=="INT16"))
                 srcImg.setResponseType(HuginBase::SrcPanoImage::RESPONSE_EMOR);
             else
