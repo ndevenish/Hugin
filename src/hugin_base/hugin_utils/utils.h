@@ -32,6 +32,8 @@
 #include <iostream>
 #include <sstream>
 #include <cassert>
+#include <vigra/imageinfo.hxx>
+#include <lcms2.h>
 
 #include <hugin_utils/platform.h>
 
@@ -268,6 +270,9 @@ namespace hugin_utils
     IMPEX bool wrapupGPU();
     /** return a string with version numbers */
     IMPEX std::string GetHuginVersion();
+    /** returns description of given icc profile */
+    IMPEX std::string GetICCDesc(const vigra::ImageImportInfo::ICCProfile& iccProfile);
+    IMPEX std::string GetICCDesc(const cmsHPROFILE& profile);
 
 } // namespace
 

@@ -1758,6 +1758,16 @@ UIntSet Panorama::getActiveImages() const
 	return activeImgs;
 }
 
+const std::string Panorama::getICCProfileDesc() const
+{
+    return state.iccProfileDesc;
+};
+
+void Panorama::setICCProfileDesc(const std::string& newDesc)
+{
+    state.iccProfileDesc = newDesc;
+};
+
 //==== internal function for variable management
 
 SrcPanoImage Panorama::getSrcImage(unsigned imgNr) const
@@ -2211,6 +2221,7 @@ PanoramaMemento & PanoramaMemento::operator=(const PanoramaMemento & data)
     }
     
     ctrlPoints = data.ctrlPoints;
+    iccProfileDesc = data.iccProfileDesc;
     
     options = data.options;
     
@@ -3086,7 +3097,12 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
                 << "  non existing images. Ignoring these control points." << std::endl;
         };
     };
-
+    // load icc profile
+    if (!images.empty())
+    {
+        vigra::ImageImportInfo info(images[0]->getFilename().c_str());
+        iccProfileDesc = hugin_utils::GetICCDesc(info.getICCProfile());
+    }
     // reset locale
     setlocale(LC_NUMERIC,old_locale);
     free(old_locale);

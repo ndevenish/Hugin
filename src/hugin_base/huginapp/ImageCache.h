@@ -62,6 +62,7 @@ class IMPEX ImageCache
         typedef sharedPtrNamespace::shared_ptr<vigra::UInt16RGBImage> ImageCacheRGB16Ptr;
         typedef sharedPtrNamespace::shared_ptr<vigra::FRGBImage> ImageCacheRGBFloatPtr;
         typedef sharedPtrNamespace::shared_ptr<vigra::BImage> ImageCache8Ptr;
+        typedef sharedPtrNamespace::shared_ptr<vigra::ImageImportInfo::ICCProfile> ImageCacheICCProfile;
 
         /** information about an image inside the cache */
         struct IMPEX Entry
@@ -70,6 +71,7 @@ class IMPEX ImageCache
             ImageCacheRGB16Ptr image16;
             ImageCacheRGBFloatPtr imageFloat;
             ImageCache8Ptr mask;
+            ImageCacheICCProfile iccProfile;
 
             std::string origType;
             int lastAccess;
@@ -80,7 +82,8 @@ class IMPEX ImageCache
                   : image8(ImageCacheRGB8Ptr(new vigra::BRGBImage)),
                     image16(ImageCacheRGB16Ptr(new vigra::UInt16RGBImage)),
                     imageFloat(ImageCacheRGBFloatPtr(new vigra::FRGBImage)),
-                    mask(ImageCache8Ptr(new vigra::BImage))
+                    mask(ImageCache8Ptr(new vigra::BImage)),
+                    iccProfile(ImageCacheICCProfile(new vigra::ImageImportInfo::ICCProfile))
                 {
                       DEBUG_TRACE("Constructing an empty ImageCache::Entry");
                 };
@@ -90,8 +93,10 @@ class IMPEX ImageCache
                       ImageCacheRGB16Ptr & img16,
                       ImageCacheRGBFloatPtr & imgFloat,
                       ImageCache8Ptr & imgMask,
+                      ImageCacheICCProfile & ICCProfile,
                       const std::string & typ)
-                  : image8(img), image16(img16), imageFloat(imgFloat), mask(imgMask), origType(typ), lastAccess(0)
+                  : image8(img), image16(img16), imageFloat(imgFloat), mask(imgMask), origType(typ), lastAccess(0),
+                    iccProfile(ICCProfile)
                 { 
                         DEBUG_TRACE("Constructing ImageCache::Entry");
                 };

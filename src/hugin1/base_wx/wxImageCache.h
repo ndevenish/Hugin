@@ -34,6 +34,7 @@ typedef HuginBase::ImageCache::ImageCacheRGB8Ptr    ImageCacheRGB8Ptr;
 typedef HuginBase::ImageCache::ImageCacheRGB16Ptr   ImageCacheRGB16Ptr;
 typedef HuginBase::ImageCache::ImageCacheRGBFloatPtr ImageCacheRGBFloatPtr;
 typedef HuginBase::ImageCache::ImageCache8Ptr       ImageCache8Ptr;
+typedef HuginBase::ImageCache::ImageCacheICCProfile ImageCacheICCProfile;
 
 using HuginBase::ImageCache;
 using HuginBase::SmallRemappedImageCache;

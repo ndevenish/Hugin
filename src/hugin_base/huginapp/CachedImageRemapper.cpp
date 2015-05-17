@@ -96,6 +96,7 @@ SmallRemappedImageCache::getRemapped(const PanoramaData& pano,
         srcImgSize = e->imageFloat->size();
 
     MRemappedImage *remapped = new MRemappedImage;
+    remapped->m_ICCProfile = *(e->iccProfile);
     SrcPanoImage srcPanoImg = pano.getSrcImage(imgNr);
     // adjust distortion parameters for small preview image
     srcPanoImg.resize(srcImgSize);

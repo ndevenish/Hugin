@@ -43,6 +43,7 @@ extern "C"
 #include "exiv2/exiv2.hpp"
 #include "lensdb/LensDB.h"
 #include "sqlite3.h"
+#include <lcms2.h>
 #include "vigra/config.hxx"
 #include "hugin_config.h"
 
@@ -190,6 +191,10 @@ void AboutDialog::GetSystemInformation(wxFont *font)
 #else
     text = text + wxT("\n") + _("Multi-threading using boost::thread and OpenMP");
 #endif
+    if (huginApp::Get()->HasMonitorProfile())
+    {
+        text = text + wxT("\n") + wxString::Format(_("Monitor profile: %s"), huginApp::Get()->GetMonitorProfileName().c_str());
+    }
     text=text+wxT("\n\n")+_("Libraries");
 #if wxCHECK_VERSION(3,0,0)
     wxVersionInfo info = wxGetLibraryVersionInfo();
@@ -217,6 +222,7 @@ void AboutDialog::GetSystemInformation(wxFont *font)
     text = text + wxT("\n") + wxT("Exiv2: ") + wxString(Exiv2::version(), wxConvLocal);
     text = text + wxT("\n") + wxT("SQLite3: ") + wxString(sqlite3_libversion(), wxConvLocal);
     text = text + wxT("\n") + wxString::Format(wxT("Vigra: %s"), wxString(VIGRA_VERSION, wxConvLocal).c_str());
+    text = text + wxT("\n") + wxString::Format(wxT("LittleCMS2: %i.%i"), LCMS_VERSION / 1000, LCMS_VERSION / 10 % 100);
     infoText->SetValue(text);
 }
 

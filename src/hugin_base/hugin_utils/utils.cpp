@@ -49,6 +49,7 @@
 #include <algorithm>
 #define BOOST_FILESYSTEM_VERSION 3
 #include <boost/filesystem.hpp>
+#include <lcms2.h>
 
 #ifdef __APPLE__
 #include <mach-o/dyld.h>  /* _NSGetExecutablePath */
@@ -526,4 +527,30 @@ std::string GetHuginVersion()
     return std::string(DISPLAY_VERSION);
 };
 
+std::string GetICCDesc(const vigra::ImageImportInfo::ICCProfile& iccProfile)
+{
+    if (iccProfile.empty())
+    {
+        // no profile
+        return std::string();
+    };
+    cmsHPROFILE profile = cmsOpenProfileFromMem(iccProfile.data(), iccProfile.size());
+    if (profile == NULL)
+    {
+        // invalid profile
+        return std::string();
+    };
+    const std::string name=GetICCDesc(profile);
+    cmsCloseProfile(profile);
+    return name;
+};
+
+std::string GetICCDesc(const cmsHPROFILE& profile)
+{
+    const size_t size = cmsGetProfileInfoASCII(profile, cmsInfoDescription, cmsNoLanguage, cmsNoCountry, nullptr, 0);
+    std::string information(size, '\000');
+    cmsGetProfileInfoASCII(profile, cmsInfoDescription, cmsNoLanguage, cmsNoCountry, &information[0], size);
+    StrTrim(information);
+    return information;
+}
 } //namespace

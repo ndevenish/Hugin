@@ -32,6 +32,7 @@
 #include "nona/RemappedPanoImage.h"
 #include "nona/ImageRemapper.h"
 #include "LensCalApp.h"
+#include "base_wx/wxcms.h"
 
 BEGIN_EVENT_TABLE(LensCalImageCtrl, wxPanel)
     EVT_SIZE(LensCalImageCtrl::Resize)
@@ -58,6 +59,10 @@ LensCalImageCtrl::LensCalImageCtrl() : wxPanel()
     m_c=0;
     m_d=0;
     m_e=0;
+    // load monitor profile
+    wxString profileName;
+    HuginBase::Color::GetMonitorProfile(profileName, m_monitorProfile);
+    m_hasMonitorProfile = !profileName.IsEmpty();
 };
 
 const LensCalImageCtrl::LensCalPreviewMode LensCalImageCtrl::GetMode()
@@ -279,7 +284,13 @@ void LensCalImageCtrl::SetImage(ImageLineList* newList, unsigned int newIndex)
     m_imageIndex=newIndex;
     std::string filename(newList->GetFilename().mb_str(HUGIN_CONV_FILENAME));
     ImageCache::EntryPtr img = ImageCache::getInstance().getImage(filename);
-    m_img = imageCacheEntry2wxImage(img);
+    // we need to create a copy, otherwise the color management function will modifiy the image
+    // directly in the ImageCache
+    m_img = imageCacheEntry2wxImage(img).Copy();
+    if (!img->iccProfile->empty() || m_hasMonitorProfile)
+    {
+        HuginBase::Color::CorrectImage(m_img, *(img->iccProfile), m_monitorProfile);
+    }
     SetEdgeImage();
 
     wxSizeEvent e;
@@ -416,6 +427,11 @@ void LensCalImageCtrl::GenerateRemappedImage(const unsigned int newWidth,const u
     remapped->remapImage(vigra::srcImageRange(*(img->get8BitImage())),vigra_ext::INTERP_CUBIC, wxGetApp().GetLensCalFrame());
     m_remappedImage=remapped->m_image;
     m_remapped_img.SetData((unsigned char*)m_remappedImage.data(),m_remappedImage.width(),m_remappedImage.height(),true);
+    // apply color profiles
+    if (!img->iccProfile->empty() || m_hasMonitorProfile)
+    {
+        HuginBase::Color::CorrectImage(m_remapped_img, *(img->iccProfile), m_monitorProfile);
+    }
     delete remapped;
 };
 

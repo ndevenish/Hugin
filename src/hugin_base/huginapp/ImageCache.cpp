@@ -547,10 +547,15 @@ ImageCache::EntryPtr ImageCache::loadImageSafely(const std::string & filename)
     ImageCacheRGB16Ptr img16(new vigra::UInt16RGBImage);
     ImageCacheRGBFloatPtr imgFloat(new vigra::FRGBImage);
     ImageCache8Ptr mask(new vigra::BImage);
+    ImageCacheICCProfile iccProfile(new vigra::ImageImportInfo::ICCProfile);
 
     try {
         vigra::ImageImportInfo info(filename.c_str());
 
+        if (!info.getICCProfile().empty())
+        {
+            *iccProfile = info.getICCProfile();
+        };
         int bands = info.numBands();
         int extraBands = info.numExtraBands();
         const char * pixelType = info.getPixelType();
@@ -705,7 +710,7 @@ ImageCache::EntryPtr ImageCache::loadImageSafely(const std::string & filename)
        return EntryPtr();
     }
 
-    return EntryPtr(new Entry(img8, img16, imgFloat, mask, pixelTypeStr));
+    return EntryPtr(new Entry(img8, img16, imgFloat, mask, iccProfile, pixelTypeStr));
 }
 
 ImageCache::EntryPtr ImageCache::getImageIfAvailable(const std::string & filename)
@@ -779,6 +784,11 @@ ImageCache::EntryPtr ImageCache::loadSmallImageSafely(EntryPtr entry)
     }
     EntryPtr e(new Entry);
     e->origType = entry->origType;
+    // also copy icc profile
+    if (!entry->iccProfile->empty())
+    {
+        *(e->iccProfile) = *(entry->iccProfile);
+    };
     // TODO: fix bug with mask reduction
     vigra::BImage fullsizeMask = *(entry->mask);
     if (entry->imageFloat->width() != 0 ) {

@@ -300,6 +300,42 @@ bool wxAddImagesCmd::processPanorama(HuginBase::Panorama& pano)
                 srcImg.setResponseType(HuginBase::SrcPanoImage::RESPONSE_EMOR);
             else
                 srcImg.setResponseType(HuginBase::SrcPanoImage::RESPONSE_LINEAR);
+            if (pano.getNrOfImages() > 0)
+            {
+                const std::string newICCProfileDesc = hugin_utils::GetICCDesc(info.getICCProfile());
+                if (newICCProfileDesc != pano.getICCProfileDesc())
+                {
+                    // icc profiles does not match
+                    wxString warning;
+                    if (newICCProfileDesc.empty())
+                    { 
+                        warning = wxString::Format(_("File \"%s\" has no embedded icc profile, but other images in project have profile \"%s\" embedded."), fname.c_str(), wxString(pano.getICCProfileDesc().c_str(), wxConvLocal).c_str());
+                    }
+                    else
+                    {
+                        if (pano.getICCProfileDesc().empty())
+                        {
+                            warning = wxString::Format(_("File \"%s\" has icc profile \"%s\" embedded, but other images in project have no embedded color profile."), fname.c_str(), wxString(newICCProfileDesc.c_str(), wxConvLocal).c_str());
+                        }
+                        else
+                        {
+                            warning = wxString::Format(_("File \"%s\" has icc profile \"%s\" embedded, but other images in project have color profile \"%s\" embedded."), fname.c_str(), wxString(newICCProfileDesc.c_str(), wxConvLocal).c_str(), wxString(pano.getICCProfileDesc().c_str(), wxConvLocal).c_str());
+                        }
+                    }
+                    warning.Append(wxT("\n"));
+                    warning.Append(_("Hugin expects all images in the same color profile.\nPlease convert all images to same color profile and try again."));
+                    wxMessageBox(warning, _("Warning"), wxOK | wxICON_EXCLAMATION);
+                    continue;
+                }
+            }
+            else
+            {
+                // remember icc profile name
+                if (!info.getICCProfile().empty())
+                {
+                    pano.setICCProfileDesc(hugin_utils::GetICCDesc(info.getICCProfile()));
+                };
+            }
         }
         catch(std::exception & e)
         {

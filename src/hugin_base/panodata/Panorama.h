@@ -88,6 +88,8 @@ class IMPEX PanoramaMemento : public PanoramaDataMemento
          * when necessary.
          */
         std::vector<SrcPanoImage *> images;
+        /** description of the icc profile */
+        std::string iccProfileDesc;
         
         CPVector ctrlPoints;
         
@@ -360,7 +362,11 @@ class IMPEX Panorama : public ManagedPanoramaData, public AppBase::DocumentData
             */
         void updateCtrlPointErrors(const UIntSet & imgs, const CPVector & cps);
         
-        
+        /** return description of icc profile used for pano */
+        const std::string getICCProfileDesc() const;
+        /** sets the icc profile description for check of same profile */
+        void setICCProfileDesc(const std::string& newDesc);
+
     // = Variables =    
         
         /// get variables of this panorama

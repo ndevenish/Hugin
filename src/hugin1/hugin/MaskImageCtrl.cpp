@@ -29,7 +29,9 @@
 #include "panoinc_WX.h"
 #include "panoinc.h"
 #include "base_wx/platform.h"
+#include "base_wx/wxcms.h"
 #include "hugin/MainFrame.h"
+#include "hugin/huginApp.h"
 #include "hugin/config_defaults.h"
 #include "hugin/MaskImageCtrl.h"
 #include "hugin/MaskEditorPanel.h"
@@ -1327,6 +1329,11 @@ void MaskImageCtrl::rescaleImage()
         default:
             break;
     }
+    // do color correction only if input image has icc profile or if we found a monitor profile
+    if (!m_img->iccProfile->empty() || huginApp::Get()->HasMonitorProfile())
+    {
+        HuginBase::Color::CorrectImage(img, *(m_img->iccProfile), huginApp::Get()->GetMonitorProfile());
+    };
     m_bitmap=wxBitmap(img);
 
     //create disabled m_bitmap for drawing active masks

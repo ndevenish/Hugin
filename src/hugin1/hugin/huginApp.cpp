@@ -48,6 +48,7 @@
 #include "hugin/GLPreviewFrame.h"
 #include "base_wx/PTWXDlg.h"
 #include "base_wx/CommandHistory.h"
+#include "base_wx/wxcms.h"
 #include "base_wx/wxPanoCommand.h"
 #include "hugin/HtmlWindow.h"
 #include "hugin/treelistctrl.h"
@@ -121,6 +122,7 @@ huginApp::huginApp()
 {
     DEBUG_TRACE("ctor");
     m_this=this;
+    m_monitorProfile = NULL;
 #if wxUSE_ON_FATAL_EXCEPTION
     wxHandleFatalExceptions();
 #endif
@@ -138,6 +140,11 @@ huginApp::~huginApp()
 
 //    delete frame;
     HuginBase::LensDB::LensDB::Clean();
+    // delete monitor profile
+    if (m_monitorProfile)
+    {
+        cmsCloseProfile(m_monitorProfile);
+    };
     DEBUG_TRACE("dtor end");
 }
 
@@ -311,6 +318,8 @@ bool huginApp::OnInit()
     m_macInitDone=false;
     m_macOpenFileOnStart=false;
 #endif
+    // read monitor profile
+    HuginBase::Color::GetMonitorProfile(m_monitorProfileName, m_monitorProfile);
     // create main frame
     frame = new MainFrame(NULL, pano);
     SetTopWindow(frame);

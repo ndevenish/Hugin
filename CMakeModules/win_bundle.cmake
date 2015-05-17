@@ -154,6 +154,11 @@ IF(WIN32)
       PATHS ${SOURCE_BASE_DIR}/freeglut-2.6.0/VisualStudio2008/Release ${SOURCE_BASE_DIR}/glut/Release ${SOURCE_BASE_DIR}/glut/lib
       NO_SYSTEM_ENVIRONMENT_PATH
     )
+    FIND_FILE(LCMS2_DLL
+      NAMES lcms2.dll
+      PATHS ${LCMS2_ROOT_DIR}/bin
+      NO_SYSTEM_ENVIRONMENT_PATH
+    )
     # hand tuned dll, so that only necesarry dll are install and not all wxWidgets DLL to save space
     FIND_FILE(WXWIDGETS_DLL1 
               NAMES wxbase310u_vc_custom.dll wxbase30u_vc_custom.dll wxbase295u_vc_custom.dll wxbase294u_vc_custom.dll wxbase293u_vc_custom.dll wxbase292u_vc_custom.dll wxbase291u_vc_custom.dll wxbase28u_vc_custom.dll 
@@ -184,7 +189,7 @@ IF(WIN32)
               PATHS ${wxWidgets_LIB_DIR} NO_SYSTEM_ENVIRONMENT_PATH)
 
     INSTALL(FILES ${TIFF_DLL} ${JPEG_DLL} ${PNG_DLL} ${ZLIB_DLL} ${OPENEXR_DLL} ${VIGRA_DLL}
-        ${BOOST_DLLs} ${EXIV2_DLL} ${LIBEXPAT_DLL} ${GLEW_DLL} ${GLUT_DLL}
+        ${BOOST_DLLs} ${EXIV2_DLL} ${LIBEXPAT_DLL} ${GLEW_DLL} ${GLUT_DLL} ${LCMS2_DLL}
         ${WXWIDGETS_DLL1} ${WXWIDGETS_DLL2} ${WXWIDGETS_DLL2} ${WXWIDGETS_DLL3}
         ${WXWIDGETS_DLL3} ${WXWIDGETS_DLL4} ${WXWIDGETS_DLL5} ${WXWIDGETS_DLL6}
         ${WXWIDGETS_DLL7} ${WXWIDGETS_DLL8} ${WXWIDGETS_DLL9}

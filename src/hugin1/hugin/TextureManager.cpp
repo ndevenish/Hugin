@@ -45,6 +45,7 @@
 #include "base_wx/wxImageCache.h"
 #include "photometric/ResponseTransform.h"
 #include "panodata/Mask.h"
+#include <lcms2.h>
 
 // The OpenGL Extension wrangler libray will find extensions and the latest
 // supported OpenGL version on all platforms.
@@ -722,7 +723,7 @@ void TextureManager::TextureInfo::DefineLevels(int min,
     // remove some cache items if we are using lots of memory:
     ImageCache::getInstance().softFlush();
     DEBUG_INFO("Loading image");
-    std::string img_name = src_img.getFilename();
+    const std::string img_name = src_img.getFilename();
     ImageCache::EntryPtr entry = ImageCache::getInstance().getImageIfAvailable(img_name);
     if (!entry.get())
     {
@@ -880,6 +881,35 @@ void TextureManager::TextureInfo::DefineLevels(int min,
             vigra::resizeImageNoInterpolation(srcImageRange(*(mask)),
                                               destImageRange(*out_alpha));
         }/**/
+        // prepare color management
+        cmsHPROFILE inputICC = NULL;
+        if (!entry->iccProfile->empty())
+        {
+            inputICC = cmsOpenProfileFromMem(entry->iccProfile->data(), entry->iccProfile->size());
+        };
+        cmsHTRANSFORM transform = NULL;
+        // do color correction only if input image has icc profile or if we found a monitor profile
+        if (inputICC != NULL || huginApp::Get()->HasMonitorProfile())
+        {
+            // check input profile
+            if (inputICC != NULL)
+            {
+                if (cmsGetColorSpace(inputICC) != cmsSigRgbData)
+                {
+                    cmsCloseProfile(inputICC);
+                    inputICC = NULL;
+                };
+            };
+            // if there is no icc profile in file fall back to sRGB
+            if (inputICC == NULL)
+            {
+                inputICC = cmsCreate_sRGBProfile();
+            };
+            // now build transform
+            transform = cmsCreateTransform(inputICC, TYPE_RGB_8,
+                huginApp::Get()->GetMonitorProfile(), TYPE_RGB_8,
+                INTENT_PERCEPTUAL, cmsFLAGS_BLACKPOINTCOMPENSATION);
+        };
         // now perform photometric correction
         if (photometric_correct)
         {
@@ -887,21 +917,21 @@ void TextureManager::TextureInfo::DefineLevels(int min,
             // setup photometric transform for this image type
             // this corrects for response curve, white balance, exposure and
             // radial vignetting
-            HuginBase::Photometric::InvResponseTransform <unsigned char, double>
-                                    invResponse(src_img);
-           // Assume LDR for now.
-           // if (m_destImg.outputMode == PanoramaOptions::OUTPUT_LDR) {
-               // select exposure and response curve for LDR output
-               std::vector<double> outLut;
-               // @TODO better handling of output EMoR parameters
-               // Hugin's stitcher is currently using the EMoR parameters of the first image
-               // as so called output EMoR parameter, so enforce this also for the fast
-               // preview window
-               // vigra_ext::EMoR::createEMoRLUT(dest_img.outputEMoRParams, outLut);
-               vigra_ext::EMoR::createEMoRLUT(m_viewState->GetSrcImage(0)->getEMoRParams(), outLut);
-               vigra_ext::enforceMonotonicity(outLut);
-               invResponse.setOutput(1.0/pow(2.0,dest_img.outputExposureValue),
-                                     outLut, 255.0);
+            HuginBase::Photometric::InvResponseTransform < unsigned char, double >
+                invResponse(src_img);
+            // Assume LDR for now.
+            // if (m_destImg.outputMode == PanoramaOptions::OUTPUT_LDR) {
+            // select exposure and response curve for LDR output
+            std::vector<double> outLut;
+            // @TODO better handling of output EMoR parameters
+            // Hugin's stitcher is currently using the EMoR parameters of the first image
+            // as so called output EMoR parameter, so enforce this also for the fast
+            // preview window
+            // vigra_ext::EMoR::createEMoRLUT(dest_img.outputEMoRParams, outLut);
+            vigra_ext::EMoR::createEMoRLUT(m_viewState->GetSrcImage(0)->getEMoRParams(), outLut);
+            vigra_ext::enforceMonotonicity(outLut);
+            invResponse.setOutput(1.0 / pow(2.0, dest_img.outputExposureValue),
+                outLut, 255.0);
             /*} else {
                // HDR output. not sure how that would be handled by the opengl
                // preview, though. It might be possible to apply a logarithmic
@@ -909,21 +939,47 @@ void TextureManager::TextureInfo::DefineLevels(int min,
                // in the OpenGL renderer?
                // TODO
                invResponse.setHDROutput();
-            }*/
+               }*/
             // now perform the corrections
-            double scale_x = (double) src_img.getSize().width() / (double) wo,
-                   scale_y = (double) src_img.getSize().height() / (double) ho;
-            for (int x = 0; x < wo; x++)
+            double scale_x = (double)src_img.getSize().width() / (double)wo,
+                scale_y = (double)src_img.getSize().height() / (double)ho;
+#pragma omp parallel for
+            for (int y = 0; y < ho; y++)
             {
-                for (int y = 0; y < ho; y++)
+                for (int x = 0; x < wo; x++)
                 {
-                    double sx = (double) x * scale_x,
-                           sy = (double) y * scale_y;
+                    double sx = (double)x * scale_x,
+                        sy = (double)y * scale_y;
                     out_img[y][x] = invResponse(out_img[y][x],
-                                                hugin_utils::FDiff2D(sx, sy));
+                        hugin_utils::FDiff2D(sx, sy));
                 }
+                // now take color profiles in file and of monitor into account
+                if (transform != NULL)
+                {
+                    cmsDoTransform(transform, out_img[y], out_img[y], out_img.width());
+                };
             }
         }
+        else
+        {
+            // no photometric correction
+            if (transform != NULL)
+            {
+#pragma omp parallel for
+                for (int y = 0; y < ho; y++)
+                {
+                    cmsDoTransform(transform, out_img[y], out_img[y], out_img.width());
+                };
+            };
+        };
+        if (transform != NULL)
+        {
+            cmsDeleteTransform(transform);
+        };
+        if (inputICC != NULL)
+        {
+            cmsCloseProfile(inputICC);
+        };
     }
     
     //  make all of the smaller ones until we are done.

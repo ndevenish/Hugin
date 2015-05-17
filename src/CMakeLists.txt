@@ -17,7 +17,7 @@ ENDIF()
 set(image_libs ${VIGRA_LIBRARIES} ${OPENEXR_LIBRARIES} ${JPEG_LIBRARIES} ${TIFF_LIBRARIES}
     ${PNG_LIBRARIES} ${ZLIB_LIBRARIES} ${EXIV2_LIBRARIES})
 
-SET(common_libs ${common_libs} ${image_libs})
+SET(common_libs ${common_libs} ${image_libs} ${LCMS2_LIBRARIES})
 
 add_subdirectory(celeste)
 add_subdirectory(foreign)

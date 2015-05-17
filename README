@@ -139,6 +139,7 @@ Users compiling Hugin from source will need:
     freeglut or glut, the OpenGL utility toolkit
     gettext
     sqlite3, the SQL database backend for the lens database
+    littlecms2, little cms color engine
     optionally, lapack
     optionally, libfftw3
     on Unix you need also

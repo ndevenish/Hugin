@@ -47,6 +47,7 @@
 #include "hugin/CPEditorPanel.h"
 #include "hugin/MainFrame.h"
 #include "hugin/huginApp.h"
+#include "base_wx/wxcms.h"
 
 #include "vigra_ext/ImageTransforms.h"
 
@@ -998,8 +999,18 @@ void CPImageCtrl::rescaleImage()
                 default:
                     break;
             }
+            // do color correction only if input image has icc profile or if we found a monitor profile
+            if (!m_img->iccProfile->empty() || huginApp::Get()->HasMonitorProfile())
+            {
+                HuginBase::Color::CorrectImage(tmp, *(m_img->iccProfile), huginApp::Get()->GetMonitorProfile());
+            };
             bitmap = wxBitmap(tmp);
         } else {
+            // do color correction only if input image has icc profile or if we found a monitor profile
+            if (!m_img->iccProfile->empty() || huginApp::Get()->HasMonitorProfile())
+            {
+                HuginBase::Color::CorrectImage(img, *(m_img->iccProfile.get()), huginApp::Get()->GetMonitorProfile());
+            };
             bitmap = wxBitmap(img);
         }
     } else {
@@ -1024,7 +1035,11 @@ void CPImageCtrl::rescaleImage()
             default:
                 break;
         }
-
+        // do color correction only if input image has icc profile or if we found a monitor profile
+        if (!m_img->iccProfile->empty() || huginApp::Get()->HasMonitorProfile())
+        {
+            HuginBase::Color::CorrectImage(tmp, *(m_img->iccProfile), huginApp::Get()->GetMonitorProfile());
+        };
         bitmap = wxBitmap(tmp);
         DEBUG_DEBUG("rescaling finished");
     }

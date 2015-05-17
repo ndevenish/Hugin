@@ -32,6 +32,7 @@
 
 #include "base_wx/platform.h"
 #include "base_wx/wxPlatform.h"
+#include "base_wx/wxcms.h"
 #include <vector>
 #include <map>
 #ifdef HAVE_CXX11
@@ -491,6 +492,11 @@ void ImagesPanel::UpdatePreviewImage()
         // on a small window, m_smallImgCtrl can have 0 width.
         sz.IncTo(wxSize(1,1));
         wxImage scaled = img.Scale(sz.GetWidth(),sz.GetHeight());
+        // now apply color profile
+        if (!cacheEntry->iccProfile->empty() || huginApp::Get()->HasMonitorProfile())
+        {
+            HuginBase::Color::CorrectImage(scaled, *(cacheEntry->iccProfile), huginApp::Get()->GetMonitorProfile());
+        };
         m_smallImgCtrl->SetBitmap(wxBitmap(scaled));
         m_smallImgCtrl->GetParent()->Layout();
         m_smallImgCtrl->Refresh();

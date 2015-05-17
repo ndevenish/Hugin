@@ -3,12 +3,14 @@ SET(HUGIN_WX_BASE_SRC wxImageCache.cpp MyProgressDialog.cpp PTWXDlg.cpp
                       huginConfig.cpp MyExternalCmdExecDialog.cpp platform.cpp
                       RunStitchPanel.cpp LensTools.cpp wxLensDB.cpp HFOVDialog.cpp
                       Command.cpp PanoCommand.cpp wxPanoCommand.cpp CommandHistory.cpp
-                      Executor.cpp AssistantExecutor.cpp StitchingExecutor.cpp wxPlatform.cpp )
+                      Executor.cpp AssistantExecutor.cpp StitchingExecutor.cpp wxcms.cpp 
+                      wxPlatform.cpp )
 SET(HUGIN_WX_BASE_HEADER wxImageCache.h MyProgressDialog.h PTWXDlg.h
                       huginConfig.h MyExternalCmdExecDialog.h platform.h
                       RunStitchPanel.h LensTools.h wxLensDB.h HFOVDialog.h
                       Command.h PanoCommand.h wxPanoCommand.h CommandHistory.h
-                      Executor.h AssistantExecutor.h StitchingExecutor.h wxPlatform.h )
+                      Executor.h AssistantExecutor.h StitchingExecutor.h wxcms.h 
+                      wxPlatform.h )
 
 IF (${HUGIN_SHARED_LIBS})
   add_library(huginbasewx SHARED ${HUGIN_WX_BASE_SRC} ${HUGIN_WX_BASE_HEADER})

@@ -28,6 +28,7 @@
 #define LensCalImageCtrl_H
 
 #include <base_wx/wxImageCache.h>
+#include <lcms2.h>
 #include "lines/FindLines.h"
 #include "LensCalTypes.h"
 
@@ -100,6 +101,10 @@ private:
     bool m_showLines;
     /** which image should be drawn */
     LensCalPreviewMode m_previewMode;
+    /** monitor profile */
+    cmsHPROFILE m_monitorProfile;
+    /** true, if we found a real monitor profile */
+    bool m_hasMonitorProfile;
 
     // some actual lens parameters
     HuginBase::SrcPanoImage::Projection m_projection;

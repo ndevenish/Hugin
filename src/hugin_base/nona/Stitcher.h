@@ -831,7 +831,7 @@ public:
         }
     }
 
-protected:
+public:
     vigra::ImageImportInfo::ICCProfile iccProfile;
 };
 
@@ -952,7 +952,7 @@ public:
 	Base::m_progress.popTask();
 
     }
-protected:
+public:
     vigra::ImageExportInfo::ICCProfile iccProfile;
 };
 

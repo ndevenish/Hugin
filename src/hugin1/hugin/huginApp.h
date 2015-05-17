@@ -26,6 +26,7 @@
 
 #include "config.h"
 #include <huginapp/ImageCache.h>
+#include <lcms2.h>
 #include <algorithms/optimizer/ImageGraph.h>
 
 #include "hugin/MainFrame.h"
@@ -146,6 +147,22 @@ public:
         return m_utilsBinDir;
     }
 
+    /** returns the monitor profile, if no monitor profile was found the sRGB profile is used instead */
+    const cmsHPROFILE& GetMonitorProfile() const
+    {
+        return m_monitorProfile;
+    }
+    /** return true if we found a suitable monitor profile and could loading it */
+    bool HasMonitorProfile() const
+    {
+        return !m_monitorProfileName.IsEmpty();
+    }
+    /** return filename of monitor profile */
+    const wxString& GetMonitorProfileName() const
+    {
+        return m_monitorProfileName;
+    };
+
 #ifdef __WXMAC__
     //Defined in wxApp.h; This one lets project file to be opened from Finder and other applications.
     void MacOpenFile(const wxString &fileName);
@@ -180,6 +197,9 @@ private:
 	wxString m_DataDir;
 	// folder for CLI tools
     wxString m_utilsBinDir;
+    // monitor profile
+    wxString m_monitorProfileName;
+    cmsHPROFILE m_monitorProfile;
 
 #ifdef __WXMAC__
     bool m_macInitDone;

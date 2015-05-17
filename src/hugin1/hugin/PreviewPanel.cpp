@@ -38,6 +38,7 @@
 #include "hugin/MainFrame.h"
 #include "base_wx/CommandHistory.h"
 #include "base_wx/PanoCommand.h"
+#include "base_wx/wxcms.h"
 #include "hugin/config_defaults.h"
 #include "hugin/huginApp.h"
 
@@ -310,6 +311,7 @@ void PreviewPanel::updatePreview()
 
             } else {
                     // LDR output
+                vigra::ImageImportInfo::ICCProfile iccProfile;
                 switch (m_blendMode) {
                 case BLEND_COPY:
                 {
@@ -319,6 +321,7 @@ void PreviewPanel::updatePreview()
                                     destImageRange(panoImg), destImage(alpha),
                                     m_remapCache,
                                     blender);
+                    iccProfile = stitcher.iccProfile;
                     break;
                 }
                 case BLEND_DIFFERENCE:
@@ -329,10 +332,10 @@ void PreviewPanel::updatePreview()
                                     destImageRange(panoImg), destImage(alpha),
                                     m_remapCache,
                                     func);
+                    iccProfile = stitcher.iccProfile;
                     break;
                 }
                 }
-
                 
 #ifdef DEBUG_REMAP
 {
@@ -384,6 +387,11 @@ void PreviewPanel::updatePreview()
                     vigra::transformImage(srcImageRange(panoImg), destImage(panoImg8),
                                           lutf);
                 }
+                // apply color profiles
+                if (!iccProfile.empty() || huginApp::Get()->HasMonitorProfile())
+                {
+                    HuginBase::Color::CorrectImage(panoImage, iccProfile, huginApp::Get()->GetMonitorProfile());
+                };
             }
         }
 
