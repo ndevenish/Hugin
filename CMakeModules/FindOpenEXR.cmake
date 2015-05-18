@@ -36,7 +36,7 @@ ENDIF (NOT WIN32 OR MINGW)
     PATHS
     ${_OPENEXRLinkDir}
     ${SYSTEM_LIB_DIRS}
-    ${SOURCE_BASE_DIR}/Deploy/lib/HuginRelease
+    ${SOURCE_BASE_DIR}/Deploy/lib/
     ${SOURCE_BASE_DIR}/Deploy/lib/Release
   )
 
@@ -45,7 +45,7 @@ ENDIF (NOT WIN32 OR MINGW)
     PATHS
     ${_OPENEXRLinkDir}
     ${SYSTEM_LIB_DIRS}
-    ${SOURCE_BASE_DIR}/Deploy/lib/HuginRelease
+    ${SOURCE_BASE_DIR}/Deploy/lib/
     ${SOURCE_BASE_DIR}/Deploy/lib/Release
   )
 
@@ -53,7 +53,7 @@ ENDIF (NOT WIN32 OR MINGW)
     PATHS
     ${_OPENEXRLinkDir}
     ${SYSTEM_LIB_DIRS}
-    ${SOURCE_BASE_DIR}/Deploy/lib/HuginRelease
+    ${SOURCE_BASE_DIR}/Deploy/lib/
     ${SOURCE_BASE_DIR}/Deploy/lib/Release
   )
   
@@ -61,7 +61,7 @@ ENDIF (NOT WIN32 OR MINGW)
     PATHS
     ${_OPENEXRLinkDir}
     ${SYSTEM_LIB_DIRS}
-    ${SOURCE_BASE_DIR}/Deploy/lib/HuginRelease
+    ${SOURCE_BASE_DIR}/Deploy/lib/
     ${SOURCE_BASE_DIR}/Deploy/lib/Release
   )
   
@@ -70,7 +70,7 @@ ENDIF (NOT WIN32 OR MINGW)
     PATHS
     ${_OPENEXRLinkDir}
     ${SYSTEM_LIB_DIRS}
-    ${SOURCE_BASE_DIR}/Deploy/lib/HuginRelease
+    ${SOURCE_BASE_DIR}/Deploy/lib/
     ${SOURCE_BASE_DIR}/Deploy/lib/Release
   )
 
