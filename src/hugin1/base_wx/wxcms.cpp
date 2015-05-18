@@ -89,11 +89,12 @@ namespace HuginBase
                 Display *disp = XOpenDisplay(0);
                 if (disp)
                 {
-                    profile = GetProfileFromAtom(disp, "_ICC_DEVICE_PROFILE");
-                    if (profile == NULL)
-                    {
-                        profile = GetProfileFromAtom(disp, "_ICC_PROFILE");
-                    };
+                    // when using libXcm we should also use
+                    // profile = GetProfileFromAtom(disp, "_ICC_DEVICE_PROFILE");
+                    // profile = GetProfileFromAtom(disp, XCM_ICC_COLOUR_SERVER_TARGET_PROFILE_IN_X_BASE)
+                    // but in this case we need to update the code to take X11/Xcm/Xcm.h XcolorRegion
+                    // into account
+                    profile = GetProfileFromAtom(disp, "_ICC_PROFILE");
                     if (profile != NULL)
                     {
                         profileName = wxString(hugin_utils::GetICCDesc(profile).c_str(), wxConvLocal);
