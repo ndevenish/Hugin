@@ -73,6 +73,11 @@ IF(WIN32)
   INSTALL(FILES ${ENBLEND_DOC_FILES} DESTINATION doc/enblend)
 
   # install exiftool
+  FIND_PATH(EXIFTOOL_EXE_DIR exiftool.exe
+        ${SOURCE_BASE_DIR}/tools
+        ${SOURCE_BASE_DIR}/exiftool
+        DOC "Location of exiftool.exe"
+        NO_DEFAULT_PATH)
   INSTALL(FILES ${EXIFTOOL_EXE_DIR}/exiftool.exe DESTINATION ${BINDIR})
 
   # now install all necessary DLL
@@ -151,7 +156,7 @@ IF(WIN32)
     )
     FIND_FILE(GLUT_DLL
       NAMES glut.dll freeglut.dll glut32.dll
-      PATHS ${SOURCE_BASE_DIR}/freeglut-2.6.0/VisualStudio2008/Release ${SOURCE_BASE_DIR}/glut/Release ${SOURCE_BASE_DIR}/glut/lib
+      PATHS ${SOURCE_BASE_DIR}/glut/bin ${SOURCE_BASE_DIR}/freeglut-2.6.0/VisualStudio2008/Release ${SOURCE_BASE_DIR}/glut/Release ${SOURCE_BASE_DIR}/glut/lib
       NO_SYSTEM_ENVIRONMENT_PATH
     )
     FIND_FILE(LCMS2_DLL
