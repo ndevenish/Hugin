@@ -34,7 +34,7 @@ Number of used threads
 
 =item B<-p, --prefix=str>
 
-Prefix used for stitching. If not provided the stitched image will have the name of the input project file.
+Prefix used for stitching. When no prefix is specified it will use the output prefix found in the Hugin Preferences dialog. The default value for the output prefix is the filename (inclusive path) of the project file.
 
 =item B<-d, --dry-run>
 
