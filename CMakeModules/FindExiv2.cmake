@@ -72,10 +72,8 @@ else (EXIV2_INCLUDE_DIR AND EXIV2_LIBRARIES)
                /usr/include
                ${SOURCE_BASE_DIR}/exiv2/msvc2012/include
                ${SOURCE_BASE_DIR}/exiv2/msvc/include
-               ${SOURCE_BASE_DIR}/exiv2-0.25/msvc64/include
-               ${SOURCE_BASE_DIR}/exiv2-0.25/msvc/include
-               ${SOURCE_BASE_DIR}/exiv2-0.24/msvc64/include
-               ${SOURCE_BASE_DIR}/exiv2-0.24/msvc/include
+               ${SOURCE_BASE_DIR}/exiv2-0.25/msvc2012/include
+               ${SOURCE_BASE_DIR}/exiv2-0.24/msvc2012/include
                ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/include
                ${SOURCE_BASE_DIR}/exiv2-0.23/msvc/include
                ${SOURCE_BASE_DIR}/exiv2-0.22/msvc/include
@@ -97,10 +95,10 @@ else (EXIV2_INCLUDE_DIR AND EXIV2_LIBRARIES)
           PATHS 
             ${SOURCE_BASE_DIR}/exiv2/msvc2012/exiv2lib/x64/ReleaseDLL
             ${SOURCE_BASE_DIR}/exiv2/msvc2012/exiv2lib/x64/DebugDLL
-            ${SOURCE_BASE_DIR}/exiv2-0.25/msvc64/exiv2lib/x64/ReleaseDLL 
-            ${SOURCE_BASE_DIR}/exiv2-0.25/msvc64/exiv2lib/Win32/ReleaseDLL 
-            ${SOURCE_BASE_DIR}/exiv2-0.24/msvc64/exiv2lib/x64/ReleaseDLL 
-            ${SOURCE_BASE_DIR}/exiv2-0.24/msvc64/exiv2lib/Win32/ReleaseDLL 
+            ${SOURCE_BASE_DIR}/exiv2-0.25/msvc2012/exiv2lib/x64/ReleaseDLL 
+            ${SOURCE_BASE_DIR}/exiv2-0.25/msvc2012/exiv2lib/Win32/ReleaseDLL 
+            ${SOURCE_BASE_DIR}/exiv2-0.24/msvc2012/exiv2lib/x64/ReleaseDLL 
+            ${SOURCE_BASE_DIR}/exiv2-0.24/msvc2012/exiv2lib/Win32/ReleaseDLL 
             ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/exiv2lib/x64/ReleaseDLL 
             ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/exiv2lib/Win32/ReleaseDLL 
             ${SOURCE_BASE_DIR}/exiv2-0.22/msvc/bin/ReleaseDLL 
@@ -116,10 +114,10 @@ else (EXIV2_INCLUDE_DIR AND EXIV2_LIBRARIES)
           PATHS 
             ${SOURCE_BASE_DIR}/exiv2/msvc2012/exiv2lib/x64/ReleaseDLL
             ${SOURCE_BASE_DIR}/exiv2/msvc2012/exiv2lib/x64/DebugDLL
-            ${SOURCE_BASE_DIR}/exiv2-0.25/msvc64/exiv2lib/x64/ReleaseDLL 
-            ${SOURCE_BASE_DIR}/exiv2-0.25/msvc64/exiv2lib/Win32/ReleaseDLL 
-            ${SOURCE_BASE_DIR}/exiv2-0.24/msvc64/exiv2lib/x64/ReleaseDLL 
-            ${SOURCE_BASE_DIR}/exiv2-0.24/msvc64/exiv2lib/Win32/ReleaseDLL 
+            ${SOURCE_BASE_DIR}/exiv2-0.25/msvc2012/exiv2lib/x64/ReleaseDLL 
+            ${SOURCE_BASE_DIR}/exiv2-0.25/msvc2012/exiv2lib/Win32/ReleaseDLL 
+            ${SOURCE_BASE_DIR}/exiv2-0.24/msvc2012/exiv2lib/x64/ReleaseDLL 
+            ${SOURCE_BASE_DIR}/exiv2-0.24/msvc2012/exiv2lib/Win32/ReleaseDLL 
             ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/exiv2lib/x64/ReleaseDLL 
             ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/exiv2lib/Win32/ReleaseDLL 
             ${SOURCE_BASE_DIR}/expat-2.0.1/win32/bin/Release
@@ -142,8 +140,8 @@ else (EXIV2_INCLUDE_DIR AND EXIV2_LIBRARIES)
           WIN32_DEBUG_POSTFIX d
           NAMES xmpsdk
           PATHS ${SOURCE_BASE_DIR}/exiv2/msvc2012/lib
-                ${SOURCE_BASE_DIR}/exiv2-0.25/msvc/lib
-                ${SOURCE_BASE_DIR}/exiv2-0.24/msvc/lib
+                ${SOURCE_BASE_DIR}/exiv2-0.25/msvc2012/lib
+                ${SOURCE_BASE_DIR}/exiv2-0.24/msvc2012/lib
                 ${SOURCE_BASE_DIR}/exiv2-0.23/msvc/lib
                 ${SOURCE_BASE_DIR}/exiv2-0.22/msvc/lib
                 ${SOURCE_BASE_DIR}/exiv2-0.20/msvc/lib
