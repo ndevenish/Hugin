@@ -376,7 +376,28 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
     // Artificial limit: binding big textures to fbos seems to be very slow.
     //maxTextureSize = 2048;
 
-    const long long int GpuMemoryInBytes = 512 << 20;
+    long long int GpuMemoryInBytes = 512 << 20;
+    // read memory size, not implemented on all graphic cards
+    {
+        // for nvidia cards
+#define GL_GPU_MEM_INFO_TOTAL_AVAILABLE_MEM_NVX 0x9048
+        GLint total_mem_kb = 0;
+        glGetIntegerv(GL_GPU_MEM_INFO_TOTAL_AVAILABLE_MEM_NVX, &total_mem_kb);
+        if (glGetError() == GL_NO_ERROR)
+        {
+            GpuMemoryInBytes = total_mem_kb * 1024;
+        };
+    };
+    {
+        //for amd/ati cards
+#define TEXTURE_FREE_MEMORY_ATI 0x87FC
+        GLint param[4];
+        glGetIntegerv(TEXTURE_FREE_MEMORY_ATI, param);
+        if (glGetError() == GL_NO_ERROR)
+        {
+            GpuMemoryInBytes = param[0] * 1024;
+        };
+    }
     const double SourceAllocationRatio = 0.7;
 
     const int bytesPerSourcePixel = BytesPerPixel[srcGLInternalFormat]
