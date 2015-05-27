@@ -111,9 +111,45 @@ static const char* AlphaCompositeKernelSource = {
 };
 
 static void checkGLErrors(int line, char* file) {
-    GLenum errCode;
-    if ((errCode = glGetError()) != GL_NO_ERROR) {
-        cerr << "nona: GL error in " << file << ":" << line << ": " << gluErrorString(errCode) << endl;
+    GLenum errCode = glGetError();
+    if (errCode != GL_NO_ERROR)
+    {
+        while (errCode != GL_NO_ERROR)
+        {
+            const GLubyte* message = gluErrorString(errCode);
+            std::cerr << "nona: GL error in " << file << ":" << line << std::endl;
+            if (message)
+            {
+#ifdef _WIN32
+                const char* messageChar = reinterpret_cast<const char*>(message);
+                size_t size = strlen(messageChar);
+                LPSTR OEMmessageBuffer = (LPSTR)LocalAlloc(LPTR, (size + 1)*sizeof(char));
+                if (OEMmessageBuffer)
+                {
+                    if (CharToOemBuff(messageChar, OEMmessageBuffer, size))
+                    {
+                        std::cerr << OEMmessageBuffer << " (0x" << std::hex << errCode << ")" << std::endl;
+                    }
+                    else
+                    {
+                        std::cerr << message << " (0x" << std::hex << errCode << ")" << std::endl;
+                    };
+                }
+                else
+                {
+                    std::cerr << message << " (0x" << std::hex << errCode << ")" << std::endl;
+                };
+                LocalFree(OEMmessageBuffer);
+#else
+                std::cerr << message << " (0x" << std::hex << errCode << ")" << std::endl;
+#endif
+            }
+            else
+            {
+                std::cerr << "Error code: 0x" << std::hex << errCode << std::endl;
+            }
+            errCode = glGetError();
+        };
         exit(1);
     }
 }
