@@ -779,7 +779,7 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
     glTexParameteri(GL_TEXTURE_RECTANGLE_ARB, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_RECTANGLE_ARB, GL_TEXTURE_WRAP_S, GL_CLAMP);
     glTexParameteri(GL_TEXTURE_RECTANGLE_ARB, GL_TEXTURE_WRAP_T, GL_CLAMP);
-    glTexImage2D(GL_TEXTURE_RECTANGLE_ARB, 0, GL_LUMINANCE_ALPHA32F_ARB, destChunks[0].width(), destChunks[0].height() + destOdd, 0, GL_LUMINANCE_ALPHA, GL_FLOAT, NULL);
+    glTexImage2D(GL_TEXTURE_RECTANGLE_ARB, 0, GL_RGBA32F_ARB, destChunks[0].width(), destChunks[0].height() + destOdd, 0, GL_LUMINANCE_ALPHA, GL_FLOAT, NULL);
     CHECK_GL();
 
     // Setup coordinate framebuffer
@@ -878,7 +878,7 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
         glTexParameteri(GL_TEXTURE_RECTANGLE_ARB, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_RECTANGLE_ARB, GL_TEXTURE_WRAP_S, GL_CLAMP);
         glTexParameteri(GL_TEXTURE_RECTANGLE_ARB, GL_TEXTURE_WRAP_T, GL_CLAMP);
-        glTexImage2D(GL_TEXTURE_RECTANGLE_ARB, 0, XGLMap[destGLTransferFormat], destChunks[0].width(), destChunks[0].height() + destOdd, 0, XGLMap[destGLFormat], XGLMap[destGLType], NULL);
+        glTexImage2D(GL_TEXTURE_RECTANGLE_ARB, 0, XGLMap[destGLInternalFormat], destChunks[0].width(), destChunks[0].height() + destOdd, 0, XGLMap[destGLFormat], XGLMap[destGLType], NULL);
 
         glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, destFB);
         glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_RECTANGLE_ARB, destTexture, 0);
@@ -897,7 +897,7 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
         glTexParameteri(GL_TEXTURE_RECTANGLE_ARB, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_RECTANGLE_ARB, GL_TEXTURE_WRAP_S, GL_CLAMP);
         glTexParameteri(GL_TEXTURE_RECTANGLE_ARB, GL_TEXTURE_WRAP_T, GL_CLAMP);
-        glTexImage2D(GL_TEXTURE_RECTANGLE_ARB, 0, GL_ALPHA, destChunks[0].width(), destChunks[0].height() + destOdd, 0, GL_ALPHA, XGLMap[destAlphaGLType], NULL);
+        glTexImage2D(GL_TEXTURE_RECTANGLE_ARB, 0, GL_RGBA, destChunks[0].width(), destChunks[0].height() + destOdd, 0, GL_ALPHA, XGLMap[destAlphaGLType], NULL);
         CHECK_GL();
 
         glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, destAlphaFB);
@@ -1252,6 +1252,7 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
         }
         else {
             // Move output accumTexture to dest texture then readback.
+            glDrawBuffer(GL_COLOR_ATTACHMENT0_EXT);
             glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, destFB);
             glUseProgramObjectARB(0);
 
