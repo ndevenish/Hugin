@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2015-05-09 11:04+0200\n"
-"PO-Revision-Date: 2015-05-09 09:11+0000\n"
+"POT-Creation-Date: 2015-05-27 12:19+0200\n"
+"PO-Revision-Date: 2015-05-27 10:43+0000\n"
 "Last-Translator: Kornel Benko <kornel@lyx.org>\n"
 "Language-Team: Slovak <kornel@lyx.org>\n"
 "Language: sk\n"
@@ -770,6 +770,57 @@ msgstr ""
 "Hugin tento typ nepodporuje. Obraz sa preskakuje.\n"
 "Preveďte to na šedý obrázok a skúste to nahrať znovu."
 
+#: hugin1/base_wx/wxPanoCommand.cpp:295
+#, c-format
+msgid ""
+"Hugin supports only grayscale and RGB images (without and with alpha "
+"channel).\n"
+"But file \"%s\" has %d channels and %d extra channels (probably alpha "
+"channels).\n"
+"Hugin does not support this image type. Skipping this image.\n"
+"Convert this image to grayscale or RGB image and try loading again."
+msgstr ""
+"Hugin podporuje len šedé a farebné obrázky (bez alebo s alpha kanálom).\n"
+"Ale súbor \"%s\" má %d kanálov a %d extra kanálov (pravdepodobne alpha "
+"kanály).\n"
+"Hugin tento typ nepodporuje. Obraz sa preskakuje.\n"
+"Preveďte to na šedý alebo RGB obrázok a skúste to nahrať znovu."
+
+#: hugin1/base_wx/wxPanoCommand.cpp:312
+#, c-format
+msgid ""
+"File \"%s\" has no embedded icc profile, but other images in project have "
+"profile \"%s\" embedded."
+msgstr ""
+"Súbor \"%s\" neobsahuje icc profil, ale iné obrázky v projekte obsahujú "
+"profil \"%s\"."
+
+#: hugin1/base_wx/wxPanoCommand.cpp:318
+#, c-format
+msgid ""
+"File \"%s\" has icc profile \"%s\" embedded, but other images in project "
+"have no embedded color profile."
+msgstr ""
+"Súbor \"%s\" obsahuje icc profil, ale iné obrázky v projekte neobsahujú "
+"žiadny profil pre farbu."
+
+#: hugin1/base_wx/wxPanoCommand.cpp:322
+#, c-format
+msgid ""
+"File \"%s\" has icc profile \"%s\" embedded, but other images in project "
+"have color profile \"%s\" embedded."
+msgstr ""
+"Súbor \"%s\" obsahuje profil \"%s\", ale iné obrázky v projekte obsahujú "
+"žiadny \"%s\" profil pre farbu."
+
+#: hugin1/base_wx/wxPanoCommand.cpp:326
+msgid ""
+"Hugin expects all images in the same color profile.\n"
+"Please convert all images to same color profile and try again."
+msgstr ""
+"Hugin očakáva že všetky obrázky obsahujú ten istý profil.\n"
+"Prosím preveďte všetky obrázky to na ten istý profil a skúste znovu."
+
 #: hugin1/base_wx/wxPanoCommand.cpp:463
 msgid ""
 "Hugin has image stacks detected in the added images and will assign "
@@ -1105,6 +1156,11 @@ msgstr "Viaccestné použitím C++11 std::thread a OpenMP"
 #: hugin1/hugin/AboutDialog.cpp:191
 msgid "Multi-threading using boost::thread and OpenMP"
 msgstr "Viaccestné použitím boost::thread a OpenMP"
+
+#: hugin1/hugin/AboutDialog.cpp:196
+#, c-format
+msgid "Monitor profile: %s"
+msgstr "Dozerať profil: %s"
 
 #: hugin1/hugin/AboutDialog.cpp:193
 msgid "Libraries"
