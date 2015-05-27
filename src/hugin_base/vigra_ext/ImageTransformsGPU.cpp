@@ -30,11 +30,6 @@
 #define GLEW_STATIC
 #endif
 #include <GL/glew.h>
-#ifdef __APPLE__
-  #include <GLUT/glut.h>
-#else
-  #include <GL/glut.h>
-#endif
 
 #include <string.h>
 #ifdef _WIN32
@@ -116,9 +111,45 @@ static const char* AlphaCompositeKernelSource = {
 };
 
 static void checkGLErrors(int line, char* file) {
-    GLenum errCode;
-    if ((errCode = glGetError()) != GL_NO_ERROR) {
-        cerr << "nona: GL error in " << file << ":" << line << ": " << gluErrorString(errCode) << endl;
+    GLenum errCode = glGetError();
+    if (errCode != GL_NO_ERROR)
+    {
+        while (errCode != GL_NO_ERROR)
+        {
+            const GLubyte* message = gluErrorString(errCode);
+            std::cerr << "nona: GL error in " << file << ":" << line << std::endl;
+            if (message)
+            {
+#ifdef _WIN32
+                const char* messageChar = reinterpret_cast<const char*>(message);
+                size_t size = strlen(messageChar);
+                LPSTR OEMmessageBuffer = (LPSTR)LocalAlloc(LPTR, (size + 1)*sizeof(char));
+                if (OEMmessageBuffer)
+                {
+                    if (CharToOemBuff(messageChar, OEMmessageBuffer, size))
+                    {
+                        std::cerr << OEMmessageBuffer << " (0x" << std::hex << errCode << ")" << std::endl;
+                    }
+                    else
+                    {
+                        std::cerr << message << " (0x" << std::hex << errCode << ")" << std::endl;
+                    };
+                }
+                else
+                {
+                    std::cerr << message << " (0x" << std::hex << errCode << ")" << std::endl;
+                };
+                LocalFree(OEMmessageBuffer);
+#else
+                std::cerr << message << " (0x" << std::hex << errCode << ")" << std::endl;
+#endif
+            }
+            else
+            {
+                std::cerr << "Error code: 0x" << std::hex << errCode << std::endl;
+            }
+            errCode = glGetError();
+        };
         exit(1);
     }
 }
@@ -345,7 +376,28 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
     // Artificial limit: binding big textures to fbos seems to be very slow.
     //maxTextureSize = 2048;
 
-    const long long int GpuMemoryInBytes = 512 << 20;
+    long long int GpuMemoryInBytes = 512 << 20;
+    // read memory size, not implemented on all graphic cards
+    {
+        // for nvidia cards
+#define GL_GPU_MEM_INFO_TOTAL_AVAILABLE_MEM_NVX 0x9048
+        GLint total_mem_kb = 0;
+        glGetIntegerv(GL_GPU_MEM_INFO_TOTAL_AVAILABLE_MEM_NVX, &total_mem_kb);
+        if (glGetError() == GL_NO_ERROR)
+        {
+            GpuMemoryInBytes = total_mem_kb * 1024;
+        };
+    };
+    {
+        //for amd/ati cards
+#define TEXTURE_FREE_MEMORY_ATI 0x87FC
+        GLint param[4];
+        glGetIntegerv(TEXTURE_FREE_MEMORY_ATI, param);
+        if (glGetError() == GL_NO_ERROR)
+        {
+            GpuMemoryInBytes = param[0] * 1024;
+        };
+    }
     const double SourceAllocationRatio = 0.7;
 
     const int bytesPerSourcePixel = BytesPerPixel[srcGLInternalFormat]
@@ -727,7 +779,7 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
     glTexParameteri(GL_TEXTURE_RECTANGLE_ARB, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_RECTANGLE_ARB, GL_TEXTURE_WRAP_S, GL_CLAMP);
     glTexParameteri(GL_TEXTURE_RECTANGLE_ARB, GL_TEXTURE_WRAP_T, GL_CLAMP);
-    glTexImage2D(GL_TEXTURE_RECTANGLE_ARB, 0, GL_LUMINANCE_ALPHA32F_ARB, destChunks[0].width(), destChunks[0].height() + destOdd, 0, GL_LUMINANCE_ALPHA, GL_FLOAT, NULL);
+    glTexImage2D(GL_TEXTURE_RECTANGLE_ARB, 0, GL_RGBA32F_ARB, destChunks[0].width(), destChunks[0].height() + destOdd, 0, GL_LUMINANCE_ALPHA, GL_FLOAT, NULL);
     CHECK_GL();
 
     // Setup coordinate framebuffer
@@ -826,7 +878,7 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
         glTexParameteri(GL_TEXTURE_RECTANGLE_ARB, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_RECTANGLE_ARB, GL_TEXTURE_WRAP_S, GL_CLAMP);
         glTexParameteri(GL_TEXTURE_RECTANGLE_ARB, GL_TEXTURE_WRAP_T, GL_CLAMP);
-        glTexImage2D(GL_TEXTURE_RECTANGLE_ARB, 0, XGLMap[destGLTransferFormat], destChunks[0].width(), destChunks[0].height() + destOdd, 0, XGLMap[destGLFormat], XGLMap[destGLType], NULL);
+        glTexImage2D(GL_TEXTURE_RECTANGLE_ARB, 0, XGLMap[destGLInternalFormat], destChunks[0].width(), destChunks[0].height() + destOdd, 0, XGLMap[destGLFormat], XGLMap[destGLType], NULL);
 
         glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, destFB);
         glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_RECTANGLE_ARB, destTexture, 0);
@@ -845,7 +897,7 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
         glTexParameteri(GL_TEXTURE_RECTANGLE_ARB, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_RECTANGLE_ARB, GL_TEXTURE_WRAP_S, GL_CLAMP);
         glTexParameteri(GL_TEXTURE_RECTANGLE_ARB, GL_TEXTURE_WRAP_T, GL_CLAMP);
-        glTexImage2D(GL_TEXTURE_RECTANGLE_ARB, 0, GL_ALPHA, destChunks[0].width(), destChunks[0].height() + destOdd, 0, GL_ALPHA, XGLMap[destAlphaGLType], NULL);
+        glTexImage2D(GL_TEXTURE_RECTANGLE_ARB, 0, GL_RGBA, destChunks[0].width(), destChunks[0].height() + destOdd, 0, GL_ALPHA, XGLMap[destAlphaGLType], NULL);
         CHECK_GL();
 
         glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, destAlphaFB);
@@ -1200,6 +1252,7 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
         }
         else {
             // Move output accumTexture to dest texture then readback.
+            glDrawBuffer(GL_COLOR_ATTACHMENT0_EXT);
             glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, destFB);
             glUseProgramObjectARB(0);
 
