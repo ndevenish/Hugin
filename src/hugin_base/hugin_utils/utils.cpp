@@ -61,10 +61,10 @@
 #define GLEW_STATIC
 #endif
 #include <GL/glew.h>
-#ifdef __APPLE__
+#ifdef _WIN32
+#include <GL/wglew.h>
+#elif defined __APPLE__
   #include <GLUT/glut.h>
-#else
-  #include <GL/glut.h>
 #endif
 
 namespace hugin_utils {
@@ -470,46 +470,243 @@ std::string GetUserAppDataDir()
 };
 
 // initialization and wrapup of GPU for GPU remapping
+#ifdef _WIN32
+struct ContextSettings
+{
+    HWND window;
+    HDC dc;
+    HGLRC renderingContext;
+    
+    ContextSettings()
+    {
+        window = NULL;
+        dc = NULL;
+        renderingContext = NULL;
+    }
+};
+static ContextSettings context;
+
+// create context, return false if failed
+bool CreateContext(int *argcp, char **argv)
+{
+    WNDCLASS windowClass;
+    /* register window class */
+    ZeroMemory(&windowClass, sizeof(WNDCLASS));
+    windowClass.hInstance = GetModuleHandle(NULL);
+    windowClass.lpfnWndProc = DefWindowProc;
+    windowClass.lpszClassName = "Hugin";
+    if (RegisterClass(&windowClass) == 0)
+    {
+        return false;
+    };
+    /* create window */
+    context.window = CreateWindow("Hugin", "Hugin", 0, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
+        CW_USEDEFAULT, NULL, NULL, GetModuleHandle(NULL), NULL);
+    if (context.window == NULL)
+    {
+        return false;
+    };
+    /* get the device context */
+    context.dc = GetDC(context.window);
+    if (context.dc == NULL)
+    {
+        return false;
+    };
+    /* find pixel format */
+    PIXELFORMATDESCRIPTOR pixelFormatDesc;
+    ZeroMemory(&pixelFormatDesc, sizeof(PIXELFORMATDESCRIPTOR));
+    pixelFormatDesc.nSize = sizeof(PIXELFORMATDESCRIPTOR);
+    pixelFormatDesc.nVersion = 1;
+    pixelFormatDesc.dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL;
+    int pixelFormat = ChoosePixelFormat(context.dc, &pixelFormatDesc);
+    if (pixelFormat == 0)
+    {
+        return false;
+    }
+    /* set the pixel format for the dc */
+    if (SetPixelFormat(context.dc, pixelFormat, &pixelFormatDesc) == FALSE)
+    {
+        return false;
+    };
+    /* create rendering context */
+    context.renderingContext = wglCreateContext(context.dc);
+    if (context.renderingContext == NULL)
+    {
+        return false;
+    };
+    if (wglMakeCurrent(context.dc, context.renderingContext) == FALSE)
+    {
+        return false;
+    };
+    return true;
+}
+
+void DestroyContext()
+{
+    if (context.renderingContext != NULL)
+    {
+        wglMakeCurrent(NULL, NULL);
+        wglDeleteContext(context.renderingContext);
+    }
+    if (context.window != NULL && context.dc != NULL)
+    {
+        ReleaseDC(context.window, context.dc);
+    };
+    if (context.window != NULL)
+    {
+        DestroyWindow(context.window);
+    };
+    UnregisterClass("Hugin", GetModuleHandle(NULL));
+}
+
+#elif defined __APPLE__
 static GLuint GlutWindowHandle;
+bool CreateContext(int *argcp, char **argv)
+{
+    glutInit(argcp, argv);
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA | GLUT_ALPHA);
+    GlutWindowHandle = glutCreateWindow("Hugin");
+    return true;
+}
+
+void DestroyContext()
+{
+    glutDestroyWindow(GlutWindowHandle);
+}
+
+#else
+#include <X11/Xlib.h>
+#include <X11/Xutil.h>
+#include <GL/glx.h>
+
+struct ContextSettings
+{
+    Display* display;
+    XVisualInfo* visualInfo;
+    GLXContext context;
+    Window window;
+    Colormap colormap;
+    
+    ContextSettings()
+    {
+        display=NULL;
+        visualInfo=NULL;
+        context=NULL;
+        window=0;
+        colormap=0;
+    };
+};
+
+static ContextSettings context;
+
+bool CreateContext(int *argcp, char **argv)
+{
+    /* open display */
+    context.display = XOpenDisplay(NULL);
+    if (context.display == NULL)
+    {
+        return false;
+    };
+    /* query for glx */
+    int erb, evb;
+    if (!glXQueryExtension(context.display, &erb, &evb))
+    {
+        return false;
+    };
+    /* choose visual */
+    int attrib[] = { GLX_RGBA, None };
+    context.visualInfo = glXChooseVisual(context.display, DefaultScreen(context. display), attrib);
+    if (context.visualInfo == NULL)
+    {
+        return false;
+    };
+    /* create context */
+    context.context = glXCreateContext(context.display, context.visualInfo, None, True);
+    if (context.context == NULL)
+    {
+        return false;
+    };
+    /* create window */
+    context.colormap = XCreateColormap(context.display, RootWindow(context.display, context.visualInfo->screen), context.visualInfo->visual, AllocNone);
+    XSetWindowAttributes swa;
+    swa.border_pixel = 0;
+    swa.colormap = context.colormap;
+    context.window = XCreateWindow(context.display, RootWindow(context.display, context.visualInfo->screen),
+        0, 0, 1, 1, 0, context.visualInfo->depth, InputOutput, context.visualInfo->visual,
+        CWBorderPixel | CWColormap, &swa);
+    /* make context current */
+    if (!glXMakeCurrent(context.display, context.window, context.context))
+    {
+        return false;
+    };
+    return true;
+};
+
+void DestroyContext()
+{
+    if (context.display != NULL && context.context != NULL)
+    {
+        glXDestroyContext(context.display, context.context);
+    }
+    if (context.display != NULL && context.window != 0)
+    {
+        XDestroyWindow(context.display, context.window);
+    };
+    if (context.display != NULL && context.colormap != 0)
+    {
+        XFreeColormap(context.display, context.colormap);
+    };
+    if (context.visualInfo != NULL)
+    {
+        XFree(context.visualInfo);
+    };
+    if (context.display != NULL)
+    {
+        XCloseDisplay(context.display);
+    };
+};
+#endif
 
 bool initGPU(int *argcp, char **argv)
 {
-    glutInit(argcp,argv);
-    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA | GLUT_ALPHA);
-    GlutWindowHandle = glutCreateWindow("Hugin");
-
+    if (!CreateContext(argcp, argv))
+    {
+        return false;
+    };
     int err = glewInit();
     if (err != GLEW_OK)
     {
         std::cerr << argv[0] << ": an error occured while setting up the GPU:" << std::endl;
         std::cerr << glewGetErrorString(err) << std::endl;
         std::cerr << argv[0] << ": Switching to CPU calculation." << std::endl;
-        glutDestroyWindow(GlutWindowHandle);
+        DestroyContext();
         return false;
     }
 
     std::cout << hugin_utils::stripPath(argv[0]) << ": using graphics card: " << glGetString(GL_VENDOR) << " " << glGetString(GL_RENDERER) << std::endl;
 
-    GLboolean has_arb_fragment_shader = glewGetExtension("GL_ARB_fragment_shader");
-    GLboolean has_arb_vertex_shader = glewGetExtension("GL_ARB_vertex_shader");
-    GLboolean has_arb_shader_objects = glewGetExtension("GL_ARB_shader_objects");
-    GLboolean has_arb_shading_language = glewGetExtension("GL_ARB_shading_language_100");
-    GLboolean has_arb_texture_rectangle = glewGetExtension("GL_ARB_texture_rectangle");
-    GLboolean has_arb_texture_border_clamp = glewGetExtension("GL_ARB_texture_border_clamp");
-    GLboolean has_arb_texture_float = glewGetExtension("GL_ARB_texture_float");
+    const GLboolean has_arb_fragment_shader = glewGetExtension("GL_ARB_fragment_shader");
+    const GLboolean has_arb_vertex_shader = glewGetExtension("GL_ARB_vertex_shader");
+    const GLboolean has_arb_shader_objects = glewGetExtension("GL_ARB_shader_objects");
+    const GLboolean has_arb_shading_language = glewGetExtension("GL_ARB_shading_language_100");
+    const GLboolean has_ext_framebuffer = glewGetExtension("GL_EXT_framebuffer_object");
+    const GLboolean has_arb_texture_rectangle = glewGetExtension("GL_ARB_texture_rectangle");
+    const GLboolean has_arb_texture_border_clamp = glewGetExtension("GL_ARB_texture_border_clamp");
+    const GLboolean has_arb_texture_float = glewGetExtension("GL_ARB_texture_float");
 
-    if (!(has_arb_fragment_shader && has_arb_vertex_shader && has_arb_shader_objects && has_arb_shading_language && has_arb_texture_rectangle && has_arb_texture_border_clamp && has_arb_texture_float)) {
+    if (!(has_arb_fragment_shader && has_arb_vertex_shader && has_arb_shader_objects && has_arb_shading_language && has_ext_framebuffer && has_arb_texture_rectangle && has_arb_texture_border_clamp && has_arb_texture_float)) {
         const char * msg[] = {"false", "true"};
         std::cerr << argv[0] << ": extension GL_ARB_fragment_shader = " << msg[has_arb_fragment_shader] << std::endl;
         std::cerr << argv[0] << ": extension GL_ARB_vertex_shader = " << msg[has_arb_vertex_shader] << std::endl;
         std::cerr << argv[0] << ": extension GL_ARB_shader_objects = " << msg[has_arb_shader_objects] << std::endl;
         std::cerr << argv[0] << ": extension GL_ARB_shading_language_100 = " << msg[has_arb_shading_language] << std::endl;
+        std::cerr << argv[0] << ": extension GL_EXT_framebuffer_object = " << msg[has_ext_framebuffer] << std::endl;
         std::cerr << argv[0] << ": extension GL_ARB_texture_rectangle = " << msg[has_arb_texture_rectangle] << std::endl;
         std::cerr << argv[0] << ": extension GL_ARB_texture_border_clamp = " << msg[has_arb_texture_border_clamp] << std::endl;
         std::cerr << argv[0] << ": extension GL_ARB_texture_float = " << msg[has_arb_texture_float] << std::endl;
         std::cerr << argv[0] << ": This graphics system lacks the necessary extensions for -g." << std::endl;
         std::cerr << argv[0] << ": Switching to CPU calculation." << std::endl;
-        glutDestroyWindow(GlutWindowHandle);
+        DestroyContext();
         return false;
     }
 
@@ -518,7 +715,7 @@ bool initGPU(int *argcp, char **argv)
 
 bool wrapupGPU()
 {
-    glutDestroyWindow(GlutWindowHandle);
+    DestroyContext();
     return true;
 }
 

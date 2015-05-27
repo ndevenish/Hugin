@@ -7,7 +7,7 @@ if(MSVC)
 endif(MSVC)
 
 add_executable(nona nona.cpp)
-target_link_libraries(nona ${common_libs} ${image_libs} ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES} ${GLEW_LIBRARIES})
+target_link_libraries(nona ${common_libs} ${image_libs} ${OPENGL_GLEW_LIBRARIES})
 
 #add_executable(autocreate autocreate.cpp)
 #target_link_libraries(autocreate ${common_libs} ${image_libs})
@@ -19,7 +19,7 @@ add_executable(vig_optimize vig_optimize.cpp ExtractPoints.h)
 target_link_libraries(vig_optimize ${common_libs} ${image_libs})
 
 add_executable(align_image_stack align_image_stack.cpp)
-target_link_libraries(align_image_stack ${common_libs} ${image_libs} ${GLEW_LIBRARIES} ${GLUT_LIBRARIES})
+target_link_libraries(align_image_stack ${common_libs} ${image_libs} ${OPENGL_GLEW_LIBRARIES})
 # for expanding wildcard with MSVC
 if(MSVC)
   set_target_properties(align_image_stack PROPERTIES LINK_FLAGS "setargv.obj")

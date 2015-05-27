@@ -136,7 +136,6 @@ Users compiling Hugin from source will need:
     libvigra the VIGRA libray, header files and impex library
     Exiv2 Image metadata library
     GLEW the OpenGL Extension Wrangler Library
-    freeglut or glut, the OpenGL utility toolkit
     gettext
     sqlite3, the SQL database backend for the lens database
     littlecms2, little cms color engine
@@ -147,7 +146,9 @@ Users compiling Hugin from source will need:
         libxi
         libxmu
     on Windows you need
-        HTML Help Workshop for generating compiled HTML help file    
+        HTML Help Workshop for generating compiled HTML help file
+    on Mac OS you need
+        freeglut or glut, the OpenGL utility toolkit
     for the optional Python Scripting Interface (currently functional and tested only on Linux and Windows)
         Python version >=2.6
         SWIG >=2.0 - If Python >=3.2, SWIG must be >=2.0.4
