@@ -615,7 +615,7 @@ bool CreateContext(int *argcp, char **argv)
     };
     /* choose visual */
     int attrib[] = { GLX_RGBA, None };
-    context.visualInfo = glXChooseVisual(context.display, DefaultScreen(context. display), attrib);
+    context.visualInfo = glXChooseVisual(context.display, DefaultScreen(context.display), attrib);
     if (context.visualInfo == NULL)
     {
         return false;
