@@ -385,7 +385,7 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
         glGetIntegerv(GL_GPU_MEM_INFO_TOTAL_AVAILABLE_MEM_NVX, &total_mem_kb);
         if (glGetError() == GL_NO_ERROR)
         {
-            GpuMemoryInBytes = total_mem_kb * 1024;
+            GpuMemoryInBytes = total_mem_kb * 1024ll;
         };
     };
     {
@@ -395,7 +395,7 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
         glGetIntegerv(TEXTURE_FREE_MEMORY_ATI, param);
         if (glGetError() == GL_NO_ERROR)
         {
-            GpuMemoryInBytes = param[0] * 1024;
+            GpuMemoryInBytes = param[0] * 1024ll;
         };
     }
     const double SourceAllocationRatio = 0.7;
