@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: da\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2015-05-09 09:34+0200\n"
-"PO-Revision-Date: 2015-04-26 15:32+0200\n"
+"PO-Revision-Date: 2015-05-27 21:39+0200\n"
 "Last-Translator: Thomas Pryds <thomas@pryds.eu>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -435,14 +435,14 @@ msgid "Output exposure value: %.1f"
 msgstr "Værdi for output-eksponering: %.1f"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:269
-#, fuzzy, c-format
+#, c-format
 msgid "Canvas size: %dx%d"
-msgstr "Lærredstørrelse: %ldx%ld"
+msgstr "Lærredstørrelse: %dx%d"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:270
-#, fuzzy, c-format
+#, c-format
 msgid "ROI: (%d, %d) - (%d, %d)"
-msgstr "Interesseregion: (%ld, %ld) - (%ld, %ld)"
+msgstr "Interesseregion: (%d, %d) - (%d, %d)"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:271
 #, c-format
@@ -533,9 +533,9 @@ msgid "Filename:"
 msgstr "Filnavn:"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:349
-#, fuzzy, c-format
+#, c-format
 msgid "Size: %dx%d"
-msgstr "Størrelse: %ldx%ld"
+msgstr "Størrelse: %dx%d"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:351
 msgid "Response type:"
@@ -1329,7 +1329,7 @@ msgstr "Kunne ikke udføre handling!"
 
 #: hugin1/hugin/CPListFrame.cpp:96
 msgid "G CP#"
-msgstr "G CP#"
+msgstr "G KP#"
 
 #: hugin1/hugin/CPListFrame.cpp:97
 msgid "Left Img."
@@ -1341,7 +1341,7 @@ msgstr "Højre bill."
 
 #: hugin1/hugin/CPListFrame.cpp:99
 msgid "P CP#"
-msgstr "P CP#"
+msgstr "P KP#"
 
 #: hugin1/hugin/CPListFrame.cpp:561
 msgid ""
@@ -1769,16 +1769,15 @@ msgid "Mosaic plane"
 msgstr "Mosaikplan"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:3265
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%lu control points were removed from the panorama.\n"
 "\n"
 "Should the panorama now be re-optimized?"
 msgstr ""
-"%lu kontrolpunkter blev føjet til panoramaet.\n"
+"%lu kontrolpunkter blev fjernet fra panoramaet.\n"
 "\n"
-"Skal panoramaet nu genoptimeres for at tage de nye kontrolpunkter i "
-"betragtning?"
+"Skal panoramaet nu genoptimeres?"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:3266 hugin1/hugin/GLPreviewFrame.cpp:3562
 #, c-format
@@ -1836,7 +1835,7 @@ msgid "Checking results..."
 msgstr "Checker resultater …"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:3561
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%lu control points were added to the panorama.\n"
 "\n"
@@ -1844,8 +1843,7 @@ msgid ""
 msgstr ""
 "%lu kontrolpunkter blev føjet til panoramaet.\n"
 "\n"
-"Skal panoramaet nu genoptimeres for at tage de nye kontrolpunkter i "
-"betragtning?"
+"Skal panoramaet nu genoptimeres?"
 
 #: hugin1/hugin/GLViewer.cpp:288
 msgid ""
@@ -5430,7 +5428,7 @@ msgstr "Optimér ikke nu"
 
 #: translations/xrc.cpp:351
 msgid "Edit cp tools"
-msgstr ""
+msgstr "Redigér-KP-værktøjer"
 
 #: translations/xrc.cpp:352 translations/xrc.cpp:1038
 msgid "&Undo"
@@ -6919,26 +6917,23 @@ msgstr "Vis advarsel om stor eksponeringsforskel under tilføjelse af billeder"
 
 #: translations/xrc.cpp:823
 msgid "After \"edit cp\" tool"
-msgstr ""
+msgstr "\"redigér kp\" efterværktøj"
 
 #: translations/xrc.cpp:824
 msgid "Ask user"
-msgstr ""
+msgstr "Spørg bruger"
 
 #: translations/xrc.cpp:825
-#, fuzzy
 msgid "Re-optimize panorama"
-msgstr "Optimerer Panorama"
+msgstr "Gen-optimér Panorama"
 
 #: translations/xrc.cpp:826
-#, fuzzy
 msgid "Don't optimize panorama"
-msgstr "Optimér ikke nu"
+msgstr "Optimér ikke panorama"
 
 #: translations/xrc.cpp:827
-#, fuzzy
 msgid "Edit cp tool (on fast preview window)"
-msgstr "Hintsne vises kun i hurtig-preview-vinduet"
+msgstr "Redigér-KP-værktøj (i vinduet hurtig preview)"
 
 #: translations/xrc.cpp:828
 msgid "Misc"
