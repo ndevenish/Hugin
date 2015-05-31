@@ -348,7 +348,11 @@ void MyExecPanel::RemoveAsyncProcess(MyPipedProcess *process)
 void MyExecPanel::AddToOutput(wxInputStream & s)
 {
     DEBUG_TRACE("");
+#if defined __WXGTK__ && wxCHECK_VERSION(3,0,0)
+    wxTextInputStream ts(s, " \t", wxConvLibc);
+#else
     wxTextInputStream ts(s);
+#endif
     bool lastCR= false;
     wxString currLine = m_textctrl->GetRange(m_lastLineStart, m_textctrl->GetLastPosition());
     while(s.CanRead()) {
