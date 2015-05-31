@@ -409,6 +409,7 @@ private:
     wxTextCtrl * m_cropFactorText;
     wxButton   * m_loadLensButton;
     wxMenu* m_filemenuSimple;
+    wxMenu* m_filemenuAdvanced;
 
     int m_degDigits;
 

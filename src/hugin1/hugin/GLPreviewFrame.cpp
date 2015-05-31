@@ -389,7 +389,9 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, HuginBase::Panorama &pano)
 #endif
     wxMenuBar* simpleMenu=wxXmlResource::Get()->LoadMenuBar(this, wxT("preview_simple_menu"));
     m_filemenuSimple=wxXmlResource::Get()->LoadMenu(wxT("preview_file_menu"));
+    m_filemenuAdvanced = wxXmlResource::Get()->LoadMenu(wxT("preview_file_menu_advanced"));
     MainFrame::Get()->GetFileHistory()->UseMenu(m_filemenuSimple->FindItem(XRCID("menu_mru_preview"))->GetSubMenu());
+    MainFrame::Get()->GetFileHistory()->UseMenu(m_filemenuAdvanced->FindItem(XRCID("menu_mru_preview"))->GetSubMenu());
     MainFrame::Get()->GetFileHistory()->AddFilesToMenu();
     simpleMenu->Insert(0, m_filemenuSimple, _("&File"));
     SetMenuBar(simpleMenu);
@@ -902,6 +904,10 @@ GLPreviewFrame::~GLPreviewFrame()
      if(m_guiLevel!=GUI_SIMPLE)
      {
          delete m_filemenuSimple;
+     }
+     else
+     {
+         delete m_filemenuAdvanced;
      };
 
     DEBUG_TRACE("dtor end");
@@ -1223,6 +1229,8 @@ void GLPreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &change
 
     unsigned int nrImages = pano.getNrOfImages();
     unsigned int nrButtons = m_ToggleButtons.size();
+    
+    GetMenuBar()->Enable(XRCID("action_optimize"), nrImages > 0);
 
 //    m_displayedImgs.clear();
 
@@ -3071,6 +3079,7 @@ void GLPreviewFrame::SetGuiLevel(GuiLevel newLevel)
 #endif
         if(m_guiLevel!=GUI_SIMPLE)
         {
+            GetMenuBar()->Remove(0);
             GetMenuBar()->Insert(0, m_filemenuSimple, _("&File"));
         };
         SetTitle(MainFrame::Get()->GetTitle());
@@ -3083,6 +3092,7 @@ void GLPreviewFrame::SetGuiLevel(GuiLevel newLevel)
         if(m_guiLevel==GUI_SIMPLE)
         {
             GetMenuBar()->Remove(0);
+            GetMenuBar()->Insert(0, m_filemenuAdvanced, _("&File"));
         };
         SetTitle(_("Fast Panorama preview"));
     };

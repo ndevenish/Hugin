@@ -1816,6 +1816,12 @@
         <accel>Ctrl-r</accel>
         <help>Redo the last action</help>
       </object>
+      <object class="separator"/>
+      <object class="wxMenuItem" name="action_optimize">
+        <label>&amp;Optimize</label>
+        <accel>Ctrl-t</accel>
+        <help>Re-run the optimizer with current settings</help>
+      </object>
       <label>&amp;Edit</label>
     </object>
     <object class="wxMenu" name="preview_view_menu">
@@ -1928,6 +1934,36 @@
       <label>&amp;Quit</label>
       <accel>Ctrl-q</accel>
       <help>Exit program</help>
+    </object>
+    <label>&amp;File</label>
+  </object>
+  <object class="wxMenu" name="preview_file_menu_advanced">
+    <object class="wxMenuItem" name="action_new_project">
+      <label>&amp;New</label>
+      <accel>Ctrl-n</accel>
+      <help>New project</help>
+    </object>
+    <object class="wxMenuItem" name="action_load_project">
+      <label>&amp;Open</label>
+      <accel>Ctrl-o</accel>
+      <help>Open project</help>
+    </object>
+    <object class="wxMenuItem" name="action_save_project">
+      <label>&amp;Save</label>
+      <accel>Ctrl-s</accel>
+      <help>Save current project file</help>
+    </object>
+    <object class="wxMenuItem" name="action_save_as_project">
+      <label>S&amp;ave as</label>
+      <help>Save current project to a new file</help>
+    </object>
+    <object class="wxMenu" name="menu_mru_preview">
+      <label>Most recently used projects</label>
+      <help>List of most recently used project files</help>
+    </object>
+    <object platform="win|unix" class="separator"/>
+    <object platform="win|unix" class="wxMenuItem" name="action_show_prefs">
+      <label>&amp;Preferences</label>
     </object>
     <label>&amp;File</label>
   </object>
