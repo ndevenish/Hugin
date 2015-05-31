@@ -692,7 +692,7 @@ bool wxLoadPTProjectCmd::processPanorama(HuginBase::Panorama& pano)
                     ok = srcImg.applyEXIFValues();
                 };
                 if (! ok) {
-                    getLensDataFromUser(wxTheApp->GetTopWindow(), srcImg);
+                    getLensDataFromUser(wxGetActiveWindow(), srcImg);
                 }
                 autopanoSiftRefImg = srcImg;
             }

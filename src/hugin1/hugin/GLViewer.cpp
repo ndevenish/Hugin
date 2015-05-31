@@ -285,7 +285,7 @@ void GLViewer::SetUpContext()
                 DEBUG_ERROR("Error initialising GLEW: "
                         << glewGetErrorString(error_state) << ".");
                 frame->Close();
-                wxMessageBox(_("Error initializing GLEW\nFast preview window can not be opened."),_("Error"), wxOK | wxICON_ERROR,wxTheApp->GetTopWindow());
+                wxMessageBox(_("Error initializing GLEW\nFast preview window can not be opened."),_("Error"), wxOK | wxICON_ERROR);
                 return;
             }
         }
@@ -297,7 +297,7 @@ void GLViewer::SetUpContext()
             wxConfigBase::Get()->Flush();
             DEBUG_ERROR("Sorry, OpenGL 1.1 + GL_ARB_multitexture extension required.");
             frame->Close();
-            wxMessageBox(_("Sorry, the fast preview window requires a system which supports OpenGL version 1.1 with the GL_ARB_multitexture extension.\nThe fast preview cannot be opened.\n\nHugin has been configured to start without fast preview.\nPlease restart Hugin."),_("Error"), wxOK | wxICON_ERROR,wxTheApp->GetTopWindow());
+            wxMessageBox(_("Sorry, the fast preview window requires a system which supports OpenGL version 1.1 with the GL_ARB_multitexture extension.\nThe fast preview cannot be opened.\n\nHugin has been configured to start without fast preview.\nPlease restart Hugin."),_("Error"), wxOK | wxICON_ERROR);
             return;
         }
 

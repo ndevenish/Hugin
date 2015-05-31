@@ -690,7 +690,7 @@ void MainFrame::OnUserQuit(wxCommandEvent & e)
 bool MainFrame::CloseProject(bool cancelable)
 {
     if (pano.isDirty()) {
-        wxMessageDialog message(wxTheApp->GetTopWindow(),
+        wxMessageDialog message(wxGetActiveWindow(),
                                 _("Save changes to the panorama before closing?"),
 #ifdef _WINDOWS
                                 _("Hugin"),
@@ -818,7 +818,7 @@ void MainFrame::OnSaveProjectAs(wxCommandEvent & e)
         scriptName=m_filename;
     };
     scriptName.Normalize();
-    wxFileDialog dlg(wxTheApp->GetTopWindow(),
+    wxFileDialog dlg(wxGetActiveWindow(),
                      _("Save project file"),
                      scriptName.GetPath(), scriptName.GetFullName(),
                      _("Project files (*.pto)|*.pto|All files (*)|*"),
@@ -852,7 +852,7 @@ void MainFrame::OnSavePTStitcherAs(wxCommandEvent & e)
     }
     wxFileName scriptNameFN(scriptName);
     wxString fn = scriptNameFN.GetName() + wxT(".txt");
-    wxFileDialog dlg(wxTheApp->GetTopWindow(),
+    wxFileDialog dlg(wxGetActiveWindow(),
                      _("Save PTmender script file"),
                      wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")), fn,
                      _("PTmender files (*.txt)|*.txt"),
@@ -954,7 +954,7 @@ void MainFrame::OnLoadProject(wxCommandEvent & e)
         wxConfigBase* config = wxConfigBase::Get();
 
         wxString defaultdir = config->Read(wxT("/actualPath"),wxT(""));
-        wxFileDialog dlg(wxTheApp->GetTopWindow(),
+        wxFileDialog dlg(wxGetActiveWindow(),
                          _("Open project file"),
                          defaultdir, wxT(""),
                          _("Project files (*.pto)|*.pto|All files (*)|*"),
@@ -1025,7 +1025,7 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
     DEBUG_TRACE("");
     PanoOperation::AddImageOperation addImage;
     UIntSet images;
-    PanoCommand::PanoCommand* cmd=addImage.GetCommand(wxTheApp->GetTopWindow(), pano, images, m_guiLevel);
+    PanoCommand::PanoCommand* cmd = addImage.GetCommand(wxGetActiveWindow(), pano, images, m_guiLevel);
     if(cmd!=NULL)
     {
         PanoCommand::GlobalCmdHist::getInstance().addCommand(cmd);
@@ -1076,7 +1076,7 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
 {
     PanoOperation::AddImagesSeriesOperation imageSeriesOp;
     UIntSet images;
-    PanoCommand::PanoCommand* cmd=imageSeriesOp.GetCommand(wxTheApp->GetTopWindow(), pano, images, m_guiLevel);
+    PanoCommand::PanoCommand* cmd = imageSeriesOp.GetCommand(wxGetActiveWindow(), pano, images, m_guiLevel);
     if(cmd!=NULL)
     {
         PanoCommand::GlobalCmdHist::getInstance().addCommand(cmd);
@@ -1137,7 +1137,7 @@ void MainFrame::OnShowPanel(wxCommandEvent & e)
 
 void MainFrame::OnAbout(wxCommandEvent & e)
 {
-    AboutDialog dlg(wxTheApp->GetTopWindow());
+    AboutDialog dlg(wxGetActiveWindow());
     dlg.ShowModal();
 }
 
@@ -1261,7 +1261,7 @@ void MainFrame::OnTipOfDay(wxCommandEvent& WXUNUSED(e))
 
     DEBUG_INFO("Reading tips from " << strFile.mb_str(wxConvLocal));
     wxTipProvider *tipProvider = new LocalizedFileTipProvider(strFile, nValue);
-    bShowAtStartup = wxShowTip(wxTheApp->GetTopWindow(), tipProvider,(nValue ? true:false));
+    bShowAtStartup = wxShowTip(wxGetActiveWindow(), tipProvider, (nValue ? true : false));
 
     //store startup preferences
     nValue = (bShowAtStartup ? tipProvider->GetCurrentTip() : 0);
@@ -1274,7 +1274,7 @@ void MainFrame::OnTipOfDay(wxCommandEvent& WXUNUSED(e))
 void MainFrame::OnShowPrefs(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
-    PreferencesDialog pref_dlg(wxTheApp->GetTopWindow());
+    PreferencesDialog pref_dlg(wxGetActiveWindow());
     pref_dlg.ShowModal();
     //update image cache size
     wxConfigBase* cfg=wxConfigBase::Get();
@@ -1394,7 +1394,7 @@ void MainFrame::OnMergeProject(wxCommandEvent & e)
     wxConfigBase* config = wxConfigBase::Get();
 
     wxString defaultdir = config->Read(wxT("/actualPath"),wxT(""));
-    wxFileDialog dlg(wxTheApp->GetTopWindow(),
+    wxFileDialog dlg(wxGetActiveWindow(),
                      _("Open project file"),
                      defaultdir, wxT(""),
                      _("Project files (*.pto)|*.pto|All files (*)|*"),
@@ -1439,7 +1439,7 @@ void MainFrame::OnApplyTemplate(wxCommandEvent & e)
     // get the global config object
     wxConfigBase* config = wxConfigBase::Get();
 
-    wxFileDialog dlg(wxTheApp->GetTopWindow(),
+    wxFileDialog dlg(wxGetActiveWindow(),
                      _("Choose template project"),
                      config->Read(wxT("/templatePath"),wxT("")), wxT(""),
                      _("Project files (*.pto)|*.pto|All files (*)|*"),
@@ -1516,7 +1516,7 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
     const long sWidth = templWidth + cfg->Read(wxT("/Finetune/LocalSearchWidth"), HUGIN_FT_LOCAL_SEARCH_WIDTH);
 
     {
-    ProgressReporterDialog progress(unoptimized.size(), _("Fine-tuning all points"), _("Fine-tuning"), wxTheApp->GetTopWindow());
+        ProgressReporterDialog progress(unoptimized.size(), _("Fine-tuning all points"), _("Fine-tuning"), wxGetActiveWindow());
 
     ImageCache & imgCache = ImageCache::getInstance();
 
@@ -1615,7 +1615,7 @@ void MainFrame::OnRemoveCPinMasks(wxCommandEvent & e)
 void MainFrame::OnPythonScript(wxCommandEvent & e)
 {
     wxString fname;
-    wxFileDialog dlg(wxTheApp->GetTopWindow(),
+    wxFileDialog dlg(wxGetActiveWindow(),
             _("Select python script"),
             wxConfigBase::Get()->Read(wxT("/lensPath"),wxT("")), wxT(""),
             _("Python script (*.py)|*.py|All files (*.*)|*.*"),
