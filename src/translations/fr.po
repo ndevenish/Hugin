@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: Hugin 2012-0.0\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2015-05-09 09:34+0200\n"
-"PO-Revision-Date: 2015-05-29 22:25+0100\n"
-"Last-Translator: Jean-Luc Coulon\n"
+"PO-Revision-Date: 2015-05-31 11:00+0100\n"
+"Last-Translator: pmllc <pmllc@yahoo.fr>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -1062,9 +1062,8 @@ msgid "prefix used for stitching"
 msgstr "préfixe utilisé pour l'assemblage"
 
 #: hugin1/executor/hugin_executor.cpp:202
-#, fuzzy
 msgid "only print commands"
-msgstr "n'imprime que les commandes"
+msgstr "affiche les tâches sans les executer"
 
 #: hugin1/hugin/AboutDialog.cpp:139
 #, c-format
@@ -1870,7 +1869,6 @@ msgid "Matching interest points..."
 msgstr "Recherche de points similaires..."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:3534
-#, fuzzy
 msgid "Checking results..."
 msgstr "Vérification des résultats..."
 
@@ -2037,7 +2035,7 @@ msgstr "les positions, la translation et la vue (y, p, r, x, y, z, v)"
 msgid "Positions, Translation and Barrel (y,p,r,x,y,z,b)"
 msgstr ""
 "les positions, la translation et la distorsion en barillet (y, p, r, x, y, "
-"z, v, b)"
+"z, b)"
 
 #: hugin1/hugin/ImagesPanel.cpp:749
 msgid "Positions, Translation, View and Barrel (y,p,r,x,y,z,v,b)"
@@ -2212,24 +2210,20 @@ msgid "Camera translation Z"
 msgstr "Translation Z de l'appareil photo"
 
 #: hugin1/hugin/ImagesTree.cpp:166
-#, fuzzy
 msgid "Plane yaw"
 msgstr "Roulis du plan"
 
 #: hugin1/hugin/ImagesTree.cpp:166
-#, fuzzy
 msgid "Translation remap plane yaw"
-msgstr "Décalage et redimentionement selon le roulis"
+msgstr "Angle de rotation du plan de l'image (roulis)"
 
 #: hugin1/hugin/ImagesTree.cpp:167
-#, fuzzy
 msgid "Plane pitch"
 msgstr "Tangage du plan"
 
 #: hugin1/hugin/ImagesTree.cpp:167
-#, fuzzy
 msgid "Translation remap plane pitch"
-msgstr "Décalage et redimentionement selon le tangage"
+msgstr "Angle d'inclinaison du plan de l'image (tangage)"
 
 #: hugin1/hugin/ImagesTree.cpp:168
 msgid "Camera translation"
@@ -2473,7 +2467,7 @@ msgstr "Ne pas enregistrer"
 
 #: hugin1/hugin/MainFrame.cpp:708
 msgid "Close without saving"
-msgstr "Enregistrer sans fermer"
+msgstr "Fermer sans enregistrer"
 
 #: hugin1/hugin/MainFrame.cpp:740
 msgid "forced close"
@@ -4644,7 +4638,6 @@ msgid "Focal length:"
 msgstr "Distance focale :"
 
 #: translations/xrc.cpp:57
-#, fuzzy
 msgid "Start date (duration):"
 msgstr "Date de lancement (durée) :"
 
@@ -7074,7 +7067,7 @@ msgstr "Préférences - Hugin"
 
 #: translations/xrc.cpp:836 translations/xrc.cpp:840
 msgid "Edit ExifTool argfile"
-msgstr "Modifie l'argument argfile d'ExifTool"
+msgstr "Modification du ficher de configuration d'ExifTool"
 
 #: translations/xrc.cpp:837
 msgid ""
