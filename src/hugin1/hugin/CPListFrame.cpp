@@ -388,17 +388,12 @@ void CPListCtrl::DeleteSelected()
     UIntSet selected;
     long item = GetFirstSelected();
     long newSelection = -1;
-    long newSelectionCPIndex = -1;
     if (m_internalCPList.size() - nSelected > 0)
     {
         newSelection = item;
         if (item >= m_internalCPList.size() - nSelected)
         {
             newSelection = m_internalCPList.size() - nSelected - 1;
-        };
-        if (newSelection >= 0)
-        {
-            newSelectionCPIndex = m_internalCPList[newSelection].globalIndex;
         };
     };
     while (item>=0)
@@ -413,10 +408,7 @@ void CPListCtrl::DeleteSelected()
 
     if (newSelection >= 0)
     {
-        if (newSelectionCPIndex >= 0)
-        {
-            MainFrame::Get()->ShowCtrlPoint(newSelectionCPIndex);
-        };
+        MainFrame::Get()->ShowCtrlPoint(m_internalCPList[newSelection].globalIndex);
         Select(newSelection, true);
     };
 };
