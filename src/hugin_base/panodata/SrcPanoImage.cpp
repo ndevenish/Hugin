@@ -495,45 +495,40 @@ bool SrcPanoImage::readEXIF()
     // save for later
     setExifOrientation(roll);
     
-    double cropFactor=Exiv2Helper::getCropFactor(exifData, getWidth(), getHeight());
+    double cropFactor = 0;
     DEBUG_DEBUG("cropFactor: " << cropFactor);
 
     float eFocalLength = Exiv2Helper::getExiv2ValueDouble(exifData, Exiv2::focalLength(exifData));
     float eFocalLength35 = Exiv2Helper::getExiv2ValueLong(exifData,"Exif.Photo.FocalLengthIn35mmFilm");
     float focalLength=0;
     //The various methods to detmine crop factor
-    if (eFocalLength > 0 && cropFactor > 0.1)
+    if (eFocalLength35 > 0 && eFocalLength > 0)
     {
-        // user provided crop factor
+        cropFactor = eFocalLength35 / eFocalLength;
         focalLength = eFocalLength;
     }
     else
     {
-        if (eFocalLength35 > 0 && eFocalLength > 0)
+        if (eFocalLength35 > 0)
         {
-            cropFactor = eFocalLength35 / eFocalLength;
-            focalLength = eFocalLength;
+            // 35 mm equiv focal length available, crop factor unknown.
+            // do not ask for crop factor, assume 1.  Probably a full frame sensor
+            cropFactor = 1;
+            focalLength = eFocalLength35;
         }
         else
         {
-            if (eFocalLength35 > 0)
+            focalLength = (eFocalLength > 0) ? eFocalLength : 0;
+            // alternative way to calculate crop factor
+            cropFactor = Exiv2Helper::getCropFactor(exifData, getWidth(), getHeight());
+            // check result
+            if (cropFactor < 0.1)
             {
-                // 35 mm equiv focal length available, crop factor unknown.
-                // do not ask for crop factor, assume 1.  Probably a full frame sensor
-                cropFactor = 1;
-                focalLength = eFocalLength35;
-            }
-            else
-            {
-                if (eFocalLength > 0 && cropFactor < 0.1)
-                {
-                    // need to redo, this time with crop
-                    focalLength = eFocalLength;
-                    cropFactor = 0;
-                }
+                cropFactor = 0;
             };
         };
     };
+ 
     setExifFocalLength(focalLength);
     setExifFocalLength35(eFocalLength35);
     setExifCropFactor(cropFactor);
