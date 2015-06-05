@@ -1415,7 +1415,24 @@ void PanoPanel::OnOutputFilesChanged(wxCommandEvent & e)
 
 bool PanoPanel::CheckGoodSize()
 {
-    vigra::Rect2D cropped_region = pano->getOptions().getROI();
+    const HuginBase::PanoramaOptions opts(pano->getOptions());
+    const vigra::Rect2D cropped_region (opts.getROI());    
+    // width and height of jpeg images has to be smaller than 65500 pixel
+    if (opts.outputImageType == "jpg" &&
+        (opts.outputLDRBlended || opts.outputLDRExposureBlended || opts.outputLDRExposureLayersFused) &&
+        (cropped_region.width()>65500 || cropped_region.height()>65500)
+        )
+    {
+        wxMessageBox(
+            wxString::Format(_("The width and height of jpeg images has to be smaller than 65500 pixel. But you have requested a jpeg image with %dx%d pixel.\nThis is not supported by the jpeg file format.\nDecrease the canvas size on the stitch panel or select TIF or PNG as output format."), cropped_region.width(), cropped_region.height()),
+#ifdef _WINDOWS
+            _("Hugin"),
+#else
+            wxT(""),
+#endif
+            wxICON_EXCLAMATION | wxOK);
+        return false;
+    };
     wxString message;
     unsigned long long int area = ((unsigned long int) cropped_region.width()) * ((unsigned long int) cropped_region.height());
     // Argh, more than half a gigapixel!
