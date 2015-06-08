@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2015-05-27 21:48+0200\n"
-"PO-Revision-Date: 2015-05-27 19:52+0000\n"
+"POT-Creation-Date: 2015-06-08 20:43+0200\n"
+"PO-Revision-Date: 2015-06-08 18:55+0000\n"
 "Last-Translator: Kornel Benko <kornel@lyx.org>\n"
 "Language-Team: Slovak <kornel@lyx.org>\n"
 "Language: sk\n"
@@ -3270,6 +3270,21 @@ msgid ""
 msgstr ""
 "Nemáte povolenie písať do adresára \"%s\".\n"
 "Vyberte prosím iný adresár na finálny výstup."
+
+#: hugin1/hugin/PanoPanel.cpp:1427
+#, c-format
+msgid ""
+"The width and height of jpeg images has to be smaller than 65500 pixel. But "
+"you have requested a jpeg image with %dx%d pixel.\n"
+"This is not supported by the jpeg file format.\n"
+"Decrease the canvas size on the stitch panel or select TIF or PNG as output "
+"format."
+msgstr ""
+"Hodnota šírky a výšky jpeg obrázkov musí byť menšia ako 65500 pixlov. Ale od "
+"vás žiadaný rozmer jpeg obrázku je %dx%d pixlov.\n"
+"Toto nie je podporované formátom pre jpeg súbory.\n"
+"Znížte rozmer plátna v paneli 'Lepič' alebo zvoľte TIF či PNG ako východzí "
+"formát."
 
 #: hugin1/hugin/PanoPanel.cpp:1424
 #, c-format
