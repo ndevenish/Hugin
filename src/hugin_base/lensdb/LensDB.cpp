@@ -2113,7 +2113,7 @@ bool LensDB::GetFov(const std::string& lens, const double focal, double& fov) co
     {
         // only one entry found
         // check focal length
-        if (fabs(hfovdata[0].focallength - focal) <= 1.0f)
+        if (fabs(hfovdata[0].focallength - focal) / focal <= 0.075f)
         {
             // focal length matches
             fov = hfovdata[0].HFOV;
@@ -2126,9 +2126,18 @@ bool LensDB::GetFov(const std::string& lens, const double focal, double& fov) co
     }
     else
     {
+        if (fabs(hfovdata[0].focallength - focal) / focal > 0.15f)
+        {
+            // difference to nearest point too big, ignoring
+            return false;
+        }
         fov = InterpolateValue(focal, hfovdata[0].focallength, hfovdata[0].HFOV, hfovdata[1].focallength, hfovdata[1].HFOV);
+        if (fov < 0.1)
+        {
+            fov = 0;
+        };
     };
-    return true;
+    return (fov > 0);
 };
 
 bool LensDB::GetDistortion(const std::string& lens, const double focal, std::vector<double>& distortion) const
@@ -2147,7 +2156,7 @@ bool LensDB::GetDistortion(const std::string& lens, const double focal, std::vec
     {
         // only one entry found
         // check focal length
-        if (fabs(distdata[0].focallength - focal) <= 1.0f)
+        if (fabs(distdata[0].focallength - focal) / focal <= 0.075f)
         {
             distortion.push_back(distdata[0].a);
             distortion.push_back(distdata[0].b);
@@ -2162,6 +2171,11 @@ bool LensDB::GetDistortion(const std::string& lens, const double focal, std::vec
     }
     else
     {
+        if (fabs(distdata[0].focallength - focal) / focal > 0.15f)
+        {
+            // difference to nearest point too big, ignoring
+            return false;
+        }
         distortion.push_back(InterpolateValue(focal, distdata[0].focallength, distdata[0].a, distdata[1].focallength, distdata[1].a));
         distortion.push_back(InterpolateValue(focal, distdata[0].focallength, distdata[0].b, distdata[1].focallength, distdata[1].b));
         distortion.push_back(InterpolateValue(focal, distdata[0].focallength, distdata[0].c, distdata[1].focallength, distdata[1].c));
@@ -2184,7 +2198,7 @@ bool LensDB::GetVignetting(const std::string& lens, const double focal, const do
     const bool unknownAperture = (fabs(aperture) < 0.001f);
     if (vigdata.size() == 1)
     {
-        if (fabs(vigdata[0].focallength - focal) <= 1.0f && (unknownAperture || fabs(vigdata[0].aperture - aperture) < 0.3f))
+        if (fabs(vigdata[0].focallength - focal) / focal <= 0.075f && (unknownAperture || fabs(vigdata[0].aperture - aperture) < 0.3f))
         {
             vignetting.push_back(1.0);
             vignetting.push_back(vigdata[0].Vb);
@@ -2335,7 +2349,7 @@ bool LensDB::GetTCA(const std::string& lens, const double focal, std::vector<dou
     {
         // only one entry found
         // check focal length
-        if (fabs(tcadata[0].focallength - focal) <= 1.0f)
+        if (fabs(tcadata[0].focallength - focal) / focal <= 0.075f)
         {
             tca_red.push_back(tcadata[0].ra);
             tca_red.push_back(tcadata[0].rb);
@@ -2354,6 +2368,11 @@ bool LensDB::GetTCA(const std::string& lens, const double focal, std::vector<dou
     }
     else
     {
+        if (fabs(tcadata[0].focallength - focal) / focal > 0.15f)
+        {
+            // difference to nearest point too big, ignoring
+            return false;
+        };
         tca_red.push_back(InterpolateValue(focal, tcadata[0].focallength, tcadata[0].ra, tcadata[1].focallength, tcadata[1].ra));
         tca_red.push_back(InterpolateValue(focal, tcadata[0].focallength, tcadata[0].rb, tcadata[1].focallength, tcadata[1].rb));
         tca_red.push_back(InterpolateValue(focal, tcadata[0].focallength, tcadata[0].rc, tcadata[1].focallength, tcadata[1].rc));
