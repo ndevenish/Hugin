@@ -2055,6 +2055,21 @@ bool LensDB::GetProjection(const std::string& lens, BaseSrcPanoImage::Projection
     };
 };
 
+inline int fsign(double a)
+{
+    return (a > 0) ? 1 : ((a < 0) ? -1 : 0);
+}
+
+/** check if value is inside limit1...limit2 or it is nearer to limit1 than value*tol */
+bool IsFocallengthNearRange(const double focal, const double limit1, const double limit2, const double tol)
+{
+    if (fsign(focal - limit1) != fsign(focal - limit2))
+    {
+        return true;
+    };
+    return fabs(focal - limit1) < tol * focal;
+}
+
 bool LensDB::GetCrop(const std::string& lens, const double focal, const vigra::Size2D& imageSize, vigra::Rect2D& cropRect) const
 {
     if(m_db == NULL)
@@ -2071,7 +2086,7 @@ bool LensDB::GetCrop(const std::string& lens, const double focal, const vigra::S
     {
         // only one entry found
         // check focal length
-        if (fabs(cropData[0].focallength - focal) <= 1.0f)
+        if (fabs(cropData[0].focallength - focal) < 0.075f * focal)
         {
             // focal length matches
             left = cropData[0].left;
@@ -2087,6 +2102,10 @@ bool LensDB::GetCrop(const std::string& lens, const double focal, const vigra::S
     }
     else
     {
+        if (!IsFocallengthNearRange(focal, cropData[0].focallength, cropData[1].focallength, 0.15f))
+        {
+            return false;
+        };
         left = hugin_utils::roundi(InterpolateValue(focal, cropData[0].focallength, cropData[0].left, cropData[1].focallength, cropData[1].left));
         right = hugin_utils::roundi(InterpolateValue(focal, cropData[0].focallength, cropData[0].right, cropData[1].focallength, cropData[1].right));
         top = hugin_utils::roundi(InterpolateValue(focal, cropData[0].focallength, cropData[0].top, cropData[1].focallength, cropData[1].top));
@@ -2113,7 +2132,7 @@ bool LensDB::GetFov(const std::string& lens, const double focal, double& fov) co
     {
         // only one entry found
         // check focal length
-        if (fabs(hfovdata[0].focallength - focal) / focal <= 0.075f)
+        if (fabs(hfovdata[0].focallength - focal) <= 0.075f * focal)
         {
             // focal length matches
             fov = hfovdata[0].HFOV;
@@ -2126,7 +2145,7 @@ bool LensDB::GetFov(const std::string& lens, const double focal, double& fov) co
     }
     else
     {
-        if (fabs(hfovdata[0].focallength - focal) / focal > 0.15f)
+        if (!IsFocallengthNearRange(focal, hfovdata[0].focallength, hfovdata[1].focallength, 0.15f))
         {
             // difference to nearest point too big, ignoring
             return false;
@@ -2156,7 +2175,7 @@ bool LensDB::GetDistortion(const std::string& lens, const double focal, std::vec
     {
         // only one entry found
         // check focal length
-        if (fabs(distdata[0].focallength - focal) / focal <= 0.075f)
+        if (fabs(distdata[0].focallength - focal) <= 0.075f * focal)
         {
             distortion.push_back(distdata[0].a);
             distortion.push_back(distdata[0].b);
@@ -2171,7 +2190,7 @@ bool LensDB::GetDistortion(const std::string& lens, const double focal, std::vec
     }
     else
     {
-        if (fabs(distdata[0].focallength - focal) / focal > 0.15f)
+        if (!IsFocallengthNearRange(focal, distdata[0].focallength, distdata[1].focallength, 0.15f))
         {
             // difference to nearest point too big, ignoring
             return false;
@@ -2198,7 +2217,7 @@ bool LensDB::GetVignetting(const std::string& lens, const double focal, const do
     const bool unknownAperture = (fabs(aperture) < 0.001f);
     if (vigdata.size() == 1)
     {
-        if (fabs(vigdata[0].focallength - focal) / focal <= 0.075f && (unknownAperture || fabs(vigdata[0].aperture - aperture) < 0.3f))
+        if ((fabs(vigdata[0].focallength - focal) <= 0.075f * focal) && (unknownAperture || fabs(vigdata[0].aperture - aperture) < 0.3f))
         {
             vignetting.push_back(1.0);
             vignetting.push_back(vigdata[0].Vb);
@@ -2245,7 +2264,11 @@ bool LensDB::GetVignetting(const std::string& lens, const double focal, const do
             else
             {
                 // variant b: 2 datasets from different focal length
-                double interpolatedAperture = InterpolateValue(focal, vigdata[0].focallength, vigdata[0].aperture, vigdata[1].focallength, vigdata[1].aperture);
+                if (!IsFocallengthNearRange(focal, vigdata[0].focallength, vigdata[1].focallength, 0.15f))
+                {
+                    return false;
+                };
+                const double interpolatedAperture = InterpolateValue(focal, vigdata[0].focallength, vigdata[0].aperture, vigdata[1].focallength, vigdata[1].aperture);
                 if (fabs(interpolatedAperture - aperture) < 0.3f || unknownAperture)
                 {
                     // return value only, if aperture matches the 2 found values
@@ -2265,6 +2288,10 @@ bool LensDB::GetVignetting(const std::string& lens, const double focal, const do
         {
             if (vigdata.size() == 3)
             {
+                if (!IsFocallengthNearRange(focal, vigdata[0].focallength, vigdata[2].focallength, 0.15f))
+                {
+                    return false;
+                };
                 vignetting.push_back(1.0);
                 vignetting.push_back(InterpolateValueTriangle(focal, aperture,
                     vigdata[0].focallength, vigdata[0].aperture, vigdata[0].Vb,
@@ -2287,6 +2314,10 @@ bool LensDB::GetVignetting(const std::string& lens, const double focal, const do
             {
                 // we have now 4 points for interpolation
                 double Vb1, Vc1, Vd1, Vb2, Vc2, Vd2;
+                if (!IsFocallengthNearRange(focal, vigdata[0].focallength, vigdata[2].focallength, 0.15f))
+                {
+                    return false;
+                };
                 if (unknownAperture)
                 {
                     // unknown aperture, take smallest aperture
@@ -2349,7 +2380,7 @@ bool LensDB::GetTCA(const std::string& lens, const double focal, std::vector<dou
     {
         // only one entry found
         // check focal length
-        if (fabs(tcadata[0].focallength - focal) / focal <= 0.075f)
+        if (fabs(tcadata[0].focallength - focal) <= 0.075f * focal)
         {
             tca_red.push_back(tcadata[0].ra);
             tca_red.push_back(tcadata[0].rb);
@@ -2368,7 +2399,7 @@ bool LensDB::GetTCA(const std::string& lens, const double focal, std::vector<dou
     }
     else
     {
-        if (fabs(tcadata[0].focallength - focal) / focal > 0.15f)
+        if (!IsFocallengthNearRange(focal, tcadata[0].focallength, tcadata[1].focallength, 0.15f))
         {
             // difference to nearest point too big, ignoring
             return false;
