@@ -1,4 +1,640 @@
-2015-05-09 09:37 +0200  tmodes  (4d484ecf569a)  tip
+2015-06-13 09:02 +0200  tmodes  (9a02ca1fd1fe)  tip
+
+	Fixed several typos in strings
+
+	> src/hugin1/base_wx/MyProgressDialog.cpp
+	> src/hugin1/base_wx/RunStitchPanel.cpp
+	> src/hugin1/base_wx/StitchingExecutor.cpp
+	> src/hugin1/hugin/GLRenderer.h
+	> src/hugin1/hugin/VertexCoordRemapper.cpp
+	> src/hugin1/hugin/VertexCoordRemapper.h
+	> src/hugin1/hugin/xrc/image_variable_dlg.xrc
+	> src/hugin1/hugin/xrc/pref_dialog.xrc
+	> src/hugin1/ptbatcher/ProjectArray.cpp
+	> src/tools/pano_modify.cpp
+	> src/translations/ca_ES.po
+	> src/translations/ca_ES@valencia.po
+	> src/translations/cs_CZ.po
+	> src/translations/da.po
+	> src/translations/de.po
+	> src/translations/en_GB.po
+	> src/translations/es.po
+	> src/translations/eu.po
+	> src/translations/fi.po
+	> src/translations/fr.po
+	> src/translations/hu.po
+	> src/translations/hugin.pot
+	> src/translations/it.po
+	> src/translations/ja.po
+	> src/translations/nl.po
+	> src/translations/outdated/bg.po
+	> src/translations/outdated/ko.po
+	> src/translations/outdated/sl.po
+	> src/translations/outdated/uk.po
+	> src/translations/pl.po
+	> src/translations/pt_BR.po
+	> src/translations/ro.po
+	> src/translations/ru.po
+	> src/translations/sk.po
+	> src/translations/sv.po
+	> src/translations/zh_CN.po
+	> src/translations/zh_TW.po
+
+2015-06-09 18:24 +0200  tmodes  (16645403be22)  
+
+	Merge
+
+	> src/translations/cs_CZ.po
+
+2015-06-09 15:34 +0200  Vaclav Cerny <vatoz@seznam.cz>  (8a39e854e89a)  
+
+	Updated Czech translation
+
+	> src/translations/cs_CZ.po
+
+2015-06-09 18:23 +0200  tmodes  (f65ea4c1f4b7)  
+
+	Further improvements for reading interpolated values from lens db
+	(grafted from 42023be4a4a673f6f35a380487ce1dd1bc0fc4e0)
+
+	> src/hugin_base/lensdb/LensDB.cpp
+
+2015-06-08 20:08 +0200  tmodes  (f87b448f51d2)  
+
+	Improved interpolating values from lens db
+
+	Ignore values if next data point is too far from target (grafted
+	from 3c4d85fa90873558a6696828658117316eb46324)
+
+	> src/hugin_base/lensdb/LensDB.cpp
+
+2015-06-05 18:34 +0200  tmodes  (c4ca10bdc8ad)  
+
+	Changed order of tests for crop factor calculation
+
+	Now take focal length and focal length (35 mm format) as first
+	check. Use focal plane resolution variant as fall back. (grafted
+	from 4cb41c3793d0cf0a36a669b8a62d7506d3993f1b)
+
+	> src/hugin_base/panodata/SrcPanoImage.cpp
+
+2015-06-04 20:29 +0200  tmodes  (21f958521cae)  
+
+	Select correct cp after deleting cp in cp list (grafted from
+	da1212c90de01ed366926b38ce9f55ed1bbc27cf)
+
+	> src/hugin1/hugin/CPListFrame.cpp
+
+2015-06-01 21:39 +0200  tmodes  (3873095f203a)  
+
+	Updated French translation (pmllc) [1460202]
+
+	> src/translations/fr.po
+
+2015-05-31 10:59 +0200  tmodes  (b0d4a660cf3a)  
+
+	Use correct encoding for progress display [1459364]
+
+	wxTextInputStream does not work correctly with wxConvAuto in
+	wxWidgets 3.x see http://trac.wxwidgets.org/ticket/14720 (grafted
+	from e0cbf4d435eea8c5a66cba842bf7d317982e00eb)
+
+	> src/hugin1/base_wx/MyExternalCmdExecDialog.cpp
+
+2015-05-30 08:32 +0200  tmodes  (124a7c7ed48b)  
+
+	Updated French translation (pmllc) [1460202]
+
+	> src/translations/fr.po
+
+2015-05-30 08:30 +0200  tmodes  (37d7d32cb47f)  
+
+	Updated Danish translation (Thomas Pryds)
+
+	> src/translations/da.po
+
+2015-05-23 09:42 +1000  tduell  (de4f715cca64)  
+
+	Update hugin_executor.pod (grafted from
+	7d8d6225c6691a88c0b9d3aa47e49bf34f626f1f)
+
+	> doc/hugin_executor.pod
+
+2015-05-23 10:45 +0200  tmodes  (907960dec706)  
+
+	Updated German translation (Carl von Einem) [1458059]
+
+	> src/translations/de.po
+
+2015-05-20 18:29 +0200  tmodes  (99098debd83f)  
+
+	CMake: Updated some paths (Windows only) (grafted from
+	5c2b32f3ed6e5546b4b97b487097495e8777e0a7)
+
+	> CMakeModules/win_bundle.cmake
+
+2015-05-19 21:05 +0200  tmodes  (3dc2d983b75e)  
+
+	Updated Brazilian Portuguese (Luís Henrique Camargo Quiroz)
+	[1456742 ]
+
+	> src/translations/pt_BR.po
+
+2015-05-19 20:58 +0200  tmodes  (d617bfb62626)  
+
+	CMake: Renamed VIGRA_CONFIG_HXX variable to VIGRA_CONFIG_VERSION_HXX
+	to better match value (grafted from
+	270cbc3ae7b62e22e9a60377224e78eec12aeedb)
+
+	> CMakeModules/FindVIGRA.cmake
+
+2015-05-18 20:20 +0200  tmodes  (5f1ea9cb6fc6)  
+
+	Simplified search for OpenEXR libs (Windows only) (grafted from
+	41e868c408761ebc3ae0aead2cfddee029ef9298)
+
+	> CMakeModules/FindOpenEXR.cmake
+
+2015-05-19 20:57 +0200  tmodes  (a16a3e0f63a1)  
+
+	Updated Hungarian translation (Lajos Höss) [1456481]
+
+	> src/translations/hu.po
+
+2015-05-14 08:49 +0200  tmodes  (9fc566fb4fa5)  
+
+	nona: Fix recalculation of m_panoROI The code introduced in
+	changeset 5e741874f42196f357f4df3860332d77823082a1 was too specific
+	and did not cover all cases (grafted from
+	f7a2aed3af37b8b44ec6b34a9e757c04c8105380)
+
+	> src/hugin_base/nona/Stitcher.h
+
+2015-05-12 08:44 +1000  tduell  (9d4a8d084518)  
+
+	Update nona.pod (grafted from
+	fe3b12588bff067c337b35174387b1d94966b912)
+
+	> doc/nona.pod
+
+2015-05-11 20:07 +0200  tmodes  (7730ef36af66)  
+
+	Fixes adding several images without EXIF data at once (grafted from
+	0838fdd99bdcc891ef934f43eca258cc5f66c402)
+
+	> src/hugin1/base_wx/HFOVDialog.cpp
+	> src/hugin_base/panodata/SrcPanoImage.cpp
+
+2015-05-11 20:06 +0200  tmodes  (840bde7cf5a4)  
+
+	Level panorama: Load EXIF data if not already done before running
+	leveling code (grafted from
+	16cbcd48be3621a6d3f4b4f95f03bfd7186619e4)
+
+	> src/hugin_base/algorithms/basic/StraightenPanorama.cpp
+
+2015-05-11 20:05 +0200  tmodes  (bd225c9f1445)  
+
+	nona: Fix output if canvas is not fully covered by images (grafted
+	from 5e741874f42196f357f4df3860332d77823082a1)
+
+	> src/hugin_base/nona/Stitcher.h
+
+2015-05-11 20:05 +0200  tmodes  (99e8f15bd74a)  
+
+	Fixes typo in nona information screen (grafted from
+	77c2b4d7ff02209af8dbe772cb5ee8d76c026849)
+
+	> src/tools/nona.cpp
+
+2015-05-10 09:01 +0200  tmodes  (14054a03d85c)  
+
+	Update FSF address and use copyright header currently suggested by
+	the FSF with hyperlink instead of FSF postal address. (Patch by
+	Andreas Metzler) [1453385] (grafted from
+	a1e1ed8e24196773917e05eb07d664ad898e9cc1)
+
+	> src/celeste/Celeste.cpp
+	> src/celeste/Gabor.cpp
+	> src/celeste/LICENCE_GABOR
+	> src/celeste/Main.cpp
+	> src/celeste/training/CelesteTrain.cpp
+	> src/foreign/getopt/LICENSE
+	> src/foreign/getopt/include/getopt.h
+	> src/foreign/getopt/src/getopt.c
+	> src/foreign/levmar/LICENSE
+	> src/hugin1/base_wx/AssistantExecutor.cpp
+	> src/hugin1/base_wx/AssistantExecutor.h
+	> src/hugin1/base_wx/Command.cpp
+	> src/hugin1/base_wx/Command.h
+	> src/hugin1/base_wx/CommandHistory.cpp
+	> src/hugin1/base_wx/CommandHistory.h
+	> src/hugin1/base_wx/Executor.cpp
+	> src/hugin1/base_wx/Executor.h
+	> src/hugin1/base_wx/HFOVDialog.cpp
+	> src/hugin1/base_wx/HFOVDialog.h
+	> src/hugin1/base_wx/LensTools.cpp
+	> src/hugin1/base_wx/LensTools.h
+	> src/hugin1/base_wx/MyExternalCmdExecDialog.cpp
+	> src/hugin1/base_wx/MyExternalCmdExecDialog.h
+	> src/hugin1/base_wx/MyProgressDialog.cpp
+	> src/hugin1/base_wx/MyProgressDialog.h
+	> src/hugin1/base_wx/PTWXDlg.cpp
+	> src/hugin1/base_wx/PTWXDlg.h
+	> src/hugin1/base_wx/PanoCommand.cpp
+	> src/hugin1/base_wx/PanoCommand.h
+	> src/hugin1/base_wx/RunStitchPanel.cpp
+	> src/hugin1/base_wx/RunStitchPanel.h
+	> src/hugin1/base_wx/StitchingExecutor.cpp
+	> src/hugin1/base_wx/StitchingExecutor.h
+	> src/hugin1/base_wx/huginConfig.cpp
+	> src/hugin1/base_wx/huginConfig.h
+	> src/hugin1/base_wx/platform.cpp
+	> src/hugin1/base_wx/platform.h
+	> src/hugin1/base_wx/wxImageCache.cpp
+	> src/hugin1/base_wx/wxImageCache.h
+	> src/hugin1/base_wx/wxLensDB.cpp
+	> src/hugin1/base_wx/wxLensDB.h
+	> src/hugin1/base_wx/wxPanoCommand.cpp
+	> src/hugin1/base_wx/wxPanoCommand.h
+	> src/hugin1/base_wx/wxPlatform.cpp
+	> src/hugin1/base_wx/wxPlatform.h
+	> src/hugin1/calibrate_lens/LensCalApp.cpp
+	> src/hugin1/calibrate_lens/LensCalApp.h
+	> src/hugin1/calibrate_lens/LensCalFrame.cpp
+	> src/hugin1/calibrate_lens/LensCalFrame.h
+	> src/hugin1/calibrate_lens/LensCalImageCtrl.cpp
+	> src/hugin1/calibrate_lens/LensCalImageCtrl.h
+	> src/hugin1/calibrate_lens/LensCalTypes.cpp
+	> src/hugin1/calibrate_lens/LensCalTypes.h
+	> src/hugin1/executor/hugin_executor.cpp
+	> src/hugin1/hugin/AboutDialog.cpp
+	> src/hugin1/hugin/AboutDialog.h
+	> src/hugin1/hugin/CPDetectorDialog.cpp
+	> src/hugin1/hugin/CPDetectorDialog.h
+	> src/hugin1/hugin/CPEditorPanel.cpp
+	> src/hugin1/hugin/CPEditorPanel.h
+	> src/hugin1/hugin/CPImageCtrl.cpp
+	> src/hugin1/hugin/CPImageCtrl.h
+	> src/hugin1/hugin/CPImagesComboBox.cpp
+	> src/hugin1/hugin/CPImagesComboBox.h
+	> src/hugin1/hugin/CPListFrame.cpp
+	> src/hugin1/hugin/CPListFrame.h
+	> src/hugin1/hugin/ChoosyRemapper.cpp
+	> src/hugin1/hugin/ChoosyRemapper.h
+	> src/hugin1/hugin/DragTool.cpp
+	> src/hugin1/hugin/DragTool.h
+	> src/hugin1/hugin/GLPreviewFrame.cpp
+	> src/hugin1/hugin/GLPreviewFrame.h
+	> src/hugin1/hugin/GLRenderer.cpp
+	> src/hugin1/hugin/GLRenderer.h
+	> src/hugin1/hugin/GLViewer.cpp
+	> src/hugin1/hugin/GLViewer.h
+	> src/hugin1/hugin/GreatCircles.cpp
+	> src/hugin1/hugin/GreatCircles.h
+	> src/hugin1/hugin/GuiLevel.cpp
+	> src/hugin1/hugin/GuiLevel.h
+	> src/hugin1/hugin/HDRMergeOptionDialog.cpp
+	> src/hugin1/hugin/HDRMergeOptionDialog.h
+	> src/hugin1/hugin/HtmlWindow.cpp
+	> src/hugin1/hugin/HtmlWindow.h
+	> src/hugin1/hugin/ImageVariableDialog.cpp
+	> src/hugin1/hugin/ImageVariableDialog.h
+	> src/hugin1/hugin/ImagesList.cpp
+	> src/hugin1/hugin/ImagesList.h
+	> src/hugin1/hugin/ImagesPanel.cpp
+	> src/hugin1/hugin/ImagesPanel.h
+	> src/hugin1/hugin/ImagesTree.cpp
+	> src/hugin1/hugin/ImagesTree.h
+	> src/hugin1/hugin/LayoutRemapper.cpp
+	> src/hugin1/hugin/LayoutRemapper.h
+	> src/hugin1/hugin/LocalizedFileTipProvider.cpp
+	> src/hugin1/hugin/LocalizedFileTipProvider.h
+	> src/hugin1/hugin/MainFrame.cpp
+	> src/hugin1/hugin/MainFrame.h
+	> src/hugin1/hugin/MaskEditorPanel.cpp
+	> src/hugin1/hugin/MaskEditorPanel.h
+	> src/hugin1/hugin/MaskImageCtrl.cpp
+	> src/hugin1/hugin/MaskImageCtrl.h
+	> src/hugin1/hugin/MaskLoadDialog.cpp
+	> src/hugin1/hugin/MaskLoadDialog.h
+	> src/hugin1/hugin/MeshManager.cpp
+	> src/hugin1/hugin/MeshManager.h
+	> src/hugin1/hugin/MeshRemapper.cpp
+	> src/hugin1/hugin/MeshRemapper.h
+	> src/hugin1/hugin/NonaOptionsDialog.cpp
+	> src/hugin1/hugin/NonaOptionsDialog.h
+	> src/hugin1/hugin/OptimizePanel.cpp
+	> src/hugin1/hugin/OptimizePanel.h
+	> src/hugin1/hugin/OptimizePhotometricPanel.cpp
+	> src/hugin1/hugin/OptimizePhotometricPanel.h
+	> src/hugin1/hugin/OutputProjectionInfo.cpp
+	> src/hugin1/hugin/OutputProjectionInfo.h
+	> src/hugin1/hugin/OverviewCameraTool.cpp
+	> src/hugin1/hugin/OverviewCameraTool.h
+	> src/hugin1/hugin/OverviewOutlinesTool.cpp
+	> src/hugin1/hugin/OverviewOutlinesTool.h
+	> src/hugin1/hugin/PanoOperation.cpp
+	> src/hugin1/hugin/PanoOperation.h
+	> src/hugin1/hugin/PanoOutputDialog.cpp
+	> src/hugin1/hugin/PanoOutputDialog.h
+	> src/hugin1/hugin/PanoPanel.cpp
+	> src/hugin1/hugin/PanoPanel.h
+	> src/hugin1/hugin/PanosphereSphereTool.cpp
+	> src/hugin1/hugin/PanosphereSphereTool.h
+	> src/hugin1/hugin/PluginItems.cpp
+	> src/hugin1/hugin/PluginItems.h
+	> src/hugin1/hugin/PreferencesDialog.cpp
+	> src/hugin1/hugin/PreferencesDialog.h
+	> src/hugin1/hugin/PreviewColorPickerTool.cpp
+	> src/hugin1/hugin/PreviewColorPickerTool.h
+	> src/hugin1/hugin/PreviewControlPointTool.cpp
+	> src/hugin1/hugin/PreviewControlPointTool.h
+	> src/hugin1/hugin/PreviewCropTool.cpp
+	> src/hugin1/hugin/PreviewCropTool.h
+	> src/hugin1/hugin/PreviewDifferenceTool.cpp
+	> src/hugin1/hugin/PreviewDifferenceTool.h
+	> src/hugin1/hugin/PreviewEditCPTool.cpp
+	> src/hugin1/hugin/PreviewEditCPTool.h
+	> src/hugin1/hugin/PreviewFrame.cpp
+	> src/hugin1/hugin/PreviewFrame.h
+	> src/hugin1/hugin/PreviewGuideTool.cpp
+	> src/hugin1/hugin/PreviewGuideTool.h
+	> src/hugin1/hugin/PreviewIdentifyTool.cpp
+	> src/hugin1/hugin/PreviewIdentifyTool.h
+	> src/hugin1/hugin/PreviewLayoutLinesTool.cpp
+	> src/hugin1/hugin/PreviewLayoutLinesTool.h
+	> src/hugin1/hugin/PreviewPanel.cpp
+	> src/hugin1/hugin/PreviewPanel.h
+	> src/hugin1/hugin/PreviewPanoMaskTool.cpp
+	> src/hugin1/hugin/PreviewPanoMaskTool.h
+	> src/hugin1/hugin/ProjectionGridTool.cpp
+	> src/hugin1/hugin/ProjectionGridTool.h
+	> src/hugin1/hugin/ResetDialog.cpp
+	> src/hugin1/hugin/ResetDialog.h
+	> src/hugin1/hugin/TexCoordRemapper.cpp
+	> src/hugin1/hugin/TexCoordRemapper.h
+	> src/hugin1/hugin/TextKillFocusHandler.cpp
+	> src/hugin1/hugin/TextKillFocusHandler.h
+	> src/hugin1/hugin/TextureManager.cpp
+	> src/hugin1/hugin/TextureManager.h
+	> src/hugin1/hugin/Tool.cpp
+	> src/hugin1/hugin/Tool.h
+	> src/hugin1/hugin/ToolHelper.cpp
+	> src/hugin1/hugin/ToolHelper.h
+	> src/hugin1/hugin/VertexCoordRemapper.cpp
+	> src/hugin1/hugin/VertexCoordRemapper.h
+	> src/hugin1/hugin/ViewState.cpp
+	> src/hugin1/hugin/ViewState.h
+	> src/hugin1/hugin/config_defaults.h
+	> src/hugin1/hugin/huginApp.cpp
+	> src/hugin1/hugin/huginApp.h
+	> src/hugin1/icpfind/AutoCtrlPointCreator.cpp
+	> src/hugin1/icpfind/AutoCtrlPointCreator.h
+	> src/hugin1/icpfind/CPDetectorConfig.cpp
+	> src/hugin1/icpfind/CPDetectorConfig.h
+	> src/hugin1/icpfind/icpfind.cpp
+	> src/hugin1/panoinc.h
+	> src/hugin1/panoinc_WX.h
+	> src/hugin1/ptbatcher/Batch.cpp
+	> src/hugin1/ptbatcher/Batch.h
+	> src/hugin1/ptbatcher/BatchFrame.cpp
+	> src/hugin1/ptbatcher/BatchFrame.h
+	> src/hugin1/ptbatcher/BatchTrayIcon.cpp
+	> src/hugin1/ptbatcher/BatchTrayIcon.h
+	> src/hugin1/ptbatcher/DirTraverser.h
+	> src/hugin1/ptbatcher/FailedProjectsDialog.cpp
+	> src/hugin1/ptbatcher/FailedProjectsDialog.h
+	> src/hugin1/ptbatcher/FindPanoDialog.cpp
+	> src/hugin1/ptbatcher/FindPanoDialog.h
+	> src/hugin1/ptbatcher/PTBatcherGUI.cpp
+	> src/hugin1/ptbatcher/PTBatcherGUI.h
+	> src/hugin1/ptbatcher/ProgressStatusBar.cpp
+	> src/hugin1/ptbatcher/ProgressStatusBar.h
+	> src/hugin1/ptbatcher/ProjectArray.cpp
+	> src/hugin1/ptbatcher/ProjectArray.h
+	> src/hugin1/ptbatcher/ProjectListBox.cpp
+	> src/hugin1/ptbatcher/ProjectListBox.h
+	> src/hugin1/ptbatcher/RunStitchFrame.cpp
+	> src/hugin1/ptbatcher/RunStitchFrame.h
+	> src/hugin1/stitch_project/hugin_stitch_project.cpp
+	> src/hugin_base/algorithms/basic/CalculateCPStatistics.cpp
+	> src/hugin_base/algorithms/basic/CalculateCPStatistics.h
+	> src/hugin_base/algorithms/basic/CalculateMeanExposure.cpp
+	> src/hugin_base/algorithms/basic/CalculateMeanExposure.h
+	> src/hugin_base/algorithms/basic/CalculateOptimalROI.cpp
+	> src/hugin_base/algorithms/basic/CalculateOptimalROI.h
+	> src/hugin_base/algorithms/basic/CalculateOptimalScale.cpp
+	> src/hugin_base/algorithms/basic/CalculateOptimalScale.h
+	> src/hugin_base/algorithms/basic/CalculateOverlap.cpp
+	> src/hugin_base/algorithms/basic/CalculateOverlap.h
+	> src/hugin_base/algorithms/basic/LayerStacks.cpp
+	> src/hugin_base/algorithms/basic/LayerStacks.h
+	> src/hugin_base/algorithms/basic/RotatePanorama.cpp
+	> src/hugin_base/algorithms/basic/RotatePanorama.h
+	> src/hugin_base/algorithms/basic/StraightenPanorama.cpp
+	> src/hugin_base/algorithms/basic/StraightenPanorama.h
+	> src/hugin_base/algorithms/basic/TranslatePanorama.cpp
+	> src/hugin_base/algorithms/basic/TranslatePanorama.h
+	> src/hugin_base/algorithms/control_points/CleanCP.cpp
+	> src/hugin_base/algorithms/control_points/CleanCP.h
+	> src/hugin_base/algorithms/nona/CalculateFOV.cpp
+	> src/hugin_base/algorithms/nona/CalculateFOV.h
+	> src/hugin_base/algorithms/nona/CenterHorizontally.cpp
+	> src/hugin_base/algorithms/nona/CenterHorizontally.h
+	> src/hugin_base/algorithms/nona/ComputeImageROI.cpp
+	> src/hugin_base/algorithms/nona/ComputeImageROI.h
+	> src/hugin_base/algorithms/nona/FitPanorama.cpp
+	> src/hugin_base/algorithms/nona/FitPanorama.h
+	> src/hugin_base/algorithms/optimizer/ImageGraph.cpp
+	> src/hugin_base/algorithms/optimizer/ImageGraph.h
+	> src/hugin_base/algorithms/optimizer/PTOptimizer.cpp
+	> src/hugin_base/algorithms/optimizer/PTOptimizer.h
+	> src/hugin_base/algorithms/optimizer/PhotometricOptimizer.cpp
+	> src/hugin_base/algorithms/optimizer/PhotometricOptimizer.h
+	> src/hugin_base/algorithms/point_sampler/PointSampler.cpp
+	> src/hugin_base/algorithms/point_sampler/PointSampler.h
+	> src/hugin_base/appbase/ProgressDisplay.cpp
+	> src/hugin_base/appbase/ProgressDisplay.h
+	> src/hugin_base/hugin_basic.h
+	> src/hugin_base/hugin_math/Matrix3.cpp
+	> src/hugin_base/hugin_math/Matrix3.h
+	> src/hugin_base/hugin_math/Transforms.h
+	> src/hugin_base/hugin_math/Vector3.cpp
+	> src/hugin_base/hugin_math/Vector3.h
+	> src/hugin_base/hugin_math/eig_jacobi.h
+	> src/hugin_base/hugin_math/graph.cpp
+	> src/hugin_base/hugin_math/graph.h
+	> src/hugin_base/hugin_math/hugin_math.h
+	> src/hugin_base/hugin_math/lu.h
+	> src/hugin_base/hugin_utils/openmp_lock.h
+	> src/hugin_base/hugin_utils/platform.cpp
+	> src/hugin_base/hugin_utils/platform.h
+	> src/hugin_base/hugin_utils/shared_ptr.h
+	> src/hugin_base/hugin_utils/utils.cpp
+	> src/hugin_base/hugin_utils/utils.h
+	> src/hugin_base/huginapp/CachedImageRemapper.cpp
+	> src/hugin_base/huginapp/CachedImageRemapper.h
+	> src/hugin_base/huginapp/ImageCache.cpp
+	> src/hugin_base/huginapp/ImageCache.h
+	> src/hugin_base/lensdb/LensDB.cpp
+	> src/hugin_base/lensdb/LensDB.h
+	> src/hugin_base/lines/FindLines.cpp
+	> src/hugin_base/lines/FindLines.h
+	> src/hugin_base/lines/FindN8Lines.cpp
+	> src/hugin_base/lines/FindN8Lines.h
+	> src/hugin_base/lines/LinesTypes.h
+	> src/hugin_base/nona/ImageRemapper.h
+	> src/hugin_base/nona/RemappedPanoImage.h
+	> src/hugin_base/nona/SpaceTransform.cpp
+	> src/hugin_base/nona/SpaceTransform.h
+	> src/hugin_base/nona/Stitcher.cpp
+	> src/hugin_base/nona/Stitcher.h
+	> src/hugin_base/nona/Stitcher1.cpp
+	> src/hugin_base/nona/Stitcher2.cpp
+	> src/hugin_base/nona/Stitcher3.cpp
+	> src/hugin_base/nona/Stitcher4.cpp
+	> src/hugin_base/nona/StitcherOptions.cpp
+	> src/hugin_base/nona/StitcherOptions.h
+	> src/hugin_base/panodata/ControlPoint.cpp
+	> src/hugin_base/panodata/ControlPoint.h
+	> src/hugin_base/panodata/Exiv2Helper.cpp
+	> src/hugin_base/panodata/Exiv2Helper.h
+	> src/hugin_base/panodata/ImageVariable.h
+	> src/hugin_base/panodata/ImageVariableGroup.cpp
+	> src/hugin_base/panodata/ImageVariableGroup.h
+	> src/hugin_base/panodata/ImageVariableTranslate.h
+	> src/hugin_base/panodata/Lens.cpp
+	> src/hugin_base/panodata/Lens.h
+	> src/hugin_base/panodata/Mask.cpp
+	> src/hugin_base/panodata/Mask.h
+	> src/hugin_base/panodata/OptimizerSwitches.h
+	> src/hugin_base/panodata/PTScriptParsing.cpp
+	> src/hugin_base/panodata/PTScriptParsing.h
+	> src/hugin_base/panodata/Panorama.cpp
+	> src/hugin_base/panodata/Panorama.h
+	> src/hugin_base/panodata/PanoramaData.h
+	> src/hugin_base/panodata/PanoramaOptions.cpp
+	> src/hugin_base/panodata/PanoramaOptions.h
+	> src/hugin_base/panodata/PanoramaVariable.cpp
+	> src/hugin_base/panodata/PanoramaVariable.h
+	> src/hugin_base/panodata/SrcPanoImage.cpp
+	> src/hugin_base/panodata/SrcPanoImage.h
+	> src/hugin_base/panodata/StandardImageVariableGroups.cpp
+	> src/hugin_base/panodata/StandardImageVariableGroups.h
+	> src/hugin_base/panodata/image_variables.h
+	> src/hugin_base/panotools/PanoToolsInterface.cpp
+	> src/hugin_base/panotools/PanoToolsInterface.h
+	> src/hugin_base/panotools/PanoToolsOptimizerWrapper.cpp
+	> src/hugin_base/panotools/PanoToolsOptimizerWrapper.h
+	> src/hugin_base/panotools/PanoToolsTransformGPU.cpp
+	> src/hugin_base/panotools/PanoToolsUtils.cpp
+	> src/hugin_base/panotools/PanoToolsUtils.h
+	> src/hugin_base/photometric/ResponseTransform.h
+	> src/hugin_base/vigra_ext/Correlation.h
+	> src/hugin_base/vigra_ext/FileRAII.h
+	> src/hugin_base/vigra_ext/FitPolynom.h
+	> src/hugin_base/vigra_ext/FunctorAccessor.h
+	> src/hugin_base/vigra_ext/HDRUtils.h
+	> src/hugin_base/vigra_ext/ImageTransforms.h
+	> src/hugin_base/vigra_ext/ImageTransformsGPU.cpp
+	> src/hugin_base/vigra_ext/ImageTransformsGPU.h
+	> src/hugin_base/vigra_ext/InterestPoints.h
+	> src/hugin_base/vigra_ext/Interpolators.h
+	> src/hugin_base/vigra_ext/Pyramid.h
+	> src/hugin_base/vigra_ext/ROIImage.h
+	> src/hugin_base/vigra_ext/ReduceOpenEXR.h
+	> src/hugin_base/vigra_ext/StitchWatershed.h
+	> src/hugin_base/vigra_ext/VignettingCorrection.h
+	> src/hugin_base/vigra_ext/emor.h
+	> src/hugin_base/vigra_ext/impexalpha.hxx
+	> src/hugin_base/vigra_ext/lut.h
+	> src/hugin_base/vigra_ext/openmp_vigra.h
+	> src/hugin_base/vigra_ext/pyramid2.h
+	> src/hugin_base/vigra_ext/ransac.h
+	> src/hugin_base/vigra_ext/tiffUtils.h
+	> src/hugin_base/vigra_ext/utils.h
+	> src/hugin_cpfind/LICENSE
+	> src/hugin_cpfind/cpfind/ImageImport.h
+	> src/hugin_cpfind/cpfind/KDTree.h
+	> src/hugin_cpfind/cpfind/KDTreeImpl.h
+	> src/hugin_cpfind/cpfind/PanoDetector.cpp
+	> src/hugin_cpfind/cpfind/PanoDetector.h
+	> src/hugin_cpfind/cpfind/PanoDetectorDefs.h
+	> src/hugin_cpfind/cpfind/PanoDetectorLogic.cpp
+	> src/hugin_cpfind/cpfind/TestCode.cpp
+	> src/hugin_cpfind/cpfind/TestCode.h
+	> src/hugin_cpfind/cpfind/Tracer.h
+	> src/hugin_cpfind/cpfind/Utils.cpp
+	> src/hugin_cpfind/cpfind/Utils.h
+	> src/hugin_cpfind/cpfind/main.cpp
+	> src/hugin_cpfind/localfeatures/BoundedSet.h
+	> src/hugin_cpfind/localfeatures/BoxFilter.h
+	> src/hugin_cpfind/localfeatures/CircularKeyPointDescriptor.cpp
+	> src/hugin_cpfind/localfeatures/CircularKeyPointDescriptor.h
+	> src/hugin_cpfind/localfeatures/Homography.cpp
+	> src/hugin_cpfind/localfeatures/Homography.h
+	> src/hugin_cpfind/localfeatures/Image.cpp
+	> src/hugin_cpfind/localfeatures/Image.h
+	> src/hugin_cpfind/localfeatures/KeyPoint.h
+	> src/hugin_cpfind/localfeatures/KeyPointDescriptor.h
+	> src/hugin_cpfind/localfeatures/KeyPointDetector.cpp
+	> src/hugin_cpfind/localfeatures/KeyPointDetector.h
+	> src/hugin_cpfind/localfeatures/KeyPointIO.cpp
+	> src/hugin_cpfind/localfeatures/KeyPointIO.h
+	> src/hugin_cpfind/localfeatures/MathStuff.cpp
+	> src/hugin_cpfind/localfeatures/MathStuff.h
+	> src/hugin_cpfind/localfeatures/PointMatch.h
+	> src/hugin_cpfind/localfeatures/RansacFiltering.cpp
+	> src/hugin_cpfind/localfeatures/RansacFiltering.h
+	> src/hugin_cpfind/localfeatures/Sieve.h
+	> src/hugin_cpfind/localfeatures/WaveFilter.h
+	> src/hugin_script_interface/hpi.cpp
+	> src/hugin_script_interface/hpi.h
+	> src/hugin_script_interface/hpi_classes.cpp
+	> src/hugin_script_interface/hpi_classes.h
+	> src/hugin_script_interface/hsi.i
+	> src/tools/ExtractPoints.h
+	> src/tools/ParseExp.cpp
+	> src/tools/ParseExp.h
+	> src/tools/align_image_stack.cpp
+	> src/tools/autooptimiser.cpp
+	> src/tools/checkpto.cpp
+	> src/tools/cpclean.cpp
+	> src/tools/fulla.cpp
+	> src/tools/geocpset.cpp
+	> src/tools/hugin_hdrmerge.cpp
+	> src/tools/hugin_lensdb.cpp
+	> src/tools/linefind.cpp
+	> src/tools/nona.cpp
+	> src/tools/pano_modify.cpp
+	> src/tools/pano_trafo.cpp
+	> src/tools/pto_gen.cpp
+	> src/tools/pto_lensstack.cpp
+	> src/tools/pto_mask.cpp
+	> src/tools/pto_merge.cpp
+	> src/tools/pto_move.cpp
+	> src/tools/pto_template.cpp
+	> src/tools/pto_var.cpp
+	> src/tools/tca_correct.cpp
+	> src/tools/verdandi.cpp
+	> src/tools/vig_optimize.cpp
+	> src/translations/cs_CZ.po
+	> src/translations/diff_po.pl
+
+2015-05-09 09:58 +0200  tmodes  (add8a61bdef8)  
+
+	Added tag 2015.0beta2 for changeset 31a6f3742639
+
+	> .hgtags
+
+2015-05-09 09:40 +0200  tmodes  (31a6f3742639)  2015.0beta2
+
+	Updated changelog
+
+	> ChangeLog
+
+2015-05-09 09:37 +0200  tmodes  (4d484ecf569a)  
 
 	Updated translations
 
