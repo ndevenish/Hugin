@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hugin 0.8.0\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2015-05-09 09:35+0200\n"
+"POT-Creation-Date: 2015-06-13 08:32+0200\n"
 "PO-Revision-Date: 2011-01-19 14:51+0200\n"
 "Last-Translator: Mihai <mihaiv@gmail.com>\n"
 "Language-Team:  <>\n"
@@ -297,8 +297,8 @@ msgid "extracting good points"
 msgstr "Creează puncte de control"
 
 #: hugin1/base_wx/MyProgressDialog.cpp:40
-msgid "Elapsed time : "
-msgstr "Timp trecut : "
+msgid "Elapsed time: "
+msgstr "Timp trecut: "
 
 #: hugin1/base_wx/PTWXDlg.cpp:47 hugin1/base_wx/PTWXDlg.cpp:66
 #: hugin1/base_wx/PTWXDlg.cpp:120
@@ -312,7 +312,7 @@ msgstr "Nu pot deschide fişierul proiect:"
 #: hugin1/base_wx/RunStitchPanel.cpp:115 hugin1/base_wx/RunStitchPanel.cpp:252
 #: hugin1/ptbatcher/ProjectArray.cpp:91
 #, c-format
-msgid "could not open script : %s"
+msgid "could not open script: %s"
 msgstr "nu pod deschide scriptul : %s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:125
@@ -513,11 +513,6 @@ msgstr ""
 msgid "High dynamic range"
 msgstr "Interval dinamic redus"
 
-#: hugin1/base_wx/StitchingExecutor.cpp:311
-#, fuzzy
-msgid "Remapped Images :"
-msgstr "Imagini re-mapate"
-
 #: hugin1/base_wx/StitchingExecutor.cpp:318 translations/xrc.cpp:598
 msgid "No exposure correction, low dynamic range"
 msgstr ""
@@ -624,12 +619,12 @@ msgstr "Imagini re-mapate"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:767
 #, fuzzy, c-format
-msgid "Merging hdr stack number %u..."
+msgid "Merging HDR stack number %u..."
 msgstr "Schimbă numărul de lentilă"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:782
 #: hugin1/base_wx/StitchingExecutor.cpp:786
-msgid "Blending hdr stacks..."
+msgid "Blending HDR stacks..."
 msgstr ""
 
 #: hugin1/base_wx/StitchingExecutor.cpp:803
@@ -5182,7 +5177,7 @@ msgstr ""
 #: translations/xrc.cpp:225
 msgid ""
 "Check this option if the images were shot on a tripod.\n"
-"Uncheck this option if the images in each stack needs an alignment to each "
+"Uncheck this option if the images in each stack need an alignment to each "
 "other."
 msgstr ""
 
@@ -6871,7 +6866,7 @@ msgstr "Selectează punct în imaginea din stânga"
 #: translations/xrc.cpp:770
 msgid ""
 "The following argfile will be used to copy tags from the first image to the "
-"final panorma.\n"
+"final panorama.\n"
 "It is applied additional to the above argfile for the intermediate images.\n"
 "Placeholders in this argfile will replaced before running exiftool."
 msgstr ""
@@ -7100,7 +7095,7 @@ msgid ""
 "%nrAllImages - number of all images in project file (include inactive "
 "images)\n"
 "%fullwidth - width of output canvas\n"
-"%fullheight - height of output\n"
+"%fullheight - height of output canvas\n"
 "%width - width of output region\n"
 "%height - height of output region\n"
 "\n"
@@ -7677,6 +7672,10 @@ msgid ""
 msgstr ""
 "Optimizarea tuturor parametrilor distorsiunii. \"totul\" are sens doar cu "
 "imagini suprapuse foarte mult şi multe puncte de control bine distribuite."
+
+#, fuzzy
+#~ msgid "Remapped Images :"
+#~ msgstr "Imagini re-mapate"
 
 #~ msgid "searching for cloud-like control points..."
 #~ msgstr "căutând puncte de control de tip nor..."

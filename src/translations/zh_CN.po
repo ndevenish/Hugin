@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: for Hugin\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2015-05-09 09:35+0200\n"
+"POT-Creation-Date: 2015-06-13 08:32+0200\n"
 "PO-Revision-Date: 2014-05-25 12:55+0800\n"
 "Last-Translator: Lu Fang <supercosmosgod@hotmail.com>\n"
 "Language-Team: Simplified Chinese <N/A>\n"
@@ -285,7 +285,7 @@ msgid "extracting good points"
 msgstr "创建控制点"
 
 #: hugin1/base_wx/MyProgressDialog.cpp:40
-msgid "Elapsed time : "
+msgid "Elapsed time: "
 msgstr "运行时间: "
 
 #: hugin1/base_wx/PTWXDlg.cpp:47 hugin1/base_wx/PTWXDlg.cpp:66
@@ -300,7 +300,7 @@ msgstr "不能打开项目文件:"
 #: hugin1/base_wx/RunStitchPanel.cpp:115 hugin1/base_wx/RunStitchPanel.cpp:252
 #: hugin1/ptbatcher/ProjectArray.cpp:91
 #, c-format
-msgid "could not open script : %s"
+msgid "could not open script: %s"
 msgstr "不能打开脚本: %s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:125
@@ -500,11 +500,6 @@ msgstr "按排列融合曝光"
 msgid "High dynamic range"
 msgstr "高动态范围"
 
-#: hugin1/base_wx/StitchingExecutor.cpp:311
-#, fuzzy
-msgid "Remapped Images :"
-msgstr "重定位图像:"
-
 #: hugin1/base_wx/StitchingExecutor.cpp:318 translations/xrc.cpp:598
 msgid "No exposure correction, low dynamic range"
 msgstr "没有曝光校正, 低动态范围"
@@ -609,12 +604,12 @@ msgstr "重定位图像:"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:767
 #, fuzzy, c-format
-msgid "Merging hdr stack number %u..."
+msgid "Merging HDR stack number %u..."
 msgstr "分配堆栈编号"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:782
 #: hugin1/base_wx/StitchingExecutor.cpp:786
-msgid "Blending hdr stacks..."
+msgid "Blending HDR stacks..."
 msgstr ""
 
 #: hugin1/base_wx/StitchingExecutor.cpp:803
@@ -5019,7 +5014,7 @@ msgstr "通过堆叠连接位置."
 #: translations/xrc.cpp:225
 msgid ""
 "Check this option if the images were shot on a tripod.\n"
-"Uncheck this option if the images in each stack needs an alignment to each "
+"Uncheck this option if the images in each stack need an alignment to each "
 "other."
 msgstr ""
 
@@ -6605,7 +6600,7 @@ msgstr "编辑选择的 ExifTool 参数文件"
 #: translations/xrc.cpp:770
 msgid ""
 "The following argfile will be used to copy tags from the first image to the "
-"final panorma.\n"
+"final panorama.\n"
 "It is applied additional to the above argfile for the intermediate images.\n"
 "Placeholders in this argfile will replaced before running exiftool."
 msgstr ""
@@ -6821,7 +6816,7 @@ msgid ""
 "%nrAllImages - number of all images in project file (include inactive "
 "images)\n"
 "%fullwidth - width of output canvas\n"
-"%fullheight - height of output\n"
+"%fullheight - height of output canvas\n"
 "%width - width of output region\n"
 "%height - height of output region\n"
 "\n"
@@ -7361,6 +7356,10 @@ msgid ""
 msgstr ""
 "只有当图像重叠程度很高并且有很多分布良好的控制点时, 对所有畸变参数进行优化的"
 "选项 \"everything\" 才会有效果."
+
+#, fuzzy
+#~ msgid "Remapped Images :"
+#~ msgstr "重定位图像:"
 
 #~ msgid "searching for cloud-like control points..."
 #~ msgstr "正在搜索似云控制点..."

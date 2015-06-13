@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2015-05-09 09:35+0200\n"
+"POT-Creation-Date: 2015-06-13 08:32+0200\n"
 "PO-Revision-Date: 2008-04-29 13:39+0900\n"
 "Last-Translator: homin,Lee <ff4500@gmail.com>\n"
 "Language-Team: Gnome-kr-hackers <gnome-kr-hackers@lists.kldp.net>\n"
@@ -294,8 +294,8 @@ msgid "extracting good points"
 msgstr "제어 위치 만들기"
 
 #: hugin1/base_wx/MyProgressDialog.cpp:40
-msgid "Elapsed time : "
-msgstr "경과한 시간 :"
+msgid "Elapsed time: "
+msgstr "경과한 시간:"
 
 #: hugin1/base_wx/PTWXDlg.cpp:47 hugin1/base_wx/PTWXDlg.cpp:66
 #: hugin1/base_wx/PTWXDlg.cpp:120
@@ -309,7 +309,7 @@ msgstr "프로젝트 파일을 열 수 없습니다:"
 #: hugin1/base_wx/RunStitchPanel.cpp:115 hugin1/base_wx/RunStitchPanel.cpp:252
 #: hugin1/ptbatcher/ProjectArray.cpp:91
 #, c-format
-msgid "could not open script : %s"
+msgid "could not open script: %s"
 msgstr "스크립트 열기 실패: %s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:125
@@ -511,11 +511,6 @@ msgstr ""
 msgid "High dynamic range"
 msgstr "낮은 다이나믹 레인지"
 
-#: hugin1/base_wx/StitchingExecutor.cpp:311
-#, fuzzy
-msgid "Remapped Images :"
-msgstr "이미지 재 배치"
-
 #: hugin1/base_wx/StitchingExecutor.cpp:318 translations/xrc.cpp:598
 msgid "No exposure correction, low dynamic range"
 msgstr ""
@@ -623,12 +618,12 @@ msgstr "이미지 재 배치"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:767
 #, fuzzy, c-format
-msgid "Merging hdr stack number %u..."
+msgid "Merging HDR stack number %u..."
 msgstr "렌즈 번호 바꾸기"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:782
 #: hugin1/base_wx/StitchingExecutor.cpp:786
-msgid "Blending hdr stacks..."
+msgid "Blending HDR stacks..."
 msgstr ""
 
 #: hugin1/base_wx/StitchingExecutor.cpp:803
@@ -5197,7 +5192,7 @@ msgstr ""
 #: translations/xrc.cpp:225
 msgid ""
 "Check this option if the images were shot on a tripod.\n"
-"Uncheck this option if the images in each stack needs an alignment to each "
+"Uncheck this option if the images in each stack need an alignment to each "
 "other."
 msgstr ""
 
@@ -6895,7 +6890,7 @@ msgstr "왼쪽 이미지에서 위치를 선택하세요"
 #: translations/xrc.cpp:770
 msgid ""
 "The following argfile will be used to copy tags from the first image to the "
-"final panorma.\n"
+"final panorama.\n"
 "It is applied additional to the above argfile for the intermediate images.\n"
 "Placeholders in this argfile will replaced before running exiftool."
 msgstr ""
@@ -7119,7 +7114,7 @@ msgid ""
 "%nrAllImages - number of all images in project file (include inactive "
 "images)\n"
 "%fullwidth - width of output canvas\n"
-"%fullheight - height of output\n"
+"%fullheight - height of output canvas\n"
 "%width - width of output region\n"
 "%height - height of output region\n"
 "\n"
@@ -7691,6 +7686,10 @@ msgid ""
 msgstr ""
 "모든 왜곡 파라미터들을 최적화. \"모두\"는 이미지간 중첩 범위가 넓고 조정 위치"
 "들이 잘 분산되어 있어야 잘 동작 합니다."
+
+#, fuzzy
+#~ msgid "Remapped Images :"
+#~ msgstr "이미지 재 배치"
 
 #, fuzzy
 #~ msgid "searching for cloud-like control points..."

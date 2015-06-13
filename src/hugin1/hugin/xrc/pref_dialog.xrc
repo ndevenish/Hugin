@@ -972,7 +972,7 @@ per overlap</label>
                         </object>
                         <object class="sizeritem">
                           <object class="wxStaticText" name="pref_exiftool_argfile_final_label">
-                            <label>The following argfile will be used to copy tags from the first image to the final panorma.\nIt is applied additional to the above argfile for the intermediate images.\nPlaceholders in this argfile will replaced before running exiftool.</label>
+                            <label>The following argfile will be used to copy tags from the first image to the final panorama.\nIt is applied additional to the above argfile for the intermediate images.\nPlaceholders in this argfile will replaced before running exiftool.</label>
                           </object>
                           <option>1</option>
                           <flag>wxEXPAND</flag>
@@ -1568,7 +1568,7 @@ Do not set -w, -o and --compression arguments, they are set by hugin</label>
 %nrImages - number of active images
 %nrAllImages - number of all images in project file (include inactive images)
 %fullwidth - width of output canvas
-%fullheight - height of output
+%fullheight - height of output canvas canvas
 %width - width of output region
 %height - height of output region
 

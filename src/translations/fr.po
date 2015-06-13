@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hugin 2012-0.0\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2015-05-09 09:35+0200\n"
+"POT-Creation-Date: 2015-06-13 08:32+0200\n"
 "PO-Revision-Date: 2015-05-31 11:00+0100\n"
 "Last-Translator: pmllc <pmllc@yahoo.fr>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -297,7 +297,7 @@ msgid "extracting good points"
 msgstr "extraction des points de contrôle valides"
 
 #: hugin1/base_wx/MyProgressDialog.cpp:40
-msgid "Elapsed time : "
+msgid "Elapsed time: "
 msgstr "Temps écoulé : "
 
 #: hugin1/base_wx/PTWXDlg.cpp:47 hugin1/base_wx/PTWXDlg.cpp:66
@@ -312,7 +312,7 @@ msgstr "Impossible d'ouvrir le fichier de projet :"
 #: hugin1/base_wx/RunStitchPanel.cpp:115 hugin1/base_wx/RunStitchPanel.cpp:252
 #: hugin1/ptbatcher/ProjectArray.cpp:91
 #, c-format
-msgid "could not open script : %s"
+msgid "could not open script: %s"
 msgstr "Impossible d'ouvrir le script : %s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:125
@@ -500,10 +500,6 @@ msgstr "Fusionné en exposition à partir d'un arrangement quelconque"
 msgid "High dynamic range"
 msgstr "Haute plage dynamique"
 
-#: hugin1/base_wx/StitchingExecutor.cpp:311
-msgid "Remapped Images :"
-msgstr "Images reformatées :"
-
 #: hugin1/base_wx/StitchingExecutor.cpp:318 translations/xrc.cpp:598
 msgid "No exposure correction, low dynamic range"
 msgstr "Panorama à faible dynamique, sans correction d'exposition"
@@ -607,12 +603,12 @@ msgstr "Redimentione les images avec une exposition étendue (HDR)..."
 
 #: hugin1/base_wx/StitchingExecutor.cpp:767
 #, c-format
-msgid "Merging hdr stack number %u..."
+msgid "Merging HDR stack number %u..."
 msgstr "Mélange de l'ensemble avec une exposition étendue %u..."
 
 #: hugin1/base_wx/StitchingExecutor.cpp:782
 #: hugin1/base_wx/StitchingExecutor.cpp:786
-msgid "Blending hdr stacks..."
+msgid "Blending HDR stacks..."
 msgstr "Melanges les ensembles avec une exposition étendue"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:803
@@ -5201,7 +5197,7 @@ msgstr "Lier les positions des images dans chaque ensemble."
 #: translations/xrc.cpp:225
 msgid ""
 "Check this option if the images were shot on a tripod.\n"
-"Uncheck this option if the images in each stack needs an alignment to each "
+"Uncheck this option if the images in each stack need an alignment to each "
 "other."
 msgstr ""
 "Selectionner cette option si les images ont été prise à l'aide d'un "
@@ -6856,7 +6852,7 @@ msgstr "Edition du fichier de configuration d'ExifTool sélectionné"
 #: translations/xrc.cpp:770
 msgid ""
 "The following argfile will be used to copy tags from the first image to the "
-"final panorma.\n"
+"final panorama.\n"
 "It is applied additional to the above argfile for the intermediate images.\n"
 "Placeholders in this argfile will replaced before running exiftool."
 msgstr ""
@@ -7081,7 +7077,7 @@ msgid ""
 "%nrAllImages - number of all images in project file (include inactive "
 "images)\n"
 "%fullwidth - width of output canvas\n"
-"%fullheight - height of output\n"
+"%fullheight - height of output canvas\n"
 "%width - width of output region\n"
 "%height - height of output region\n"
 "\n"
@@ -7707,6 +7703,9 @@ msgstr ""
 "Optimisation de tous les paramètres, « tout » n'a de sens que pour des "
 "images ayant un important recouvrement et des points de contrôle nombreux "
 "bien distribués."
+
+#~ msgid "Remapped Images :"
+#~ msgstr "Images reformatées :"
 
 #~ msgid "searching for cloud-like control points..."
 #~ msgstr "Recherche de points de contrôle ressemblant à des nuages..."

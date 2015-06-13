@@ -498,28 +498,28 @@ int main(int argc, char* argv[])
             if (s == "NORMAL" || s=="N")
             {
                 opt.outputLDRBlended = true;
-                std::cout << "Activate output of normal panorma." << std::endl;
+                std::cout << "Activate output of normal panorama." << std::endl;
                 counter++;
                 continue;
             };
             if (s == "STACKSFUSEDBLENDED" || s == "FB")
             {
                 opt.outputLDRExposureBlended = true;
-                std::cout << "Activate output of ldr panorma: Exposure fused from stacks." << std::endl;
+                std::cout << "Activate output of LDR panorama: Exposure fused from stacks." << std::endl;
                 counter++;
                 continue;
             };
             if (s == "EXPOSURELAYERSFUSED" || s == "BF")
             {
                 opt.outputLDRExposureLayersFused = true;
-                std::cout << "Activate output of ldr panorma: Exposure fused from any arrangement." << std::endl;
+                std::cout << "Activate output of LDR panorama: Exposure fused from any arrangement." << std::endl;
                 counter++;
                 continue;
             };
             if (s == "HDR")
             {
                 opt.outputHDRBlended = true;
-                std::cout << "Activate output of hdr panorma." << std::endl;
+                std::cout << "Activate output of hdr panorama." << std::endl;
                 counter++;
                 continue;
             };
@@ -556,7 +556,7 @@ int main(int argc, char* argv[])
             if (s == "HDRSTACKS")
             {
                 opt.outputHDRStacks = true;
-                std::cout << "Activate output of hdr stacks." << std::endl;
+                std::cout << "Activate output of HDR stacks." << std::endl;
                 counter++;
                 continue;
             };

@@ -38,7 +38,7 @@
  *        than minimum length | makes an angle of less than a minimum angle}
  *  ? passes for any edge that is not affected by the above conditions, and is
  *        deemed to cross a discontinuity, and has each end point closer than
- *        minimum length to the panorma's edge
+ *        minimum length to the panorama's edge
  *
  * Edges are deemed to span across a discontinuity if they are longer than the
  * two edges they are created from, and make a sharp turn at each end. This is
