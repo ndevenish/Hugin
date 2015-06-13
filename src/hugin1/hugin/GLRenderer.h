@@ -56,7 +56,7 @@ public:
     virtual ~GLRenderer();
     /** Resize the viewport because the window's dimensions have changed.
      * @return the number of screen pixels from the corner of the widget to the
-     * start of the panorma,  both horizontally and vertically.
+     * start of the panorama,  both horizontally and vertically.
      * @param width the width of the widget in screen pixels.
      * @param height the height of the widget in screen pixels.
      */

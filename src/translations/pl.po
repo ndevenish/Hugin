@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2015-05-09 09:34+0200\n"
+"POT-Creation-Date: 2015-06-13 08:46+0200\n"
 "PO-Revision-Date: 2013-11-04 17:48+0100\n"
 "Last-Translator: Jakub Bogusz <qboosh@pld-linux.org>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -104,7 +104,7 @@ msgstr "Długość ogniskowej musi być większa od zera."
 msgid "The crop factor must be positive."
 msgstr "Mnożnik ogniskowej musi być większy od zera."
 
-#: hugin1/base_wx/HFOVDialog.cpp:379 hugin1/hugin/ImageVariableDialog.cpp:204
+#: hugin1/base_wx/HFOVDialog.cpp:377 hugin1/hugin/ImageVariableDialog.cpp:204
 #: hugin1/hugin/ImagesPanel.cpp:558 hugin1/hugin/ImagesTree.cpp:1779
 #, c-format
 msgid ""
@@ -117,7 +117,7 @@ msgstr ""
 "Rzut ortograficzny jest ograniczony do pola widzenia 180 stopni.\n"
 "Czy na pewno użyć tak dużej wartości?"
 
-#: hugin1/base_wx/HFOVDialog.cpp:381 hugin1/base_wx/LensTools.cpp:463
+#: hugin1/base_wx/HFOVDialog.cpp:379 hugin1/base_wx/LensTools.cpp:463
 #: hugin1/base_wx/wxPanoCommand.cpp:474 hugin1/hugin/CPEditorPanel.cpp:1108
 #: hugin1/hugin/CPEditorPanel.cpp:1118 hugin1/hugin/CPEditorPanel.cpp:1133
 #: hugin1/hugin/CPEditorPanel.cpp:1146 hugin1/hugin/GLPreviewFrame.cpp:1835
@@ -263,7 +263,7 @@ msgstr "Błąd zatrzymania procesu %ld, kod 1"
 msgid "Error pausing process %ld, code 2"
 msgstr "Błąd zatrzymania procesu %ld, kod 2"
 
-#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:547
+#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:551
 #: hugin1/ptbatcher/RunStitchFrame.cpp:43
 #: hugin1/stitch_project/hugin_stitch_project.cpp:116 translations/xrc.cpp:172
 #: translations/xrc.cpp:220 translations/xrc.cpp:228 translations/xrc.cpp:264
@@ -300,8 +300,8 @@ msgid "extracting good points"
 msgstr "Wyczyść punkty kontrolne"
 
 #: hugin1/base_wx/MyProgressDialog.cpp:40
-msgid "Elapsed time : "
-msgstr "Upłynęło już : "
+msgid "Elapsed time: "
+msgstr "Upłynęło już: "
 
 #: hugin1/base_wx/PTWXDlg.cpp:47 hugin1/base_wx/PTWXDlg.cpp:66
 #: hugin1/base_wx/PTWXDlg.cpp:120
@@ -315,7 +315,7 @@ msgstr "Nie można otworzyć pliku projektu:"
 #: hugin1/base_wx/RunStitchPanel.cpp:115 hugin1/base_wx/RunStitchPanel.cpp:252
 #: hugin1/ptbatcher/ProjectArray.cpp:91
 #, c-format
-msgid "could not open script : %s"
+msgid "could not open script: %s"
 msgstr "nie można otworzyć skryptu : %s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:125
@@ -513,9 +513,8 @@ msgstr "Ekspozycja łączona z dowolnego układu"
 msgid "High dynamic range"
 msgstr "Duża rozpiętość tonalna"
 
-#: hugin1/base_wx/StitchingExecutor.cpp:311
-#, fuzzy
-msgid "Remapped Images :"
+#: hugin1/base_wx/StitchingExecutor.cpp:311 translations/xrc.cpp:595
+msgid "Remapped Images:"
 msgstr "Przetworzone zdjęcia:"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:318 translations/xrc.cpp:598
@@ -623,12 +622,12 @@ msgstr "Przetworzone zdjęcia:"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:767
 #, fuzzy, c-format
-msgid "Merging hdr stack number %u..."
+msgid "Merging HDR stack number %u..."
 msgstr "Przypisany numer serii"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:782
 #: hugin1/base_wx/StitchingExecutor.cpp:786
-msgid "Blending hdr stacks..."
+msgid "Blending HDR stacks..."
 msgstr ""
 
 #: hugin1/base_wx/StitchingExecutor.cpp:803
@@ -1366,7 +1365,7 @@ msgstr "prawe zdjęcie"
 msgid "P CP#"
 msgstr "P CP#"
 
-#: hugin1/hugin/CPListFrame.cpp:561
+#: hugin1/hugin/CPListFrame.cpp:553
 msgid ""
 "Enter minimum control point error.\n"
 "All points with a higher error will be selected"
@@ -1374,7 +1373,7 @@ msgstr ""
 "Wpisz minimalny błąd punktów kontrolnych\n"
 "Zostaną zaznaczone wszystkie punkty z większym błędem"
 
-#: hugin1/hugin/CPListFrame.cpp:561
+#: hugin1/hugin/CPListFrame.cpp:553
 msgid "Select Control Points"
 msgstr "Zaznacz punkty kontrolne"
 
@@ -5142,7 +5141,7 @@ msgstr "Odziedzicz pozycje w tej serii."
 #: translations/xrc.cpp:225
 msgid ""
 "Check this option if the images were shot on a tripod.\n"
-"Uncheck this option if the images in each stack needs an alignment to each "
+"Uncheck this option if the images in each stack need an alignment to each "
 "other."
 msgstr ""
 
@@ -6187,10 +6186,6 @@ msgstr ""
 "połączone, a następnie wygładzone w gładką panoramę o dużej rozpiętości "
 "tonalnej"
 
-#: translations/xrc.cpp:595
-msgid "Remapped Images:"
-msgstr "Przetworzone zdjęcia:"
-
 #: translations/xrc.cpp:597
 msgid ""
 "Output remapped, exposure corrected images. Useful for manual blending of an "
@@ -6774,7 +6769,7 @@ msgstr "Zaznacz punkt na lewym zdjęciu"
 #: translations/xrc.cpp:770
 msgid ""
 "The following argfile will be used to copy tags from the first image to the "
-"final panorma.\n"
+"final panorama.\n"
 "It is applied additional to the above argfile for the intermediate images.\n"
 "Placeholders in this argfile will replaced before running exiftool."
 msgstr ""
@@ -6995,7 +6990,7 @@ msgid ""
 "%nrAllImages - number of all images in project file (include inactive "
 "images)\n"
 "%fullwidth - width of output canvas\n"
-"%fullheight - height of output\n"
+"%fullheight - height of output canvas\n"
 "%width - width of output region\n"
 "%height - height of output region\n"
 "\n"
@@ -7591,6 +7586,10 @@ msgstr ""
 "Optymalizacja wszystkich parametrów zniekształceń \"wszystko\" ma sens tylko "
 "w przypadku znacznie zachodzących na siebie zdjęć i wielu dobrze "
 "rozproszonych punktów kontrolnych."
+
+#, fuzzy
+#~ msgid "Remapped Images :"
+#~ msgstr "Przetworzone zdjęcia:"
 
 #~ msgid "searching for cloud-like control points..."
 #~ msgstr "Szukanie ruchomych punktów kontrolnych..."

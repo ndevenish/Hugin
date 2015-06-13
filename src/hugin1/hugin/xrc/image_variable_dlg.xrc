@@ -686,7 +686,7 @@
             <object class="wxCheckBox" name="stack_size_link_checkbox">
               <label>Link position of images in each stack</label>
               <checked>1</checked>
-              <tooltip>Check this option if the images were shot on a tripod.\nUncheck this option if the images in each stack needs an alignment to each other.</tooltip>
+              <tooltip>Check this option if the images were shot on a tripod.\nUncheck this option if the images in each stack need an alignment to each other.</tooltip>
             </object>
             <flag>wxALL</flag>
             <border>6</border>

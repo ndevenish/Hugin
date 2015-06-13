@@ -47,7 +47,7 @@ const unsigned short int split_flag_y = 4;
 // patch misalignment due to higher subdivision a bit lower in the y direction.
 const unsigned short int patch_flag_y = 8;
 // We flag vertices in faces that should be two faces over each edge of the
-// panormama's 180 degree seem, such that by flipping the flagged vertices to
+// panorama's 180 degree seem, such that by flipping the flagged vertices to
 // the other side we get a valid face for one side, and by flipping those not
 // flagged we get the other.
 const unsigned short int vertex_side_flag_start = 16;

@@ -88,7 +88,7 @@ PanoramaOptions Project::ReadOptions(wxString projectFile)
     ifstream prjfile((const char*)projectFile.mb_str(HUGIN_CONV_FILENAME));
     if (prjfile.bad())
     {
-        wxLogError( wxString::Format(_("could not open script : %s"), projectFile.c_str()) );
+        wxLogError( wxString::Format(_("could not open script: %s"), projectFile.c_str()) );
     }
 
     wxString pathToPTO;

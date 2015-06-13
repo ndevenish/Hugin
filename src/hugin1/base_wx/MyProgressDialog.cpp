@@ -37,7 +37,7 @@ _("Loading image:");
 _("Scaling image:");
 _("sampling points");
 _("extracting good points");
-_("Elapsed time : ")
+_("Elapsed time: ")
 #endif
 
 void ProgressReporterDialog::setMessage(const std::string& message, const std::string& filename)

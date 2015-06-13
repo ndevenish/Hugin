@@ -112,7 +112,7 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname)
 
     ifstream prjfile((const char *)scriptFile.mb_str(HUGIN_CONV_FILENAME));
     if (prjfile.bad()) {
-        wxLogError( wxString::Format(_("could not open script : %s"), scriptFile.c_str()) );
+        wxLogError( wxString::Format(_("could not open script: %s"), scriptFile.c_str()) );
         return false;
     }
     HuginBase::Panorama pano;
@@ -249,7 +249,7 @@ bool RunStitchPanel::DetectProject(wxString scriptFile)
     ifstream prjfile((const char *)scriptFile.mb_str(HUGIN_CONV_FILENAME));
     if (prjfile.bad())
     {
-        wxLogError( wxString::Format(_("could not open script : %s"), scriptFile.c_str()));
+        wxLogError( wxString::Format(_("could not open script: %s"), scriptFile.c_str()));
         return false;
     }
     HuginBase::Panorama pano;

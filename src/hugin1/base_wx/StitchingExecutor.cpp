@@ -308,7 +308,7 @@ namespace HuginQueue
             };
             if (opts.outputLDRLayers || opts.outputLDRExposureRemapped || opts.outputHDRLayers)
             {
-                output << _("Remapped Images :") << wxEndl;
+                output << _("Remapped Images:") << wxEndl;
                 if (opts.outputLDRBlended)
                 {
                     output << wxT("* ") << _("Exposure corrected, low dynamic range") << wxEndl;
@@ -764,7 +764,7 @@ namespace HuginQueue
                     outputFiles.Add(stackImgName);
                     commands->push_back(new NormalCommand(GetInternalProgram(ExePath, wxT("hugin_hdrmerge")),
                         WXSTRING(opts.hdrmergeOptions) + wxT(" -o ") + wxEscapeFilename(stackImgName) + wxT(" -- ") + GetQuotedFilenamesString(stackImgs),
-                        wxString::Format(_("Merging hdr stack number %u..."), stackNr)));
+                        wxString::Format(_("Merging HDR stack number %u..."), stackNr)));
                     if (!opts.outputHDRStacks)
                     {
                         tempFilesDelete.Add(stackImgName);
@@ -779,11 +779,11 @@ namespace HuginQueue
                     {
                         case HuginBase::PanoramaOptions::ENBLEND_BLEND:
                             commands->push_back(new NormalCommand(GetExternalProgram(config, ExePath, wxT("enblend")),
-                                enblendArgs + finalBlendArgs, _("Blending hdr stacks...")));
+                                enblendArgs + finalBlendArgs, _("Blending HDR stacks...")));
                             break;
                         case HuginBase::PanoramaOptions::INTERNAL_BLEND:
                             commands->push_back(new NormalCommand(GetInternalProgram(ExePath, wxT("verdandi")),
-                                verdandiArgs + finalBlendArgs, _("Blending hdr stacks...")));
+                                verdandiArgs + finalBlendArgs, _("Blending HDR stacks...")));
                             break;
                     };
                     outputFiles.Add(mergedStacksFilename);

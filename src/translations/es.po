@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2015-05-09 09:34+0200\n"
+"POT-Creation-Date: 2015-06-13 08:46+0200\n"
 "PO-Revision-Date: 2012-10-07 14:46+0200\n"
 "Last-Translator: Jorge González <aloriel@gmail.com>\n"
 "Language-Team: Español <es@li.org>\n"
@@ -111,7 +111,7 @@ msgstr "La distancia focal debe ser positiva."
 msgid "The crop factor must be positive."
 msgstr "El factor de recorte debe ser positivo."
 
-#: hugin1/base_wx/HFOVDialog.cpp:379 hugin1/hugin/ImageVariableDialog.cpp:204
+#: hugin1/base_wx/HFOVDialog.cpp:377 hugin1/hugin/ImageVariableDialog.cpp:204
 #: hugin1/hugin/ImagesPanel.cpp:558 hugin1/hugin/ImagesTree.cpp:1779
 #, c-format
 msgid ""
@@ -121,7 +121,7 @@ msgid ""
 "Do you want still use that high value?"
 msgstr ""
 
-#: hugin1/base_wx/HFOVDialog.cpp:381 hugin1/base_wx/LensTools.cpp:463
+#: hugin1/base_wx/HFOVDialog.cpp:379 hugin1/base_wx/LensTools.cpp:463
 #: hugin1/base_wx/wxPanoCommand.cpp:474 hugin1/hugin/CPEditorPanel.cpp:1108
 #: hugin1/hugin/CPEditorPanel.cpp:1118 hugin1/hugin/CPEditorPanel.cpp:1133
 #: hugin1/hugin/CPEditorPanel.cpp:1146 hugin1/hugin/GLPreviewFrame.cpp:1835
@@ -273,7 +273,7 @@ msgstr "Error al pausar el proceso %ld, código 1"
 msgid "Error pausing process %ld, code 2"
 msgstr "Error al pausar el proceso %ld, código 2"
 
-#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:547
+#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:551
 #: hugin1/ptbatcher/RunStitchFrame.cpp:43
 #: hugin1/stitch_project/hugin_stitch_project.cpp:116 translations/xrc.cpp:172
 #: translations/xrc.cpp:220 translations/xrc.cpp:228 translations/xrc.cpp:264
@@ -310,7 +310,7 @@ msgid "extracting good points"
 msgstr "Eliminando puntos de control"
 
 #: hugin1/base_wx/MyProgressDialog.cpp:40
-msgid "Elapsed time : "
+msgid "Elapsed time: "
 msgstr "Tiempo transcurrido: "
 
 #: hugin1/base_wx/PTWXDlg.cpp:47 hugin1/base_wx/PTWXDlg.cpp:66
@@ -326,7 +326,7 @@ msgstr "No se ha podido abrir el proyecto:"
 #: hugin1/base_wx/RunStitchPanel.cpp:115 hugin1/base_wx/RunStitchPanel.cpp:252
 #: hugin1/ptbatcher/ProjectArray.cpp:91
 #, c-format
-msgid "could not open script : %s"
+msgid "could not open script: %s"
 msgstr "no se pudo abrir el script: %s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:125
@@ -524,9 +524,8 @@ msgstr "Exposición fusionada de cualquier ajuste"
 msgid "High dynamic range"
 msgstr "Rango dinámico alto"
 
-#: hugin1/base_wx/StitchingExecutor.cpp:311
-#, fuzzy
-msgid "Remapped Images :"
+#: hugin1/base_wx/StitchingExecutor.cpp:311 translations/xrc.cpp:595
+msgid "Remapped Images:"
 msgstr "Imágenes remapeadas:"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:318 translations/xrc.cpp:598
@@ -633,12 +632,12 @@ msgstr "Imágenes remapeadas:"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:767
 #, fuzzy, c-format
-msgid "Merging hdr stack number %u..."
+msgid "Merging HDR stack number %u..."
 msgstr "Cambiar el número de pila"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:782
 #: hugin1/base_wx/StitchingExecutor.cpp:786
-msgid "Blending hdr stacks..."
+msgid "Blending HDR stacks..."
 msgstr ""
 
 #: hugin1/base_wx/StitchingExecutor.cpp:803
@@ -1404,7 +1403,7 @@ msgstr "P CP#"
 
 # Introduce el error mínimo de los puntos de control.\n
 # Se seleccionará todo punto con un error mayor
-#: hugin1/hugin/CPListFrame.cpp:561
+#: hugin1/hugin/CPListFrame.cpp:553
 msgid ""
 "Enter minimum control point error.\n"
 "All points with a higher error will be selected"
@@ -1413,7 +1412,7 @@ msgstr ""
 "Se seleccionará todo punto con un error mayor"
 
 # Elije puntos de control
-#: hugin1/hugin/CPListFrame.cpp:561
+#: hugin1/hugin/CPListFrame.cpp:553
 msgid "Select Control Points"
 msgstr "Elija puntos de control"
 
@@ -5315,7 +5314,7 @@ msgstr "Enlazar posiciones en esta pila."
 #: translations/xrc.cpp:225
 msgid ""
 "Check this option if the images were shot on a tripod.\n"
-"Uncheck this option if the images in each stack needs an alignment to each "
+"Uncheck this option if the images in each stack need an alignment to each "
 "other."
 msgstr ""
 
@@ -6390,10 +6389,6 @@ msgstr ""
 "Las imágenes se remapearán en un espacio de color lineal, se mezclarán las "
 "pilas y después se fusionarán en una panorámica HDR sin costuras"
 
-#: translations/xrc.cpp:595
-msgid "Remapped Images:"
-msgstr "Imágenes remapeadas:"
-
 #: translations/xrc.cpp:597
 msgid ""
 "Output remapped, exposure corrected images. Useful for manual blending of an "
@@ -6959,7 +6954,7 @@ msgstr "Imagen elegida"
 #: translations/xrc.cpp:770
 msgid ""
 "The following argfile will be used to copy tags from the first image to the "
-"final panorma.\n"
+"final panorama.\n"
 "It is applied additional to the above argfile for the intermediate images.\n"
 "Placeholders in this argfile will replaced before running exiftool."
 msgstr ""
@@ -7183,7 +7178,7 @@ msgid ""
 "%nrAllImages - number of all images in project file (include inactive "
 "images)\n"
 "%fullwidth - width of output canvas\n"
-"%fullheight - height of output\n"
+"%fullheight - height of output canvas\n"
 "%width - width of output region\n"
 "%height - height of output region\n"
 "\n"
@@ -7798,6 +7793,10 @@ msgstr ""
 "La optimización de todos los parámetros de distorsión «todo», sólo tiene "
 "sentido con imágenes fuertemente sobrepuestas y con muchos puntos de control "
 "bien distribuidos."
+
+#, fuzzy
+#~ msgid "Remapped Images :"
+#~ msgstr "Imágenes remapeadas:"
 
 #~ msgid "searching for cloud-like control points..."
 #~ msgstr "buscando puntos de control similares a nubes..."
