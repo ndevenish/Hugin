@@ -853,7 +853,8 @@ wxBitmap CPImageCtrl::generateMagBitmap(FDiff2D point, wxPoint canvasPos) const
                                        hugin_utils::roundi(my - hw)),
                          vigra_ext::interp_cubic(),
                          false,
-                         &progDisp);
+                         &progDisp,
+                         false);
 
     // TODO: contrast enhancement
     vigra::FindMinMax<vigra::UInt8> minmax;
