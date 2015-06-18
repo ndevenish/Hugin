@@ -484,7 +484,7 @@ void MyExecPanel::OnProcessTerminated(MyPipedProcess *process, int pid, int stat
         wxProcessEvent event(wxID_ANY, pid, m_checkReturnCode ? status : 0);
         event.SetEventObject(this);
         DEBUG_TRACE("Sending wxProcess event");
-        this->GetParent()->GetEventHandler()->ProcessEvent(event);
+        this->GetParent()->GetEventHandler()->AddPendingEvent(event);
         // notify parent to hide progress 
         wxCommandEvent event2(EVT_QUEUE_PROGRESS, wxID_ANY);
         event2.SetInt(-1);
