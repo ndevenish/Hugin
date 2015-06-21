@@ -128,14 +128,26 @@ void PreviewEditCPTool::MouseButtonEvent(wxMouseEvent &e)
                 {
                     // build menu
                     wxMenu menu;
+                    if (!GetSelectedROI().isEmpty())
+                    {
+                        menu.Append(ID_CREATE_CP, _("Create control points here"));
+                    }
                     FindCPInRect(m_startPos, m_currentPos);
-                    menu.Append(ID_CREATE_CP, _("Create control points here"));
                     if (!m_CPinROI.empty())
                     {
                         menu.Append(ID_REMOVE_CP, wxString::Format(_("Remove %lu control points"), static_cast<unsigned long int>(m_CPinROI.size())));
                     }
-                    m_menuPopup = true;
-                    helper->GetPreviewFrame()->PopupMenu(&menu);
+                    if (!menu.GetMenuItems().IsEmpty())
+                    {
+                        m_menuPopup = true;
+                        helper->GetPreviewFrame()->PopupMenu(&menu);
+                    }
+                    else
+                    {
+                        wxBell();
+                        helper->GetVisualizationStatePtr()->ForceRequireRedraw();
+                        helper->GetVisualizationStatePtr()->Redraw();
+                    }
                 }
                 else
                 {
@@ -204,7 +216,7 @@ vigra::Rect2D PreviewEditCPTool::GetSelectedROI()
     vigra::Point2D p2;
     p2.x = std::max(m_startPos.x, m_currentPos.x);
     p2.y = std::max(m_startPos.y, m_currentPos.y);
-    return vigra::Rect2D(p1, p2);
+    return vigra::Rect2D(p1, p2) & vigra::Rect2D(helper->GetPanoramaPtr()->getOptions().getSize());
 };
 
 // for correctly handling the popup menu 
