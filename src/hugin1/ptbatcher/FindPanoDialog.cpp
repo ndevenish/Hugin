@@ -487,7 +487,7 @@ void FindPanoDialog::SearchInDir(wxString dirstring, const bool includeSubdir, c
         m_button_send->Enable(m_panos.size()>0);
         if(m_panos.size()>0)
         {
-            m_statustext->SetLabel(wxString::Format(_("Found %d possible panoramas."),m_panos.size()));
+            m_statustext->SetLabel(wxString::Format(_("Found %d possible panoramas."), static_cast<int>(m_panos.size())));
         }
         else
         {
@@ -598,7 +598,7 @@ const wxString PossiblePano::GetFilestring(const wxString BasePath, const bool s
 
 const wxString PossiblePano::GetItemString(const wxString BasePath) const
 {
-    return wxString::Format(_("%d images: %s"),m_images.size(),GetFilestring(BasePath).c_str());
+    return wxString::Format(_("%d images: %s"), static_cast<int>(m_images.size()), GetFilestring(BasePath).c_str());
 };
 
 bool PossiblePano::GetNewProjectFilename(NamingConvention nc,const wxString basePath, wxFileName& projectFile)
