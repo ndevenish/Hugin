@@ -244,6 +244,10 @@ bool RunStitchPanel::DetectProject(wxString scriptFile)
         wxLogError( _("Could not open project file:") + scriptFile);
         return false;
     }
+    // get path to project file
+    wxString pathToPTO;
+    wxFileName::SplitPath(scriptFile, &pathToPTO, NULL, NULL);
+    pathToPTO.Append(wxFileName::GetPathSeparator());
 
     //read project file
     ifstream prjfile((const char *)scriptFile.mb_str(HUGIN_CONV_FILENAME));
@@ -255,7 +259,7 @@ bool RunStitchPanel::DetectProject(wxString scriptFile)
     HuginBase::Panorama pano;
     HuginBase::PanoramaMemento newPano;
     int ptoVersion = 0;
-    if (!newPano.loadPTScript(prjfile, ptoVersion))
+    if (!newPano.loadPTScript(prjfile, ptoVersion, (const char *)pathToPTO.mb_str(HUGIN_CONV_FILENAME)))
     {
         wxLogError(wxString::Format(_("error while parsing panotools script: %s"), scriptFile.c_str()));
         return false;
