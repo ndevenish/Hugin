@@ -51,7 +51,7 @@
 #include <panotools/PanoToolsOptimizerWrapper.h>
 #include <algorithms/optimizer/PTOptimizer.h>
 #include <nona/Stitcher.h>
-#include <foreign/levmar/lm.h>
+#include <foreign/levmar/levmar.h>
 #include <hugin_utils/openmp_lock.h>
 #include <lensdb/LensDB.h>
 

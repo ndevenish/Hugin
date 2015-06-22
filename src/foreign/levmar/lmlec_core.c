@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////
 // 
 //  Levenberg - Marquardt non-linear minimization algorithm
-//  Copyright (C) 2004-05  Manolis Lourakis (lourakis@ics.forth.gr)
+//  Copyright (C) 2004-05  Manolis Lourakis (lourakis at ics forth gr)
 //  Institute of Computer Science, Foundation for Research & Technology - Hellas
 //  Heraklion, Crete, Greece.
 //
@@ -31,13 +31,13 @@
 #define LEVMAR_LEC_DIF LM_ADD_PREFIX(levmar_lec_dif)
 #define LEVMAR_DER LM_ADD_PREFIX(levmar_der)
 #define LEVMAR_DIF LM_ADD_PREFIX(levmar_dif)
-#define TRANS_MAT_MAT_MULT LM_ADD_PREFIX(trans_mat_mat_mult)
+#define LEVMAR_TRANS_MAT_MAT_MULT LM_ADD_PREFIX(levmar_trans_mat_mat_mult)
 #define LEVMAR_COVAR LM_ADD_PREFIX(levmar_covar)
-#define FDIF_FORW_JAC_APPROX LM_ADD_PREFIX(fdif_forw_jac_approx)
+#define LEVMAR_FDIF_FORW_JAC_APPROX LM_ADD_PREFIX(levmar_fdif_forw_jac_approx)
 
-#define GEQP3 LM_ADD_PREFIX(geqp3_)
-#define ORGQR LM_ADD_PREFIX(orgqr_)
-#define TRTRI LM_ADD_PREFIX(trtri_)
+#define GEQP3 LM_MK_LAPACK_NAME(geqp3)
+#define ORGQR LM_MK_LAPACK_NAME(orgqr)
+#define TRTRI LM_MK_LAPACK_NAME(trtri)
 
 struct LMLEC_DATA{
   LM_REAL *c, *Z, *p, *jac;
@@ -48,6 +48,9 @@ struct LMLEC_DATA{
 };
 
 /* prototypes for LAPACK routines */
+#ifdef __cplusplus
+extern "C" {
+#endif
 extern int GEQP3(int *m, int *n, LM_REAL *a, int *lda, int *jpvt,
                    LM_REAL *tau, LM_REAL *work, int *lwork, int *info);
 
@@ -55,6 +58,9 @@ extern int ORGQR(int *m, int *n, int *k, LM_REAL *a, int *lda, LM_REAL *tau,
                    LM_REAL *work, int *lwork, int *info);
 
 extern int TRTRI(char *uplo, char *diag, int *n, LM_REAL *a, int *lda, int *info);
+#ifdef __cplusplus
+}
+#endif
 
 /*
  * This function implements an elimination strategy for linearly constrained
@@ -76,12 +82,12 @@ extern int TRTRI(char *uplo, char *diag, int *n, LM_REAL *a, int *lda, int *info
  *
  * The function accepts A, b and computes c, Y, Z. If b or c is NULL, c is not
  * computed. Also, Y can be NULL in which case it is not referenced.
- * The function returns 0 in case of error, A's computed rank if successfull
+ * The function returns LM_ERROR in case of error, A's computed rank if successful
  *
  */
 static int LMLEC_ELIM(LM_REAL *A, LM_REAL *b, LM_REAL *c, LM_REAL *Y, LM_REAL *Z, int m, int n)
 {
-static LM_REAL eps=CNST(-1.0);
+static LM_REAL eps=LM_CNST(-1.0);
 
 LM_REAL *buf=NULL;
 LM_REAL *a, *tau, *work, *r, aux;
@@ -92,7 +98,7 @@ register int i, j, k;
 
   if(m>n){
     fprintf(stderr, RCAT("matrix of constraints cannot have more rows than columns in", LMLEC_ELIM) "()!\n");
-    exit(1);
+    return LM_ERROR;
   }
 
   tm=n; tn=m; // transpose dimensions
@@ -100,7 +106,8 @@ register int i, j, k;
 
   /* calculate required memory size */
   worksz=-1; // workspace query. Optimal work size is returned in aux
-  ORGQR((int *)&tm, (int *)&tm, (int *)&mintmn, NULL, (int *)&tm, NULL, (LM_REAL *)&aux, &worksz, &info);
+  //ORGQR((int *)&tm, (int *)&tm, (int *)&mintmn, NULL, (int *)&tm, NULL, (LM_REAL *)&aux, &worksz, &info);
+  GEQP3((int *)&tm, (int *)&tn, NULL, (int *)&tm, NULL, NULL, (LM_REAL *)&aux, (int *)&worksz, &info);
   worksz=(int)aux;
   a_sz=tm*tm; // tm*tn is enough for xgeqp3()
   jpvt_sz=tn;
@@ -108,19 +115,23 @@ register int i, j, k;
   r_sz=mintmn*mintmn; // actually smaller if a is not of full row rank
   Y_sz=(Y)? 0 : tm*tn;
 
-  tot_sz=jpvt_sz*sizeof(int) + (a_sz + tau_sz + r_sz + worksz + Y_sz)*sizeof(LM_REAL);
+  tot_sz=(a_sz + tau_sz + r_sz + worksz + Y_sz)*sizeof(LM_REAL) + jpvt_sz*sizeof(int); /* should be arranged in that order for proper doubles alignment */
   buf=(LM_REAL *)malloc(tot_sz); /* allocate a "big" memory chunk at once */
   if(!buf){
     fprintf(stderr, RCAT("Memory allocation request failed in ", LMLEC_ELIM) "()\n");
-    exit(1);
+    return LM_ERROR;
   }
 
-  a=(LM_REAL *)buf;
-  jpvt=(int *)(a+a_sz);
-  tau=(LM_REAL *)(jpvt + jpvt_sz);
+  a=buf;
+  tau=a+a_sz;
   r=tau+tau_sz;
   work=r+r_sz;
-  if(!Y) Y=work+worksz;
+  if(!Y){
+    Y=work+worksz;
+    jpvt=(int *)(Y+Y_sz);
+  }
+  else
+    jpvt=(int *)(work+worksz);
 
   /* copy input array so that LAPACK won't destroy it. Note that copying is
    * done in row-major order, which equals A^T in column-major
@@ -138,13 +149,12 @@ register int i, j, k;
   if(info!=0){
     if(info<0){
       fprintf(stderr, RCAT(RCAT("LAPACK error: illegal value for argument %d of ", GEQP3) " in ", LMLEC_ELIM) "()\n", -info);
-      exit(1);
     }
     else if(info>0){
       fprintf(stderr, RCAT(RCAT("unknown LAPACK error (%d) for ", GEQP3) " in ", LMLEC_ELIM) "()\n", info);
-      free(buf);
-      return 0;
     }
+    free(buf);
+    return LM_ERROR;
   }
   /* the upper triangular part of a now contains the upper triangle of the unpermuted R */
 
@@ -152,13 +162,13 @@ register int i, j, k;
     LM_REAL aux;
 
     /* compute machine epsilon. DBL_EPSILON should do also */
-    for(eps=CNST(1.0); aux=eps+CNST(1.0), aux-CNST(1.0)>0.0; eps*=CNST(0.5))
+    for(eps=LM_CNST(1.0); aux=eps+LM_CNST(1.0), aux-LM_CNST(1.0)>0.0; eps*=LM_CNST(0.5))
                               ;
-    eps*=CNST(2.0);
+    eps*=LM_CNST(2.0);
   }
 
-  tmp=tm*CNST(10.0)*eps*FABS(a[0]); // threshold. tm is max(tm, tn)
-  tmp=(tmp>CNST(1E-12))? tmp : CNST(1E-12); // ensure that threshold is not too small
+  tmp=tm*LM_CNST(10.0)*eps*FABS(a[0]); // threshold. tm is max(tm, tn)
+  tmp=(tmp>LM_CNST(1E-12))? tmp : LM_CNST(1E-12); // ensure that threshold is not too small
   /* compute A^T's numerical rank by counting the non-zeros in R's diagonal */
   for(i=rank=0; i<mintmn; ++i)
     if(a[i*(tm+1)]>tmp || a[i*(tm+1)]<-tmp) ++rank; /* loop across R's diagonal elements */
@@ -167,39 +177,32 @@ register int i, j, k;
   if(rank<tn){
     fprintf(stderr, RCAT("\nConstraints matrix in ",  LMLEC_ELIM) "() is not of full row rank (i.e. %d < %d)!\n"
             "Make sure that you do not specify redundant or inconsistent constraints.\n\n", rank, tn);
-    exit(1);
+    free(buf);
+    return LM_ERROR;
   }
 
   /* compute the permuted inverse transpose of R */
-  /* first, copy R from the upper triangular part of a to r. R is rank x rank */
+  /* first, copy R from the upper triangular part of a to the lower part of r (thus transposing it). R is rank x rank */
   for(j=0; j<rank; ++j){
     for(i=0; i<=j; ++i)
-      r[i+j*rank]=a[i+j*tm];
+      r[j+i*rank]=a[i+j*tm];
     for(i=j+1; i<rank; ++i)
-      r[i+j*rank]=0.0; // lower part is zero
+      r[j+i*rank]=0.0; // upper part is zero
   }
+  /* r now contains R^T */
 
   /* compute the inverse */
-  TRTRI("U", "N", (int *)&rank, r, (int *)&rank, &info);
+  TRTRI("L", "N", (int *)&rank, r, (int *)&rank, &info);
   /* error checking */
   if(info!=0){
     if(info<0){
       fprintf(stderr, RCAT(RCAT("LAPACK error: illegal value for argument %d of ", TRTRI) " in ", LMLEC_ELIM) "()\n", -info);
-      exit(1);
     }
     else if(info>0){
       fprintf(stderr, RCAT(RCAT("A(%d, %d) is exactly zero for ", TRTRI) " (singular matrix) in ", LMLEC_ELIM) "()\n", info, info);
-      free(buf);
-      return 0;
     }
-  }
-  /* then, transpose r in place */
-  for(i=0; i<rank; ++i)
-    for(j=i+1; j<rank; ++j){
-      tmp=r[i+j*rank];
-      k=j+i*rank;
-      r[i+j*rank]=r[k];
-      r[k]=tmp;
+    free(buf);
+    return LM_ERROR;
   }
 
   /* finally, permute R^-T using Y as intermediate storage */
@@ -220,13 +223,12 @@ register int i, j, k;
   if(info!=0){
     if(info<0){
       fprintf(stderr, RCAT(RCAT("LAPACK error: illegal value for argument %d of ", ORGQR) " in ", LMLEC_ELIM) "()\n", -info);
-      exit(1);
     }
     else if(info>0){
       fprintf(stderr, RCAT(RCAT("unknown LAPACK error (%d) for ", ORGQR) " in ", LMLEC_ELIM) "()\n", info);
-      free(buf);
-      return 0;
     }
+    free(buf);
+    return LM_ERROR;
   }
 
   /* compute Y=Q_1*R^-T*P^T. Y is tm x rank */
@@ -281,9 +283,9 @@ LM_REAL *c, *Z, *p, *Zimm;
   (*(data->func))(p, hx, m, n, data->adata);
 }
 
-/* constrained jacobian: given pp, compute the jacobian at c + Z*pp
- * Using the chain rule, the jacobian with respect to pp equals the
- * product of the jacobian with respect to p (at c + Z*pp) times Z
+/* constrained Jacobian: given pp, compute the Jacobian at c + Z*pp
+ * Using the chain rule, the Jacobian with respect to pp equals the
+ * product of the Jacobian with respect to p (at c + Z*pp) times Z
  */
 static void LMLEC_JACF(LM_REAL *pp, LM_REAL *jacjac, int mm, int n, void *adata)
 {
@@ -364,20 +366,20 @@ LM_REAL *c, *Z, *p, *jac;
  * This function is similar to LEVMAR_DER except that the minimization
  * is performed subject to the linear constraints A p=b, A is kxm, b kx1
  *
- * This function requires an analytic jacobian. In case the latter is unavailable,
+ * This function requires an analytic Jacobian. In case the latter is unavailable,
  * use LEVMAR_LEC_DIF() bellow
  *
  */
 int LEVMAR_LEC_DER(
   void (*func)(LM_REAL *p, LM_REAL *hx, int m, int n, void *adata), /* functional relation describing measurements. A p \in R^m yields a \hat{x} \in  R^n */
-  void (*jacf)(LM_REAL *p, LM_REAL *j, int m, int n, void *adata),  /* function to evaluate the jacobian \part x / \part p */ 
+  void (*jacf)(LM_REAL *p, LM_REAL *j, int m, int n, void *adata),  /* function to evaluate the Jacobian \part x / \part p */ 
   LM_REAL *p,         /* I/O: initial parameter estimates. On output has the estimated solution */
-  LM_REAL *x,         /* I: measurement vector */
+  LM_REAL *x,         /* I: measurement vector. NULL implies a zero vector */
   int m,              /* I: parameter vector dimension (i.e. #unknowns) */
   int n,              /* I: measurement vector dimension */
   LM_REAL *A,         /* I: constraints matrix, kxm */
   LM_REAL *b,         /* I: right hand constraints vector, kx1 */
-  int k,              /* I: number of contraints (i.e. A's #rows) */
+  int k,              /* I: number of constraints (i.e. A's #rows) */
   int itmax,          /* I: maximum number of iterations */
   LM_REAL opts[4],    /* I: minim. options [\mu, \epsilon1, \epsilon2, \epsilon3]. Respectively the scale factor for initial \mu,
                        * stopping thresholds for ||J^T e||_inf, ||Dp||_2 and ||e||_2. Set to NULL for defaults to be used
@@ -393,10 +395,12 @@ int LEVMAR_LEC_DER(
                       *                                 4 - singular matrix. Restart from current p with increased mu 
                       *                                 5 - no further error reduction is possible. Restart with increased mu
                       *                                 6 - stopped by small ||e||_2
+                      *                                 7 - stopped by invalid (i.e. NaN or Inf) "func" values. This is a user error
                       * info[7]= # function evaluations
-                      * info[8]= # jacobian evaluations
+                      * info[8]= # Jacobian evaluations
+                      * info[9]= # linear systems solved, i.e. # attempts for reducing error
                       */
-  LM_REAL *work,     /* working memory, allocate if NULL */
+  LM_REAL *work,     /* working memory at least LM_LEC_DER_WORKSZ() reals large, allocated if NULL */
   LM_REAL *covar,    /* O: Covariance matrix corresponding to LS solution; mxm. Set to NULL if not needed. */
   void *adata)       /* pointer to possibly additional data, passed uninterpreted to func & jacf.
                       * Set to NULL if not needed
@@ -410,17 +414,22 @@ int LEVMAR_LEC_DER(
   LM_REAL locinfo[LM_INFO_SZ];
 
   if(!jacf){
-    fprintf(stderr, RCAT("No function specified for computing the jacobian in ", LEVMAR_LEC_DER)
+    fprintf(stderr, RCAT("No function specified for computing the Jacobian in ", LEVMAR_LEC_DER)
       RCAT("().\nIf no such function is available, use ", LEVMAR_LEC_DIF) RCAT("() rather than ", LEVMAR_LEC_DER) "()\n");
-    exit(1);
+    return LM_ERROR;
   }
 
   mm=m-k;
 
+  if(n<mm){
+    fprintf(stderr, LCAT(LEVMAR_LEC_DER, "(): cannot solve a problem with fewer measurements + equality constraints [%d + %d] than unknowns [%d]\n"), n, k, m);
+    return LM_ERROR;
+  }
+
   ptr=(LM_REAL *)malloc((2*m + m*mm + n*m + mm)*sizeof(LM_REAL));
   if(!ptr){
     fprintf(stderr, LCAT(LEVMAR_LEC_DER, "(): memory allocation request failed\n"));
-    exit(1);
+    return LM_ERROR;
   }
   data.p=p;
   p0=ptr;
@@ -433,7 +442,11 @@ int LEVMAR_LEC_DER(
   data.jacf=jacf;
   data.adata=adata;
 
-  LMLEC_ELIM(A, b, data.c, NULL, Z, k, m); // compute c, Z
+  ret=LMLEC_ELIM(A, b, data.c, NULL, Z, k, m); // compute c, Z
+  if(ret==LM_ERROR){
+    free(ptr);
+    return LM_ERROR;
+  }
 
   /* compute pp s.t. p = c + Z*pp or (Z^T Z)*pp=Z^T*(p-c)
    * Due to orthogonality, Z^T Z = I and the last equation
@@ -456,7 +469,7 @@ int LEVMAR_LEC_DER(
     Zimm=Z+i*mm;
     for(j=0, tmp=data.c[i]; j<mm; ++j)
       tmp+=Zimm[j]*pp[j]; // tmp+=Z[i*mm+j]*pp[j];
-    if(FABS(tmp-p0[i])>CNST(1E-03))
+    if(FABS(tmp-p0[i])>LM_CNST(1E-03))
       fprintf(stderr, RCAT("Warning: component %d of starting point not feasible in ", LEVMAR_LEC_DER) "()! [%.10g reset to %.10g]\n",
                       i, p0[i], tmp);
   }
@@ -473,9 +486,9 @@ int LEVMAR_LEC_DER(
     p[i]=tmp;
   }
 
-  /* compute the covariance from the jacobian in data.jac */
+  /* compute the covariance from the Jacobian in data.jac */
   if(covar){
-    TRANS_MAT_MAT_MULT(data.jac, covar, n, m); /* covar = J^T J */
+    LEVMAR_TRANS_MAT_MAT_MULT(data.jac, covar, n, m); /* covar = J^T J */
     LEVMAR_COVAR(covar, covar, info[1], m, n);
   }
 
@@ -484,23 +497,23 @@ int LEVMAR_LEC_DER(
   return ret;
 }
 
-/* Similar to the LEVMAR_LEC_DER() function above, except that the jacobian is approximated
+/* Similar to the LEVMAR_LEC_DER() function above, except that the Jacobian is approximated
  * with the aid of finite differences (forward or central, see the comment for the opts argument)
  */
 int LEVMAR_LEC_DIF(
   void (*func)(LM_REAL *p, LM_REAL *hx, int m, int n, void *adata), /* functional relation describing measurements. A p \in R^m yields a \hat{x} \in  R^n */
   LM_REAL *p,         /* I/O: initial parameter estimates. On output has the estimated solution */
-  LM_REAL *x,         /* I: measurement vector */
+  LM_REAL *x,         /* I: measurement vector. NULL implies a zero vector */
   int m,              /* I: parameter vector dimension (i.e. #unknowns) */
   int n,              /* I: measurement vector dimension */
   LM_REAL *A,         /* I: constraints matrix, kxm */
   LM_REAL *b,         /* I: right hand constraints vector, kx1 */
-  int k,              /* I: number of contraints (i.e. A's #rows) */
+  int k,              /* I: number of constraints (i.e. A's #rows) */
   int itmax,          /* I: maximum number of iterations */
   LM_REAL opts[5],    /* I: opts[0-3] = minim. options [\mu, \epsilon1, \epsilon2, \epsilon3, \delta]. Respectively the
                        * scale factor for initial \mu, stopping thresholds for ||J^T e||_inf, ||Dp||_2 and ||e||_2 and
-                       * the step used in difference approximation to the jacobian. Set to NULL for defaults to be used.
-                       * If \delta<0, the jacobian is approximated with central differences which are more accurate
+                       * the step used in difference approximation to the Jacobian. Set to NULL for defaults to be used.
+                       * If \delta<0, the Jacobian is approximated with central differences which are more accurate
                        * (but slower!) compared to the forward differences employed by default. 
                        */
   LM_REAL info[LM_INFO_SZ],
@@ -514,10 +527,12 @@ int LEVMAR_LEC_DIF(
                       *                                 4 - singular matrix. Restart from current p with increased mu 
                       *                                 5 - no further error reduction is possible. Restart with increased mu
                       *                                 6 - stopped by small ||e||_2
+                      *                                 7 - stopped by invalid (i.e. NaN or Inf) "func" values. This is a user error
                       * info[7]= # function evaluations
-                      * info[8]= # jacobian evaluations
+                      * info[8]= # Jacobian evaluations
+                      * info[9]= # linear systems solved, i.e. # attempts for reducing error
                       */
-  LM_REAL *work,     /* working memory, allocate if NULL */
+  LM_REAL *work,     /* working memory at least LM_LEC_DIF_WORKSZ() reals large, allocated if NULL */
   LM_REAL *covar,    /* O: Covariance matrix corresponding to LS solution; mxm. Set to NULL if not needed. */
   void *adata)       /* pointer to possibly additional data, passed uninterpreted to func.
                       * Set to NULL if not needed
@@ -532,10 +547,15 @@ int LEVMAR_LEC_DIF(
 
   mm=m-k;
 
+  if(n<mm){
+    fprintf(stderr, LCAT(LEVMAR_LEC_DIF, "(): cannot solve a problem with fewer measurements + equality constraints [%d + %d] than unknowns [%d]\n"), n, k, m);
+    return LM_ERROR;
+  }
+
   ptr=(LM_REAL *)malloc((2*m + m*mm + mm)*sizeof(LM_REAL));
   if(!ptr){
     fprintf(stderr, LCAT(LEVMAR_LEC_DIF, "(): memory allocation request failed\n"));
-    exit(1);
+    return LM_ERROR;
   }
   data.p=p;
   p0=ptr;
@@ -548,7 +568,11 @@ int LEVMAR_LEC_DIF(
   data.jacf=NULL;
   data.adata=adata;
 
-  LMLEC_ELIM(A, b, data.c, NULL, Z, k, m); // compute c, Z
+  ret=LMLEC_ELIM(A, b, data.c, NULL, Z, k, m); // compute c, Z
+  if(ret==LM_ERROR){
+    free(ptr);
+    return LM_ERROR;
+  }
 
   /* compute pp s.t. p = c + Z*pp or (Z^T Z)*pp=Z^T*(p-c)
    * Due to orthogonality, Z^T Z = I and the last equation
@@ -571,14 +595,14 @@ int LEVMAR_LEC_DIF(
     Zimm=Z+i*mm;
     for(j=0, tmp=data.c[i]; j<mm; ++j)
       tmp+=Zimm[j]*pp[j]; // tmp+=Z[i*mm+j]*pp[j];
-    if(FABS(tmp-p0[i])>CNST(1E-03))
+    if(FABS(tmp-p0[i])>LM_CNST(1E-03))
       fprintf(stderr, RCAT("Warning: component %d of starting point not feasible in ", LEVMAR_LEC_DIF) "()! [%.10g reset to %.10g]\n",
                       i, p0[i], tmp);
   }
 
   if(!info) info=locinfo; /* make sure that LEVMAR_DIF() is called with non-null info */
   /* note that covariance computation is not requested from LEVMAR_DIF() */
-  ret=LEVMAR_DIF(LMLEC_FUNC, NULL, pp, x, mm, n, itmax, opts, info, work, NULL, (void *)&data);
+  ret=LEVMAR_DIF(LMLEC_FUNC, pp, x, mm, n, itmax, opts, info, work, NULL, (void *)&data);
 
   /* p=c + Z*pp */
   for(i=0; i<m; ++i){
@@ -588,22 +612,23 @@ int LEVMAR_LEC_DIF(
     p[i]=tmp;
   }
 
-  /* compute the jacobian with finite differences and use it to estimate the covariance */
+  /* compute the Jacobian with finite differences and use it to estimate the covariance */
   if(covar){
     LM_REAL *hx, *wrk, *jac;
 
     hx=(LM_REAL *)malloc((2*n+n*m)*sizeof(LM_REAL));
-    if(!work){
+    if(!hx){
       fprintf(stderr, LCAT(LEVMAR_LEC_DIF, "(): memory allocation request failed\n"));
-      exit(1);
+      free(ptr);
+      return LM_ERROR;
     }
 
     wrk=hx+n;
     jac=wrk+n;
 
     (*func)(p, hx, m, n, adata); /* evaluate function at p */
-    FDIF_FORW_JAC_APPROX(func, p, hx, wrk, (LM_REAL)LM_DIFF_DELTA, jac, m, n, adata); /* compute the jacobian at p */
-    TRANS_MAT_MAT_MULT(jac, covar, n, m); /* covar = J^T J */
+    LEVMAR_FDIF_FORW_JAC_APPROX(func, p, hx, wrk, (LM_REAL)LM_DIFF_DELTA, jac, m, n, adata); /* compute the Jacobian at p */
+    LEVMAR_TRANS_MAT_MAT_MULT(jac, covar, n, m); /* covar = J^T J */
     LEVMAR_COVAR(covar, covar, info[1], m, n);
     free(hx);
   }
@@ -618,9 +643,9 @@ int LEVMAR_LEC_DIF(
 #undef LMLEC_ELIM
 #undef LMLEC_FUNC
 #undef LMLEC_JACF
-#undef FDIF_FORW_JAC_APPROX
+#undef LEVMAR_FDIF_FORW_JAC_APPROX
 #undef LEVMAR_COVAR
-#undef TRANS_MAT_MAT_MULT
+#undef LEVMAR_TRANS_MAT_MAT_MULT
 #undef LEVMAR_LEC_DER
 #undef LEVMAR_LEC_DIF
 #undef LEVMAR_DER

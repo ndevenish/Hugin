@@ -24,7 +24,7 @@
 #include "PhotometricOptimizer.h"
 
 #include <fstream>
-#include <foreign/levmar/lm.h>
+#include <foreign/levmar/levmar.h>
 #include <photometric/ResponseTransform.h>
 #include <algorithms/basic/LayerStacks.h>
 
@@ -206,7 +206,9 @@ void PhotometricOptimizer::photometricError(double *p, double *x, int m, int n, 
 		invResp[i].enforceMonotonicity();
     }
 
+#ifdef DEBUG
     double sqerror=0;
+#endif
     // loop over all points to calculate the error
 #ifdef DEBUG_LOG_VIG
     log << "VIGval = [ ";
@@ -226,10 +228,12 @@ void PhotometricOptimizer::photometricError(double *p, double *x, int m, int n, 
         vigra::RGBValue<double> i1ini2 = resp[it->imgNr2](l1, it->p2);
         vigra::RGBValue<double> error2 = it->i2 - i1ini2;
 
+#ifdef DEBUG
         for (int i=0; i < 3; i++) {
             sqerror += error[i]*error[i];
             sqerror += error2[i]*error2[i];
         }
+#endif
 
         // use huber robust estimator
         if (dat->huberSigma > 0) {
@@ -259,8 +263,9 @@ void PhotometricOptimizer::photometricError(double *p, double *x, int m, int n, 
     }
     log << " ]; " << std::endl;
 #endif
-
+#ifdef DEBUG
     DEBUG_DEBUG("squared error: " << sqerror);
+#endif
 }
 
 int PhotometricOptimizer::photometricVis(double *p, double *x, int m, int n, int iter, double sqerror, void * data)
