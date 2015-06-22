@@ -73,10 +73,13 @@ void PointSampler::sampleAndExtractPoints(AppBase::ProgressDisplay* progress)
         interpolImages.push_back(InterpolImg(srcImageRange(*(images[i])), interp, false));
         
         vigra::FImage * lap = new vigra::FImage(images[i]->size());
-        vigra::laplacianOfGaussian(srcImageRange(*(images[i]), vigra::GreenAccessor<vigra::RGBValue<float> >()), destImage(*lap), 1);
         lapImgs.push_back(lap);
     }
-    
+#pragma omp parallel for
+    for (int i = 0; i < pano.getNrOfImages(); i++)
+    {
+        vigra::laplacianOfGaussian(srcImageRange(*(images[i]), vigra::GreenAccessor<vigra::RGBValue<float> >()), destImage(*(lapImgs[i])), 1);
+    }
     
     // extract the overlapping points.
 //    PanoramaOptions opts = pano.getOptions();
