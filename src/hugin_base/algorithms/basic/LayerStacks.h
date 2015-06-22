@@ -37,6 +37,9 @@ IMPEX UIntSetVector getExposureLayers(const PanoramaData & pano, UIntSet allImgs
 IMPEX UIntSet getImagesinROI(const PanoramaData& pano, const UIntSet activeImages);
 /** returns set of images which are visible in given ROI */
 IMPEX UIntSet getImagesinROI(const PanoramaData& pano, const UIntSet activeImages, const vigra::Rect2D panoROI);
+/** returns vector of UIntVector with image numbers of each stack sorted by exposure */
+IMPEX std::vector<HuginBase::UIntVector> getSortedStacks(const HuginBase::Panorama* pano);
+
 }
 
 #endif /* _BASICALGORITHMS_LAYERSTACKS_H */

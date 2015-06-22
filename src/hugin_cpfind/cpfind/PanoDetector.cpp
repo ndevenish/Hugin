@@ -32,6 +32,7 @@
 
 #include <algorithms/nona/ComputeImageROI.h>
 #include <algorithms/basic/CalculateOptimalScale.h>
+#include <algorithms/basic/LayerStacks.h>
 #include <nona/RemappedPanoImage.h>
 #include <nona/ImageRemapper.h>
 
@@ -907,38 +908,24 @@ void PanoDetector::CleanupKeyfiles()
     };
 };
 
-struct SortVectorByExposure
-{
-    SortVectorByExposure(const HuginBase::Panorama* pano) : m_pano(pano) {};
-    bool operator()(const size_t& img1, const size_t& img2)
-    {
-        return m_pano->getImage(img1).getExposureValue() < m_pano->getImage(img2).getExposureValue();
-    }
-private:
-    const HuginBase::Panorama* m_pano;
-};
-
 void PanoDetector::buildMultiRowImageSets()
 {
-    HuginBase::ConstStandardImageVariableGroups variable_groups(*_panoramaInfo);
-    HuginBase::UIntSetVector imageGroups = variable_groups.getStacks().getPartsSet();
+    std::vector<HuginBase::UIntVector> stacks = HuginBase::getSortedStacks(_panoramaInfo);
     //get image with median exposure for search with cp generator
-    for (size_t imgGroup = 0; imgGroup < imageGroups.size(); ++imgGroup)
+    for (size_t i = 0; i < stacks.size(); ++i)
     {
-        HuginBase::UIntVector stackImages(imageGroups[imgGroup].begin(), imageGroups[imgGroup].end());
-        std::sort(stackImages.begin(), stackImages.end(), SortVectorByExposure(_panoramaInfo));
         size_t index = 0;
-        if (_panoramaInfo->getImage(*(stackImages.begin())).getExposureValue() != _panoramaInfo->getImage(*(stackImages.rbegin())).getExposureValue())
+        if (_panoramaInfo->getImage(*(stacks[i].begin())).getExposureValue() != _panoramaInfo->getImage(*(stacks[i].rbegin())).getExposureValue())
         {
-            index = stackImages.size() / 2;
+            index = stacks[i].size() / 2;
         };
-        _image_layer.insert(stackImages[index]);
-        if (stackImages.size()>1)
+        _image_layer.insert(stacks[i][index]);
+        if (stacks[i].size()>1)
         {
             //build list for stacks, consider only unlinked stacks
-            if (!_panoramaInfo->getImage(*(stackImages.begin())).YawisLinked())
+            if (!_panoramaInfo->getImage(*(stacks[i].begin())).YawisLinked())
             {
-                _image_stacks.push_back(stackImages);
+                _image_stacks.push_back(stacks[i]);
             };
         };
     };

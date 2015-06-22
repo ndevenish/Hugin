@@ -145,4 +145,34 @@ UIntSet getImagesinROI(const PanoramaData& pano, const UIntSet activeImages, vig
     return images;
 }
 
+struct SortVectorByExposure
+{
+    SortVectorByExposure(const HuginBase::Panorama* pano) : m_pano(pano) {};
+    bool operator()(const size_t& img1, const size_t& img2)
+    {
+        return m_pano->getImage(img1).getExposureValue() < m_pano->getImage(img2).getExposureValue();
+    }
+private:
+    const HuginBase::Panorama* m_pano;
+};
+
+std::vector<HuginBase::UIntVector> getSortedStacks(const HuginBase::Panorama* pano)
+{
+    std::vector<HuginBase::UIntVector> stacks;
+    if (pano->getNrOfImages() == 0)
+    {
+        return stacks;
+    };
+    HuginBase::ConstStandardImageVariableGroups variable_groups(*pano);
+    HuginBase::UIntSetVector imageGroups = variable_groups.getStacks().getPartsSet();
+    //get image with median exposure for search with cp generator
+    for (size_t imgGroup = 0; imgGroup < imageGroups.size(); ++imgGroup)
+    {
+        HuginBase::UIntVector stackImages(imageGroups[imgGroup].begin(), imageGroups[imgGroup].end());
+        std::sort(stackImages.begin(), stackImages.end(), SortVectorByExposure(pano));
+        stacks.push_back(stackImages);
+    };
+    return stacks;
+};
+
 }
