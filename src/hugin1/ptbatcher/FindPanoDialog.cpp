@@ -905,7 +905,7 @@ void PossiblePano::PopulateListCtrl(wxListCtrl* list, wxImageList* thumbs)
                 mask.SetRGB(wxRect(0, 0, THUMBSIZE, THUMBSIZE), 0, 0, 0);
                 mask.SetRGB(wxRect(x, y, THUMBSIZE - 2 * x, THUMBSIZE - 2 * y), 255, 255, 255);
                 // add to wxImageList
-                index = thumbs->Add(bitmap, mask);
+                index = thumbs->Add(bitmap, wxBitmap(mask, 1));
             };
         };
         // create item in thumb list
