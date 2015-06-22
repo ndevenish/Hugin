@@ -141,12 +141,12 @@ IF(WIN32)
     ENDIF()
     FIND_FILE(EXIV2_DLL 
       NAMES exiv2.dll 
-      PATHS ${SOURCE_BASE_DIR}/exiv2/msvc2012/exiv2lib/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.25/msvc2012/exiv2lib/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.24/msvc2012/exiv2lib/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/bin/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/bin/Win32/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.22/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.21.1/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.20/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.19/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.18.2/msvc/bin/ReleaseDLL
+      PATHS ${SOURCE_BASE_DIR}/exiv2/bin ${SOURCE_BASE_DIR}/exiv2/msvc2012/exiv2lib/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.25/msvc2012/exiv2lib/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.24/msvc2012/exiv2lib/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/bin/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/bin/Win32/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.22/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.21.1/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.20/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.19/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.18.2/msvc/bin/ReleaseDLL
       NO_SYSTEM_ENVIRONMENT_PATH
     )
     FIND_FILE(LIBEXPAT_DLL 
-      NAMES libexpat.dll 
-      PATHS ${SOURCE_BASE_DIR}/exiv2/msvc2012/exiv2lib/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.25/msvc2012/exiv2lib/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.24/msvc2012/exiv2lib/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/bin/Win32/ReleaseDLL ${SOURCE_BASE_DIR}/expat-2.0.1/win32/bin/Release ${SOURCE_BASE_DIR}/exiv2-0.22/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.21.1/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.20/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.19/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.18.2/msvc/bin/ReleaseDLL
+      NAMES libexpat.dll expat.dll
+      PATHS ${SOURCE_BASE_DIR}/expat/bin ${SOURCE_BASE_DIR}/exiv2/msvc2012/exiv2lib/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.25/msvc2012/exiv2lib/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.24/msvc2012/exiv2lib/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/bin/Win32/ReleaseDLL ${SOURCE_BASE_DIR}/expat-2.0.1/win32/bin/Release ${SOURCE_BASE_DIR}/exiv2-0.22/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.21.1/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.20/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.19/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.18.2/msvc/bin/ReleaseDLL
       NO_SYSTEM_ENVIRONMENT_PATH
     )
     FIND_FILE(GLEW_DLL

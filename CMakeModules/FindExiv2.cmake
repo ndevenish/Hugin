@@ -70,6 +70,7 @@ else (EXIV2_INCLUDE_DIR AND EXIV2_LIBRARIES)
      FIND_PATH(EXIV2_INCLUDE_DIR exiv2/exif.hpp
                /usr/local/include
                /usr/include
+               ${SOURCE_BASE_DIR}/exiv2/include
                ${SOURCE_BASE_DIR}/exiv2/msvc2012/include
                ${SOURCE_BASE_DIR}/exiv2/msvc/include
                ${SOURCE_BASE_DIR}/exiv2-0.25/msvc2012/include
@@ -93,6 +94,7 @@ else (EXIV2_INCLUDE_DIR AND EXIV2_LIBRARIES)
           WIN32_DEBUG_POSTFIX d
           NAMES exiv2 libexiv2
           PATHS 
+            ${SOURCE_BASE_DIR}/exiv2/lib
             ${SOURCE_BASE_DIR}/exiv2/msvc2012/exiv2lib/x64/ReleaseDLL
             ${SOURCE_BASE_DIR}/exiv2/msvc2012/exiv2lib/x64/DebugDLL
             ${SOURCE_BASE_DIR}/exiv2-0.25/msvc2012/exiv2lib/x64/ReleaseDLL 
@@ -110,8 +112,9 @@ else (EXIV2_INCLUDE_DIR AND EXIV2_LIBRARIES)
 
        find_library_with_debug(EXIV2EXPAT_LIBRARIES
           WIN32_DEBUG_POSTFIX d
-          NAMES libexpat
+          NAMES libexpat expat
           PATHS 
+            ${SOURCE_BASE_DIR}/expat/lib
             ${SOURCE_BASE_DIR}/exiv2/msvc2012/exiv2lib/x64/ReleaseDLL
             ${SOURCE_BASE_DIR}/exiv2/msvc2012/exiv2lib/x64/DebugDLL
             ${SOURCE_BASE_DIR}/exiv2-0.25/msvc2012/exiv2lib/x64/ReleaseDLL 
@@ -126,20 +129,22 @@ else (EXIV2_INCLUDE_DIR AND EXIV2_LIBRARIES)
        find_library_with_debug(EXIV2_LIBRARIES
           WIN32_DEBUG_POSTFIX d
           NAMES exiv2s exiv2 libexiv2
-          PATHS ${SYSTEM_LIB_DIRS} ${SOURCE_BASE_DIR}/exiv2/msvc2012/lib ${SOURCE_BASE_DIR}/exiv2/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.25/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.24/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.23/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.22/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.16/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.18/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.18.1/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.18.2/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.19/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.20/msvc/lib
+          PATHS ${SYSTEM_LIB_DIRS} ${SOURCE_BASE_DIR}/exiv2/lib ${SOURCE_BASE_DIR}/exiv2/msvc2012/lib ${SOURCE_BASE_DIR}/exiv2/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.25/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.24/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.23/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.22/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.16/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.18/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.18.1/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.18.2/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.19/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.20/msvc/lib
        )
 
        find_library_with_debug(EXIV2EXPAT_LIBRARIES
           WIN32_DEBUG_POSTFIX d
-          NAMES libexpat
-          PATHS ${SYSTEM_LIB_DIRS} ${SOURCE_BASE_DIR}/exiv2/msvc2012/lib ${SOURCE_BASE_DIR}/exiv2/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.25/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.24/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.23/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.22/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.16/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.18/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.18.1/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.18.2/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.19/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.20/msvc/lib
+          NAMES libexpat expat
+          PATHS ${SYSTEM_LIB_DIRS} ${SOURCE_BASE_DIR}/expat/lib ${SOURCE_BASE_DIR}/exiv2/msvc2012/lib ${SOURCE_BASE_DIR}/exiv2/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.25/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.24/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.23/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.22/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.16/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.18/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.18.1/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.18.2/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.19/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.20/msvc/lib
        )
 
        # since exiv 0.19, xmpsdk needs explicit linked in static build
        find_library_with_debug(XMP_LIBRARIES
           WIN32_DEBUG_POSTFIX d
           NAMES xmpsdk
-          PATHS ${SOURCE_BASE_DIR}/exiv2/msvc2012/lib
+          PATHS 
+                ${SOURCE_BASE_DIR}/exiv2/lib
+                ${SOURCE_BASE_DIR}/exiv2/msvc2012/lib
                 ${SOURCE_BASE_DIR}/exiv2-0.25/msvc2012/lib
                 ${SOURCE_BASE_DIR}/exiv2-0.24/msvc2012/lib
                 ${SOURCE_BASE_DIR}/exiv2-0.23/msvc/lib
