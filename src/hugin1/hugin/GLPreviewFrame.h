@@ -340,7 +340,15 @@ protected:
     void OnRemoveCP(wxCommandEvent & e);
     /** handle menu close event */
     void OnMenuClose(wxMenuEvent & e);
-
+    /** handle context menu on select all button */
+    void OnSelectContextMenu(wxContextMenuEvent& e);
+    /** handle all options of select all context menu */
+    void OnSelectAllMenu(wxCommandEvent& e);
+    void OnSelectMedianMenu(wxCommandEvent& e);
+    void OnSelectDarkestMenu(wxCommandEvent& e);
+    void OnSelectBrightestMenu(wxCommandEvent& e);
+    void OnSelectKeepSelection(wxCommandEvent& e);
+    void OnSelectResetSelection(wxCommandEvent& e);
 private:
     /** changes the visibility of the group check boxes
      * @param isShown true if the group checkboxes should be visible
@@ -410,6 +418,21 @@ private:
     wxButton   * m_loadLensButton;
     wxMenu* m_filemenuSimple;
     wxMenu* m_filemenuAdvanced;
+    wxMenu* m_selectAllMenu;
+#if wxCHECK_VERSION(2,9,2)
+    wxButton* m_selectAllButton;
+#else
+    wxBitmapButton* m_selectAllButton;
+#endif
+    enum SelectAllMode
+    {
+        SELECT_ALL_IMAGES = 0,
+        SELECT_MEDIAN_IMAGES = 1,
+        SELECT_BRIGHTEST_IMAGES = 2,
+        SELECT_DARKTEST_IMAGES = 3,
+    };
+    SelectAllMode m_selectAllMode;
+    bool m_selectKeepSelection;
 
     int m_degDigits;
 

@@ -1967,4 +1967,33 @@
     </object>
     <label>&amp;File</label>
   </object>
+  <object class="wxMenu" name="preview_select_menu">
+    <object class="wxMenuItem" name="selectMenu_selectAll">
+      <label>All images</label>
+      <radio>1</radio>
+      <checked>1</checked>
+    </object>
+    <object class="wxMenuItem" name="selectMenu_selectMedian">
+      <label>Image with median exposure of each stack</label>
+      <radio>1</radio>
+    </object>
+    <object class="wxMenuItem" name="selectMenu_selectBrightest">
+      <label>Brightest image of each stack</label>
+      <radio>1</radio>
+    </object>
+    <object class="wxMenuItem" name="selectMenu_selectDarkest">
+      <label>Darkest image of each stack</label>
+      <radio>1</radio>
+    </object>
+    <object class="separator"/>
+    <object class="wxMenuItem" name="selectMenu_keepCurrentSelection">
+      <label>Keep currently selected images</label>
+      <radio>1</radio>
+      <checked>1</checked>
+    </object>
+    <object class="wxMenuItem" name="selectMenu_resetSelection">
+      <label>Reset selection</label>
+      <radio>1</radio>
+    </object>
+  </object>
 </resource>

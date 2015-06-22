@@ -210,6 +210,13 @@ BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
     EVT_BUTTON     ( XRCID("ass_load_images_button"), GLPreviewFrame::OnLoadImages)
     EVT_BUTTON     ( XRCID("ass_align_button"), GLPreviewFrame::OnAlign)
     EVT_BUTTON     ( XRCID("ass_create_button"), GLPreviewFrame::OnCreate)
+    // context menu of select all button
+    EVT_MENU(XRCID("selectMenu_selectAll"), GLPreviewFrame::OnSelectAllMenu)
+    EVT_MENU(XRCID("selectMenu_selectMedian"), GLPreviewFrame::OnSelectMedianMenu)
+    EVT_MENU(XRCID("selectMenu_selectBrightest"), GLPreviewFrame::OnSelectDarkestMenu)
+    EVT_MENU(XRCID("selectMenu_selectDarkest"), GLPreviewFrame::OnSelectBrightestMenu)
+    EVT_MENU(XRCID("selectMenu_keepCurrentSelection"), GLPreviewFrame::OnSelectKeepSelection)
+    EVT_MENU(XRCID("selectMenu_resetSelection"), GLPreviewFrame::OnSelectResetSelection)
 END_EVENT_TABLE()
 
 BEGIN_EVENT_TABLE(ImageToogleButtonEventHandler, wxEvtHandler)
@@ -429,12 +436,42 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, HuginBase::Panorama &pano)
     wxBitmap bitmap;
     bitmap.LoadFile(huginApp::Get()->GetXRCPath()+wxT("data/preview_show_all.png"),wxBITMAP_TYPE_PNG);
 #if wxCHECK_VERSION(2,9,2)
-    wxButton* select_all=new wxButton(panel,ID_SHOW_ALL,_("All"),wxDefaultPosition,wxDefaultSize,wxBU_EXACTFIT);
-    select_all->SetBitmap(bitmap,wxLEFT);
-    select_all->SetBitmapMargins(0,0);
+    m_selectAllButton=new wxButton(panel,ID_SHOW_ALL,_("All"),wxDefaultPosition,wxDefaultSize,wxBU_EXACTFIT);
+    m_selectAllButton->SetBitmap(bitmap, wxLEFT);
+    m_selectAllButton->SetBitmapMargins(0, 0);
 #else
-    wxBitmapButton * select_all = new wxBitmapButton(panel,ID_SHOW_ALL,bitmap);
+    m_selectAllButton = new wxBitmapButton(panel,ID_SHOW_ALL,bitmap);
 #endif
+    m_selectAllButton->Connect(wxEVT_CONTEXT_MENU, wxContextMenuEventHandler(GLPreviewFrame::OnSelectContextMenu), NULL, this);
+    m_selectAllMenu = wxXmlResource::Get()->LoadMenu(wxT("preview_select_menu"));
+    // read last used setting
+    long mode = cfg->Read(wxT("/GLPreviewFrame/SelectAllMode"), 0l);
+    m_selectAllMode = static_cast<SelectAllMode>(mode);
+    switch (m_selectAllMode)
+    {
+        case SELECT_MEDIAN_IMAGES:
+            m_selectAllMenu->Check(XRCID("selectMenu_selectMedian"), true);
+            break;
+        case SELECT_DARKTEST_IMAGES:
+            m_selectAllMenu->Check(XRCID("selectMenu_selectDarkest"), true);
+            break;
+        case SELECT_BRIGHTEST_IMAGES:
+            m_selectAllMenu->Check(XRCID("selectMenu_selectBrightest"), true);
+            break;
+        case SELECT_ALL_IMAGES:
+        default:
+            m_selectAllMenu->Check(XRCID("selectMenu_selectAll"), true);
+            break;
+    };
+    m_selectKeepSelection = (cfg->Read(wxT("/GLPreviewFrame/SelectAllKeepSelection"), 1l) == 1l);
+    if (m_selectKeepSelection)
+    {
+        m_selectAllMenu->Check(XRCID("selectMenu_keepCurrentSelection"), true);
+    }
+    else
+    {
+        m_selectAllMenu->Check(XRCID("selectMenu_resetSelection"), true);
+    };
     bitmap.LoadFile(huginApp::Get()->GetXRCPath()+wxT("data/preview_show_none.png"),wxBITMAP_TYPE_PNG);
 #if wxCHECK_VERSION(2,9,2)
     wxButton* select_none=new wxButton(panel,ID_SHOW_NONE,_("None"),wxDefaultPosition,wxDefaultSize,wxBU_EXACTFIT);
@@ -442,12 +479,12 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, HuginBase::Panorama &pano)
     select_none->SetBitmapMargins(0,0);
 #else
     wxBitmapButton * select_none = new wxBitmapButton(panel,ID_SHOW_NONE,bitmap);
-    AddLabelToBitmapButton(select_all,_("All"),false);
+    AddLabelToBitmapButton(m_selectAllButton,_("All"),false);
     AddLabelToBitmapButton(select_none,_("None"), false);
 #endif
 
     wxBoxSizer *sizer = new wxBoxSizer(wxHORIZONTAL);
-    sizer->Add(select_all,0,wxALIGN_CENTER_VERTICAL | wxLEFT | wxTOP | wxBOTTOM,5);
+    sizer->Add(m_selectAllButton,0,wxALIGN_CENTER_VERTICAL | wxLEFT | wxTOP | wxBOTTOM,5);
     sizer->Add(select_none,0,wxALIGN_CENTER_VERTICAL | wxRIGHT | wxTOP | wxBOTTOM,5);
     panel->SetSizer(sizer);
     m_ToggleButtonSizer->Add(panel, 0, wxALIGN_CENTER_VERTICAL);
@@ -1593,11 +1630,35 @@ void GLPreviewFrame::OnShowAll(wxCommandEvent & e)
 {
     if (m_pano.getNrOfImages() == 0) return;
 
-    DEBUG_ASSERT(m_pano.getNrOfImages() == m_ToggleButtons.size());
     UIntSet displayedImgs;
-    for (unsigned int i=0; i < m_pano.getNrOfImages(); i++) {
-        displayedImgs.insert(i);
+    if (m_selectAllMode == SELECT_ALL_IMAGES)
+    {
+        fill_set(displayedImgs, 0, m_pano.getNrOfImages() - 1);
     }
+    else
+    {
+        if (m_selectKeepSelection)
+        {
+            displayedImgs = m_pano.getActiveImages();
+        };
+        std::vector<HuginBase::UIntVector> stackedImg = HuginBase::getSortedStacks(&m_pano);
+        for (size_t i = 0; i < stackedImg.size(); ++i)
+        {
+            switch (m_selectAllMode)
+            {
+                case SELECT_BRIGHTEST_IMAGES:
+                    displayedImgs.insert(*(stackedImg[i].rbegin()));
+                    break;
+                case SELECT_DARKTEST_IMAGES:
+                    displayedImgs.insert(*(stackedImg[i].begin()));
+                    break;
+                case SELECT_MEDIAN_IMAGES:
+                default:
+                    displayedImgs.insert(stackedImg[i][stackedImg[i].size() / 2]);
+                    break;
+            };
+        };
+    };
     PanoCommand::GlobalCmdHist::getInstance().addCommand(
         new PanoCommand::SetActiveImagesCmd(m_pano, displayedImgs)
         );
@@ -3607,4 +3668,55 @@ void GLPreviewFrame::OnMenuClose(wxMenuEvent & e)
 {
     m_GLPreview->Refresh();
     e.Skip();
+};
+
+void GLPreviewFrame::OnSelectContextMenu(wxContextMenuEvent& e)
+{
+    wxPoint point = e.GetPosition();
+    // If from keyboard
+    if (point.x == -1 && point.y == -1)
+    {
+        point = m_selectAllButton->GetPosition();
+    }
+    else
+    {
+        point = ScreenToClient(point);
+    }
+    PopupMenu(m_selectAllMenu, point);
+};
+
+void GLPreviewFrame::OnSelectAllMenu(wxCommandEvent& e)
+{
+    wxConfig::Get()->Write(wxT("/GLPreviewFrame/SelectAllMode"), 0l);
+    m_selectAllMode = SELECT_ALL_IMAGES;
+};
+
+void GLPreviewFrame::OnSelectMedianMenu(wxCommandEvent& e)
+{
+    wxConfig::Get()->Write(wxT("/GLPreviewFrame/SelectAllMode"), 1l);
+    m_selectAllMode = SELECT_MEDIAN_IMAGES;
+};
+
+void GLPreviewFrame::OnSelectBrightestMenu(wxCommandEvent& e)
+{
+    wxConfig::Get()->Write(wxT("/GLPreviewFrame/SelectAllMode"), 2l);
+    m_selectAllMode = SELECT_BRIGHTEST_IMAGES;
+};
+
+void GLPreviewFrame::OnSelectDarkestMenu(wxCommandEvent& e)
+{
+    wxConfig::Get()->Write(wxT("/GLPreviewFrame/SelectAllMode"), 3l);
+    m_selectAllMode = SELECT_DARKTEST_IMAGES;
+};
+
+void GLPreviewFrame::OnSelectKeepSelection(wxCommandEvent& e)
+{
+    wxConfig::Get()->Write(wxT("/GLPreviewFrame/SelectAllKeepSelection"), true);
+    m_selectKeepSelection = true;
+};
+
+void GLPreviewFrame::OnSelectResetSelection(wxCommandEvent& e)
+{
+    wxConfig::Get()->Write(wxT("/GLPreviewFrame/SelectAllKeepSelection"), false);
+    m_selectKeepSelection = false;
 };
