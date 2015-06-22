@@ -452,7 +452,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, HuginBase::Panorama &pano)
         case SELECT_MEDIAN_IMAGES:
             m_selectAllMenu->Check(XRCID("selectMenu_selectMedian"), true);
             break;
-        case SELECT_DARKTEST_IMAGES:
+        case SELECT_DARKEST_IMAGES:
             m_selectAllMenu->Check(XRCID("selectMenu_selectDarkest"), true);
             break;
         case SELECT_BRIGHTEST_IMAGES:
@@ -1649,7 +1649,7 @@ void GLPreviewFrame::OnShowAll(wxCommandEvent & e)
                 case SELECT_BRIGHTEST_IMAGES:
                     displayedImgs.insert(*(stackedImg[i].rbegin()));
                     break;
-                case SELECT_DARKTEST_IMAGES:
+                case SELECT_DARKEST_IMAGES:
                     displayedImgs.insert(*(stackedImg[i].begin()));
                     break;
                 case SELECT_MEDIAN_IMAGES:
@@ -3706,7 +3706,7 @@ void GLPreviewFrame::OnSelectBrightestMenu(wxCommandEvent& e)
 void GLPreviewFrame::OnSelectDarkestMenu(wxCommandEvent& e)
 {
     wxConfig::Get()->Write(wxT("/GLPreviewFrame/SelectAllMode"), 3l);
-    m_selectAllMode = SELECT_DARKTEST_IMAGES;
+    m_selectAllMode = SELECT_DARKEST_IMAGES;
 };
 
 void GLPreviewFrame::OnSelectKeepSelection(wxCommandEvent& e)

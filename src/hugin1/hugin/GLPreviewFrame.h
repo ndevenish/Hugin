@@ -429,7 +429,7 @@ private:
         SELECT_ALL_IMAGES = 0,
         SELECT_MEDIAN_IMAGES = 1,
         SELECT_BRIGHTEST_IMAGES = 2,
-        SELECT_DARKTEST_IMAGES = 3,
+        SELECT_DARKEST_IMAGES = 3,
     };
     SelectAllMode m_selectAllMode;
     bool m_selectKeepSelection;
