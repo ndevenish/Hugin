@@ -1,497 +1,1203 @@
-// -*- c-basic-offset: 4 -*-
-/** @file impexalpha.hxx
-*
-*  Routines to save images with alpha masks.
-*
-*  These routines handle the conversion of byte alpha
-*  channels into the final output types.
-*
-*  @author Pablo d'Angelo <pablo.dangelo@web.de>
-*
-*  $Id: impexalpha.hxx 1951 2007-04-15 20:54:49Z dangelo $
-*
-*  This is free software; you can redistribute it and/or
-*  modify it under the terms of the GNU General Public
-*  License as published by the Free Software Foundation; either
-*  version 2 of the License, or (at your option) any later version.
-*
-*  This software is distributed in the hope that it will be useful,
-*  but WITHOUT ANY WARRANTY; without even the implied warranty of
-*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-*  Lesser General Public License for more details.
-*
-*  You should have received a copy of the GNU General Public
-*  License along with this software. If not, see
-*  <http://www.gnu.org/licenses/>.
-*
-*/
+/************************************************************************/
+/*                                                                      */
+/*               Copyright 2012 Christoph Spiel                         */
+/*                                                                      */
+/*    This file is part of the VIGRA computer vision library.           */
+/*    The VIGRA Website is                                              */
+/*        http://hci.iwr.uni-heidelberg.de/vigra/                       */
+/*    Please direct questions, bug reports, and contributions to        */
+/*        ullrich.koethe@iwr.uni-heidelberg.de    or                    */
+/*        vigra@informatik.uni-hamburg.de                               */
+/*                                                                      */
+/*    Permission is hereby granted, free of charge, to any person       */
+/*    obtaining a copy of this software and associated documentation    */
+/*    files (the "Software"), to deal in the Software without           */
+/*    restriction, including without limitation the rights to use,      */
+/*    copy, modify, merge, publish, distribute, sublicense, and/or      */
+/*    sell copies of the Software, and to permit persons to whom the    */
+/*    Software is furnished to do so, subject to the following          */
+/*    conditions:                                                       */
+/*                                                                      */
+/*    The above copyright notice and this permission notice shall be    */
+/*    included in all copies or substantial portions of the             */
+/*    Software.                                                         */
+/*                                                                      */
+/*    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND    */
+/*    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES   */
+/*    OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND          */
+/*    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT       */
+/*    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      */
+/*    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      */
+/*    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     */
+/*    OTHER DEALINGS IN THE SOFTWARE.                                   */
+/*                                                                      */
+/************************************************************************/
 
-#ifndef VIGRAEXT_IMPEXALPHA_H
-#define VIGRAEXT_IMPEXALPHA_H
+#ifndef VIGRAEXT_IMPEXALPHA_HXX
+#define VIGRAEXT_IMPEXALPHA_HXX
 
-#include <iostream>
-#include <vigra/imageiterator.hxx>
-#include <vigra/transformimage.hxx>
-#include <vigra/initimage.hxx>
-#include <vigra/numerictraits.hxx>
+#include <vector>
 
-#include <vigra/impex.hxx>
+#include "vigra/imageinfo.hxx"
+#include "vigra/impex.hxx"
+#include "vigra/impexbase.hxx"
+#include "vigra/multi_shape.hxx"
 
 namespace vigra
 {
-
-template <class T1>
-struct MaskConv;
-
-template<>
-struct MaskConv<vigra::UInt8>
-{
-    static vigra::UInt8 toUInt8(vigra::UInt8 v)
-    {
-        return v;
-    }
-
-    static vigra::UInt8 fromUInt8(vigra::UInt8 v)
-    {
-        return v;
-    }
-};
-
-template<>
-struct MaskConv<vigra::UInt16>
-{
-    static vigra::UInt8 toUInt8(vigra::UInt16 v)
-    {
-        return v >> 8;
-    }
-
-
-    static vigra::UInt16 fromUInt8(vigra::UInt8 v)
-    {
-        return (v << 8) + v;
-    }
-};
-
-template<>
-struct MaskConv<vigra::Int16>
-{
-    static vigra::UInt8 toUInt8(vigra::Int16 v)
-    {
-        return v >> 7;
-    }
-
-
-    static vigra::Int16 fromUInt8(vigra::UInt8 v)
-    {
-        return (v << 7) + (v & 127);
-    }
-};
-
-template<>
-struct MaskConv<vigra::UInt32>
-{
-    static vigra::UInt8 toUInt8(vigra::UInt32 v)
-    {
-        return v >> 24;
-    }
-
-
-    static vigra::UInt32 fromUInt8(vigra::UInt8 v)
-    {
-        return (v << 24) + (v << 16) + (v << 8) + v;
-    }
-};
-
-template<>
-struct MaskConv<vigra::Int32>
-{
-    static vigra::UInt8 toUInt8(vigra::Int32 v)
-    {
-        return v >> 23;
-    }
-
-
-    static vigra::Int32 fromUInt8(vigra::UInt8 v)
-    {
-        return (v << 23) + (v << 15) + (v << 7) + (v & 127);
-    }
-};
-
-template<>
-struct MaskConv<float>
-{
-    static vigra::UInt8 toUInt8(float v)
-    {
-        return vigra::NumericTraits<vigra::UInt8>::fromRealPromote(v * 255);
-    }
-
-    static float fromUInt8(vigra::UInt8 v)
-    {
-        return v / 255.0f;
-    }
-
-};
-
-template<>
-struct MaskConv<double>
-{
-    static vigra::UInt8 toUInt8(double v)
-    {
-        return vigra::NumericTraits<vigra::UInt8>::fromRealPromote(v * 255);
-    }
-
-    static double fromUInt8(vigra::UInt8 v)
-    {
-        return v / 255.0;
-    }
-
-};
-
-
-template <class Iter1, class Acc1, class Iter2, class Acc2>
-class MultiImageMaskAccessor2
-{
-public:
-    /** The accessors value_type: construct a pair that contains
-    the corresponding image values.
+    /** \addtogroup VigraImpex
+    * @{
     */
-    typedef vigra::TinyVector<typename Acc1::value_type, 2> value_type;
-    typedef typename Acc1::value_type component_type;
-    typedef typename Acc2::value_type alpha_type;
-    typedef VectorElementAccessor<MultiImageMaskAccessor2<Iter1, Acc1, Iter2, Acc2> > ElementAccessor;
-
-    /** Construct from two image iterators and associated accessors.
-    */
-    MultiImageMaskAccessor2(Iter1 i1, Acc1 a1, Iter2 i2, Acc2 a2)
-        : i1_(i1), a1_(a1), i2_(i2), a2_(a2)
-    {}
-
-    /** read the current data item
-    */
-    template <class DIFFERENCE>
-    value_type operator()(DIFFERENCE const& d) const
+    namespace detail
     {
-        return value_type(a1_(i1_, d),
-                          MaskConv<component_type>::fromUInt8(a2_(i2_, d)));
-    }
-
-    /** read the data item at an offset
-    */
-    template <class DIFFERENCE1, class DIFFERENCE2>
-    value_type operator()(DIFFERENCE1 d, DIFFERENCE2 const& d2) const
-    {
-        d += d2;
-        return value_type(a1_(i1_, d),
-                          MaskConv<component_type>::fromUInt8(a2_(i2_, d)));
-    }
-
-    /** write the current data item
-    */
-    template <class DIFFERENCE>
-    value_type set(const value_type& vt, DIFFERENCE const& d) const
-    {
-        a1_.set(vt[0], i1_, d);
-        a2_.set(MaskConv<component_type>::toUInt8(vt[1]));
-    }
-
-    /** scalar & scalar image */
-    template <class V, class ITERATOR>
-    void setComponent(V const& value, ITERATOR const& i, int idx) const
-    {
-        switch (idx)
+        template <class ValueType,
+        class ImageIterator, class ImageAccessor,
+        class AlphaIterator, class AlphaAccessor>
+            void
+            read_image_band_and_alpha(Decoder* decoder,
+            ImageIterator image_iterator, ImageAccessor image_accessor,
+            AlphaIterator alpha_iterator, AlphaAccessor alpha_accessor)
         {
-            case 0:
-                a1_.set(value, i1_, *i);
-                break;
-            case 1:
-                a2_.set(MaskConv<V>::toUInt8(value), i2_, *i);
-                break;
-            default:
-                vigra_fail("too many components in input value");
-        }
-    }
+            typedef typename ImageIterator::row_iterator ImageRowIterator;
+            typedef typename AlphaIterator::row_iterator AlphaRowIterator;
 
-    /** read one component */
-    template <class ITERATOR>
-    component_type getComponent(ITERATOR const& i, int idx) const
-    {
-        switch (idx)
-        {
-            case 0:
-                return a1_(i1_, *i);
-            case 1:
-                return MaskConv<component_type>::fromUInt8(a2_(i2_, *i));
-            default:
-                vigra_fail("too many components in input value");
-                // never reached, but here to silence compiler
-                exit(1);
-        }
-    }
+            vigra_precondition(decoder->getNumExtraBands() == 1,
+                "vigra::detail::read_image_band_and_alpha: expecting exactly one alpha band");
+            vigra_precondition(decoder->getNumBands() - decoder->getNumExtraBands() == 1,
+                "vigra::detail::read_image_band_and_alpha: expecting exactly one image band");
 
-    template <class ITERATOR>
-    unsigned int size(ITERATOR const& i) const
-    {
-        return 2;
-    }
+            const unsigned width(decoder->getWidth());
+            const unsigned height(decoder->getHeight());
+            const unsigned offset(decoder->getOffset());
 
-private:
-    Iter1 i1_;
-    Acc1 a1_;
-    Iter2 i2_;
-    Acc2 a2_;
-};
-
-
-// get: convert from UInt8 mask to native type
-// read: convert from native type to UInt8 mask
-template <class Iter1, class Acc1, class Iter2, class Acc2>
-class MultiImageVectorMaskAccessor4
-{
-public:
-    /** The accessors value_type: construct a pair that contains
-    the corresponding image values.
-    */
-    typedef typename Acc1::value_type VT1;
-    // todo.. check static_size, currently static_size == 4
-    enum { static_size = 4 };
-
-    typedef vigra::TinyVector<typename VT1::value_type, static_size> value_type;
-    typedef typename value_type::value_type component_type;
-
-    typedef VectorElementAccessor<MultiImageVectorMaskAccessor4<Iter1, Acc1, Iter2, Acc2> > ElementAccessor;
-    typedef typename Acc2::value_type alpha_type;
-
-    /** Construct from two image iterators and associated accessors.
-    */
-    MultiImageVectorMaskAccessor4(Iter1 i1, Acc1 a1, Iter2 i2, Acc2 a2)
-        : i1_(i1), a1_(a1), i2_(i2), a2_(a2)
-    {}
-
-    /** read the current data item
-    */
-    template <class DIFFERENCE>
-    value_type operator()(DIFFERENCE const& d) const
-    {
-        const VT1& v1 = a1_.get(i1_, d);
-        return value_type(v1[0],
-                          v1[1],
-                          v1[2],
-                          MaskConv<component_type>::fromUInt8(a2_(i2_, d)));
-    }
-
-    /** read the data item at an offset
-    */
-    template <class DIFFERENCE1, class DIFFERENCE2>
-    value_type operator()(DIFFERENCE1 d, DIFFERENCE2 const& d2) const
-    {
-        d += d2;
-        const VT1& v1 = a1_.get(i1_, d);
-        return value_type(v1[0],
-                          v1[1],
-                          v1[2],
-                          MaskConv<component_type>::fromUInt8(a2_(i2_, d)));
-    }
-
-    /** write the current data item
-    */
-    template <class DIFFERENCE>
-    value_type set(const value_type& vt, DIFFERENCE const& d) const
-    {
-        Iter1 i1(i1_);
-        i1 += d;
-        a1_.setComponent(vt[0], i1_, 0);
-        a1_.setComponent(vt[1], i1_, 1);
-        a1_.setComponent(vt[2], i1_, 2);
-        a2_.set(MaskConv<component_type>::toUInt8(vt[3]), i2_, d);
-    }
-
-    /** vector & scalar image */
-    template <class V, class ITERATOR>
-    void setComponent(V const& value, ITERATOR const& i, int idx) const
-    {
-        if (idx < static_size - 1)
-        {
-            a1_.setComponent(value, i1_, *i, idx);
-        }
-        else if (idx == static_size - 1)
-        {
-            a2_.set(MaskConv<V>::toUInt8(value), i2_, *i);
-        }
-        else
-        {
-            vigra_fail("too many components in input value");
-        }
-    }
-
-    /** read one component */
-    template <class ITERATOR>
-    component_type getComponent(ITERATOR const& i, int idx) const
-    {
-        if (idx < static_size - 1)
-        {
-            return a1_.getComponent(i1_, *i, idx);
-        }
-        else
-#ifndef DEBUG
-            return MaskConv<component_type>::fromUInt8(a2_(i2_, *i));
-#else
-            if (idx == static_size - 1)
+            for (unsigned y = 0U; y != height; ++y)
             {
-                return MaskConv<component_type>::fromUInt8(a2_(i2_, *i));
+                decoder->nextScanline();
+
+                const ValueType* scanline0 = static_cast<const ValueType*>(decoder->currentScanlineOfBand(0));
+                const ValueType* scanline1 = static_cast<const ValueType*>(decoder->currentScanlineOfBand(1));
+
+                ImageRowIterator is(image_iterator.rowIterator());
+                const ImageRowIterator is_end(is + width);
+                AlphaRowIterator as(alpha_iterator.rowIterator());
+
+                while (is != is_end)
+                {
+                    image_accessor.set(*scanline0, is);
+                    scanline0 += offset;
+                    ++is;
+
+                    alpha_accessor.set(*scanline1, as);
+                    scanline1 += offset;
+                    ++as;
+                }
+
+                ++image_iterator.y;
+                ++alpha_iterator.y;
+            }
+        }
+
+
+        template <class ValueType,
+        class ImageIterator, class ImageAccessor,
+        class AlphaIterator, class AlphaAccessor>
+            void
+            read_image_bands_and_alpha(Decoder* decoder,
+            ImageIterator image_iterator, ImageAccessor image_accessor,
+            AlphaIterator alpha_iterator, AlphaAccessor alpha_accessor)
+        {
+            typedef typename ImageIterator::row_iterator ImageRowIterator;
+            typedef typename AlphaIterator::row_iterator AlphaRowIterator;
+
+            vigra_precondition(decoder->getNumExtraBands() == 1,
+                "vigra::detail::read_image_bands_and_alpha: expecting exactly one alpha band");
+            vigra_precondition(decoder->getNumBands() - decoder->getNumExtraBands() == image_accessor.size(image_iterator),
+                "vigra::detail::read_image_bands_and_alpha: number of channels and image accessor do not match");
+
+            const unsigned width(decoder->getWidth());
+            const unsigned height(decoder->getHeight());
+            const unsigned offset(decoder->getOffset());
+            const unsigned accessor_size(image_accessor.size(image_iterator));
+
+            // OPTIMIZATION: Specialization for the most common case
+            // of an RGBA-image, i.e. three color channels plus one
+            // alpha channel.
+            if (accessor_size == 3U)
+            {
+                const ValueType* scanline_0;
+                const ValueType* scanline_1;
+                const ValueType* scanline_2;
+                const ValueType* scanline_3; // alpha
+
+                for (unsigned y = 0U; y != height; ++y)
+                {
+                    decoder->nextScanline();
+
+                    scanline_0 = static_cast<const ValueType*>(decoder->currentScanlineOfBand(0));
+                    scanline_1 = static_cast<const ValueType*>(decoder->currentScanlineOfBand(1));
+                    scanline_2 = static_cast<const ValueType*>(decoder->currentScanlineOfBand(2));
+                    scanline_3 = static_cast<const ValueType*>(decoder->currentScanlineOfBand(3));
+
+                    ImageRowIterator is(image_iterator.rowIterator());
+                    const ImageRowIterator is_end(is + width);
+                    AlphaRowIterator as(alpha_iterator.rowIterator());
+
+                    while (is != is_end)
+                    {
+                        image_accessor.setComponent(*scanline_0, is, 0);
+                        image_accessor.setComponent(*scanline_1, is, 1);
+                        image_accessor.setComponent(*scanline_2, is, 2);
+                        alpha_accessor.set(*scanline_3, as);
+                        scanline_0 += offset;
+                        scanline_1 += offset;
+                        scanline_2 += offset;
+                        scanline_3 += offset;
+
+                        ++is;
+                        ++as;
+                    }
+
+                    ++image_iterator.y;
+                    ++alpha_iterator.y;
+                }
             }
             else
             {
-                vigra_fail("too many components in input value");
-                // just to silence the compiler warning. this is
-                // never reached, since vigra_fail will always
-                // throw an exception.
-                throw 0;
+                std::vector<const ValueType*> scanlines(accessor_size + 1U);
+
+                for (unsigned y = 0U; y != height; ++y)
+                {
+                    decoder->nextScanline();
+
+                    for (unsigned i = 0U; i != accessor_size + 1U; ++i)
+                    {
+                        scanlines[i] = static_cast<const ValueType*>(decoder->currentScanlineOfBand(i));
+                    }
+
+                    ImageRowIterator is(image_iterator.rowIterator());
+                    const ImageRowIterator is_end(is + width);
+                    AlphaRowIterator as(alpha_iterator.rowIterator());
+
+                    while (is != is_end)
+                    {
+                        for (unsigned i = 0U; i != accessor_size; ++i)
+                        {
+                            image_accessor.setComponent(*scanlines[i], is, static_cast<int>(i));
+                            scanlines[i] += offset;
+                        }
+                        ++is;
+
+                        alpha_accessor.set(*scanlines[accessor_size], as);
+                        scanlines[accessor_size] += offset;
+                        ++as;
+                    }
+
+                    ++image_iterator.y;
+                    ++alpha_iterator.y;
+                }
             }
-#endif
+        }
+
+
+        template <class ImageIterator, class ImageAccessor,
+        class AlphaIterator, class AlphaAccessor>
+            void
+            importImageAlpha(const ImageImportInfo& import_info,
+            ImageIterator image_iterator, ImageAccessor image_accessor,
+            AlphaIterator alpha_iterator, AlphaAccessor alpha_accessor,
+            /* isScalar? */ VigraTrueType)
+        {
+            VIGRA_UNIQUE_PTR<Decoder> decoder(vigra::decoder(import_info));
+
+            switch (pixel_t_of_string(decoder->getPixelType()))
+            {
+                case UNSIGNED_INT_8:
+                    read_image_band_and_alpha<UInt8>(decoder.get(),
+                        image_iterator, image_accessor,
+                        alpha_iterator, alpha_accessor);
+                    break;
+                case UNSIGNED_INT_16:
+                    read_image_band_and_alpha<UInt16>(decoder.get(),
+                        image_iterator, image_accessor,
+                        alpha_iterator, alpha_accessor);
+                    break;
+                case UNSIGNED_INT_32:
+                    read_image_band_and_alpha<UInt32>(decoder.get(),
+                        image_iterator, image_accessor,
+                        alpha_iterator, alpha_accessor);
+                    break;
+                case SIGNED_INT_16:
+                    read_image_band_and_alpha<Int16>(decoder.get(),
+                        image_iterator, image_accessor,
+                        alpha_iterator, alpha_accessor);
+                    break;
+                case SIGNED_INT_32:
+                    read_image_band_and_alpha<Int32>(decoder.get(),
+                        image_iterator, image_accessor,
+                        alpha_iterator, alpha_accessor);
+                    break;
+                case IEEE_FLOAT_32:
+                    read_image_band_and_alpha<float>(decoder.get(),
+                        image_iterator, image_accessor,
+                        alpha_iterator, alpha_accessor);
+                    break;
+                case IEEE_FLOAT_64:
+                    read_image_band_and_alpha<double>(decoder.get(),
+                        image_iterator, image_accessor,
+                        alpha_iterator, alpha_accessor);
+                    break;
+                default:
+                    vigra_fail("vigra::detail::importImageAlpha<scalar>: not reached");
+            }
+
+            decoder->close();
+        }
+
+
+        template <class ImageIterator, class ImageAccessor,
+        class AlphaIterator, class AlphaAccessor>
+            void
+            importImageAlpha(const ImageImportInfo& import_info,
+            ImageIterator image_iterator, ImageAccessor image_accessor,
+            AlphaIterator alpha_iterator, AlphaAccessor alpha_accessor,
+            /* isScalar? */ VigraFalseType)
+        {
+            VIGRA_UNIQUE_PTR<Decoder> decoder(vigra::decoder(import_info));
+
+            switch (pixel_t_of_string(decoder->getPixelType()))
+            {
+                case UNSIGNED_INT_8:
+                    read_image_bands_and_alpha<UInt8>(decoder.get(),
+                        image_iterator, image_accessor,
+                        alpha_iterator, alpha_accessor);
+                    break;
+                case UNSIGNED_INT_16:
+                    read_image_bands_and_alpha<UInt16>(decoder.get(),
+                        image_iterator, image_accessor,
+                        alpha_iterator, alpha_accessor);
+                    break;
+                case UNSIGNED_INT_32:
+                    read_image_bands_and_alpha<UInt32>(decoder.get(),
+                        image_iterator, image_accessor,
+                        alpha_iterator, alpha_accessor);
+                    break;
+                case SIGNED_INT_16:
+                    read_image_bands_and_alpha<Int16>(decoder.get(),
+                        image_iterator, image_accessor,
+                        alpha_iterator, alpha_accessor);
+                    break;
+                case SIGNED_INT_32:
+                    read_image_bands_and_alpha<Int32>(decoder.get(),
+                        image_iterator, image_accessor,
+                        alpha_iterator, alpha_accessor);
+                    break;
+                case IEEE_FLOAT_32:
+                    read_image_bands_and_alpha<float>(decoder.get(),
+                        image_iterator, image_accessor,
+                        alpha_iterator, alpha_accessor);
+                    break;
+                case IEEE_FLOAT_64:
+                    read_image_bands_and_alpha<double>(decoder.get(),
+                        image_iterator, image_accessor,
+                        alpha_iterator, alpha_accessor);
+                    break;
+                default:
+                    vigra_fail("vigra::detail::importImageAlpha<non-scalar>: not reached");
+            }
+
+            decoder->close();
+        }
+    } // end namespace detail
+
+
+    /**
+
+    \brief Read the image specified by the given \ref
+    vigra::ImageImportInfo object including its alpha channel.
+
+    See \ref importImage() for more information.
+
+    <B>Declarations</B>
+
+    pass 2D array views:
+    \code
+    namespace vigra {
+    template <class T1, class S1,
+    class T2, class S2>
+    void
+    importImageAlpha(ImageImportInfo const & import_info,
+    MultiArrayView<2, T1, S1> image,
+    MultiArrayView<2, T2, S2> alpha);
     }
+    \endcode
 
-    template <class ITERATOR>
-    unsigned int size(ITERATOR const& i) const
-    {
-        return static_size;
+    \deprecatedAPI{importImageAlpha}
+    pass \ref ImageIterators and \ref DataAccessors :
+    \code
+    namespace vigra {
+    template <class ImageIterator, class ImageAccessor,
+    class AlphaIterator, class AlphaAccessor>
+    void
+    importImageAlpha(const ImageImportInfo& importInfo,
+    ImageIterator imageIterator, ImageAccessor imageAccessor,
+    AlphaIterator alphaIterator, AlphaAccessor alphaAccessor)
     }
-
-private:
-    Iter1 i1_;
-    Acc1 a1_;
-    Iter2 i2_;
-    Acc2 a2_;
-};
-
-
-// scalar image
-template<class SrcIterator, class SrcAccessor,
-         class AlphaIterator, class AlphaAccessor>
-void exportImageAlpha(vigra::triple<SrcIterator, SrcIterator, SrcAccessor> image,
-                      std::pair<AlphaIterator, AlphaAccessor> alpha,
-                      vigra::ImageExportInfo const& info,
-                      vigra::VigraTrueType)
-{
-    typedef MultiImageMaskAccessor2<SrcIterator, SrcAccessor, AlphaIterator, AlphaAccessor> MAcc;
-
-    exportImage(vigra::CoordinateIterator(),
-                vigra::CoordinateIterator() + (image.second - image.first),
-                MAcc(image.first, image.third, alpha.first, alpha.second),
-                info);
-}
-
-
-// vector image
-template<class SrcIterator, class SrcAccessor,
-         class AlphaIterator, class AlphaAccessor>
-void exportImageAlpha(vigra::triple<SrcIterator, SrcIterator, SrcAccessor> image,
-                      std::pair<AlphaIterator, AlphaAccessor> alpha,
-                      vigra::ImageExportInfo const& info,
-                      vigra::VigraFalseType)
-{
-    typedef MultiImageVectorMaskAccessor4<SrcIterator, SrcAccessor, AlphaIterator, AlphaAccessor> MAcc;
-
-    exportImage(vigra::CoordinateIterator(), vigra::CoordinateIterator(image.second - image.first),
-                MAcc(image.first, image.third, alpha.first, alpha.second), info);
-}
-
-
-/** export an image with a differently typed alpha channel.
-*
-*  This function handles the merging of the images and the
-*  scales the alpha channel to the correct values.
-*
-*  can write to all output formats that support 4 channel images.
-*  (currently only png and tiff).
-*/
-template<class SrcIterator, class SrcAccessor,
-         class AlphaIterator, class AlphaAccessor>
-void exportImageAlpha(vigra::triple<SrcIterator, SrcIterator, SrcAccessor> image,
-                      std::pair<AlphaIterator, AlphaAccessor> alpha,
-                      vigra::ImageExportInfo const& info)
-{
-    typedef typename vigra::NumericTraits<typename SrcAccessor::value_type>::isScalar is_scalar;
-    // select function for scalar, or vector image, depending on source type.
-    // the alpha image has to be scalar all the time. stuff will break with strange
-    // compile error if it isn't
-    exportImageAlpha(image, alpha, info, is_scalar());
-}
-
-
-// vector image
-template<class DestIterator, class DestAccessor,
-         class AlphaIterator, class AlphaAccessor>
-void importImageAlpha(vigra::ImageImportInfo const& info,
-                      std::pair<DestIterator, DestAccessor> image,
-                      std::pair<AlphaIterator, AlphaAccessor> alpha,
-                      vigra::VigraFalseType)
-{
-    vigra_precondition(image.second(image.first).size() == 3,
-                       "only scalar and 3 channel (vector) images supported by impexalpha.hxx");
-
-    typedef MultiImageVectorMaskAccessor4<DestIterator, DestAccessor, AlphaIterator, AlphaAccessor> MAcc;
-    importImage(info,
-                vigra::CoordinateIterator(),
-                MAcc(image.first, image.second, alpha.first, alpha.second));
-}
-
-// scalar image
-template<class DestIterator, class DestAccessor,
-         class AlphaIterator, class AlphaAccessor>
-void importImageAlpha(vigra::ImageImportInfo const& info,
-                      std::pair<DestIterator, DestAccessor> image,
-                      std::pair<AlphaIterator, AlphaAccessor> alpha,
-                      vigra::VigraTrueType)
-{
-    typedef MultiImageMaskAccessor2<DestIterator, DestAccessor, AlphaIterator, AlphaAccessor> MAcc;
-
-    importImage(info, vigra::CoordinateIterator(),
-                MAcc(image.first, image.second, alpha.first, alpha.second));
-}
-
-
-/** import an image with a differently typed alpha channel.
-*
-*  This function loads an image, and splits it into a
-*  color image and a separate alpha channel, the alpha channel
-*  should be a 8 bit image.
-*
-*  If the image doesn't contain any alpha channel, a completely
-*  white one is created.
-*
-*  can write to all output formats that support 4 channel images.
-*  (currently only png and tiff).
-*/
-template<class DestIterator, class DestAccessor,
-         class AlphaIterator, class AlphaAccessor>
-void importImageAlpha(vigra::ImageImportInfo const& info,
-                      vigra::pair<DestIterator, DestAccessor> image,
-                      std::pair<AlphaIterator, AlphaAccessor> alpha
-                     )
-{
-    typedef typename vigra::NumericTraits<typename DestAccessor::value_type>::isScalar is_scalar;
-
-    if (info.numExtraBands() == 1)
-    {
-        // import image and alpha channel
-        importImageAlpha(info, image, alpha, is_scalar());
+    \endcode
+    Use argument objects in conjunction with \ref ArgumentObjectFactories :
+    \code
+    namespace vigra {
+    template <class ImageIterator, class ImageAccessor,
+    class AlphaIterator, class AlphaAccessor>
+    void
+    importImageAlpha(const ImageImportInfo& importInfo,
+    const pair<ImageIterator, ImageAccessor>& image,
+    const pair<AlphaIterator, AlphaAccessor>& alpha)
     }
-    else if (info.numExtraBands() == 0)
+    \endcode
+    \deprecatedEnd
+
+    <b> Usage:</b>
+
+    <B>\#include</B> \<vigra/impexalpha.hxx\><br/>
+    Namespace: vigra
+
+    \code
+    typedef UInt8 value_t;
+    ImageImportInfo info("zorro.tif");
+
+    if (info.isGrayscale())
     {
-        // no alphachannel in file, import as usual.
-        importImage(info, image);
-        // fill alpha image
-        vigra::initImage(alpha.first,
-                         alpha.first + vigra::Diff2D(info.width(), info.height()),
-                         alpha.second,
-                         255);
+    MultiArray<2, value_t> alpha(info.shape());
+    MultiArray<2, value_t> image(info.shape());
+
+    importImageAlpha(info, image, alpha);
+    ...
     }
     else
     {
-        vigra_fail("Images with two or more channel are not supported");
+    MultiArray<2, value_t>            alpha(info.shape());
+    MultiArray<2, RGBValue<value_t> > image(info.shape());
+
+    importImageAlpha(info, image, alpha);
+    ...
     }
-}
+    \endcode
 
-} // namespace
+    \deprecatedUsage{importImageAlpha}
+    \code
+    typedef UInt8 value_t;
+    ImageImportInfo info("zorro.tif");
 
-#endif // VIGRAEXT_IMPEXALPHA_H
+    if (info.isGrayscale())
+    {
+    BasicImage<value_t> alpha(info.size());
+    BasicImage<value_t> image(info.size());
+
+    importImageAlpha(info,
+    image.upperLeft(), image.accessor(),
+    alpha.upperLeft(), alpha.accessor());
+    ...
+    }
+    else
+    {
+    BasicImage<value_t> alpha(info.size());
+    BasicImage<vigra::RGBValue<value_t> > image(info.size());
+
+    importImageAlpha(info,
+    image.upperLeft(), image.accessor(),
+    alpha.upperLeft(), alpha.accessor());
+    ...
+    }
+    \endcode
+    \deprecatedEnd
+
+    <B>Preconditions</B>
+
+    - The same preconditions hold as for importImage(), however the
+    only image formats that support alpha channels are
+    + TIFF and
+    + PNG.
+    In particular, JPEG does <B>not</B> support alpha channels.
+    - The alpha channel always is scalar-valued, i.e. comprises a
+    single band.
+    */
+    doxygen_overloaded_function(template <...> void importImageAlpha)
+
+
+        template <class ImageIterator, class ImageAccessor,
+    class AlphaIterator, class AlphaAccessor>
+        inline void
+        importImageAlpha(const ImageImportInfo& import_info,
+        ImageIterator image_iterator, ImageAccessor image_accessor,
+        AlphaIterator alpha_iterator, AlphaAccessor alpha_accessor)
+    {
+        typedef typename ImageAccessor::value_type ImageValueType;
+        typedef typename vigra::NumericTraits<ImageValueType>::isScalar is_scalar;
+
+        detail::importImageAlpha(import_info,
+            image_iterator, image_accessor,
+            alpha_iterator, alpha_accessor,
+            is_scalar());
+    }
+
+
+    template <class ImageIterator, class ImageAccessor,
+    class AlphaIterator, class AlphaAccessor>
+        inline void
+        importImageAlpha(ImageImportInfo const & import_info,
+        pair<ImageIterator, ImageAccessor> image,
+        pair<AlphaIterator, AlphaAccessor> alpha)
+    {
+        importImageAlpha(import_info,
+            image.first, image.second,
+            alpha.first, alpha.second);
+    }
+
+    template <class T1, class S1,
+    class T2, class S2>
+        inline void
+        importImageAlpha(ImageImportInfo const & import_info,
+        MultiArrayView<2, T1, S1> image,
+        MultiArrayView<2, T2, S2> alpha)
+    {
+        vigra_precondition(import_info.shape() == image.shape() && import_info.shape() == alpha.shape(),
+            "importImageAlpha(): shape mismatch between input and output.");
+        importImageAlpha(import_info, destImage(image), destImage(alpha));
+    }
+
+
+    namespace detail
+    {
+        template<class ValueType,
+        class ImageIterator, class ImageAccessor, class ImageScaler,
+        class AlphaIterator, class AlphaAccessor, class AlphaScaler>
+            void
+            write_image_band_and_alpha(Encoder* encoder,
+            ImageIterator image_upper_left, ImageIterator image_lower_right, ImageAccessor image_accessor,
+            const ImageScaler& image_scaler,
+            AlphaIterator alpha_upper_left, AlphaAccessor alpha_accessor,
+            const AlphaScaler& alpha_scaler)
+        {
+            typedef typename ImageIterator::row_iterator ImageRowIterator;
+            typedef typename AlphaIterator::row_iterator AlphaRowIterator;
+
+            typedef detail::RequiresExplicitCast<ValueType> explicit_cast;
+
+            vigra_precondition(image_lower_right.x >= image_upper_left.x,
+                "vigra::detail::write_image_band_and_alpha: negative width");
+            vigra_precondition(image_lower_right.y >= image_upper_left.y,
+                "vigra::detail::write_image_band_and_alpha: negative height");
+
+            const unsigned width(static_cast<unsigned>(image_lower_right.x - image_upper_left.x));
+            const unsigned height(static_cast<unsigned>(image_lower_right.y - image_upper_left.y));
+
+            encoder->setWidth(width);
+            encoder->setHeight(height);
+            encoder->setNumBands(1 + 1);
+            encoder->finalizeSettings();
+
+            const unsigned offset(encoder->getOffset()); // correct offset only _after_ finalizeSettings()
+
+            // IMPLEMENTATION NOTE: We avoid calling the default constructor
+            // to allow classes ImageIterator and AlphaIterator that do not
+            // define one.
+            ImageIterator image_iterator(image_upper_left);
+            AlphaIterator alpha_iterator(alpha_upper_left);
+
+            for (unsigned y = 0U; y != height; ++y)
+            {
+                ValueType* scanline0 = static_cast<ValueType*>(encoder->currentScanlineOfBand(0));
+                ValueType* scanline1 = static_cast<ValueType*>(encoder->currentScanlineOfBand(1));
+
+                ImageRowIterator is(image_iterator.rowIterator());
+                const ImageRowIterator is_end(is + width);
+                AlphaRowIterator as(alpha_iterator.rowIterator());
+
+                while (is != is_end)
+                {
+                    *scanline0 = explicit_cast::cast(image_scaler(image_accessor(is)));
+                    scanline0 += offset;
+                    ++is;
+
+                    *scanline1 = explicit_cast::cast(alpha_scaler(alpha_accessor(as)));
+                    scanline1 += offset;
+                    ++as;
+                }
+
+                encoder->nextScanline();
+
+                ++image_iterator.y;
+                ++alpha_iterator.y;
+            }
+        }
+
+
+        template<class ValueType,
+        class ImageIterator, class ImageAccessor, class ImageScaler,
+        class AlphaIterator, class AlphaAccessor, class AlphaScaler>
+            void
+            write_image_bands_and_alpha(Encoder* encoder,
+            ImageIterator image_upper_left, ImageIterator image_lower_right, ImageAccessor image_accessor,
+            const ImageScaler& image_scaler,
+            AlphaIterator alpha_upper_left, AlphaAccessor alpha_accessor,
+            const AlphaScaler& alpha_scaler)
+        {
+            typedef typename ImageIterator::row_iterator ImageRowIterator;
+            typedef typename AlphaIterator::row_iterator AlphaRowIterator;
+            typedef detail::RequiresExplicitCast<ValueType> explicit_cast;
+
+            vigra_precondition(image_lower_right.x >= image_upper_left.x,
+                "vigra::detail::write_image_bands_and_alpha: negative width");
+            vigra_precondition(image_lower_right.y >= image_upper_left.y,
+                "vigra::detail::write_image_bands_and_alpha: negative height");
+
+            const unsigned width(static_cast<unsigned>(image_lower_right.x - image_upper_left.x));
+            const unsigned height(static_cast<unsigned>(image_lower_right.y - image_upper_left.y));
+            const unsigned accessor_size(image_accessor.size(image_upper_left));
+
+            encoder->setWidth(width);
+            encoder->setHeight(height);
+            encoder->setNumBands(accessor_size + 1U);
+            encoder->finalizeSettings();
+
+            const unsigned offset(encoder->getOffset()); // correct offset only _after_ finalizeSettings()
+
+            // IMPLEMENTATION NOTE: We avoid calling the default constructor
+            // to allow classes ImageIterator and AlphaIterator that do not
+            // define one.
+            ImageIterator image_iterator(image_upper_left);
+            AlphaIterator alpha_iterator(alpha_upper_left);
+
+            // OPTIMIZATION: Specialization for the most common case
+            // of an RGBA-image, i.e. three color channels plus one
+            // alpha channel.
+            if (accessor_size == 3U)
+            {
+                ValueType* scanline_0;
+                ValueType* scanline_1;
+                ValueType* scanline_2;
+                ValueType* scanline_3; // alpha
+
+                for (unsigned y = 0U; y != height; ++y)
+                {
+                    scanline_0 = static_cast<ValueType*>(encoder->currentScanlineOfBand(0));
+                    scanline_1 = static_cast<ValueType*>(encoder->currentScanlineOfBand(1));
+                    scanline_2 = static_cast<ValueType*>(encoder->currentScanlineOfBand(2));
+                    scanline_3 = static_cast<ValueType*>(encoder->currentScanlineOfBand(3));
+
+                    ImageRowIterator is(image_iterator.rowIterator());
+                    const ImageRowIterator is_end(is + width);
+                    AlphaRowIterator as(alpha_iterator.rowIterator());
+
+                    while (is != is_end)
+                    {
+                        *scanline_0 = explicit_cast::cast(image_scaler(image_accessor.getComponent(is, 0)));
+                        *scanline_1 = explicit_cast::cast(image_scaler(image_accessor.getComponent(is, 1)));
+                        *scanline_2 = explicit_cast::cast(image_scaler(image_accessor.getComponent(is, 2)));
+                        *scanline_3 = explicit_cast::cast(alpha_scaler(alpha_accessor(as)));
+                        scanline_0 += offset;
+                        scanline_1 += offset;
+                        scanline_2 += offset;
+                        scanline_3 += offset;
+
+                        ++is;
+                        ++as;
+                    }
+
+                    encoder->nextScanline();
+
+                    ++image_iterator.y;
+                    ++alpha_iterator.y;
+                }
+            }
+            else
+            {
+                std::vector<ValueType*> scanlines(accessor_size + 1U);
+
+                for (unsigned y = 0U; y != height; ++y)
+                {
+                    for (unsigned i = 0U; i != accessor_size + 1U; ++i)
+                    {
+                        scanlines[i] = static_cast<ValueType*>(encoder->currentScanlineOfBand(i));
+                    }
+
+                    ImageRowIterator is(image_iterator.rowIterator());
+                    const ImageRowIterator is_end(is + width);
+                    AlphaRowIterator as(alpha_iterator.rowIterator());
+
+                    while (is != is_end)
+                    {
+                        for (unsigned i = 0U; i != accessor_size; ++i)
+                        {
+                            *scanlines[i] = explicit_cast::cast(image_scaler(image_accessor.getComponent(is, static_cast<int>(i))));
+                            scanlines[i] += offset;
+                        }
+                        ++is;
+
+                        *scanlines[accessor_size] = explicit_cast::cast(alpha_scaler(alpha_accessor(as)));
+                        scanlines[accessor_size] += offset;
+                        ++as;
+                    }
+
+                    encoder->nextScanline();
+
+                    ++image_iterator.y;
+                    ++alpha_iterator.y;
+                }
+            }
+        }
+
+
+        template <class ImageIterator, class ImageAccessor,
+        class AlphaIterator, class AlphaAccessor>
+            void
+            exportImageAlpha(ImageIterator image_upper_left, ImageIterator image_lower_right, ImageAccessor image_accessor,
+            AlphaIterator alpha_upper_left, AlphaAccessor alpha_accessor,
+            const ImageExportInfo& export_info,
+            /* isScalar? */ VigraTrueType)
+        {
+            typedef typename ImageAccessor::value_type ImageValueType;
+
+            VIGRA_UNIQUE_PTR<Encoder> encoder(vigra::encoder(export_info));
+
+            std::string pixel_type(export_info.getPixelType());
+            const bool downcast(negotiatePixelType(encoder->getFileType(), TypeAsString<ImageValueType>::result(), pixel_type));
+            const pixel_t type(pixel_t_of_string(pixel_type));
+
+            encoder->setPixelType(pixel_type);
+
+            const range_t image_source_range(find_source_value_range(export_info,
+                image_upper_left, image_lower_right, image_accessor));
+            const range_t alpha_source_range(find_source_value_range(export_info,
+                alpha_upper_left,
+                alpha_upper_left + (image_lower_right - image_upper_left),
+                alpha_accessor));
+            const range_t destination_range(find_destination_value_range(export_info, type));
+
+            if ((downcast || export_info.hasForcedRangeMapping()) &&
+                (image_source_range.first != destination_range.first || image_source_range.second != destination_range.second ||
+                alpha_source_range.first != destination_range.first || alpha_source_range.second != destination_range.second))
+            {
+                const linear_transform image_rescaler(image_source_range, destination_range);
+                const linear_transform alpha_rescaler(alpha_source_range, destination_range);
+
+                switch (type)
+                {
+                    case UNSIGNED_INT_8:
+                        write_image_band_and_alpha<UInt8>(encoder.get(),
+                            image_upper_left, image_lower_right, image_accessor, image_rescaler,
+                            alpha_upper_left, alpha_accessor, alpha_rescaler);
+                        break;
+                    case UNSIGNED_INT_16:
+                        write_image_band_and_alpha<UInt16>(encoder.get(),
+                            image_upper_left, image_lower_right, image_accessor, image_rescaler,
+                            alpha_upper_left, alpha_accessor, alpha_rescaler);
+                        break;
+                    case UNSIGNED_INT_32:
+                        write_image_band_and_alpha<UInt32>(encoder.get(),
+                            image_upper_left, image_lower_right, image_accessor, image_rescaler,
+                            alpha_upper_left, alpha_accessor, alpha_rescaler);
+                        break;
+                    case SIGNED_INT_16:
+                        write_image_band_and_alpha<Int16>(encoder.get(),
+                            image_upper_left, image_lower_right, image_accessor, image_rescaler,
+                            alpha_upper_left, alpha_accessor, alpha_rescaler);
+                        break;
+                    case SIGNED_INT_32:
+                        write_image_band_and_alpha<Int32>(encoder.get(),
+                            image_upper_left, image_lower_right, image_accessor, image_rescaler,
+                            alpha_upper_left, alpha_accessor, alpha_rescaler);
+                        break;
+                    case IEEE_FLOAT_32:
+                        write_image_band_and_alpha<float>(encoder.get(),
+                            image_upper_left, image_lower_right, image_accessor, image_rescaler,
+                            alpha_upper_left, alpha_accessor, alpha_rescaler);
+                        break;
+                    case IEEE_FLOAT_64:
+                        write_image_band_and_alpha<double>(encoder.get(),
+                            image_upper_left, image_lower_right, image_accessor, image_rescaler,
+                            alpha_upper_left, alpha_accessor, alpha_rescaler);
+                        break;
+                    default:
+                        vigra_fail("vigra::detail::exportImageAlpha<scalar>: not reached");
+                }
+            }
+            else
+            {
+                // now check if alpha channel matches
+                if (alpha_source_range.first != destination_range.first || alpha_source_range.second != destination_range.second)
+                {
+                    const linear_transform alpha_rescaler(alpha_source_range, destination_range);
+
+                    switch (type)
+                    {
+                        case UNSIGNED_INT_8:
+                            write_image_band_and_alpha<UInt8>(encoder.get(),
+                                image_upper_left, image_lower_right, image_accessor, identity(),
+                                alpha_upper_left, alpha_accessor, alpha_rescaler);
+                            break;
+                        case UNSIGNED_INT_16:
+                            write_image_band_and_alpha<UInt16>(encoder.get(),
+                                image_upper_left, image_lower_right, image_accessor, identity(),
+                                alpha_upper_left, alpha_accessor, alpha_rescaler);
+                            break;
+                        case UNSIGNED_INT_32:
+                            write_image_band_and_alpha<UInt32>(encoder.get(),
+                                image_upper_left, image_lower_right, image_accessor, identity(),
+                                alpha_upper_left, alpha_accessor, alpha_rescaler);
+                            break;
+                        case SIGNED_INT_16:
+                            write_image_band_and_alpha<Int16>(encoder.get(),
+                                image_upper_left, image_lower_right, image_accessor, identity(),
+                                alpha_upper_left, alpha_accessor, alpha_rescaler);
+                            break;
+                        case SIGNED_INT_32:
+                            write_image_band_and_alpha<Int32>(encoder.get(),
+                                image_upper_left, image_lower_right, image_accessor, identity(),
+                                alpha_upper_left, alpha_accessor, alpha_rescaler);
+                            break;
+                        case IEEE_FLOAT_32:
+                            write_image_band_and_alpha<float>(encoder.get(),
+                                image_upper_left, image_lower_right, image_accessor, identity(),
+                                alpha_upper_left, alpha_accessor, alpha_rescaler);
+                            break;
+                        case IEEE_FLOAT_64:
+                            write_image_band_and_alpha<double>(encoder.get(),
+                                image_upper_left, image_lower_right, image_accessor, identity(),
+                                alpha_upper_left, alpha_accessor, alpha_rescaler);
+                            break;
+                        default:
+                            vigra_fail("vigra::detail::exportImageAlpha<scalar>: not reached");
+                    }
+                }
+                else
+                {
+                    switch (type)
+                    {
+                        case UNSIGNED_INT_8:
+                            write_image_band_and_alpha<UInt8>(encoder.get(),
+                                image_upper_left, image_lower_right, image_accessor, identity(),
+                                alpha_upper_left, alpha_accessor, identity());
+                            break;
+                        case UNSIGNED_INT_16:
+                            write_image_band_and_alpha<UInt16>(encoder.get(),
+                                image_upper_left, image_lower_right, image_accessor, identity(),
+                                alpha_upper_left, alpha_accessor, identity());
+                            break;
+                        case UNSIGNED_INT_32:
+                            write_image_band_and_alpha<UInt32>(encoder.get(),
+                                image_upper_left, image_lower_right, image_accessor, identity(),
+                                alpha_upper_left, alpha_accessor, identity());
+                            break;
+                        case SIGNED_INT_16:
+                            write_image_band_and_alpha<Int16>(encoder.get(),
+                                image_upper_left, image_lower_right, image_accessor, identity(),
+                                alpha_upper_left, alpha_accessor, identity());
+                            break;
+                        case SIGNED_INT_32:
+                            write_image_band_and_alpha<Int32>(encoder.get(),
+                                image_upper_left, image_lower_right, image_accessor, identity(),
+                                alpha_upper_left, alpha_accessor, identity());
+                            break;
+                        case IEEE_FLOAT_32:
+                            write_image_band_and_alpha<float>(encoder.get(),
+                                image_upper_left, image_lower_right, image_accessor, identity(),
+                                alpha_upper_left, alpha_accessor, identity());
+                            break;
+                        case IEEE_FLOAT_64:
+                            write_image_band_and_alpha<double>(encoder.get(),
+                                image_upper_left, image_lower_right, image_accessor, identity(),
+                                alpha_upper_left, alpha_accessor, identity());
+                            break;
+                        default:
+                            vigra_fail("vigra::detail::exportImageAlpha<scalar>: not reached");
+                    }
+                }
+            }
+
+            encoder->close();
+        }
+
+
+        template <class ImageIterator, class ImageAccessor,
+        class AlphaIterator, class AlphaAccessor>
+            void
+            exportImageAlpha(ImageIterator image_upper_left, ImageIterator image_lower_right, ImageAccessor image_accessor,
+            AlphaIterator alpha_upper_left, AlphaAccessor alpha_accessor,
+            const ImageExportInfo& export_info,
+            /* isScalar? */ VigraFalseType)
+        {
+            typedef typename ImageAccessor::value_type ImageBaseType;
+            typedef typename ImageBaseType::value_type ImageValueType;
+
+            VIGRA_UNIQUE_PTR<Encoder> encoder(vigra::encoder(export_info));
+
+            std::string pixel_type(export_info.getPixelType());
+            const bool downcast(negotiatePixelType(encoder->getFileType(), TypeAsString<ImageValueType>::result(), pixel_type));
+            const pixel_t type(pixel_t_of_string(pixel_type));
+
+            encoder->setPixelType(pixel_type);
+
+            vigra_precondition(isBandNumberSupported(encoder->getFileType(), image_accessor.size(image_upper_left) + 1U),
+                "exportImageAlpha(): file format does not support requested number of bands (color channels)");
+
+            const range_t image_source_range(find_source_value_range(export_info,
+                image_upper_left, image_lower_right, image_accessor));
+            const range_t alpha_source_range(find_source_value_range(export_info,
+                alpha_upper_left,
+                alpha_upper_left + (image_lower_right - image_upper_left),
+                alpha_accessor));
+            const range_t destination_range(find_destination_value_range(export_info, pixel_t_of_string(pixel_type)));
+
+            if ((downcast || export_info.hasForcedRangeMapping()) &&
+                (image_source_range.first != destination_range.first || image_source_range.second != destination_range.second ||
+                alpha_source_range.first != destination_range.first || alpha_source_range.second != destination_range.second))
+            {
+                const linear_transform image_rescaler(image_source_range, destination_range);
+                const linear_transform alpha_rescaler(alpha_source_range, destination_range);
+
+                switch (type)
+                {
+                    case UNSIGNED_INT_8:
+                        write_image_bands_and_alpha<UInt8>(encoder.get(),
+                            image_upper_left, image_lower_right, image_accessor, image_rescaler,
+                            alpha_upper_left, alpha_accessor, alpha_rescaler);
+                        break;
+                    case UNSIGNED_INT_16:
+                        write_image_bands_and_alpha<UInt16>(encoder.get(),
+                            image_upper_left, image_lower_right, image_accessor, image_rescaler,
+                            alpha_upper_left, alpha_accessor, alpha_rescaler);
+                        break;
+                    case UNSIGNED_INT_32:
+                        write_image_bands_and_alpha<UInt32>(encoder.get(),
+                            image_upper_left, image_lower_right, image_accessor, image_rescaler,
+                            alpha_upper_left, alpha_accessor, alpha_rescaler);
+                        break;
+                    case SIGNED_INT_16:
+                        write_image_bands_and_alpha<Int16>(encoder.get(),
+                            image_upper_left, image_lower_right, image_accessor, image_rescaler,
+                            alpha_upper_left, alpha_accessor, alpha_rescaler);
+                        break;
+                    case SIGNED_INT_32:
+                        write_image_bands_and_alpha<Int32>(encoder.get(),
+                            image_upper_left, image_lower_right, image_accessor, image_rescaler,
+                            alpha_upper_left, alpha_accessor, alpha_rescaler);
+                        break;
+                    case IEEE_FLOAT_32:
+                        write_image_bands_and_alpha<float>(encoder.get(),
+                            image_upper_left, image_lower_right, image_accessor, image_rescaler,
+                            alpha_upper_left, alpha_accessor, alpha_rescaler);
+                        break;
+                    case IEEE_FLOAT_64:
+                        write_image_bands_and_alpha<double>(encoder.get(),
+                            image_upper_left, image_lower_right, image_accessor, image_rescaler,
+                            alpha_upper_left, alpha_accessor, alpha_rescaler);
+                        break;
+                    default:
+                        vigra_fail("vigra::detail::exportImageAlpha<non-scalar>: not reached");
+                }
+            }
+            else
+            {
+                // check if alpha channel matches
+                if (alpha_source_range.first != destination_range.first || alpha_source_range.second != destination_range.second)
+                {
+                    const linear_transform alpha_rescaler(alpha_source_range, destination_range);
+
+                    switch (type)
+                    {
+                        case UNSIGNED_INT_8:
+                            write_image_bands_and_alpha<UInt8>(encoder.get(),
+                                image_upper_left, image_lower_right, image_accessor, identity(),
+                                alpha_upper_left, alpha_accessor, alpha_rescaler);
+                            break;
+                        case UNSIGNED_INT_16:
+                            write_image_bands_and_alpha<UInt16>(encoder.get(),
+                                image_upper_left, image_lower_right, image_accessor, identity(),
+                                alpha_upper_left, alpha_accessor, alpha_rescaler);
+                            break;
+                        case UNSIGNED_INT_32:
+                            write_image_bands_and_alpha<UInt32>(encoder.get(),
+                                image_upper_left, image_lower_right, image_accessor, identity(),
+                                alpha_upper_left, alpha_accessor, alpha_rescaler);
+                            break;
+                        case SIGNED_INT_16:
+                            write_image_bands_and_alpha<Int16>(encoder.get(),
+                                image_upper_left, image_lower_right, image_accessor, identity(),
+                                alpha_upper_left, alpha_accessor, alpha_rescaler);
+                            break;
+                        case SIGNED_INT_32:
+                            write_image_bands_and_alpha<Int32>(encoder.get(),
+                                image_upper_left, image_lower_right, image_accessor, identity(),
+                                alpha_upper_left, alpha_accessor, alpha_rescaler);
+                            break;
+                        case IEEE_FLOAT_32:
+                            write_image_bands_and_alpha<float>(encoder.get(),
+                                image_upper_left, image_lower_right, image_accessor, identity(),
+                                alpha_upper_left, alpha_accessor, alpha_rescaler);
+                            break;
+                        case IEEE_FLOAT_64:
+                            write_image_bands_and_alpha<double>(encoder.get(),
+                                image_upper_left, image_lower_right, image_accessor, identity(),
+                                alpha_upper_left, alpha_accessor, alpha_rescaler);
+                            break;
+                        default:
+                            vigra_fail("vigra::detail::exportImageAlpha<scalar>: not reached");
+                    }
+                }
+                else
+                {
+                    switch (type)
+                    {
+                        case UNSIGNED_INT_8:
+                            write_image_bands_and_alpha<UInt8>(encoder.get(),
+                                image_upper_left, image_lower_right, image_accessor, identity(),
+                                alpha_upper_left, alpha_accessor, identity());
+                            break;
+                        case UNSIGNED_INT_16:
+                            write_image_bands_and_alpha<UInt16>(encoder.get(),
+                                image_upper_left, image_lower_right, image_accessor, identity(),
+                                alpha_upper_left, alpha_accessor, identity());
+                            break;
+                        case UNSIGNED_INT_32:
+                            write_image_bands_and_alpha<UInt32>(encoder.get(),
+                                image_upper_left, image_lower_right, image_accessor, identity(),
+                                alpha_upper_left, alpha_accessor, identity());
+                            break;
+                        case SIGNED_INT_16:
+                            write_image_bands_and_alpha<Int16>(encoder.get(),
+                                image_upper_left, image_lower_right, image_accessor, identity(),
+                                alpha_upper_left, alpha_accessor, identity());
+                            break;
+                        case SIGNED_INT_32:
+                            write_image_bands_and_alpha<Int32>(encoder.get(),
+                                image_upper_left, image_lower_right, image_accessor, identity(),
+                                alpha_upper_left, alpha_accessor, identity());
+                            break;
+                        case IEEE_FLOAT_32:
+                            write_image_bands_and_alpha<float>(encoder.get(),
+                                image_upper_left, image_lower_right, image_accessor, identity(),
+                                alpha_upper_left, alpha_accessor, identity());
+                            break;
+                        case IEEE_FLOAT_64:
+                            write_image_bands_and_alpha<double>(encoder.get(),
+                                image_upper_left, image_lower_right, image_accessor, identity(),
+                                alpha_upper_left, alpha_accessor, identity());
+                            break;
+                        default:
+                            vigra_fail("vigra::detail::exportImageAlpha<non-scalar>: not reached");
+                    }
+                }
+            }
+
+            encoder->close();
+        }
+    } // end namespace detail
+
+
+    /**
+    \brief Write the image and its alpha channel to a file.
+
+    See \ref exportImage() for more information.
+
+    <B>Declarations</B>
+
+    pass 2D array views:
+    \code
+    namespace vigra {
+    template <class T1, class S1,
+    class T2, class S2>
+    void
+    exportImageAlpha(MultiArrayView<2, T1, S1> const & image,
+    MultiArrayView<2, T2, S2> const & alpha,
+    ImageExportInfo const & export_info);
+
+    template <class T1, class S1,
+    class T2, class S2>
+    void
+    exportImageAlpha(MultiArrayView<2, T1, S1> const & image,
+    MultiArrayView<2, T2, S2> const & alpha,
+    char const * filename)
+
+    template <class T1, class S1,
+    class T2, class S2>
+    void
+    exportImageAlpha(MultiArrayView<2, T1, S1> const & image,
+    MultiArrayView<2, T2, S2> const & alpha,
+    std::string const & filename)
+    }
+    \endcode
+
+    \deprecatedAPI{exportImageAlpha}
+    pass \ref ImageIterators and \ref DataAccessors :
+    \code
+    namespace vigra {
+    template <class ImageIterator, class ImageAccessor,
+    class AlphaIterator, class AlphaAccessor>
+    void
+    exportImageAlpha(ImageIterator imageUpperLeft, ImageIterator imageLowerRight, ImageAccessor imageAccessor,
+    AlphaIterator alphaUpperLeft, AlphaAccessor alphaAccessor,
+    const ImageExportInfo& exportInfo)
+    }
+    \endcode
+    Use argument objects in conjunction with \ref ArgumentObjectFactories :
+    \code
+    namespace vigra {
+    template <class ImageIterator, class ImageAccessor,
+    class AlphaIterator, class AlphaAccessor>
+    void
+    exportImageAlpha(const triple<ImageIterator, ImageIterator, ImageAccessor>& image,
+    const pair<AlphaIterator, AlphaAccessor>& alpha,
+    const ImageExportInfo& exportInfo)
+    }
+    \endcode
+    \deprecatedEnd
+
+    <b> Usage:</b>
+
+    <B>\#include</B> \<vigra/impexalpha.hxx\><br/>
+    Namespace: vigra
+
+    \code
+    typedef UInt8 value_t;
+
+    MultiArray<2, value_t>            alpha(width, height);
+    MultiArray<2, RGBValue<value_t> > image(width, height);
+
+    ... // do some image processing
+
+    // specify the output filename
+    exportImageAlpha(image, alpha, "zorro.tif");
+
+    // use a ImageExportInfo if you need more control over the export
+    exportImageAlpha(image, alpha, ImageExportInfo("zorro.tif").setPixelType("FLOAT"));
+    \endcode
+
+    \deprecatedUsage{exportImageAlpha}
+    \code
+    typedef UInt8 value_t;
+    ImageExportInfo info("zorro.tif");
+
+    if (info.isGrayscale())
+    {
+    BasicImage<value_t> alpha;
+    BasicImage<value_t> image;
+
+    ...
+
+    exportImageAlpha(image.upperLeft(), image.lowerRight(), image.accessor(),
+    alpha.upperLeft(), alpha.accessor(),
+    info);
+    }
+    else
+    {
+    BasicImage<value_t> alpha;
+    BasicImage<vigra::RGBValue<value_t> > image;
+
+    ...
+
+    exportImageAlpha(image.upperLeft(), image.lowerRight(), image.accessor(),
+    alpha.upperLeft(), alpha.accessor(),
+    info);
+    }
+    \endcode
+    \deprecatedEnd
+
+    <B>Preconditions</B>
+
+    - The same preconditions hold as for exportImage(), however the
+    only image formats that support alpha channels are
+    + TIFF and
+    + PNG.
+    In particular, JPEG does <B>not</B> support alpha channels.
+    - The alpha channel always is scalar-valued, i.e. comprises a
+    single band.
+    */
+    doxygen_overloaded_function(template <...> void exportImageAlpha)
+
+
+        template <class ImageIterator, class ImageAccessor,
+    class AlphaIterator, class AlphaAccessor>
+        inline void
+        exportImageAlpha(ImageIterator image_upper_left, ImageIterator image_lower_right, ImageAccessor image_accessor,
+        AlphaIterator alpha_upper_left, AlphaAccessor alpha_accessor,
+        const ImageExportInfo& export_info)
+    {
+        typedef typename ImageAccessor::value_type ImageValueType;
+        typedef typename vigra::NumericTraits<ImageValueType>::isScalar is_scalar;
+
+        try
+        {
+            detail::exportImageAlpha(image_upper_left, image_lower_right, image_accessor,
+                alpha_upper_left, alpha_accessor,
+                export_info,
+                is_scalar());
+        }
+        catch (Encoder::TIFFCompressionException&)
+        {
+            ImageExportInfo info(export_info);
+
+            info.setCompression("");
+            detail::exportImageAlpha(image_upper_left, image_lower_right, image_accessor,
+                alpha_upper_left, alpha_accessor,
+                info,
+                is_scalar());
+        }
+    }
+
+
+    template <class ImageIterator, class ImageAccessor,
+    class AlphaIterator, class AlphaAccessor>
+        inline void
+        exportImageAlpha(triple<ImageIterator, ImageIterator, ImageAccessor> image,
+        pair<AlphaIterator, AlphaAccessor> alpha,
+        ImageExportInfo const & export_info)
+    {
+        exportImageAlpha(image.first, image.second, image.third,
+            alpha.first, alpha.second,
+            export_info);
+    }
+
+    template <class T1, class S1,
+    class T2, class S2>
+        inline void
+        exportImageAlpha(MultiArrayView<2, T1, S1> const & image,
+        MultiArrayView<2, T2, S2> const & alpha,
+        ImageExportInfo const & export_info)
+    {
+        exportImageAlpha(srcImageRange(image),
+            srcImage(alpha),
+            export_info);
+    }
+
+    template <class T1, class S1,
+    class T2, class S2>
+        inline void
+        exportImageAlpha(MultiArrayView<2, T1, S1> const & image,
+        MultiArrayView<2, T2, S2> const & alpha,
+        char const * name)
+    {
+        ImageExportInfo export_info(name);
+        exportImageAlpha(srcImageRange(image),
+            srcImage(alpha),
+            export_info);
+    }
+
+    template <class T1, class S1,
+    class T2, class S2>
+        inline void
+        exportImageAlpha(MultiArrayView<2, T1, S1> const & image,
+        MultiArrayView<2, T2, S2> const & alpha,
+        std::string const & name)
+    {
+        ImageExportInfo export_info(name.c_str());
+        exportImageAlpha(srcImageRange(image),
+            srcImage(alpha),
+            export_info);
+    }
+
+    /** @} */
+
+} // end namespace vigra
+
+#endif // VIGRAEXT_IMPEXALPHA_HXX
