@@ -116,7 +116,7 @@ IF(WIN32)
     )
     FIND_PATH(OPENEXR_BIN_DIR 
             NAMES Half.dll 
-            PATHS ${SOURCE_BASE_DIR}/Deploy/lib/Release ${SOURCE_BASE_DIR}/Deploy/bin/Release
+            PATHS ${SOURCE_BASE_DIR}/Deploy/lib ${SOURCE_BASE_DIR}/Deploy/bin ${SOURCE_BASE_DIR}/Deploy/lib/Release ${SOURCE_BASE_DIR}/Deploy/bin/Release
             DOC "Location of OpenEXR libraries"
             NO_SYSTEM_ENVIRONMENT_PATH
             NO_DEFAULT_PATH
@@ -141,12 +141,12 @@ IF(WIN32)
     ENDIF()
     FIND_FILE(EXIV2_DLL 
       NAMES exiv2.dll 
-      PATHS ${SOURCE_BASE_DIR}/exiv2/msvc2012/exiv2lib/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/bin/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/bin/Win32/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.22/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.21.1/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.20/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.19/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.18.2/msvc/bin/ReleaseDLL
+      PATHS ${SOURCE_BASE_DIR}/exiv2/bin ${SOURCE_BASE_DIR}/exiv2/msvc2012/exiv2lib/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.25/msvc2012/exiv2lib/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.24/msvc2012/exiv2lib/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/bin/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/bin/Win32/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.22/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.21.1/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.20/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.19/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.18.2/msvc/bin/ReleaseDLL
       NO_SYSTEM_ENVIRONMENT_PATH
     )
     FIND_FILE(LIBEXPAT_DLL 
-      NAMES libexpat.dll 
-      PATHS ${SOURCE_BASE_DIR}/exiv2/msvc2012/exiv2lib/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/bin/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/bin/Win32/ReleaseDLL ${SOURCE_BASE_DIR}/expat-2.0.1/win32/bin/Release ${SOURCE_BASE_DIR}/exiv2-0.22/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.21.1/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.20/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.19/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.18.2/msvc/bin/ReleaseDLL
+      NAMES libexpat.dll expat.dll
+      PATHS ${SOURCE_BASE_DIR}/expat/bin ${SOURCE_BASE_DIR}/exiv2/msvc2012/exiv2lib/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.25/msvc2012/exiv2lib/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.24/msvc2012/exiv2lib/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/bin/Win32/ReleaseDLL ${SOURCE_BASE_DIR}/expat-2.0.1/win32/bin/Release ${SOURCE_BASE_DIR}/exiv2-0.22/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.21.1/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.20/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.19/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.18.2/msvc/bin/ReleaseDLL
       NO_SYSTEM_ENVIRONMENT_PATH
     )
     FIND_FILE(GLEW_DLL
@@ -154,9 +154,9 @@ IF(WIN32)
       PATHS ${SOURCE_BASE_DIR}/glew/bin
       NO_SYSTEM_ENVIRONMENT_PATH
     )
-    FIND_FILE(GLUT_DLL
-      NAMES glut.dll freeglut.dll glut32.dll
-      PATHS ${SOURCE_BASE_DIR}/glut/bin ${SOURCE_BASE_DIR}/freeglut-2.6.0/VisualStudio2008/Release ${SOURCE_BASE_DIR}/glut/Release ${SOURCE_BASE_DIR}/glut/lib
+    FIND_FILE(LCMS2_DLL
+      NAMES lcms2.dll
+      PATHS ${LCMS2_ROOT_DIR}/bin
       NO_SYSTEM_ENVIRONMENT_PATH
     )
     # hand tuned dll, so that only necesarry dll are install and not all wxWidgets DLL to save space
@@ -189,7 +189,7 @@ IF(WIN32)
               PATHS ${wxWidgets_LIB_DIR} NO_SYSTEM_ENVIRONMENT_PATH)
 
     INSTALL(FILES ${TIFF_DLL} ${JPEG_DLL} ${PNG_DLL} ${ZLIB_DLL} ${OPENEXR_DLL} ${VIGRA_DLL}
-        ${BOOST_DLLs} ${EXIV2_DLL} ${LIBEXPAT_DLL} ${GLEW_DLL} ${GLUT_DLL}
+        ${BOOST_DLLs} ${EXIV2_DLL} ${LIBEXPAT_DLL} ${GLEW_DLL} ${LCMS2_DLL}
         ${WXWIDGETS_DLL1} ${WXWIDGETS_DLL2} ${WXWIDGETS_DLL2} ${WXWIDGETS_DLL3}
         ${WXWIDGETS_DLL3} ${WXWIDGETS_DLL4} ${WXWIDGETS_DLL5} ${WXWIDGETS_DLL6}
         ${WXWIDGETS_DLL7} ${WXWIDGETS_DLL8} ${WXWIDGETS_DLL9}
@@ -202,7 +202,8 @@ IF(WIN32)
     IF(HAVE_FFTW)
       FIND_FILE(FFTW3_DLL 
         NAMES libfftw-3.3.dll
-        PATHS ${SOURCE_BASE_DIR}/fftw-3.3.4/fftw-3.3-libs/x64 
+        PATHS ${SOURCE_BASE_DIR}/fftw-3.3.4/fftw-3.3-libs/x64/Release
+              ${SOURCE_BASE_DIR}/fftw-3.3.4/fftw-3.3-libs/x64 
               ${SOURCE_BASE_DIR}/fftw-3.3.4/fftw-3.3-libs/
               ${SOURCE_BASE_DIR}/fftw-3.3.3/fftw-3.3-libs/x64 
               ${SOURCE_BASE_DIR}/fftw-3.3.3/fftw-3.3-libs/
