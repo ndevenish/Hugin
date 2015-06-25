@@ -602,7 +602,7 @@ int LEVMAR_LEC_DIF(
 
   if(!info) info=locinfo; /* make sure that LEVMAR_DIF() is called with non-null info */
   /* note that covariance computation is not requested from LEVMAR_DIF() */
-  ret=LEVMAR_DIF(LMLEC_FUNC, pp, x, mm, n, itmax, opts, info, work, NULL, (void *)&data);
+  ret=LEVMAR_DIF(LMLEC_FUNC, NULL, pp, x, mm, n, itmax, opts, info, work, NULL, (void *)&data);
 
   /* p=c + Z*pp */
   for(i=0; i<m; ++i){
