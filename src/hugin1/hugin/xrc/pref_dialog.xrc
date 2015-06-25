@@ -347,7 +347,9 @@ per overlap</label>
                         </object>
                         <object class="sizeritem">
                           <object class="wxSpinCtrl" name="prefs_ass_panoDownsizeFactor">
-                            <min>70</min>
+                            <value>70</value>
+                            <min>1</min>
+                            <max>500</max>
                           </object>
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
