@@ -329,8 +329,6 @@ void PhotometricOptimizer::optimizePhotometric(PanoramaData & pano, const Optimi
     printf("\n");
 #endif
 
-    // covariance matrix at solution
-    vigra::DImage cov(m,m);
     // TODO: setup optimisation options with some good defaults.
     double optimOpts[5];
     
@@ -342,7 +340,7 @@ void PhotometricOptimizer::optimizePhotometric(PanoramaData & pano, const Optimi
     // difference mode
     optimOpts[4] = LM_DIFF_DELTA;
     
-    ret=dlevmar_dif(&photometricError, &photometricVis, &(p[0]), &(x[0]), m, n, nMaxIter, optimOpts, info, NULL, &(cov(0,0)), &data);  // no jacobian
+    ret=dlevmar_dif(&photometricError, &photometricVis, &(p[0]), &(x[0]), m, n, nMaxIter, optimOpts, info, NULL,NULL, &data);  // no jacobian
     // copy to source images (data.m_imgs)
     data.FromX(p.begin());
     // calculate error at solution

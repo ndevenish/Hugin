@@ -385,8 +385,6 @@ void optimize_new(PanoramaData& pano)
         fprintf(stderr, "\n");
     }
 
-    // covariance matrix at solution
-    vigra::DImage cov(m, m);
     // TODO: setup optimization options with some good defaults.
     double optimOpts[5];
 
@@ -400,7 +398,7 @@ void optimize_new(PanoramaData& pano)
 
     //    data.huberSigma = 0;
 
-    ret = dlevmar_dif(&optGetError, &optVis, &(p[0]), &(x[0]), m, n, nMaxIter, NULL, info, NULL, &(cov(0, 0)), &data);  // no jacobian
+    ret = dlevmar_dif(&optGetError, &optVis, &(p[0]), &(x[0]), m, n, nMaxIter, NULL, info, NULL, NULL, &data);  // no jacobian
     // copy to source images (data.m_imgs)
     data.SaveToImgs();
     // calculate error at solution
