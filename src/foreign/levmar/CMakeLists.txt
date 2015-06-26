@@ -1,9 +1,16 @@
 
 # levmar library source files
-ADD_LIBRARY(huginlevmar STATIC
-  lm.c Axb.c misc.c lmlec.c lmbc.c lmblec.c lmbleic.c
-  levmar.h misc.h compiler.h
+set(LEVMAR_SOURCE
+    lm.c Axb.c misc.c 
+    # the following files are not needed for Hugin
+    # therefore commenting out
+    # lmlec.c lmbc.c lmblec.c lmbleic.c
 )
+set(LEVMAR_HEADER
+    levmar.h misc.h compiler.h
+)
+
+ADD_LIBRARY(huginlevmar STATIC ${LEVMAR_SOURCE} ${LEVMAR_HEADER})
 
 IF (NOT MSVC)
   SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC")
