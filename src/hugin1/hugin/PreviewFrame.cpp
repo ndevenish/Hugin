@@ -176,7 +176,7 @@ PreviewFrame::PreviewFrame(wxFrame * frame, HuginBase::Panorama &pano)
                                 _("VFOV"));
     m_VFOVSlider->SetLineSize(2);
     m_VFOVSlider->SetPageSize(10);
-#if wxCHECK_VERSION(3,0,1)
+#if wxCHECK_VERSION(3,0,0)
     m_VFOVSlider->SetTickFreq(5);
 #else
     m_VFOVSlider->SetTickFreq(5,0);
@@ -193,7 +193,7 @@ PreviewFrame::PreviewFrame(wxFrame * frame, HuginBase::Panorama &pano)
                                 _("HFOV"));
     m_HFOVSlider->SetPageSize(10);
     m_HFOVSlider->SetLineSize(2);
-#if wxCHECK_VERSION(3,0,1)
+#if wxCHECK_VERSION(3,0,0)
     m_HFOVSlider->SetTickFreq(5);
 #else
     m_HFOVSlider->SetTickFreq(5,0);
