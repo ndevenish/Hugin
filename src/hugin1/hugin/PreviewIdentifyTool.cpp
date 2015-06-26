@@ -62,6 +62,34 @@
 bool PreviewIdentifyTool::texture_created = false;
 unsigned int PreviewIdentifyTool::circle_border_tex;
 unsigned int PreviewIdentifyTool::rectangle_border_tex;
+unsigned int PreviewIdentifyTool::font_tex;
+unsigned int PreviewIdentifyTool::font_list;
+std::vector<int> PreviewIdentifyTool::m_glyphWidth;
+
+#define FONT_TEXTURE_HEIGHT 75
+wxBitmap GenerateFontTexture(const int textureHeight, int& textureWidth, std::vector<int>& glyphWidth)
+{
+    wxBitmap bitmap(10 * textureHeight, textureHeight);
+    wxMemoryDC dc(bitmap);
+    dc.SetBackground(*wxBLACK_BRUSH);
+    dc.Clear(); 
+    wxFont font(wxSize(0, textureHeight), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
+    dc.SetFont(font);
+    dc.SetTextForeground(*wxWHITE);
+    dc.DrawText(wxT("0123456789"), 0, 0);
+    textureWidth = 0;
+    glyphWidth.resize(10, 0);
+    for (int i = 0; i < 10; ++i)
+    {
+        wxString number;
+        number << i;
+        wxSize textSize = dc.GetTextExtent(number);
+        textureWidth += textSize.GetWidth();
+        glyphWidth[i] = textSize.GetWidth();
+    };
+    dc.SelectObject(wxNullBitmap);
+    return bitmap;
+}
 
 PreviewIdentifyTool::PreviewIdentifyTool(ToolHelper *helper,
                                          GLPreviewFrame *owner)
@@ -170,6 +198,50 @@ PreviewIdentifyTool::PreviewIdentifyTool(ToolHelper *helper,
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
         }
+        {
+            int textureWidth;
+            wxBitmap fontTexture(GenerateFontTexture(FONT_TEXTURE_HEIGHT, textureWidth, m_glyphWidth));
+            wxImage image = fontTexture.ConvertToImage();
+            glGenTextures(1, (GLuint*)&font_tex);
+            glBindTexture(GL_TEXTURE_2D, font_tex);
+            unsigned char* font_tex_data = new unsigned char[FONT_TEXTURE_HEIGHT * textureWidth * 2];
+            for (size_t x = 0; x < textureWidth; ++x)
+            {
+                for (size_t y = 0; y < FONT_TEXTURE_HEIGHT; ++y)
+                {
+                    const unsigned char value = image.GetRed(x, y);
+                    font_tex_data[2 * y * textureWidth + 2 * x] = value;
+                    font_tex_data[2 * y * textureWidth + 2 * x + 1] = value;
+                };
+            };
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+            gluBuild2DMipmaps(GL_TEXTURE_2D, GL_LUMINANCE_ALPHA, textureWidth, FONT_TEXTURE_HEIGHT,
+                GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE, font_tex_data);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
+                GL_LINEAR_MIPMAP_LINEAR);
+            delete[] font_tex_data;
+
+            font_list = glGenLists(10);
+            float posX = 0;
+            for (int loop = 0; loop<10; loop++)
+            {
+                glNewList(font_list + loop, GL_COMPILE);
+                glBegin(GL_QUADS);
+                glTexCoord2f(posX, 0);
+                glVertex2i(0, 0);
+                glTexCoord2f(posX + m_glyphWidth[loop] / static_cast<float>(textureWidth), 0);
+                glVertex2i(m_glyphWidth[loop], 0);
+                glTexCoord2f(posX + m_glyphWidth[loop] / static_cast<float>(textureWidth), 1);
+                glVertex2i(m_glyphWidth[loop], FONT_TEXTURE_HEIGHT);
+                glTexCoord2f(posX, 1);
+                glVertex2i(0, FONT_TEXTURE_HEIGHT);
+                glEnd();
+                glTranslated(m_glyphWidth[loop], 0, 0);
+                glEndList();
+                posX += m_glyphWidth[loop] / static_cast<float>(textureWidth);
+            }
+        }
         texture_created = true;
     }
 }
@@ -178,6 +250,8 @@ PreviewIdentifyTool::~PreviewIdentifyTool()
     // free the textures
     glDeleteTextures(1, (GLuint*) &rectangle_border_tex);
     glDeleteTextures(1, (GLuint*) &circle_border_tex);
+    glDeleteLists(font_list, 10);
+    glDeleteTextures(1, (GLuint*) &font_tex);
 }
 
 void PreviewIdentifyTool::Activate()
@@ -343,6 +417,8 @@ void PreviewIdentifyTool::AfterDrawImagesEvent()
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     unsigned int image_counter = 0;
+    const unsigned int canvasWidth = helper->GetViewStatePtr()->GetOptions()->getWidth();
+    const unsigned int canvasHeight = helper->GetViewStatePtr()->GetOptions()->getHeight();
     for (it = image_set.rbegin(); it != image_set.rend(); it++)
     {
         glMatrixMode(GL_TEXTURE);
@@ -414,6 +490,42 @@ void PreviewIdentifyTool::AfterDrawImagesEvent()
         glPopMatrix();
         // tell the preview frame to update the button to show the same colour.
         preview_frame->SetImageButtonColour(*it, r, g, b);
+        // draw number
+        HuginBase::PanoramaOptions* opts = helper->GetViewStatePtr()->GetOptions();
+        HuginBase::SrcPanoImage* img = helper->GetViewStatePtr()->GetSrcImage(*it);
+        HuginBase::PTools::Transform transform;
+        transform.createInvTransform(*img, *opts);
+        hugin_utils::FDiff2D imageCenter(crop_region.upperLeft() + crop_region.size() / 2);
+        hugin_utils::FDiff2D imageCenterPano;
+        if (transform.transformImgCoord(imageCenterPano, imageCenter) && !wxGetKeyState(WXK_ALT))
+        {
+            glBindTexture(GL_TEXTURE_2D, font_tex);
+            if (helper->GetViewStatePtr()->GetSupportMultiTexture())
+            {
+                glActiveTexture(GL_TEXTURE1);
+                glDisable(GL_TEXTURE_2D);
+                glActiveTexture(GL_TEXTURE0);
+            };
+            glMatrixMode(GL_MODELVIEW);
+            glPushMatrix();
+            wxString number;
+            number << *it;
+            int textWidth = 0;
+            for (size_t i = 0; i < number.Length(); ++i)
+            {
+                textWidth += m_glyphWidth[number[i].GetValue() - 48];
+            }
+            float scaleFactor = std::min(canvasWidth, canvasHeight) / static_cast<float>(FONT_TEXTURE_HEIGHT) / 10;
+            imageCenterPano.x = std::min<double>(std::max<double>(imageCenterPano.x, textWidth*scaleFactor / 2.0), canvasWidth - textWidth * scaleFactor / 2.0);
+            imageCenterPano.y = std::min<double>(std::max<double>(imageCenterPano.y, FONT_TEXTURE_HEIGHT*scaleFactor / 2.0), canvasHeight - FONT_TEXTURE_HEIGHT * scaleFactor / 2.0);
+            glTranslatef(imageCenterPano.x, imageCenterPano.y, 0);
+            glScalef(scaleFactor, scaleFactor, 1.0);
+            glTranslatef(-textWidth / 2, -FONT_TEXTURE_HEIGHT / 2, 0);
+            glListBase(font_list - 48);
+            glCallLists(number.Length(), GL_UNSIGNED_BYTE, number.c_str());
+            glMatrixMode(GL_MODELVIEW);
+            glPopMatrix();
+        };
     }
     // set stuff back how we found it.
     glMatrixMode(GL_MODELVIEW);

@@ -24,6 +24,7 @@
 
 #include "Tool.h"
 #include <set>
+#include <vector>
 
 class GLPreviewFrame;
 
@@ -75,6 +76,13 @@ private:
     static unsigned int circle_border_tex;
     /// OpenGL texture name for the rectangular border texture.
     static unsigned int rectangle_border_tex;
+    /// OpenGL texture name for the font texture
+    static unsigned int font_tex;
+    /// OpenGL call list id for font
+    static unsigned int font_list;
+    /// glyph width for font
+    static std::vector<int> m_glyphWidth;
+
     /// Set of image numbers of the images we are displaying highlighted.
     std::set<unsigned int> image_set;
     GLPreviewFrame *preview_frame;
