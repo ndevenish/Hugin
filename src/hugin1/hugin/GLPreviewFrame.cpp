@@ -2719,6 +2719,10 @@ void GLPreviewFrame::SetMode(int newMode)
             preview_helper->DeactivateTool(m_preview_layoutLinesTool);
             panosphere_overview_helper->DeactivateTool(m_panosphere_layoutLinesTool);
             plane_overview_helper->DeactivateTool(m_plane_layoutLinesTool);
+            // reactivate identify tool when leaving layout mode
+            preview_helper->ActivateTool(identify_tool);
+            panosphere_overview_helper->ActivateTool(panosphere_overview_identify_tool);
+            plane_overview_helper->ActivateTool(plane_overview_identify_tool);
             m_GLPreview->SetLayoutMode(false);
             m_GLOverview->SetLayoutMode(false);
             // Switch the panorama mask back on.
@@ -2760,6 +2764,10 @@ void GLPreviewFrame::SetMode(int newMode)
             updateBlendMode();
             // turn off things not used in layout mode.
             preview_helper->DeactivateTool(pano_mask_tool);
+            // deactivate identify tool in layout mode
+            preview_helper->DeactivateTool(identify_tool);
+            panosphere_overview_helper->DeactivateTool(panosphere_overview_identify_tool);
+            plane_overview_helper->DeactivateTool(plane_overview_identify_tool);
             m_GLPreview->SetLayoutMode(true);
             m_GLOverview->SetLayoutMode(true);
             preview_helper->ActivateTool(m_preview_layoutLinesTool);
