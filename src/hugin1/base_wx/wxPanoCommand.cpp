@@ -706,6 +706,11 @@ bool wxLoadPTProjectCmd::processPanorama(HuginBase::Panorama& pano)
                     srcImg.setHFOV(autopanoSiftRefImg.getHFOV());
                 };
             };
+            // remember icc profile, only from first image
+            if (i == 0)
+            {
+                pano.setICCProfileDesc(hugin_utils::GetICCDesc(imginfo.getICCProfile()));
+            }
             pano.setSrcImage(i, srcImg);
         }
         // Link image projection across each lens, since it is not saved.

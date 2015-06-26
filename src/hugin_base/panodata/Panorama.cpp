@@ -3097,12 +3097,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
                 << "  non existing images. Ignoring these control points." << std::endl;
         };
     };
-    // load icc profile
-    if (!images.empty())
-    {
-        vigra::ImageImportInfo info(images[0]->getFilename().c_str());
-        iccProfileDesc = hugin_utils::GetICCDesc(info.getICCProfile());
-    }
+
     // reset locale
     setlocale(LC_NUMERIC,old_locale);
     free(old_locale);
