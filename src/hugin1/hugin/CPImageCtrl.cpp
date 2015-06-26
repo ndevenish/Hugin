@@ -982,68 +982,45 @@ void CPImageCtrl::rescaleImage()
     DEBUG_DEBUG("src image size "
                 << imageSize.GetHeight() << "x" << imageSize.GetWidth());
     if (getScaleFactor() == 1.0) {
-        // need to rotate full image. warning. this can be very memory intensive
-        if (m_imgRotation != ROT0) {
-            wxImage tmp(img);
-            switch(m_imgRotation) {
-                case ROT90:
-                    tmp = tmp.Rotate90(true);
-                    break;
-                case ROT180:
-                    // this is slower than it needs to be...
-                    tmp = tmp.Rotate90(true);
-                    tmp = tmp.Rotate90(true);
-                    break;
-                case ROT270:
-                    tmp = tmp.Rotate90(false);
-                    break;
-                default:
-                    break;
-            }
-            // do color correction only if input image has icc profile or if we found a monitor profile
-            if (!m_img->iccProfile->empty() || huginApp::Get()->HasMonitorProfile())
-            {
-                HuginBase::Color::CorrectImage(tmp, *(m_img->iccProfile), huginApp::Get()->GetMonitorProfile());
-            };
-            bitmap = wxBitmap(tmp);
-        } else {
-            // do color correction only if input image has icc profile or if we found a monitor profile
-            if (!m_img->iccProfile->empty() || huginApp::Get()->HasMonitorProfile())
-            {
-                HuginBase::Color::CorrectImage(img, *(m_img->iccProfile.get()), huginApp::Get()->GetMonitorProfile());
-            };
-            bitmap = wxBitmap(img);
-        }
-    } else {
-        imageSize.SetWidth( scale(imageSize.GetWidth()) );
-        imageSize.SetHeight( scale(imageSize.GetHeight()) );
+        //the icc correction would work on the original cached image file
+        //therefore we need to create a copy to work on it
+        img = img.Copy();
+    }
+    else
+    {
+        // rescale image
+        imageSize.SetWidth(scale(imageSize.GetWidth()));
+        imageSize.SetHeight(scale(imageSize.GetHeight()));
         DEBUG_DEBUG("rescaling to " << imageSize.GetWidth() << "x"
-                    << imageSize.GetHeight() );
-
-        wxImage tmp= img.Scale(imageSize.GetWidth(), imageSize.GetHeight());
-        switch(m_imgRotation) {
+            << imageSize.GetHeight());
+        img = img.Scale(imageSize.GetWidth(), imageSize.GetHeight());
+    };
+    // need to rotate full image. warning. this can be very memory intensive
+    if (m_imgRotation != ROT0)
+    {
+        switch (m_imgRotation)
+        {
             case ROT90:
-                tmp = tmp.Rotate90(true);
+                img = img.Rotate90(true);
                 break;
             case ROT180:
-                    // this is slower than it needs to be...
-                tmp = tmp.Rotate90(true);
-                tmp = tmp.Rotate90(true);
+                // this is slower than it needs to be...
+                img = img.Rotate90(true);
+                img = img.Rotate90(true);
                 break;
             case ROT270:
-                tmp = tmp.Rotate90(false);
+                img = img.Rotate90(false);
                 break;
             default:
                 break;
-        }
-        // do color correction only if input image has icc profile or if we found a monitor profile
-        if (!m_img->iccProfile->empty() || huginApp::Get()->HasMonitorProfile())
-        {
-            HuginBase::Color::CorrectImage(tmp, *(m_img->iccProfile), huginApp::Get()->GetMonitorProfile());
         };
-        bitmap = wxBitmap(tmp);
-        DEBUG_DEBUG("rescaling finished");
-    }
+    };
+    // do color correction only if input image has icc profile or if we found a monitor profile
+    if (!m_img->iccProfile->empty() || huginApp::Get()->HasMonitorProfile())
+    {
+        HuginBase::Color::CorrectImage(img, *(m_img->iccProfile), huginApp::Get()->GetMonitorProfile());
+    };
+    bitmap = wxBitmap(img);
 
     if (m_imgRotation == ROT90 || m_imgRotation == ROT270) {
         SetVirtualSize(imageSize.GetHeight(), imageSize.GetWidth());
