@@ -749,8 +749,8 @@ msgid ""
 "%s\n"
 "Abort"
 msgstr ""
-"Konnte Bild folgendes Bild nicht dekodieren:\n"
-"%s\n"
+"Konnte Bild \"%s\" nicht dekodieren.\n"
+"\n"
 "Vorgang abgebrochen."
 
 #: hugin1/base_wx/wxPanoCommand.cpp:277 hugin1/base_wx/wxPanoCommand.cpp:298
@@ -4820,7 +4820,7 @@ msgstr "In Fenster einpassen"
 
 #: translations/xrc.cpp:127 translations/xrc.cpp:709
 msgid "Fine-tune"
-msgstr "Feinjustierung von Kontrollpunkten"
+msgstr "Feinjustierung"
 
 #: translations/xrc.cpp:128
 msgid "Tries to optimize the currently active point"
@@ -5482,7 +5482,7 @@ msgstr "Jetzt nicht optimieren"
 
 #: translations/xrc.cpp:351
 msgid "Edit cp tools"
-msgstr "Edit cp Tools"
+msgstr "Werkzeug zum Bearbeiten von Kontrollpunkten"
 
 #: translations/xrc.cpp:352 translations/xrc.cpp:1038
 msgid "&Undo"
@@ -6983,11 +6983,11 @@ msgstr ""
 
 #: translations/xrc.cpp:823
 msgid "After \"edit cp\" tool"
-msgstr "Nach \"edit cp\" Tool"
+msgstr "Nach Kontrollpunkt-Werkzeug"
 
 #: translations/xrc.cpp:824
 msgid "Ask user"
-msgstr "Anwender fragen"
+msgstr "Nachfragen"
 
 #: translations/xrc.cpp:825
 msgid "Re-optimize panorama"
@@ -6999,7 +6999,7 @@ msgstr "Panorama nicht optimieren"
 
 #: translations/xrc.cpp:827
 msgid "Edit cp tool (on fast preview window)"
-msgstr "Edit CP Tool (im Schnellen Vorschau Fenster)"
+msgstr "Kontrollpunkt-Werkzeug (KP-Tool im Schnellen Vorschaufenster)"
 
 #: translations/xrc.cpp:828
 msgid "Misc"
@@ -7174,7 +7174,7 @@ msgstr "Erstelle oder lösche Kontrollpunkte im ausgewählten Bereich."
 #: translations/xrc.cpp:889 translations/xrc.cpp:890 translations/xrc.cpp:974
 #: translations/xrc.cpp:975
 msgid "Edit CP"
-msgstr "Edit CP"
+msgstr "KP-Tool"
 
 #: translations/xrc.cpp:891 translations/xrc.cpp:976
 msgid "Background:"
