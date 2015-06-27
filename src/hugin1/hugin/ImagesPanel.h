@@ -79,6 +79,12 @@ public:
     void SetGuiLevel(GuiLevel newGuiLevel);
     /** return the currently selected optimizer setting as string from the drop down list box */
     wxString GetCurrentOptimizerString();
+    /** run the cp generator with the given setting on selected images */
+    void RunCPGenerator(CPDetectorSetting &setting, const HuginBase::UIntSet& img);
+    /** runs the currently selected cp generator on given images */
+    void RunCPGenerator(const HuginBase::UIntSet& img);
+    /** return the currently selected cp generator description */
+    const wxString GetSelectedCPGenerator();
 protected:
     /** event handler for geometric optimizer */
     void OnOptimizeButton(wxCommandEvent &e);

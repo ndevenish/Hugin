@@ -244,9 +244,7 @@
                              <border>3</border>
                            </object>
                            <object class="sizeritem">
-                             <object class="wxButton" name="cp_editor_celeste_button">
-                               <label>Celeste</label>
-                               <tooltip>Tries to remove control points from clouds</tooltip>
+                             <object class="wxButton" name="cp_editor_action_button">
                              </object>
                              <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                              <border>3</border>
@@ -319,5 +317,23 @@
       </object>
     </object>
     <style>wxTAB_TRAVERSAL|wxWANTS_CHARS</style>
+  </object>
+  <object class="wxMenu" name="cp_menu_action">
+    <object class="wxMenuItem" name="cp_menu_create_cp">
+      <label>Create control points</label>
+      <help>Create control points for current image pair</help>
+      <radio>1</radio>
+    </object>
+    <object class="wxMenuItem" name="cp_menu_celeste">
+      <label>Celeste</label>
+      <help>Remove control points in clouds</help>
+      <radio>1</radio>
+      <checked>1</checked>
+    </object>
+    <object class="wxMenuItem" name="cp_menu_clean_cp">
+      <label>Clean control points</label>
+      <radio>1</radio>
+      <help>Remove worst control points</help>
+    </object>
   </object>
 </resource>

@@ -89,7 +89,10 @@ BEGIN_EVENT_TABLE(CPEditorPanel, wxPanel)
     EVT_BUTTON(XRCID("cp_editor_previous_img"), CPEditorPanel::OnPrevImg)
     EVT_BUTTON(XRCID("cp_editor_next_img"), CPEditorPanel::OnNextImg)
     EVT_BUTTON(XRCID("cp_editor_finetune_button"), CPEditorPanel::OnFineTuneButton)
-    EVT_BUTTON(XRCID("cp_editor_celeste_button"), CPEditorPanel::OnCelesteButton)
+    EVT_BUTTON(XRCID("cp_editor_action_button"), CPEditorPanel::OnActionButton)
+    EVT_MENU(XRCID("cp_menu_create_cp"), CPEditorPanel::OnActionSelectCreate)
+    EVT_MENU(XRCID("cp_menu_celeste"), CPEditorPanel::OnActionSelectCeleste)
+    EVT_MENU(XRCID("cp_menu_clean_cp"), CPEditorPanel::OnActionSelectCleanCP)
 END_EVENT_TABLE()
 
 CPEditorPanel::CPEditorPanel()
@@ -151,10 +154,11 @@ bool CPEditorPanel::Create(wxWindow* parent, wxWindowID id,
     m_cpList->InsertColumn( 6, _("Distance"), wxLIST_FORMAT_RIGHT, 110);
 
     //get saved width
+    wxConfigBase* config = wxConfig::Get();
     for ( int j=0; j < m_cpList->GetColumnCount() ; j++ )
     {
         // -1 is auto
-        int width = wxConfigBase::Get()->Read(wxString::Format( wxT("/CPEditorPanel/ColumnWidth%d"), j ), -1);
+        int width = config->Read(wxString::Format( wxT("/CPEditorPanel/ColumnWidth%d"), j ), -1);
         if(width != -1)
             m_cpList->SetColumnWidth(j, width);
     }
@@ -181,11 +185,12 @@ bool CPEditorPanel::Create(wxWindow* parent, wxWindowID id,
     m_estimateCB = XRCCTRL(*this,"cp_editor_auto_estimate", wxCheckBox);
     DEBUG_ASSERT(m_estimateCB);
 
+    m_actionButton = XRCCTRL(*this, "cp_editor_action_button", wxButton);
+    m_actionButton->Connect(wxEVT_CONTEXT_MENU, wxContextMenuEventHandler(CPEditorPanel::OnActionContextMenu), NULL, this);
+    m_cpActionContextMenu = wxXmlResource::Get()->LoadMenu(wxT("cp_menu_action"));
     // setup scroll window for the controls under the images
     m_cp_ctrls = XRCCTRL(*this, "cp_controls_panel", wxPanel);
     DEBUG_ASSERT(m_cp_ctrls);
-
-    wxConfigBase *config = wxConfigBase::Get();
 
     m_autoAddCB->SetValue(config->Read(wxT("/CPEditorPanel/autoAdd"),0l) != 0 );
     m_fineTuneCB->SetValue(config->Read(wxT("/CPEditorPanel/autoFineTune"),1l) != 0 );
@@ -199,7 +204,7 @@ bool CPEditorPanel::Create(wxWindow* parent, wxWindowID id,
     m_fineTuneCB->Disable();
     m_estimateCB->Disable();
     XRCCTRL(*this, "cp_editor_finetune_button", wxButton)->Disable();
-    XRCCTRL(*this, "cp_editor_celeste_button", wxButton)->Disable();
+    m_actionButton->Disable();
     XRCCTRL(*this, "cp_editor_choice_zoom", wxChoice)->Disable();
     XRCCTRL(*this, "cp_editor_previous_img", wxButton)->Disable();
     XRCCTRL(*this, "cp_editor_next_img", wxButton)->Disable();
@@ -212,6 +217,33 @@ bool CPEditorPanel::Create(wxWindow* parent, wxWindowID id,
     OnZoom(dummy);
 
     SetSizer( topsizer );
+    // read last used action setting
+    m_cpActionButtonMode = static_cast<CPTabActionButtonMode>(config->Read(wxT("/CPEditorPanel/ActionMode"), 1l));
+    switch (m_cpActionButtonMode)
+    {
+        case CPTAB_ACTION_CREATE_CP:
+            m_cpActionContextMenu->Check(XRCID("cp_menu_create_cp"), true);
+            {
+                wxCommandEvent e;
+                OnActionSelectCreate(e);
+            };
+            break;
+        case CPTAB_ACTION_CLEAN_CP:
+            m_cpActionContextMenu->Check(XRCID("cp_menu_clean_cp"), true);
+            {
+                wxCommandEvent e;
+                OnActionSelectCleanCP(e);
+            };
+            break;
+        case CPTAB_ACTION_CELESTE:
+        default:
+            m_cpActionContextMenu->Check(XRCID("cp_menu_celeste"), true);
+            {
+                wxCommandEvent e;
+                OnActionSelectCeleste(e);
+            };
+            break;
+    };
 
     return true;
 }
@@ -1214,7 +1246,7 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
         m_fineTuneCB->Disable();
         m_estimateCB->Disable();
         XRCCTRL(*this, "cp_editor_finetune_button", wxButton)->Disable();
-        XRCCTRL(*this, "cp_editor_celeste_button", wxButton)->Disable();
+        m_actionButton->Disable();
         XRCCTRL(*this, "cp_editor_choice_zoom", wxChoice)->Disable();
         XRCCTRL(*this, "cp_editor_previous_img", wxButton)->Disable();
         XRCCTRL(*this, "cp_editor_next_img", wxButton)->Disable();
@@ -1229,7 +1261,7 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
         m_fineTuneCB->Enable();
         m_estimateCB->Enable();
         XRCCTRL(*this, "cp_editor_finetune_button", wxButton)->Enable();
-        XRCCTRL(*this, "cp_editor_celeste_button", wxButton)->Enable();
+        m_actionButton->Enable();
         XRCCTRL(*this, "cp_editor_choice_zoom", wxChoice)->Enable();
         XRCCTRL(*this, "cp_editor_previous_img", wxButton)->Enable();
         XRCCTRL(*this, "cp_editor_next_img", wxButton)->Enable();
@@ -1895,6 +1927,55 @@ void CPEditorPanel::OnFineTuneButton(wxCommandEvent & e)
     }
 }
 
+void CPEditorPanel::OnActionContextMenu(wxContextMenuEvent& e)
+{
+    m_cpActionContextMenu->SetLabel(XRCID("cp_menu_create_cp"), wxString::Format(_("Create cp (Current setting: %s)"), MainFrame::Get()->GetSelectedCPGenerator().c_str()));
+    PopupMenu(m_cpActionContextMenu);
+};
+
+void CPEditorPanel::OnActionButton(wxCommandEvent& e)
+{
+    switch (m_cpActionButtonMode)
+    {
+        case CPTAB_ACTION_CREATE_CP:
+            OnCreateCPButton(e);
+            break;
+        case CPTAB_ACTION_CLEAN_CP:
+            OnCleanCPButton(e);
+            break;
+        case CPTAB_ACTION_CELESTE:
+        default:
+            OnCelesteButton(e);
+            break;
+    };
+};
+
+void CPEditorPanel::OnCreateCPButton(wxCommandEvent& e)
+{
+    if (m_leftImageNr == m_rightImageNr)
+    {
+        // when the same image is selected left and right we are running linefind 
+        // with default parameters
+        CPDetectorSetting linefindSetting;
+#ifdef __WXMSW__
+        linefindSetting.SetProg(wxT("linefind.exe"));
+#else
+        linefindSetting.SetProg(wxT("linefind"));
+#endif
+        linefindSetting.SetArgs(wxT("-o %o %s"));
+        HuginBase::UIntSet imgs;
+        imgs.insert(m_leftImageNr);
+        MainFrame::Get()->RunCPGenerator(linefindSetting, imgs);
+    }
+    else
+    {
+        HuginBase::UIntSet imgs;
+        imgs.insert(m_leftImageNr);
+        imgs.insert(m_rightImageNr);
+        MainFrame::Get()->RunCPGenerator(imgs);
+    };
+};
+
 void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
 {
     if (currentPoints.empty())
@@ -1965,6 +2046,73 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
         DEBUG_TRACE("Finished running Celeste");
     }
 }
+
+void CPEditorPanel::OnCleanCPButton(wxCommandEvent& e)
+{
+    if (currentPoints.size() < 2)
+    {
+        wxBell();
+        return;
+    };
+    // calculate mean and variance only for currently active cp
+    double mean = 0;
+    double var = 0;
+    size_t n = 0;
+    for (HuginBase::CPointVector::const_iterator it = currentPoints.begin(); it != currentPoints.end(); ++it)
+    {
+        n++;
+        double x = it->second.error;
+        double delta = x - mean;
+        mean += delta / n;
+        var += delta*(x - mean);
+    }
+    var = var / (n - 1);
+    const double limit = (sqrt(var) > mean) ? mean : (mean + sqrt(var));
+    HuginBase::UIntSet removedCPs;
+    for (HuginBase::CPointVector::const_iterator it = currentPoints.begin(); it != currentPoints.end(); ++it)
+    {
+        if (it->second.error > limit)
+        {
+            removedCPs.insert(it->first);
+        };
+    };
+    if (!removedCPs.empty())
+    {
+        wxMessageBox(wxString::Format(_("Removed %lu control points"), (unsigned long int)removedCPs.size()), _("Cleaning"), wxOK | wxICON_INFORMATION, this);
+        PanoCommand::GlobalCmdHist::getInstance().addCommand(new PanoCommand::RemoveCtrlPointsCmd(*m_pano, removedCPs));
+    }
+    else
+    {
+        wxBell();
+    }
+};
+
+void CPEditorPanel::OnActionSelectCreate(wxCommandEvent& e)
+{
+    m_cpActionButtonMode = CPTAB_ACTION_CREATE_CP;
+    m_actionButton->SetLabel(_("Create cp"));
+    m_actionButton->SetToolTip(_("Create control points for image pair with currently selected control point detector on photos tab."));
+    Layout();
+    wxConfig::Get()->Write(wxT("/CPEditorPanel/ActionMode"), static_cast<long>(m_cpActionButtonMode));
+};
+
+void CPEditorPanel::OnActionSelectCeleste(wxCommandEvent& e)
+{
+    m_cpActionButtonMode = CPTAB_ACTION_CELESTE;
+    m_actionButton->SetLabel(_("Celeste"));
+    m_actionButton->SetToolTip(_("Tries to remove control points from clouds"));
+    Layout();
+    wxConfig::Get()->Write(wxT("/CPEditorPanel/ActionMode"), static_cast<long>(m_cpActionButtonMode));
+};
+
+void CPEditorPanel::OnActionSelectCleanCP(wxCommandEvent& e)
+{
+    m_cpActionButtonMode = CPTAB_ACTION_CLEAN_CP;
+    m_actionButton->SetLabel(_("Clean cp"));
+    m_actionButton->SetToolTip(_("Remove outlying control points by statistical method"));
+    Layout();
+    wxConfig::Get()->Write(wxT("/CPEditorPanel/ActionMode"), static_cast<long>(m_cpActionButtonMode));
+};
 
 FDiff2D CPEditorPanel::LocalFineTunePoint(unsigned int srcNr,
                                           const Diff2D & srcPnt,

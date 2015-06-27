@@ -294,19 +294,28 @@ void ImagesPanel::CPGenerate(wxCommandEvent & e)
 {
     UIntSet selImg = m_images_tree->GetSelectedImages();
     //if only one image is selected, run detector on all images, except for linefind
-    wxString progName=cpdetector_config.settings[m_CPDetectorChoice->GetSelection()].GetProg().Lower();
-    if ((selImg.size()==0) || (selImg.size()==1 && progName.Find(wxT("linefind"))==wxNOT_FOUND))
+    wxString progName = cpdetector_config.settings[m_CPDetectorChoice->GetSelection()].GetProg().Lower();
+    if ((selImg.size() == 0) || (selImg.size() == 1 && progName.Find(wxT("linefind")) == wxNOT_FOUND))
     {
         // add all images.
         selImg.clear();
-        fill_set(selImg,0,m_pano->getNrOfImages()-1);
+        fill_set(selImg, 0, m_pano->getNrOfImages() - 1);
     }
 
-    if (selImg.size() == 0)
+    if (selImg.empty())
     {
         return;
     }
+    RunCPGenerator(cpdetector_config.settings[m_CPDetectorChoice->GetSelection()], selImg);
+};
 
+void ImagesPanel::RunCPGenerator(const HuginBase::UIntSet& img)
+{
+    RunCPGenerator(cpdetector_config.settings[m_CPDetectorChoice->GetSelection()], img);
+}
+
+void ImagesPanel::RunCPGenerator(CPDetectorSetting &setting, const HuginBase::UIntSet& img)
+{
     wxConfigBase* config=wxConfigBase::Get();
     long nFeatures = HUGIN_ASS_NCONTROLPOINTS;
 #if wxCHECK_VERSION(2,9,4)
@@ -334,14 +343,18 @@ void ImagesPanel::CPGenerate(wxCommandEvent & e)
     };
 
     AutoCtrlPointCreator matcher;
-    HuginBase::CPVector cps = matcher.automatch(cpdetector_config.settings[m_CPDetectorChoice->GetSelection()],
-        *m_pano, selImg, nFeatures,this);
+    HuginBase::CPVector cps = matcher.automatch(setting, *m_pano, img, nFeatures, this);
     wxString msg;
     wxMessageBox(wxString::Format(_("Added %lu control points"), (unsigned long) cps.size()), _("Control point detector result"),wxOK|wxICON_INFORMATION,this);
     PanoCommand::GlobalCmdHist::getInstance().addCommand(
             new PanoCommand::AddCtrlPointsCmd(*m_pano, cps)
                                            );
 
+};
+
+const wxString ImagesPanel::GetSelectedCPGenerator()
+{
+    return cpdetector_config.settings[m_CPDetectorChoice->GetSelection()].GetCPDetectorDesc();
 };
 
 void ImagesPanel::OnSelectionChanged(wxTreeEvent & e)

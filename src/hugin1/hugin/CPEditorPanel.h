@@ -151,7 +151,6 @@ private:
 
     const float getVerticalCPBias();
     // event handler functions
-    void OnMyButtonClicked(wxCommandEvent &e);
     void OnCPEvent(CPEvent &ev);
     void OnLeftChoiceChange(wxCommandEvent & e);
     void OnRightChoiceChange(wxCommandEvent & e);
@@ -168,7 +167,15 @@ private:
     void OnColumnWidthChange( wxListEvent & e );
 
     void OnFineTuneButton(wxCommandEvent & e);
+    void OnActionButton(wxCommandEvent& e);
+    void OnCreateCPButton(wxCommandEvent& e);
     void OnCelesteButton(wxCommandEvent & e);
+    void OnCleanCPButton(wxCommandEvent& e);
+
+    void OnActionSelectCreate(wxCommandEvent& e);
+    void OnActionSelectCeleste(wxCommandEvent& e);
+    void OnActionSelectCleanCP(wxCommandEvent& e);
+    void OnActionContextMenu(wxContextMenuEvent& e);
 
     void FineTuneSelectedPoint(bool left);
     void FineTuneNewPoint(bool left);
@@ -219,6 +226,15 @@ private:
 
     CPCreationState cpCreationState;
 
+    enum CPTabActionButtonMode
+    {
+        CPTAB_ACTION_CREATE_CP = 0,
+        CPTAB_ACTION_CELESTE = 1,
+        CPTAB_ACTION_CLEAN_CP = 2
+    };
+    CPTabActionButtonMode m_cpActionButtonMode;
+    wxMenu* m_cpActionContextMenu;
+    wxString m_currentCPDetector;
     // GUI controls
     CPImagesComboBox *m_leftChoice;
     CPImagesComboBox *m_rightChoice;
@@ -229,6 +245,7 @@ private:
     wxChoice *m_cpModeChoice;
     wxButton *m_addButton;
     wxButton *m_delButton;
+    wxButton* m_actionButton;
     wxCheckBox *m_autoAddCB;
     wxCheckBox *m_fineTuneCB;
     wxCheckBox *m_estimateCB;

@@ -1776,6 +1776,21 @@ CPDetectorSetting& MainFrame::GetDefaultSetting()
     return images_panel->GetDefaultSetting();
 };
 
+void MainFrame::RunCPGenerator(CPDetectorSetting &setting, const HuginBase::UIntSet& img)
+{
+    images_panel->RunCPGenerator(setting, img);
+};
+
+void MainFrame::RunCPGenerator(const HuginBase::UIntSet& img)
+{
+    images_panel->RunCPGenerator(img);
+};
+
+const wxString MainFrame::GetSelectedCPGenerator()
+{
+    return images_panel->GetSelectedCPGenerator();
+};
+
 const wxString & MainFrame::GetXRCPath()
 {
      return huginApp::Get()->GetXRCPath();
