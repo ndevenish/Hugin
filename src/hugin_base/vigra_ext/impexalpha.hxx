@@ -41,7 +41,6 @@
 #include "vigra/imageinfo.hxx"
 #include "vigra/impex.hxx"
 #include "vigra/impexbase.hxx"
-#include "vigra/multi_shape.hxx"
 
 namespace vigra
 {
@@ -452,19 +451,6 @@ namespace vigra
             image.first, image.second,
             alpha.first, alpha.second);
     }
-
-    template <class T1, class S1,
-    class T2, class S2>
-        inline void
-        importImageAlpha(ImageImportInfo const & import_info,
-        MultiArrayView<2, T1, S1> image,
-        MultiArrayView<2, T2, S2> alpha)
-    {
-        vigra_precondition(import_info.shape() == image.shape() && import_info.shape() == alpha.shape(),
-            "importImageAlpha(): shape mismatch between input and output.");
-        importImageAlpha(import_info, destImage(image), destImage(alpha));
-    }
-
 
     namespace detail
     {
@@ -1155,44 +1141,6 @@ namespace vigra
     {
         exportImageAlpha(image.first, image.second, image.third,
             alpha.first, alpha.second,
-            export_info);
-    }
-
-    template <class T1, class S1,
-    class T2, class S2>
-        inline void
-        exportImageAlpha(MultiArrayView<2, T1, S1> const & image,
-        MultiArrayView<2, T2, S2> const & alpha,
-        ImageExportInfo const & export_info)
-    {
-        exportImageAlpha(srcImageRange(image),
-            srcImage(alpha),
-            export_info);
-    }
-
-    template <class T1, class S1,
-    class T2, class S2>
-        inline void
-        exportImageAlpha(MultiArrayView<2, T1, S1> const & image,
-        MultiArrayView<2, T2, S2> const & alpha,
-        char const * name)
-    {
-        ImageExportInfo export_info(name);
-        exportImageAlpha(srcImageRange(image),
-            srcImage(alpha),
-            export_info);
-    }
-
-    template <class T1, class S1,
-    class T2, class S2>
-        inline void
-        exportImageAlpha(MultiArrayView<2, T1, S1> const & image,
-        MultiArrayView<2, T2, S2> const & alpha,
-        std::string const & name)
-    {
-        ImageExportInfo export_info(name.c_str());
-        exportImageAlpha(srcImageRange(image),
-            srcImage(alpha),
             export_info);
     }
 
