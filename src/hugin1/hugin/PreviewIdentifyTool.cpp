@@ -72,9 +72,14 @@ wxBitmap GenerateFontTexture(const int textureHeight, int& textureWidth, std::ve
     wxBitmap bitmap(10 * textureHeight, textureHeight);
     wxMemoryDC dc(bitmap);
     dc.SetBackground(*wxBLACK_BRUSH);
-    dc.Clear(); 
+    dc.Clear();
+#if wxCHECK_VERSION(3,0,0)
     wxFont font(wxSize(0, textureHeight), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
     dc.SetFont(font);
+#else
+    wxFont* font=wxFont::New(wxSize(0, textureHeight), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false, wxT(""));
+    dc.SetFont(*font);
+#endif    
     dc.SetTextForeground(*wxWHITE);
     dc.DrawText(wxT("0123456789"), 0, 0);
     textureWidth = 0;
@@ -87,6 +92,9 @@ wxBitmap GenerateFontTexture(const int textureHeight, int& textureWidth, std::ve
         textureWidth += textSize.GetWidth();
         glyphWidth[i] = textSize.GetWidth();
     };
+#if !wxCHECK_VERSION(3,0,0)
+    delete font;
+#endif  
     dc.SelectObject(wxNullBitmap);
     return bitmap;
 }
@@ -513,7 +521,11 @@ void PreviewIdentifyTool::AfterDrawImagesEvent()
             int textWidth = 0;
             for (size_t i = 0; i < number.Length(); ++i)
             {
+#if wxCHECK_VERSION(3,0,0)
                 textWidth += m_glyphWidth[number[i].GetValue() - 48];
+#else
+                textWidth += m_glyphWidth[number[i] - 48];
+#endif
             }
             float scaleFactor = std::min(canvasWidth, canvasHeight) / static_cast<float>(FONT_TEXTURE_HEIGHT) / 10;
             imageCenterPano.x = std::min<double>(std::max<double>(imageCenterPano.x, textWidth*scaleFactor / 2.0), canvasWidth - textWidth * scaleFactor / 2.0);
