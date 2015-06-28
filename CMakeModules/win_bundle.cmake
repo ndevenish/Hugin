@@ -85,6 +85,7 @@ IF(WIN32)
     FIND_FILE(TIFF_DLL
       NAMES libtiff.dll 
       PATHS 
+            ${SOURCE_BASE_DIR}/tiff-4.0.4/libtiff
             ${SOURCE_BASE_DIR}/tiff-4.0.3/libtiff
             ${SOURCE_BASE_DIR}/tiff-4.0.1/libtiff
             ${SOURCE_BASE_DIR}/tiff-4.0.0beta7/libtiff 
