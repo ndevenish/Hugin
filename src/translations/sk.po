@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2015-06-25 18:32+0200\n"
-"PO-Revision-Date: 2015-06-25 16:49+0000\n"
+"POT-Creation-Date: 2015-06-30 11:41+0200\n"
+"PO-Revision-Date: 2015-06-30 09:57+0000\n"
 "Last-Translator: Kornel Benko <kornel@lyx.org>\n"
 "Language-Team: Slovak <kornel@lyx.org>\n"
 "Language: sk\n"
@@ -1310,13 +1310,13 @@ msgstr "vert. čiara"
 msgid "horiz. Line"
 msgstr "horiz. čiara"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1698
+#: hugin1/hugin/CPEditorPanel.cpp:1730
 msgid ""
 "Create control points.\n"
 "To create less points,\n"
 "enter a higher number."
 msgstr ""
-"Vytvorte kontrolné body.\n"
+"Vytvoriť kontrolné body.\n"
 "Pre vytvorenie menšieho počtu bodov,\n"
 "zadajte vyššie číslo."
 
@@ -1344,6 +1344,11 @@ msgstr "Vybrať bod v pravom obrázku"
 #: hugin1/hugin/CPEditorPanel.cpp:1823
 msgid "Select point in left image"
 msgstr "Vybrať bod v ľavom obrázku"
+
+#: hugin1/hugin/CPEditorPanel.cpp:1932
+#, c-format
+msgid "Create cp (Current setting: %s)"
+msgstr "Vytvoriť kontrolné body (Aktuálne nastavené: %s)"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1902
 msgid ""
@@ -1608,7 +1613,7 @@ msgstr ""
 msgid "Mean error after optimization: %.1f pixel, max: %.1f\n"
 msgstr "Priemerná chyba po optimalizácii: %.1f pixel, max: %.1f\n"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1115
+#: hugin1/hugin/GLPreviewFrame.cpp:1158
 msgid ""
 "Note: automatic alignment uses default settings from the preferences. If you "
 "want to use customized settings, run the CP detection, the geometrical "
@@ -1617,8 +1622,8 @@ msgid ""
 msgstr ""
 "Poznámka: automatické zarovnanie používa východzie nastavenia volieb. Ak "
 "chcete použiť vlastné nastavenia, spusťte detekciu kontrolných bodov, "
-"geometrickú optimalizáciu a fotometrickú optimalizáciu v paneli Fotografie  "
-"v editore panorámy."
+"geometrickú optimalizáciu a fotometrickú optimalizáciu v paneli Fotografie v "
+"editore panorámy."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1534 hugin1/hugin/PreviewFrame.cpp:645
 msgid "Rectilinear"
@@ -3095,6 +3100,18 @@ msgstr "Dokončenie čistenia"
 #: hugin1/hugin/PanoOperation.cpp:707
 msgid "Cleaning"
 msgstr "Čistím"
+
+#: hugin1/hugin/CPEditorPanel.cpp:2093
+msgid "Create cp"
+msgstr "Vytvoriť kontrolné body"
+
+#: hugin1/hugin/CPEditorPanel.cpp:2094
+msgid ""
+"Create control points for image pair with currently selected control point "
+"detector on photos tab."
+msgstr ""
+"Vytvoriť kontrolné body pre dvojicu obrázkov s aktuálne vybraným detektorom "
+"kontrolných bodov na paneli Fotografie."
 
 #: hugin1/hugin/PanoOperation.cpp:715
 msgid "Remove control points on clouds"
@@ -4859,6 +4876,10 @@ msgstr "Celeste"
 msgid "Tries to remove control points from clouds"
 msgstr "Pokúsi sa odstrániť kontrolné body z oblakov"
 
+#: hugin1/hugin/CPEditorPanel.cpp:2111
+msgid "Clean cp"
+msgstr "Vyčistiť kontrolné body"
+
 #: translations/xrc.cpp:131
 msgid "auto fine-&tune"
 msgstr "au&todoladiť"
@@ -4894,6 +4915,18 @@ msgstr "Prid&ať"
 #: translations/xrc.cpp:138
 msgid "add a new Point"
 msgstr "pridať nový bod"
+
+#: hugin1/hugin/xrc/cp_editor_panel.xrc:324
+msgid "Create control points for current image pair"
+msgstr "Vytvoriť kontrolné body v aktuálnej dvojici obrázkov"
+
+#: hugin1/hugin/xrc/cp_editor_panel.xrc:329
+msgid "Remove control points in clouds"
+msgstr "Odstrániť kontrolné body v mrakoch"
+
+#: hugin1/hugin/xrc/cp_editor_panel.xrc:336
+msgid "Remove worst control points"
+msgstr "Odstrániť najhoršie kontrolné body"
 
 #: translations/xrc.cpp:139 translations/xrc.cpp:327 translations/xrc.cpp:382
 msgid "Control Points"
