@@ -26,7 +26,6 @@
 #include "CalculateFOV.h"
 
 #include <algorithm>
-#include <vigra/impex.hxx>
 #include <vigra/copyimage.hxx>
 #include <nona/RemappedPanoImage.h>
 
@@ -71,8 +70,6 @@ FDiff2D CalculateFOV::calcFOV(const PanoramaData& panorama)
                                                 vigra_ext::srcMask(remapped)),
                             vigra_ext::applyRect(remapped.boundingBox(),
                                                 destImage(panoAlpha)));
-        //        vigra::ImageExportInfo imge2("c:/hugin_calcfov_alpha.png");
-        //        exportImage(vigra::srcImageRange(panoAlpha), imge2);
         }
 
     // get field of view

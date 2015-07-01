@@ -123,9 +123,9 @@ ostream& operator<< (ostream& o, const Homography& H)
     return o;
 }
 
-void Homography::addMatch(int iIndex, PointMatch& iMatch)
+void Homography::addMatch(size_t iIndex, PointMatch& iMatch)
 {
-    int aRow = iIndex * 2;
+    size_t aRow = iIndex * 2;
     double aI1x = iMatch._img1_x - _v1x;
     double aI1y = iMatch._img1_y - _v1y;
     double aI2x = iMatch._img2_x - _v2x;

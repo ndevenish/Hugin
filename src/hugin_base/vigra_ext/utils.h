@@ -46,13 +46,17 @@ namespace vigra_ext {
 
 /** Traits to define the maximum value for all types.
  *  The case of float and double differs from vigra::NumericTraits::max() */
-#define LUT_TRAITS(T1,S) \
+#define LUT_TRAITS(T1, Smin, Smax) \
 template<> \
 struct LUTTraits<T1> \
 { \
     static T1 max() \
 { \
-    return S; \
+    return Smax; \
+} \
+    static T1 min() \
+{ \
+    return Smin; \
 } \
 }; \
 template<> \
@@ -60,21 +64,25 @@ struct LUTTraits<vigra::RGBValue<T1> > \
 { \
     static T1 max() \
 { \
-    return S; \
+    return Smax; \
+} \
+    static T1 min() \
+{ \
+    return Smin; \
 } \
 };
 
     template <class T1>
     struct LUTTraits;
 
-    LUT_TRAITS(unsigned char, UCHAR_MAX);
-    LUT_TRAITS(signed char, SCHAR_MAX);
-    LUT_TRAITS(unsigned short, USHRT_MAX);
-    LUT_TRAITS(signed short, SHRT_MAX);
-    LUT_TRAITS(unsigned int, UINT_MAX);
-    LUT_TRAITS(signed int, INT_MAX);
-    LUT_TRAITS(float, 1.0);
-    LUT_TRAITS(double, 1.0);
+    LUT_TRAITS(unsigned char, 0, UCHAR_MAX);
+    LUT_TRAITS(signed char, SCHAR_MIN, SCHAR_MAX);
+    LUT_TRAITS(unsigned short, 0, USHRT_MAX);
+    LUT_TRAITS(signed short, SHRT_MIN, SHRT_MAX);
+    LUT_TRAITS(unsigned int, 0, UINT_MAX);
+    LUT_TRAITS(signed int, INT_MIN, INT_MAX);
+    LUT_TRAITS(float, 0.0f, 1.0f);
+    LUT_TRAITS(double, 0.0, 1.0);
 
 #undef LUT_TRAITS
 

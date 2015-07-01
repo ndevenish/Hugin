@@ -106,7 +106,7 @@ struct Parameters
 
     double scale;
     int nPoints;
-    int grid;
+    unsigned grid;
     int verbose;
 };
 
@@ -467,7 +467,7 @@ static hugin_omp::Lock lock;
 typedef std::multimap<double, vigra::Diff2D> MapPoints;
 
 template <class ImageType>
-void createCtrlPoints(Panorama& pano, const ImageType& img, int imgRedNr, int imgGreenNr, int imgBlueNr, double scale, int nPoints, int grid)
+void createCtrlPoints(Panorama& pano, const ImageType& img, int imgRedNr, int imgGreenNr, int imgBlueNr, double scale, int nPoints, unsigned grid)
 {
     vigra::BasicImage<RGBValue<UInt8> > img8(img.size());
 

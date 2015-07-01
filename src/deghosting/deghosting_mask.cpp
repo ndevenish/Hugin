@@ -27,7 +27,7 @@
 // for stripExtension
 #include <hugin_utils/utils.h>
 // for exportImage
-#include <vigra_ext/impexalpha.hxx>
+#include <vigra/impex.hxx>
 
 #include "deghosting.h"
 #include "support.h"

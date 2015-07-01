@@ -1229,7 +1229,7 @@ PanoCommand::PanoCommand* AssignStacksOperation::GetInternalCommand(wxWindow* pa
     oldStackSize = std::min(oldStackSize, pano.getNrOfImages());
     stackSpin->SetValue(oldStackSize);
     wxCheckBox* linkCheckBox = XRCCTRL(dlg, "stack_size_link_checkbox", wxCheckBox);
-    linkCheckBox->SetValue(cfg->Read(wxT("/StackDialog/LinkPosition"), true));
+    linkCheckBox->SetValue(cfg->Read(wxT("/StackDialog/LinkPosition"), true) != 0l);
     if (dlg.ShowModal() != wxID_OK)
     {
         // user has canceled dialog

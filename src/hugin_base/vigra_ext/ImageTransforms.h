@@ -32,8 +32,6 @@
 #include <vigra/basicimage.hxx>
 #include <vigra_ext/ROIImage.h>
 #include <vigra_ext/Interpolators.h>
-#include <vigra/impex.hxx>
-#include <vigra_ext/impexalpha.hxx>
 
 #include <hugin_math/hugin_math.h>
 #include <hugin_utils/utils.h>

@@ -36,11 +36,16 @@
 #ifndef VIGRAEXT_IMPEXALPHA_HXX
 #define VIGRAEXT_IMPEXALPHA_HXX
 
+// TM: changes to impexalpha.hxx for Hugin
+// * fixes an off by one error which prevents to write exr images with alpha channel (already fixed upstreams for 1.11 version)
+// * changed conversion of alpha channel to work with Hugins notification
+
 #include <vector>
 
 #include "vigra/imageinfo.hxx"
 #include "vigra/impex.hxx"
 #include "vigra/impexbase.hxx"
+#include "utils.h"
 
 namespace vigra
 {
@@ -642,66 +647,58 @@ namespace vigra
             const ImageExportInfo& export_info,
             /* isScalar? */ VigraTrueType)
         {
-            typedef typename ImageAccessor::value_type ImageValueType;
+            typedef typename AlphaAccessor::value_type AlphaValueType;
 
             VIGRA_UNIQUE_PTR<Encoder> encoder(vigra::encoder(export_info));
 
-            std::string pixel_type(export_info.getPixelType());
-            const bool downcast(negotiatePixelType(encoder->getFileType(), TypeAsString<ImageValueType>::result(), pixel_type));
+            const std::string pixel_type(export_info.getPixelType());
             const pixel_t type(pixel_t_of_string(pixel_type));
-
+            // TM: no explicit downcast, when needed this should be done by specialed code
+            // before calling exportImageAlpha
             encoder->setPixelType(pixel_type);
 
-            const range_t image_source_range(find_source_value_range(export_info,
-                image_upper_left, image_lower_right, image_accessor));
-            const range_t alpha_source_range(find_source_value_range(export_info,
-                alpha_upper_left,
-                alpha_upper_left + (image_lower_right - image_upper_left),
-                alpha_accessor));
-            const range_t destination_range(find_destination_value_range(export_info, type));
+            const range_t alpha_source_range(vigra::NumericTraits<AlphaValueType>::min(), vigra::NumericTraits<AlphaValueType>::max());
+            const range_t mask_destination_range(0.0f, vigra_ext::getMaxValForPixelType(pixel_type));
 
-            if ((downcast || export_info.hasForcedRangeMapping()) &&
-                (image_source_range.first != destination_range.first || image_source_range.second != destination_range.second ||
-                alpha_source_range.first != destination_range.first || alpha_source_range.second != destination_range.second))
+            // now check if alpha channel matches
+            if (alpha_source_range.first != mask_destination_range.first || alpha_source_range.second != mask_destination_range.second)
             {
-                const linear_transform image_rescaler(image_source_range, destination_range);
-                const linear_transform alpha_rescaler(alpha_source_range, destination_range);
-
+                const linear_transform alpha_rescaler(alpha_source_range, mask_destination_range);
                 switch (type)
                 {
                     case UNSIGNED_INT_8:
                         write_image_band_and_alpha<UInt8>(encoder.get(),
-                            image_upper_left, image_lower_right, image_accessor, image_rescaler,
+                            image_upper_left, image_lower_right, image_accessor, identity(),
                             alpha_upper_left, alpha_accessor, alpha_rescaler);
                         break;
                     case UNSIGNED_INT_16:
                         write_image_band_and_alpha<UInt16>(encoder.get(),
-                            image_upper_left, image_lower_right, image_accessor, image_rescaler,
+                            image_upper_left, image_lower_right, image_accessor, identity(),
                             alpha_upper_left, alpha_accessor, alpha_rescaler);
                         break;
                     case UNSIGNED_INT_32:
                         write_image_band_and_alpha<UInt32>(encoder.get(),
-                            image_upper_left, image_lower_right, image_accessor, image_rescaler,
+                            image_upper_left, image_lower_right, image_accessor, identity(),
                             alpha_upper_left, alpha_accessor, alpha_rescaler);
                         break;
                     case SIGNED_INT_16:
                         write_image_band_and_alpha<Int16>(encoder.get(),
-                            image_upper_left, image_lower_right, image_accessor, image_rescaler,
+                            image_upper_left, image_lower_right, image_accessor, identity(),
                             alpha_upper_left, alpha_accessor, alpha_rescaler);
                         break;
                     case SIGNED_INT_32:
                         write_image_band_and_alpha<Int32>(encoder.get(),
-                            image_upper_left, image_lower_right, image_accessor, image_rescaler,
+                            image_upper_left, image_lower_right, image_accessor, identity(),
                             alpha_upper_left, alpha_accessor, alpha_rescaler);
                         break;
                     case IEEE_FLOAT_32:
                         write_image_band_and_alpha<float>(encoder.get(),
-                            image_upper_left, image_lower_right, image_accessor, image_rescaler,
+                            image_upper_left, image_lower_right, image_accessor, identity(),
                             alpha_upper_left, alpha_accessor, alpha_rescaler);
                         break;
                     case IEEE_FLOAT_64:
                         write_image_band_and_alpha<double>(encoder.get(),
-                            image_upper_left, image_lower_right, image_accessor, image_rescaler,
+                            image_upper_left, image_lower_right, image_accessor, identity(),
                             alpha_upper_left, alpha_accessor, alpha_rescaler);
                         break;
                     default:
@@ -710,94 +707,45 @@ namespace vigra
             }
             else
             {
-                // now check if alpha channel matches
-                if (alpha_source_range.first != destination_range.first || alpha_source_range.second != destination_range.second)
+                switch (type)
                 {
-                    const linear_transform alpha_rescaler(alpha_source_range, destination_range);
-
-                    switch (type)
-                    {
-                        case UNSIGNED_INT_8:
-                            write_image_band_and_alpha<UInt8>(encoder.get(),
-                                image_upper_left, image_lower_right, image_accessor, identity(),
-                                alpha_upper_left, alpha_accessor, alpha_rescaler);
-                            break;
-                        case UNSIGNED_INT_16:
-                            write_image_band_and_alpha<UInt16>(encoder.get(),
-                                image_upper_left, image_lower_right, image_accessor, identity(),
-                                alpha_upper_left, alpha_accessor, alpha_rescaler);
-                            break;
-                        case UNSIGNED_INT_32:
-                            write_image_band_and_alpha<UInt32>(encoder.get(),
-                                image_upper_left, image_lower_right, image_accessor, identity(),
-                                alpha_upper_left, alpha_accessor, alpha_rescaler);
-                            break;
-                        case SIGNED_INT_16:
-                            write_image_band_and_alpha<Int16>(encoder.get(),
-                                image_upper_left, image_lower_right, image_accessor, identity(),
-                                alpha_upper_left, alpha_accessor, alpha_rescaler);
-                            break;
-                        case SIGNED_INT_32:
-                            write_image_band_and_alpha<Int32>(encoder.get(),
-                                image_upper_left, image_lower_right, image_accessor, identity(),
-                                alpha_upper_left, alpha_accessor, alpha_rescaler);
-                            break;
-                        case IEEE_FLOAT_32:
-                            write_image_band_and_alpha<float>(encoder.get(),
-                                image_upper_left, image_lower_right, image_accessor, identity(),
-                                alpha_upper_left, alpha_accessor, alpha_rescaler);
-                            break;
-                        case IEEE_FLOAT_64:
-                            write_image_band_and_alpha<double>(encoder.get(),
-                                image_upper_left, image_lower_right, image_accessor, identity(),
-                                alpha_upper_left, alpha_accessor, alpha_rescaler);
-                            break;
-                        default:
-                            vigra_fail("vigra::detail::exportImageAlpha<scalar>: not reached");
-                    }
-                }
-                else
-                {
-                    switch (type)
-                    {
-                        case UNSIGNED_INT_8:
-                            write_image_band_and_alpha<UInt8>(encoder.get(),
-                                image_upper_left, image_lower_right, image_accessor, identity(),
-                                alpha_upper_left, alpha_accessor, identity());
-                            break;
-                        case UNSIGNED_INT_16:
-                            write_image_band_and_alpha<UInt16>(encoder.get(),
-                                image_upper_left, image_lower_right, image_accessor, identity(),
-                                alpha_upper_left, alpha_accessor, identity());
-                            break;
-                        case UNSIGNED_INT_32:
-                            write_image_band_and_alpha<UInt32>(encoder.get(),
-                                image_upper_left, image_lower_right, image_accessor, identity(),
-                                alpha_upper_left, alpha_accessor, identity());
-                            break;
-                        case SIGNED_INT_16:
-                            write_image_band_and_alpha<Int16>(encoder.get(),
-                                image_upper_left, image_lower_right, image_accessor, identity(),
-                                alpha_upper_left, alpha_accessor, identity());
-                            break;
-                        case SIGNED_INT_32:
-                            write_image_band_and_alpha<Int32>(encoder.get(),
-                                image_upper_left, image_lower_right, image_accessor, identity(),
-                                alpha_upper_left, alpha_accessor, identity());
-                            break;
-                        case IEEE_FLOAT_32:
-                            write_image_band_and_alpha<float>(encoder.get(),
-                                image_upper_left, image_lower_right, image_accessor, identity(),
-                                alpha_upper_left, alpha_accessor, identity());
-                            break;
-                        case IEEE_FLOAT_64:
-                            write_image_band_and_alpha<double>(encoder.get(),
-                                image_upper_left, image_lower_right, image_accessor, identity(),
-                                alpha_upper_left, alpha_accessor, identity());
-                            break;
-                        default:
-                            vigra_fail("vigra::detail::exportImageAlpha<scalar>: not reached");
-                    }
+                    case UNSIGNED_INT_8:
+                        write_image_band_and_alpha<UInt8>(encoder.get(),
+                            image_upper_left, image_lower_right, image_accessor, identity(),
+                            alpha_upper_left, alpha_accessor, identity());
+                        break;
+                    case UNSIGNED_INT_16:
+                        write_image_band_and_alpha<UInt16>(encoder.get(),
+                            image_upper_left, image_lower_right, image_accessor, identity(),
+                            alpha_upper_left, alpha_accessor, identity());
+                        break;
+                    case UNSIGNED_INT_32:
+                        write_image_band_and_alpha<UInt32>(encoder.get(),
+                            image_upper_left, image_lower_right, image_accessor, identity(),
+                            alpha_upper_left, alpha_accessor, identity());
+                        break;
+                    case SIGNED_INT_16:
+                        write_image_band_and_alpha<Int16>(encoder.get(),
+                            image_upper_left, image_lower_right, image_accessor, identity(),
+                            alpha_upper_left, alpha_accessor, identity());
+                        break;
+                    case SIGNED_INT_32:
+                        write_image_band_and_alpha<Int32>(encoder.get(),
+                            image_upper_left, image_lower_right, image_accessor, identity(),
+                            alpha_upper_left, alpha_accessor, identity());
+                        break;
+                    case IEEE_FLOAT_32:
+                        write_image_band_and_alpha<float>(encoder.get(),
+                            image_upper_left, image_lower_right, image_accessor, identity(),
+                            alpha_upper_left, alpha_accessor, identity());
+                        break;
+                    case IEEE_FLOAT_64:
+                        write_image_band_and_alpha<double>(encoder.get(),
+                            image_upper_left, image_lower_right, image_accessor, identity(),
+                            alpha_upper_left, alpha_accessor, identity());
+                        break;
+                    default:
+                        vigra_fail("vigra::detail::exportImageAlpha<scalar>: not reached");
                 }
             }
 
@@ -815,164 +763,108 @@ namespace vigra
         {
             typedef typename ImageAccessor::value_type ImageBaseType;
             typedef typename ImageBaseType::value_type ImageValueType;
+            typedef typename AlphaAccessor::value_type AlphaValueType;
 
             VIGRA_UNIQUE_PTR<Encoder> encoder(vigra::encoder(export_info));
 
-            std::string pixel_type(export_info.getPixelType());
-            const bool downcast(negotiatePixelType(encoder->getFileType(), TypeAsString<ImageValueType>::result(), pixel_type));
+            const std::string pixel_type(export_info.getPixelType());
             const pixel_t type(pixel_t_of_string(pixel_type));
-
             encoder->setPixelType(pixel_type);
 
             vigra_precondition(isBandNumberSupported(encoder->getFileType(), image_accessor.size(image_upper_left) + 1U),
                 "exportImageAlpha(): file format does not support requested number of bands (color channels)");
 
-            const range_t image_source_range(find_source_value_range(export_info,
-                image_upper_left, image_lower_right, image_accessor));
-            const range_t alpha_source_range(find_source_value_range(export_info,
-                alpha_upper_left,
-                alpha_upper_left + (image_lower_right - image_upper_left),
-                alpha_accessor));
-            const range_t destination_range(find_destination_value_range(export_info, pixel_t_of_string(pixel_type)));
+            // TM: no explicit downcast, when needed this should be done by specialed code
+            // before calling exportImageAlpha
+            const range_t alpha_source_range(vigra_ext::LUTTraits<AlphaValueType>::min(), vigra_ext::LUTTraits<AlphaValueType>::max());
+            const range_t mask_destination_range(0.0f, vigra_ext::getMaxValForPixelType(pixel_type));
 
-            if ((downcast || export_info.hasForcedRangeMapping()) &&
-                (image_source_range.first != destination_range.first || image_source_range.second != destination_range.second ||
-                alpha_source_range.first != destination_range.first || alpha_source_range.second != destination_range.second))
+            // check if alpha channel matches
+            if (alpha_source_range.first != mask_destination_range.first || alpha_source_range.second != mask_destination_range.second)
             {
-                const linear_transform image_rescaler(image_source_range, destination_range);
-                const linear_transform alpha_rescaler(alpha_source_range, destination_range);
-
+                const linear_transform alpha_rescaler(alpha_source_range, mask_destination_range);
                 switch (type)
                 {
                     case UNSIGNED_INT_8:
                         write_image_bands_and_alpha<UInt8>(encoder.get(),
-                            image_upper_left, image_lower_right, image_accessor, image_rescaler,
+                            image_upper_left, image_lower_right, image_accessor, identity(),
                             alpha_upper_left, alpha_accessor, alpha_rescaler);
                         break;
                     case UNSIGNED_INT_16:
                         write_image_bands_and_alpha<UInt16>(encoder.get(),
-                            image_upper_left, image_lower_right, image_accessor, image_rescaler,
+                            image_upper_left, image_lower_right, image_accessor, identity(),
                             alpha_upper_left, alpha_accessor, alpha_rescaler);
                         break;
                     case UNSIGNED_INT_32:
                         write_image_bands_and_alpha<UInt32>(encoder.get(),
-                            image_upper_left, image_lower_right, image_accessor, image_rescaler,
+                            image_upper_left, image_lower_right, image_accessor, identity(),
                             alpha_upper_left, alpha_accessor, alpha_rescaler);
                         break;
                     case SIGNED_INT_16:
                         write_image_bands_and_alpha<Int16>(encoder.get(),
-                            image_upper_left, image_lower_right, image_accessor, image_rescaler,
+                            image_upper_left, image_lower_right, image_accessor, identity(),
                             alpha_upper_left, alpha_accessor, alpha_rescaler);
                         break;
                     case SIGNED_INT_32:
                         write_image_bands_and_alpha<Int32>(encoder.get(),
-                            image_upper_left, image_lower_right, image_accessor, image_rescaler,
+                            image_upper_left, image_lower_right, image_accessor, identity(),
                             alpha_upper_left, alpha_accessor, alpha_rescaler);
                         break;
                     case IEEE_FLOAT_32:
                         write_image_bands_and_alpha<float>(encoder.get(),
-                            image_upper_left, image_lower_right, image_accessor, image_rescaler,
+                            image_upper_left, image_lower_right, image_accessor, identity(),
                             alpha_upper_left, alpha_accessor, alpha_rescaler);
                         break;
                     case IEEE_FLOAT_64:
                         write_image_bands_and_alpha<double>(encoder.get(),
-                            image_upper_left, image_lower_right, image_accessor, image_rescaler,
+                            image_upper_left, image_lower_right, image_accessor, identity(),
                             alpha_upper_left, alpha_accessor, alpha_rescaler);
                         break;
                     default:
-                        vigra_fail("vigra::detail::exportImageAlpha<non-scalar>: not reached");
+                        vigra_fail("vigra::detail::exportImageAlpha<scalar>: not reached");
                 }
             }
             else
             {
-                // check if alpha channel matches
-                if (alpha_source_range.first != destination_range.first || alpha_source_range.second != destination_range.second)
+                switch (type)
                 {
-                    const linear_transform alpha_rescaler(alpha_source_range, destination_range);
-
-                    switch (type)
-                    {
-                        case UNSIGNED_INT_8:
-                            write_image_bands_and_alpha<UInt8>(encoder.get(),
-                                image_upper_left, image_lower_right, image_accessor, identity(),
-                                alpha_upper_left, alpha_accessor, alpha_rescaler);
-                            break;
-                        case UNSIGNED_INT_16:
-                            write_image_bands_and_alpha<UInt16>(encoder.get(),
-                                image_upper_left, image_lower_right, image_accessor, identity(),
-                                alpha_upper_left, alpha_accessor, alpha_rescaler);
-                            break;
-                        case UNSIGNED_INT_32:
-                            write_image_bands_and_alpha<UInt32>(encoder.get(),
-                                image_upper_left, image_lower_right, image_accessor, identity(),
-                                alpha_upper_left, alpha_accessor, alpha_rescaler);
-                            break;
-                        case SIGNED_INT_16:
-                            write_image_bands_and_alpha<Int16>(encoder.get(),
-                                image_upper_left, image_lower_right, image_accessor, identity(),
-                                alpha_upper_left, alpha_accessor, alpha_rescaler);
-                            break;
-                        case SIGNED_INT_32:
-                            write_image_bands_and_alpha<Int32>(encoder.get(),
-                                image_upper_left, image_lower_right, image_accessor, identity(),
-                                alpha_upper_left, alpha_accessor, alpha_rescaler);
-                            break;
-                        case IEEE_FLOAT_32:
-                            write_image_bands_and_alpha<float>(encoder.get(),
-                                image_upper_left, image_lower_right, image_accessor, identity(),
-                                alpha_upper_left, alpha_accessor, alpha_rescaler);
-                            break;
-                        case IEEE_FLOAT_64:
-                            write_image_bands_and_alpha<double>(encoder.get(),
-                                image_upper_left, image_lower_right, image_accessor, identity(),
-                                alpha_upper_left, alpha_accessor, alpha_rescaler);
-                            break;
-                        default:
-                            vigra_fail("vigra::detail::exportImageAlpha<scalar>: not reached");
-                    }
-                }
-                else
-                {
-                    switch (type)
-                    {
-                        case UNSIGNED_INT_8:
-                            write_image_bands_and_alpha<UInt8>(encoder.get(),
-                                image_upper_left, image_lower_right, image_accessor, identity(),
-                                alpha_upper_left, alpha_accessor, identity());
-                            break;
-                        case UNSIGNED_INT_16:
-                            write_image_bands_and_alpha<UInt16>(encoder.get(),
-                                image_upper_left, image_lower_right, image_accessor, identity(),
-                                alpha_upper_left, alpha_accessor, identity());
-                            break;
-                        case UNSIGNED_INT_32:
-                            write_image_bands_and_alpha<UInt32>(encoder.get(),
-                                image_upper_left, image_lower_right, image_accessor, identity(),
-                                alpha_upper_left, alpha_accessor, identity());
-                            break;
-                        case SIGNED_INT_16:
-                            write_image_bands_and_alpha<Int16>(encoder.get(),
-                                image_upper_left, image_lower_right, image_accessor, identity(),
-                                alpha_upper_left, alpha_accessor, identity());
-                            break;
-                        case SIGNED_INT_32:
-                            write_image_bands_and_alpha<Int32>(encoder.get(),
-                                image_upper_left, image_lower_right, image_accessor, identity(),
-                                alpha_upper_left, alpha_accessor, identity());
-                            break;
-                        case IEEE_FLOAT_32:
-                            write_image_bands_and_alpha<float>(encoder.get(),
-                                image_upper_left, image_lower_right, image_accessor, identity(),
-                                alpha_upper_left, alpha_accessor, identity());
-                            break;
-                        case IEEE_FLOAT_64:
-                            write_image_bands_and_alpha<double>(encoder.get(),
-                                image_upper_left, image_lower_right, image_accessor, identity(),
-                                alpha_upper_left, alpha_accessor, identity());
-                            break;
-                        default:
-                            vigra_fail("vigra::detail::exportImageAlpha<non-scalar>: not reached");
-                    }
+                    case UNSIGNED_INT_8:
+                        write_image_bands_and_alpha<UInt8>(encoder.get(),
+                            image_upper_left, image_lower_right, image_accessor, identity(),
+                            alpha_upper_left, alpha_accessor, identity());
+                        break;
+                    case UNSIGNED_INT_16:
+                        write_image_bands_and_alpha<UInt16>(encoder.get(),
+                            image_upper_left, image_lower_right, image_accessor, identity(),
+                            alpha_upper_left, alpha_accessor, identity());
+                        break;
+                    case UNSIGNED_INT_32:
+                        write_image_bands_and_alpha<UInt32>(encoder.get(),
+                            image_upper_left, image_lower_right, image_accessor, identity(),
+                            alpha_upper_left, alpha_accessor, identity());
+                        break;
+                    case SIGNED_INT_16:
+                        write_image_bands_and_alpha<Int16>(encoder.get(),
+                            image_upper_left, image_lower_right, image_accessor, identity(),
+                            alpha_upper_left, alpha_accessor, identity());
+                        break;
+                    case SIGNED_INT_32:
+                        write_image_bands_and_alpha<Int32>(encoder.get(),
+                            image_upper_left, image_lower_right, image_accessor, identity(),
+                            alpha_upper_left, alpha_accessor, identity());
+                        break;
+                    case IEEE_FLOAT_32:
+                        write_image_bands_and_alpha<float>(encoder.get(),
+                            image_upper_left, image_lower_right, image_accessor, identity(),
+                            alpha_upper_left, alpha_accessor, identity());
+                        break;
+                    case IEEE_FLOAT_64:
+                        write_image_bands_and_alpha<double>(encoder.get(),
+                            image_upper_left, image_lower_right, image_accessor, identity(),
+                            alpha_upper_left, alpha_accessor, identity());
+                        break;
+                    default:
+                        vigra_fail("vigra::detail::exportImageAlpha<non-scalar>: not reached");
                 }
             }
 

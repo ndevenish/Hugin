@@ -41,8 +41,8 @@ void createCPGraph(const PanoramaData & pano, CPGraph & graph)
     graph.clear();
 
     // add all verticies to the graph
-    int nImg = pano.getNrOfImages();
-    for (int i = 0; i < nImg; i++) {
+    size_t nImg = pano.getNrOfImages();
+    for (size_t i = 0; i < nImg; i++) {
         add_vertex(graph);
     }
 
@@ -67,10 +67,10 @@ void createCPGraph(const PanoramaData & pano, CPGraph & graph)
     
     // Also connect images with linked yaw, pitch, and roll.
     // probably very inefficient
-    for (unsigned int i = 0; i < nImg; i++)
+    for (size_t i = 0; i < nImg; i++)
     {
         const SrcPanoImage & img_i = pano.getImage(i);
-        for (unsigned int j = i + 1; j < nImg; j++)
+        for (size_t j = i + 1; j < nImg; j++)
         {
             const SrcPanoImage & img_j = pano.getImage(j);
             if (img_i.YawisLinkedWith(img_j) &&

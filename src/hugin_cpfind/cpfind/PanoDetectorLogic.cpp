@@ -25,7 +25,7 @@
 #include <iostream>
 #include <fstream>
 #include <vigra/distancetransform.hxx>
-#include "vigra/impex.hxx"   // debug image save
+#include "vigra_ext/impexalpha.hxx"
 
 #include <localfeatures/Sieve.h>
 #include <localfeatures/PointMatch.h>
