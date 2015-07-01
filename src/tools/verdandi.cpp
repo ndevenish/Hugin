@@ -119,7 +119,7 @@ void SetCompression(vigra::ImageExportInfo& output, const std::string& compressi
 };
 
 /** loads image one by one and merge with all previouly loaded images, saves the final results */
-template <class ImageType, class MaskType>
+template <class ImageType>
 bool LoadAndMergeImages(std::vector<vigra::ImageImportInfo> imageInfos, const std::string& filename, const std::string& compression, const bool wrap)
 {
     if (imageInfos.empty())
@@ -135,18 +135,47 @@ bool LoadAndMergeImages(std::vector<vigra::ImageImportInfo> imageInfos, const st
             imageInfos[0].height() + imageInfos[0].getPosition().y);
     };
     ImageType image(imageSize);
-    MaskType mask(imageSize);
-    vigra::importImageAlpha(imageInfos[0],
-        std::pair<typename ImageType::Iterator, typename ImageType::Accessor>(image.upperLeft() + imageInfos[0].getPosition(), image.accessor()),
-        std::pair<typename MaskType::Iterator, typename MaskType::Accessor>(mask.upperLeft() + imageInfos[0].getPosition(), mask.accessor()));
+    vigra::BImage mask(imageSize);
+    const std::string pixelType(imageInfos[0].getPixelType());
+    const bool floatImage = (pixelType == "FLOAT") || (pixelType == "DOUBLE");
+    if (floatImage)
+    {
+        vigra::FImage floatMask(imageSize);
+        vigra::importImageAlpha(imageInfos[0],
+            std::pair<typename ImageType::Iterator, typename ImageType::Accessor>(image.upperLeft() + imageInfos[0].getPosition(), image.accessor()),
+            std::pair<typename vigra::FImage::Iterator, typename vigra::FImage::Accessor>(floatMask.upperLeft() + imageInfos[0].getPosition(), floatMask.accessor())
+            );
+        // scale mask in float images to 0...255
+        vigra::FindMinMax<float> minmax;
+        vigra::inspectImage(vigra::srcImageRange(floatMask), minmax);
+        vigra_ext::applyMapping(vigra::srcImageRange(floatMask), vigra::destImage(mask), minmax.min, minmax.max, 0);
+    }
+    else
+    {
+        vigra::importImageAlpha(imageInfos[0],
+            std::pair<typename ImageType::Iterator, typename ImageType::Accessor>(image.upperLeft() + imageInfos[0].getPosition(), image.accessor()),
+            std::pair<typename vigra::BImage::Iterator, typename vigra::BImage::Accessor>(mask.upperLeft() + imageInfos[0].getPosition(), mask.accessor()));
+    };
     std::cout << "Loaded " << imageInfos[0].getFileName() << std::endl;
     vigra::Rect2D roi(vigra::Point2D(imageInfos[0].getPosition()), imageInfos[0].size());
 
     for (size_t i = 1; i < imageInfos.size(); ++i)
     {
         ImageType image2(imageInfos[i].size());
-        MaskType mask2(image2.size());
-        vigra::importImageAlpha(imageInfos[i], vigra::destImage(image2), vigra::destImage(mask2));
+        vigra::BImage mask2(image2.size());
+        if (floatImage)
+        {
+            vigra::FImage floatMask(image2.size());
+            vigra::importImageAlpha(imageInfos[i], vigra::destImage(image2), vigra::destImage(floatMask));
+            // scale mask in float images to 0...255
+            vigra::FindMinMax<float> minmax;
+            vigra::inspectImage(vigra::srcImageRange(floatMask), minmax);
+            vigra_ext::applyMapping(vigra::srcImageRange(floatMask), vigra::destImage(mask2), minmax.min, minmax.max, 0);
+        }
+        else
+        {
+            vigra::importImageAlpha(imageInfos[i], vigra::destImage(image2), vigra::destImage(mask2));
+        };
         std::cout << "Loaded " << imageInfos[i].getFileName() << std::endl;
         roi |= vigra::Rect2D(vigra::Point2D(imageInfos[i].getPosition()), imageInfos[i].size());
 
@@ -185,16 +214,16 @@ static void usage(const char* name)
 /** resave a single image
  *  LoadAndMergeImage would require the full canvas size for loading, so using this specialized version
  *  which is using the cropped intermediates images */
-template<class ImageType>
+template<class ImageType, class MaskType>
 bool ResaveImage(const vigra::ImageImportInfo& importInfo, vigra::ImageExportInfo& exportInfo)
 {
     ImageType image(importInfo.size());
-    vigra::BImage mask(image.size());
+    MaskType mask(image.size());
     if (importInfo.numExtraBands() == 0)
     {
         vigra::importImage(importInfo, vigra::destImage(image));
         // init mask
-        vigra::initImage(vigra::destImageRange(mask), 255);
+        vigra::initImage(vigra::destImageRange(mask), vigra_ext::LUTTraits<typename MaskType::value_type>::max());
     }
     else
     {
@@ -311,27 +340,27 @@ int main(int argc, char* argv[])
         {
             if (pixeltype == "UINT8")
             {
-                success = ResaveImage<vigra::BRGBImage>(imageInfo, exportInfo);
+                success = ResaveImage<vigra::BRGBImage, vigra::BImage>(imageInfo, exportInfo);
             }
             else if (pixeltype == "INT16")
             {
-                success = ResaveImage<vigra::Int16RGBImage>(imageInfo, exportInfo);
+                success = ResaveImage<vigra::Int16RGBImage, vigra::Int16Image>(imageInfo, exportInfo);
             }
             else if (pixeltype == "UINT16")
             {
-                success = ResaveImage<vigra::UInt16RGBImage>(imageInfo, exportInfo);
+                success = ResaveImage<vigra::UInt16RGBImage, vigra::UInt16Image>(imageInfo, exportInfo);
             }
             else if (pixeltype == "INT32")
             {
-                success = ResaveImage<vigra::Int32RGBImage>(imageInfo, exportInfo);
+                success = ResaveImage<vigra::Int32RGBImage, vigra::UInt32Image>(imageInfo, exportInfo);
             }
             else if (pixeltype == "UINT32")
             {
-                success = ResaveImage<vigra::UInt32RGBImage>(imageInfo, exportInfo);
+                success = ResaveImage<vigra::UInt32RGBImage, vigra::UInt32Image>(imageInfo, exportInfo);
             }
             else if (pixeltype == "FLOAT")
             {
-                success = ResaveImage<vigra::FRGBImage>(imageInfo, exportInfo);
+                success = ResaveImage<vigra::FRGBImage, vigra::FImage>(imageInfo, exportInfo);
             }
             else
             {
@@ -343,27 +372,27 @@ int main(int argc, char* argv[])
             //grayscale images
             if (pixeltype == "UINT8")
             {
-                success = ResaveImage<vigra::BImage>(imageInfo, exportInfo);
+                success = ResaveImage<vigra::BImage, vigra::BImage>(imageInfo, exportInfo);
             }
             else if (pixeltype == "INT16")
             {
-                success = ResaveImage<vigra::Int16Image>(imageInfo, exportInfo);
+                success = ResaveImage<vigra::Int16Image, vigra::Int16Image>(imageInfo, exportInfo);
             }
             else if (pixeltype == "UINT16")
             {
-                success = ResaveImage<vigra::UInt16Image>(imageInfo, exportInfo);
+                success = ResaveImage<vigra::UInt16Image, vigra::UInt16Image>(imageInfo, exportInfo);
             }
             else if (pixeltype == "INT32")
             {
-                success = ResaveImage<vigra::Int32Image>(imageInfo, exportInfo);
+                success = ResaveImage<vigra::Int32Image, vigra::Int32Image>(imageInfo, exportInfo);
             }
             else if (pixeltype == "UINT32")
             {
-                success = ResaveImage<vigra::UInt32Image>(imageInfo, exportInfo);
+                success = ResaveImage<vigra::UInt32Image, vigra::UInt32Image>(imageInfo, exportInfo);
             }
             else if (pixeltype == "FLOAT")
             {
-                success = ResaveImage<vigra::FImage>(imageInfo, exportInfo);
+                success = ResaveImage<vigra::FImage, vigra::FImage>(imageInfo, exportInfo);
             }
             else
             {
@@ -413,27 +442,27 @@ int main(int argc, char* argv[])
         {
             if (pixeltype == "UINT8")
             {
-                success = LoadAndMergeImages<vigra::BRGBImage, vigra::BImage>(imageInfos, output, compression, wraparound);
+                success = LoadAndMergeImages<vigra::BRGBImage>(imageInfos, output, compression, wraparound);
             }
             else if (pixeltype == "INT16")
             {
-                success = LoadAndMergeImages<vigra::Int16RGBImage, vigra::BImage>(imageInfos, output, compression, wraparound);
+                success = LoadAndMergeImages<vigra::Int16RGBImage>(imageInfos, output, compression, wraparound);
             }
             else if (pixeltype == "UINT16")
             {
-                success = LoadAndMergeImages<vigra::UInt16RGBImage, vigra::BImage>(imageInfos, output, compression, wraparound);
+                success = LoadAndMergeImages<vigra::UInt16RGBImage>(imageInfos, output, compression, wraparound);
             }
             else if (pixeltype == "INT32")
             {
-                success = LoadAndMergeImages<vigra::Int32RGBImage, vigra::BImage>(imageInfos, output, compression, wraparound);
+                success = LoadAndMergeImages<vigra::Int32RGBImage>(imageInfos, output, compression, wraparound);
             }
             else if (pixeltype == "UINT32")
             {
-                success = LoadAndMergeImages<vigra::UInt32RGBImage, vigra::BImage>(imageInfos, output, compression, wraparound);
+                success = LoadAndMergeImages<vigra::UInt32RGBImage>(imageInfos, output, compression, wraparound);
             }
             else if (pixeltype == "FLOAT")
             {
-                success = LoadAndMergeImages<vigra::FRGBImage, vigra::BImage>(imageInfos, output, compression, wraparound);
+                success = LoadAndMergeImages<vigra::FRGBImage>(imageInfos, output, compression, wraparound);
             }
             else
             {
@@ -445,27 +474,27 @@ int main(int argc, char* argv[])
             //grayscale images
             if (pixeltype == "UINT8")
             {
-                success = LoadAndMergeImages<vigra::BImage, vigra::BImage>(imageInfos, output, compression, wraparound);
+                success = LoadAndMergeImages<vigra::BImage>(imageInfos, output, compression, wraparound);
             }
             else if (pixeltype == "INT16")
             {
-                success = LoadAndMergeImages<vigra::Int16Image, vigra::BImage>(imageInfos, output, compression, wraparound);
+                success = LoadAndMergeImages<vigra::Int16Image>(imageInfos, output, compression, wraparound);
             }
             else if (pixeltype == "UINT16")
             {
-                success = LoadAndMergeImages<vigra::UInt16Image, vigra::BImage>(imageInfos, output, compression, wraparound);
+                success = LoadAndMergeImages<vigra::UInt16Image>(imageInfos, output, compression, wraparound);
             }
             else if (pixeltype == "INT32")
             {
-                success = LoadAndMergeImages<vigra::Int32Image, vigra::BImage>(imageInfos, output, compression, wraparound);
+                success = LoadAndMergeImages<vigra::Int32Image>(imageInfos, output, compression, wraparound);
             }
             else if (pixeltype == "UINT32")
             {
-                success = LoadAndMergeImages<vigra::UInt32Image, vigra::BImage>(imageInfos, output, compression, wraparound);
+                success = LoadAndMergeImages<vigra::UInt32Image>(imageInfos, output, compression, wraparound);
             }
             else if (pixeltype == "FLOAT")
             {
-                success = LoadAndMergeImages<vigra::FImage, vigra::BImage>(imageInfos, output, compression, wraparound);
+                success = LoadAndMergeImages<vigra::FImage>(imageInfos, output, compression, wraparound);
             }
             else
             {
