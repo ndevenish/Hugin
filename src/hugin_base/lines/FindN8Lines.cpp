@@ -457,7 +457,7 @@ int linePts2lineList( BImage & img, int minsize, double flpix, Lines& lines)
 
     // corner filter parameters
     const int span = 10;
-    const float maxacd = 1.4;
+    const float maxacd = 1.4f;
 
     if(minsize < span) minsize = span; // else bend filter fails
 

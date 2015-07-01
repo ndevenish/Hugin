@@ -48,7 +48,7 @@ public:
 private:
     void initialize(void);
 
-    void addMatch(int iIndex, PointMatch& iMatch);
+    void addMatch(size_t iIndex, PointMatch& iMatch);
 
     double** AA;
     double*	 B, * X, *r;

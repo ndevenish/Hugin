@@ -33,8 +33,8 @@ using namespace std;
 
 namespace celeste
 {
-long	gPrecision;
-long	gWidth;
+std::streamsize gPrecision;
+std::streamsize gWidth;
 
 // for Permute
 struct	tmp
