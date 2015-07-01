@@ -31,6 +31,7 @@
 #include <vigra/error.hxx>
 #include <vigra/impex.hxx>
 #include <vigra/codec.hxx>
+#include <vigra_ext/impexalpha.hxx>
 #include <getopt.h>
 #ifndef WIN32
 #include <unistd.h>

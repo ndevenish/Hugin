@@ -36,7 +36,7 @@
 #include <algorithms/PanoramaAlgorithm.h>
 
 #include <hugin_shared.h>
-#include <vigra/impex.hxx>
+#include <vigra/stdimage.hxx>
 #include <panodata/PanoramaData.h>
 
 

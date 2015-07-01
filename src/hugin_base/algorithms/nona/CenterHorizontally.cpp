@@ -25,7 +25,6 @@
 
 #include "CenterHorizontally.h"
 
-#include <vigra/impex.hxx>
 #include <vigra/copyimage.hxx>
 #include <panodata/PanoramaData.h>
 #include <nona/RemappedPanoImage.h>
@@ -101,8 +100,6 @@ void CenterHorizontally::centerHorizontically(PanoramaData& panorama)
                            vigra_ext::applyRect(remapped.boundingBox(),
                                                 destImage(panoAlpha)));
         }
-    //    vigra::ImageExportInfo imge("c:/hugin_calcfov_alpha.png");
-    //    exportImage(vigra::srcImageRange(panoAlpha), imge);
     
     // get field of view
     std::vector<int> borders;

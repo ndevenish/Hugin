@@ -36,6 +36,8 @@
 
 // for RGBvalue used in hat function
 #include <vigra/rgbvalue.hxx>
+// for importImage und importImageAlpha
+#include <vigra_ext/impexalpha.hxx>
 
 // needed for Kh()
 #define PI 3.14159265358979323846

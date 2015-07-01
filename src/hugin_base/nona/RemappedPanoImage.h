@@ -27,7 +27,7 @@
 #ifndef _NONA_REMAPPEDPANOIMAGE_H
 #define _NONA_REMAPPEDPANOIMAGE_H
 
-#include <vigra/impex.hxx>
+#include <vigra/imageinfo.hxx>
 #include <vigra/initimage.hxx>
 #include <vigra/copyimage.hxx>
 #include <vigra/flatmorphology.hxx>

@@ -26,7 +26,6 @@
 #include "ComputeImageROI.h"
 
 #include <algorithm>
-#include <vigra/impex.hxx>
 #include <nona/RemappedPanoImage.h>
 #include <nona/RemappedPanoImage.h>
 
@@ -156,18 +155,7 @@ void estimateImageAlpha(const SrcPanoImage & src,
         // that may be valid in the full resolution image
     vigra::discDilation(vigra::srcImageRange(img),
                         vigra::destImage(alpha), 1);
-    /*
-#ifdef DEBUG
-    {
-        vigra::ImageExportInfo exinfo( DEBUG_FILE_PREFIX "mask.png");
-        vigra::exportImage(srcImageRange(img), exinfo);
-    }
-    {
-        vigra::ImageExportInfo exinfo( DEBUG_FILE_PREFIX "mask_dilated.png");
-        vigra::exportImage(srcImageRange(alpha), exinfo);
-    }
-#endif
-    */
+
     ul.x = destRect.right();
     ul.y = destRect.bottom();
     lr.x = destRect.left();

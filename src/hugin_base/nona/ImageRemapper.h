@@ -30,7 +30,7 @@
 
 #include <panodata/PanoramaData.h>
 #include <nona/RemappedPanoImage.h>
-
+#include <vigra_ext/impexalpha.hxx>
 
 namespace HuginBase {
 namespace Nona {
