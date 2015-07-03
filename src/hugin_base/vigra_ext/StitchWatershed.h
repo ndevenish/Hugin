@@ -161,14 +161,14 @@ namespace vigra_ext
         {
             ++(p2.y);
         };
-        vigra::FImage diff(p2 - p1);
+        vigra::DImage diff(p2 - p1);
         const vigra::Rect2D rect1(offsetPoint + p1, diff.size());
         // build difference map
         vigra::omp::combineTwoImages(vigra::srcImageRange(image1, rect1), vigra::srcImage(image2, p1), vigra::destImage(diff), detail::BuildDiff());
         // scale to 0..255 to faster watershed
-        vigra::FindMinMax<float> diffMinMax;
+        vigra::FindMinMax<double> diffMinMax;
         vigra::inspectImage(vigra::srcImageRange(diff), diffMinMax);
-        diffMinMax.max = std::min<float>(diffMinMax.max, 0.25f * vigra::NumericTraits<typename vigra::NumericTraits<typename ImageType::PixelType>::ValueType>::max());
+        diffMinMax.max = std::min<double>(diffMinMax.max, 0.25f * vigra::NumericTraits<typename vigra::NumericTraits<typename ImageType::PixelType>::ValueType>::max());
         vigra::BImage diffByte(diff.size());
         vigra::omp::transformImage(vigra::srcImageRange(diff), vigra::destImage(diffByte), vigra::functor::Param(255) - vigra::functor::Param(255.0f / diffMinMax.max)*vigra::functor::Arg1());
         diff.resize(0, 0);
