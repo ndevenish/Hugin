@@ -464,6 +464,10 @@ int main(int argc, char* argv[])
             {
                 success = LoadAndMergeImages<vigra::FRGBImage>(imageInfos, output, compression, wraparound);
             }
+            else if (pixeltype == "DOUBLE")
+            {
+                success = LoadAndMergeImages<vigra::DRGBImage>(imageInfos, output, compression, wraparound);
+            }
             else
             {
                 std::cerr << " ERROR: unsupported pixel type: " << pixeltype << std::endl;
@@ -495,6 +499,10 @@ int main(int argc, char* argv[])
             else if (pixeltype == "FLOAT")
             {
                 success = LoadAndMergeImages<vigra::FImage>(imageInfos, output, compression, wraparound);
+            }
+            else if (pixeltype == "DOUBLE")
+            {
+                success = LoadAndMergeImages<vigra::DImage>(imageInfos, output, compression, wraparound);
             }
             else
             {
