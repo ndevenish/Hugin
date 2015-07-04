@@ -63,7 +63,7 @@ using namespace hugin_utils;
 class KeyPointVectInsertor : public lfeat::KeyPointInsertor
 {
 public:
-    KeyPointVectInsertor(KeyPointVect_t& iVect) : _v(iVect) {};
+    explicit KeyPointVectInsertor(KeyPointVect_t& iVect) : _v(iVect) {};
     inline virtual void operator()(const lfeat::KeyPoint& k)
     {
         _v.push_back(KeyPointPtr(new lfeat::KeyPoint(k)));
@@ -79,7 +79,7 @@ private:
 class SieveExtractorKP : public lfeat::SieveExtractor<KeyPointPtr>
 {
 public:
-    SieveExtractorKP(KeyPointVect_t& iV) : _v(iV) {};
+    explicit SieveExtractorKP(KeyPointVect_t& iV) : _v(iV) {};
     inline virtual void operator()(const KeyPointPtr& k)
     {
         _v.push_back(k);
@@ -91,7 +91,7 @@ private:
 class SieveExtractorMatch : public lfeat::SieveExtractor<lfeat::PointMatchPtr>
 {
 public:
-    SieveExtractorMatch(lfeat::PointMatchVector_t& iM) : _m(iM) {};
+    explicit SieveExtractorMatch(lfeat::PointMatchVector_t& iM) : _m(iM) {};
     inline virtual void operator()(const lfeat::PointMatchPtr& m)
     {
         _m.push_back(m);

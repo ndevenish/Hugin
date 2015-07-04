@@ -55,7 +55,7 @@ class WXIMPEX MyExecPanel : public wxPanel, public MyProcessListener
 {
 public:
     // ctor(s)
-    MyExecPanel(wxWindow * parent);
+    explicit MyExecPanel(wxWindow * parent);
 
     void KillProcess();
 	void PauseProcess(bool pause = true);

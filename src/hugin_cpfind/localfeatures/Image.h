@@ -36,7 +36,7 @@ public:
     Image() : _width(0), _height(0), _ii(0) {};
 
     // Constructor from a pixel array (C style)
-    Image(vigra::DImage &img);
+    explicit Image(vigra::DImage &img);
     // setup the integral image
     void init(vigra::DImage &img);
 

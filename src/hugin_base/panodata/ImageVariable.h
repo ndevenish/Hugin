@@ -51,7 +51,7 @@ public:
     ImageVariable();
     
     /// construct with a given initial data value
-    ImageVariable(Type data);
+    explicit ImageVariable(Type data);
     
     /** Construct linked with something else.
      * 
@@ -61,7 +61,7 @@ public:
      * @param link ImageVariable which to link with. It provides the data for
      * the newly constructed variable.
      */
-    ImageVariable(ImageVariable<Type> * link);
+    explicit ImageVariable(ImageVariable<Type> * link);
     
     /** Copy constructor
      * 

@@ -44,7 +44,7 @@ namespace HuginBase {
     
         public:
             ///
-            PTOptimizer(PanoramaData& panorama)
+            explicit PTOptimizer(PanoramaData& panorama)
              : PanoramaAlgorithm(panorama)
             {};
         
@@ -182,7 +182,7 @@ namespace HuginBase {
         
         public:
             ///
-            SmartOptimise(PanoramaData& panorama)
+            explicit SmartOptimise(PanoramaData& panorama)
              : PTOptimizer(panorama)
             {};
         

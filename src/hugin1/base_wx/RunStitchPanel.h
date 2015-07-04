@@ -41,7 +41,7 @@
 class WXIMPEX RunStitchPanel: public wxPanel
 {
 public:
-    RunStitchPanel(wxWindow * parent);
+    explicit RunStitchPanel(wxWindow * parent);
 
     bool StitchProject(wxString scriptFile, wxString outname);
     bool DetectProject(wxString scriptFile);

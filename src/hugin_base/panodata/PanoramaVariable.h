@@ -159,7 +159,7 @@ class IMPEX LensVariable : public Variable
  * TODO: find out how it can be made to work */
 struct PrintVar : public std::unary_function<Variable, void>
 {
-    PrintVar(std::ostream & o)
+    explicit PrintVar(std::ostream & o)
         : os(o)
     {};
     

@@ -68,7 +68,7 @@ public:
     bool saveLog;
 
     /** Main constructor */
-    Batch(wxFrame* parent);
+    explicit Batch(wxFrame* parent);
 
     /** Adds an application entry in the batch list */
     void  AddAppToBatch(wxString app);

@@ -74,7 +74,7 @@ public:
         double ba, bb, bc, bd;
     };
     //constructor, open database
-    Database(const std::string& filename) : m_filename(filename), m_runningTransaction(false)
+    explicit Database(const std::string& filename) : m_filename(filename), m_runningTransaction(false)
     {
         bool newDB = (!hugin_utils::FileExists(m_filename));
         int error = sqlite3_open(m_filename.c_str(), &m_db);

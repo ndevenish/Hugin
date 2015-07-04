@@ -83,7 +83,7 @@ public:
     //Constructor for project files
     Project(wxString pth,wxString pfx,Project::Target newTarget=STITCHING);
     //Constructor for applications
-    Project(wxString command);
+    explicit Project(wxString command);
     //Returns status of project in string form
     wxString GetStatusText();
     //Reads and returns options from a project file

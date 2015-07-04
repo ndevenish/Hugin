@@ -85,7 +85,7 @@ namespace PanoCommand
     class WXIMPEX wxNewProjectCmd : public PanoCommand
     {
     public:
-        wxNewProjectCmd(HuginBase::Panorama & p) : PanoCommand(p) { m_clearDirty = true; };
+        explicit wxNewProjectCmd(HuginBase::Panorama & p) : PanoCommand(p) { m_clearDirty = true; };
         virtual bool processPanorama(HuginBase::Panorama& pano);
         virtual std::string getName() const { return "new project"; };
     };
@@ -110,7 +110,7 @@ namespace PanoCommand
     {
     public:
         wxAddCtrlPointGridCmd(HuginBase::Panorama & p, unsigned int i1, unsigned int i2, double scale, double threshold)
-            : PanoCommand(p), img1(i1), img2(i2), scale(scale), cornerThreshold(threshold)
+            : PanoCommand(p), img1(i1), img2(i2), scale(scale), cornerThreshold(threshold), dx(0), dy(0)
         { }
         virtual bool processPanorama(HuginBase::Panorama& pano);
 

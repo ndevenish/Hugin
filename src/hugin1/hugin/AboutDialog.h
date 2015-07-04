@@ -41,7 +41,7 @@ class AboutDialog: public wxDialog
 {
 public:
     /** Constructor, read from xrc ressource */
-    AboutDialog(wxWindow *parent);
+    explicit AboutDialog(wxWindow *parent);
 
 private:
 

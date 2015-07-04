@@ -39,8 +39,8 @@ class IMPEX CalculateMeanExposure : public PanoramaAlgorithm
 
     public:
         ///
-        CalculateMeanExposure(PanoramaData& panorama)
-         : PanoramaAlgorithm(panorama)
+        explicit CalculateMeanExposure(PanoramaData& panorama)
+            : PanoramaAlgorithm(panorama), o_resultExposure(0.0)
         {};
         
         ///

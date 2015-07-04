@@ -83,7 +83,8 @@ class IMPEX ImageCache
                     image16(ImageCacheRGB16Ptr(new vigra::UInt16RGBImage)),
                     imageFloat(ImageCacheRGBFloatPtr(new vigra::FRGBImage)),
                     mask(ImageCache8Ptr(new vigra::BImage)),
-                    iccProfile(ImageCacheICCProfile(new vigra::ImageImportInfo::ICCProfile))
+                    iccProfile(ImageCacheICCProfile(new vigra::ImageImportInfo::ICCProfile)),
+                    lastAccess(0)
                 {
                       DEBUG_TRACE("Constructing an empty ImageCache::Entry");
                 };

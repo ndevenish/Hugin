@@ -39,7 +39,7 @@ class IMPEX CenterHorizontally : public PanoramaAlgorithm
 
     public:
         ///
-        CenterHorizontally(PanoramaData& panorama)
+        explicit CenterHorizontally(PanoramaData& panorama)
          : PanoramaAlgorithm(panorama)
         {};
         

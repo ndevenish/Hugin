@@ -42,7 +42,7 @@ class IMPEX ProgressDisplay
 {
 protected:
     /** constructor */
-    ProgressDisplay(int maximum=0) : m_canceled(false), m_maximum(maximum), m_progress(0) {};
+    explicit ProgressDisplay(int maximum=0) : m_canceled(false), m_maximum(maximum), m_progress(0) {};
 
 public:
     /** sets the message to given string */
@@ -89,7 +89,7 @@ class IMPEX StreamProgressDisplay : public ProgressDisplay
 {
     public:
         /** constructor, connect with given outputstream */
-        StreamProgressDisplay(std::ostream & o) : ProgressDisplay(), m_stream(o) {};
+        explicit StreamProgressDisplay(std::ostream & o) : ProgressDisplay(), m_stream(o) {};
         /** update the display, print the message to stream */
         virtual void updateProgressDisplay();
     protected:

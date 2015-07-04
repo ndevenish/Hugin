@@ -56,7 +56,7 @@ namespace PanoCommand
     class WXIMPEX NewPanoCmd : public PanoCommand
     {
     public:
-        NewPanoCmd(HuginBase::Panorama & pano) : PanoCommand(pano) { m_clearDirty = true; };
+        explicit NewPanoCmd(HuginBase::Panorama & pano) : PanoCommand(pano) { m_clearDirty = true; };
         virtual bool processPanorama(HuginBase::Panorama& pano);
         virtual std::string getName() const { return "new panorama"; };
     };
@@ -238,7 +238,7 @@ namespace PanoCommand
     class WXIMPEX CenterPanoCmd : public PanoCommand
     {
     public:
-        CenterPanoCmd(HuginBase::Panorama & p) : PanoCommand(p) { };
+        explicit CenterPanoCmd(HuginBase::Panorama & p) : PanoCommand(p) { };
         virtual bool processPanorama(HuginBase::Panorama& pano);
         virtual std::string getName() const { return "center panorama"; }
     };
@@ -247,7 +247,7 @@ namespace PanoCommand
     class WXIMPEX StraightenPanoCmd : public PanoCommand
     {
     public:
-        StraightenPanoCmd(HuginBase::Panorama & p) : PanoCommand(p) { };
+        explicit StraightenPanoCmd(HuginBase::Panorama & p) : PanoCommand(p) { };
         virtual bool processPanorama(HuginBase::Panorama& pano);
         virtual std::string getName() const { return "straighten panorama"; };
     };
@@ -628,7 +628,7 @@ namespace PanoCommand
     class WXIMPEX ResetToMeanExposure : public PanoCommand
     {
     public:
-        ResetToMeanExposure(HuginBase::Panorama & p) : PanoCommand(p) { };
+        explicit ResetToMeanExposure(HuginBase::Panorama & p) : PanoCommand(p) { };
         virtual bool processPanorama(HuginBase::Panorama& pano);
         virtual std::string getName() const { return "set exposure to mean exposure"; };
     };
@@ -637,7 +637,7 @@ namespace PanoCommand
     class WXIMPEX DistributeImagesCmd : public PanoCommand
     {
     public:
-        DistributeImagesCmd(HuginBase::Panorama & p) : PanoCommand(p) { };
+        explicit DistributeImagesCmd(HuginBase::Panorama & p) : PanoCommand(p) { };
         virtual bool processPanorama(HuginBase::Panorama& pano);
         virtual std::string getName() const { return "distribute images"; };
     };

@@ -41,7 +41,7 @@ class LoadLensDBDialog : public wxDialog
 {
 public:
     /** Constructor, read from xrc ressource; restore last uses settings, size and position */
-    LoadLensDBDialog(wxWindow *parent);
+    explicit LoadLensDBDialog(wxWindow *parent);
     void SetLensName(std::string lensname);
     std::string GetLensName() const;
     void SetFocalLength(double focal);
@@ -354,7 +354,7 @@ class SaveLensDBDialog : public wxDialog
 {
 public:
     /** Constructor, read from xrc ressource; restore last uses settings, size and position */
-    SaveLensDBDialog(wxWindow *parent);
+    explicit SaveLensDBDialog(wxWindow *parent);
     void SetCameraMaker(std::string maker);
     std::string GetCameraMaker() const;
     void SetCameraModel(std::string model);

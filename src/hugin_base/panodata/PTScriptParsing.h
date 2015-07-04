@@ -84,7 +84,7 @@ namespace PTScriptParsing {
             init();
         }
 
-        ImgInfo(const std::string & line)
+        explicit ImgInfo(const std::string & line)
         {
             init();
             this->parse(line);

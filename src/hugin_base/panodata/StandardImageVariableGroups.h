@@ -48,7 +48,7 @@ public:
      * creates ImageVariableGroups for lenses, etc.
      * @param pano The panorama data to use for the lenses, etc.
      */
-    ConstStandardImageVariableGroups(const PanoramaData & pano);
+    explicit ConstStandardImageVariableGroups(const PanoramaData & pano);
     
     /** Get the ImageVariableGroup representing the group of lens variables.
      * 
@@ -130,7 +130,7 @@ protected:
 class IMPEX StandardImageVariableGroups: public ConstStandardImageVariableGroups
 {
 public:
-    StandardImageVariableGroups(PanoramaData & pano);
+    explicit StandardImageVariableGroups(PanoramaData & pano);
     
     /** Get the ImageVariableGroup representing the group of lens variables.
      * 

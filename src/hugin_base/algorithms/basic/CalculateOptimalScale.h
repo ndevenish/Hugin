@@ -42,8 +42,8 @@ class IMPEX CalculateOptimalScale : public PanoramaAlgorithm
 
     public:
         ///
-        CalculateOptimalScale(PanoramaData& panorama)
-         : PanoramaAlgorithm(panorama)
+        explicit CalculateOptimalScale(PanoramaData& panorama)
+            : PanoramaAlgorithm(panorama), o_optimalScale(0)
         {}
         
         ///
@@ -97,7 +97,7 @@ class SetWidthOptimal : public CalculateOptimalScale
 {
     public:
         ///
-        SetWidthOptimal(PanoramaData& panorama)
+        explicit SetWidthOptimal(PanoramaData& panorama)
          : CalculateOptimalScale(panorama)
         {}
 

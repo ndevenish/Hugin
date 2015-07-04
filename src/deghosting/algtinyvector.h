@@ -35,7 +35,7 @@ class AlgTinyVector
             }
         }
         
-        AlgTinyVector(T t=NumericTraits<T>::zero()) {
+        explicit AlgTinyVector(T t=NumericTraits<T>::zero()) {
             for (unsigned int i = 0; i < SIZE; ++i) {
                 content[i] = t;
             }

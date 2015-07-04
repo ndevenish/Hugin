@@ -39,7 +39,7 @@ class WXIMPEX PanoCommand
 {
     public:
         /** constructor */
-        PanoCommand(HuginBase::Panorama& pano)
+        explicit PanoCommand(HuginBase::Panorama& pano)
             : m_pano(pano), m_memento(NULL), m_redoMemento(NULL), m_clearDirty(false), m_successful(false)
         {};
         PanoCommand(HuginBase::Panorama& pano, const std::string& commandName)

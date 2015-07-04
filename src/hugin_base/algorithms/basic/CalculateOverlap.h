@@ -43,7 +43,7 @@ class IMPEX CalculateImageOverlap
 {
 public:
     /** constructor */
-    CalculateImageOverlap(const PanoramaData * pano);
+    explicit CalculateImageOverlap(const PanoramaData * pano);
     /** destructor */
     virtual ~CalculateImageOverlap();
     /** does the calculation, 

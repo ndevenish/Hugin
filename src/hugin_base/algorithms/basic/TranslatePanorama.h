@@ -35,12 +35,9 @@ class IMPEX TranslatePanorama : public PanoramaAlgorithm
 
     public:
         ///
-        TranslatePanorama(PanoramaData& panorama, const double x, const double y, const double z)
+        explicit TranslatePanorama(PanoramaData& panorama, const double x = 0, const double y = 0, const double z = 0)
          : PanoramaAlgorithm(panorama), o_x(x), o_y(y), o_z(z)
         {};
-        
-        ///
-        TranslatePanorama(PanoramaData& panorama);
         
         ///
         virtual ~TranslatePanorama() {};

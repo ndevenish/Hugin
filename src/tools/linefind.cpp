@@ -275,7 +275,7 @@ HuginBase::CPVector LoadImageAndFindLines(vigra::ImageImportInfo info, Panorama&
 
 struct SortVectorByExposure
 {
-    SortVectorByExposure(const HuginBase::Panorama& pano) : m_pano(pano) {};
+    explicit SortVectorByExposure(const HuginBase::Panorama& pano) : m_pano(pano) {};
     bool operator()(const size_t& img1, const size_t& img2)
     {
         return m_pano.getImage(img1).getExposureValue() < m_pano.getImage(img2).getExposureValue();

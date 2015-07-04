@@ -25,11 +25,6 @@
 namespace HuginBase {
 
 ///
-TranslatePanorama::TranslatePanorama(PanoramaData& panorama)
- : PanoramaAlgorithm(panorama)
-{
-}
-
 void TranslatePanorama::translatePano(PanoramaData& panorama, const double x, const double y, const double z)
 {
 

@@ -64,7 +64,7 @@ protected:
 
 public:
 
-    KeypointWriter(std::ostream& out=std::cout)
+    explicit KeypointWriter(std::ostream& out=std::cout)
         : o ( out )
     {
     }
@@ -82,7 +82,7 @@ class LFIMPEX SIFTFormatWriter : public KeypointWriter
     ImageInfo _image;
 
 public:
-    SIFTFormatWriter(std::ostream& out=std::cout)
+    explicit SIFTFormatWriter(std::ostream& out=std::cout)
         : KeypointWriter(out)
     {
     }
@@ -100,7 +100,7 @@ class LFIMPEX DescPerfFormatWriter : public KeypointWriter
     ImageInfo _image;
 
 public:
-    DescPerfFormatWriter(std::ostream& out=std::cout)
+    explicit DescPerfFormatWriter(std::ostream& out=std::cout)
         : KeypointWriter(out)
     {
     }
@@ -117,7 +117,7 @@ class LFIMPEX AutopanoSIFTWriter : public KeypointWriter
 {
 
 public:
-    AutopanoSIFTWriter(std::ostream& out=std::cout)
+    explicit AutopanoSIFTWriter(std::ostream& out=std::cout)
         : KeypointWriter(out)
     {
     }

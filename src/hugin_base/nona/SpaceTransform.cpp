@@ -37,8 +37,9 @@ namespace Nona {
         
 
 /// ctor
-SpaceTransform::SpaceTransform()
+SpaceTransform::SpaceTransform() : m_srcTX(0), m_srcTY(0), m_destTX(0), m_destTY(0)
 {
+
 	m_Initialized = false;
 }
 

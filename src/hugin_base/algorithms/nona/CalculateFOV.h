@@ -40,7 +40,7 @@ class IMPEX CalculateFOV : public PanoramaAlgorithm
 
     public:
         ///
-        CalculateFOV(PanoramaData& panorama)
+        explicit CalculateFOV(PanoramaData& panorama)
          : PanoramaAlgorithm(panorama)
         {};
         

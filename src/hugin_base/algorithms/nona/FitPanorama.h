@@ -39,8 +39,8 @@ class IMPEX CalculateFitPanorama : public PanoramaAlgorithm
 
     public:
         ///
-        CalculateFitPanorama(PanoramaData& panorama)
-         : PanoramaAlgorithm(panorama)
+        explicit CalculateFitPanorama(PanoramaData& panorama)
+            : PanoramaAlgorithm(panorama), o_resultHFOV(0), o_resultHeight(0)
         {};
         
         ///
@@ -91,7 +91,7 @@ class IMPEX FitPanorama : public CalculateFitPanorama
 
     public:
         ///
-        FitPanorama(PanoramaData& panorama)
+        explicit FitPanorama(PanoramaData& panorama)
          : CalculateFitPanorama(panorama)
         {};
         

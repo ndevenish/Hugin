@@ -38,7 +38,7 @@ using namespace vigra::functor;
 template <class PixelType>
 class LogarithmFunctor {
     public:
-        LogarithmFunctor(PixelType off=0) : offset(off)  {}
+        explicit LogarithmFunctor(PixelType off=0) : offset(off)  {}
         
         PixelType operator()(PixelType const& v) const {
             return std::log(v + offset);
@@ -53,7 +53,7 @@ class LogarithmFunctor {
 template <class ComponentType>
 class LogarithmFunctor<RGBValue<ComponentType> > {
     public:
-        LogarithmFunctor(ComponentType off=0) : offset(off) {}
+        explicit LogarithmFunctor(ComponentType off=0) : offset(off) {}
         
         RGBValue<ComponentType> operator()(RGBValue<ComponentType> const& v) const {
             RGBValue<ComponentType> retVal;
@@ -109,7 +109,7 @@ class HatFunctor<RGBValue<ComponentType> > {
 template <class PixelType>
 class NormalizeFunctor {
     public:
-        NormalizeFunctor(PixelType f) : factor(f) {}
+        explicit NormalizeFunctor(PixelType f) : factor(f) {}
         NormalizeFunctor(PixelType oldMaxValue, PixelType newMaxValue) : factor(newMaxValue/oldMaxValue) {}
         
         PixelType operator()(PixelType const &v) const {

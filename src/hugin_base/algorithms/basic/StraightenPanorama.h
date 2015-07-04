@@ -38,7 +38,7 @@ class IMPEX StraightenPanorama : public RotatePanorama
 
     public:
         ///
-        StraightenPanorama(PanoramaData& panorama)
+        explicit StraightenPanorama(PanoramaData& panorama)
          : RotatePanorama(panorama, Matrix3())
         {};
         

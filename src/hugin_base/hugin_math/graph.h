@@ -151,7 +151,7 @@ namespace hugin_utils
     /** removes vertices from the set */
     struct RemoveVisitor
     {
-        RemoveVisitor(std::set<int> & vertices)
+        explicit RemoveVisitor(std::set<int> & vertices)
             : m_vert(vertices)
             { };
         void operator()(int vert1)

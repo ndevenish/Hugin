@@ -41,7 +41,7 @@ class IMPEX CalculateCPStatistics : public PanoramaAlgorithm
     protected:
         ///
         CalculateCPStatistics(PanoramaData& panorama, const int& imgNr=-1)
-         : PanoramaAlgorithm(panorama), o_imageNumber(imgNr)
+            : PanoramaAlgorithm(panorama), o_imageNumber(imgNr), o_resultMin(0), o_resultMax(0), o_resultMean(0), o_resultVar(0)
         {};
         
     public:
@@ -136,7 +136,7 @@ class IMPEX CalculateCPStatisticsRadial : public CalculateCPStatistics
     public:
         ///
         CalculateCPStatisticsRadial(PanoramaData& panorama, const int& imgNr=-1)
-         : CalculateCPStatistics(panorama, imgNr)
+            : CalculateCPStatistics(panorama, imgNr), o_resultQ10(0), o_resultQ90(0)
         {};
         
         ///
