@@ -94,7 +94,7 @@ inline BoxFilter::BoxFilter(double iBaseSize, Image& iImage)
     _lxx_x_mid = _basesize / 2;
     _lxx_x_right = _lxx_x_mid + _basesize;
     _lxx_y_bottom = _lxx_x_mid * 2;
-
+    setY(0);
 
 }
 

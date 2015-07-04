@@ -118,6 +118,8 @@ public:
         NAMING_FOLDER=2,
         NAMING_TEMPLATE=3
     };
+    /** constructor, init values */
+    PossiblePano() : m_focallength(0) {};
     /** destructor, cleans up used variables */
     ~PossiblePano();
     /** return true, if the image could belong to the given PossiblePano,

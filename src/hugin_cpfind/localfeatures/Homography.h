@@ -50,9 +50,6 @@ private:
 
     void addMatch(size_t iIndex, PointMatch& iMatch);
 
-    double** AA;
-    double*	 B, * X, *r;
-
     static const int kNCols;
 
 
@@ -68,7 +65,6 @@ private:
 public:
     double	_H[3][3];	// the homography matrix.
     int		_nMatches;	// number of matches to calc homography
-    int		_currentPair; // the current pair to be set
 
     // values for vector normalization
     double _v1x, _v2x, _v1y, _v2y;

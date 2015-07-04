@@ -61,7 +61,7 @@ private :
 
 public:
     /** constructor */
-    python_interface() : activated(false) {};
+    python_interface() : activated(false), hsi_module(NULL), hpi_module(NULL) {};
     /* destructor, does cleanup */
     ~python_interface();
 

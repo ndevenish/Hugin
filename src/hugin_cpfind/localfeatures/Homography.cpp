@@ -41,6 +41,21 @@ bool Givens(double** C, double* d, double* x, double* r, int N, int n, int want_
 
 Homography::Homography(void) : _nMatches(0)
 {
+    _Amat = NULL;
+    _Bvec = NULL;
+    _Rvec = NULL;
+    _Xvec = NULL;
+    _v1x = 0;
+    _v2x = 0;
+    _v1y = 0;
+    _v2y = 0;
+    for (size_t i = 0; i < 3; ++i)
+    {
+        for (size_t j = 0; j < 3; ++j)
+        {
+            _H[i][j] = 0;
+        };
+    };
 }
 
 void Homography::allocMemory(int iNMatches)

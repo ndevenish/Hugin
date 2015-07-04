@@ -409,6 +409,13 @@ public:
         ImgData()
         {
             _loadFail = false;
+            _number = 0;
+            _detectWidth = 0;
+            _detectHeight = 0;
+            _needsremap = false;
+            _hasakeyfile = false;
+            _descLength = 0;
+            _flann_index = NULL;
         }
     };
 

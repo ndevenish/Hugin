@@ -80,7 +80,7 @@ namespace deghosting {
     class Deghosting
     {
     public:
-        Deghosting() {}
+        Deghosting() : flags(0), debugFlags(0), iterations(0), verbosity(0) {}
         
         /** create weight masks
          * create weight masks for masking out ghosting regions
