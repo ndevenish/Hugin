@@ -532,7 +532,6 @@ void Panorama::printPanoramaScript(std::ostream & o,
 
     output.printScriptLine(o, forPTOptimizer);
 
-    std::map<unsigned int, unsigned int> linkAnchors;
     // map from script img nr -> pano image nr
     std::map<unsigned int, unsigned int> imageNrMap;
     o << std::endl
@@ -1053,7 +1052,7 @@ void Panorama::updateMasksForImage(unsigned int imgNr, MaskPolygonVector newMask
     m_forceImagesUpdate = true;
 };
 
-void Panorama::transferMask(MaskPolygon mask,unsigned int imgNr, const UIntSet targetImgs)
+void Panorama::transferMask(MaskPolygon mask,unsigned int imgNr, const UIntSet& targetImgs)
 {
     if(targetImgs.size()==0)
     {
@@ -1213,7 +1212,6 @@ void Panorama::updateMasks(bool convertPosMaskToNeg)
                             {
                                 unsigned int lensNr=lenses.getPartNumber(i);
                                 //copy masks to all image of the same lens
-                                UIntSet imgLens;
                                 for(unsigned int k=0;k<getNrOfImages();k++)
                                 {
                                     if(lenses.getPartNumber(k)==lensNr)
@@ -1293,7 +1291,6 @@ void Panorama::updateMasks(bool convertPosMaskToNeg)
                             {
                                 unsigned int lensNr=lenses.getPartNumber(i);
                                 //copy masks to all image of the same lens
-                                UIntSet imgLens;
                                 for(unsigned int k=0;k<getNrOfImages();k++)
                                 {
                                     if(lenses.getPartNumber(k)==lensNr)

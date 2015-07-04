@@ -329,19 +329,19 @@ void ReplaceAll(std::string& s, const std::string& oldChar, char newChar)
         double &r,double &g, double &b)
     {
         //Colour change points
-        double xp1=5;
-        double xp2=10;
+#define XP1 5.0f
+#define XP2 10.0f
 
-        if ( cperr<= xp1) 
+        if ( cperr<= XP1) 
         {
             //low error
-            r = cperr / xp1;
+            r = cperr / XP1;
             g = 0.75;
         }
         else
         {
             r = 1.0;
-            g = 0.75 * ( (1.0-std::min<double>(cperr-xp1,(xp2-xp1))/(xp2-xp1)));
+            g = 0.75 * ((1.0 - std::min<double>(cperr - XP1, XP2 - XP1) / (XP2 - XP1)));
         } 
         b = 0.0;
     }

@@ -50,10 +50,6 @@ void Image::clean()
     {
         DeallocateImage(_ii, _height + 1);
     }
-    else if (_ii)
-    {
-        delete[] _ii;
-    }
     _ii = 0;
 }
 

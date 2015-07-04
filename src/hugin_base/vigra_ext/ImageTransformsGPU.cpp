@@ -155,12 +155,11 @@ static void checkGLErrors(int line, char* file) {
 }
 
 static void printInfoLog(GLhandleARB obj) {
-  GLint infologLength = 0;
-  GLint charsWritten = 0;
-  char *infoLog;
+    GLint infologLength = 0;
+    GLint charsWritten = 0;
     glGetObjectParameterivARB(obj, GL_OBJECT_INFO_LOG_LENGTH_ARB, &infologLength);
     if (infologLength > 1) {
-        infoLog = new char[infologLength];
+        char* infoLog = new char[infologLength];
         glGetInfoLogARB(obj, infologLength, &charsWritten, infoLog);
         cout << "nona: GL info log:" << endl << infoLog << endl << endl;
         delete[] infoLog;
@@ -324,7 +323,7 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
                              const int destAlphaGLType,
                              const bool warparound)
 {
-    long t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21;
+    long t1, t3, t5, t6, t7, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t21;
 
     const int xstart = destUL.x;
     const int xend   = destUL.x + destSize.x;
@@ -911,8 +910,7 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
     glFinish();
     if(printDebug)
     {
-        t2=getms();
-        cout << "gpu shader texture/framebuffer setup time = " << ((t2-t21)/1000.0) << endl;
+        cout << "gpu shader texture/framebuffer setup time = " << ((getms()-t21)/1000.0) << endl;
     };
 
     // Render each dest chunk
@@ -940,7 +938,7 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
         glFinish();
         if(printDebug)
         {
-            t4=getms();
+            long t4=getms();
             cout << "gpu dest chunk=" << *dI << " coord image render time = " << ((t4-t3)/1000.0) << endl;
         };
 
@@ -1006,8 +1004,7 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
                         glFinish();
                         if(printDebug)
                         {
-                            t8=getms();
-                            cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " src+alpha render = " << ((t8-t7)/1000.0) << endl;
+                            cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " src+alpha render = " << ((getms()-t7)/1000.0) << endl;
                         };
                     }
                 }
@@ -1064,8 +1061,7 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
                         glFinish();
                         if(printDebug)
                         {
-                            t8=getms();
-                            cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " src+alpha render = " << ((t8-t7)/1000.0) << endl;
+                            cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " src+alpha render = " << ((getms()-t7)/1000.0) << endl;
                         };
                     }
                     else {
@@ -1393,7 +1389,7 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
     glFinish();
     if(printDebug)
     {
-        t20=getms();
+        long t20=getms();
         cout << "gpu destruct time = " << ((t20-t19)/1000.0) << endl;
         cout << "gpu total time = " << ((t20-t1)/1000.0) << endl;
     };

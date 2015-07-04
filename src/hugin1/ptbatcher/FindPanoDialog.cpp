@@ -380,8 +380,6 @@ void FindPanoDialog::SearchInDir(wxString dirstring, const bool includeSubdir, c
     wxDir::GetAllFiles(dirstring,&fileList,wxEmptyString,wxDIR_FILES|wxDIR_HIDDEN);
     fileList.Sort(SortWxFilenames);
     //map for caching projection information to prevent reading from database for each image
-    typedef std::map<std::string,HuginBase::BaseSrcPanoImage::Projection> projMap;
-    projMap lensProjMap;
     for(size_t j=0; j<fileList.size() && !m_stopped; j++)
     {
         m_statustext->SetLabel(wxString::Format(_("Reading file %s"),fileList[j].c_str()));

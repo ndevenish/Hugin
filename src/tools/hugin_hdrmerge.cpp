@@ -232,8 +232,6 @@ int main(int argc, char* argv[])
     uint16_t flags = 0;
     uint16_t otherFlags = 0;
 
-
-    string basename;
     while ((c = getopt (argc, argv, optstring)) != -1)
     {
         switch (c)

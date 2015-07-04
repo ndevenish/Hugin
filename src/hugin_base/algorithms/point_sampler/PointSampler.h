@@ -501,8 +501,6 @@ void RandomPointSampler::sampleRandomPanoPoints(const std::vector<Img>& imgs,
             randY(rng, distriby);             // glues randomness with mapping
 #endif
 
-    double percentReported = 0.0;
-    
     for (unsigned maxTry = nPoints*5; nPoints > 0 && maxTry > 0; maxTry--) {
         unsigned x = randX();
         unsigned y = randY();

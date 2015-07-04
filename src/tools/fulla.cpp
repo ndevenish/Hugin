@@ -645,11 +645,10 @@ void correctImage(SrcImgType& srcImg,
         vigra_ext::transformImage(srcImageRange(srcImg), destImageRange(srcImg), destImage(alpha), vigra::Diff2D(0, 0), transform, invResp, false, vigra_ext::INTERP_SPLINE_16, progress);
     }
 
-    double scaleFactor=1.0;
     // radial distortion correction
     if (doCrop)
     {
-        scaleFactor=Nona::estScaleFactorForFullFrame(src);
+        double scaleFactor=Nona::estScaleFactorForFullFrame(src);
         DEBUG_DEBUG("Black border correction scale factor: " << scaleFactor);
         double sf=scaleFactor;
         vector<double> radGreen = src.getRadialDistortion();

@@ -125,7 +125,7 @@ namespace detail
     void saveRemapped(RemappedPanoImage<ImageType, AlphaType> & remapped,
         unsigned int imgNr, unsigned int nImg,
         const PanoramaOptions & opts,
-        const std::string basename,
+        const std::string& basename,
         AppBase::ProgressDisplay* progress)
     {
         ImageType * final_img = 0;
@@ -312,7 +312,6 @@ public:
         // setup the output.
         prepareOutputFile(opts);
 
-        unsigned int nImg = images.size();
         // remap each image and save
         int i=0;
         for (UIntSet::const_iterator it = images.begin();
@@ -428,7 +427,7 @@ public:
     typedef MultiImageRemapper<ImageType, AlphaImageType> Base;
     TiffMultiLayerRemapper(const PanoramaData & pano,
                            AppBase::ProgressDisplay* progress)
-	: MultiImageRemapper<ImageType, AlphaImageType> (pano, progress)
+	: MultiImageRemapper<ImageType, AlphaImageType> (pano, progress), m_tiff(NULL)
     {
     }
 
@@ -863,8 +862,6 @@ public:
     {
         Base::m_images=imgSet;
         Base::calcOutputROIS(opts, imgSet);
-
-        unsigned int nImg = imgSet.size();
 
         Base::m_progress->setMessage("Remapping and stitching with watershed algorithm");
         // empty ROI

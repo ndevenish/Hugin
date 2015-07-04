@@ -176,7 +176,6 @@ void SetGeometricControlPointsUnconnected(Panorama& pano, const int minOverlap)
     for(UIntSet::const_iterator img=imgsToTest.begin(); img!=imgsToTest.end(); ++img)
     {
         UIntSet overlappingImgs;
-        const SrcPanoImage& img1=pano.getImage(*img);
         // search overlapping images, take linked positions into account
         for(size_t i=0; i<pano.getNrOfImages(); i++)
         {

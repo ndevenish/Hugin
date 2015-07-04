@@ -972,10 +972,10 @@ void PanoPanel::DoCalcOptimalROI(wxCommandEvent & e)
         };
     };
 
-    HuginBase::PanoramaOptions opt = pano->getOptions();
     //set the ROI - fail if the right/bottom is zero, meaning all zero
-    if(newROI.right() != 0 && newROI.bottom() != 0)
+    if(!newROI.isEmpty())
     {
+        HuginBase::PanoramaOptions opt = pano->getOptions();
         opt.setROI(newROI);
         PanoCommand::GlobalCmdHist::getInstance().addCommand(
             new PanoCommand::SetPanoOptionsCmd( *pano, opt )

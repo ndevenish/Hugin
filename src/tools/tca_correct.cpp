@@ -291,8 +291,6 @@ void optGetError(double* p, double* x, int m, int n, void* data)
 
     double base_size = std::min(dat->m_center[0], dat->m_center[1]);
 
-    double sqerror = 0;
-
     CPVector newCPs;
 
     unsigned int noPts = dat->m_pano.getNrOfCtrlPoints();
@@ -330,7 +328,6 @@ void optGetError(double* p, double* x, int m, int n, void* data)
         newCPs.push_back(newcp);
 
         dat->m_pano.getCtrlPoint(ptIdx);
-        sqerror += x[ptIdx] * x[ptIdx];
         // use huber robust estimator
         if (dat->huberSigma > 0)
         {
@@ -482,7 +479,6 @@ void createCtrlPoints(Panorama& pano, const ImageType& img, int imgRedNr, int im
     // find interesting corners using harris corner detector
     typedef std::vector<std::multimap<double, vigra::Diff2D> > MapVector;
 
-    std::vector<std::multimap<double, vigra::Diff2D> >points;
     if (g_param.verbose > 0)
     {
         std::cout << "Finding control points... " << std::endl;

@@ -659,8 +659,8 @@ bool Batch::OnStitch(wxString scriptFile, wxString outname, int id)
         }
         else     // bail
         {
+            wxLogError(_("No project files specified"));
             return false;
-            wxLogError( _("No project files specified"));
         }
     }
 
@@ -769,8 +769,7 @@ void Batch::PauseBatch()
 
 void Batch::RemoveProject(int id)
 {
-    int index;
-    if((index=GetIndex(id)) != -1)
+    if(GetIndex(id) != -1)
     {
         RemoveProjectAtIndex(GetIndex(id));
     }

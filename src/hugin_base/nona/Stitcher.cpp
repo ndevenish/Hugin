@@ -109,7 +109,6 @@ void stitchPanorama(const PanoramaData & pano,
         } else {
             DEBUG_ERROR("unsupported depth, only images with 1 and 3 channel images are supported");
             throw std::runtime_error("unsupported depth, only images with 1 and 3 channel images are supported");
-            return;
         }
     } else {
         // stitch the pano with a suitable image type

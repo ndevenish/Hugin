@@ -2313,7 +2313,6 @@ bool LensDB::GetVignetting(const std::string& lens, const double focal, const do
             else
             {
                 // we have now 4 points for interpolation
-                double Vb1, Vc1, Vd1, Vb2, Vc2, Vd2;
                 if (!IsFocallengthNearRange(focal, vigdata[0].focallength, vigdata[2].focallength, 0.15f))
                 {
                     return false;
@@ -2330,6 +2329,7 @@ bool LensDB::GetVignetting(const std::string& lens, const double focal, const do
                 else
                 {
                     // interpolate for each focal length to desired aperture
+                    double Vb1, Vc1, Vd1, Vb2, Vc2, Vd2;
                     if (vigdata[0].aperture - 0.3 <= aperture && aperture <= vigdata[1].aperture + 0.3)
                     {
                         Vb1 = InterpolateValue(aperture, vigdata[0].aperture, vigdata[0].Vb, vigdata[1].aperture, vigdata[1].Vb);

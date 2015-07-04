@@ -329,8 +329,6 @@ int main(int argc, char* argv[])
         // photometric estimation
         PanoramaOptions opts = pano.getOptions();
         int nPoints = 200;
-        int pyrLevel=3;
-        bool randomPoints = true;
         nPoints = nPoints * pano.getNrOfImages();
 
         std::vector<vigra_ext::PointPairRGB> points;
@@ -345,7 +343,7 @@ int main(int argc, char* argv[])
         }
         try
         {
-            loadImgsAndExtractPoints(pano, nPoints, pyrLevel, randomPoints, *progressDisplay, points, !quiet);
+            loadImgsAndExtractPoints(pano, nPoints, 3, true, *progressDisplay, points, !quiet);
         }
         catch (std::exception& e)
         {

@@ -27,13 +27,13 @@ bool Math::SolveLinearSystem33(double* solution, double sq[3][3])
 {
     const int size = 3;
     int row, col, c, pivot = 0, i;
-    double maxc, coef, temp, mult, val;
+    double coef, temp, mult;
 
     /* Triangularize the matrix. */
     for (col = 0; col < size - 1; col++)
     {
         /* Pivot row with largest coefficient to top. */
-        maxc = -1.0;
+        double maxc = -1.0;
         for (row = col; row < size; row++)
         {
             coef = sq[row][col];
@@ -73,7 +73,7 @@ bool Math::SolveLinearSystem33(double* solution, double sq[3][3])
     /* Do back substitution.  Pivoting does not affect solution order. */
     for (row = size - 1; row >= 0; row--)
     {
-        val = solution[row];
+        double val = solution[row];
         for (col = size - 1; col > row; col--)
         {
             val -= solution[col] * sq[row][col];
@@ -87,11 +87,11 @@ bool Math::Normalize(double* iVec, int iLen)
 {
 
     int i;
-    double val, fac, sqlen = 0.0;
+    double fac, sqlen = 0.0;
 
     for (i = 0; i < iLen; i++)
     {
-        val = iVec[i];
+        const double val = iVec[i];
         sqlen += val * val;
     }
     if (sqlen == 0.0)

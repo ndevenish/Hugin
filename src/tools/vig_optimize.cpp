@@ -60,8 +60,6 @@ static void usage(const char* name)
          << "  -o file   write results to output project" << std::endl
          << "  -v        Verbose, print progress messages" << std::endl
          << "  -p n      Number of points to extract" << std::endl
-         // random points is default, all points was only implemented for testing purposes
-         // << "  -r        Extract random point (faster, but less accurate)" << std::endl
          << "  -s level  Work on downscaled images, every step halves width and height" << std::endl
          << "  -h        Display help (this text)" << std::endl
          << std::endl
@@ -145,7 +143,6 @@ bool hasphotometricParams(Panorama& pano)
 
     for (OptimizeVector::const_iterator it=vars.begin(); it != vars.end(); ++it)
     {
-        std::set<std::string> cvars;
         for (std::set<std::string>::const_iterator itv = (*it).begin();
                 itv != (*it).end(); ++itv)
         {
@@ -172,11 +169,9 @@ int main(int argc, char* argv[])
     int pyrLevel=3;
     int verbose = 0;
     int nPoints = 200;
-    bool randomPoints = true;
     std::string outputFile;
     std::string outputPointsFile;
     std::string inputPointsFile;
-    string basename;
     while ((c = getopt (argc, argv, optstring)) != -1)
         switch (c)
         {
@@ -189,9 +184,6 @@ int main(int argc, char* argv[])
             case 'p':
                 nPoints = atoi(optarg);
                 break;
-            /*case 'r':
-                randomPoints = true;
-                break; */
             case 's':
                 pyrLevel=atoi(optarg);
                 break;
@@ -266,7 +258,7 @@ int main(int argc, char* argv[])
         }
         else
         {
-            loadImgsAndExtractPoints(pano, nPoints, pyrLevel, randomPoints, progressDisplay, points, verbose);
+            loadImgsAndExtractPoints(pano, nPoints, pyrLevel, true, progressDisplay, points, verbose);
         }
         if (verbose)
         {

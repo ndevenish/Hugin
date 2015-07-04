@@ -132,7 +132,6 @@ void MyExecPanel::PauseProcess(bool pause)
 {
 #ifdef __WXMSW__
 	HANDLE hProcessSnapshot = NULL;
-	HANDLE hThreadSnapshot = NULL; 
 	PROCESSENTRY32 pEntry = {0};
 	THREADENTRY32 tEntry = {0};
 
@@ -155,7 +154,7 @@ void MyExecPanel::PauseProcess(bool pause)
 				if((pEntry.th32ProcessID == m_pidLast) || (pEntry.th32ParentProcessID == m_pidLast))
 				{
 					//we take a snapshot of all system threads
-					hThreadSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPTHREAD, 0); 
+					HANDLE hThreadSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPTHREAD, 0); 
 					if (hThreadSnapshot == INVALID_HANDLE_VALUE)
 						wxLogError(_("Error pausing process %ld, code 2"),m_pidLast);
 

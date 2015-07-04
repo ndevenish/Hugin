@@ -70,7 +70,7 @@ BImage edgeMap2linePts(BImage & input)
           // center must be an edge point
             if( *ix != N8_bg )
             {
-                int n = 0, z1 = 0, z2 = 0;
+                int n = 0;
                 int nh = 0, nv = 0, nu = 0, nd = 0;
                 if( ix( 1, 0 ) != N8_bg ) ++nh, ++n;
                 if( ix( 1, -1 ) != N8_bg ) ++nu, ++n;
@@ -389,7 +389,6 @@ static int lineFilter( vector< Point2D > & pts,
     // the chord midpoint (in centered coords)
     double ccx = x0 + 0.5 * dx - xcen,
            ccy = y0 + 0.5 * dy - ycen;
-    double ccd = sqrt( ccx*ccx + ccy *ccy );
     // the arc center point in centered coords
     // aka radius vector
     double acx = pts.at(n/2).x - xcen,
@@ -498,10 +497,8 @@ int linePts2lineList( BImage & img, int minsize, double flpix, Lines& lines)
                     pts.push_back(pos);    // add same to pointlist
                 } while( cd != N8_end );
                 // validate the point list
-                bool ok = true;
                 if( pts.size() < minsize )
                 {
-                    ok = false;
                     ++nrejL;
                 }
                 else

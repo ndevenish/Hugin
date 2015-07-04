@@ -204,10 +204,6 @@ int main(int argc, char* argv[])
         input=GetAbsoluteFilename(argv[optind]);
         char drive[_MAX_DRIVE];
         char dir[_MAX_DIR];
-        char fname[_MAX_FNAME];
-        char ext[_MAX_EXT];
-        char newFile[_MAX_PATH];
-
         _splitpath(input.c_str(), drive, dir, NULL, NULL);
 
         struct _finddata_t finddata;
@@ -219,6 +215,9 @@ int main(int argc, char* argv[])
                 //ignore folder, can be happen when using *.*
                 if((finddata.attrib & _A_SUBDIR)==0)
                 {
+                    char fname[_MAX_FNAME];
+                    char ext[_MAX_EXT];
+                    char newFile[_MAX_PATH];
                     _splitpath(finddata.name, NULL, NULL, fname, ext);
                     _makepath(newFile, drive, dir, fname, ext);
                     //check if valid image file

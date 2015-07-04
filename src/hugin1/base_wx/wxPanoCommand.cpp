@@ -263,7 +263,6 @@ bool wxAddImagesCmd::processPanorama(HuginBase::Panorama& pano)
 
     // load additional images...
     for (it = files.begin(); it != files.end(); ++it) {
-        bool added = false;
         const std::string &filename = *it;
         wxString fname(filename.c_str(), HUGIN_CONV_FILENAME);
 
@@ -361,8 +360,9 @@ bool wxAddImagesCmd::processPanorama(HuginBase::Panorama& pano)
             ok=(srcImg.getExifFocalLength()>0 && srcImg.getCropFactor()>0.1);
         };
         if (! ok ) {
-                 // search for image with matching size and exif data
-                 // and re-use it.
+                // search for image with matching size and exif data
+                // and re-use it.
+                bool added = false;
                 for (unsigned int i=0; i < pano.getNrOfImages(); i++) {
                     HuginBase::SrcPanoImage other = pano.getSrcImage(i);
                     if ( other.getSize() == srcImg.getSize() &&

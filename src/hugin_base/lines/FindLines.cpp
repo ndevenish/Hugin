@@ -125,7 +125,7 @@ Lines findLines(vigra::BImage& edge, double length_threshold, double focal_lengt
 
     BImage lineImage = edgeMap2linePts(edge);
     Lines lines;
-    int nlines = linePts2lineList( lineImage, lmin, flpix, lines );
+    linePts2lineList( lineImage, lmin, flpix, lines );
 
     return lines;
 };
@@ -313,6 +313,7 @@ HuginBase::CPVector _getVerticalLines(const HuginBase::Panorama& pano,const unsi
             srcImage.getProjection(),srcImage.getHFOV(),srcImage.getCropFactor(),srcImage.getSize());
     };
     Lines foundLines=findLines(*edge,0.05,focalLength,srcImage.getCropFactor());
+    delete edge;
     //filter results
     VerticalLineVector filteredLines=FilterLines(foundLines,roll);
     //create control points
