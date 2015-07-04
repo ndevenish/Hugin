@@ -478,7 +478,7 @@ void Batch::OnProcessTerminate(wxProcessEvent& event)
             if(i<1000)
             {
                 //now save log file
-                if(((RunStitchFrame*)(event.GetEventObject()))->SaveLog(logFile.GetFullPath()))
+                if((static_cast<RunStitchFrame*>(event.GetEventObject()))->SaveLog(logFile.GetFullPath()))
                 {
                     savedLogfile=logFile.GetFullPath();
                 }

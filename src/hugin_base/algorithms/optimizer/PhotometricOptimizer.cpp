@@ -162,7 +162,7 @@ void PhotometricOptimizer::photometricError(double *p, double *x, int m, int n, 
 
     int xi = 0 ;
 
-    OptimData * dat = (OptimData *) data;
+    OptimData * dat = static_cast<OptimData*>(data);
     dat->FromX(p);
 #ifdef DEBUG_LOG_VIG
     ostringstream oss;
@@ -270,7 +270,7 @@ void PhotometricOptimizer::photometricError(double *p, double *x, int m, int n, 
 
 int PhotometricOptimizer::photometricVis(double *p, double *x, int m, int n, int iter, double sqerror, void * data)
 {
-    OptimData * dat = (OptimData *) data;
+    OptimData * dat = static_cast<OptimData*>(data);
     char tmp[200];
     tmp[199] = 0;
     double error = sqrt(sqerror/n)*255;

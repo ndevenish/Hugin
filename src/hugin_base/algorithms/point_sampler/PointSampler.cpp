@@ -148,8 +148,15 @@ void PointSampler::extractPoints(PanoramaData& pano, std::vector<vigra::FRGBImag
                                  bool randomPoints, AppBase::ProgressDisplay* progress,
                                  std::vector<vigra_ext::PointPairRGB>& points)
 {
-    PointSampler* sampler = (randomPoints)? (PointSampler*) new RandomPointSampler(pano, NULL, images, nPoints)
-                                          : (PointSampler*) new AllPointSampler(pano, NULL, images, nPoints);
+    PointSampler* sampler;
+    if (randomPoints)
+    {
+        sampler = new RandomPointSampler(pano, NULL, images, nPoints);
+    }
+    else
+    {
+        sampler = new AllPointSampler(pano, NULL, images, nPoints);
+    };
     
     sampler->sampleAndExtractPoints(progress);
     points = sampler->getResultPoints();

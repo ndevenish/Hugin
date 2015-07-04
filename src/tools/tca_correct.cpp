@@ -268,9 +268,7 @@ inline double weightHuber(double x, double sigma)
 
 void optGetError(double* p, double* x, int m, int n, void* data)
 {
-    int xi = 0;
-
-    OptimData* dat = (OptimData*)data;
+    OptimData* dat = static_cast<OptimData*>(data);
     dat->FromX(p);
 
     /* compute new a,b,c,d from a,b,c,v */
