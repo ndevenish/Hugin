@@ -25,7 +25,7 @@
 #include <vector>
 #include <string>
 
-#if _MSC_VER<1800
+#if defined _MSC_VER && _MSC_VER<1800
     #include <boost/cstdint.hpp>
     using namespace boost;
 #else
@@ -35,6 +35,12 @@
 #include "hugin_utils/shared_ptr.h"
 #include <vigra/stdimage.hxx>
 #include <vigra/imageinfo.hxx>
+
+#ifdef _MSC_VER
+#define THROWNOIMAGESBADDIMENSION
+#else
+#define THROWNOIMAGESBADDIMENSION throw(NoImages, BadDimensions)
+#endif
 
 namespace deghosting {
     
@@ -84,9 +90,9 @@ namespace deghosting {
         /** load images for processing
          * @param inputFiles images to be processed
          */
-        virtual void loadImages(std::vector<std::string>& inputFiles) throw(NoImages, BadDimensions);
-        virtual void loadImages(std::vector<vigra::ImageImportInfo>& inputFiles) throw(NoImages, BadDimensions);
-        
+        virtual void loadImages(std::vector<std::string>& inputFiles) THROWNOIMAGESBADDIMENSION;
+        virtual void loadImages(std::vector<vigra::ImageImportInfo>& inputFiles) THROWNOIMAGESBADDIMENSION;
+
         /** set advanced flags
          * Allows to change behavior of used algorithm
          * @param flags one of the constants describing advanced mode

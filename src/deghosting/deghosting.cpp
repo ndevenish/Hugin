@@ -24,7 +24,7 @@ using namespace vigra;
 
 namespace deghosting {
     
-    void Deghosting::loadImages(std::vector<std::string>& newInputFiles) throw(NoImages, BadDimensions) {
+    void Deghosting::loadImages(std::vector<std::string>& newInputFiles) THROWNOIMAGESBADDIMENSION {
         if (newInputFiles.empty())
             throw NoImages();
         const ImageImportInfo firstInfo = ImageImportInfo(newInputFiles[0].c_str());
@@ -38,7 +38,7 @@ namespace deghosting {
         }
      }
     
-    void Deghosting::loadImages(std::vector<vigra::ImageImportInfo>& newInputFiles) throw(NoImages, BadDimensions) {
+    void Deghosting::loadImages(std::vector<vigra::ImageImportInfo>& newInputFiles) THROWNOIMAGESBADDIMENSION {
         if (newInputFiles.empty())
             throw NoImages();
         const int width = newInputFiles[0].width();
