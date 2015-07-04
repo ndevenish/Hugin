@@ -164,8 +164,6 @@ void PanoramaOptions::printScriptLine(std::ostream & o, bool forPTOptimizer) con
 
     // options for photometric estimation.
     o << " p" << photometricHuberSigma;
-    if (photometricSymmetricError) 
-        o << " s1";
 
     o << std::endl;
 }

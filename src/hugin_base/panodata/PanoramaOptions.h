@@ -214,7 +214,6 @@ class IMPEX PanoramaOptions
             saveCoordImgs = false;
             huberSigma = 2;
             photometricHuberSigma = 2/255.0;
-            photometricSymmetricError = false;
             outputMode = OUTPUT_LDR;
 
             outputLDRBlended = true;
@@ -377,7 +376,6 @@ class IMPEX PanoramaOptions
         double huberSigma;
 
         double photometricHuberSigma;
-        double photometricSymmetricError;
 
         // modes related to high dynamic range output
         OutputMode outputMode;
