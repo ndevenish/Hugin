@@ -584,7 +584,7 @@ unsigned int MaskPolygon::FindPointNearPos(const FDiff2D p, const double tol)
     return UINT_MAX;
 };
 
-MaskPolygon &MaskPolygon::operator=(const MaskPolygon otherPoly)
+MaskPolygon& MaskPolygon::operator=(const MaskPolygon& otherPoly)
 {
     if (this == &otherPoly)
         return *this;
@@ -595,7 +595,7 @@ MaskPolygon &MaskPolygon::operator=(const MaskPolygon otherPoly)
     return *this;
 };
 
-const bool MaskPolygon::operator==(const MaskPolygon &otherPoly) const
+const bool MaskPolygon::operator==(const MaskPolygon& otherPoly) const
 {
     return ((m_maskType == otherPoly.getMaskType()) && (m_polygon == otherPoly.getMaskPolygon()));
 };

@@ -583,7 +583,7 @@ class IMPEX Panorama : public ManagedPanoramaData, public AppBase::DocumentData
         void updateMasks(bool convertPosMaskToNeg=false);
         /** transfers given mask from image imgNr to all targetImgs
          */
-        void transferMask(MaskPolygon mask,unsigned int imgNr, const UIntSet targetImgs);
+        void transferMask(MaskPolygon mask,unsigned int imgNr, const UIntSet& targetImgs);
         /** updates the optimize vector according to master switches */
         void updateOptimizeVector();
         /** returns set of reference image and images linked with reference images */

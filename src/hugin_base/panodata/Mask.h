@@ -123,9 +123,9 @@ public:
 
     //operators
     /** assign operator */
-    MaskPolygon &operator=(const MaskPolygon otherPoly);
+    MaskPolygon &operator=(const MaskPolygon& otherPoly);
     /** comparision operator */
-    const bool operator==(const MaskPolygon &otherPoly) const;
+    const bool operator==(const MaskPolygon& otherPoly) const;
 
     //input/output functions
     /** parses the x and y positions from the given string */

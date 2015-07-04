@@ -394,7 +394,7 @@ public:
     virtual void updateMasks(bool convertPosMaskToNeg=false)=0;
     /** transfers given mask from image imgNr to all targetImgs
         */
-    virtual void transferMask(MaskPolygon mask,unsigned int imgNr, const UIntSet targetImgs)=0;
+    virtual void transferMask(MaskPolygon mask,unsigned int imgNr, const UIntSet& targetImgs)=0;
     /** updates the optimize vector according to master switches */
     virtual void updateOptimizeVector()=0;
     /** returns set of reference image and images linked with reference images */
