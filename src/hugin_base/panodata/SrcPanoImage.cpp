@@ -90,7 +90,7 @@ void SrcPanoImage::resize(const vigra::Size2D & sz)
                 break;
         }
         
-        m_Size = sz;
+        m_Size.setData(sz);
         // vignetting correction
         m_RadialVigCorrCenterShift.setData(m_RadialVigCorrCenterShift.getData() *scale);
         // resize masks
@@ -214,7 +214,7 @@ double SrcPanoImage::getExposure() const
 { return 1.0/pow(2.0, m_ExposureValue.getData()); }
 
 void SrcPanoImage::setExposure(const double & val)
-{ m_ExposureValue = log2(1/val); }
+{ m_ExposureValue.setData(log2(1/val)); }
 
 
 bool BaseSrcPanoImage::operator==(const BaseSrcPanoImage & other) const
