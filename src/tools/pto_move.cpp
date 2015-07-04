@@ -321,7 +321,7 @@ bool iterateFileSystem(std::string src, pathVec& projectFiles)
             };
         }
     }
-    catch(fs::filesystem_error e)
+    catch(fs::filesystem_error& e)
     {
         std::cout << e.what() << std::endl;
         return false;

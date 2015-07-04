@@ -1652,7 +1652,7 @@ bool Panorama::setMementoToCopyOf(const PanoramaDataMemento* memento)
         
         mymemento = dynamic_cast<const PanoramaMemento*>(memento);
         
-    } catch (std::bad_cast e) {
+    } catch (std::bad_cast&) {
 //        std::cerr << "Incompatible memento type." << std::endl;
         DEBUG_DEBUG("Incompatible memento type.");
         return false;

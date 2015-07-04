@@ -432,7 +432,7 @@ bool SrcPanoImage::readEXIF()
                 };
             };
         }
-        catch (std::exception e)
+        catch (std::exception& e)
         {
             // just to catch error when image contains no GPano tags
             std::cerr << "Error reading GPano tags from " << filename << "(" << e.what() << ")" << std::endl;
