@@ -23,29 +23,28 @@
  */
 
 #include "CalculateOptimalROI.h"
+#include <algorithm>
 
 namespace HuginBase {
 
 using namespace hugin_utils;
 
-//uses the area as that major searching factor
-//else uses width+heigh like the perimeter
-#define USEAREA
-
 ///
 bool CalculateOptimalROI::calcOptimalROI(PanoramaData& panorama)
 {
     activeImages=panorama.getActiveImages();
-    if (activeImages.size() == 0)
+    if (activeImages.empty())
+    {
         return false;
+    };
 
-    printf("Down to Algorithm\n");
     PanoramaOptions opt = panorama.getOptions();
-    
     o_optimalSize=opt.getSize();
-    if(o_optimalSize.x==0 || o_optimalSize.y==0)
+    if (o_optimalSize.x == 0 || o_optimalSize.y == 0)
+    {
         return false;
-    o_optimalROI=vigra::Rect2D(0,0,o_optimalSize.x,o_optimalSize.y);
+    };
+    m_bestRect = vigra::Rect2D();
     try
     {
         testedPixels.resize(o_optimalSize.x*o_optimalSize.y,false);
@@ -67,35 +66,27 @@ bool CalculateOptimalROI::calcOptimalROI(PanoramaData& panorama)
     
     if (!getProgressDisplay()->updateDisplay("Calculate the cropping region"))
     {
+        CleanUp();
         return false;
     };
     if (!autocrop())
     {
+        CleanUp();
         return false;
     };
     
-    o_optimalROI=vigra::Rect2D(best.left,best.top,best.right,best.bottom);
-    printf("Crop %dx%d - %dx%d\n",o_optimalROI.left(),o_optimalROI.top(),o_optimalROI.right(),o_optimalROI.bottom());
-    printf("Crop Size %dx%d\n",o_optimalROI.width(),o_optimalROI.height());
-    
-//debug image of the region calculated
-#if 0
-    FILE *outstream=fopen("/tmp/test.pgm","wb");
-    fprintf(outstream,"P5\n");
-    fprintf(outstream,"%d %d\n",o_optimalSize.x,o_optimalSize.y);
-    fprintf(outstream,"255\n");
-    fwrite(tmp,o_optimalSize.x*o_optimalSize.y,1,outstream);
-    fclose(outstream);
-#endif
-
     //clean up on demand
-    for(std::map<unsigned int,PTools::Transform*>::iterator it=transfMap.begin();it!=transfMap.end();++it)
+    CleanUp();
+    return true;
+};
+
+void CalculateOptimalROI::CleanUp()
+{
+    for (std::map<unsigned int, PTools::Transform*>::iterator it = transfMap.begin(); it != transfMap.end(); ++it)
     {
         delete (*it).second;
     };
-
-    return true;
-}
+};
 
 //now you can do dynamic programming, look thinks up on fly
 bool CalculateOptimalROI::stackPixel(int i, int j, UIntSet &stack)
@@ -166,235 +157,149 @@ bool CalculateOptimalROI::imgPixel(int i, int j)
     }
 }
 
-void CalculateOptimalROI::makecheck(int left,int top,int right,int bottom)
+/** add new rect to list of rects to be check, do some checks before */
+void CalculateOptimalROI::AddCheckingRects(std::list<vigra::Rect2D>& testingRects, const vigra::Rect2D& rect, const long maxvalue)
 {
-    if(left<0 || top<0 || right>o_optimalSize.x || bottom>o_optimalSize.y)
+    if(rect.left()<0 || rect.top()<0 || rect.right()>o_optimalSize.x || rect.bottom()>o_optimalSize.y)
     {
         return;
     }
     
-    if(left<right && top<bottom)
+    if (rect.left() < rect.right() && rect.top() < rect.bottom())
     {
-        //big enough
-#ifdef USEAREA
-        if(maxvalue>0 && (right-left)*(bottom-top)<maxvalue)
-#else
-        if(maxvalue>0 && (right-left)+(bottom-top)<maxvalue)
-#endif
+        //not big enough
+        if(maxvalue>0 && rect.area()<maxvalue)
         {
             return;
         }
-        
-        nonrec *tmp=head;
-        //check if exists
-        while(tmp!=NULL)
+        // check if rect is already in list
+        std::list<vigra::Rect2D>::iterator it=std::find(testingRects.begin(), testingRects.end(), rect);
+        if (it == testingRects.end())
         {
-            if(tmp->left==left && tmp->right==right && tmp->top==top && tmp->bottom==bottom)
-            {
-                //printf("found dupe\n");
-                return;
-            }
-            tmp=tmp->next;
-        }
-        
-        //make
-        tmp=new nonrec;
-        tmp->left=left;
-        tmp->top=top;
-        tmp->right=right;
-        tmp->bottom=bottom;
-        tmp->next=NULL;
-        
-        count++;
-        tail->next=tmp;
-        tail=tmp;
+            testingRects.push_back(rect);
+        };
     }
-    return;
 }
 
-void CalculateOptimalROI::nonreccheck(int left,int top,int right,int bottom,int acc,int searchStrategy)
+/** check if given rect covers the whole pano */
+bool CalculateOptimalROI::CheckRectCoversPano(const vigra::Rect2D& rect)
 {
-    nonrec *tmp;
-    tmp=new nonrec;
-    tmp->left=left;
-    tmp->top=top;
-    tmp->right=right;
-    tmp->bottom=bottom;
-    tmp->next=NULL;
-    
-    head=tmp;
-    tail=tmp;
-    count=0;
-    count++;
-    
-    while(count>0)
+    for (size_t i = rect.left(); i<rect.right(); i++)
     {
-        count--;
-        left=head->left;
-        top=head->top;
-        right=head->right;
-        bottom=head->bottom;
-        
-        //do lasso, check if failed
-        int i,j,flag;
-        flag=0;
-        for(i=left;i<right && flag==0;i++)
+        if (imgPixel(i, rect.top()) == 0 || imgPixel(i, rect.bottom() - 1) == 0)
         {
-            if(imgPixel(i,top)==0 || imgPixel(i,bottom-1)==0)
-            {
-                flag=1;
-            }
+            return false;
         }
-        
-        for(j=top;j<bottom && flag==0;j++)
+    }
+
+    for (size_t j = rect.top(); j<rect.bottom(); j++)
+    {
+        if (imgPixel(rect.left(), j) == 0 || imgPixel(rect.right() - 1, j) == 0)
         {
-            if(imgPixel(left,j)==0 || imgPixel(right-1,j)==0)
-            {
-                flag=1;
-            }
+            return false;
         }
+    }
+    return true;
+};
 
-        //if failed, then recurse
+vigra::Rect2D ModifyRect(const vigra::Rect2D& rect, long deltaLeft, long deltaTop, long deltaRight, long deltaBottom)
+{
+    vigra::Rect2D newRect(rect);
+    newRect.moveBy(deltaLeft, deltaTop);
+    newRect.addSize(vigra::Size2D(deltaRight - deltaLeft, deltaBottom - deltaTop));
+    return newRect;
+};
 
+void CalculateOptimalROI::nonreccheck(const vigra::Rect2D& rect, int acc, int searchStrategy, long& maxvalue)
+{
+    std::list<vigra::Rect2D> testRects;
+    testRects.push_back(rect);
+    
+    while(!testRects.empty())
+    {
+        vigra::Rect2D testingRect = *testRects.begin();
+        const bool rectCovers = CheckRectCoversPano(testingRect);
         switch(searchStrategy)
         {
             case 1:
-                if(flag==1)
+                if(!rectCovers)
                 {
                     //all directions (shrink only)
-                    makecheck(left,top+acc,right,bottom);
-                    makecheck(left,top,right,bottom-acc);
-                    makecheck(left+acc,top,right,bottom);
-                    makecheck(left,top,right-acc,bottom);
+                    AddCheckingRects(testRects, ModifyRect(testingRect,   0, acc,    0,    0), maxvalue);
+                    AddCheckingRects(testRects, ModifyRect(testingRect,   0,   0,    0, -acc), maxvalue);
+                    AddCheckingRects(testRects, ModifyRect(testingRect, acc,   0,    0,    0), maxvalue);
+                    AddCheckingRects(testRects, ModifyRect(testingRect,   0,   0, -acc,    0), maxvalue);
                 }
                 //it was good, stop recursing
                 else
                 {
-                    //printf("\nGood\n");
-#ifdef USEAREA
-                    if(maxvalue<(right-left)*(bottom-top))
-#else
-                    if(maxvalue<(right-left)+(bottom-top))
-#endif
+                    if(maxvalue<testingRect.area())
                     {
-#ifdef USEAREA
-                        maxvalue=(right-left)*(bottom-top);
-#else
-                        maxvalue=(right-left)+(bottom-top);
-#endif
-                        best.right=right;
-                        best.left=left;
-                        best.top=top;
-                        best.bottom=bottom;
+                        maxvalue=testingRect.area();
+                        m_bestRect = testingRect;
                     }
                 }
                 break;
             case 2:
-                if(flag==1)
+                if(!rectCovers)
                 {
                     //all directions (shrink only)
-                    makecheck(left+(acc>>1),top,right-(acc>>1),bottom);
-                    makecheck(left,top+(acc>>1),right,bottom-(acc>>1));
+                    AddCheckingRects(testRects, ModifyRect(testingRect, acc >> 1, 0, -(acc >> 1), 0), maxvalue);
+                    AddCheckingRects(testRects, ModifyRect(testingRect, 0, acc >> 1, 0, -(acc >> 1)), maxvalue);
                 }
                 //it was good, stop recursing
                 else
                 {
-                    //printf("\nGood\n");
-#ifdef USEAREA
-                    if(maxvalue<(right-left)*(bottom-top))
-#else
-                    if(maxvalue<(right-left)+(bottom-top))
-#endif
+                    if(maxvalue<testingRect.area())
                     {
-#ifdef USEAREA
-                        maxvalue=(right-left)*(bottom-top);
-#else
-                        maxvalue=(right-left)+(bottom-top);
-#endif
-                        best.right=right;
-                        best.left=left;
-                        best.top=top;
-                        best.bottom=bottom;
+                        maxvalue = testingRect.area();
+                        m_bestRect = testingRect;
                     }
                 }
                 break;
             case 0:
             default:
-                if(flag==0)
+                if(rectCovers)
                 {
                     //check growth in all 4 directions
-                    makecheck(left-acc,top,right,bottom);
-                    makecheck(left,top,right+acc,bottom);
-                    makecheck(left,top-acc,right,bottom);
-                    makecheck(left,top,right,bottom+acc);
+                    AddCheckingRects(testRects, ModifyRect(testingRect, -acc, 0, 0, 0), maxvalue);
+                    AddCheckingRects(testRects, ModifyRect(testingRect, 0, 0, acc, 0), maxvalue);
+                    AddCheckingRects(testRects, ModifyRect(testingRect, 0, -acc, 0, 0), maxvalue);
+                    AddCheckingRects(testRects, ModifyRect(testingRect, 0, 0, 0, acc), maxvalue);
                     //check if shrinking in one direction will allow more growth in other direction
-                    makecheck(left-acc*2,top+acc,right,bottom);
-                    makecheck(left-acc*2,top,right,bottom-acc);
-                    makecheck(left,top+acc,right+acc*2,bottom);
-                    makecheck(left,top,right+acc*2,bottom-acc);
-                    makecheck(left+acc,top-acc*2,right,bottom);
-                    makecheck(left,top-acc*2,right-acc,bottom);
-                    makecheck(left+acc,top,right,bottom+acc*2);
-                    makecheck(left,top,right-acc,bottom+acc*2);
-                    makecheck(left-acc,top+acc,right+acc,bottom);
-                    makecheck(left-acc,top,right+acc,bottom-acc);
-                    makecheck(left+acc,top-acc,right,bottom+acc);
-                    makecheck(left,top-acc,right-acc,bottom+acc);
-#ifdef USEAREA
-                    if(maxvalue<(right-left)*(bottom-top))
-#else
-                    if(maxvalue<(right-left)+(bottom-top))
-#endif
+                    AddCheckingRects(testRects, ModifyRect(testingRect, -2*acc, acc, 0, 0), maxvalue);
+                    AddCheckingRects(testRects, ModifyRect(testingRect, -2*acc, 0, 0, -acc), maxvalue);
+                    AddCheckingRects(testRects, ModifyRect(testingRect, 0, acc, 2*acc, 0), maxvalue);
+                    AddCheckingRects(testRects, ModifyRect(testingRect, 0, 0, 2*acc, -acc), maxvalue);
+                    AddCheckingRects(testRects, ModifyRect(testingRect, acc, -2 * acc, 0, 0), maxvalue);
+                    AddCheckingRects(testRects, ModifyRect(testingRect, 0, -2*acc, -acc, 0), maxvalue);
+                    AddCheckingRects(testRects, ModifyRect(testingRect, acc, 0, 0, 2*acc), maxvalue);
+                    AddCheckingRects(testRects, ModifyRect(testingRect, 0, 0, -acc, 2*acc), maxvalue);
+                    AddCheckingRects(testRects, ModifyRect(testingRect, -acc, acc, acc, 0), maxvalue);
+                    AddCheckingRects(testRects, ModifyRect(testingRect, -acc, 0, acc, -acc), maxvalue);
+                    AddCheckingRects(testRects, ModifyRect(testingRect, acc, -acc, 0, acc), maxvalue);
+                    AddCheckingRects(testRects, ModifyRect(testingRect, 0, -acc, -acc, acc), maxvalue);
+                    if(maxvalue<testingRect.area())
                     {
-#ifdef USEAREA
-                        maxvalue=(right-left)*(bottom-top);
-#else
-                        maxvalue=(right-left)+(bottom-top);
-#endif
-                        best.right=right;
-                        best.left=left;
-                        best.top=top;
-                        best.bottom=bottom;
+                        maxvalue = testingRect.area();
+                        m_bestRect = testingRect;
                     }
                 }
         };
-        
-        tmp=head->next;
-        if(tmp!=NULL)
-        {
-            //experiment with no deletion
-            delete head;
-            head=tmp;
-        }
-    }
-    
-    //no delete test 
-    while(head!=NULL)
-    {
-        tmp=head->next;
-        delete head;
-        head=tmp;
-    }
-    
-    if(maxvalue>0 && acc==1 && searchStrategy==0)
-    {
-        printf("Found Solution: %d %d %d %d\n",best.left,best.top,best.right,best.bottom);
+        testRects.pop_front();
     }
 }
 
 bool CalculateOptimalROI::autocrop()
 {
-    printf("Original Image: %dx%d\n",o_optimalSize.x,o_optimalSize.y);
-    
-    maxvalue=0;
-    count=0;
-    head=NULL;
-    tail=NULL;
+    long maxvalue=0;
 
     //put backwards at the start
-    int startacc=pow(2.0,std::min((int)log2(o_optimalSize.x/2-1),(int)log2(o_optimalSize.y/2-1))-1);
-    if(startacc<1)
-        startacc=1;
+    int startacc = pow(2.0, std::min((int)log2(o_optimalSize.x / 2 - 1), (int)log2(o_optimalSize.y / 2 - 1)) - 1);
+    if (startacc < 1)
+    {
+        startacc = 1;
+    };
 
     //start smaller to get biggest initial position
     if(startacc>64)
@@ -402,14 +307,14 @@ bool CalculateOptimalROI::autocrop()
         //we start searching with a symmetric decrease
         for(int acc=startacc;acc>=64;acc/=2)
         {
-            nonreccheck(0,0,o_optimalSize.x,o_optimalSize.y,acc,2);
+            nonreccheck(vigra::Rect2D(vigra::Point2D(), o_optimalSize), acc, 2, maxvalue);
             if (!getProgressDisplay()->updateDisplayValue())
             {
                 return false;
             };
             if(maxvalue>0)
             {
-                printf("Inner %d %ld: %d %d - %d %d\n",acc,maxvalue,best.left,best.right,best.top,best.bottom);
+                printf("Inner %d %ld: %d %d - %d %d\n", acc, maxvalue, m_bestRect.left(), m_bestRect.right(), m_bestRect.top(), m_bestRect.bottom());
                 break;
             }
         }
@@ -420,14 +325,14 @@ bool CalculateOptimalROI::autocrop()
         // if the rough symmetric search failed we are using also an asymmetric strategy
         for(int acc=startacc;acc>=1;acc/=2)
         {
-            nonreccheck(0,0,o_optimalSize.x,o_optimalSize.y,acc,1);
+            nonreccheck(vigra::Rect2D(vigra::Point2D(), o_optimalSize), acc, 1, maxvalue);
             if (!getProgressDisplay()->updateDisplayValue())
             {
                 return false;
             };
             if (maxvalue>0)
             {
-                printf("Inner %d %ld: %d %d - %d %d\n",acc,maxvalue,best.left,best.right,best.top,best.bottom);
+                printf("Inner %d %ld: %d %d - %d %d\n", acc, maxvalue, m_bestRect.left(), m_bestRect.right(), m_bestRect.top(), m_bestRect.bottom());
                 break;
             }
         }
@@ -435,15 +340,14 @@ bool CalculateOptimalROI::autocrop()
     
     for(int acc=startacc;acc>=1;acc/=2)
     {
-        printf("Starting %d: %d %d - %d %d\n",acc,best.left,best.right,best.top,best.bottom);
-        nonreccheck(best.left,best.top,best.right,best.bottom,acc,0);
+        printf("Starting %d: %d %d - %d %d\n", acc, m_bestRect.left(), m_bestRect.right(), m_bestRect.top(), m_bestRect.bottom());
+        nonreccheck(m_bestRect, acc, 0, maxvalue);
         if (!getProgressDisplay()->updateDisplayValue())
         {
             return false;
         };
     }
 
-    //printf("Final Image: %dx%d\n",outpano->width,outpano->height);
     return true;
 }
 

@@ -30,34 +30,32 @@
 #include <panodata/PanoramaData.h>
 
 #include <vector>
+#include <list>
 
 namespace HuginBase {
 
 class IMPEX CalculateOptimalROI : public TimeConsumingPanoramaAlgorithm
 {
     public:
-        ///
+        /** constructor */
         CalculateOptimalROI(PanoramaData& panorama, AppBase::ProgressDisplay* progress, bool intersect = false)
-         : TimeConsumingPanoramaAlgorithm(panorama, progress), intersection(intersect)
+            : TimeConsumingPanoramaAlgorithm(panorama, progress), intersection(intersect)
         {
             //set to zero for error condition
-            o_optimalROI = vigra::Rect2D(0,0,0,0);
+            m_bestRect = vigra::Rect2D(0,0,0,0);
             o_optimalSize = vigra::Size2D(0,0);
         }
-
         CalculateOptimalROI(PanoramaData& panorama, AppBase::ProgressDisplay* progress, std::vector<UIntSet> hdr_stacks)
-         : TimeConsumingPanoramaAlgorithm(panorama, progress), intersection(true), stacks(hdr_stacks)
+            : TimeConsumingPanoramaAlgorithm(panorama, progress), intersection(true), stacks(hdr_stacks)
         {
             //set to zero for error condition
-            o_optimalROI = vigra::Rect2D(0,0,0,0);
+            m_bestRect = vigra::Rect2D(0, 0, 0, 0);
             o_optimalSize = vigra::Size2D(0,0);
         }
         
-        ///
-        virtual ~CalculateOptimalROI()
-        {}
+        /** destructor */
+        virtual ~CalculateOptimalROI() {};
         
-    public:
         ///
         virtual bool modifiesPanoramaData() const
             { return false; }
@@ -69,64 +67,46 @@ class IMPEX CalculateOptimalROI : public TimeConsumingPanoramaAlgorithm
             return calcOptimalROI(o_panorama);
         }
         
-    public:
-        ///
-        bool calcOptimalROI(PanoramaData& panorama);
-        
         /// return the ROI structure?, for now area
         virtual vigra::Rect2D getResultOptimalROI()
         {
-            //printf("Get Result ROI\n");
-            //printf("Get Result ROI\n");
-            // [TODO] if(!hasRunSuccessfully()) DEBUG;
-            return o_optimalROI;
-        }
-
-        /// return the ROI structure?, for now area
-        virtual vigra::Size2D getResultOptimalSize()
-        {
-            //printf("Get Result Size\n");
-            // [TODO] if(!hasRunSuccessfully()) DEBUG;
-            return o_optimalSize;
+            if (hasRunSuccessfully())
+            {
+                return m_bestRect;
+            }
+            else
+            {
+                return vigra::Rect2D();
+            }
         }
 
         /** sets the stack vector */
         void setStacks(std::vector<UIntSet> hdr_stacks);
 
     private:
-        vigra::Rect2D o_optimalROI;
+        ///
+        bool calcOptimalROI(PanoramaData& panorama);
+
         vigra::Size2D o_optimalSize;
-        
         bool intersection;
-        
         std::vector<UIntSet> stacks;
-        
         UIntSet activeImages;
         std::map<unsigned int,PTools::Transform*> transfMap;
         //map for storing already tested pixels
         std::vector<bool> testedPixels;
         std::vector<bool> pixels;
-        
+        vigra::Rect2D m_bestRect;
+
         bool imgPixel(int i, int j);
         bool stackPixel(int i, int j, UIntSet &stack);
         
         //local stuff, convert over later
-        struct nonrec
-        {
-            int left,right,top,bottom;
-            struct nonrec *next;
-        };
-
-        void makecheck(int left,int top,int right,int bottom);
         bool autocrop();
-        void nonreccheck(int left,int top,int right,int bottom,int acc,int searchStrategy);
-        
-        int count;
-        struct nonrec *head;
-        struct nonrec *tail;
-        struct nonrec best;
+        void nonreccheck(const vigra::Rect2D& rect, int acc, int searchStrategy, long& maxvalue);
+        bool CheckRectCoversPano(const vigra::Rect2D& rect);
+        void AddCheckingRects(std::list<vigra::Rect2D>& testingRects, const vigra::Rect2D& rect, const long maxvalue);
 
-        long maxvalue;
+        void CleanUp();
 };
 
 } //namespace
