@@ -819,7 +819,7 @@ void TextureManager::TextureInfo::DefineLevels(int min,
                 for (int j = 0; j < placeholderWidth; j++)
                 {
                     // checkboard pattern
-                    GLubyte c = (i / 8 + j / 8) % 2 ? 63 : 191;
+                    GLubyte c = ((i / 8 + j / 8) % 2) ? 63 : 191;
                     placeholder_image[index++] = c;
                     placeholder_image[index++] = c;
                     placeholder_image[index++] = c;

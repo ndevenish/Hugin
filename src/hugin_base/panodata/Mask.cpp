@@ -609,10 +609,14 @@ bool MaskPolygon::parsePolygonString(const std::string& polygonStr)
     while(is.good())
     {
         double x;
-        double y;
-        if(is>>x)
-            if(is>>y)
-                m_polygon.push_back(FDiff2D(x,y));
+        if (is >> x)
+        {
+            double y;
+            if (is >> y)
+            {
+                m_polygon.push_back(FDiff2D(x, y));
+            };
+        };
     };
     return m_polygon.size()>2;
 };

@@ -971,7 +971,7 @@ void Batch::ShowOutput(bool isVisible)
 
 wxString Batch::GetFailedProjectName(unsigned int i)
 {
-    if(i>=0 && i<m_failedProjects.size())
+    if(i<m_failedProjects.size())
     {
         return m_failedProjects[i].project;
     }
@@ -983,7 +983,7 @@ wxString Batch::GetFailedProjectName(unsigned int i)
 
 wxString Batch::GetFailedProjectLog(unsigned int i)
 {
-    if(i>=0 && i<m_failedProjects.size())
+    if(i<m_failedProjects.size())
     {
         return m_failedProjects[i].logfile;
     }

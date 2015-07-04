@@ -309,8 +309,6 @@ void PhotometricOptimizer::optimizePhotometric(PanoramaData & pano, const Optimi
     int nMaxIter = 250;
     OptimData data(pano, photometricVars, correspondences, 5/255.0, false, nMaxIter, progress);
 
-    int ret;
-    //double opts[LM_OPTS_SZ];
     double info[LM_INFO_SZ];
 
     // parameters
@@ -340,7 +338,7 @@ void PhotometricOptimizer::optimizePhotometric(PanoramaData & pano, const Optimi
     // difference mode
     optimOpts[4] = LM_DIFF_DELTA;
     
-    ret=dlevmar_dif(&photometricError, &photometricVis, &(p[0]), &(x[0]), m, n, nMaxIter, optimOpts, info, NULL,NULL, &data);  // no jacobian
+    dlevmar_dif(&photometricError, &photometricVis, &(p[0]), &(x[0]), m, n, nMaxIter, optimOpts, info, NULL,NULL, &data);  // no jacobian
     // copy to source images (data.m_imgs)
     data.FromX(p.begin());
     // calculate error at solution
@@ -399,7 +397,6 @@ void SmartPhotometricOptimizer::smartOptimizePhotometric(PanoramaData & pano, Ph
                                                           AppBase::ProgressDisplay* progress,
                                                           double & error)
 {
-    std::vector<SrcPanoImage> ret;
     PanoramaOptions opts = pano.getOptions();
     UIntSet images;
     fill_set(images, 0, pano.getNrOfImages()-1);

@@ -1111,7 +1111,6 @@ bool PanoDetector::matchMultiRow()
 
             //generate optimize vector, optimize only yaw and pitch
             OptimizeVector optvars;
-            const SrcPanoImage& anchorImage = optPano.getImage(opts.optimizeReferenceImage);
             for (unsigned i=0; i < optPano.getNrOfImages(); i++)
             {
                 std::set<std::string> imgopt;
