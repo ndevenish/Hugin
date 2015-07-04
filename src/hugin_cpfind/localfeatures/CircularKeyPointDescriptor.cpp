@@ -186,7 +186,7 @@ int CircularKeyPointDescriptor::assignOrientation(KeyPoint& ioKeyPoint, double a
         {
             int aSX = aRX + aXIt * aStep;
             // keep points in a circular region of diameter 6s
-            unsigned int aSqDist = aXIt * aXIt + aYIt * aYIt;
+            const int aSqDist = aXIt * aXIt + aYIt * aYIt;
             if (aSqDist <= _ori_nbins*_ori_nbins && aWaveFilter.checkBounds(aSX, aSY))
             {
                 double aWavX = aWaveFilter.getWx(aSX, aSY);
