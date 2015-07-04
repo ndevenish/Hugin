@@ -173,7 +173,7 @@ UIntSet CalculateImageOverlap::getOverlapForImage(unsigned int i)
 void CalculateImageOverlap::limitToImages(UIntSet img)
 {
     m_testImages.clear();
-    for (UIntSet::const_iterator it = img.begin(); it != img.end(); it++)
+    for (UIntSet::const_iterator it = img.begin(); it != img.end(); ++it)
     {
         m_testImages.push_back(*it);
     };

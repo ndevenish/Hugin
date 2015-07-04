@@ -623,7 +623,7 @@ void PanoDetector::run()
                     //check, which image pairs are already connected by control points
                     std::vector<HuginBase::UIntSet> connectedImages(_panoramaInfo->getNrOfImages());
                     HuginBase::CPVector cps=_panoramaInfo->getCtrlPoints();
-                    for(HuginBase::CPVector::const_iterator it=cps.begin();it!=cps.end(); it++)
+                    for(HuginBase::CPVector::const_iterator it=cps.begin();it!=cps.end(); ++it)
                     {
                         if((*it).mode==HuginBase::ControlPoint::X_Y)
                         {
@@ -967,7 +967,7 @@ bool PanoDetector::matchMultiRow()
         {
             const size_t img1 = *it;
             HuginBase::UIntSet::const_iterator it2 = it;
-            it2++;
+            ++it2;
             if (it2 != _image_layer.end())
             {
                 const size_t img2 = *it2;
@@ -1132,7 +1132,7 @@ bool PanoDetector::matchMultiRow()
             // remove vertical and horizontal control points
             CPVector cps = optPano.getCtrlPoints();
             CPVector newCP;
-            for (CPVector::const_iterator it = cps.begin(); it != cps.end(); it++)
+            for (CPVector::const_iterator it = cps.begin(); it != cps.end(); ++it)
             {
                 if (it->mode == ControlPoint::X_Y)
                 {

@@ -1780,7 +1780,7 @@ wxTreeListItem::~wxTreeListItem() {
     wxTreeListItemCellAttrHash::iterator entry = m_props_cell.begin();
     while (entry != m_props_cell.end()) {
         if (entry->second) delete entry->second;
-        entry++;
+        ++entry;
     }
 
     wxASSERT_MSG( m_children.IsEmpty(), _T("please call DeleteChildren() before destructor"));

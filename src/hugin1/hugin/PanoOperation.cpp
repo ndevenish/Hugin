@@ -738,7 +738,7 @@ PanoCommand::PanoCommand* CelesteOperation::GetInternalCommand(wxWindow* parent,
     DEBUG_TRACE("Running Celeste");
 
     UIntSet cpsToRemove;
-    for (UIntSet::const_iterator it=images.begin(); it!=images.end(); it++)
+    for (UIntSet::const_iterator it=images.begin(); it!=images.end(); ++it)
     {
         // Image to analyse
         HuginBase::CPointVector cps=pano.getCtrlPointsVectorForImage(*it);
@@ -775,7 +775,7 @@ PanoCommand::PanoCommand* CelesteOperation::GetInternalCommand(wxWindow* parent,
         };
         if(cloudCP.size()>0)
         {
-            for(UIntSet::const_iterator it2=cloudCP.begin();it2!=cloudCP.end();it2++)
+            for(UIntSet::const_iterator it2=cloudCP.begin();it2!=cloudCP.end(); ++it2)
             {
                 cpsToRemove.insert(*it2);
             };
@@ -886,7 +886,7 @@ PanoCommand::PanoCommand* ResetOperation::GetInternalCommand(wxWindow* parent, H
     };
 
     VariableMapVector vars;
-    for(UIntSet::const_iterator it = images.begin(); it != images.end(); it++)
+    for(UIntSet::const_iterator it = images.begin(); it != images.end(); ++it)
     {
         unsigned int imgNr = *it;
         VariableMap ImgVars=pano.getImageVariables(imgNr);

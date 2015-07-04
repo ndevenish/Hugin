@@ -35,7 +35,7 @@ namespace PanoCommand
 {
     CombinedPanoCommand::~CombinedPanoCommand()
     {
-        for (std::vector<PanoCommand*>::iterator it = commands.begin(); it != commands.end(); it++)
+        for (std::vector<PanoCommand*>::iterator it = commands.begin(); it != commands.end(); ++it)
         {
             delete *it;
         }
@@ -44,7 +44,7 @@ namespace PanoCommand
     bool CombinedPanoCommand::processPanorama(HuginBase::Panorama & pano)
     {
         bool result = true;
-        for (std::vector<PanoCommand*>::iterator it = commands.begin(); it != commands.end(); it++)
+        for (std::vector<PanoCommand*>::iterator it = commands.begin(); it != commands.end(); ++it)
         {
             result &= (**it).processPanorama(pano);
         }
@@ -348,7 +348,7 @@ namespace PanoCommand
         HuginBase::UIntSet testedLens;
         HuginBase::StandardImageVariableGroups variable_groups(pano);
         HuginBase::ImageVariableGroup & lenses = variable_groups.getLenses();
-        for (HuginBase::UIntSet::const_iterator it = imgNrs.begin(); it != imgNrs.end(); it++)
+        for (HuginBase::UIntSet::const_iterator it = imgNrs.begin(); it != imgNrs.end(); ++it)
         {
             allImgWithSameLens.insert(*it);
             unsigned int lensNr = lenses.getPartNumber(*it);
@@ -374,7 +374,7 @@ namespace PanoCommand
         // it might change as we are setting them
         std::size_t new_new_part_number = new_part_number;
         HuginBase::ImageVariableGroup group(variables, pano);
-        for (HuginBase::UIntSet::iterator it = image_numbers.begin(); it != image_numbers.end(); it++)
+        for (HuginBase::UIntSet::iterator it = image_numbers.begin(); it != image_numbers.end(); ++it)
         {
             group.switchParts(*it, new_new_part_number);
             // update the lens number if it changes.
@@ -388,11 +388,11 @@ namespace PanoCommand
         HuginBase::ImageVariableGroup group(groupVariables, pano);
         if (new_linked_state)
         {
-            for (HuginBase::UIntSet::iterator imageIt = image_numbers.begin(); imageIt != image_numbers.end(); imageIt++)
+            for (HuginBase::UIntSet::iterator imageIt = image_numbers.begin(); imageIt != image_numbers.end(); ++imageIt)
             {
                 // link the variables
                 for (std::set<HuginBase::ImageVariableGroup::ImageVariableEnum>::iterator variableIt = changeVariables.begin();
-                    variableIt != changeVariables.end(); variableIt++)
+                    variableIt != changeVariables.end(); ++variableIt)
                 {
                     group.linkVariableImage(*variableIt, *imageIt);
                 }
@@ -400,11 +400,11 @@ namespace PanoCommand
         }
         else
         {
-            for (HuginBase::UIntSet::iterator imageIt = image_numbers.begin(); imageIt != image_numbers.end(); imageIt++)
+            for (HuginBase::UIntSet::iterator imageIt = image_numbers.begin(); imageIt != image_numbers.end(); ++imageIt)
             {
                 // unlink the variable
                 for (std::set<HuginBase::ImageVariableGroup::ImageVariableEnum>::iterator variableIt = changeVariables.begin();
-                    variableIt != changeVariables.end(); variableIt++)
+                    variableIt != changeVariables.end(); ++variableIt)
                 {
                     group.unlinkVariableImage(*variableIt, *imageIt);
                     group.updatePartNumbers();
@@ -419,7 +419,7 @@ namespace PanoCommand
         HuginBase::StandardImageVariableGroups variable_groups(pano);
         HuginBase::ImageVariableGroup & lenses = variable_groups.getLenses();
         std::set<HuginBase::ImageVariableGroup::ImageVariableEnum>::iterator it;
-        for (it = variables.begin(); it != variables.end(); it++)
+        for (it = variables.begin(); it != variables.end(); ++it)
         {
             lenses.linkVariablePart(*it, lens_number);
         }
@@ -446,7 +446,7 @@ namespace PanoCommand
         // unlink all the variables in the first image.
         DEBUG_ASSERT(image_numbers.size() > 0);
         unsigned int image_index = *image_numbers.begin();
-        for (std::set<HuginBase::ImageVariableGroup::ImageVariableEnum>::iterator it = vars.begin(); it != vars.end(); it++)
+        for (std::set<HuginBase::ImageVariableGroup::ImageVariableEnum>::iterator it = vars.begin(); it != vars.end(); ++it)
         {
             switch (*it)
             {
@@ -461,7 +461,7 @@ namespace PanoCommand
         // now the first image should have a new part in the group.
         // we want to switch the rest of the images to the new part.
         HuginBase::ImageVariableGroup group(vars, pano);
-        for (HuginBase::UIntSet::iterator it = ++image_numbers.begin(); it != image_numbers.end(); it++)
+        for (HuginBase::UIntSet::iterator it = ++image_numbers.begin(); it != image_numbers.end(); ++it)
         {
             std::size_t part_number = group.getPartNumber(image_index);
             group.switchParts(*it, part_number);

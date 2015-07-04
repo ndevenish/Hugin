@@ -287,7 +287,7 @@ void PreviewIdentifyTool::Activate()
 void PreviewIdentifyTool::StopUpdating() {
     if (!image_set.empty()) {
         std::set<unsigned int>::iterator iterator;
-        for (iterator = image_set.begin(); iterator != image_set.end(); iterator++)
+        for (iterator = image_set.begin(); iterator != image_set.end(); ++iterator)
         {
             DEBUG_ASSERT(*iterator < helper->GetPanoramaPtr()->getNrOfImages());
             // reset this button to its default system colour.
@@ -412,7 +412,7 @@ void PreviewIdentifyTool::AfterDrawImagesEvent()
     // on top. We will folow this convention to avoid confusion.
     glMatrixMode(GL_MODELVIEW);
     std::set<unsigned int>::reverse_iterator it;
-    for (it = image_set.rbegin(); it != image_set.rend(); it++)
+    for (it = image_set.rbegin(); it != image_set.rend(); ++it)
     {
         DEBUG_ASSERT(*it < helper->GetPanoramaPtr()->getNrOfImages());
         helper->GetViewStatePtr()->GetTextureManager()->
@@ -427,7 +427,7 @@ void PreviewIdentifyTool::AfterDrawImagesEvent()
     unsigned int image_counter = 0;
     const unsigned int canvasWidth = helper->GetViewStatePtr()->GetOptions()->getWidth();
     const unsigned int canvasHeight = helper->GetViewStatePtr()->GetOptions()->getHeight();
-    for (it = image_set.rbegin(); it != image_set.rend(); it++)
+    for (it = image_set.rbegin(); it != image_set.rend(); ++it)
     {
         glMatrixMode(GL_TEXTURE);
         // Use the mask to alter the shape of the identification boxes, but
@@ -683,7 +683,7 @@ void PreviewIdentifyTool::UpdateWithNewImageSet(std::set<unsigned int> new_image
                              std::inserter(difference,difference.end()));
         if (!difference.empty())
         {
-            for (HuginBase::UIntSet::iterator iterator = difference.begin(); iterator != difference.end(); iterator++)
+            for (HuginBase::UIntSet::iterator iterator = difference.begin(); iterator != difference.end(); ++iterator)
             {
                 DEBUG_ASSERT(*iterator < helper->GetPanoramaPtr()->getNrOfImages());
                 // reset this button to its default system colour.
@@ -703,7 +703,7 @@ void PreviewIdentifyTool::UpdateWithNewImageSet(std::set<unsigned int> new_image
             std::inserter(difference, difference.end()));
         if (!difference.empty())
         {
-            for (HuginBase::UIntSet::iterator iterator = difference.begin(); iterator != difference.end(); iterator++)
+            for (HuginBase::UIntSet::iterator iterator = difference.begin(); iterator != difference.end(); ++iterator)
             {
                 DEBUG_ASSERT(*iterator < helper->GetPanoramaPtr()->getNrOfImages());
                 // get notification of when this is about to be drawn.
