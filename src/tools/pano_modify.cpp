@@ -808,7 +808,7 @@ int main(int argc, char* argv[])
         vigra::Rect2D roi=cropPano.getResultOptimalROI();
         PanoramaOptions opt = pano.getOptions();
         //set the ROI - fail if the right/bottom is zero, meaning all zero
-        if(roi.right() != 0 && roi.bottom() != 0)
+        if(!roi.isEmpty())
         {
             opt.setROI(roi);
             cout << "Set crop size to " << roi.left() << "," << roi.top() << "," << roi.right() << "," << roi.bottom() << endl;

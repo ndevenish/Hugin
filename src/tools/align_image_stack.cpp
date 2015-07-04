@@ -411,7 +411,7 @@ void autoCrop(Panorama& pano)
 
     vigra::Rect2D roi=cropPano.getResultOptimalROI();
     //set the ROI - fail if the right/bottom is zero, meaning all zero
-    if(roi.right() != 0 && roi.bottom() != 0)
+    if(!roi.isEmpty())
     {
         PanoramaOptions opt = pano.getOptions();
         opt.setROI(roi);

@@ -256,7 +256,7 @@ void ImageCache::softFlush()
         }
         while (purgeAmount > purgedMem) {
             bool deleted = false;
-            if (pyrImages.size() > 0) {
+            if (!pyrImages.empty()) {
                 vigra::BImage * imgPtr = (*(pyrImages.begin())).second;
                 purgedMem += imgPtr->width() * imgPtr->height();
                 delete imgPtr;
