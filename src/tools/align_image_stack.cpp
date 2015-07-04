@@ -491,7 +491,7 @@ static int ptinfoDlg(int command, char* argument)
 struct SortImageVectorEV
 {
 public:
-    SortImageVectorEV(const Panorama* pano) : m_pano(pano) {};
+    explicit SortImageVectorEV(const Panorama* pano) : m_pano(pano) {};
     bool operator()(const unsigned int i, const unsigned int j)
     {
         return m_pano->getImage(i).getExposureValue() > m_pano->getImage(j).getExposureValue();

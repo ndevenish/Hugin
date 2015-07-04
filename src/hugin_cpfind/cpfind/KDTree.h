@@ -66,7 +66,7 @@ class HyperRectangle
 {
 public:
     HyperRectangle();
-    HyperRectangle(int iDim);
+    explicit HyperRectangle(int iDim);
     HyperRectangle(HyperRectangle& iOther);
     bool split(HyperRectangle& oLeft, HyperRectangle& oRight, int iSplitDim, TYPE iSplitVal);
     double calcSqDistance (const KE& iTarget);

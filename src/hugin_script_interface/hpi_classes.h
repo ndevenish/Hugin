@@ -108,7 +108,7 @@ public:
      *  the argument list is meant to contain. Note that you
      *  must add precisely this amount of arguments.
      */
-    python_arglist ( int _argc );
+    explicit python_arglist ( int _argc );
     /** destructor, does cleanup */
     ~python_arglist();
 
