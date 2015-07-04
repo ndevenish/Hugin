@@ -1,0 +1,138 @@
+Hugin 2015.2
+* Color management in GUI tools: take ICC profiles in files and monitor color profile 
+  into account
+* Some buttons got a context menu for easier access to some function
+  ** Show all in fast preview window to allow better interaction with stacked projects
+  ** Celeste in cp tab: the button can now create cp or clean cp  
+* Updated internal levmar library to version 2.6
+* The identify tool in the fast preview window shows now also the image numbers on top
+  of the images. (This can be suppressed by pressing the alt button).
+* Fixes internal image format for GPU remapping. This should fix the "unsupported
+  framebufferformat" error.
+* Use own code for OpenGL intialization. Now freeglut is not needed anymore.
+  (This should prevent the appearing of window when running "nona -g".)
+
+============================================================================================
+Hugin 2015.0
+* stability and speed improvements
+* new stitching engine
+* new blender verdandi
+* own camera and lens database
+* preview window: new tool to add or remove control points
+* automatic exposure stack detection when loading images,
+* fine-tune and auto-estimate functions are now projection aware
+* PTBatcherGUI: more options for end of process
+* PTBatcherGUI now shows the thumbnails when searching for images in directories.
+
+============================================================================================
+Hugin 2014.0
+* inherit many of the libpano improvements (of version 2.9.19)
+* the translation plane variables Tpy and Tpp have been added to the GUI 
+  (better support for translation parameter, e.g. for nadir images, also pano with 
+  translation parameters can now rotated)
+* improvement of the GPU remapping code (bug fixes in the glue code, added some missing
+  GPU transformation, now also fisheye lenses are supported by GPU code)
+* better support for line control point in Control points tab (it still requires that 
+  the same image is displayed left and right for full features, but also better support 
+  for line control points above several images)
+* obsolete programs matchpoint, nona_gui and PTBatcher have been removed
+* outdated translation have been removed from the default install
+* initialize the colour balance values during loading with EXIF values 
+  (this information is only stored and decoded by some cameras 
+  (mainly models by Panasonic, Pentax, Olympus, Nikon))
+* improved the assistant
+* allow customization of exiftool command used to copy metadata to output images
+* new command line tools for CLI processing
+    ** pto_mask: manipulate mask in project file
+    ** pto_template: apply template to project file
+    ** pto_move: move or copy project files with all associated images
+
+============================================================================================
+Hugin 2013.0
+* Redesign of the User Interface: The User Interface now features a Simple, Advanced and
+  Expert interface.
+* New tools added:
+   ** pto_var ( change image variables inside pto files)
+   ** pto_lensstack (modify assigned lenses and stack in pto files)
+   ** geocpset ( add geometric contraints for multirow panorama with featureless images)
+* Completely rewritten internal helpfiles to reflect new User interface(s) and functionalities
+* many bugfixes
+
+============================================================================================
+Hugin 2012.0
+* Integration of lensfun library
+* New tool in scripting: pto_gen
+* Many bugfixes
+
+============================================================================================
+Hugin 2011.4
+* Vertical feature detector for automatic levelling of panoramas
+* Bugfix release
+
+============================================================================================
+Hugin 2011.2
+* New Lens Calibrator. A tool to calibrate lens correction parameters on the basis of 
+  reference shots containing straight lines.
+* Hugin Scripting Interface (HSI). Access Hugin's functionality from Python
+* Hugin Plugin Interface (HPI). Write Plugins in Python and run them within Hugin
+* Hugin Batch Processor is the default GUI to control the stitching process, 
+  replaces the primitive hugin_stitch_project
+
+============================================================================================
+Hugin 2011.0
+* Main new feature: Overview in the Fast Preview (GSoC 2010 project).
+* Improved cpfind for fisheye and wide angle images.
+* New Gray Picker for color tuning.
+* Extended functionality in align_image_stack for the alignment of stereo images.
+
+============================================================================================
+Hugin 2010.4
+This is the first version of Hugin that can be considered feature-complete:
+* Built-in patent-free control points generator
+* Refactored Makefile library
+* Improved unattended operation, interaction and functionality, reporting of stitching and 
+  system information
+* New command line tools cpfind and icpfind
+* Many libraries and build improvements
+* Migration of issue trackers from SourceForge to Launchpad
+* New visual identity, reorganized for easier editing in the future
+
+============================================================================================
+Hugin 2010.2
+* New layout mode
+* New Masking tool
+* New Mosaics stitching mode
+* Linked bracketing
+* Sophisticated control point detection modes
+* Support for new lens types
+* Codebase migrated from Subversion to Mercurial
+
+============================================================================================
+Hugin 2010.0
+* Improved usability, particularly of the fast preview
+* autocrop
+* deghosting in the GUI
+
+============================================================================================
+Hugin 2009.4
+* automatic lens calibration (research tool as basis for future development)
+* control point cleaning
+* plenty of incremental improvements
+
+============================================================================================
+Hugin 2009.2
+* New naming scheme. Major version number is the year of release. 
+  Minor version number is the counter of releases during the year. 
+  Even minor numbers (starting with 0) are stable releases. 
+  Odd minor numbers are development releases. 
+
+============================================================================================
+Hugin 0.8
+Integrating of Goggle Sommer of Code 2008 results
+* Fast Preview window: OpenGL accelerated preview window
+* Celeste sky identification
+* New panorama projections: Pannini, Biplane and Triplane, and Orthographic and Equisolid
+* Batch Processor for stitching projects
+
+
+
