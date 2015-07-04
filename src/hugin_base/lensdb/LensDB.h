@@ -186,6 +186,10 @@ public:
     /** import data from external file */
     bool ImportFromFile(const std::string& filename);
 private:
+    // prevent copying of class
+    LensDB(const LensDB&);
+    LensDB& operator=(const LensDB&);
+    // private variables
     class Database;
     Database *m_db;
     static LensDB* m_instance;

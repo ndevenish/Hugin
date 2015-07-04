@@ -316,6 +316,10 @@ public:
     struct MatchData;
 
 private:
+    // prevent copying of class
+    PanoDetector(const PanoDetector&);
+    PanoDetector& operator=(const PanoDetector&);
+
     // options
 
     bool						_writeAllKeyPoints;
