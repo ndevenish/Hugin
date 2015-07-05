@@ -1,4 +1,112 @@
-2015-06-13 09:02 +0200  tmodes  (9a02ca1fd1fe)  tip
+2015-07-05 13:38 +0200  tmodes  (99e9ae9523f2)  tip
+
+	Correctly scale alpha mask during loading (grafted from
+	12aef38bf0837125903d6686556db08a109615d1)
+
+	> src/hugin_base/vigra_ext/impexalpha.hxx
+	> src/tools/verdandi.cpp
+
+2015-07-03 21:56 +0200  tmodes  (242ef75f07dc)  
+
+	Fixes compiler warning in internal blending (grafted from
+	a9d914fd54538661bdf70cfb5c53bc9d48067661)
+
+	> src/hugin_base/vigra_ext/StitchWatershed.h
+
+2015-07-03 21:56 +0200  tmodes  (214df605793b)  
+
+	Added double pixeltype to verdandi (grafted from
+	0c01ec1fd685fd1313eb8882e3f5c14696d25348)
+
+	> src/tools/verdandi.cpp
+
+2015-07-01 22:12 +0200  tmodes  (da65428a66d5)  
+
+	Modified alpha channel handling again to cover more cases which
+	failed before (grafted from
+	13f7aeff8000f0183864a728a5fd7387c91f214b)
+
+	> src/hugin_base/vigra_ext/impexalpha.hxx
+	> src/hugin_base/vigra_ext/utils.h
+	> src/tools/verdandi.cpp
+
+2015-06-27 15:17 +0200  tmodes  (70e9109172d1)  
+
+	Fixes some German translations
+
+	> src/translations/de.po
+
+2015-06-27 09:46 +0200  tmodes  (dc39a9576a22)  
+
+	Fixes impexalpha.hxx to work also with vigra 1.9 (grafted from
+	303264210ef3b21a62becfbcf69d7028b56bbece)
+
+	> src/hugin_base/vigra_ext/impexalpha.hxx
+
+2015-06-25 22:03 +0200  tmodes  (f46b5b3dff18)  
+
+	Preferences dialog: Fix valid range for downscale factor (grafted
+	from 26207211715dce149f1d68f598cdccd642cd22c2)
+
+	> src/hugin1/hugin/xrc/pref_dialog.xrc
+
+2015-06-23 20:36 +0200  tmodes  (51a8df32cd3e)  
+
+	Changed vigra_ext/impexalpha.hxx to work correctly with vigra 1.9 or
+	1.10 (grafted from 5f45958ae4205b18bf021aa75a032d08eef531ce)
+
+	> src/hugin_base/vigra_ext/impexalpha.hxx
+
+2015-06-24 19:48 +0200  tmodes  (ffcd85632675)  
+
+	CMake: Updated paths for exiv2 (Windows only)
+
+	> CMakeModules/FindExiv2.cmake
+	> CMakeModules/win_bundle.cmake
+
+2015-06-22 13:11 +0200  tmodes  (dc7eb38fe1d5)  
+
+	PTBatcherGUI: Convert mask explicitly to black/white otherwise GTK
+	barfs (grafted from 4d6928161b302d7d7b1b706a0535ab69a2074a7e)
+
+	> src/hugin1/ptbatcher/FindPanoDialog.cpp
+
+2015-06-21 16:51 +0200  tmodes  (41cdb8a479ae)  
+
+	Catch invalid selections for create cp tool (grafted from
+	f91f1875ce5e930e5d115531fba74218309974ef)
+
+	> src/hugin1/hugin/PreviewEditCPTool.cpp
+
+2015-06-21 11:32 +0200  tmodes  (862972e6b9df)  
+
+	Fixes 2 more assert messages (grafted from
+	0b8d299e0927d507b91c219e1c18ccdc0fd7b3a4)
+
+	> src/hugin1/ptbatcher/FindPanoDialog.cpp
+
+2015-06-18 19:47 +0200  tmodes  (604cfef8196e)  
+
+	Process EVT_END_PROCESS after the processing has finished [1465823]
+
+	Put it in event queue and don't process it immediately (grafted from
+	7acabc8c42f6adde3281f8c5fd5c8ef28455f188)
+
+	> src/hugin1/base_wx/MyExternalCmdExecDialog.cpp
+
+2015-06-13 09:10 +0200  tmodes  (c48252eb571f)  
+
+	Added tag 2015.0rc1 for changeset d497c7fc1866
+
+	> .hgtags
+
+2015-06-13 09:05 +0200  tmodes  (d497c7fc1866)  2015.0rc1
+
+	Updated changelog
+
+	> ChangeLog
+
+2015-06-13 09:02 +0200  tmodes  (9a02ca1fd1fe)  
 
 	Fixed several typos in strings
 
