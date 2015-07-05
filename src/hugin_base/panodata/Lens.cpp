@@ -26,7 +26,6 @@
 
 #include "Lens.h"
 
-#include <vigra/impex.hxx>
 #include <hugin_utils/utils.h>
 #include <hugin_utils/stl_utils.h>
 

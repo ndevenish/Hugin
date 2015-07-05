@@ -30,7 +30,7 @@
 #include <iostream>
 
 #include <vigra/error.hxx>
-#include <vigra/impex.hxx>
+#include <vigra_ext/impexalpha.hxx>
 #include <vigra/cornerdetection.hxx>
 #include <vigra/localminmax.hxx>
 #include <hugin_utils/utils.h>

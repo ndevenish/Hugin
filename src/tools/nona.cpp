@@ -32,7 +32,6 @@
 #include <string>
 
 #include <vigra/error.hxx>
-#include <vigra/impex.hxx>
 
 #include <getopt.h>
 #ifndef WIN32

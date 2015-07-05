@@ -31,8 +31,6 @@
 #include <vigra/resizeimage.hxx>
 #include <vigra/transformimage.hxx>
 
-#include <vigra/impex.hxx>
-
 #include "hugin_utils/utils.h"
 #include "hugin_math/hugin_math.h"
 #include "vigra_ext/FitPolynom.h"

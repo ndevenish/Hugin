@@ -30,7 +30,6 @@
 #include <iostream>
 
 #include <vigra/error.hxx>
-#include <vigra/impex.hxx>
 #include <vigra/cornerdetection.hxx>
 #include <vigra/localminmax.hxx>
 #include <hugin_utils/utils.h>
@@ -38,6 +37,7 @@
 #include <vigra_ext/Pyramid.h>
 #include <vigra_ext/Correlation.h>
 #include <vigra_ext/InterestPoints.h>
+#include <vigra_ext/impexalpha.hxx>
 
 #include <panodata/Panorama.h>
 #include <panotools/PanoToolsOptimizerWrapper.h>

@@ -35,8 +35,6 @@
 
 #include <fstream>
 #include <typeinfo>
-#include <vigra/impex.hxx>
-
 
 namespace HuginBase {
 

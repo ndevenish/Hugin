@@ -29,7 +29,6 @@
 #include "panotools/PanoToolsUtils.h"
 #include "PanoCommand.h"
 #include "hugin_shared.h"
-#include "vigra/impex.hxx"
 #include "hugin/config_defaults.h"
 #include "base_wx/platform.h"
 

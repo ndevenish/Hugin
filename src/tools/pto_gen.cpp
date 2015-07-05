@@ -29,12 +29,12 @@
 #ifdef _WINDOWS
 #include <io.h>
 #endif
+#include <vigra/imageinfo.hxx>
 #include <panodata/Panorama.h>
 #include <panodata/StandardImageVariableGroups.h>
 #include <panodata/OptimizerSwitches.h>
 #include <algorithms/basic/CalculateMeanExposure.h>
 #include "hugin_utils/alphanum.h"
-#include <vigra/impex.hxx>
 #include <lensdb/LensDB.h>
 
 #ifdef __APPLE__

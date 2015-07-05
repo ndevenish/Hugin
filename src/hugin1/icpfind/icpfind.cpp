@@ -33,7 +33,6 @@
 #include <panodata/Panorama.h>
 #include <base_wx/platform.h>
 #include "hugin/config_defaults.h"
-#include <vigra/impex.hxx>
 
 extern "C"
 {

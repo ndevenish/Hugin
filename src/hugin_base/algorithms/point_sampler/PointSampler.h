@@ -28,7 +28,7 @@
 
 #include <hugin_shared.h>
 #include <hugin_config.h>
-
+#include <vigra/stdimage.hxx>
 #include <algorithms/PanoramaAlgorithm.h>
 
 #ifdef HAVE_CXX11
@@ -37,7 +37,6 @@
 #else
 #include <boost/random.hpp>
 #endif
-#include <vigra/impex.hxx>
 #include <vigra_ext/utils.h>
 #include <appbase/ProgressDisplay.h>
 #include <panodata/PanoramaData.h>
