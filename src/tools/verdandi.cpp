@@ -136,26 +136,9 @@ bool LoadAndMergeImages(std::vector<vigra::ImageImportInfo> imageInfos, const st
     };
     ImageType image(imageSize);
     vigra::BImage mask(imageSize);
-    const std::string pixelType(imageInfos[0].getPixelType());
-    const bool floatImage = (pixelType == "FLOAT") || (pixelType == "DOUBLE");
-    if (floatImage)
-    {
-        vigra::FImage floatMask(imageSize);
-        vigra::importImageAlpha(imageInfos[0],
-            std::pair<typename ImageType::Iterator, typename ImageType::Accessor>(image.upperLeft() + imageInfos[0].getPosition(), image.accessor()),
-            std::pair<typename vigra::FImage::Iterator, typename vigra::FImage::Accessor>(floatMask.upperLeft() + imageInfos[0].getPosition(), floatMask.accessor())
-            );
-        // scale mask in float images to 0...255
-        vigra::FindMinMax<float> minmax;
-        vigra::inspectImage(vigra::srcImageRange(floatMask), minmax);
-        vigra_ext::applyMapping(vigra::srcImageRange(floatMask), vigra::destImage(mask), minmax.min, minmax.max, 0);
-    }
-    else
-    {
-        vigra::importImageAlpha(imageInfos[0],
-            std::pair<typename ImageType::Iterator, typename ImageType::Accessor>(image.upperLeft() + imageInfos[0].getPosition(), image.accessor()),
-            std::pair<typename vigra::BImage::Iterator, typename vigra::BImage::Accessor>(mask.upperLeft() + imageInfos[0].getPosition(), mask.accessor()));
-    };
+    vigra::importImageAlpha(imageInfos[0],
+        std::pair<typename ImageType::Iterator, typename ImageType::Accessor>(image.upperLeft() + imageInfos[0].getPosition(), image.accessor()),
+        std::pair<typename vigra::BImage::Iterator, typename vigra::BImage::Accessor>(mask.upperLeft() + imageInfos[0].getPosition(), mask.accessor()));
     std::cout << "Loaded " << imageInfos[0].getFileName() << std::endl;
     vigra::Rect2D roi(vigra::Point2D(imageInfos[0].getPosition()), imageInfos[0].size());
 
@@ -163,19 +146,7 @@ bool LoadAndMergeImages(std::vector<vigra::ImageImportInfo> imageInfos, const st
     {
         ImageType image2(imageInfos[i].size());
         vigra::BImage mask2(image2.size());
-        if (floatImage)
-        {
-            vigra::FImage floatMask(image2.size());
-            vigra::importImageAlpha(imageInfos[i], vigra::destImage(image2), vigra::destImage(floatMask));
-            // scale mask in float images to 0...255
-            vigra::FindMinMax<float> minmax;
-            vigra::inspectImage(vigra::srcImageRange(floatMask), minmax);
-            vigra_ext::applyMapping(vigra::srcImageRange(floatMask), vigra::destImage(mask2), minmax.min, minmax.max, 0);
-        }
-        else
-        {
-            vigra::importImageAlpha(imageInfos[i], vigra::destImage(image2), vigra::destImage(mask2));
-        };
+        vigra::importImageAlpha(imageInfos[i], vigra::destImage(image2), vigra::destImage(mask2));
         std::cout << "Loaded " << imageInfos[i].getFileName() << std::endl;
         roi |= vigra::Rect2D(vigra::Point2D(imageInfos[i].getPosition()), imageInfos[i].size());
 
