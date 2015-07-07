@@ -803,7 +803,7 @@ void CPImageCtrl::OnDraw(wxDC & dc)
 class ScalingTransform
 {
 public:
-    ScalingTransform(double scale)
+    explicit ScalingTransform(double scale)
     : m_scale(scale) {};
 
     bool transformImgCoord(double & sx, double & sy, double x, double y)

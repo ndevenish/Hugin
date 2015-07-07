@@ -43,7 +43,7 @@ enum{
 class PreviewEditCPTool : public Tool
 {
 public:
-    PreviewEditCPTool(ToolHelper *helper) : Tool(helper), m_mouseDown(false), m_menuPopup(false) {};
+    explicit PreviewEditCPTool(ToolHelper *helper) : Tool(helper), m_mouseDown(false), m_menuPopup(false) {};
     /** activate the tool */
     void Activate();
     /** draw selection rectangle */

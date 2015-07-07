@@ -419,10 +419,7 @@ void TextureManager::CheckUpdate()
             //
             // remove duplicate key if exists
             TextureKey checkKey (img_p, &photometric_correct);
-            if (textures.find(checkKey) != textures.end()) {
-                // Already exists in map, remove it first before adding a new one
-                textures.erase(checkKey);
-            }
+            textures.erase(checkKey);
 
             std::pair<TexturesMap::iterator, bool> ins;
             ins = textures.insert(std::pair<TextureKey, sharedPtrNamespace::shared_ptr<TextureInfo> >

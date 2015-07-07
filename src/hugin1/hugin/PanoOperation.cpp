@@ -244,7 +244,7 @@ time_t ReadExifTime(const char* filename)
 
 struct sortbytime
 {
-    sortbytime(map<string, time_t> & h) : m_time(h) {};
+    explicit sortbytime(map<string, time_t> & h) : m_time(h) {};
     bool operator()(const std::string & s1, const std::string & s2)
     {
         time_t t1 = m_time[s1];

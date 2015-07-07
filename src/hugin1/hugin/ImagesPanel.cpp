@@ -192,7 +192,6 @@ ImagesPanel::~ImagesPanel()
     m_maxEv->PopEventHandler(true);
     m_pano->removeObserver(this);
     wxChoice* group=XRCCTRL(*this,"images_group_mode", wxChoice);
-    size_t sel=group->GetSelection();
     DeleteClientData(group);
     DeleteClientData(m_optChoice);
     DeleteClientData(m_optPhotoChoice);

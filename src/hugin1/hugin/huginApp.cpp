@@ -431,9 +431,9 @@ bool huginApp::OnInit()
             frame->LoadProjectFile(file.GetFullPath());
         } else {
             std::vector<std::string> filesv;
+            bool actualPathSet = false;
             for (int i=1; i< argc; i++) 
             {
-                bool actualPathSet = false;
 #if defined __WXMSW__
                 //expand wildcards
                 wxFileName fileList(argv[i]);

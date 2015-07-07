@@ -559,7 +559,6 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
     if ( nrImages >= nrButtons ) {
         for(UIntSet::const_iterator it = changed.begin(); it != changed.end(); ++it){
             if (*it >= nrButtons) {
-                unsigned int imgNr = *it;
                 // create new item.
 //                wxImage * bmp = new wxImage(sz.GetWidth(), sz.GetHeight());
 #ifdef USE_TOGGLE_BUTTON

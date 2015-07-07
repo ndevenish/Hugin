@@ -235,7 +235,7 @@ CompareStruct(localNumber)
 #define CompareStruct(VAR)\
 struct Compare##VAR\
 {\
-    Compare##VAR(const HuginBase::CPVector& cps) : m_cps(cps) {};\
+    explicit Compare##VAR(const HuginBase::CPVector& cps) : m_cps(cps) {};\
     bool operator()(const CPListItem& item1, const CPListItem& item2)\
     {\
          return m_cps[item1.globalIndex].VAR < m_cps[item2.globalIndex].VAR; \
@@ -252,7 +252,7 @@ CompareStruct(error)
 #define CompareStruct(VAR)\
 struct Compare##VAR##Greater\
 {\
-    Compare##VAR##Greater(const HuginBase::CPVector& cps) : m_cps(cps) {};\
+    explicit Compare##VAR##Greater(const HuginBase::CPVector& cps) : m_cps(cps) {};\
     bool operator()(const CPListItem& item1, const CPListItem& item2)\
     {\
          return m_cps[item1.globalIndex].VAR > m_cps[item2.globalIndex].VAR; \
@@ -538,7 +538,6 @@ void CPListFrame::OnDeleteButton(wxCommandEvent & e)
 void CPListFrame::OnSelectButton(wxCommandEvent & e)
 {
     // calculate the mean error and the standard deviation
-    const HuginBase::CPVector & cps = m_pano.getCtrlPoints();
     HuginBase::PTools::calcCtrlPointErrors(m_pano);
     double min, max, mean, var;
     HuginBase::CalculateCPStatisticsError::calcCtrlPntsErrorStats(m_pano, min, max, mean, var);

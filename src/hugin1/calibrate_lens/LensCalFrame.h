@@ -52,7 +52,7 @@ class LensCalFrame:public wxFrame, public AppBase::ProgressDisplay
 public:
 
     /** constructor  */
-    LensCalFrame(wxWindow* parent);
+    explicit LensCalFrame(wxWindow* parent);
     /** destructor */
     virtual ~LensCalFrame();
 

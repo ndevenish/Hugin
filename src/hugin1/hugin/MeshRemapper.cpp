@@ -116,7 +116,7 @@ class A_Polygon
 {
 public:
     // Create the polygon from a quadrilateral
-    A_Polygon(MeshRemapper::Coords *face);
+    explicit A_Polygon(MeshRemapper::Coords *face);
     A_Polygon() {}
     // clip lines are the line defined by x * p[0] + y * p[1] + p[2] = 0.
     // inside is the side where x * p[0] + y *p[1] + p[2] > 0.

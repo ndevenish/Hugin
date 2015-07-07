@@ -38,7 +38,7 @@ public:
     /** constructor
       * @param filename filename to python script to be parsed for metadata 
       */
-    PluginItem(wxFileName filename);
+    explicit PluginItem(wxFileName filename);
     /** returns true, if plugin can run on given system and version */
     const bool IsAPIValid() const;
     /** return category name */

@@ -49,7 +49,7 @@ class GLRenderer
 public:
     /** ctor.
      */
-    GLRenderer(const wxColour backgroundColour);
+    explicit GLRenderer(const wxColour backgroundColour);
 
     /** dtor.
      */

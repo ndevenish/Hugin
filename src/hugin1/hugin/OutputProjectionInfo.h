@@ -37,7 +37,7 @@
 class OutputProjectionInfo
 {
 public:
-    OutputProjectionInfo(HuginBase::PanoramaOptions *output);
+    explicit OutputProjectionInfo(HuginBase::PanoramaOptions *output);
     // most are for correcting faces crossing the +/-180 degree boundary
     const double GetMiddleX() const
         {return middle_x;}

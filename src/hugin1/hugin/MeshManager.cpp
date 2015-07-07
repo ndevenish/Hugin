@@ -227,7 +227,6 @@ void MeshManager::MeshInfo::CompileList()
         #endif
             // get each face's coordinates from the remapper
             MeshRemapper::Coords coords;
-            bool write = true;
             while (remap->GetNextFaceCoordinates(&coords))
             {
                 MeshCoords3D coords3d = m_visualization_state->GetMeshManager()->GetMeshCoords3D(coords);

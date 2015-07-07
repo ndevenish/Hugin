@@ -80,7 +80,7 @@ END_EVENT_TABLE()
 class ImagesTreeData : public wxTreeItemData
 {
 public:
-    ImagesTreeData(const long& nr) : m_nr(nr) { };
+    explicit ImagesTreeData(const long& nr) : m_nr(nr) { };
     const long GetImgNr() const { return m_nr;};
     void SetImgNr(long newImgNr) { m_nr=newImgNr;};
     const long GetGroupNr() const { return -(m_nr+1);};

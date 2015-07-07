@@ -37,7 +37,7 @@ class PreviewColorPickerTool : public Tool
 {
 public:
     /** constructor */
-    PreviewColorPickerTool(ToolHelper *helper):Tool(helper) {};
+    explicit PreviewColorPickerTool(ToolHelper *helper):Tool(helper) {};
     void Activate();
     /** process mouse button events */
     void MouseButtonEvent(wxMouseEvent &e);

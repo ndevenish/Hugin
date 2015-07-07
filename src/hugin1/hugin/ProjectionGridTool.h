@@ -30,7 +30,7 @@
 class ProjectionGridTool
 {
 public:
-    ProjectionGridTool(ToolHelper* helper);
+    explicit ProjectionGridTool(ToolHelper* helper);
     virtual ~ProjectionGridTool();
     
 protected:
@@ -50,7 +50,7 @@ class PreviewProjectionGridTool : public PreviewTool, public ProjectionGridTool
 {
 public:
     void Activate();
-    PreviewProjectionGridTool(PreviewToolHelper *helper) : PreviewTool(helper), ProjectionGridTool(helper) {}
+    explicit PreviewProjectionGridTool(PreviewToolHelper *helper) : PreviewTool(helper), ProjectionGridTool(helper) {}
 
     void createMesh();
 
@@ -64,7 +64,7 @@ class PanosphereOverviewProjectionGridTool : public PanosphereOverviewTool, publ
 {
 public:
     void Activate();
-    PanosphereOverviewProjectionGridTool(PanosphereOverviewToolHelper *helper) : PanosphereOverviewTool(helper), ProjectionGridTool(helper) {}
+    explicit PanosphereOverviewProjectionGridTool(PanosphereOverviewToolHelper *helper) : PanosphereOverviewTool(helper), ProjectionGridTool(helper) {}
 
     void createMesh();
 

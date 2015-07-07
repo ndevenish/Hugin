@@ -92,7 +92,7 @@ public:
         {
             public:
                 Coord3D() {}
-                Coord3D(hugin_utils::FDiff2D & coord) {x = coord.x; y = coord.y; z = 0;}
+                explicit Coord3D(hugin_utils::FDiff2D & coord) {x = coord.x; y = coord.y; z = 0;}
                 double x,y,z;
         };
 
@@ -102,7 +102,7 @@ public:
         class MeshCoords3D {
         public:
             MeshCoords3D() {}
-            MeshCoords3D(const MeshRemapper::Coords & coords);
+            explicit MeshCoords3D(const MeshRemapper::Coords & coords);
             double tex_coords[2][2][2];
             double vertex_coords[2][2][3];
         };

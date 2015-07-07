@@ -763,7 +763,6 @@ void MainFrame::OnExit(wxCloseEvent & e)
 void MainFrame::OnSaveProject(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
-    bool savedProjectFile=false;
     try {
     wxFileName scriptName = m_filename;
     if (m_filename == wxT("")) {
@@ -781,7 +780,6 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
         }
         pano.printPanoramaScript(script, pano.getOptimizeVector(), pano.getOptions(), all, false, path);
         script.close();
-        savedProjectFile=true;
 
         SetStatusText(wxString::Format(_("saved project %s"), m_filename.c_str()),0);
         if(m_guiLevel==GUI_SIMPLE)

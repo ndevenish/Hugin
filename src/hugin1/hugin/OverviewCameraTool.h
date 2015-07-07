@@ -36,7 +36,7 @@
 class PanosphereOverviewCameraTool : public PanosphereOverviewTool
 {
     public:
-        PanosphereOverviewCameraTool(PanosphereOverviewToolHelper* helper) : PanosphereOverviewTool (helper) {}
+        explicit PanosphereOverviewCameraTool(PanosphereOverviewToolHelper* helper) : PanosphereOverviewTool (helper) {}
         virtual ~PanosphereOverviewCameraTool() {}
 
         void Activate();
@@ -71,7 +71,7 @@ class PanosphereOverviewCameraTool : public PanosphereOverviewTool
 class PlaneOverviewCameraTool : public PlaneOverviewTool
 {
     public:
-        PlaneOverviewCameraTool(PlaneOverviewToolHelper * helper) : PlaneOverviewTool (helper) {}
+        explicit PlaneOverviewCameraTool(PlaneOverviewToolHelper * helper) : PlaneOverviewTool (helper) {}
         virtual ~PlaneOverviewCameraTool() {}
 
         void Activate();

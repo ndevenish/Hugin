@@ -85,7 +85,7 @@ protected:
     class TextureInfo
     {
     public:
-        TextureInfo(ViewState *new_view_state);
+        explicit TextureInfo(ViewState *new_view_state);
         // specify log2(width) and log2(height) for the new texture's size.
         // this is the size of mip level 0, which may or may not be defined.
         TextureInfo(ViewState *new_view_state, unsigned int width_p, unsigned int height_p);

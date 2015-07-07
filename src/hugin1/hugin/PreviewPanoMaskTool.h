@@ -31,7 +31,7 @@
 class PreviewPanoMaskTool : public PreviewTool
 {
 public:
-    PreviewPanoMaskTool(PreviewToolHelper *helper);
+    explicit PreviewPanoMaskTool(PreviewToolHelper *helper);
     void Activate();
     void BeforeDrawImagesEvent();
     void ReallyAfterDrawImagesEvent();

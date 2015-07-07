@@ -925,12 +925,11 @@ unsigned int VertexCoordRemapper::Tree::GetNext()
     //     point, we trace down the tree until we get to a leaf.
     if (cur_tree_node != 0)
     {
-        unsigned int xd = 0, yd = 0;
         bool done = false;
         while (!done && cur_tree_node != 0)
         {
-            xd = x % 2;
-            yd = y % 2;
+            unsigned int xd = x % 2;
+            unsigned int yd = y % 2;
             x /= 2;
             y /= 2;
             row_size /= 2;

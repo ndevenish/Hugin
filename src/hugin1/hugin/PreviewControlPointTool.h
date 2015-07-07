@@ -44,7 +44,7 @@
 class PreviewControlPointTool : public Tool
 {
 public:
-    PreviewControlPointTool(ToolHelper *helper);
+    explicit PreviewControlPointTool(ToolHelper *helper);
     void Activate();
     void AfterDrawImagesEvent();
 private:

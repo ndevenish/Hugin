@@ -49,7 +49,6 @@ void ChoosyRemapper::UpdateAndResetIndex()
     // have a look at the output mode, find those where the poles cause problems
     // with the vetex remapper.
     HuginBase::PanoramaOptions *opts = visualization_state->GetOptions();
-    bool pole = false;
     switch (opts->getProjection())
     {
         // the 'stretchy poles' cases.
@@ -81,6 +80,7 @@ void ChoosyRemapper::UpdateAndResetIndex()
         case HuginBase::PanoramaOptions::GENERAL_PANINI:
             // check for pole crossing
         {
+            bool pole = false;
             OutputProjectionInfo *info = visualization_state->GetProjectionInfo();
             // get the pole in image coordinates
             transform.createTransform(*image,

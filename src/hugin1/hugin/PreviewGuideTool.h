@@ -45,7 +45,7 @@ public:
         TRIANGLE_UP=6
     };
     /** constructor */
-    PreviewGuideTool(PreviewToolHelper *helper);
+    explicit PreviewGuideTool(PreviewToolHelper *helper);
     /** activate the tool */
     void Activate();
     /** draws the lines */

@@ -47,7 +47,7 @@ class GLPreviewFrame;
 class PreviewLayoutLinesTool : public Tool, public HuginBase::PanoramaObserver
 {
 public:
-    PreviewLayoutLinesTool(ToolHelper *helper);
+    explicit PreviewLayoutLinesTool(ToolHelper *helper);
     ~PreviewLayoutLinesTool();
     
     /** This just sets a flag when the panorama is changed.

@@ -679,7 +679,7 @@ void CPEditorPanel::estimateAndAddOtherPoint(const FDiff2D & p,
             double sAreaPercent = wxConfigBase::Get()->Read(wxT("/Finetune/SearchAreaPercent"),HUGIN_FT_SEARCH_AREA_PERCENT);
             int sWidth = std::min((int)(img.getWidth() * sAreaPercent / 100.0), 500);
             CorrelationResult corrPoint;
-            double corrOk=false;
+            bool corrOk=false;
             Diff2D roundp(p.toDiff2D());
             try {
                 corrOk = PointFineTune(thisImgNr,
@@ -1421,19 +1421,20 @@ void CPEditorPanel::UpdateDisplay(bool newPair)
     unsigned int i = 0;
     m_leftImg->clearCtrlPointList();
     m_rightImg->clearCtrlPointList();
-    for (HuginBase::CPVector::const_iterator it = controlPoints.begin(); it != controlPoints.end(); ++it) {
-        HuginBase::ControlPoint point = *it;
+    for (unsigned int index = 0; index < controlPoints.size(); ++index)
+    {
+        HuginBase::ControlPoint point(controlPoints[index]);
         if ((point.image1Nr == m_leftImageNr) && (point.image2Nr == m_rightImageNr)){
             m_leftImg->setCtrlPoint(point, false);
             m_rightImg->setCtrlPoint(point, true);
-            currentPoints.push_back(make_pair(it - controlPoints.begin(), *it));
+            currentPoints.push_back(make_pair(index, point));
             i++;
         } else if ((point.image2Nr == m_leftImageNr) && (point.image1Nr == m_rightImageNr)){
             m_leftImg->setCtrlPoint(point, true);
             m_rightImg->setCtrlPoint(point, false);
             point.mirror();
             mirroredPoints.insert(i);
-            currentPoints.push_back(std::make_pair(it - controlPoints.begin(), point));
+            currentPoints.push_back(std::make_pair(index, point));
             i++;
         }
     }

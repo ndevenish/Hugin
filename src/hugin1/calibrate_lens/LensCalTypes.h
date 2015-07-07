@@ -37,7 +37,7 @@ class ImageLineList
 {
 public:
     /** constructor */
-    ImageLineList(wxString newFilename);
+    explicit ImageLineList(wxString newFilename);
     /** destructor, cleans up */
     ~ImageLineList();
     /** returns the number of valid lines for given image */

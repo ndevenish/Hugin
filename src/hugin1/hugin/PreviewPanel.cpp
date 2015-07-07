@@ -677,9 +677,8 @@ void PreviewPanel::OnMouse(wxMouseEvent & e)
 
 void PreviewPanel::mouse2erect(int xm, int ym, double &xd, double & yd)
 {
-    int offsetX=0, offsetY=0;
-
     if (m_pano2erect) {
+        int offsetX=0, offsetY=0;
         wxSize sz = GetClientSize();
         if (sz.GetWidth() > m_panoImgSize.x) {
             offsetX = (sz.GetWidth() - m_panoImgSize.x) / 2;

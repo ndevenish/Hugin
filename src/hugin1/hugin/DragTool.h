@@ -50,7 +50,7 @@
 class DragTool : public Tool
 {
 public:
-    DragTool(ToolHelper *helper);
+    explicit DragTool(ToolHelper *helper);
     void Activate();
     void MouseMoveEvent(double x, double y, wxMouseEvent & e);
     void MouseButtonEvent(wxMouseEvent &e);
@@ -96,7 +96,7 @@ protected:
 class PreviewDragTool : public DragTool
 {
 public:
-    PreviewDragTool(PreviewToolHelper *helper) : DragTool(helper) {}
+    explicit PreviewDragTool(PreviewToolHelper *helper) : DragTool(helper) {}
 
     void ReallyAfterDrawImagesEvent(); 
 
@@ -105,7 +105,7 @@ public:
 class OverviewDragTool : public DragTool
 {
 public:
-    OverviewDragTool(OverviewToolHelper *helper) : DragTool(helper) {}
+    explicit OverviewDragTool(OverviewToolHelper *helper) : DragTool(helper) {}
 
     void ReallyAfterDrawImagesEvent();
 

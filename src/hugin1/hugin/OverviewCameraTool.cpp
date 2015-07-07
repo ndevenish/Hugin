@@ -43,8 +43,6 @@ void PanosphereOverviewCameraTool::MouseMoveEvent(double x, double y, wxMouseEve
     if (down) {
         hugin_utils::FDiff2D pos = helper->GetMouseScreenPosition();
         PanosphereOverviewVisualizationState*  state = (PanosphereOverviewVisualizationState*) helper->GetVisualizationStatePtr();
-        double b_angx = state->getAngX();
-        double b_angy = state->getAngY();
         //FIXME: include a scale factor for the panosphere
         double scale = (state->getR() - state->getSphereRadius()) / 40000.0;
         state->setAngX((pos.x - start_x) * scale + start_angx);
@@ -128,7 +126,6 @@ void PlaneOverviewCameraTool::Activate()
 void PlaneOverviewCameraTool::MouseMoveEvent(double x, double y, wxMouseEvent & e)
 {
     if (down) {
-        PlaneOverviewToolHelper * thelper = (PlaneOverviewToolHelper*) helper;
         PlaneOverviewVisualizationState*  state = (PlaneOverviewVisualizationState*) helper->GetVisualizationStatePtr();
 //
         //same code as in tool helper to get position on the z-plane but with initial position

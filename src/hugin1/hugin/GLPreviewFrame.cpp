@@ -1318,7 +1318,6 @@ void GLPreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &change
     if ( nrImages >= nrButtons ) {
         for(UIntSet::const_iterator it = changed.begin(); it != changed.end(); ++it){
             if (*it >= nrButtons) {
-                unsigned int imgNr = *it;
                 // create new item.
 //                wxImage * bmp = new wxImage(sz.GetWidth(), sz.GetHeight());
                 //put wxToggleButton in a wxPanel because 

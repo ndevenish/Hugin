@@ -45,7 +45,7 @@ public:
     /** Construct keeping a pointer to a PreviewToolHelper.
      * Child classes should use this to ensure helper is set.
      */
-    Tool(ToolHelper *helper);
+    explicit Tool(ToolHelper *helper);
     
     virtual ~Tool();
     // Lots of stub functions here. Your tools should override a few of them.
@@ -109,7 +109,7 @@ protected:
 class PreviewTool : public Tool
 {
 public:
-    PreviewTool(PreviewToolHelper* helper);
+    explicit PreviewTool(PreviewToolHelper* helper);
     virtual ~PreviewTool();
 
 };
@@ -118,7 +118,7 @@ class OverviewTool : public Tool
 {
 public:
 
-    OverviewTool(OverviewToolHelper* helper);
+    explicit OverviewTool(OverviewToolHelper* helper);
     virtual ~OverviewTool();
 
 };
@@ -127,7 +127,7 @@ class PanosphereOverviewTool : public OverviewTool
 {
 public:
 
-    PanosphereOverviewTool(PanosphereOverviewToolHelper* helper);
+    explicit PanosphereOverviewTool(PanosphereOverviewToolHelper* helper);
     virtual ~PanosphereOverviewTool();
 
     /// Draw using opengl anything before drawing the front face culled images
@@ -146,7 +146,7 @@ class PlaneOverviewTool : public OverviewTool
 {
 public:
 
-    PlaneOverviewTool(PlaneOverviewToolHelper* helper);
+    explicit PlaneOverviewTool(PlaneOverviewToolHelper* helper);
     virtual ~PlaneOverviewTool();
 
 };
