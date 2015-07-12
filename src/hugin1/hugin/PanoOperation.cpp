@@ -680,7 +680,7 @@ PanoCommand::PanoCommand* CleanControlPointsOperation::GetInternalCommand(wxWind
     CPGraph graph;
     createCPGraph(newPano, graph);
     CPComponents comps;
-    int n=findCPComponents(graph, comps);
+    const size_t n=findCPComponents(graph, comps);
     if (!progress.updateDisplayValue(_("Checking whole project")))
     {
         return NULL;

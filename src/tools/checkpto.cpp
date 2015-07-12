@@ -191,7 +191,7 @@ int main(int argc, char* argv[])
     CPGraph graph;
     createCPGraph(pano, graph);
     CPComponents comps;
-    int n = findCPComponents(graph, comps);
+    const size_t n = findCPComponents(graph, comps);
     int returnValue=0;
     if(n==1)
     {
@@ -205,7 +205,7 @@ int main(int argc, char* argv[])
                   << "There are " << n << " image groups." << endl;
 
         std::cout << "Image groups: " << endl;
-        for (unsigned i=0; i < comps.size(); i++)
+        for (size_t i=0; i < comps.size(); i++)
         {
             std::cout << "[";
             CPComponents::value_type::const_iterator it;

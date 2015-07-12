@@ -1114,7 +1114,7 @@ void GLPreviewFrame::panoramaChanged(Panorama &pano)
             HuginBase::CPGraph graph;
             HuginBase::createCPGraph(m_pano, graph);
             HuginBase::CPComponents comps;
-            int n= HuginBase::findCPComponents(graph, comps);
+            const size_t n= HuginBase::findCPComponents(graph, comps);
             if (n > 1)
             {
                 alignMsg += wxString::Format(_("%d unconnected image groups found: "), n) + Components2Str(comps) + wxT("\n");

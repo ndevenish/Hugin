@@ -1418,10 +1418,10 @@ void CPEditorPanel::UpdateDisplay(bool newPair)
     mirroredPoints.clear();
 
     // create a list of all control points
-    unsigned int i = 0;
+    HuginBase::CPVector::size_type i = 0;
     m_leftImg->clearCtrlPointList();
     m_rightImg->clearCtrlPointList();
-    for (unsigned int index = 0; index < controlPoints.size(); ++index)
+    for (HuginBase::CPVector::size_type index = 0; index < controlPoints.size(); ++index)
     {
         HuginBase::ControlPoint point(controlPoints[index]);
         if ((point.image1Nr == m_leftImageNr) && (point.image2Nr == m_rightImageNr)){

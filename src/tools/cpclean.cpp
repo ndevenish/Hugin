@@ -214,7 +214,7 @@ int main(int argc, char* argv[])
         CPGraph graph;
         createCPGraph(pano, graph);
         CPComponents comps;
-        int parts=findCPComponents(graph, comps);
+        const size_t parts=findCPComponents(graph, comps);
         if (parts > 1)
         {
             unconnected=true;

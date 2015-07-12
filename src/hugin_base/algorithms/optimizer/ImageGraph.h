@@ -61,7 +61,7 @@ typedef std::vector< std::set<unsigned> > CPComponents;
  */
 IMPEX void createCPGraph(const PanoramaData& pano, CPGraph & graph);
 
-IMPEX int findCPComponents(const CPGraph & graph, 
+IMPEX size_t findCPComponents(const CPGraph & graph, 
                      CPComponents & comp);
 
 

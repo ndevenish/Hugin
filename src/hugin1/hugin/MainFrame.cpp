@@ -2094,7 +2094,7 @@ void MainFrame::RunAssistant(wxWindow* mainWin)
         HuginBase::CPGraph graph;
         HuginBase::createCPGraph(pano, graph);
         HuginBase::CPComponents comps;
-        int n = HuginBase::findCPComponents(graph, comps);
+        const size_t n = HuginBase::findCPComponents(graph, comps);
         if(n > 1)
         {
             // switch to images panel.

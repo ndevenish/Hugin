@@ -118,7 +118,7 @@ public:
 ///
 typedef std::vector<ControlPoint> CPVector;
 // pair of global control point number and corrosponding control point
-typedef std::pair<unsigned int, ControlPoint> CPoint;
+typedef std::pair<typename CPVector::size_type, ControlPoint> CPoint;
 typedef std::vector<CPoint> CPointVector;
 
 

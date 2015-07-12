@@ -908,11 +908,11 @@ HuginBase::CPVector AutoPanoSiftMultiRow::automatch(CPDetectorSetting &setting, 
     HuginBase::CPGraph graph;
     HuginBase::createCPGraph(optPano, graph);
     HuginBase::CPComponents comps;
-    int n = HuginBase::findCPComponents(graph, comps);
+    size_t n = HuginBase::findCPComponents(graph, comps);
     if(n>1)
     {
         UIntSet ImagesGroups;
-        for(unsigned int i=0;i<n;i++)
+        for(size_t i=0;i<n;i++)
         {
             ImagesGroups.insert(*(comps[i].begin()));
             if(comps[i].size()>1)

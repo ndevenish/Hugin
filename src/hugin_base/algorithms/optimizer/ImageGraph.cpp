@@ -96,11 +96,11 @@ void createCPGraph(const PanoramaData & pano, CPGraph & graph)
     }
 }
 
-int findCPComponents(const CPGraph & graph, 
+size_t findCPComponents(const CPGraph & graph, 
                      CPComponents & comp)
 {
     std::vector<unsigned> component(num_vertices(graph));
-    unsigned num = boost::connected_components(graph, &component[0]);
+    size_t num = boost::connected_components(graph, &component[0]);
 
     // collect components
     comp.clear();

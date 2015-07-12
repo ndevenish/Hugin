@@ -272,7 +272,7 @@ void DragTool::MouseButtonEvent(wxMouseEvent &e)
                     HuginBase::CPGraph graph;
                     HuginBase::createCPGraph(*helper->GetPanoramaPtr(), graph);
                     HuginBase::CPComponents components;
-                    unsigned int n = HuginBase::findCPComponents(graph, components);
+                    const size_t n = HuginBase::findCPComponents(graph, components);
                     // If there is only component, we can drag everything. Otherwise the
                     // component we want is the lowest numbered image under the mouse.
                     if (n == 1)
@@ -298,8 +298,8 @@ void DragTool::MouseButtonEvent(wxMouseEvent &e)
                         
                         // Find the component containing the topmost image under mouse
                         unsigned int img = *helper->GetImageNumbersUnderMouse().begin();
-                        for (unsigned int component_index = 0;
-                             component_index < components.size(); component_index ++)
+                        for (size_t component_index = 0;
+                             component_index < n; component_index ++)
                         {
                             if (components[component_index].count(img))
                             {

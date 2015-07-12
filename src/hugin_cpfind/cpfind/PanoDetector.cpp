@@ -1014,11 +1014,11 @@ bool PanoDetector::matchMultiRow()
     HuginBase::CPGraph graph;
     HuginBase::createCPGraph(mediumPano, graph);
     HuginBase::CPComponents comps;
-    unsigned int n = HuginBase::findCPComponents(graph, comps);
+    const size_t n = HuginBase::findCPComponents(graph, comps);
     if(n>1)
     {
         vector<unsigned int> ImagesGroups;
-        for(unsigned int i=0; i<n; i++)
+        for(size_t i=0; i<n; i++)
         {
             HuginBase::UIntSet::iterator imgIt = _image_layer.begin();
             std::advance(imgIt, *(comps[i].begin()));
