@@ -264,12 +264,12 @@ void TextureManager::CheckUpdate()
         HuginBase::SrcPanoImage *img_p = view_state->GetSrcImage(image_index);
         TextureKey key(img_p, &photometric_correct);
         it = textures.find(key);
-        TextureInfo *texinfo;
         /* This section would allow us to reuse textures generated when we want
          * to change the size. It is not used as it causes segmentation faults
          * under Ubuntu 8.04's "ati" graphics driver.
          */
       #if 0
+        TextureInfo *texinfo;
         if (it == textures.end())
         {
             // We haven't seen this image before.
@@ -429,7 +429,7 @@ void TextureManager::CheckUpdate()
                               sharedPtrNamespace::make_shared<TextureInfo>(view_state, tex_width_p, tex_height_p)
                             ));
            // create and upload the texture image
-           texinfo = (ins.first)->second.get();
+           TextureInfo* texinfo = (ins.first)->second.get();
            texinfo->DefineLevels(0, // minimum mip level
                                  // maximum mip level
                         tex_width_p > tex_height_p ? tex_width_p : tex_height_p,

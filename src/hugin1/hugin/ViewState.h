@@ -263,7 +263,10 @@ protected:
     ViewState *m_view_state;
 
     GLViewer * m_viewer;
-
+private:
+    // don't copy this class
+    VisualizationState(const VisualizationState& other);
+    VisualizationState& operator=(const VisualizationState& other);
 };
 
 class OverviewVisualizationState : public VisualizationState

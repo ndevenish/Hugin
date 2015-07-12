@@ -103,7 +103,6 @@ void PluginItem::ParseMetadata()
     wxString tagCategory(wxT("@category"));
     wxString tagName(wxT("@name"));
     wxString tagDescription(wxT("@description"));
-    int pos;
 
     // tell me who you are processing
     std::cout << m_filename.GetFullPath().mb_str(wxConvLocal) << std::endl;
@@ -111,6 +110,7 @@ void PluginItem::ParseMetadata()
 
     while(!in.Eof() && !(foundCategory && foundName && foundAPImin && foundAPImax && foundSYS && foundDescription))
     {
+        int pos;
         wxString line=text.ReadLine();
         //convert to lower case to make search for tag name case insensitive
         wxString lowerLine=line.Lower();

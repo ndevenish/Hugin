@@ -453,6 +453,9 @@ public:
 
     const wxBitmap GetGraph() const { return *m_bitmap; };
 private:
+    // prevent copying of class
+    Graph(const Graph&);
+    Graph& operator=(const Graph&);
     //helper function to transform coordinates from real world to bitmap
     int TransformX(double x)
     {

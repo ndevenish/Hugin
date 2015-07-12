@@ -35,6 +35,8 @@
 class GreatCircles
 {
 public:
+    /** constructor */
+    GreatCircles();
     /** Set the ViewState to use for information on output projection and
      * preview display.
      * @param viewState a pointer to the ViewState the preview is using.

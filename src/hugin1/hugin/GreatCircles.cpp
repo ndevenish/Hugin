@@ -49,6 +49,10 @@
 // Must be at least two. More is much better.
 const unsigned int segments = 48;
 
+GreatCircles::GreatCircles() : m_visualizationState(NULL)
+{
+}
+
 void GreatCircles::setVisualizationState(VisualizationState * visualizationStateIn)
 {
     m_visualizationState = visualizationStateIn;
@@ -61,7 +65,7 @@ void GreatCircles::drawLineFromSpherical(double startLat, double startLong,
     GreatCircleArc(startLat, startLong, endLat, endLong, *m_visualizationState).draw(true, width);
 }
 
-GreatCircleArc::GreatCircleArc()
+GreatCircleArc::GreatCircleArc() : m_visualizationState(NULL), m_xscale(DBL_MAX)
 {
 }
 
