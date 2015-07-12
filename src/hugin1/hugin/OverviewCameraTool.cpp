@@ -42,7 +42,7 @@ void PanosphereOverviewCameraTool::MouseMoveEvent(double x, double y, wxMouseEve
 {
     if (down) {
         hugin_utils::FDiff2D pos = helper->GetMouseScreenPosition();
-        PanosphereOverviewVisualizationState*  state = (PanosphereOverviewVisualizationState*) helper->GetVisualizationStatePtr();
+        PanosphereOverviewVisualizationState*  state = static_cast<PanosphereOverviewVisualizationState*>(helper->GetVisualizationStatePtr());
         //FIXME: include a scale factor for the panosphere
         double scale = (state->getR() - state->getSphereRadius()) / 40000.0;
         state->setAngX((pos.x - start_x) * scale + start_angx);
@@ -62,7 +62,7 @@ void PanosphereOverviewCameraTool::MouseButtonEvent(wxMouseEvent &e)
         hugin_utils::FDiff2D pos = helper->GetMouseScreenPosition();
         start_x = pos.x;
         start_y = pos.y;
-        PanosphereOverviewVisualizationState*  state = (PanosphereOverviewVisualizationState*) helper->GetVisualizationStatePtr();
+        PanosphereOverviewVisualizationState*  state = static_cast<PanosphereOverviewVisualizationState*>(helper->GetVisualizationStatePtr());
         start_angx = state->getAngX();
         start_angy = state->getAngY();
     }
@@ -75,7 +75,7 @@ void PanosphereOverviewCameraTool::MouseButtonEvent(wxMouseEvent &e)
 
 
 void PanosphereOverviewCameraTool::ChangeZoomLevel(bool zoomIn, double scale) {
-    PanosphereOverviewVisualizationState*  state = (PanosphereOverviewVisualizationState*) helper->GetVisualizationStatePtr();
+    PanosphereOverviewVisualizationState*  state = static_cast<PanosphereOverviewVisualizationState*>(helper->GetVisualizationStatePtr());
     double radius = state->getSphereRadius();
     if (zoomIn) {
         if (state->getR() > limit_low * radius) {
@@ -126,7 +126,7 @@ void PlaneOverviewCameraTool::Activate()
 void PlaneOverviewCameraTool::MouseMoveEvent(double x, double y, wxMouseEvent & e)
 {
     if (down) {
-        PlaneOverviewVisualizationState*  state = (PlaneOverviewVisualizationState*) helper->GetVisualizationStatePtr();
+        PlaneOverviewVisualizationState*  state = static_cast<PlaneOverviewVisualizationState*>(helper->GetVisualizationStatePtr());
 //
         //same code as in tool helper to get position on the z-plane but with initial position
         double d = state->getR();
@@ -169,8 +169,8 @@ void PlaneOverviewCameraTool::MouseMoveEvent(double x, double y, wxMouseEvent & 
 
 void PlaneOverviewCameraTool::MouseButtonEvent(wxMouseEvent &e)
 {
-    PlaneOverviewToolHelper * thelper = (PlaneOverviewToolHelper*) helper;
-    PlaneOverviewVisualizationState*  state = (PlaneOverviewVisualizationState*) helper->GetVisualizationStatePtr();
+    PlaneOverviewToolHelper * thelper = static_cast<PlaneOverviewToolHelper*>(helper);
+    PlaneOverviewVisualizationState*  state = static_cast<PlaneOverviewVisualizationState*>(helper->GetVisualizationStatePtr());
 //    DEBUG_DEBUG("mouse ov drag button");
     if (((e.CmdDown() || e.AltDown()) && e.LeftDown()) || e.MiddleDown()) {
         down = true;
@@ -187,7 +187,7 @@ void PlaneOverviewCameraTool::MouseButtonEvent(wxMouseEvent &e)
 }
 
 void PlaneOverviewCameraTool::ChangeZoomLevel(bool zoomIn, double scale) {
-    PlaneOverviewVisualizationState*  state = (PlaneOverviewVisualizationState*) helper->GetVisualizationStatePtr();
+    PlaneOverviewVisualizationState*  state = static_cast<PlaneOverviewVisualizationState*>(helper->GetVisualizationStatePtr());
     if (zoomIn) {
         state->setR(state->getR() / scale);
     } else {

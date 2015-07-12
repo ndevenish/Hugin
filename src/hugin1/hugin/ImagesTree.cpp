@@ -350,7 +350,7 @@ void ImagesTreeCtrl::panoramaImagesChanged(Panorama &pano, const UIntSet &change
 
 void ImagesTreeCtrl::UpdateImageText(wxTreeItemId item)
 {
-    ImagesTreeData* itemData=(ImagesTreeData*)GetItemData(item);
+    ImagesTreeData* itemData=static_cast<ImagesTreeData*>(GetItemData(item));
     wxString s;
     const size_t imgNr=itemData->GetImgNr();
     const SrcPanoImage & img = m_pano->getImage(imgNr);
@@ -629,7 +629,7 @@ void ImagesTreeCtrl::UpdateImageText(wxTreeItemId item)
 
 void ImagesTreeCtrl::UpdateGroupText(wxTreeItemId item)
 {
-    ImagesTreeData* itemData=(ImagesTreeData*)GetItemData(item);
+    ImagesTreeData* itemData=static_cast<ImagesTreeData*>(GetItemData(item));
     switch(m_groupMode)
     {
         case GROUP_LENS:
@@ -650,7 +650,7 @@ void ImagesTreeCtrl::UpdateGroupText(wxTreeItemId item)
     wxTreeItemId childItem=GetFirstChild(item,cookie);
     if(childItem.IsOk())
     {
-        ImagesTreeData* data=(ImagesTreeData*)GetItemData(childItem);
+        ImagesTreeData* data=static_cast<ImagesTreeData*>(GetItemData(childItem));
         const SrcPanoImage& img=m_pano->getImage(data->GetImgNr());
 
         if(m_groupMode==GROUP_STACK && img.YawisLinked())
@@ -845,7 +845,7 @@ void ImagesTreeCtrl::UpdateGroup(wxTreeItemId parent, const UIntSet imgs, UIntSe
     UIntSet::const_iterator it=imgs.begin();
     while(item.IsOk())
     {
-        ImagesTreeData* data=(ImagesTreeData*)GetItemData(item);
+        ImagesTreeData* data=static_cast<ImagesTreeData*>(GetItemData(item));
         if(it==imgs.end())
         {
             break;
@@ -884,7 +884,7 @@ void ImagesTreeCtrl::UpdateOptimizerVariables()
     wxTreeItemId item=GetFirstChild(m_root, cookie);
     while(item.IsOk())
     {
-        ImagesTreeData* data=(ImagesTreeData*)GetItemData(item);
+        ImagesTreeData* data=static_cast<ImagesTreeData*>(GetItemData(item));
         UIntSet imgNrs;
         if(data->IsGroup())
         {
@@ -892,7 +892,7 @@ void ImagesTreeCtrl::UpdateOptimizerVariables()
             wxTreeItemId child=GetFirstChild(item, childCookie);
             while(child.IsOk())
             {
-                data=(ImagesTreeData*)GetItemData(child);
+                data=static_cast<ImagesTreeData*>(GetItemData(child));
                 imgNrs.insert(data->GetImgNr());
                 child=GetNextChild(item, childCookie);
             };
@@ -946,14 +946,14 @@ HuginBase::UIntSet ImagesTreeCtrl::GetSelectedImages()
     {
         for(size_t i=0;i<selected.size();i++)
         {
-            ImagesTreeData* data=(ImagesTreeData*)GetItemData(selected[i]);
+            ImagesTreeData* data=static_cast<ImagesTreeData*>(GetItemData(selected[i]));
             if(data->IsGroup())
             {
                 wxTreeItemIdValue cookie;
                 wxTreeItemId item=GetFirstChild(selected[i],cookie);
                 while(item.IsOk())
                 {
-                    data=(ImagesTreeData*)GetItemData(item);
+                    data=static_cast<ImagesTreeData*>(GetItemData(item));
                     imgs.insert(data->GetImgNr());
                     item=GetNextChild(selected[i], cookie);
                 };
@@ -1088,7 +1088,7 @@ void ImagesTreeCtrl::OnContextMenu(wxTreeEvent & e)
         if(set_contains(m_editableColumns,m_selectedColumn))
         {
             bool emptyText=GetItemText(e.GetItem(),m_selectedColumn).IsEmpty();
-            ImagesTreeData* data=(ImagesTreeData*)GetItemData(e.GetItem());
+            ImagesTreeData* data=static_cast<ImagesTreeData*>(GetItemData(e.GetItem()));
             if((m_groupMode==GROUP_LENS && m_variableVector[m_selectedColumn]!=HuginBase::ImageVariableGroup::IVE_Yaw) ||
                (m_groupMode==GROUP_STACK && m_variableVector[m_selectedColumn]==HuginBase::ImageVariableGroup::IVE_Yaw) )
             {
@@ -1357,7 +1357,7 @@ void ImagesTreeCtrl::OnEndDrag(wxMouseEvent &e)
             size_t img2=-1;
             if(item.IsOk())
             {
-                ImagesTreeData* data=(ImagesTreeData*)GetItemData(item);
+                ImagesTreeData* data=static_cast<ImagesTreeData*>(GetItemData(item));
                 img2=data->GetImgNr();
             }
             else
@@ -1393,7 +1393,7 @@ void ImagesTreeCtrl::OnEndDrag(wxMouseEvent &e)
             //dragging to stack/lenses
             if(item.IsOk())
             {
-                ImagesTreeData* data=(ImagesTreeData*)GetItemData(item);
+                ImagesTreeData* data=static_cast<ImagesTreeData*>(GetItemData(item));
                 long groupNr=-1;
                 if(data->IsGroup())
                 {
@@ -1404,7 +1404,7 @@ void ImagesTreeCtrl::OnEndDrag(wxMouseEvent &e)
                     item=GetItemParent(item);
                     if(item.IsOk())
                     {
-                        data=(ImagesTreeData*)GetItemData(item);
+                        data=static_cast<ImagesTreeData*>(GetItemData(item));
                         groupNr=data->GetGroupNr();
                     };
                 };
@@ -1464,14 +1464,14 @@ void ImagesTreeCtrl::OnLeftDown(wxMouseEvent &e)
                     if(!GetItemText(item, col).IsEmpty())
                     {
                         HuginBase::UIntSet imgs;
-                        ImagesTreeData* data=(ImagesTreeData*)GetItemData(item);
+                        ImagesTreeData* data=static_cast<ImagesTreeData*>(GetItemData(item));
                         if(data->IsGroup())
                         {
                             wxTreeItemIdValue cookie;
                             wxTreeItemId childItem=GetFirstChild(item,cookie);
                             while(childItem.IsOk())
                             {
-                                data=(ImagesTreeData*)GetItemData(childItem);
+                                data=static_cast<ImagesTreeData*>(GetItemData(childItem));
                                 imgs.insert(data->GetImgNr());
                                 childItem=GetNextChild(item, cookie);
                             };
@@ -1613,7 +1613,7 @@ void ImagesTreeCtrl::SelectAllParameters(bool select, bool allImages)
         {
             for(size_t i=0;i<selectedItem.size();i++)
             {
-                ImagesTreeData* data=(ImagesTreeData*)GetItemData(selectedItem[i]);
+                ImagesTreeData* data=static_cast<ImagesTreeData*>(GetItemData(selectedItem[i]));
                 wxTreeItemId startItem;
                 if(data->IsGroup())
                 {
@@ -1627,7 +1627,7 @@ void ImagesTreeCtrl::SelectAllParameters(bool select, bool allImages)
                 wxTreeItemId item=GetFirstChild(startItem,cookie);
                 while(item.IsOk())
                 {
-                    data=(ImagesTreeData*)GetItemData(item);
+                    data=static_cast<ImagesTreeData*>(GetItemData(item));
                     imgs.insert(data->GetImgNr());
                     item=GetNextChild(startItem, cookie);
                 };
@@ -1726,12 +1726,12 @@ void ImagesTreeCtrl::OnBeginEdit(wxTreeEvent &e)
     }
     else
     {
-        ImagesTreeData* data=(ImagesTreeData*)GetItemData(e.GetItem());
+        ImagesTreeData* data=static_cast<ImagesTreeData*>(GetItemData(e.GetItem()));
         if(data->IsGroup())
         {
             wxTreeItemIdValue cookie;
             wxTreeItemId item=GetFirstChild(e.GetItem(), cookie);
-            data=(ImagesTreeData*)GetItemData(item);
+            data=static_cast<ImagesTreeData*>(GetItemData(item));
         };
         m_editVal=m_pano->getImage(data->GetImgNr()).getVar(m_columnVector[e.GetInt()]);
         SetItemText(e.GetItem(), e.GetInt(), doubleTowxString(m_editVal));
@@ -1762,12 +1762,12 @@ void ImagesTreeCtrl::OnEndEdit(wxTreeEvent &e)
             //only update if value was changed
             if(val!=m_editVal)
             {
-                ImagesTreeData* data=(ImagesTreeData*)GetItemData(e.GetItem());
+                ImagesTreeData* data=static_cast<ImagesTreeData*>(GetItemData(e.GetItem()));
                 if(data->IsGroup())
                 {
                     wxTreeItemIdValue cookie;
                     wxTreeItemId item=GetFirstChild(e.GetItem(), cookie);
-                    data=(ImagesTreeData*)GetItemData(item);
+                    data=static_cast<ImagesTreeData*>(GetItemData(item));
                 };
                 UIntSet imgs;
                 imgs.insert(data->GetImgNr());

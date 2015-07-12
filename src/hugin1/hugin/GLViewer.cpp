@@ -317,7 +317,7 @@ void GLPreview::setUp()
     m_visualization_state = new VisualizationState(m_pano, m_view_state, this, RefreshWrapper, this, (PreviewMeshManager*) NULL);
     //Start the tools going:
     PreviewToolHelper *helper = new PreviewToolHelper(m_pano, m_visualization_state, frame);
-    m_tool_helper = (ToolHelper*) helper;
+    m_tool_helper = static_cast<ToolHelper*>(helper);
     frame->MakePreviewTools(helper);
     // now make a renderer
     m_renderer =  new GLPreviewRenderer(m_pano, m_view_state->GetTextureManager(),
@@ -433,7 +433,7 @@ void GLViewer::RedrawE(wxPaintEvent& e)
 void GLViewer::RefreshWrapper(void * obj)
 {
     DEBUG_DEBUG("REFRESH WRAPPER");
-    GLViewer* self = (GLViewer*) obj;
+    GLViewer* self = static_cast<GLViewer*>(obj);
     self->Refresh();
 }
 

@@ -334,7 +334,7 @@ MeshManager::MeshInfo::Coord3D MeshManager::PanosphereOverviewMeshInfo::GetCoord
 
     MeshManager::MeshInfo::Coord3D res;
 
-    double r = ((PanosphereOverviewVisualizationState*)state)->getSphereRadius();
+    double r = static_cast<PanosphereOverviewVisualizationState*>(state)->getSphereRadius();
     double th, ph;
     th = ((coord.x / width) * hfov - hfov / 2.0);
     ph = ((coord.y / height) * vfov - vfov / 2.0);
@@ -358,7 +358,7 @@ MeshManager::MeshInfo::MeshCoords3D MeshManager::PanosphereOverviewMeshInfo::Get
     hfov = 360;
     vfov = 180;
 
-    double r = ((PanosphereOverviewVisualizationState*)state)->getSphereRadius();
+    double r = static_cast<PanosphereOverviewVisualizationState*>(state)->getSphereRadius();
 
     MeshCoords3D res;
     for (int x = 0 ; x < 2 ; x++) {

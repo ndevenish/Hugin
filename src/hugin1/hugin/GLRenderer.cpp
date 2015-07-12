@@ -283,7 +283,7 @@ void GLPanosphereOverviewRenderer::Redraw()
     glCullFace(GL_BACK);
 
     //event called only before drawing of the images with front faces culled (the inner face of the panosphere)
-    ((PanosphereOverviewToolHelper*)m_tool_helper)->BeforeDrawImagesBack();
+    static_cast<PanosphereOverviewToolHelper*>(m_tool_helper)->BeforeDrawImagesBack();
     //generic draw before images are drawn (called twice with front and back faces culled)
     m_tool_helper->BeforeDrawImages();
 
@@ -309,7 +309,7 @@ void GLPanosphereOverviewRenderer::Redraw()
 
     m_tool_helper->AfterDrawImages();
     m_tex_man->DisableTexture();
-    ((PanosphereOverviewToolHelper*)m_tool_helper)->AfterDrawImagesBack();
+    static_cast<PanosphereOverviewToolHelper*>(m_tool_helper)->AfterDrawImagesBack();
 
 //    #ifdef __WXGTK__
 ////    glCullFace(GL_BACK);
@@ -335,7 +335,7 @@ void GLPanosphereOverviewRenderer::Redraw()
     glMatrixMode(GL_MODELVIEW);
     glCullFace(GL_FRONT);
 
-    ((PanosphereOverviewToolHelper*)m_tool_helper)->BeforeDrawImagesFront();
+    static_cast<PanosphereOverviewToolHelper*>(m_tool_helper)->BeforeDrawImagesFront();
     m_tool_helper->BeforeDrawImages();
 
     // The old preview shows the lowest numbered image on top, so do the same:
@@ -361,7 +361,7 @@ void GLPanosphereOverviewRenderer::Redraw()
     // drawn things after the active image.
     m_tool_helper->AfterDrawImages();
     m_tex_man->DisableTexture();
-    ((PanosphereOverviewToolHelper*)m_tool_helper)->AfterDrawImagesFront();
+    static_cast<PanosphereOverviewToolHelper*>(m_tool_helper)->AfterDrawImagesFront();
     
     m_tex_man->DisableTexture();
 

@@ -552,7 +552,7 @@ void PanosphereOverviewToolHelper::UpdateImagesUnderMouse()
 
 void PanosphereOverviewToolHelper::MouseMoved(int x, int y, wxMouseEvent & e)
 {
-    PanosphereOverviewVisualizationState * panostate = (PanosphereOverviewVisualizationState*) visualization_state;
+    PanosphereOverviewVisualizationState * panostate = static_cast<PanosphereOverviewVisualizationState*>(visualization_state);
 
     double d = panostate->getR();
     double r = panostate->getSphereRadius();
@@ -752,7 +752,7 @@ PlaneOverviewToolHelper::~PlaneOverviewToolHelper() {}
 void PlaneOverviewToolHelper::MouseMoved(int x, int y, wxMouseEvent & e)
 {
 
-    PlaneOverviewVisualizationState * panostate = (PlaneOverviewVisualizationState*) visualization_state;
+    PlaneOverviewVisualizationState * panostate = static_cast<PlaneOverviewVisualizationState*>(visualization_state);
 
     double d = panostate->getR();
 

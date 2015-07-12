@@ -79,8 +79,8 @@ struct Rec {
 
 void PanosphereOverviewOutlinesTool::Activate()
 {
-    ((PanosphereOverviewToolHelper*)helper)->NotifyMe(PanosphereOverviewToolHelper::DRAW_OVER_IMAGES_FRONT, this);
-    ((PanosphereOverviewToolHelper*)helper)->NotifyMe(PanosphereOverviewToolHelper::DRAW_OVER_IMAGES_BACK, this);
+    static_cast<PanosphereOverviewToolHelper*>(helper)->NotifyMe(PanosphereOverviewToolHelper::DRAW_OVER_IMAGES_FRONT, this);
+    static_cast<PanosphereOverviewToolHelper*>(helper)->NotifyMe(PanosphereOverviewToolHelper::DRAW_OVER_IMAGES_BACK, this);
 //    helper->NotifyMe(ToolHelper::DRAW_OVER_IMAGES, this);
 }
 
@@ -108,7 +108,7 @@ void PanosphereOverviewOutlinesTool::AfterDrawImagesFrontEvent()
 void PanosphereOverviewOutlinesTool::drawBackground()
 {
 
-    double radius = ((PanosphereOverviewVisualizationState*) helper->GetVisualizationStatePtr())->getSphereRadius();
+    double radius = static_cast<PanosphereOverviewVisualizationState*>(helper->GetVisualizationStatePtr())->getSphereRadius();
     GLUquadric* grid = gluNewQuadric();
     gluSphere(grid, radius+1,40,20);
 
@@ -292,15 +292,14 @@ void OverviewOutlinesTool::DrawRect(double left, double top, double right, doubl
                 Rect rec(left + w * wstep, top + h * hstep, left + (w+1) * wstep, top + (h+1)* hstep);
                 Rect tr = rec.transformImgCoord(&transform);
 
-                double edge1 = (tr.val[0][0]-tr.val[1][0])*(tr.val[0][0]-tr.val[1][0]) + (tr.val[0][1]-tr.val[1][1])*(tr.val[0][1]-tr.val[1][1]);
-                double edge2 = (tr.val[1][0]-tr.val[2][0])*(tr.val[1][0]-tr.val[2][0]) + (tr.val[1][1]-tr.val[2][1])*(tr.val[1][1]-tr.val[2][1]);
-                double edge3 = (tr.val[2][0]-tr.val[3][0])*(tr.val[2][0]-tr.val[3][0]) + (tr.val[2][1]-tr.val[3][1])*(tr.val[2][1]-tr.val[3][1]);
-                double edge4 = (tr.val[3][0]-tr.val[0][0])*(tr.val[3][0]-tr.val[0][0]) + (tr.val[3][1]-tr.val[0][1])*(tr.val[3][1]-tr.val[0][1]);
-
-                
                //this section should be added to avoid certain problems with these projections 
                //(just disregard edges with lengths larger than some value with respect to the radius of the sphere)
                //TODO this was commented when support for mosaic plane was added, make this work again
+                // double edge1 = (tr.val[0][0]-tr.val[1][0])*(tr.val[0][0]-tr.val[1][0]) + (tr.val[0][1]-tr.val[1][1])*(tr.val[0][1]-tr.val[1][1]);
+                // double edge2 = (tr.val[1][0]-tr.val[2][0])*(tr.val[1][0]-tr.val[2][0]) + (tr.val[1][1]-tr.val[2][1])*(tr.val[1][1]-tr.val[2][1]);
+                // double edge3 = (tr.val[2][0]-tr.val[3][0])*(tr.val[2][0]-tr.val[3][0]) + (tr.val[2][1]-tr.val[3][1])*(tr.val[2][1]-tr.val[3][1]);
+                // double edge4 = (tr.val[3][0]-tr.val[0][0])*(tr.val[3][0]-tr.val[0][0]) + (tr.val[3][1]-tr.val[0][1])*(tr.val[3][1]-tr.val[0][1]);
+
 //                double maxlimit = (radius/2.0)*(radius/2.0);
 //                if (
 //                        proj == HuginBase::PanoramaOptions::SINUSOIDAL ||
@@ -454,10 +453,6 @@ void OverviewOutlinesTool::DrawRect(double left, double top, double right, doubl
 
                 bool divide_ver = false;
                 bool divide_hor = false;
-
-                bool invalid = false;
-                int countx = 0, county = 0;
-
 
                 //decide whether to divide the current rectangle
                 if (

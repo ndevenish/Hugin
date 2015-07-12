@@ -106,10 +106,10 @@ void PreviewProjectionGridTool::AfterDrawImagesEvent()
 
 void PanosphereOverviewProjectionGridTool::Activate()
 {
-    ((PanosphereOverviewToolHelper*)helper)->NotifyMe(PanosphereOverviewToolHelper::DRAW_OVER_IMAGES_BACK, this);
-    ((PanosphereOverviewToolHelper*)helper)->NotifyMe(PanosphereOverviewToolHelper::DRAW_UNDER_IMAGES_BACK, this);
-    ((PanosphereOverviewToolHelper*)helper)->NotifyMe(PanosphereOverviewToolHelper::DRAW_OVER_IMAGES_FRONT, this);
-    ((PanosphereOverviewToolHelper*)helper)->NotifyMe(PanosphereOverviewToolHelper::DRAW_UNDER_IMAGES_FRONT, this);
+    static_cast<PanosphereOverviewToolHelper*>(helper)->NotifyMe(PanosphereOverviewToolHelper::DRAW_OVER_IMAGES_BACK, this);
+    static_cast<PanosphereOverviewToolHelper*>(helper)->NotifyMe(PanosphereOverviewToolHelper::DRAW_UNDER_IMAGES_BACK, this);
+    static_cast<PanosphereOverviewToolHelper*>(helper)->NotifyMe(PanosphereOverviewToolHelper::DRAW_OVER_IMAGES_FRONT, this);
+    static_cast<PanosphereOverviewToolHelper*>(helper)->NotifyMe(PanosphereOverviewToolHelper::DRAW_UNDER_IMAGES_FRONT, this);
 }
 
 void PanosphereOverviewProjectionGridTool::BeforeDrawImagesBackEvent()
