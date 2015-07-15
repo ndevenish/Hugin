@@ -10,9 +10,9 @@ msgstr ""
 "Project-Id-Version: Hugin 0.5\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2015-06-13 08:32+0200\n"
-"PO-Revision-Date: 2015-01-31 15:22+0100\n"
+"PO-Revision-Date: 2015-07-14 16:44+0200\n"
 "Last-Translator: Carles Ferrando Garcia <carles.ferrando@gmail.com>\n"
-"Language-Team: Catalan <info@softcatala.org>\n"
+"Language-Team: Catalan <Catalan <info@softcatala.org>>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,34 +23,28 @@ msgstr ""
 "X-Generator: Lokalize 1.5\n"
 
 #: hugin1/base_wx/AssistantExecutor.cpp:71
-#, fuzzy
 msgid "Searching for control points..."
-msgstr "S'estan cercant els punts de control"
+msgstr "S'estan cercant els punts de control..."
 
 #: hugin1/base_wx/AssistantExecutor.cpp:83
-#, fuzzy
 msgid "Removing control points in clouds..."
-msgstr "Treu punts de control o núvols"
+msgstr "S'estan traguent els punts de control als núvols..."
 
 #: hugin1/base_wx/AssistantExecutor.cpp:89
-#, fuzzy
 msgid "Statistically cleaning of control points..."
-msgstr "Mostra els punts de control"
+msgstr "S'està suprimint estadísticament els punts de control..."
 
 #: hugin1/base_wx/AssistantExecutor.cpp:107
-#, fuzzy
 msgid "Searching for vertical lines..."
-msgstr "Detecta línies verticals"
+msgstr "S'estan cercant línies verticals..."
 
 #: hugin1/base_wx/AssistantExecutor.cpp:113
-#, fuzzy
 msgid "Optimizing..."
-msgstr "Optimitzant"
+msgstr "Optimitzant..."
 
 #: hugin1/base_wx/AssistantExecutor.cpp:122
-#, fuzzy
 msgid "Searching for best crop..."
-msgstr "S'està cercant un núvol de punts de control..."
+msgstr "S'està cercant el millor escapçat..."
 
 #: hugin1/base_wx/Executor.cpp:132 hugin1/base_wx/platform.cpp:131
 #: hugin1/hugin/MainFrame.cpp:1479 hugin1/hugin/MainFrame.cpp:2131
@@ -60,20 +54,21 @@ msgid "External program %s not found in the bundle, reverting to system path"
 msgstr "Programa extern %s no trobat en el paquet, tornant al camí del sistema"
 
 #: hugin1/base_wx/Executor.cpp:155 hugin1/base_wx/Executor.cpp:207
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "WARNING: External program %s not found as specified in preferences, "
 "reverting to bundled version"
 msgstr ""
-"El programa extern %s no ha sigut trobat especificat a les preferències. "
-"S'està revertint a la versió empaquetada"
+"AVÍS: El programa extern %s no ha sigut trobat especificat a les "
+"preferències. S'està revertint a la versió empaquetada"
 
 #: hugin1/base_wx/Executor.cpp:168 hugin1/base_wx/Executor.cpp:179
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "WARNING: External program %s not found in the bundle, reverting to system "
 "path"
-msgstr "Programa extern %s no trobat en el paquet, tornant al camí del sistema"
+msgstr ""
+"AVÍS: Programa extern %s no trobat en el paquet, tornant al camí del sistema"
 
 #: hugin1/base_wx/HFOVDialog.cpp:76
 #, c-format
@@ -196,7 +191,7 @@ msgstr "Lineal"
 
 #: hugin1/base_wx/LensTools.cpp:263
 msgid "Load lens parameters"
-msgstr "Obri els paràmetres de les lents"
+msgstr "Carrega els paràmetres de les lents"
 
 #: hugin1/base_wx/LensTools.cpp:265
 msgid "Lens Project Files (*.ini)|*.ini|All files (*.*)|*.*"
@@ -248,6 +243,10 @@ msgid ""
 "This will result in unwanted results.\n"
 "Please check and correct this before proceeding."
 msgstr ""
+"Aquest projecte conté apilaments amb posicions enllaçades. Però els "
+"paràmetres de les lents no hi són enllaçades per aquestes imatges.\n"
+"Això produirà resultats inesperats.\n"
+"Comprova i corregeix això abans de continuar."
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:124
 #, c-format
@@ -277,28 +276,24 @@ msgid "Cancel"
 msgstr "Cancel·la"
 
 #: hugin1/base_wx/MyProgressDialog.cpp:35
-#, fuzzy
 msgid "Sampling points"
-msgstr "S'estan cercant els punts de control"
+msgstr "Punts de mostreig"
 
 #: hugin1/base_wx/MyProgressDialog.cpp:36
-#, fuzzy
 msgid "Loading image:"
-msgstr "S'estan carregant imatges"
+msgstr "S'estan carregant la imatge:"
 
 #: hugin1/base_wx/MyProgressDialog.cpp:37
-#, fuzzy
 msgid "Scaling image:"
-msgstr "Escalant la imatge %s"
+msgstr "S'està escalant la imatge:"
 
 #: hugin1/base_wx/MyProgressDialog.cpp:38
 msgid "sampling points"
-msgstr ""
+msgstr "Punts de mostreig"
 
 #: hugin1/base_wx/MyProgressDialog.cpp:39
-#, fuzzy
 msgid "extracting good points"
-msgstr "Creu els punts de control"
+msgstr "S'estan extraient els punts bons"
 
 #: hugin1/base_wx/MyProgressDialog.cpp:40
 msgid "Elapsed time: "
@@ -322,7 +317,7 @@ msgstr "No es pot obrir el script: %s"
 #: hugin1/base_wx/RunStitchPanel.cpp:125
 #, c-format
 msgid "Project %s does not contain any active images."
-msgstr ""
+msgstr "El projecte %s no conté cap imatge activa."
 
 #: hugin1/base_wx/RunStitchPanel.cpp:141 hugin1/base_wx/RunStitchPanel.cpp:260
 #: hugin1/ptbatcher/ProjectArray.cpp:128
@@ -336,7 +331,7 @@ msgstr "No es pot crear el fitxer temporal"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:194 hugin1/base_wx/RunStitchPanel.cpp:282
 msgid "Queue is empty. This should never happen."
-msgstr ""
+msgstr "La cua és buida. Això no hauria de passar mai."
 
 #: hugin1/base_wx/RunStitchPanel.cpp:194 hugin1/base_wx/RunStitchPanel.cpp:228
 #: hugin1/base_wx/RunStitchPanel.cpp:234
@@ -380,30 +375,24 @@ msgstr ""
 "%s"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:208
-#, fuzzy
 msgid "Stitching panorama..."
-msgstr "Assemblatge del Panorama"
+msgstr "Assemblatge del Panorama..."
 
 #: hugin1/base_wx/StitchingExecutor.cpp:211
 msgid "Platform:"
-msgstr ""
+msgstr "Plataforma:"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:212
-#, fuzzy
 msgid "Version:"
-msgstr "Versió: %s"
+msgstr "Versió:"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:213
-#, fuzzy
 msgid "Working directory:"
-msgstr ""
-"\n"
-" directori actual:"
+msgstr "Directori de treball:"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:214
-#, fuzzy
 msgid "Output prefix:"
-msgstr "Prefix de sortida"
+msgstr "Prefix de sortida:"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:226
 #: hugin1/base_wx/StitchingExecutor.cpp:230
@@ -414,61 +403,56 @@ msgstr "Mesclador:"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:230
 msgid "Unknown blender (enblend --version failed)"
-msgstr ""
+msgstr "mesclador desconegut (enblend --versió fallada)"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:235
-#, fuzzy
 msgid "internal"
-msgstr "Error intern"
+msgstr "intern"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:244
 #: hugin1/base_wx/StitchingExecutor.cpp:248
-#, fuzzy
 msgid "Exposure fusion:"
-msgstr "àncora per la exposició :"
+msgstr "Fusió d'exposició:"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:248
 msgid "Unknown exposure fusion (enfuse --version failed)"
-msgstr ""
+msgstr "Fusió d'exposició desconeguda  (enfuse --versió fallada)"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:256
-#, fuzzy
 msgid "ExifTool version:"
-msgstr "Opcions d'ExifTool"
+msgstr "Versió d'ExifTool:"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:261
-#, fuzzy
 msgid "ExifTool:"
-msgstr "Opcions d'ExifTool"
+msgstr "ExifTool:"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:261
 msgid "FAILED"
-msgstr ""
+msgstr "FALLADA"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:267
-#, fuzzy
 msgid "Number of active images:"
-msgstr "Nombre de punts per cada imatge:"
+msgstr "Nombre d'imatges actives:"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:268
-#, fuzzy, c-format
+#, c-format
 msgid "Output exposure value: %.1f"
-msgstr "Capa d'exposició de sortida %ld"
+msgstr "Valor d'exposició de sortida: %.1f"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:269
-#, fuzzy, c-format
+#, c-format
 msgid "Canvas size: %dx%d"
-msgstr "Mida del llenç:"
+msgstr "Mida del llenç:  %dx%d"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:270
 #, c-format
 msgid "ROI: (%d, %d) - (%d, %d)"
-msgstr ""
+msgstr "ROI: (%d, %d) - (%d, %d)"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:271
 #, c-format
 msgid "FOV: %.0fx%.0f"
-msgstr ""
+msgstr "FOV: %.0fx%.0f"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:277
 #: hugin1/base_wx/StitchingExecutor.cpp:283
@@ -477,17 +461,16 @@ msgid "Projection:"
 msgstr "Projecció:"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:286
-#, fuzzy
 msgid "Using GPU for remapping:"
-msgstr "Utilitza GPU per remapejar  (EXPERIMENTAL)"
+msgstr "S'està usant GPU per remapejar:"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:286
 msgid "true"
-msgstr ""
+msgstr "cert"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:286
 msgid "false"
-msgstr ""
+msgstr "fals"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:290 translations/xrc.cpp:580
 msgid "Panorama Outputs:"
@@ -537,102 +520,95 @@ msgid "Blended layers of similar exposure, without exposure correction"
 msgstr "Capes fusionades d'exposició semblant, sense correcció d'exposició"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:346
-#, fuzzy
 msgid "First input image"
-msgstr "Primera imatge"
+msgstr "Primera entrada d'imatge"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:347
-#, fuzzy
 msgid "Number:"
-msgstr "Nombre de CPUs:"
+msgstr "Número:"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:348
-#, fuzzy
 msgid "Filename:"
-msgstr "Nom de fitxer"
+msgstr "Nom de fitxer:"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:349
-#, fuzzy, c-format
+#, c-format
 msgid "Size: %dx%d"
-msgstr "Mida del llenç:"
+msgstr "Mida: %dx%d"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:351
-#, fuzzy
 msgid "Response type:"
-msgstr "Tipus de resposta"
+msgstr "Tipus de resposta:"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:352
 #, c-format
 msgid "HFOV: %.0f"
-msgstr ""
+msgstr "HFOV: %.0f"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:353
-#, fuzzy, c-format
+#, c-format
 msgid "Exposure value: %.1f"
-msgstr "Valor d'exposició (Eev)"
+msgstr "Valor d'exposició: : %.1f"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:548
 msgid "Remapping and blending LDR images..."
-msgstr ""
+msgstr "S'està tornant a mapejar i fusionar les imatges LDR..."
 
 #: hugin1/base_wx/StitchingExecutor.cpp:559
-#, fuzzy
 msgid "Remapping LDR images..."
-msgstr "Imatges remapejades:"
+msgstr "S'estan remapejant les imatges LDR..."
 
 #: hugin1/base_wx/StitchingExecutor.cpp:569
-#, fuzzy
 msgid "Blending images..."
-msgstr "Escalant la imatge %s"
+msgstr "S'estan fusionant imatges..."
 
 #: hugin1/base_wx/StitchingExecutor.cpp:612
 msgid "Remapping LDR images and blending exposure layers..."
 msgstr ""
+"S'estan tornant a mapejar les imatges LDR i fusionar les capes d'exposició..."
 
 #: hugin1/base_wx/StitchingExecutor.cpp:630
-#, fuzzy
 msgid "Remapping LDR images without exposure correction..."
-msgstr "Refés la imatge a una projecció panorama... "
+msgstr "S'estan remapejant les imatges LDR sense correcció d'exposició..."
 
 #: hugin1/base_wx/StitchingExecutor.cpp:651
 #: hugin1/base_wx/StitchingExecutor.cpp:656
-#, fuzzy, c-format
+#, c-format
 msgid "Blending exposure layer %u..."
-msgstr "Capa d'exposició de sortida %ld"
+msgstr "S'està fusionant la capa d'exposició %u..."
 
 #: hugin1/base_wx/StitchingExecutor.cpp:677
 msgid "Fusing all exposure layers..."
-msgstr ""
+msgstr "S'estan fusionant totes les capes d'exposició..."
 
 #: hugin1/base_wx/StitchingExecutor.cpp:698
-#, fuzzy, c-format
+#, c-format
 msgid "Fusing stack number %u..."
-msgstr "Nre. d'apilament assignat"
+msgstr "S'està fusionant l'apilament número %u..."
 
 #: hugin1/base_wx/StitchingExecutor.cpp:719
 #: hugin1/base_wx/StitchingExecutor.cpp:728
 msgid "Blending all stacks..."
-msgstr ""
+msgstr "S'estan fusionant tots els apilaments..."
 
 #: hugin1/base_wx/StitchingExecutor.cpp:745
-#, fuzzy
 msgid "Remapping HDR images..."
-msgstr "Imatges remapejades:"
+msgstr "S'estan remapejant les imatges HDR..."
 
 #: hugin1/base_wx/StitchingExecutor.cpp:767
-#, fuzzy, c-format
+#, c-format
 msgid "Merging HDR stack number %u..."
-msgstr "Nre. d'apilament assignat"
+msgstr "S'està barrejant l'apilament HDR número %u..."
 
 #: hugin1/base_wx/StitchingExecutor.cpp:782
 #: hugin1/base_wx/StitchingExecutor.cpp:786
 msgid "Blending HDR stacks..."
-msgstr ""
+msgstr "S'estan fusionant totes els apilaments HDR..."
 
 #: hugin1/base_wx/StitchingExecutor.cpp:803
 #: hugin1/base_wx/StitchingExecutor.cpp:809
 msgid "Updating metadata..."
-msgstr ""
+msgstr "S'estan actualitzant les metadades..."
 
 #: hugin1/base_wx/huginConfig.cpp:37
 msgid "first image"
@@ -701,7 +677,7 @@ msgstr ""
 #: hugin1/base_wx/platform.cpp:487
 #, c-format
 msgid "Debug report generated in \"%s\"."
-msgstr ""
+msgstr "Informe de depuració generat en «%s»."
 
 #: hugin1/base_wx/platform.h:43
 msgid ""
@@ -726,7 +702,7 @@ msgstr "Camera %s (%s)"
 #: hugin1/base_wx/wxLensDB.cpp:209
 #, c-format
 msgid "The input \"%s\" is not a valid number."
-msgstr "L'entrada \"%s\" no és un nombre vàlid."
+msgstr "L'entrada «%s» no és un nombre vàlid."
 
 #: hugin1/base_wx/wxLensDB.cpp:209 hugin1/base_wx/wxLensDB.cpp:537
 #: hugin1/base_wx/wxPanoCommand.cpp:286
@@ -755,8 +731,8 @@ msgid ""
 "There is too little information for saving data into database. Please check "
 "your input!"
 msgstr ""
-"Hi ha molt poca informació per desar les dades a la base de dades. "
-"Comproveules dades!"
+"Hi ha molt poca informació per desar les dades a la base de dades. Comproveu "
+"les dades!"
 
 #: hugin1/base_wx/wxLensDB.cpp:633 hugin1/base_wx/wxLensDB.cpp:638
 #: hugin1/base_wx/wxLensDB.cpp:646
@@ -786,14 +762,18 @@ msgid ""
 "Hugin does not support this image type. Skipping this image.\n"
 "Convert image to grayscale image and try loading again."
 msgstr ""
+"El fitxer «%s» és una imatge en blanc/negre.\n"
+"Hugin no dona suport a aquest tipus d'imatge. S'està ometent aquesta "
+"imatge.\n"
+"Convertiu la imatge a escala de grisos i torneu a provar de nou."
 
 #: hugin1/base_wx/wxPanoCommand.cpp:463
 msgid ""
 "Hugin has image stacks detected in the added images and will assign "
 "corresponding stack numbers to the images."
 msgstr ""
-"Hugin té piles d'imatges detectades en les imatges afegides i "
-"assignarànúmeros de pila corresponents a les imatges."
+"Hugin té piles d'imatges detectades en les imatges afegides i assignarà "
+"números de pila corresponents a les imatges."
 
 #: hugin1/base_wx/wxPanoCommand.cpp:467
 msgid ""
@@ -817,10 +797,9 @@ msgid ""
 "position (e. g. when shooting hand held), then don't link the position."
 msgstr ""
 "Al disparar piles d'imatges des d'un trípode resistent, la posició deles "
-"imatges en cada pila es poden vincular per ajudar a Hugin per a processarel "
-"panorama. Però si les imatges en cada pila requereixen un ajust fi de "
-"laposició (per exemple, quan es dispara de mà), llavors no vincular la "
-"posició."
+"imatges en cada pila es poden vincular per ajudar a Hugin per a processar el "
+"panorama. Però si les imatges en cada pila requereixen un ajust fi de la "
+"posició (per exemple, quan es dispara de mà), llavors no vincular la posició."
 
 #: hugin1/base_wx/wxPanoCommand.cpp:482 hugin1/base_wx/wxPanoCommand.cpp:486
 #: translations/xrc.cpp:344
@@ -830,7 +809,7 @@ msgstr "Enllaça posició"
 #: hugin1/base_wx/wxPanoCommand.cpp:482 hugin1/base_wx/wxPanoCommand.cpp:486
 #: translations/xrc.cpp:345
 msgid "Don't link position"
-msgstr "No enllaces la posició"
+msgstr "No enllacis la posició"
 
 #: hugin1/base_wx/wxPanoCommand.cpp:482 hugin1/base_wx/wxPanoCommand.cpp:499
 #: translations/xrc.cpp:346
@@ -933,7 +912,7 @@ msgstr ""
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:161
 msgid "Hugin Lens calibration GUI"
-msgstr "Calibració de lents Hugin GUI"
+msgstr "GUI Calibratge de lents Hugin"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:322
 #, c-format
@@ -998,8 +977,8 @@ msgid ""
 "parameters."
 msgstr ""
 "No hi ha cap línia detectada. \n"
-"Executeu \"Troba línies\" primer. Si no es troba cap línia, canvieu "
-"elsparàmetres."
+"Executeu «Troba línies» primer. Si no es troba cap línia, canvieu els "
+"paràmetres."
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:669
 msgid "Optimizing lens distortion parameters..."
@@ -1012,8 +991,8 @@ msgid ""
 "there are no lines found, change the parameters."
 msgstr ""
 "No hi ha cap línia detectada. \n"
-"Executeu \"Troba línies\" i \"Optimitza\" abans de desar les dades de la "
-"lent. Si no hi ha cap línia que es trobi, canvia els paràmetres."
+"Executeu «Troba línies» i «Optimitza» abans de desar les dades de la lent. "
+"Si no hi ha cap línia que es trobi, canvia els paràmetres."
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:733
 msgid "Save lens parameters to ini file"
@@ -1045,37 +1024,32 @@ msgid "Project files (*.pto)|*.pto|All files (*)|*"
 msgstr "Fitxers de projectes (*.pto)|*.pto|Tots els fitxers (*)|*"
 
 #: hugin1/executor/hugin_executor.cpp:179
-#, fuzzy
 msgid "Removing temporary files..."
-msgstr "S'està netejant els fitxers temporals de punts clau"
+msgstr "S'està netejant els fitxers temporals..."
 
 #: hugin1/executor/hugin_executor.cpp:197
 msgid "shows this help message"
-msgstr ""
+msgstr "Mostra aquest missatge d'ajuda"
 
 #: hugin1/executor/hugin_executor.cpp:198
-#, fuzzy
 msgid "execute assistant"
-msgstr "Executa l'a&ssistent"
+msgstr "Executa l'assistent"
 
 #: hugin1/executor/hugin_executor.cpp:199
 msgid "execute stitching with given project"
-msgstr ""
+msgstr "Executa l'assemblatge amb el projecte entrat"
 
 #: hugin1/executor/hugin_executor.cpp:200
-#, fuzzy
 msgid "number of used threads"
-msgstr "Nombre de fils:"
+msgstr "Nombre de fils usats"
 
 #: hugin1/executor/hugin_executor.cpp:201
-#, fuzzy
 msgid "prefix used for stitching"
-msgstr "editar la seqüència (script) abans de l'assemblatge"
+msgstr "Prefix usat per l'assemblatge"
 
 #: hugin1/executor/hugin_executor.cpp:202
-#, fuzzy
 msgid "only print commands"
-msgstr "S'està executant l'ordre \""
+msgstr "Sols imprimeix ordres"
 
 #: hugin1/hugin/AboutDialog.cpp:139
 #, c-format
@@ -1096,9 +1070,9 @@ msgid "Architecture: %s"
 msgstr "Arquitectura: %s"
 
 #: hugin1/hugin/AboutDialog.cpp:148
-#, fuzzy, c-format
+#, c-format
 msgid "Free memory: %lld kiB"
-msgstr "Memòria lliure: %ld kiB"
+msgstr "Memòria lliure: %lld kiB"
 
 #: hugin1/hugin/AboutDialog.cpp:151
 #, c-format
@@ -1127,11 +1101,11 @@ msgstr "Base de dades de lents i càmeres Hugins: %s"
 
 #: hugin1/hugin/AboutDialog.cpp:189
 msgid "Multi-threading using C++11 std::thread and OpenMP"
-msgstr ""
+msgstr "Multi fils usant C++11 std::thread i OpenMP"
 
 #: hugin1/hugin/AboutDialog.cpp:191
 msgid "Multi-threading using boost::thread and OpenMP"
-msgstr ""
+msgstr "Multi fils usant boost::thread i OpenMP"
 
 #: hugin1/hugin/AboutDialog.cpp:193
 msgid "Libraries"
@@ -1449,7 +1423,7 @@ msgstr "Encaixa"
 #: hugin1/hugin/GLPreviewFrame.cpp:376 translations/xrc.cpp:847
 #: translations/xrc.cpp:999
 msgid "Straighten"
-msgstr "Redreça:"
+msgstr "Redreça"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:378 hugin1/hugin/GLPreviewFrame.cpp:2557
 #: hugin1/hugin/GLPreviewFrame.cpp:2587 hugin1/hugin/PanoPanel.cpp:966
@@ -1536,7 +1510,7 @@ msgstr "%lu imatges carregades."
 #: hugin1/hugin/GLPreviewFrame.cpp:1066
 #, c-format
 msgid "Images are connected by %lu control points.\n"
-msgstr "Les imatges es connecten mitjançant %lu punts de control. \n"
+msgstr "Les imatges es connecten mitjançant %lu punts de control.\n"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1077
 #, c-format
@@ -1549,7 +1523,7 @@ msgid ""
 "points.\n"
 msgstr ""
 "Feu servir la pestanya Punts de Control per connectar totes les imatges amb "
-"els punts de control. \n"
+"els punts de control.\n"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1084
 msgid "Images or control points have changed, new alignment is needed."
@@ -1727,8 +1701,8 @@ msgid ""
 "An equirectangular projection would fit the same content in less vertical "
 "space."
 msgstr ""
-"Amb un camp de visió ampli vertical, els panorames amb projecció "
-"cilíndricaarriben a estar molt estirades en la part superior i inferior. \n"
+"Amb un camp de visió ampli vertical, els panorames amb projecció cilíndrica "
+"arriben a estar molt estirades en la part superior i inferior. \n"
 "Una projecció equirectangular encaixaria el mateix contingut en menys espai "
 "vertical."
 
@@ -1806,21 +1780,20 @@ msgid "Mosaic plane"
 msgstr "Pla mosaic"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:3265
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%lu control points were removed from the panorama.\n"
 "\n"
 "Should the panorama now be re-optimized?"
 msgstr ""
-"S'han afegit %lu punts de control al panorama. \n"
+"S'han suprimit %lu punts de control al panorama. \n"
 "\n"
-"Hauria de tornar-se a optimitzar el panorama per prendre nous punts de "
-"control?"
+"Hauria de tornar-se a optimitzar el panorama ara?"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:3266 hugin1/hugin/GLPreviewFrame.cpp:3562
 #, c-format
 msgid "Current selected optimizer strategy is \"%s\"."
-msgstr "L'estratègia de l'optimitzador actual seleccionada és \"%s\"."
+msgstr "L'estratègia de l'optimitzador actual seleccionada és «%s»."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:3316
 msgid ""
@@ -1873,7 +1846,7 @@ msgid "Checking results..."
 msgstr "S'estan comprovant els resultats..."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:3561
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%lu control points were added to the panorama.\n"
 "\n"
@@ -1881,8 +1854,7 @@ msgid ""
 msgstr ""
 "S'han afegit %lu punts de control al panorama. \n"
 "\n"
-"Hauria de tornar-se a optimitzar el panorama per prendre nous punts de "
-"control?"
+"Hauria de tornar-se a optimitzar el panorama ara?"
 
 #: hugin1/hugin/GLViewer.cpp:288
 msgid ""
@@ -1916,7 +1888,7 @@ msgstr "Entrada no vàlida\n"
 #: hugin1/hugin/HDRMergeOptionDialog.cpp:194
 #, c-format
 msgid "Input \"%s\" for %s is not a valid number\n"
-msgstr "L'entrada \"%s\" per a  %s no és un nombre vàlid \n"
+msgstr "L'entrada «%s» per a  %s no és un nombre vàlid\n"
 
 #: hugin1/hugin/HDRMergeOptionDialog.cpp:178
 msgid "Iteration"
@@ -1995,7 +1967,7 @@ msgstr "Capes de sortida"
 
 #: hugin1/hugin/ImagesPanel.cpp:695
 msgid "Output stacks"
-msgstr "Apilament de sortida"
+msgstr "Apilaments de sortida"
 
 #: hugin1/hugin/ImagesPanel.cpp:713
 msgid "Positions (incremental, starting from anchor)"
@@ -2495,7 +2467,7 @@ msgid ""
 "\n"
 "(Error code: %s)"
 msgstr ""
-"No s'ha pogut desar el fitxer del projecte \"%s\".\n"
+"No s'ha pogut desar el fitxer del projecte «%s».\n"
 "Tal vegada el fitxer o la carpeta és de sola lectura.\n"
 "\n"
 "(Codi d'error: %s)"
@@ -2617,7 +2589,7 @@ msgid ""
 "File \"%s\" not found.\n"
 "Maybe file was renamed, moved or deleted."
 msgstr ""
-"El fitxer \"%s\" no ha sigut trobat.\n"
+"El fitxer «%s» no ha sigut trobat.\n"
 "Tal vegada el fitxer ha canviat de nom, de lloc, o s'ha suprimit."
 
 #: hugin1/hugin/MainFrame.cpp:1819 hugin1/ptbatcher/Batch.cpp:333
@@ -2816,8 +2788,8 @@ msgstr ""
 "\n"
 "Els resultats no són probablement vàlids.\n"
 "\n"
-"Optimitzar el camp de visió (v) de panorames parcials pot produir "
-"malsresultats.\n"
+"Optimitzar el camp de visió (v) de panorames parcials pot produir mals "
+"resultats.\n"
 "Proveu a afegir més imatges i punts de control.\n"
 " \n"
 "Voleu aplicar els canvis de tota manera?"
@@ -2934,9 +2906,8 @@ msgstr ""
 "fotomètrica"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:320
-#, fuzzy
 msgid "Optimize..."
-msgstr "Optimitza"
+msgstr "Optimitza..."
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:366
 msgid "Internal error during photometric optimization:\n"
@@ -3254,7 +3225,7 @@ msgid ""
 "You have no permissions to write in folder \"%s\".\n"
 "Please select another folder for the final output."
 msgstr ""
-"No teniu permisos per escriure a la carpeta \"%s\".\n"
+"No teniu permisos per escriure a la carpeta «%s».\n"
 "Seleccioneu una altra carpeta per la sortida final."
 
 #: hugin1/hugin/PanoPanel.cpp:1424
@@ -3331,9 +3302,8 @@ msgid "Basque"
 msgstr "Eusquera"
 
 #: hugin1/hugin/PreferencesDialog.cpp:131
-#, fuzzy
 msgid "Catalan"
-msgstr "Italià"
+msgstr "Català"
 
 #: hugin1/hugin/PreferencesDialog.cpp:134
 msgid "Chinese (Simplified)"
@@ -3409,7 +3379,7 @@ msgstr "Finès"
 
 #: hugin1/hugin/PreferencesDialog.cpp:203
 msgid "Valencian (Southern Catalan)"
-msgstr ""
+msgstr "Valencià (Català meridional)"
 
 #: hugin1/hugin/PreferencesDialog.cpp:304
 msgid "Select Enblend"
@@ -3470,7 +3440,7 @@ msgstr "Selecciona ExifTool argfile nou"
 #: hugin1/hugin/PreferencesDialog.cpp:486
 #, c-format
 msgid "Could not save file \"%s\"."
-msgstr "No es pot desar el fitxer \"%s\"."
+msgstr "No es pot desar el fitxer «%s»."
 
 #: hugin1/hugin/PreferencesDialog.cpp:445
 #, c-format
@@ -3645,9 +3615,8 @@ msgid "Could not set environment variable PYTHONHOME"
 msgstr "No es pot establir la variable d'entorn PYTHONHOME"
 
 #: hugin1/hugin/huginApp.cpp:329
-#, fuzzy
 msgid "Open Batch Processor"
-msgstr "Processador per lots"
+msgstr "Obre processador per lots"
 
 #: hugin1/hugin/huginApp.cpp:330 translations/xrc.cpp:421
 #: translations/xrc.cpp:431 translations/xrc.cpp:1080
@@ -3656,13 +3625,12 @@ msgstr ""
 "Obre PTBatcher, el processador per lots de fitxers de projecte de Hugin"
 
 #: hugin1/hugin/huginApp.cpp:335
-#, fuzzy
 msgid "Open Lens calibrate tool"
-msgstr "Calibració de lents Hugin GUI"
+msgstr "Obre l'eina de calibratge de lents"
 
 #: hugin1/hugin/huginApp.cpp:336
 msgid "Opens Calibrate_lens_gui, a simple GUI for lens calibration"
-msgstr ""
+msgstr "Obre Calibrate_lens_gui, una simple GUI per calibratge de lents"
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:226
 #, c-format
@@ -3671,7 +3639,7 @@ msgid ""
 "Maybe you have not installed it properly or given a wrong path in the "
 "settings."
 msgstr ""
-"No es pot trobar \"%s\" al camí. \n"
+"No es pot trobar «%s» al camí. \n"
 "Tal vegada no l'heu instal·lat de forma correcta o s'ha donat un camí "
 "incorrecte als paràmetres."
 
@@ -3929,9 +3897,9 @@ msgid "Batch already in progress."
 msgstr "Lot realment en progrés."
 
 #: hugin1/ptbatcher/Batch.cpp:831
-#, fuzzy, c-format
+#, c-format
 msgid "Running command \"%s\""
-msgstr "S'està executant l'ordre \""
+msgstr "S'està executant l'ordre «%s»"
 
 #: hugin1/ptbatcher/Batch.cpp:850
 #, c-format
@@ -4006,9 +3974,9 @@ msgid "Specify project source file(s)"
 msgstr "Especifiqueu fitxer(s) de font de projecte(s)"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:504
-#, fuzzy, c-format
+#, c-format
 msgid "Added projects from dir %s"
-msgstr "Afegits els projectes des del directori"
+msgstr "Afegits els projectes des del directori %s"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:515
 #, c-format
@@ -4081,9 +4049,9 @@ msgstr ""
 "Voleu cancel·lar-los ?"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:825
-#, fuzzy, c-format
+#, c-format
 msgid "Removed project %s"
-msgstr "Projecte esborrat"
+msgstr "Projecte esborrat %s"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:834
 msgid "Please select a project to remove"
@@ -4098,9 +4066,9 @@ msgstr ""
 "Voleu cancel·lar-lo ?"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:861
-#, fuzzy, c-format
+#, c-format
 msgid "Reset project %s"
-msgstr "Reinicialitza projecte"
+msgstr "Reinicialitza projecte %s"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:866
 msgid "Please select a project to reset"
@@ -4210,8 +4178,8 @@ msgid ""
 "full."
 msgstr ""
 "No tots els fitxers del projecte es poden escriure correctament. \n"
-"Potser  no teniu permís d'escriptura per a aquests directoris o el disc "
-"éscomplet."
+"Potser  no teniu permís d'escriptura per a aquests directoris o el disc és "
+"complet."
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:387
 #, c-format
@@ -5014,9 +4982,9 @@ msgid ""
 "This is the script which will be sent to the Panorama Tools engine.  Editing "
 "these lines is an advanced technique."
 msgstr ""
-"Aquest és la seqüència de comandes (script) que serà enviada al motord'eines "
-"de Panorama (« Eines Panorama »). L'edició d'aquestes línies ésper a usuaris "
-"avançats."
+"Aquest és la seqüència de comandes (script) que serà enviada al motor "
+"d'eines de Panorama (« Eines Panorama »). L'edició d'aquestes línies és per "
+"a usuaris avançats."
 
 #: translations/xrc.cpp:179
 msgid "Continue with these changes"
@@ -5474,9 +5442,9 @@ msgid ""
 "corresponding stack numbers to the images. Should the position of images in "
 "each stack be linked?"
 msgstr ""
-"Hugin té detectades piles d'imatges en les imatges afegides i "
-"assignarànúmeros de pila corresponents a les imatges. S'hauria d'enllaçar la "
-"posició de les imatges en cada pila?"
+"Hugin té detectades piles d'imatges en les imatges afegides i assignarà "
+"números de pila corresponents a les imatges. S'hauria d'enllaçar la posició "
+"de les imatges en cada pila?"
 
 #: translations/xrc.cpp:349 translations/xrc.cpp:461
 msgid "Re-optimize"
@@ -5488,7 +5456,7 @@ msgstr "No optimitzis ara!"
 
 #: translations/xrc.cpp:351
 msgid "Edit cp tools"
-msgstr ""
+msgstr "Edita les eines cp"
 
 #: translations/xrc.cpp:352 translations/xrc.cpp:1038
 msgid "&Undo"
@@ -5539,8 +5507,8 @@ msgid ""
 "Runs fine-tune on all control points. Useful for projects created with other "
 "tools, like PTGui or PTAssembler"
 msgstr ""
-"Executa l'ajustament precís de tots els punts de control. Útil pelsprojectes "
-"creats amb altres eines com el PTGui o el PTAssembler"
+"Executa l'ajustament precís de tots els punts de control. Útil pels "
+"projectes creats amb altres eines com el PTGui o el PTAssembler"
 
 #: translations/xrc.cpp:364
 msgid "Remove control points in masks"
@@ -5680,8 +5648,8 @@ msgid ""
 "If you like hugin and want to see further improvements, please consider "
 "donating to the hugin project."
 msgstr ""
-"Si t'agrada Hugin i vols veure millores addicionals, sis-plau consideradonar "
-"al projecte Hugin."
+"Si t'agrada Hugin i vols veure millores addicionals, sis plau considera "
+"donar al projecte Hugin."
 
 #: translations/xrc.cpp:407 translations/xrc.cpp:426 translations/xrc.cpp:436
 #: translations/xrc.cpp:1067 translations/xrc.cpp:1081
@@ -5729,7 +5697,7 @@ msgid ""
 "Write current project to a PTStitcher-compatible script file, useful for "
 "batch processing"
 msgstr ""
-"Escriu l'actual projecte en un fitxer script compatible ambPTStitcher, útil "
+"Escriu l'actual projecte en un fitxer script compatible amb PTStitcher, útil "
 "per a un processament per lots"
 
 #: translations/xrc.cpp:418 translations/xrc.cpp:1077
@@ -6712,18 +6680,16 @@ msgid "default JPEG compression setting"
 msgstr "Paràmetre de compressió JPEG per defecte"
 
 #: translations/xrc.cpp:746
-#, fuzzy
 msgid "Blender"
-msgstr "Mesclador:"
+msgstr "Mesclador"
 
 #: translations/xrc.cpp:747
-#, fuzzy
 msgid "Default blender:"
-msgstr "Nom de fitxer per defecte"
+msgstr "Nom del mesclador per defecte:"
 
 #: translations/xrc.cpp:748
 msgid "Default blender which is used for new projects."
-msgstr ""
+msgstr "El mesclador per defecte que s'usa als projectes nous."
 
 #: translations/xrc.cpp:749
 msgid "Processor"
@@ -6987,26 +6953,23 @@ msgstr ""
 
 #: translations/xrc.cpp:823
 msgid "After \"edit cp\" tool"
-msgstr ""
+msgstr "Després de l'eina «edita cp»"
 
 #: translations/xrc.cpp:824
 msgid "Ask user"
-msgstr ""
+msgstr "Pregunta a l'usuari"
 
 #: translations/xrc.cpp:825
-#, fuzzy
 msgid "Re-optimize panorama"
-msgstr "Optimització del Panorama"
+msgstr "Reoptimització del Panorama"
 
 #: translations/xrc.cpp:826
-#, fuzzy
 msgid "Don't optimize panorama"
-msgstr "No optimitzis ara!"
+msgstr "No optimitzis el panorama"
 
 #: translations/xrc.cpp:827
-#, fuzzy
 msgid "Edit cp tool (on fast preview window)"
-msgstr "Els consells es mostren sols a la finestra de vista prèvia "
+msgstr "Edita l'eina cp (a la finestra de previsualització rapida)"
 
 #: translations/xrc.cpp:828
 msgid "Misc"
@@ -7057,7 +7020,7 @@ msgstr ""
 
 #: translations/xrc.cpp:841 translations/xrc.cpp:909 translations/xrc.cpp:996
 msgid "Center the preview horizontally"
-msgstr "Centrar la vista prèvia horitzontalment"
+msgstr "Centra la vista prèvia horitzontalment"
 
 #: translations/xrc.cpp:843
 msgid "Show the whole panorama"
@@ -7174,9 +7137,8 @@ msgid "Gray picker"
 msgstr "Selector de grisos"
 
 #: translations/xrc.cpp:888 translations/xrc.cpp:973
-#, fuzzy
 msgid "Create or delete control points in selected rectangle."
-msgstr "Suprimeix tots els punts de control al rectangle seleccionat."
+msgstr "Crea o suprimeix punts de control al rectangle seleccionat."
 
 #: translations/xrc.cpp:889 translations/xrc.cpp:890 translations/xrc.cpp:974
 #: translations/xrc.cpp:975
@@ -7568,24 +7530,22 @@ msgstr ""
 
 #: hugin1/hugin/xrc/data/tips.txt:28
 msgid "The \"f\" key is the shortcut for Fine Tune button."
-msgstr "La tecla  \"f\" és una drecera pel botó d'ajustament precís."
+msgstr "La tecla «f» és una drecera pel botó d'ajustament precís."
 
 #: hugin1/hugin/xrc/data/tips.txt:29
 msgid "Pressing \"Del\" will remove the currently selected control point."
 msgstr ""
-"Prement la tecla de suprimir \"Supr\" esborreu el punt de control "
-"seleccionat."
+"Prement la tecla de suprimir «Supr» esborreu el punt de control seleccionat."
 
 #: hugin1/hugin/xrc/data/tips.txt:30
 msgid "Press \"0\" in the control points tab to zoom out to full view."
 msgstr ""
-"Premeu  \"0\" dins la pestanya dels punts de control per un zoom a vista "
+"Premeu  «0» dins la pestanya dels punts de control per un zoom a vista "
 "completa."
 
 #: hugin1/hugin/xrc/data/tips.txt:31
 msgid "Press \"1\" in the control points tab to zoom out to 100% view."
-msgstr ""
-"Premeu \"1\" dins la pestanya dels punts de control per un zoom al 100%."
+msgstr "Premeu «1» dins la pestanya dels punts de control per un zoom al 100%."
 
 #: hugin1/hugin/xrc/data/tips.txt:32
 msgid ""
