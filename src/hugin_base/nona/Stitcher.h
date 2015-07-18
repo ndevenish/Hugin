@@ -1024,6 +1024,10 @@ static void stitchPanoIntern(const PanoramaData & pano,
                 stitcher.stitch(opts, imgs, basename, m, hdrmerge);
             } else {
                 WeightedStitcher<ImageType, AlphaType> stitcher(pano, progress);
+                if (GetAdvancedOption(advOptions, "maskClipExposure", false))
+                {
+                    m.SetClipExposureMask(true);
+                }
                 stitcher.stitch(opts, imgs, basename, m, advOptions);
             }
             break;
@@ -1035,6 +1039,10 @@ static void stitchPanoIntern(const PanoramaData & pano,
         case PanoramaOptions::EXR_m:
         {
             MultiImageRemapper<ImageType, AlphaType> stitcher(pano, progress);
+            if (GetAdvancedOption(advOptions, "maskClipExposure", false))
+            {
+                m.SetClipExposureMask(true);
+            }
             stitcher.stitch(opts, imgs, basename, m, advOptions);
             break;
         }

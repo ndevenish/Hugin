@@ -107,6 +107,7 @@ static void usage(const char* name)
          << "      --intermediate-suffix=SUFFIX  suffix for intermediate images" << std::endl
          << "      --create-exposure-layers  create all exposure layers" << std::endl
          << "                   (this will always use TIFF)" << std::endl
+         << "      --clip-exposure  mask automatically all dark and bright pixels" << std::endl
          << std::endl;
 }
 
@@ -139,7 +140,8 @@ int main(int argc, char* argv[])
         IGNOREEXPOSURE=1000,
         SAVEINTERMEDIATEIMAGES,
         INTERMEDIATESUFFIX,
-        EXPOSURELAYERS
+        EXPOSURELAYERS,
+        MASKCLIPEXPOSURE
     };
     static struct option longOptions[] =
     {
@@ -148,6 +150,7 @@ int main(int argc, char* argv[])
         { "intermediate-suffix", required_argument, NULL, INTERMEDIATESUFFIX },
         { "compression", required_argument, NULL, 'z' },
         { "create-exposure-layers", no_argument, NULL, EXPOSURELAYERS },
+        { "clip-exposure", no_argument, NULL, MASKCLIPEXPOSURE },
         0
     };
     
@@ -203,6 +206,9 @@ int main(int argc, char* argv[])
                 break;
             case EXPOSURELAYERS:
                 createExposureLayers = true;
+                break;
+            case MASKCLIPEXPOSURE:
+                HuginBase::Nona::SetAdvancedOption(advOptions, "maskClipExposure", true);
                 break;
             case '?':
             case 'h':

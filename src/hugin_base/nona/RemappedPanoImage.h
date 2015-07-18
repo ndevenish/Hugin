@@ -98,7 +98,7 @@ class RemappedPanoImage : public vigra_ext::ROIImage<RemapImage, AlphaImage>
          *
          *  the actual remapping is done by the remapImage() function.
          */
-        RemappedPanoImage()
+        RemappedPanoImage() : m_clipExposureMask(false)
         {};
 
         
@@ -107,25 +107,10 @@ class RemappedPanoImage : public vigra_ext::ROIImage<RemapImage, AlphaImage>
         void setPanoImage(const SrcPanoImage & src,
                           const PanoramaOptions & dest,
                           vigra::Rect2D roi);
-
-    //    /** set a new image or panorama options
-    //     *
-    //     *  This is needed before any of the remap functions can be used.
-    //     *
-    //     *  calculates bounding box, and outline
-    //     */
-    //    void setPanoImage(const vigra::Size2D & srcSize,
-    //                      const PanoCommand::VariableMap & srcVars,
-    //                      PanoCommand::Lens::LensProjectionFormat srcProj,
-    //                      const PanoCommand::PanoImage & img,
-    //                      const vigra::Diff2D &destSize,
-    //                      HuginBase::PanoramaOptions::ProjectionFormat destProj,
-    //                      double destHFOV);
-    //    
-    //    ///
-    //    void setPanoImage(const HuginBase::Panorama & pano, unsigned int imgNr,
-    //                      vigra::Size2D srcSize, const HuginBase::PanoramaOptions & opts);
-        
+        void setMaskClipExposure(const bool doClipExposure)
+        {
+            m_clipExposureMask = doClipExposure;
+        };
 
     public:
         /** calculate distance map. pixels contain distance from image center
@@ -169,6 +154,7 @@ class RemappedPanoImage : public vigra_ext::ROIImage<RemapImage, AlphaImage>
         SrcPanoImage m_srcImg;
         PanoramaOptions m_destImg;
         PTools::Transform m_transf;
+        bool m_clipExposureMask;
 
 };
 
@@ -475,7 +461,7 @@ void RemappedPanoImage<RemapImage,AlphaImage>::remapImage(vigra::triple<ImgIter,
     }
 
 
-    if ((m_srcImg.hasActiveMasks()) || (m_srcImg.getCropMode() != SrcPanoImage::NO_CROP))
+    if ((m_srcImg.hasActiveMasks()) || (m_srcImg.getCropMode() != SrcPanoImage::NO_CROP) || m_clipExposureMask)
     {
         // need to create and additional alpha image for the crop mask...
         // not very efficient during the remapping phase, but works.
@@ -531,6 +517,10 @@ void RemappedPanoImage<RemapImage,AlphaImage>::remapImage(vigra::triple<ImgIter,
         }
         if(m_srcImg.hasActiveMasks())
             vigra_ext::applyMask(vigra::destImageRange(alpha), m_srcImg.getActiveMasks());
+        if (m_clipExposureMask)
+        {
+            vigra_ext::applyExposureClipMask(srcImg, vigra::destImageRange(alpha), 1/255.0f, 250/255.0f);
+        };
         if (useGPU) {
             transformImageAlphaGPU(srcImg,
                                    vigra::srcImage(alpha),
@@ -654,7 +644,7 @@ void RemappedPanoImage<RemapImage,AlphaImage>::remapImage(vigra::triple<ImgIter,
         invResponse.setHDROutput(true,1.0/pow(2.0,m_destImg.outputExposureValue));
     }
 
-    if (((m_srcImg.hasActiveMasks()) || (m_srcImg.getCropMode() != SrcPanoImage::NO_CROP))) {
+    if ((m_srcImg.hasActiveMasks()) || (m_srcImg.getCropMode() != SrcPanoImage::NO_CROP) || m_clipExposureMask) {
         vigra::BImage alpha(srcImgSize);
         vigra::Rect2D cR = m_srcImg.getCropRect();
         switch (m_srcImg.getCropMode()) {
@@ -699,7 +689,10 @@ void RemappedPanoImage<RemapImage,AlphaImage>::remapImage(vigra::triple<ImgIter,
         }
         if(m_srcImg.hasActiveMasks())
             vigra_ext::applyMask(vigra::destImageRange(alpha), m_srcImg.getActiveMasks());
-
+        if (m_clipExposureMask)
+        {
+            vigra_ext::applyExposureClipMask(srcImg, vigra::destImageRange(alpha), 1 / 255.0f, 250 / 255.0f);
+        };
         if (useGPU) {
             vigra_ext::transformImageAlphaGPU(srcImg,
                                               vigra::srcImage(alpha),

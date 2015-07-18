@@ -42,6 +42,9 @@ namespace Nona {
     {
         
         public:
+            SingleImageRemapper() : m_clipExposureMask(false)
+            {};
+
             /** create a remapped pano image.
              *
              *  The image ownership is transferred to the caller.
@@ -54,10 +57,15 @@ namespace Nona {
             
             virtual ~SingleImageRemapper() {};
             
-            
-        public:
+            void SetClipExposureMask(bool doClipExposure)
+            {
+                m_clipExposureMask = doClipExposure;
+            }
+
             ///
             virtual	void release(RemappedPanoImage<ImageType,AlphaType>* d) = 0;
+        protected:
+            bool m_clipExposureMask;
         
     };
 
@@ -68,33 +76,12 @@ namespace Nona {
     {
         
     public:
-        FileRemapper()
+        FileRemapper() : SingleImageRemapper<ImageType, AlphaType>()
         {
             m_remapped = 0;
         }
 
         virtual ~FileRemapper() {};
-
-/**        
-    #define HUGIN_REMAP_IMGLOAD(TYPE, lut) \
-    { \
-        vigra::TYPE tmpImg(info.width(), info.height()); \
-        if (alpha) { \
-            vigra::importImageAlpha(info, vigra::destImage(tmpImg), \
-                                    vigra::destImage(srcAlpha)); \
-    { \
-        vigra::ImageExportInfo exi(DEBUG_FILE_PREFIX "hugin01_original_mask.tif"); \
-        vigra::exportImage(vigra::srcImageRange(srcAlpha), exi); \
-    } \
-    } else { \
-            vigra::importImage(info, vigra::destImage(tmpImg)); \
-    } \
-    { \
-        vigra::ImageExportInfo exi(DEBUG_FILE_PREFIX "hugin01_original.tif"); \
-        vigra::exportImage(vigra::srcImageRange(tmpImg), exi); \
-    } \
-    }
-*/
 
     typedef std::vector<float> LUT;
 
@@ -239,6 +226,7 @@ RemappedPanoImage<ImageType, AlphaType>*
         ffImg.resize(ffInfo.width(), ffInfo.height());
         vigra::importImage(ffInfo, vigra::destImage(ffImg));
     }
+    m_remapped->setMaskClipExposure(SingleImageRemapper<ImageType, AlphaType>::m_clipExposureMask);
     // remap the image
     
     remapImage(srcImg, srcAlpha, ffImg,

@@ -297,6 +297,34 @@ getMinComponent(V v)
     return v;
 }
 
+template<class ImgIter, class ImgAccessor, class AlphaIter, class AlphaAccessor>
+void applyExposureClipMask(vigra::triple<ImgIter, ImgIter, ImgAccessor> image, vigra::triple<AlphaIter, AlphaIter, AlphaAccessor> mask, double lowerLimit, double upperLimit)
+{
+    typedef typename ImgAccessor::value_type ImageValueType;
+    vigra_precondition((image.second - image.first) == (mask.second - mask.first), "applyExposureMask: image and mask have different sizes");
+    const vigra::Diff2D imgSize = image.second - image.first;
+    const double LowerLimit = lowerLimit * LUTTraits<ImageValueType>::max();
+    const double UpperLimit = upperLimit * LUTTraits<ImageValueType>::max();
+
+    // create dest y iterator
+    ImgIter yd(image.first);
+    AlphaIter ymd(mask.first);
+    // loop over the image and transform
+    for (int y = 0; y < imgSize.y; ++y, ++yd.y, ++ymd.y)
+    {
+        // create x iterators
+        ImgIter xd(yd);
+        AlphaIter xmd(ymd);
+        for (int x = 0; x < imgSize.x; ++x, ++xd.x, ++xmd.x)
+        {
+            const double val = getMaxComponent(*xd);
+            if (val < LowerLimit || val>UpperLimit)
+            {
+                *xmd = 0;
+            };
+        }
+    }
+}
 
 /** count pixels that are > 0 in both images */
 struct OverlapSizeCounter
