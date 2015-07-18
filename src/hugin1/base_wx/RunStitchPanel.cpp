@@ -97,7 +97,7 @@ RunStitchPanel::RunStitchPanel(wxWindow * parent)
 //    topsizer->SetSizeHints( this );   // set size hints to honour minimum size
 }
 
-bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname)
+bool RunStitchPanel::StitchProject(const wxString& scriptFile, const wxString& outname, const wxString& userDefinedOutput)
 {
     DEBUG_TRACE("");
     wxFileName fname(scriptFile);
@@ -143,22 +143,35 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname)
     }
     // get options and correct for correct makefile
     HuginBase::PanoramaOptions opts = pano.getOptions();
+    if (!userDefinedOutput.IsEmpty())
+    {
+        wxFileInputStream input(userDefinedOutput);
+        if (!input.IsOk())
+        {
+            wxLogError(wxString::Format(_("Can't open user defined output sequence \"%s\"."), userDefinedOutput.c_str()));
+            return false;
+        }
+        wxFileConfig settings(input);
+        // disable cropped output if user defined setting is requesting
+        long supportsCroppedOutput;
+        settings.Read(wxT("/General/SupportsCroppedTIFF"), &supportsCroppedOutput, 1l);
+        if (supportsCroppedOutput != 1)
+        {
+            opts.tiff_saveROI = false;
+        };
+    };
     opts.outputFormat = HuginBase::PanoramaOptions::TIFF_m;
     if (opts.enblendOptions.length() == 0) {
         // no options stored in file, use default arguments in config file
         opts.enblendOptions = wxConfigBase::Get()->Read(wxT("/Enblend/Args"), wxT(HUGIN_ENBLEND_ARGS)).mb_str(wxConvLocal);
     }
     pano.setOptions(opts);
-    // make sure we got an absolute path
-    if (! wxIsAbsolutePath(outname)) {
-        outname = wxGetCwd() + wxFileName::GetPathSeparator() + outname;
-    }
-
     DEBUG_DEBUG("output file specified is " << (const char *)outname.mb_str(wxConvLocal));
 
     wxString basename;
     wxString outpath;
     wxFileName outputPrefix(outname);
+    outputPrefix.MakeAbsolute();
     outpath = outputPrefix.GetPath();
     basename = outputPrefix.GetFullName();
     //get temp dir from preferences
@@ -188,7 +201,15 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname)
         wxArrayString outputFiles;
         wxString statusText;
         m_tempFiles.clear();
-        HuginQueue::CommandQueue* commands = HuginQueue::GetStitchingCommandQueue(pano, exePath.GetPath(wxPATH_GET_VOLUME|wxPATH_GET_SEPARATOR), m_currentPTOfn, basename, statusText, outputFiles, m_tempFiles);
+        HuginQueue::CommandQueue* commands;
+        if (userDefinedOutput.IsEmpty())
+        {
+            commands = HuginQueue::GetStitchingCommandQueue(pano, exePath.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR), m_currentPTOfn, basename, statusText, outputFiles, m_tempFiles);
+        }
+        else
+        {
+            commands= HuginQueue::GetStitchingCommandQueueUserOutput(pano, exePath.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR), m_currentPTOfn, basename, userDefinedOutput, statusText, outputFiles, m_tempFiles);
+        };
         if (commands->empty())
         {
             wxMessageBox(_("Queue is empty. This should never happen.") , _("Error during stitching"), wxICON_ERROR | wxOK);
@@ -236,7 +257,7 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname)
     return true;
 }
 
-bool RunStitchPanel::DetectProject(wxString scriptFile)
+bool RunStitchPanel::DetectProject(const wxString& scriptFile)
 {
     m_currentPTOfn=wxEmptyString;
     wxFileName fname(scriptFile);

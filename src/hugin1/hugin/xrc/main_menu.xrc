@@ -2,7 +2,6 @@
 <resource>
   <object class="wxMenuBar" name="main_menubar">
     <style>wxMB_DOCKABLE</style>
-    
     <object class="wxMenu" name="edit_menue">
       <object class="wxMenuItem" name="ID_EDITUNDO">
         <label>&amp;Undo</label>
@@ -49,8 +48,7 @@
       <label>&amp;View</label>
       <object class="wxMenuItem" name="ID_SHOW_FULL_SCREEN">
         <label>Full Screen</label>
-        <accel platform="win|unix">F11</accel>
-        <accel platform="mac">Ctrl-F</accel>
+        <accel>F11</accel>
         <help>Shows Hugin's main window on full-screen</help>
       </object>
       <object class="wxMenuItem" name="ID_CP_TABLE">
@@ -114,7 +112,19 @@
         <label>Expert</label>
         <radio>1</radio>
       </object>
-      <label>Interface</label>
+      <label>&amp;Interface</label>
+    </object>
+    <object class="wxMenu" name="output_menu">
+      <object class="wxMenuItem" name="action_stitch">
+        <label>&amp;Stitch</label>
+        <accel>Ctrl-i</accel>
+        <help>Stitch with the settings on the pano tabs</help>
+      </object>
+      <object class="wxMenuItem" name="action_stitch_userdefined">
+        <label>Stitch user defined output...</label>
+        <help>Stitch with the settings from an user defined output sequence</help>
+      </object>
+      <label>&amp;Output</label>
     </object>
     <object class="wxMenu" name="help_menu">
       <label>&amp;Help</label>
@@ -144,7 +154,7 @@
         <label>&amp;Donate</label>
         <help>If you like hugin and want to see further improvements, please consider donating to the hugin project.</help>
       </object>
-      <object platform="mac" class="wxMenuItem" name="action_show_prefs">
+      <object class="wxMenuItem" name="action_show_prefs" platform="mac">
         <label>&amp;Preferences</label>
         <accel>Ctrl-,</accel>
       </object>
@@ -192,8 +202,8 @@
       <label>Apply &amp;Template</label>
       <help>Assign the settings of a previously saved project to the current images.</help>
     </object>
-    <object platform="win|unix" class="separator"/>
-    <object platform="win|unix" class="wxMenuItem" name="action_show_prefs">
+    <object class="separator" platform="win|unix"/>
+    <object class="wxMenuItem" name="action_show_prefs" platform="win|unix">
       <label>&amp;Preferences</label>
     </object>
     <object class="separator"/>
@@ -218,8 +228,8 @@
       <label>Apply &amp;Template</label>
       <help>Assign the settings of a previously saved project to the current images.</help>
     </object>
-    <object platform="win|unix" class="separator"/>
-    <object platform="win|unix" class="wxMenuItem" name="action_show_prefs">
+    <object class="separator" platform="win|unix"/>
+    <object class="wxMenuItem" name="action_show_prefs" platform="win|unix">
       <label>&amp;Preferences</label>
     </object>
     <object class="separator"/>

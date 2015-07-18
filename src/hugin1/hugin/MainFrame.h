@@ -130,6 +130,7 @@ public:
     void OnOptimize(wxCommandEvent & e);
     void OnPhotometricOptimize(wxCommandEvent & e);
     void OnDoStitch(wxCommandEvent & e);
+    void OnUserDefinedStitch(wxCommandEvent & e);
     void OnTogglePreviewFrame(wxCommandEvent & e);
     void OnToggleGLPreviewFrame(wxCommandEvent & e);
     void OnAddImages(wxCommandEvent & e);

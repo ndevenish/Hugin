@@ -1,0 +1,25 @@
+[General]
+Description=Blended stacks
+StepCount=3
+IntermediateImageType=TIF
+
+[Step0]
+Description=Remapping images
+Type=remap
+Arguments=-r ldr -m TIFF_m --ignore-exposure
+
+[Step1]
+Description=Fusing all stacks
+Type=stack
+Program=enfuse
+Arguments=-f%size% --output=%output% %input%
+WrapArgument=-w
+
+[Step2]
+Description=Blending all stacks
+Type=merge
+Input=stacks
+Program=enblend
+Result=%prefix%_fused.tif
+Arguments=-f%size% --output=%result% %input%
+WrapArgument=-w

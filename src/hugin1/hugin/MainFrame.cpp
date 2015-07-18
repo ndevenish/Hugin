@@ -248,6 +248,8 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_MENU(XRCID("ID_SHOW_PANEL_OPTIMIZER"), MainFrame::OnShowPanel)
     EVT_MENU(XRCID("ID_SHOW_PANEL_OPTIMIZER_PHOTOMETRIC"), MainFrame::OnShowPanel)
     EVT_MENU(XRCID("ID_SHOW_PANEL_PANORAMA"), MainFrame::OnShowPanel)
+    EVT_MENU(XRCID("action_stitch"), MainFrame::OnDoStitch)
+    EVT_MENU(XRCID("action_stitch_userdefined"), MainFrame::OnUserDefinedStitch)
     EVT_MENU(XRCID("action_add_images"),  MainFrame::OnAddImages)
     EVT_BUTTON(XRCID("action_add_images"),  MainFrame::OnAddImages)
     EVT_MENU(XRCID("action_add_time_images"),  MainFrame::OnAddTimeImages)
@@ -1386,6 +1388,11 @@ void MainFrame::OnDoStitch(wxCommandEvent & e)
     pano_panel->GetEventHandler()->AddPendingEvent(cmdEvt);
 }
 
+void MainFrame::OnUserDefinedStitch(wxCommandEvent & e)
+{
+    pano_panel->DoUserDefinedStitch();
+}
+
 void MainFrame::OnMergeProject(wxCommandEvent & e)
 {
     // get the global config object
@@ -1752,6 +1759,8 @@ void MainFrame::enableTools(bool option)
     theMenuBar->Enable(XRCID("action_finetune_all_cp"), option);
     theMenuBar->Enable(XRCID("action_remove_cp_in_masks"), option);
     theMenuBar->Enable(XRCID("ID_SHOW_PREVIEW_FRAME"), option);
+    theMenuBar->Enable(XRCID("action_stitch"), option);
+    theMenuBar->Enable(XRCID("action_stitch_userdefined"), option);
     //theMenuBar->Enable(XRCID("ID_SHOW_GL_PREVIEW_FRAME"), option);
 }
 

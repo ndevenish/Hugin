@@ -142,7 +142,14 @@ class HuginExecutor : public APP
             wxFileName::SetCwd(outputPrefix.GetPath());
             wxString statusText;
             wxArrayString outputFiles;
-            commands = HuginQueue::GetStitchingCommandQueue(pano, m_utilsBinDir, inputFile.GetFullPath(), outputPrefix.GetName(), statusText, outputFiles, tempfiles);
+            if (m_userOutput.IsEmpty())
+            {
+                commands = HuginQueue::GetStitchingCommandQueue(pano, m_utilsBinDir, inputFile.GetFullPath(), outputPrefix.GetName(), statusText, outputFiles, tempfiles);
+            }
+            else
+            {
+                commands = HuginQueue::GetStitchingCommandQueueUserOutput(pano, m_utilsBinDir, inputFile.GetFullPath(), outputPrefix.GetName(), m_userOutput, statusText, outputFiles, tempfiles);
+            };
             if (!m_dryRun)
             {
                 std::cout << statusText.mb_str(wxConvLocal) << std::endl;
@@ -199,6 +206,7 @@ class HuginExecutor : public APP
         parser.AddSwitch(wxT("s"), wxT("stitching"), _("execute stitching with given project"));
         parser.AddOption(wxT("t"), wxT("threads"), _("number of used threads"), wxCMD_LINE_VAL_NUMBER);
         parser.AddOption(wxT("p"), wxT("prefix"), _("prefix used for stitching"), wxCMD_LINE_VAL_STRING);
+        parser.AddOption(wxT("u"), wxT("user-defined-output"), _("use user defined commands in given file"), wxCMD_LINE_VAL_STRING);
         parser.AddSwitch(wxT("d"), wxT("dry-run"), _("only print commands"));
         parser.AddParam(wxT("input.pto"), wxCMD_LINE_VAL_STRING, wxCMD_LINE_OPTION_MANDATORY);
         m_runAssistant = false;
@@ -220,6 +228,15 @@ class HuginExecutor : public APP
             m_threads = threads;
         };
         parser.Found(wxT("p"), &m_prefix);
+        parser.Found(wxT("u"), &m_userOutput);
+        if (!m_userOutput.IsEmpty())
+        {
+            if (!wxFileName::FileExists(m_userOutput))
+            {
+                std::cerr << "ERROR: File \"" << m_userOutput.mb_str(wxConvLocal) << "\" does not exists." << std::endl;
+                return false;
+            }
+        }
         m_input = parser.GetParam();
         if (!m_runAssistant && !m_runStitching)
         {
@@ -239,6 +256,8 @@ private:
     bool m_runAssistant;
     /** flag, if stitching should started */
     bool m_runStitching;
+    /** input file for userdefined output */
+    wxString m_userOutput;
     /** flag, if commands should only be printed */
     bool m_dryRun;
     /** input project file */

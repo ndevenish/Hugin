@@ -1,0 +1,140 @@
+# File format for configure output of hugin_executor
+# extension: .executor
+# Format: basically an ini file format
+#         each line is an own entry
+#         in form key=value
+#         no multi-line entries allowed
+#         comments start with # or ;
+#         grouped into several sections
+
+# General section
+[General]
+# short description, displayed in GUI
+Description=Short description
+# number of steps to follow
+StepCount=2
+# format of intermediate images: normally TIF or EXR
+# if missing TIF is assumed
+IntermediateImageType=TIF
+# sets to 0 if one tool in the queue does not work with cropped tiff output
+# this setting is only used when running from Hugin or hugin_stitch_project
+SupportsCroppedTIFF=1
+
+# for each step an own step section has to follow
+[Step0]
+# optional description
+# is shown in progress window when running this step
+Description=Remapping images
+
+# type of command (required)
+# specify which files are processed, only one per section
+# valid values are remap|merge|stack|layer|modify|exiftool
+
+
+Type=remap
+
+# for "Type=remap" the following keys are supported
+# arguments for running nona (required)
+# "-o prefix project.pto" will be automatically appended
+Arguments=-r ldr -m TIFF_m
+
+# should exposure layers be saved? 0 - no (default), 1 - yes
+# this automatically adds the switch "--create-exposure-layers"
+OutputExposureLayers=0|1
+
+# should the intermediate images be kept? 0 - no (default), 1 - yes
+Keep=0
+
+[Step1]
+Description=Fusing all stacks
+
+Type=stack
+
+# for "Type=stack" and "Type=layer" the following keys are supported
+
+# program to be run, can be with full path, it will be run for each
+# stack or exposure layer (required)
+# on Windows: use / or double backslash \\ as path separator
+Program=enfuse
+
+# argument for running merger (required)
+# the following placeholders will be replaced:
+# %output% - output filename (required)
+# %input% - all input images (required)
+# %size% - widthxheight+left+top
+Arguments=--output=%result% %input%
+
+# additional argument which is added for 360 deg output
+WrapArgument=-w
+
+# should the intermediate images be kept? 0 - no (default), 1 - yes
+Keep=1
+
+[Step2]
+Description=Blending with enblend
+
+Type=merge
+
+# for "Type=merge" the following keys are supported
+# which images are used as input: all|stacks|layers
+Input=all|stacks|layers
+
+# program to be run, can be with full path (required)
+# on Windows: use / or double backslash \\ as path separator
+Program=enblend
+
+# specify which file will be created (required)
+# keep in mind, that you have the specifiy the extension of the final image
+# the placeholder %prefix% will be replace with the actual prefix
+Result=%prefix%.tif
+
+# argument for running merger (required)
+# the following placeholders will be replaced:
+# %result% - output filename (required)
+# %input% - all remapped images (required)
+# %size% - widthxheight+left+top
+Arguments=--output=%result% %input%
+
+# additional argument which is added for 360 deg output
+WrapArgument=-w
+
+# should the intermediate images be kept? 0 - no, 1 - yes (default)
+Keep=1
+
+[Step3]
+Description=Modifying files
+
+Type=modify
+
+# for "Type=modify" the following keys are supported
+# which images are used as input: all|stacks|layers|...
+#     all     all remapped images will be modified (one after one)
+#     stacks  all stack images will be modified
+#     layers  all exposure layers images will be modfied
+# or specify a image file created in previous step, e.g.
+File=%prefix%.tif
+
+# program to be run, can be with full path (required)
+# on Windows: use / or double backslash \\ as path separator
+Program=mogrify
+
+# argument for running modifier (required)
+# the following placeholders will be replaced:
+# %file% - filename (required)
+# %project% - project filename (optional)
+Arguments=-posterize 8 %file%
+
+[Step4]
+Description=Updating metadata
+
+Type=exiftool
+
+# for "Type=exiftool" the following keys are supported
+# specify which file will be modified by the exiftool command (required)
+Result=%prefix%.tif
+
+# argument for exiftool (required)
+# the following placeholders will be replaced:
+# %result% - filename (required)
+# %image0% - filename of first image (optional)
+Arguments=-overwrite_original_in_place -TagsFromFile %image0% -ImageDescription -Make -Model -Artist -WhitePoint -Copyright -GPS:all -DateTimeOriginal -CreateDate -UserComment -ColorSpace -OwnerName -SerialNumber %result%

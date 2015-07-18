@@ -60,7 +60,7 @@ class RunStitchFrame: public wxFrame
 public:
     RunStitchFrame(wxWindow * parent, const wxString& title, const wxPoint& pos, const wxSize& size);
 
-    bool StitchProject(wxString scriptFile, wxString outname, bool doDeleteOnExit);
+    bool StitchProject(const wxString& scriptFile, const wxString& outname, const wxString& userDefinedOutput, bool doDeleteOnExit);
 
     void OnQuit(wxCommandEvent& event);
     void OnAbout(wxCommandEvent& event);
@@ -198,9 +198,9 @@ void RunStitchFrame::OnProgress(wxCommandEvent& event)
     };
 };
 
-bool RunStitchFrame::StitchProject(wxString scriptFile, wxString outname, bool doDeleteOnExit)
+bool RunStitchFrame::StitchProject(const wxString& scriptFile, const wxString& outname, const wxString& userDefinedOutput, bool doDeleteOnExit)
 {
-    if (! m_stitchPanel->StitchProject(scriptFile, outname)) {
+    if (! m_stitchPanel->StitchProject(scriptFile, outname, userDefinedOutput)) {
         return false;
     }
     m_isStitching = true;
@@ -316,6 +316,7 @@ bool stitchApp::OnInit()
       { wxCMD_LINE_OPTION, "o", "output",  "output prefix" },
       { wxCMD_LINE_SWITCH, "d", "delete",  "delete pto file after stitching" },
       { wxCMD_LINE_SWITCH, "w", "overwrite", "overwrite existing files" },
+      { wxCMD_LINE_OPTION, "u", "user-defined-output", "use user defined output" },
       { wxCMD_LINE_PARAM,  NULL, NULL, "<project>",
         wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL },
       { wxCMD_LINE_NONE }
@@ -325,6 +326,7 @@ bool stitchApp::OnInit()
       { wxCMD_LINE_OPTION, wxT("o"), wxT("output"),  wxT("output prefix") },
       { wxCMD_LINE_SWITCH, wxT("d"), wxT("delete"),  wxT("delete pto file after stitching") },
       { wxCMD_LINE_SWITCH, wxT("w"), wxT("overwrite"), wxT("overwrite existing files") },
+      { wxCMD_LINE_OPTION, wxT("u"), wxT("user-defined-output"), wxT("use user defined output") },
       { wxCMD_LINE_PARAM,  NULL, NULL, wxT("<project>"),
         wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL },
       { wxCMD_LINE_NONE }
@@ -362,6 +364,17 @@ bool stitchApp::OnInit()
     }
 #endif
     
+    wxString userDefinedOutput;
+    parser.Found(wxT("u"), &userDefinedOutput);
+    if (!userDefinedOutput.IsEmpty())
+    {
+        if (!wxFileName::FileExists(userDefinedOutput))
+        {
+            wxMessageBox(wxString::Format(_("Could not find the specified user output file \"%s\"."), userDefinedOutput.c_str()),
+                _("Error"), wxOK | wxICON_EXCLAMATION);
+            return false;
+        };
+    };
     if( parser.GetParamCount() == 0 && wxIsEmpty(scriptFile)) 
     {
         wxString defaultdir = wxConfigBase::Get()->Read(wxT("/actualPath"),wxT(""));
@@ -450,7 +463,7 @@ bool stitchApp::OnInit()
     wxFileName basename(scriptFile);
     frame->SetTitle(wxString::Format(_("%s - Stitching"), basename.GetName().c_str()));
     frame->SetOverwrite(parser.Found(wxT("w")));
-    bool n = frame->StitchProject(scriptFile, outname, parser.Found(wxT("d")));
+    bool n = frame->StitchProject(scriptFile, outname, userDefinedOutput, parser.Found(wxT("d")));
     return n;
 }
 

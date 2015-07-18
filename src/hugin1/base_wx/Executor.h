@@ -62,6 +62,8 @@ namespace HuginQueue
     /** execute the given, set environment variable OMP_NUM_THREADS to threads (ignored for 0) 
         after running the function the queue is cleared */
     WXIMPEX bool RunCommandsQueue(CommandQueue* queue, size_t threads, bool dryRun);
+    /** clean the queue, delete all entries, but not the queue itself */
+    WXIMPEX void CleanQueue(CommandQueue* queue);
 
     /** return path and name of external program, which comes bundled with Hugin */
     WXIMPEX wxString GetInternalProgram(const wxString& bindir, const wxString& name);

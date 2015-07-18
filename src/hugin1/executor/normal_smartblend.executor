@@ -1,0 +1,19 @@
+[General]
+Description=Normal panorama with smartblend
+StepCount=2
+IntermediateImageType=TIF
+SupportsCroppedTIFF=0
+
+[Step0]
+Description=Remapping images
+Type=remap
+Arguments=-r ldr -m TIFF_m
+
+[Step1]
+Description=Blending with smartblend
+Type=merge
+Input=all
+Program=C:/Prog/Hugin/blender/smartblend
+Result=%prefix%.tif
+Arguments=-o %result% %input%
+WrapArgument=

@@ -916,6 +916,481 @@ namespace HuginQueue
         return commands;
     };
 
+    // now the user defined stitching engine
+    // we read the settings from an ini file and construct our CommandQueue
+    namespace detail
+    {
+        // add program with argment to queue
+        // do some checks on the way
+        // if an error occurs or the input is not valid, the queue is cleared and the function returns false
+        bool AddBlenderCommand(CommandQueue* queue, const wxString& ExePath, const wxString& prog, 
+            const int& stepNr, const wxString& arguments, const wxString& description)
+        {
+            if (prog.IsEmpty())
+            {
+                std::cerr << "ERROR: Step " << stepNr << " has no program name specified." << std::endl;
+                CleanQueue(queue);
+                return false;
+            }
+            // check program name
+            // get full path for some internal commands
+            wxString program;
+            if (prog.CmpNoCase(wxT("verdandi")) == 0)
+            { 
+                program = GetInternalProgram(ExePath, wxT("verdandi"));
+            }
+            else
+            {
+                if (prog.CmpNoCase(wxT("hugin_hdrmerge")) == 0)
+                {
+                    program = GetInternalProgram(ExePath, wxT("hugin_hdrmerge"));
+                }
+                else
+                {
+                    program = prog;
+                }
+            };
+            // now add to queue
+            queue->push_back(new NormalCommand(program, arguments, description));
+            return true;
+        };
+
+        // read a string from setting and remove all whitespaces
+        const wxString GetSettingString(const wxFileConfig& setting, const wxString& name, const wxString defaultValue = wxEmptyString)
+        {
+            wxString s = setting.Read(name, defaultValue);
+            s = s.Trim(true).Trim(false);
+            return s;
+        };
+    }
+
+    CommandQueue* GetStitchingCommandQueueUserOutput(const HuginBase::Panorama & pano, const wxString& ExePath, const wxString& project, const wxString& prefix, const wxString& outputSettings, wxString& statusText, wxArrayString& outputFiles, wxArrayString& tempFilesDelete)
+    {
+        CommandQueue* commands = new CommandQueue;
+        const HuginBase::UIntSet allActiveImages = getImagesinROI(pano, pano.getActiveImages());
+        if (allActiveImages.empty())
+        {
+            std::cerr << "ERROR: No active images in ROI. Nothing to do." << std::endl;
+            return commands;
+        }
+        wxFileInputStream input(outputSettings);
+        if (!input.IsOk())
+        {
+            std::cerr << "ERROR: Can not open file \"" << outputSettings.mb_str(wxConvLocal) << "\"." << std::endl;
+            return commands;
+        }
+        wxFileConfig settings(input);
+        long stepCount;
+        settings.Read(wxT("/General/StepCount"), &stepCount, 0);
+        if (stepCount == 0)
+        {
+            std::cerr << "ERROR: User-setting does not define any output steps." << std::endl;
+            return commands;
+        }
+        const wxString desc = detail::GetSettingString(settings, wxT("/General/Description"), wxEmptyString);
+        if (desc.IsEmpty())
+        {
+            statusText = wxString::Format(_("Stitching using \"%s\""), outputSettings.c_str());
+        }
+        else
+        {
+            statusText = wxString::Format(_("Stitching using \"%s\""), desc.c_str());
+        };
+        wxString intermediateImageType = detail::GetSettingString(settings, wxT("/General/IntermediateImageType"), wxT(".tif"));
+        // add point if missing
+        if (intermediateImageType.Left(1).Cmp(wxT("."))!=0)
+        {
+            intermediateImageType.Prepend(wxT("."));
+        }
+        // prepare some often needed variables/strings
+        const HuginBase::PanoramaOptions opts = pano.getOptions();
+        const bool needsWrapSwitch = (opts.getHFOV() == 360.0) && (opts.getWidth() == opts.getROI().width());
+        const vigra::Rect2D roi(opts.getROI());
+        wxString sizeString;
+        if (roi.top() != 0 || roi.left() != 0)
+        {
+            sizeString << roi.width() << wxT("x") << roi.height() << wxT("+") << roi.left() << wxT("+") << roi.top();
+        }
+        else
+        {
+            sizeString << roi.width() << wxT("x") << roi.height();
+        };
+        const wxArrayString remappedImages(detail::GetNumberedFilename(prefix, intermediateImageType, allActiveImages));
+
+        std::vector<HuginBase::UIntSet> exposureLayers;
+        wxArrayString exposureLayersFiles;
+
+        std::vector<HuginBase::UIntSet> stacks;
+        wxArrayString stacksFiles;
+
+        // now iterate all steps
+        for (size_t i = 0; i < stepCount; ++i)
+        {
+            wxString stepString(wxT("/Step"));
+            stepString << i;
+            if (!settings.HasGroup(stepString))
+            {
+                std::cerr << "ERROR: Output specifies " << stepCount << " steps, but step " << i << " is missing in configuration." << std::endl;
+                CleanQueue(commands);
+                return commands;
+            }
+            settings.SetPath(stepString);
+            const wxString stepType=detail::GetSettingString(settings, wxT("Type"));
+            if (stepType.IsEmpty())
+            {
+                std::cerr << "ERROR: \"" << stepString.mb_str(wxConvLocal) << "\" has no type defined." << std::endl;
+                CleanQueue(commands);
+                return commands;
+            };
+            wxString args = detail::GetSettingString(settings, wxT("Arguments"));
+            if (args.IsEmpty())
+            {
+                std::cerr << "ERROR: Step " << i << " has no arguments given." << std::endl;
+                CleanQueue(commands);
+                return commands;
+            }
+            const wxString description = detail::GetSettingString(settings, wxT("Description"));
+            if (stepType.CmpNoCase(wxT("remap")) == 0)
+            {
+                // build nona command
+                const bool outputLayers = (settings.Read(wxT("OutputExposureLayers"), 0l) == 1l);
+                if (outputLayers)
+                {
+                    args.Append(wxT(" --create-exposure-layers -o ") + wxEscapeFilename(prefix + wxT("_layer")));
+                }
+                else
+                {
+                    args.Append(wxT(" -o ") + wxEscapeFilename(prefix));
+                };
+                args.Append(wxT(" ") + wxEscapeFilename(project));
+                commands->push_back(new NormalCommand(GetInternalProgram(ExePath, wxT("nona")),
+                    args, description));
+                if (outputLayers)
+                {
+                    if (exposureLayers.empty())
+                    {
+                        exposureLayers = getExposureLayers(pano, allActiveImages, opts);
+                        HuginBase::UIntSet exposureLayersNumber;
+                        fill_set(exposureLayersNumber, 0, exposureLayers.size() - 1);
+                        exposureLayersFiles = detail::GetNumberedFilename(prefix + wxT("_layer"), intermediateImageType, exposureLayersNumber);
+                    };
+                    detail::AddToArray(exposureLayersFiles, outputFiles);
+                    if (settings.Read(wxT("Keep"), 0l) == 0l)
+                    {
+                        detail::AddToArray(exposureLayersFiles, tempFilesDelete);
+                    };
+                }
+                else
+                {
+                    const wxArrayString remappedHDRComp = detail::GetNumberedFilename(prefix, wxT("_gray.pgm"), allActiveImages);
+                    const bool hdrOutput = args.MakeLower().Find(wxT("-r hdr")) != wxNOT_FOUND;
+                    detail::AddToArray(remappedImages, outputFiles);
+                    if (hdrOutput)
+                    {
+                        detail::AddToArray(remappedHDRComp, outputFiles);
+                    };
+                    if (settings.Read(wxT("Keep"), 0l) == 0l)
+                    {
+                        detail::AddToArray(remappedImages, tempFilesDelete);
+                        if (hdrOutput)
+                        {
+                            detail::AddToArray(remappedHDRComp, tempFilesDelete);
+                        };
+                    };
+                };
+            }
+            else
+            {
+                if (stepType.CmpNoCase(wxT("merge")) == 0)
+                {
+                    // build a merge command
+                    wxString resultFile = detail::GetSettingString(settings, wxT("Result"));
+                    if (resultFile.IsEmpty())
+                    {
+                        std::cerr << "ERROR: Step " << i << " has no result file specified." << std::endl;
+                        CleanQueue(commands);
+                        return commands;
+                    };
+                    resultFile.Replace(wxT("%prefix%"), prefix, true);
+                    if (args.Replace(wxT("%result%"), wxEscapeFilename(resultFile), true) == 0)
+                    {
+                        std::cerr << "ERROR: Step " << i << " has missing %result% placeholder in arguments." << std::endl;
+                        CleanQueue(commands);
+                        return commands;
+                    };
+                    const wxString BlenderInput = detail::GetSettingString(settings, wxT("Input"), wxT("all"));
+                    // set the input images depending on the input
+                    if (BlenderInput.CmpNoCase(wxT("all")) == 0)
+                    {
+                        if (args.Replace(wxT("%input%"), GetQuotedFilenamesString(remappedImages), true) == 0)
+                        {
+                            std::cerr << "ERROR: Step " << i << " has missing %input% placeholder in arguments." << std::endl;
+                            CleanQueue(commands);
+                            return commands;
+                        };
+                    }
+                    else
+                    {
+                        if (BlenderInput.CmpNoCase(wxT("stacks")) == 0)
+                        {
+                            if (stacks.empty())
+                            {
+                                stacks= HuginBase::getHDRStacks(pano, allActiveImages, opts);
+                                HuginBase::UIntSet stackNumbers;
+                                fill_set(stackNumbers, 0, stacks.size() - 1);
+                                stacksFiles = detail::GetNumberedFilename(prefix + wxT("_stack"), intermediateImageType, stackNumbers);
+                            };
+                            if (args.Replace(wxT("%input%"), GetQuotedFilenamesString(stacksFiles), true) == 0)
+                            {
+                                std::cerr << "ERROR: Step " << i << " has missing %input% placeholder in arguments." << std::endl;
+                                CleanQueue(commands);
+                                return commands;
+                            };
+                        }
+                        else
+                        {
+                            if (BlenderInput.CmpNoCase(wxT("layers")) == 0)
+                            {
+                                if (exposureLayers.empty())
+                                { 
+                                    exposureLayers = getExposureLayers(pano, allActiveImages, opts);
+                                    HuginBase::UIntSet exposureLayersNumber;
+                                    fill_set(exposureLayersNumber, 0, exposureLayers.size() - 1);
+                                    exposureLayersFiles = detail::GetNumberedFilename(prefix + wxT("_layer"), intermediateImageType, exposureLayersNumber);
+                                };
+                                if (args.Replace(wxT("%input%"), GetQuotedFilenamesString(exposureLayersFiles), true) == 0)
+                                {
+                                    std::cerr << "ERROR: Step " << i << " has missing %input% placeholder in arguments." << std::endl;
+                                    CleanQueue(commands);
+                                    return commands;
+                                };
+                            }
+                            else
+                            {
+                                std::cerr << "ERROR: Step " << i << " has invalid input type: \"" << BlenderInput.mb_str(wxConvLocal) << "\"." << std::endl;
+                                CleanQueue(commands);
+                                return commands;
+                            };
+                        };
+                    };
+                    args.Replace(wxT("%size%"), sizeString, true);
+                    wxString wrapSwitch = detail::GetSettingString(settings, wxT("WrapArgument"));
+                    if (needsWrapSwitch && !wrapSwitch.IsEmpty())
+                    {
+                        args.Prepend(wrapSwitch + wxT(" "));
+                    }
+                    if (!detail::AddBlenderCommand(commands, ExePath, detail::GetSettingString(settings, wxT("Program")), i,
+                        args, description))
+                    {
+                        return commands;
+                    };
+                    outputFiles.Add(resultFile);
+                    if (settings.Read(wxT("Keep"), 1l) == 0l)
+                    {
+                        tempFilesDelete.Add(resultFile);
+                    };
+                }
+                else
+                {
+                    if (stepType.CmpNoCase(wxT("stack")) == 0)
+                    {
+                        // build command for each stack
+                        if (stacks.empty())
+                        {
+                            stacks = HuginBase::getHDRStacks(pano, allActiveImages, opts);
+                            HuginBase::UIntSet stackNumbers;
+                            fill_set(stackNumbers, 0, stacks.size() - 1);
+                            stacksFiles = detail::GetNumberedFilename(prefix + wxT("_stack"), intermediateImageType, stackNumbers);
+                        };
+                        const bool clean = (settings.Read(wxT("Keep"), 0l) == 0l);
+                        args.Replace(wxT("%size%"), sizeString, true);
+                        // now iterate each stack
+                        for (size_t stackNr = 0; stackNr < stacks.size(); ++stackNr)
+                        {
+                            wxString finalArgs(args);
+                            wxArrayString remappedStackImages = detail::GetNumberedFilename(prefix, intermediateImageType, stacks[stackNr]);
+                            if (finalArgs.Replace(wxT("%input%"), GetQuotedFilenamesString(remappedStackImages), true) == 0)
+                            {
+                                std::cerr << "ERROR: Step " << i << " has missing %input% placeholder in arguments." << std::endl;
+                                CleanQueue(commands);
+                                return commands;
+                            };
+                            if (finalArgs.Replace(wxT("%output%"), wxEscapeFilename(stacksFiles[stackNr]), true) == 0)
+                            {
+                                std::cerr << "ERROR: Step " << i << " has missing %output% placeholder in arguments." << std::endl;
+                                CleanQueue(commands);
+                                return commands;
+                            };
+                            if (!detail::AddBlenderCommand(commands, ExePath, detail::GetSettingString(settings, wxT("Program")), i,
+                                finalArgs, description))
+                            {
+                                return commands;
+                            };
+                            outputFiles.Add(stacksFiles[stackNr]);
+                            if (clean)
+                            {
+                                tempFilesDelete.Add(stacksFiles[stackNr]);
+                            };
+                        }
+                    }
+                    else
+                    {
+                        if (stepType.CmpNoCase(wxT("layer")) == 0)
+                        {
+                            // build command for each exposure layer
+                            if (exposureLayers.empty())
+                            {
+                                exposureLayers = HuginBase::getExposureLayers(pano, allActiveImages, opts);
+                                HuginBase::UIntSet exposureLayersNumber;
+                                fill_set(exposureLayersNumber, 0, exposureLayers.size() - 1);
+                                exposureLayersFiles = detail::GetNumberedFilename(prefix + wxT("_layer"), intermediateImageType, exposureLayersNumber);
+                            };
+                            const bool clean = (settings.Read(wxT("Keep"), 0l) == 0l);
+                            args.Replace(wxT("%size%"), sizeString, true);
+                            // iterate all exposure layers
+                            for (size_t exposureLayerNr = 0; exposureLayerNr < exposureLayers.size(); ++exposureLayerNr)
+                            {
+                                wxString finalArgs(args);
+                                wxArrayString remappedLayerImages = detail::GetNumberedFilename(prefix, intermediateImageType, exposureLayers[exposureLayerNr]);
+                                if (finalArgs.Replace(wxT("%input%"), GetQuotedFilenamesString(remappedLayerImages), true) == 0)
+                                {
+                                    std::cerr << "ERROR: Step " << i << " has missing %input% placeholder in arguments." << std::endl;
+                                    CleanQueue(commands);
+                                    return commands;
+                                };
+                                if (finalArgs.Replace(wxT("%output%"), wxEscapeFilename(exposureLayersFiles[exposureLayerNr]), true) == 0)
+                                {
+                                    std::cerr << "ERROR: Step " << i << " has missing %output% placeholder in arguments." << std::endl;
+                                    CleanQueue(commands);
+                                    return commands;
+                                };
+                                if (!detail::AddBlenderCommand(commands, ExePath, detail::GetSettingString(settings, wxT("Program")), i,
+                                    finalArgs, description))
+                                {
+                                    return commands;
+                                };
+                                outputFiles.Add(exposureLayersFiles[exposureLayerNr]);
+                                if (clean)
+                                {
+                                    tempFilesDelete.Add(exposureLayersFiles[exposureLayerNr]);
+                                };
+                            }
+                        }
+                        else
+                        {
+                            if (stepType.CmpNoCase(wxT("modify")) == 0)
+                            {
+                                // build a modify command
+                                wxString inputFiles = detail::GetSettingString(settings, wxT("File"));
+                                if (inputFiles.IsEmpty())
+                                {
+                                    std::cerr << "ERROR: Step " << i << " has no input/output file specified." << std::endl;
+                                    CleanQueue(commands);
+                                    return commands;
+                                };
+                                if (args.Find(wxT("%file%")) == wxNOT_FOUND)
+                                {
+                                    std::cerr << "ERROR: Step " << i << " has missing %file% placeholder in arguments." << std::endl;
+                                    CleanQueue(commands);
+                                    return commands;
+                                };
+                                args.Replace(wxT("%project%"), wxEscapeFilename(project), true);
+                                const wxString prog = detail::GetSettingString(settings, wxT("Program"));
+                                if (prog.IsEmpty())
+                                {
+                                    std::cerr << "ERROR: Step " << i << " has no program name specified." << std::endl;
+                                    CleanQueue(commands);
+                                    return commands;
+                                };
+                                if (inputFiles.CmpNoCase(wxT("all")) == 0)
+                                {
+                                    for (size_t imgNr = 0; imgNr < remappedImages.size(); ++imgNr)
+                                    {
+                                        wxString finalArgs(args);
+                                        finalArgs.Replace(wxT("%file%"), wxEscapeFilename(remappedImages[imgNr]), true);
+                                        commands->push_back(new NormalCommand(prog, finalArgs, description));
+                                    };
+                                }
+                                else
+                                {
+                                    if (inputFiles.CmpNoCase(wxT("stacks")) == 0)
+                                    {
+                                        if (stacks.empty())
+                                        {
+                                            std::cerr << "ERROR: Step " << i << " requests to modify stacks, but no stack was created before." << std::endl;
+                                            CleanQueue(commands);
+                                            return commands;
+                                        };
+                                        for (size_t stackNr = 0; stackNr < stacksFiles.size(); ++stackNr)
+                                        {
+                                            wxString finalArgs(args);
+                                            finalArgs.Replace(wxT("%file%"), wxEscapeFilename(stacksFiles[stackNr]), true);
+                                            commands->push_back(new NormalCommand(prog, finalArgs, description));
+                                        };
+                                    }
+                                    else
+                                    {
+                                        if (inputFiles.CmpNoCase(wxT("layers")) == 0)
+                                        {
+                                            if (exposureLayers.empty())
+                                            {
+                                                std::cerr << "ERROR: Step " << i << " requests to modify exposure layers, but no exposure layer was created before." << std::endl;
+                                                CleanQueue(commands);
+                                                return commands;
+                                            };
+                                            for (size_t layerNr = 0; layerNr < exposureLayersFiles.size(); ++layerNr)
+                                            {
+                                                wxString finalArgs(args);
+                                                finalArgs.Replace(wxT("%file%"), wxEscapeFilename(exposureLayersFiles[layerNr]), true);
+                                                commands->push_back(new NormalCommand(prog, finalArgs, description));
+                                            };
+                                        }
+                                        else
+                                        {
+                                            inputFiles.Replace(wxT("%prefix%"), prefix, true);
+                                            args.Replace(wxT("%file%"), wxEscapeFilename(inputFiles), true);
+                                            commands->push_back(new NormalCommand(prog , args, description));
+                                        };
+                                    };
+                                };
+                            }
+                            else
+                            {
+                                if (stepType.CmpNoCase(wxT("exiftool")) == 0)
+                                {
+                                    wxString resultFile = detail::GetSettingString(settings, wxT("Result"));
+                                    if (resultFile.IsEmpty())
+                                    {
+                                        std::cerr << "ERROR: Step " << i << " has no result file specified." << std::endl;
+                                        CleanQueue(commands);
+                                        return commands;
+                                    };
+                                    resultFile.Replace(wxT("%prefix%"), prefix, true);
+                                    if (args.Replace(wxT("%result%"), wxEscapeFilename(resultFile), true) == 0)
+                                    {
+                                        std::cerr << "ERROR: Step " << i << " has missing %result% placeholder in arguments." << std::endl;
+                                        CleanQueue(commands);
+                                        return commands;
+                                    };
+                                    args.Replace(wxT("%image0%"), wxEscapeFilename(wxString(pano.getImage(0).getFilename().c_str(), HUGIN_CONV_FILENAME)), true);
+                                    commands->push_back(new OptionalCommand(GetExternalProgram(wxConfigBase::Get(), ExePath, wxT("exiftool")),
+                                        args, description));
+                                }
+                                else
+                                {
+                                    std::cerr << "ERROR: Step " << i << " has unknown Type \"" << stepType.mb_str(wxConvLocal) << "\"." << std::endl;
+                                    CleanQueue(commands);
+                                    return commands;
+                                };
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        return commands;
+    }
+
     /** return a wxString with all files in files quoted */
     wxString GetQuotedFilenamesString(const wxArrayString& files)
     {

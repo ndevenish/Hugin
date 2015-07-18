@@ -1,0 +1,25 @@
+[General]
+Description=Fused layers
+StepCount=3
+IntermediateImageType=TIF
+
+[Step0]
+Description=Remapping images
+Type=remap
+Arguments=-r ldr -m TIFF_m --ignore-exposure
+
+[Step1]
+Description=Blending all exposure layers
+Type=layer
+Program=enblend
+Arguments=-f%size% --output=%output% %input%
+WrapArgument=-w
+
+[Step2]
+Description=Fusing all exposure layers
+Type=merge
+Input=layers
+Program=enfuse
+Result=%prefix%_blended_fused.tif
+Arguments=-f%size% --output=%result% %input%
+WrapArgument=-w

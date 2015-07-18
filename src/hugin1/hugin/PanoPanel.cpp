@@ -1235,6 +1235,150 @@ void PanoPanel::DoSendToBatch()
     }
 };
 
+void PanoPanel::DoUserDefinedStitch()
+{
+    if (pano->getNrOfImages() == 0)
+    {
+        return;
+    }
+
+    if (!CheckGoodSize())
+    {
+        // oversized pano and the user no longer wants to stitch.
+        return;
+    }
+    if (!CheckHasImages())
+    {
+        // output ROI contains no images
+        return;
+    };
+    // create a copy, if we need to update the crop setting
+    wxConfigBase* config = wxConfigBase::Get();
+    wxString path = config->Read(wxT("/userDefinedOutputPath"), MainFrame::Get()->GetDataPath());
+    wxFileDialog userOutputDlg(this, _("Select user defined output"),
+        path, wxT(""), _("User defined output|*.executor"),
+        wxFD_OPEN | wxFD_MULTIPLE | wxFD_FILE_MUST_EXIST, wxDefaultPosition);
+    if (userOutputDlg.ShowModal() != wxID_OK)
+    {
+        return;
+    };
+    // remember path for later
+    config->Write(wxT("/userDefinedOutputPath"), userOutputDlg.GetDirectory());
+
+    // save project
+    // copy pto file to temporary file
+    wxString tempDir = wxConfigBase::Get()->Read(wxT("tempDir"), wxT(""));
+    if (!tempDir.IsEmpty())
+    {
+        if (tempDir.Last() != wxFileName::GetPathSeparator())
+        {
+            tempDir.Append(wxFileName::GetPathSeparator());
+        }
+    };
+    wxString currentPTOfn = wxFileName::CreateTempFileName(tempDir + wxT("huginpto_"));
+    if (currentPTOfn.size() == 0)
+    {
+        wxMessageBox(_("Could not create temporary project file"), _("Error"),
+            wxCANCEL | wxICON_ERROR, this);
+        return;
+    }
+    DEBUG_DEBUG("tmp PTO file: " << (const char *)currentPTOfn.mb_str(wxConvLocal));
+    // copy is not enough, need to adjust image path names...
+    ofstream script(currentPTOfn.mb_str(HUGIN_CONV_FILENAME));
+    HuginBase::UIntSet all;
+    fill_set(all, 0, pano->getNrOfImages() - 1);
+    pano->printPanoramaScript(script, pano->getOptimizeVector(), pano->getOptions(), all, false, "");
+    script.close();
+
+    //    wxCommandEvent dummy;
+    //    MainFrame::Get()->OnSaveProject(dummy);
+
+#if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
+    // HuginStitchProject inside main bundle
+    wxString hugin_stitch_project = MacGetPathToBundledAppMainExecutableFile(CFSTR("HuginStitchProject.app"));
+    if (hugin_stitch_project == wxT(""))
+    {
+        DEBUG_ERROR("hugin_stitch_project could not be found in the bundle.");
+        return;
+    }
+    hugin_stitch_project = wxQuoteFilename(hugin_stitch_project);
+#elif defined __WXMAC__
+    // HuginStitchProject installed in INSTALL_OSX_BUNDLE_DIR
+    wxFileName hugin_stitch_project_app(wxT(INSTALL_OSX_BUNDLE_DIR), wxEmptyString);
+    hugin_stitch_project_app.AppendDir(wxT("HuginStitchProject.app"));
+    CFStringRef stitchProjectAppPath = MacCreateCFStringWithWxString(hugin_stitch_project_app.GetFullPath());
+    wxString hugin_stitch_project = MacGetPathToMainExecutableFileOfBundle(stitchProjectAppPath);
+    CFRelease(stitchProjectAppPath);
+#else
+    wxString hugin_stitch_project = wxT("hugin_stitch_project");
+#endif
+
+    // Derive a default output prefix from the project filename if set, otherwise default project filename
+    wxFileName outputPrefix(getDefaultOutputName(MainFrame::Get()->getProjectName(), *pano));
+    outputPrefix.Normalize();
+
+    // Show a file save dialog so user can confirm/change the prefix.
+    // (We don't have to worry about overwriting existing files, since hugin_switch_project checks this.)
+    // TODO: The following code is similar to stitchApp::OnInit in hugin_switch_project.cpp. Should be refactored.
+    // TODO: We should save the output prefix somewhere, so we can recall it as the default if the user stitches this project again.
+    wxFileDialog dlg(this, _("Specify output prefix"),
+        outputPrefix.GetPath(), outputPrefix.GetName(), wxT(""),
+        wxFD_SAVE, wxDefaultPosition);
+    if (dlg.ShowModal() != wxID_OK)
+    {
+        return;
+    };
+    while (containsInvalidCharacters(dlg.GetPath()))
+    {
+        wxArrayString list;
+        list.Add(dlg.GetPath());
+        ShowFilenameWarning(this, list);
+        if (dlg.ShowModal() != wxID_OK)
+            return;
+    };
+    wxFileName prefix(dlg.GetPath());
+    while (!prefix.IsDirWritable())
+    {
+        wxMessageBox(wxString::Format(_("You have no permissions to write in folder \"%s\".\nPlease select another folder for the final output."), prefix.GetPath().c_str()),
+#ifdef __WXMSW__
+            wxT("Hugin"),
+#else
+            wxT(""),
+#endif
+            wxOK | wxICON_INFORMATION);
+        if (dlg.ShowModal() != wxID_OK)
+        {
+            return;
+        };
+        prefix = dlg.GetPath();
+    };
+    // check free space
+    if (!CheckFreeSpace(prefix.GetPath()))
+    {
+        return;
+    };
+
+    wxString switches(wxT(" --user-defined-output=") + wxQuoteFilename(userOutputDlg.GetPath()) + wxT(" --delete -o "));
+    if (wxConfigBase::Get()->Read(wxT("/Processor/overwrite"), HUGIN_PROCESSOR_OVERWRITE) == 1)
+        switches = wxT(" --overwrite") + switches;
+    wxString command = hugin_stitch_project + switches + wxQuoteFilename(dlg.GetPath()) + wxT(" ") + wxQuoteFilename(currentPTOfn);
+
+    wxConfigBase::Get()->Flush();
+#ifdef __WXGTK__
+    // work around a wxExecute bug/problem
+    // (endless polling of fd 0 and 1 in hugin_stitch_project)
+    wxProcess *my_process = new wxProcess(this);
+    my_process->Redirect();
+
+    // Delete itself once processes terminated.
+    my_process->Detach();
+    wxExecute(command, wxEXEC_ASYNC, my_process);
+#else
+    wxExecute(command);
+#endif
+}
+
+
 void PanoPanel::OnDoStitch ( wxCommandEvent & e )
 {
     long t;

@@ -43,6 +43,18 @@ namespace HuginQueue
         @return pointer to CommandQueue
         */
     WXIMPEX CommandQueue* GetStitchingCommandQueue(const HuginBase::Panorama & pano, const wxString& ExePath, const wxString& project, const wxString& prefix, wxString& statusText, wxArrayString& outputFiles, wxArrayString& tempFilesDelete);
+    /** generates the command queue for stitching a pano, the commands are parsed from the given executor output file
+    @param[in] pano panorama structure containing the input project
+    @param[in] ExePath ExePath base path to all used utilities
+    @param[in] project name of the project file, which contains the pano data (should by in sync with pano, to prevent double loading of the data)
+    @param[in] prefix prefix of the output, should only contain the filename part
+    @param[in] outputSettings read the output sequence from this file
+    @param[out] statusText contains a short status text, can be printed before the queue is actually executed, useful for bug reports
+    @param[out] outputFiles array of all output files, contains also the temporary files created during stitching (used for detecting of overwritting files)
+    @param[out] tempFilesDelete array with all temporary files which should be deleted at the end
+    @return pointer to CommandQueue
+    */
+    WXIMPEX CommandQueue* GetStitchingCommandQueueUserOutput(const HuginBase::Panorama & pano, const wxString& ExePath, const wxString& project, const wxString& prefix, const wxString& outputSettings, wxString& statusText, wxArrayString& outputFiles, wxArrayString& tempFilesDelete);
     /** return a single string of all given files quoted */
     WXIMPEX wxString GetQuotedFilenamesString(const wxArrayString& files);
 

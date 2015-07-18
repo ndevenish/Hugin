@@ -81,6 +81,8 @@ public:
     void DoStitch();
     /** stitching with PTBatcherGUI */
     void DoSendToBatch();
+    /** stitching with user defined file */
+    void DoUserDefinedStitch();
 
     void SetGuiLevel(GuiLevel newGuiLevel);
 

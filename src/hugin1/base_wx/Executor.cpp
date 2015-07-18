@@ -110,14 +110,20 @@ namespace HuginQueue
             ++i;
         };
         // clean up queue
+        CleanQueue(queue);
+        delete queue;
+        return isSuccessful;
+    };
+
+    void CleanQueue(CommandQueue* queue)
+    {
         while (!queue->empty())
         {
             delete queue->back();
             queue->pop_back();
         };
-        delete queue;
-        return isSuccessful;
     };
+
 
     // return path in internal program (program that is shipped with Hugin)
     wxString GetInternalProgram(const wxString& bindir, const wxString& name)

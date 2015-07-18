@@ -1,0 +1,24 @@
+[General]
+Description=Normal panorama with enblend
+StepCount=3
+IntermediateImageType=TIF
+
+[Step0]
+Description=Remapping images
+Type=remap
+Arguments=-r ldr -m TIFF_m
+
+[Step1]
+Description=Blending with enblend
+Type=merge
+Input=all
+Program=enblend
+Result=%prefix%.tif
+Arguments=-f%size% --output=%result% %input%
+WrapArgument=-w
+
+[Step2]
+Description=Updating metadata
+Type=exiftool
+Result=%prefix%.tif
+Arguments=-overwrite_original_in_place -TagsFromFile %image0% -ImageDescription -Make -Model -Artist -WhitePoint -Copyright -GPS:all -DateTimeOriginal -CreateDate -UserComment -ColorSpace -OwnerName -SerialNumber %result%

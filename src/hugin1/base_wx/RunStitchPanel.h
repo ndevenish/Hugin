@@ -43,8 +43,8 @@ class WXIMPEX RunStitchPanel: public wxPanel
 public:
     explicit RunStitchPanel(wxWindow * parent);
 
-    bool StitchProject(wxString scriptFile, wxString outname);
-    bool DetectProject(wxString scriptFile);
+    bool StitchProject(const wxString& scriptFile, const wxString& outname, const wxString& userDefinedOutput = wxEmptyString);
+    bool DetectProject(const wxString& scriptFile);
     void CancelStitch();
 	bool IsPaused();
 	void SetOverwrite(bool over = true);

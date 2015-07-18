@@ -1,4 +1,8 @@
 Hugin 2015.2
+* Added user defined output. The user can define own output sequences to implement
+  new use cases, e.g. zero noise output.
+* Added --clip-exposure switch to nona to automatically mask over and under exposed
+  areas in input images.
 * Color management in GUI tools: take ICC profiles in files and monitor color profile 
   into account
 * Some buttons got a context menu for easier access to some function

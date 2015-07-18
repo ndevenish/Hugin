@@ -1,0 +1,24 @@
+[General]
+Description=HDR panorama
+StepCount=3
+IntermediateImageType=EXR
+
+[Step0]
+Description=Remapping images
+Type=remap
+Arguments=-r hdr -m EXR_m 
+
+[Step1]
+Description=Merging hdr stacks
+Type=stack
+Program=hugin_hdrmerge
+Arguments=-o %output% %input%
+
+[Step2]
+Description=Blending all hdr stacks
+Type=merge
+Input=stacks
+Program=enblend
+Result=%prefix%.exr
+Arguments=-f%size% --output=%result% %input%
+WrapArgument=-w
