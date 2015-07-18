@@ -73,6 +73,8 @@ static void usage(const char* name)
          << "                                left,right,top,bottom: to given size" << endl
          << "    --output-exposure=AUTO|num  Sets the output exposure value to mean" << endl
          << "                                exposure (AUTO) or to given value" << endl
+         << "    --output-cropped-tiff    Output cropped tiffs as intermediate images" << endl
+         << "    --output-uncropped-tiff  Output uncropped tiffs as intermediate images" << endl
          << "    --output-type=str       Sets the type of output" << endl
          << "                              Valid items are" << endl
          << "                                NORMAL|N: normal panorama" << endl
@@ -122,7 +124,9 @@ int main(int argc, char* argv[])
         SWITCH_LDRFILETYPE,
         SWITCH_LDRCOMPRESSION,
         SWITCH_HDRFILETYPE,
-        SWITCH_HDRCOMPRESSION
+        SWITCH_HDRCOMPRESSION,
+        SWITCH_CROPPED_TIFF,
+        SWITCH_UNCROPPED_TIFF
     };
     static struct option longOptions[] =
     {
@@ -133,6 +137,8 @@ int main(int argc, char* argv[])
         {"center", no_argument, NULL, 'c' },
         {"canvas", required_argument, NULL, SWITCH_CANVAS },
         {"crop", required_argument, NULL, SWITCH_CROP },
+        {"output-cropped-tiff", no_argument, NULL, SWITCH_CROPPED_TIFF },
+        {"output-uncropped-tiff", no_argument, NULL, SWITCH_UNCROPPED_TIFF },
         {"output-exposure", required_argument, NULL, SWITCH_EXPOSURE },
         {"output-type", required_argument, NULL, SWITCH_OUTPUT_TYPE },
         {"blender", required_argument, NULL, SWITCH_BLENDER },
@@ -152,6 +158,7 @@ int main(int argc, char* argv[])
     int scale=100;
     int newWidth=-1;
     int newHeight=-1;
+    int outputCroppedTiff=-1;
     vigra::Rect2D newROI(0,0,0,0);
     bool doFit=false;
     bool doStraighten=false;
@@ -336,6 +343,12 @@ int main(int argc, char* argv[])
                         return 1;
                     };
                 };
+                break;
+            case SWITCH_CROPPED_TIFF:
+                outputCroppedTiff = 1;
+                break;
+            case SWITCH_UNCROPPED_TIFF:
+                outputCroppedTiff = 0;
                 break;
             case SWITCH_EXPOSURE:
                 param = optarg;
@@ -580,6 +593,14 @@ int main(int argc, char* argv[])
             std::cout << "No matching output type given. The whole output-type is ignored." << std::endl;
         };
     };
+    // cropped or uncropped tiff output
+    if (outputCroppedTiff != -1)
+    {
+        HuginBase::PanoramaOptions opts = pano.getOptions();
+        opts.tiff_saveROI = (outputCroppedTiff == 1);
+        std::cout << "Setting support for cropped images: " << ((outputCroppedTiff == 1) ? "yes" : "no") << std::endl;
+        pano.setOptions(opts);
+    }
     // blender type
     if (!blender.empty())
     {
