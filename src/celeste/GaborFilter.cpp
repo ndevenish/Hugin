@@ -40,6 +40,7 @@ namespace celeste
 GaborFilter::GaborFilter()
 {
 	mRadius = 16;
+	mXYO = 8;
 	mSigma = (float)(M_PI);
 	mAngle = 0;
 	mPhase = 0;

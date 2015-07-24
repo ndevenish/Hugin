@@ -38,7 +38,7 @@ class PGMImage : public ImageFile
 public:
 
 	PGMImage(){};
-	PGMImage( char* file ) { Read( file ); }
+	explicit PGMImage( char* file ) { Read( file ); }
 	virtual ~PGMImage(){};
 
 	// Read a PGM image from a file

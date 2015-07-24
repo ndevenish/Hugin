@@ -187,12 +187,12 @@ void ContrastFilter::ApplyFilter( float** img, int height, int width )
 
 
 // write out contrast data to pgm file
-void ContrastFilter::Save( void )
+void ContrastFilter::Save( char* file )
 {
     PGMImage	pgmI;
 	char		tmpName[256];
 	
-	strcpy( tmpName, mFile );
+	strcpy( tmpName, file );
 	strcat( tmpName, "-contrast.pgm" );
 	pgmI.WriteScaled( tmpName, mContrast, mHeight, mWidth );
 }

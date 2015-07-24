@@ -171,7 +171,15 @@ vector<double> classifySVM(struct svm_model* model, int gNumLocs,int**& gLocatio
             if(j >= max_nr_attr - 1)
             {
                 max_nr_attr *= 2;
-                gabor_responses = (struct svm_node *) realloc(gabor_responses,max_nr_attr*sizeof(struct svm_node));
+                struct svm_node* newPointer = (struct svm_node *) realloc(gabor_responses,max_nr_attr*sizeof(struct svm_node));
+                if(newPointer == NULL)
+                {
+                    svm_response.clear();
+                    free(gabor_responses);
+                    free(prob_estimates);
+                    return svm_response;
+                }
+                gabor_responses=newPointer;
             }
         };
 

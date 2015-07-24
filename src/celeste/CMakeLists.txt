@@ -38,8 +38,6 @@ GaborJet.cpp
 GaborJet.h
 ImageFile.cpp
 ImageFile.h
-LogPolar.cpp
-LogPolar.h
 PGMImage.cpp
 PGMImage.h
 svm.cpp

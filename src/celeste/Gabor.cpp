@@ -41,7 +41,6 @@ float* ProcessChannel( float** image, int w, int h, int gNumLocs, int**& gLocati
 	float** pixels;
 	int gflen, dummy;
 	int i, j, offset = 0;
-	char filename[256], suffix[5];
 
 	// copy pointer
 	pixels = image;
@@ -53,8 +52,7 @@ float* ProcessChannel( float** image, int w, int h, int gNumLocs, int**& gLocati
     char file[] = "gabor_filters/celeste"; 
 	// set filename if intermediate files should be saved
 	if ( kSaveFilter == 1 )	{
-		contrastFilter->SetFileName( file );	
-		contrastFilter->Save();			// save contrast image
+		contrastFilter->Save( file );			// save contrast image
 	}
 	pixels = contrastFilter->GetContrast();		// get contrast map
 	width = contrastFilter->GetWidth();		// obtain contrast dimensions
@@ -65,13 +63,18 @@ float* ProcessChannel( float** image, int w, int h, int gNumLocs, int**& gLocati
 	gaborJet = new GaborJet;
 	if ( kSaveFilter == 1 )
 	{
-		strcpy( filename, file );
+        char filename[256], suffix[5];
+        strcpy(filename, file);
 		sprintf( suffix, "%d-", 0 );
 		strcat( filename, suffix );
-		gaborJet->SetFileName( filename );
+        gaborJet->Initialize(height, width, gLocations[0][0], gLocations[0][1],
+            gRadius, gS, gF, gU, gL, gA, filename);
 	}
-	gaborJet->Initialize( height, width, gLocations[0][0], gLocations[0][1],
-						  gRadius, gS, gF, gU, gL, gA, kSaveFilter );
+    else
+    {
+        gaborJet->Initialize(height, width, gLocations[0][0], gLocations[0][1],
+            gRadius, gS, gF, gU, gL, gA);
+    };
 
 // filter image
 	// response vector is initialized here, but needs to be disposed by user
@@ -106,13 +109,6 @@ float* ProcessChannel( float** image, int w, int h, int gNumLocs, int**& gLocati
 		offset = offset + gflen;
 
 		gaborJet = new GaborJet;
-		if ( kSaveFilter == 1 )
-		{
-			strcpy( filename, file );
-			sprintf( suffix, "%d-", i );
-			strcat( filename, suffix );
-			gaborJet->SetFileName( filename );
-		}
 		gaborJet->Initialize( height, width, gLocations[i][0], gLocations[i][1], 
 							  gRadius, gS, gF, gU, gL, gA );
 		

@@ -175,7 +175,7 @@ int main(int argc, char* argv[])
             usage();
     }
 
-    unsigned int i = 1, mask = 0;
+    int mask = 0;
     double threshold = 0.5;
     vector<string> images_to_mask;
     string pto_file = (""),output_pto = ("");
@@ -327,10 +327,6 @@ int main(int argc, char* argv[])
 	
 	// Convert mask format to lower case
     mask_format=hugin_utils::tolower(mask_format);
-
-	// Vectors to store SVM responses and PTO file info etc
-	vector<string> images,pto_file_top,pto_file_cps,pto_file_end;
-	vector<double> svm_responses;
 
     struct celeste::svm_model* model;
     if(!celeste::loadSVMmodel(model,model_file))

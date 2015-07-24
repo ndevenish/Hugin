@@ -38,22 +38,25 @@ class ContrastFilter
 {
 public:
 
-    ContrastFilter(){ mContrast = NULL; }
+    ContrastFilter() : mContrast(NULL), mHeight(0), mWidth(0) { };
     ContrastFilter( float**, int, int );
     ~ContrastFilter();
 
 	void 		ApplyFilter( float** img, int height, int width );
-	void 		Save( void );
+	void 		Save( char* file );
 
-	inline void		SetFileName( char* file ) { strcpy( mFile, file ); }
 	inline float**	GetContrast( void ) { return mContrast; }
 	inline int		GetWidth() { return mWidth; }
 	inline int		GetHeight(){ return mHeight; }
 
+private:
+	// prevent copying of class
+	ContrastFilter(const ContrastFilter&);
+	ContrastFilter& operator=(const ContrastFilter&);
+
 protected:
 
     float	**mContrast;	// applied contrast
-    char	mFile[256];		// file name
     int		mHeight;		// height of filter
     int		mWidth;			// width of filter
 };

@@ -43,9 +43,11 @@ GaborJet::GaborJet()
 	mWidth 		= 512;
 	mX			= 128;
 	mY			= 128;
-	mShowFilter = false;
 	mFilters 	= NULL;
 	mFiducials	= NULL;
+    mAngles = 0;
+    mFreqs = 0;
+    mRadius = 0;
 }
 
 // destructor: free up memory
@@ -62,23 +64,20 @@ GaborJet::~GaborJet()
 
 // set up the filter
 void GaborJet::Initialize( int y, int x, int x0, int y0, int r, 
-						   float s, int f, float maxF, float minF, int a, bool save )
+    float s, int f, float maxF, float minF, int a, char* file)
 {
 	int		i, j;
-	float	angle, freq;
+	float	freq;
 	
 // set internal variables
 	mHeight 	= y;
 	mWidth 		= x;
 	mX			= x0;
 	mY			= y0;
-	mSigma		= (float)(s * M_PI * M_PI);
+	float sigma	= (float)(s * M_PI * M_PI);
 	mAngles 	= a;
 	mFreqs 		= f;
 	mRadius		= r;
-	mMinFreq 	= minF;
-	mMaxFreq 	= maxF;
-	mShowFilter = save;
 	mFiducials = new float[mAngles * mFreqs];
 	
 // allocate memory for filters (angles * freqs = total filters)
@@ -86,7 +85,7 @@ void GaborJet::Initialize( int y, int x, int x0, int y0, int r,
 	for ( i = 0; i < mAngles; i++ )
 	{
 	// calculate angle
-		angle = (float)((float)i * M_PI / (float)mAngles);
+		float angle = (float)((float)i * M_PI / (float)mAngles);
 		
 	// allocate filters for this angle
 		mFilters[i] = new GaborFilter[mFreqs];	
@@ -98,8 +97,11 @@ void GaborJet::Initialize( int y, int x, int x0, int y0, int r,
 			freq = minF + ( j * ( maxF - minF ) ) / (float)mFreqs;
 			
 		// initialize filter
-			mFilters[i][j].Initialize( mRadius, angle, freq, mSigma );
-			if ( mShowFilter ) mFilters[i][j].Save( mFile, i, j );
+			mFilters[i][j].Initialize( mRadius, angle, freq, sigma );
+            if (file!=NULL && strlen(file)>0)
+            {
+                mFilters[i][j].Save(file, i, j);
+            };
 		}
 	}	
 }

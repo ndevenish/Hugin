@@ -102,7 +102,6 @@ int PGMImage::Read( char* file )
 	}
 	else if ( mMagicNumber[1] == '6' || mMagicNumber[1] == '3' ) // RGB
 	{
-		unsigned char rgb[3];
 	// allocate rgb pixel storage
 		Allocate( kRGB );
 		
@@ -112,6 +111,7 @@ int PGMImage::Read( char* file )
 			for ( i = 0; i < mHeight; i++ )
 				for ( j = 0; j < mWidth; j++ )
 				{
+					unsigned char rgb[3];
 					imgFile.read( (char *)rgb,3 );
 					mRGB[0][i][j] = (int)rgb[0];
 					mRGB[1][i][j] = (int)rgb[1];
