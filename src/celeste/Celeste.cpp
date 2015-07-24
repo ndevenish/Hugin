@@ -62,7 +62,7 @@ bool loadSVMmodel(struct svm_model*& model, string& model_file)
 // destroy SVM model
 void destroySVMmodel(struct svm_model*& model)
 {
-    svm_destroy_model(model);
+    svm_free_and_destroy_model(&model);
 };
 
 // prepare image for use with celeste (downscale, converting in Luv)
