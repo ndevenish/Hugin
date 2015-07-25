@@ -147,6 +147,10 @@ Suffix for intermediate images
 
 Create all exposure layers (this will always use TIFF)
 
+=item B<--clip-exposure>
+
+Mask automatically all dark and bright pixels
+
 =back
 
 

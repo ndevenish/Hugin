@@ -36,6 +36,10 @@ Number of used threads
 
 Prefix used for stitching. When no prefix is specified it will use the output prefix found in the Hugin Preferences dialog. The default value for the output prefix is the filename (inclusive path) of the project file.
 
+=item B<-u, --user-defined-output=str>
+
+Use user defined commands in given file
+
 =item B<-d, --dry-run>
 
 Only print commands
