@@ -1,7 +1,7 @@
 [General]
 Description=Fused layers
 StepCount=3
-IntermediateImageType=TIF
+IntermediateImageType=tif
 
 [Step0]
 Description=Remapping images

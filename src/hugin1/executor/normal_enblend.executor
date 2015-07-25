@@ -1,7 +1,7 @@
 [General]
 Description=Normal panorama with enblend
 StepCount=3
-IntermediateImageType=TIF
+IntermediateImageType=tif
 
 [Step0]
 Description=Remapping images

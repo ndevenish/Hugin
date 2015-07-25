@@ -1,7 +1,7 @@
 [General]
 Description=Zero-noise output
 StepCount=2
-IntermediateImageType=TIF
+IntermediateImageType=tif
 
 [Step0]
 Description=Remapping images
