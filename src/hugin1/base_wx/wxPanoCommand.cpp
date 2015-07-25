@@ -333,6 +333,10 @@ bool wxAddImagesCmd::processPanorama(HuginBase::Panorama& pano)
                 if (!info.getICCProfile().empty())
                 {
                     pano.setICCProfileDesc(hugin_utils::GetICCDesc(info.getICCProfile()));
+                }
+                else
+                {
+                    pano.setICCProfileDesc("");
                 };
             }
         }
