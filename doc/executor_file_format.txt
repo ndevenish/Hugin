@@ -13,9 +13,9 @@
 Description=Short description
 # number of steps to follow
 StepCount=2
-# format of intermediate images: normally TIF or EXR
-# if missing TIF is assumed
-IntermediateImageType=TIF
+# format of intermediate images: normally tif or exr
+# if missing tif is assumed
+IntermediateImageType=tif
 # sets to 0 if one tool in the queue does not work with cropped tiff output
 # this setting is only used when running from Hugin or hugin_stitch_project
 SupportsCroppedTIFF=1

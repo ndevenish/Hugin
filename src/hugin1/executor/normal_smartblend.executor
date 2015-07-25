@@ -1,7 +1,7 @@
 [General]
 Description=Normal panorama with smartblend
 StepCount=2
-IntermediateImageType=TIF
+IntermediateImageType=tif
 SupportsCroppedTIFF=0
 
 [Step0]

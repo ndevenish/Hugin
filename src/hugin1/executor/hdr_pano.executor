@@ -1,7 +1,7 @@
 [General]
 Description=HDR panorama
 StepCount=3
-IntermediateImageType=EXR
+IntermediateImageType=exr
 
 [Step0]
 Description=Remapping images
