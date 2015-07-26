@@ -2043,7 +2043,7 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
         };
 
         progress.updateDisplayValue();
-        wxMessageBox(wxString::Format(_("Removed %d control points"), cloudCP.size()), _("Celeste result"),wxOK|wxICON_INFORMATION,this);
+        wxMessageBox(wxString::Format(_("Removed %lu control points"), static_cast<unsigned long int>(cloudCP.size())), _("Celeste result"), wxOK | wxICON_INFORMATION, this);
         DEBUG_TRACE("Finished running Celeste");
     }
 }
