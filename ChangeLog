@@ -1,4 +1,34 @@
-2015-07-05 13:38 +0200  tmodes  (99e9ae9523f2)  tip
+2015-07-16 18:17 +0200  tmodes  (50c9308f5311)  
+
+	Workaround for wxWidgets 2.8 issue [1474580]
+
+	wxExecute in wxWidgets 2.8 supports only 127 arguments. So using
+	response file in this case for enblend/enfuse/exiftool (grafted from
+	977d439e6f3e66d73fc7de6093d2979a83dff2dc)
+
+	> src/hugin1/base_wx/StitchingExecutor.cpp
+
+2015-07-15 17:40 +0200  tmodes  (cb73bcb5c9e6)  
+
+	Updated Catalan and Valencia Catalan translations (Carles Ferrando
+	Garcia) [1474422,1474424]
+
+	> src/translations/ca_ES.po
+	> src/translations/ca_ES@valencia.po
+
+2015-07-05 13:45 +0200  tmodes  (470d925a83c7)  
+
+	Added tag 2015.0rc2 for changeset a517a57cd61c
+
+	> .hgtags
+
+2015-07-05 13:41 +0200  tmodes  (a517a57cd61c)  2015.0rc2
+
+	Updated Changelog for 2015.0 RC2
+
+	> ChangeLog
+
+2015-07-05 13:38 +0200  tmodes  (99e9ae9523f2)  
 
 	Correctly scale alpha mask during loading (grafted from
 	12aef38bf0837125903d6686556db08a109615d1)
