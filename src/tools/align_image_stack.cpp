@@ -617,6 +617,8 @@ int main2(std::vector<std::string> files, Parameters param)
         opts.tiff_saveROI = false;
         // m estimator, to be more robust against points on moving objects
         opts.huberSigma = 2;
+        // save also exposure value of first image
+        opts.outputExposureValue = srcImg.getExposureValue();
         pano.setOptions(opts);
 
         // variables that should be optimized
@@ -892,19 +894,12 @@ int main2(std::vector<std::string> files, Parameters param)
         {
             // disable all exposure compensation stuff.
             HuginBase::PanoramaOptions opts = pano.getOptions();
-            opts.outputExposureValue = 0;
             opts.outputMode = HuginBase::PanoramaOptions::OUTPUT_LDR;
             opts.outputFormat = HuginBase::PanoramaOptions::TIFF_m;
             opts.outputPixelType = "";
             opts.outfile = param.alignedPrefix;
             opts.remapUsingGPU = param.gpu;
             pano.setOptions(opts);
-            for (unsigned i=0; i < pano.getNrOfImages(); i++)
-            {
-                HuginBase::SrcPanoImage img = pano.getSrcImage(i);
-                img.setExposureValue(0);
-                pano.setSrcImage(i, img);
-            }
             // remap all images
             AppBase::ProgressDisplay* progress;
             if(g_verbose > 0)
@@ -915,8 +910,11 @@ int main2(std::vector<std::string> files, Parameters param)
             {
                 progress = new AppBase::DummyProgressDisplay();
             };
+            // pass option to ignore exposure to stitcher
+            HuginBase::Nona::AdvancedOptions advOpts;
+            HuginBase::Nona::SetAdvancedOption(advOpts, "ignoreExposure", true);
             HuginBase::Nona::stitchPanorama(pano, pano.getOptions(),
-                           progress, opts.outfile, imgs);
+                           progress, opts.outfile, imgs, advOpts);
             delete progress;
             std::cout << "Written aligned images to files with prefix \"" << opts.outfile << "\"" << std::endl;
         }
