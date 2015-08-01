@@ -76,7 +76,7 @@
                                       <object class="sizeritem">
                                         <object class="wxTextCtrl" name="prefs_cpdetector_program"/>
                                         <option>1</option>
-                                        <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                                        <flag>wxALL|wxEXPAND</flag>
                                         <border>5</border>
                                       </object>
                                       <object class="sizeritem">
@@ -135,7 +135,7 @@
                                       <object class="sizeritem">
                                         <object class="wxTextCtrl" name="prefs_cpdetector_program_descriptor"/>
                                         <option>1</option>
-                                        <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                                        <flag>wxALL|wxEXPAND</flag>
                                         <border>5</border>
                                       </object>
                                       <object class="sizeritem">
@@ -174,7 +174,7 @@
                                       <object class="sizeritem">
                                         <object class="wxTextCtrl" name="prefs_cpdetector_program_matcher"/>
                                         <option>1</option>
-                                        <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                                        <flag>wxALL|wxEXPAND</flag>
                                         <border>5</border>
                                       </object>
                                       <object class="sizeritem">
@@ -235,7 +235,7 @@
                                 <object class="sizeritem">
                                   <object class="wxTextCtrl" name="prefs_cpdetector_program_stack"/>
                                   <option>1</option>
-                                  <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                                  <flag>wxALL|wxEXPAND</flag>
                                   <border>5</border>
                                 </object>
                                 <object class="sizeritem">

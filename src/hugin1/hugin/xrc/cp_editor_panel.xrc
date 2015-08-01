@@ -124,7 +124,7 @@
                             <style>wxTE_PROCESS_ENTER</style>
                           </object>
                           <option>1</option>
-                          <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                          <flag>wxALL|wxEXPAND</flag>
                           <border>3</border>
                         </object>
                         <object class="sizeritem">
@@ -139,7 +139,7 @@
                             <style>wxTE_PROCESS_ENTER</style>
                           </object>
                           <option>1</option>
-                          <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                          <flag>wxALL|wxEXPAND</flag>
                           <border>3</border>
                         </object>
                         <object class="sizeritem">
@@ -154,7 +154,7 @@
                             <style>wxTE_PROCESS_ENTER</style>
                           </object>
                           <option>1</option>
-                          <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                          <flag>wxALL|wxEXPAND</flag>
                           <border>3</border>
                         </object>
                         <object class="sizeritem">
@@ -169,7 +169,7 @@
                             <style>wxTE_PROCESS_ENTER</style>
                           </object>
                           <option>1</option>
-                          <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                          <flag>wxALL|wxEXPAND</flag>
                           <border>3</border>
                         </object>
                         <object class="sizeritem">

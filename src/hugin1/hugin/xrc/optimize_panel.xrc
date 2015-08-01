@@ -139,7 +139,7 @@
               <label>edit script before optimizing</label>
               <tooltip>for advanced users</tooltip>
             </object>
-            <flag>wxTOP|wxALIGN_CENTRE_VERTICAL|wxALIGN_RIGHT</flag>
+            <flag>wxTOP|wxALIGN_RIGHT</flag>
             <border>6</border>
           </object>
         </object>

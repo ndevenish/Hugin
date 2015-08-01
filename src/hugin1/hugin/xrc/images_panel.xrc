@@ -22,7 +22,7 @@
                       <object class="wxStaticText" name="images_mode_text">
                         <style>wxALIGN_CENTRE</style>
                       </object>
-                      <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_HORIZONTAL</flag>
+                      <flag>wxALL|wxEXPAND</flag>
                       <border>3</border>
                     </object>
                     <object class="sizeritem">
@@ -105,7 +105,7 @@
                         <bitmap>data/hugin.png</bitmap>
                       </object>
                       <option>1</option>
-                      <flag>wxEXPAND|wxALIGN_CENTRE_HORIZONTAL|wxALIGN_CENTRE_VERTICAL|wxALL</flag>
+                      <flag>wxEXPAND|wxALL</flag>
                       <border>6</border>
                     </object>
                   </object>
@@ -444,7 +444,7 @@ e</label>
                   <label>Load lens data...</label>
                   <style/>
                 </object>
-                <flag>wxLEFT|wxALIGN_RIGHT</flag>
+                <flag>wxLEFT</flag>
                 <border>12</border>
               </object>
               <orient>wxHORIZONTAL</orient>

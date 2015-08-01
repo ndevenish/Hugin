@@ -9,7 +9,7 @@
             <object class="wxStaticText">
               <label>Interpolator (i):</label>
             </object>
-            <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+            <flag>wxALIGN_CENTRE_VERTICAL</flag>
           </object>
           <object class="sizeritem">
             <object class="wxChoice" name="nona_choice_interpolator">
@@ -38,7 +38,7 @@
           <label>Save cropped images</label>
           <tooltip>Save cropped tiff output. Useful for enblend 2.4 and higher</tooltip>
         </object>
-        <flag>wxBOTTOM|wxLEFT|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+        <flag>wxBOTTOM|wxLEFT|wxEXPAND</flag>
         <border>6</border>
       </object>
       <orient>wxVERTICAL</orient>
@@ -113,7 +113,7 @@
             <object class="wxStaticText">
               <label>Command line options</label>
             </object>
-            <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+            <flag>wxALIGN_CENTRE_VERTICAL</flag>
           </object>
           <object class="sizeritem">
             <object class="wxTextCtrl" name="enfuse_arguments_text"/>
@@ -435,7 +435,7 @@
                       <flag>wxEXPAND</flag>
                     </object>
                   </object>
-                  <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL|wxEXPAND</flag>
+                  <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
                   <cellpos>3,5</cellpos>
                   <cellspan>2,1</cellspan>
                 </object>
@@ -1047,7 +1047,7 @@
               <style>wxALIGN_LEFT</style>
             </object>
             <option>1</option>
-            <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+            <flag>wxEXPAND</flag>
           </object>
         </object>
         <option>1</option>

@@ -106,7 +106,7 @@
                     </object>
                     <object class="sizeritem">
                       <object class="wxChoice" name="choice_end"/>
-                      <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                      <flag>wxALIGN_CENTRE_VERTICAL</flag>
                     </object>
                     <orient>wxHORIZONTAL</orient>
                   </object>
@@ -215,7 +215,7 @@
                             <object class="wxButton" name="find_pano_start_stop">
                               <label>Start</label>
                             </object>
-                            <flag>wxALL|wxALIGN_CENTRE_VERTICAL|wxALIGN_CENTRE_HORIZONTAL</flag>
+                            <flag>wxALL|wxALIGN_CENTRE_HORIZONTAL</flag>
                             <border>6</border>
                           </object>
                           <orient>wxVERTICAL</orient>
@@ -436,7 +436,7 @@
                           <object class="wxButton" name="find_pano_add_queue">
                             <label>Send selected panoramas to queue</label>
                           </object>
-                          <flag>wxALL|wxEXPAND|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          <flag>wxALL|wxEXPAND</flag>
                           <border>3</border>
                         </object>
                       </object>
@@ -463,7 +463,7 @@
                   <object class="wxButton" name="find_pano_close">
                     <label>Close</label>
                   </object>
-                  <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <flag>wxALL|wxALIGN_RIGHT</flag>
                   <border>6</border>
                 </object>
               </object>

@@ -53,7 +53,7 @@
                           <object class="wxStaticText">
                             <label>Mask type:</label>
                           </object>
-                          <flag>wxALL|wxALIGN_CENTRE|wxALIGN_CENTRE_VERTICAL</flag>
+                          <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>3</border>
                         </object>
                         <object class="sizeritem">
@@ -68,7 +68,7 @@
                             <selection>0</selection>
                           </object>
                           <option>1</option>
-                          <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                          <flag>wxALL|wxEXPAND</flag>
                           <border>3</border>
                         </object>
                         <orient>wxHORIZONTAL</orient>
@@ -225,7 +225,7 @@
                               <object class="wxStaticText">
                                 <label>Top:</label>
                               </object>
-                              <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                              <flag>wxALIGN_CENTRE_VERTICAL</flag>
                               <cellpos>1,1</cellpos>
                             </object>
                             <object class="sizeritem">
@@ -248,7 +248,7 @@
                               <object class="wxStaticText" name="">
                                 <label>Left:</label>
                               </object>
-                              <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                              <flag>wxALIGN_CENTRE_VERTICAL</flag>
                             </object>
                             <object class="sizeritem">
                               <object class="wxTextCtrl" name="crop_left_text">
@@ -272,7 +272,7 @@
                               <object class="wxStaticText">
                                 <label>Right:</label>
                               </object>
-                              <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                              <flag>wxALIGN_CENTRE_VERTICAL</flag>
                             </object>
                             <object class="sizeritem">
                               <object class="wxTextCtrl" name="crop_right_text">
@@ -293,7 +293,7 @@
                               <object class="wxStaticText">
                                 <label>Bottom:</label>
                               </object>
-                              <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                              <flag>wxALIGN_CENTRE_VERTICAL</flag>
                             </object>
                             <object class="sizeritem">
                               <object class="wxTextCtrl" name="crop_bottom_text">
@@ -379,7 +379,7 @@
               </object>
               <orient>wxHORIZONTAL</orient>
             </object>
-            <flag>wxEXPAND|wxALIGN_RIGHT</flag>
+            <flag>wxALIGN_RIGHT</flag>
           </object>
         </object>
         <option>1</option>

@@ -38,7 +38,7 @@
                           <label>Only use images selected in preview.</label>
                           <tooltip>Only consider images selected in preview window. Useful to avoid errors due to badly fitting images, such as the nadir image in most fisheye panoramas</tooltip>
                         </object>
-                        <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                        <flag>wxALIGN_LEFT</flag>
                       </object>
                       <orient>wxVERTICAL</orient>
                     </object>

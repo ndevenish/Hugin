@@ -87,7 +87,7 @@
               <rows>2</rows>
               <growablecols>1</growablecols>
             </object>
-            <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+            <flag>wxEXPAND</flag>
           </object>
           
           <object class="sizeritem">

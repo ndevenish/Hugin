@@ -97,7 +97,7 @@
                           <object class="wxStaticText">
                             <label>May have unforeseen consequences. \n(EXPERIMENTAL)</label>
                           </object>
-                          <flag>wxLEFT|wxEXPAND|wxALIGN_RIGHT|wxALIGN_TOP</flag>
+                          <flag>wxLEFT|wxEXPAND</flag>
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
@@ -161,13 +161,13 @@
                           <object class="wxStaticText">
                             <label>Temporary dir:</label>
                           </object>
-                          <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxTextCtrl" name="prefs_misc_tempdir"/>
                           <option>1</option>
-                          <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                          <flag>wxALL|wxEXPAND</flag>
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
@@ -824,7 +824,7 @@ per overlap</label>
                         </object>
                         <orient>wxHORIZONTAL</orient>
                       </object>
-                      <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                      <flag>wxALL</flag>
                     </object>
                   </object>
                   <flag>wxALL|wxEXPAND</flag>
@@ -934,7 +934,7 @@ per overlap</label>
                           <object class="wxStaticText" name="pref_exiftool_argfile_label">
                             <label>Intermediate ExifTool argfile:</label>
                           </object>
-                          <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          <flag>wxALIGN_CENTRE_VERTICAL</flag>
                         </object>
                         <object class="sizeritem">
                           <object class="wxTextCtrl" name="pref_exiftool_argfile">
@@ -993,7 +993,7 @@ per overlap</label>
                           <object class="wxStaticText" name="pref_exiftool_argfile2_label">
                             <label>Final ExifTool argfile:</label>
                           </object>
-                          <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          <flag>wxALIGN_CENTRE_VERTICAL</flag>
                         </object>
                         <object class="sizeritem">
                           <object class="wxTextCtrl" name="pref_exiftool_argfile2">
@@ -1133,7 +1133,7 @@ per overlap</label>
                             <object class="wxCheckBox" name="prefs_nona_createCroppedImages">
                               <label>Create cropped images by default</label>
                             </object>
-                            <flag>wxALL|wxSHAPED|wxALIGN_CENTRE_VERTICAL</flag>
+                            <flag>wxALL|wxSHAPED</flag>
                             <border>5</border>
                           </object>
                           <object class="sizeritem">
@@ -1141,7 +1141,7 @@ per overlap</label>
                               <label>Use GPU for remapping (EXPERIMENTAL)</label>
                               <tooltip>Use video card GPU to speed up remapping</tooltip>
                             </object>
-                            <flag>wxLEFT|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                            <flag>wxLEFT|wxEXPAND</flag>
                             <border>5</border>
                           </object>
                         </object>
@@ -1164,7 +1164,7 @@ per overlap</label>
                             <object class="wxCheckBox" name="prefs_enblend_Custom">
                               <label>Use alternative Enblend program</label>
                             </object>
-                            <flag>wxLEFT|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                            <flag>wxLEFT|wxEXPAND</flag>
                             <border>5</border>
                           </object>
                           <object class="sizeritem">
@@ -1183,7 +1183,7 @@ per overlap</label>
                                   <object class="sizeritem">
                                     <object class="wxTextCtrl" name="prefs_enblend_EnblendExe"/>
                                     <option>1</option>
-                                    <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                                    <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                                     <border>5</border>
                                   </object>
                                   <object class="sizeritem">
@@ -1220,7 +1220,7 @@ per overlap</label>
                               <label>These are the default arguments for new projects.\nThey can be changed for individual projects in the Stitcher tab.
 Do not set -w, -o and --compression arguments, they are set by hugin</label>
                             </object>
-                            <flag>wxBOTTOM|wxLEFT|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                            <flag>wxBOTTOM|wxLEFT|wxEXPAND</flag>
                             <border>10</border>
                           </object>
                         </object>
@@ -1243,7 +1243,7 @@ Do not set -w, -o and --compression arguments, they are set by hugin</label>
                             <object class="wxCheckBox" name="prefs_enblend_enfuseCustom">
                               <label>Use alternative Enfuse program</label>
                             </object>
-                            <flag>wxLEFT|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                            <flag>wxLEFT|wxEXPAND</flag>
                             <border>5</border>
                           </object>
                           <object class="sizeritem">
@@ -1262,7 +1262,7 @@ Do not set -w, -o and --compression arguments, they are set by hugin</label>
                                   <object class="sizeritem">
                                     <object class="wxTextCtrl" name="prefs_enblend_EnfuseExe"/>
                                     <option>1</option>
-                                    <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                                    <flag>wxALL|wxEXPAND</flag>
                                     <border>5</border>
                                   </object>
                                   <object class="sizeritem">
@@ -1299,7 +1299,7 @@ Do not set -w, -o and --compression arguments, they are set by hugin</label>
                               <label>These are the default arguments for new projects.\nThey can be changed for individual projects in the Stitcher tab.
 Do not set -w, -o and --compression arguments, they are set by hugin</label>
                             </object>
-                            <flag>wxBOTTOM|wxLEFT|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                            <flag>wxBOTTOM|wxLEFT</flag>
                             <border>10</border>
                           </object>
                         </object>
@@ -1452,7 +1452,7 @@ Do not set -w, -o and --compression arguments, they are set by hugin</label>
                           <item>Don't optimize panorama</item>
                         </content>
                       </object>
-                      <flag>wxALL|wxALIGN_CENTRE_HORIZONTAL</flag>
+                      <flag>wxALL</flag>
                       <border>5</border>
                     </object>
                     <label>Edit cp tool (on fast preview window)</label>
@@ -1478,7 +1478,7 @@ Do not set -w, -o and --compression arguments, they are set by hugin</label>
             <object class="wxButton" name="prefs_defaults">
               <label>Load Defaults</label>
             </object>
-            <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+            <flag>wxALL|wxEXPAND</flag>
             <border>5</border>
           </object>
           <object class="spacer">
