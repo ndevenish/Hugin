@@ -23,7 +23,7 @@ ENDIF(APPLE)
 # sources
 set(hugin_SOURCES
 huginApp.cpp ImagesList.cpp MainFrame.cpp CPImageCtrl.cpp CPImagesComboBox.cpp CPEditorPanel.cpp CPDetectorDialog.cpp  
-ImagesPanel.cpp PanoPanel.cpp NonaOptionsDialog.cpp HDRMergeOptionDialog.cpp
+ImagesPanel.cpp PanoPanel.cpp HDRMergeOptionDialog.cpp
 PreviewFrame.cpp PreviewPanel.cpp GLPreviewFrame.cpp GLViewer.cpp GLRenderer.cpp 
 OptimizePhotometricPanel.cpp OptimizePanel.cpp CPListFrame.cpp
 TextKillFocusHandler.cpp PreferencesDialog.cpp ResetDialog.cpp
@@ -39,7 +39,7 @@ GuiLevel.cpp ImageVariableDialog.cpp PreviewEditCPTool.cpp)
 
 set(hugin_HEADERS
 huginApp.h ImagesList.h MainFrame.h CPImageCtrl.h CPImagesComboBox.h CPEditorPanel.h CPDetectorDialog.h 
-ImagesPanel.h PanoPanel.h NonaOptionsDialog.h HDRMergeOptionDialog.h
+ImagesPanel.h PanoPanel.h HDRMergeOptionDialog.h
 PreviewFrame.h PreviewPanel.h GLPreviewFrame.h GLViewer.h GLRenderer.h 
 OptimizePhotometricPanel.h OptimizePanel.h CPListFrame.h
 TextKillFocusHandler.h PreferencesDialog.h ResetDialog.h
