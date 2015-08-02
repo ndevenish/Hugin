@@ -231,11 +231,26 @@ class HuginExecutor : public APP
         parser.Found(wxT("u"), &m_userOutput);
         if (!m_userOutput.IsEmpty())
         {
-            if (!wxFileName::FileExists(m_userOutput))
+            wxFileName userOutputFile(m_userOutput);
+            if (!userOutputFile.FileExists())
             {
-                std::cerr << "ERROR: File \"" << m_userOutput.mb_str(wxConvLocal) << "\" does not exists." << std::endl;
-                return false;
-            }
+                if (userOutputFile.GetDirCount() == 0)
+                {
+                    // file not found, search now in data dir
+                    userOutputFile.SetPath(wxString(hugin_utils::GetDataDir().c_str(), HUGIN_CONV_FILENAME));
+                    if (!userOutputFile.FileExists())
+                    {
+                        std::cerr << "ERROR: File \"" << userOutputFile.GetFullPath().mb_str(wxConvLocal) << "\" does not exists." << std::endl;
+                        return false;
+                    }
+                    m_userOutput = userOutputFile.GetFullPath();
+                }
+                else
+                {
+                    std::cerr << "ERROR: File \"" << m_userOutput.mb_str(wxConvLocal) << "\" does not exists." << std::endl;
+                    return false;
+                };
+            };
         }
         m_input = parser.GetParam();
         if (!m_runAssistant && !m_runStitching)
