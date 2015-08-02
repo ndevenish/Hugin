@@ -240,7 +240,8 @@ class HuginExecutor : public APP
                     userOutputFile.SetPath(wxString(hugin_utils::GetDataDir().c_str(), HUGIN_CONV_FILENAME));
                     if (!userOutputFile.FileExists())
                     {
-                        std::cerr << "ERROR: File \"" << userOutputFile.GetFullPath().mb_str(wxConvLocal) << "\" does not exists." << std::endl;
+                        std::cerr << "ERROR: File \"" << m_userOutput.mb_str(wxConvLocal) << "\" does not exists." << std::endl
+                            << "       Also tried file \"" << userOutputFile.GetFullPath().mb_str(wxConvLocal) << "\", which does also not exists." << std::endl;
                         return false;
                     }
                     m_userOutput = userOutputFile.GetFullPath();
