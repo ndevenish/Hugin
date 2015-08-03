@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2015-06-30 11:41+0200\n"
-"PO-Revision-Date: 2015-06-30 09:57+0000\n"
+"POT-Creation-Date: 2015-08-03 18:46+0200\n"
+"PO-Revision-Date: 2015-08-03 17:25+0000\n"
 "Last-Translator: Kornel Benko <kornel@lyx.org>\n"
 "Language-Team: Slovak <kornel@lyx.org>\n"
 "Language: sk\n"
@@ -326,6 +326,11 @@ msgstr "Projekt %s neobsahuje žiadne aktívne obrázky."
 msgid "error while parsing panotools script: %s"
 msgstr "chyba počas analýzy panotools skriptu: %s"
 
+#: hugin1/base_wx/RunStitchPanel.cpp:151
+#, c-format
+msgid "Can't open user defined output sequence \"%s\"."
+msgstr "Nemôžem otvoriť užívateľom definované východné poradie \"%s\"."
+
 #: hugin1/base_wx/RunStitchPanel.cpp:174
 msgid "Could not create temporary file"
 msgstr "Nemožno vytvoriť dočasný súbor"
@@ -609,6 +614,12 @@ msgstr "Miešanie hdr štósov..."
 #: hugin1/base_wx/StitchingExecutor.cpp:809
 msgid "Updating metadata..."
 msgstr "Aktualizovanie metadát..."
+
+#: hugin1/base_wx/StitchingExecutor.cpp:993
+#: hugin1/base_wx/StitchingExecutor.cpp:997
+#, c-format
+msgid "Stitching using \"%s\""
+msgstr "Lepím používaním \"%s\""
 
 #: hugin1/base_wx/huginConfig.cpp:37
 msgid "first image"
@@ -1093,6 +1104,10 @@ msgstr "Počet použitých vlákien"
 msgid "prefix used for stitching"
 msgstr "predpona použitá na zlepenie"
 
+#: hugin1/executor/hugin_executor.cpp:209
+msgid "use user defined commands in given file"
+msgstr "použite užívateľom definované príkazy v danom súbore"
+
 #: hugin1/executor/hugin_executor.cpp:202
 msgid "only print commands"
 msgstr "Len zobraziť príkazy"
@@ -1366,11 +1381,6 @@ msgstr "Spúšťam Celeste"
 #: hugin1/hugin/CPEditorPanel.cpp:1908 hugin1/hugin/PanoOperation.cpp:721
 msgid "Loading model file"
 msgstr "Nahrávam modelový súbor"
-
-#: hugin1/hugin/CPEditorPanel.cpp:1964
-#, c-format
-msgid "Removed %d control points"
-msgstr "Odstránených %d kontrolných bodov"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1964 hugin1/hugin/PanoOperation.cpp:795
 msgid "Celeste result"
@@ -2778,10 +2788,6 @@ msgstr "Nepodarilo sa analyzovať masku zo súboru %s."
 msgid "Please enter a valid number"
 msgstr "Prosím zadajte platné číslo"
 
-#: hugin1/hugin/NonaOptionsDialog.cpp:56
-msgid "Nona options"
-msgstr "Voľby pre Nona"
-
 #: hugin1/hugin/OptimizePanel.cpp:99
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:95
 msgid "Any variables below which are bold and underlined will be optimized."
@@ -3283,6 +3289,14 @@ msgid ""
 msgstr ""
 "Nemáte povolenie písať do adresára \"%s\".\n"
 "Vyberte prosím iný adresár na finálny výstup."
+
+#: hugin1/hugin/PanoPanel.cpp:1258
+msgid "Select user defined output"
+msgstr "Vyberte výstup definovaný užívateľom"
+
+#: hugin1/hugin/PanoPanel.cpp:1259
+msgid "User defined output|*.executor"
+msgstr "Užívateľom definovaný výstup|*.executor"
 
 #: hugin1/hugin/PanoPanel.cpp:1427
 #, c-format
@@ -4408,6 +4422,11 @@ msgstr "Špecifikujte súbor s logom"
 #: hugin1/stitch_project/hugin_stitch_project.cpp:174
 msgid "Log files (*.log)|*.log|All files (*)|*"
 msgstr "Súbory s logom (*.log)|Všetky súbory (*)|*"
+
+#: hugin1/stitch_project/hugin_stitch_project.cpp:373
+#, c-format
+msgid "Could not find the specified user output file \"%s\"."
+msgstr "Nepodarilo sa nájsť užívateľom definovaný výstupný súbor \"%s\"."
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:403
 #, c-format
@@ -5677,6 +5696,30 @@ msgstr "Pokročilé"
 #: translations/xrc.cpp:392 translations/xrc.cpp:1053
 msgid "Expert"
 msgstr "Expertné"
+
+#: hugin1/hugin/xrc/main_menu.xrc:115
+msgid "&Interface"
+msgstr "Rozhranie"
+
+#: hugin1/hugin/xrc/main_menu.xrc:119
+msgid "&Stitch"
+msgstr "Lepiť"
+
+#: hugin1/hugin/xrc/main_menu.xrc:121
+msgid "Stitch with the settings on the pano tabs"
+msgstr "Lepiť s nastaveniami v paneloch panorámy"
+
+#: hugin1/hugin/xrc/main_menu.xrc:124
+msgid "Stitch user defined output..."
+msgstr "Lepiť výstup definovaný užívateľom..."
+
+#: hugin1/hugin/xrc/main_menu.xrc:125
+msgid "Stitch with the settings from an user defined output sequence"
+msgstr "Lepiť s nastaveniami pre výstupné poradie definované užívateľom"
+
+#: hugin1/hugin/xrc/main_menu.xrc:127
+msgid "&Output"
+msgstr "Výstup"
 
 #: translations/xrc.cpp:393 translations/xrc.cpp:1054
 msgid "Interface"
@@ -7680,6 +7723,12 @@ msgstr ""
 "Optimalizácia všetkých parametrov skreslenia \"všetko\" má zmysel iba vtedy, "
 "ak sa obrázky veľmi prekrývajú a použili ste tiež mnoho dobre rozprestrených "
 "kontrolných bodov."
+
+#~ msgid "Removed %d control points"
+#~ msgstr "Odstránených %d kontrolných bodov"
+
+#~ msgid "Nona options"
+#~ msgstr "Voľby pre Nona"
 
 #~ msgid "Remapped Images :"
 #~ msgstr "Premapované obrázky :"
