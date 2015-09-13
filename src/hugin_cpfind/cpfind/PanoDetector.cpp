@@ -112,7 +112,7 @@ PanoDetector::PanoDetector() :
     _sieve2Width(5), _sieve2Height(5), _sieve2Size(1), _test(false), _cores(0), svmModel(NULL),
     _minimumMatches(6), _linearMatchLen(1), _downscale(true), _cache(false), _cleanup(false),
     _keypath(""), _outputFile("default.pto"), _outputGiven(false), _celeste(false), _celesteThreshold(0.5), _celesteRadius(20), 
-    _matchingStrategy(ALLPAIRS)
+    _matchingStrategy(ALLPAIRS), _ransacMode(RANSACOptimizer::AUTO)
 {
     _panoramaInfo = new Panorama();
 }
