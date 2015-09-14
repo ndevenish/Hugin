@@ -424,8 +424,6 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, HuginBase::Panorama &pano)
     toggle_panel->SetSizer(m_ToggleButtonSizer);
 
 	m_ButtonPanel = new wxScrolledWindow(toggle_panel, -1, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
-	// Set min height big enough to display scrollbars as well
-    m_ButtonPanel->SetSizeHints(20, 42);
 	//Horizontal scroll bars only
 	m_ButtonPanel->SetScrollRate(10, 0);
     m_ButtonSizer = new wxBoxSizer(wxHORIZONTAL);
@@ -1400,11 +1398,10 @@ void GLPreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &change
 #else
 		m_ButtonSizer->SetVirtualSizeHints(m_ButtonPanel);
 #endif
-		// Layout();
+		Layout();
 		DEBUG_INFO("New m_ButtonPanel width: " << (m_ButtonPanel->GetSize()).GetWidth());
 		DEBUG_INFO("New m_ButtonPanel Height: " << (m_ButtonPanel->GetSize()).GetHeight());
     }
-
     if(nrImages==0)
     {
         SetMode(mode_assistant);
@@ -2586,10 +2583,7 @@ void GLPreviewFrame::EnableGroupCheckboxes(bool isShown)
     {
         (*it)->Show(isShown);
     }
-#ifdef __WXMSW__
-    m_ButtonPanel->Layout();
-    m_ButtonPanel->Refresh();
-#endif
+    Layout();
 };
 
 /** call this method only with existing OpenGL context */
