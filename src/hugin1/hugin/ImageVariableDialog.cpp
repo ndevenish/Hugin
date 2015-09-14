@@ -510,7 +510,7 @@ void ImageVariableDialog::OnShowDistortionGraph(wxCommandEvent & e)
     transform.createTransform(srcImage, opts);
 
     const double minLength = std::min<double>(srcImage.getWidth(), srcImage.getHeight()) / 2.0;
-    const double maxR = sqrt(srcImage.getWidth()*srcImage.getWidth() + srcImage.getHeight()*srcImage.getHeight()) / (2.0*minLength);
+    const double maxR = std::sqrt(srcImage.getWidth()*srcImage.getWidth() + srcImage.getHeight()*srcImage.getHeight()) / (2.0*minLength);
     //draw graph
     delete m_popup;
     Graph graph(300, 200, wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOW));
