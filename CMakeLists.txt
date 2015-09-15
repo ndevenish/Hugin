@@ -123,14 +123,6 @@ check_function_exists(log2 HAVE_LOG2)
 # use messages only for debug - on Windows they are extremely intrusive
 # message("LOG2 ${HAVE_LOG2}")
 
-IF (EXISTS ${PROJECT_SOURCE_DIR}/.svn)
-  IF (UPDATE_CHANGELOG)
-    EXECUTE_PROCESS(COMMAND "svn2cl" "--group-by-day" "--include-rev" "--linelen=78"
-      "--output=${PROJECT_SOURCE_DIR}/ChangeLog" "${PROJECT_SOURCE_DIR}" )
-  ENDIF (UPDATE_CHANGELOG)
-ENDIF (EXISTS ${PROJECT_SOURCE_DIR}/.svn)
-
-
 #
 # find dependencies
 #
