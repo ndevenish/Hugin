@@ -26,9 +26,6 @@
 #include <iostream>
 #include <iomanip>
 
-#if !defined Hugin_shared || !defined _WIN32
-#define GLEW_STATIC
-#endif
 #include <GL/glew.h>
 
 #include <string.h>

@@ -57,9 +57,6 @@
 #include <libgen.h>       /* dirname */
 #endif
 
-#if !defined Hugin_shared || !defined _WIN32
-#define GLEW_STATIC
-#endif
 #include <GL/glew.h>
 #ifdef _WIN32
 #include <GL/wglew.h>

@@ -19,9 +19,6 @@
  *
  */
 
-#if !defined Hugin_shared || !defined _WIN32
-#define GLEW_STATIC
-#endif
 #include <GL/glew.h>
 #ifdef __WXMAC__
 #include <OpenGL/gl.h>

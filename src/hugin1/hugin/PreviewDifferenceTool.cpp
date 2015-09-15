@@ -21,9 +21,6 @@
 
 #include "PreviewDifferenceTool.h"
 #include <config.h>
-#if !defined Hugin_shared || !defined _WIN32
-#define GLEW_STATIC
-#endif
 #include <GL/glew.h>
 #include <wx/platform.h>
 #ifdef __WXMAC__

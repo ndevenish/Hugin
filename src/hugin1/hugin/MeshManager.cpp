@@ -23,9 +23,6 @@
 #include <wx/wx.h>
 #include <wx/platform.h>
 
-#if !defined Hugin_shared || !defined _WIN32
-#define GLEW_STATIC
-#endif
 #include <GL/glew.h>
 
 #ifdef __WXMAC__
