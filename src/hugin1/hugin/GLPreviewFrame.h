@@ -400,6 +400,7 @@ private:
     // wxChoice * m_outputModeChoice;
     wxTextCtrl * m_exposureTextCtrl;
     wxBitmapButton * m_defaultExposureBut;
+    wxTextCtrl* m_exposureText;
     wxSpinButton * m_exposureSpinBut;
 #if wxCHECK_VERSION(2, 9, 1)
     /// Bar for context sensitive projection information.
