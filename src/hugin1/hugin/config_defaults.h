@@ -84,7 +84,7 @@
 #define HUGIN_EXIFTOOL_CREATE_GPANO           1l
 
 // Program defaults
-#if defined WIN32
+#if defined _WIN32
 
 #define HUGIN_PT_SCRIPTFILE                   "PT_script.txt"
 

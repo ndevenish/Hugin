@@ -97,7 +97,7 @@ AboutDialog::AboutDialog(wxWindow *parent)
 	// License
 	textCtrl = XRCCTRL(*this, "license_txt", wxTextCtrl);
     strFile = huginApp::Get()->GetXRCPath() + wxT("data/COPYING");
-#ifndef _WINDOWS
+#ifndef _WIN32
 	textCtrl->SetFont(font);
 #endif
 	textCtrl->LoadFile(strFile);
@@ -105,7 +105,7 @@ AboutDialog::AboutDialog(wxWindow *parent)
 	// Upstream
 	textCtrl = XRCCTRL(*this, "upstream_txt", wxTextCtrl);
     strFile = huginApp::Get()->GetXRCPath() + wxT("data/upstream.txt");
-#ifndef _WINDOWS
+#ifndef _WIN32
 	textCtrl->SetFont(font);
 #endif
 	textCtrl->LoadFile(strFile);
@@ -133,7 +133,7 @@ AboutDialog::AboutDialog(wxWindow *parent)
 void AboutDialog::GetSystemInformation(wxFont *font)
 {
     wxTextCtrl* infoText=XRCCTRL(*this,"system_txt",wxTextCtrl);
-#ifndef _WINDOWS
+#ifndef _WIN32
     infoText->SetFont(*font);
 #endif
     wxString text;
@@ -147,7 +147,7 @@ void AboutDialog::GetSystemInformation(wxFont *font)
     // wxGetFreeMemory returns a wxMemorySize, which is undocumented.
     // However, we know -1 is returned on failure, so it must be signed.
     text=text+wxT("\n")+wxString::Format(_("Free memory: %lld kiB"),(long long) wxGetFreeMemory().GetValue()/1024);
-#ifdef _WINDOWS
+#ifdef _WIN32
     UINT cp=GetACP();
     text=text+wxT("\n")+wxString::Format(_("Active Codepage: %u"),cp); 
     switch(cp)

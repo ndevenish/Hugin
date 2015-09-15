@@ -27,7 +27,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <getopt.h>
-#ifndef WIN32
+#ifndef _WIN32
 #include <unistd.h>
 #endif
 #include <vigra_ext/impexalpha.hxx>

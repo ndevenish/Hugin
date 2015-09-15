@@ -1978,7 +1978,7 @@ LensDB::LensDB()
     }
     else
     {
-#if WIN32
+#if _WIN32
         filename.append("\\");
 #else
         filename.append("/");

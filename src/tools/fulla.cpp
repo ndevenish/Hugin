@@ -33,7 +33,7 @@
 #include <vigra/codec.hxx>
 #include <vigra_ext/impexalpha.hxx>
 #include <getopt.h>
-#ifndef WIN32
+#ifndef _WIN32
 #include <unistd.h>
 #endif
 

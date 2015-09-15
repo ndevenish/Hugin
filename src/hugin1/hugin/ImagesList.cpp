@@ -44,7 +44,7 @@ using namespace hugin_utils;
     wxDEFINE_EVENT(EVT_IMAGE_ADD,wxCommandEvent);
     wxDEFINE_EVENT(EVT_IMAGE_DEL,wxCommandEvent);
 #else
-#if _WINDOWS && defined Hugin_shared
+#if defined _WIN32 && defined Hugin_shared
     DEFINE_LOCAL_EVENT_TYPE(EVT_IMAGE_ADD)
     DEFINE_LOCAL_EVENT_TYPE(EVT_IMAGE_DEL)
 #else

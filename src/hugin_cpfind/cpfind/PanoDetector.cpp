@@ -45,7 +45,7 @@
 
 #include "ImageImport.h"
 
-#ifdef _WINDOWS
+#ifdef _WIN32
 #include <direct.h>
 #else
 #include <unistd.h>
@@ -74,7 +74,7 @@ using namespace hugin_utils;
 std::string includeTrailingPathSep(std::string path)
 {
     std::string pathWithSep(path);
-#ifdef _WINDOWS
+#ifdef _WIN32
     if(pathWithSep[pathWithSep.length()-1]!='\\' || pathWithSep[pathWithSep.length()-1]!='/')
     {
         pathWithSep.append("\\");
@@ -513,7 +513,7 @@ void PanoDetector::run()
     }
 
     // 2. run analysis of images or keypoints
-#if _WINDOWS
+#if _WIN32
     //multi threading of image loading results sometime in a race condition
     //try to prevent this by initialisation of codecManager before
     //running multi threading part
@@ -749,7 +749,7 @@ bool PanoDetector::loadProject()
     {
         // Get the current working directory:
         char* buffer;
-#ifdef _WINDOWS
+#ifdef _WIN32
 #define getcwd _getcwd
 #endif
         if((buffer=getcwd(NULL,0))!=NULL)

@@ -21,7 +21,7 @@
 
 #include "PreviewDifferenceTool.h"
 #include <config.h>
-#if !defined Hugin_shared || !defined _WINDOWS
+#if !defined Hugin_shared || !defined _WIN32
 #define GLEW_STATIC
 #endif
 #include <GL/glew.h>

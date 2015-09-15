@@ -90,7 +90,7 @@ private:
 typedef void (wxEvtHandler::*CPEventFunction)(CPEvent&);
 
 BEGIN_DECLARE_EVENT_TYPES()
-#if _WINDOWS && defined Hugin_shared
+#if defined _WIN32 && defined Hugin_shared
     DECLARE_LOCAL_EVENT_TYPE(EVT_CPEVENT,1)
 #else
     DECLARE_EVENT_TYPE(EVT_CPEVENT,1)

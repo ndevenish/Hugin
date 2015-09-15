@@ -30,7 +30,7 @@
 
 #include <fstream>
 #include <sstream>
-#ifdef WIN32
+#ifdef _WIN32
 #include <getopt.h>
 #else
 #include <unistd.h>

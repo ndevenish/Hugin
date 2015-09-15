@@ -370,7 +370,7 @@ PanoCommand::PanoCommand* AddImagesSeriesOperation::GetInternalCommand(wxWindow*
     {
         wxMessageBox(
             _("No matching images found."),
-#ifdef _WINDOWS
+#ifdef _WIN32
             _("Hugin"),
 #else
             wxT(""),

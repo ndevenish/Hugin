@@ -191,7 +191,7 @@ void remapImage(SrcImgType & srcImg,
 #endif
 
 #ifdef DEBUG_REMAP
-#ifdef WIN32
+#ifdef _WIN32
 #define DEBUG_FILE_PREFIX "C:/temp/"
 #else
 #define DEBUG_FILE_PREFIX "/tmp/"

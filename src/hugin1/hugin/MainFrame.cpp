@@ -694,7 +694,7 @@ bool MainFrame::CloseProject(bool cancelable)
     if (pano.isDirty()) {
         wxMessageDialog message(wxGetActiveWindow(),
                                 _("Save changes to the panorama before closing?"),
-#ifdef _WINDOWS
+#ifdef _WIN32
                                 _("Hugin"),
 #else
                                 wxT(""),

@@ -180,7 +180,7 @@ bool PTBatcherGUI::OnInit()
     wxClient client;
     wxConnectionBase* conn;
     wxString servername;
-#ifdef __WINDOWS__
+#ifdef _WIN32
     servername=name;
 #else
     servername=wxFileName::GetTempDir()+wxFileName::GetPathSeparator()+name+wxT(".ipc");

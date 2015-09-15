@@ -1,5 +1,5 @@
 
-#if _WINDOWS && defined Hugin_shared 
+#if defined _WIN32 && defined Hugin_shared 
 
 #if defined huginbase_EXPORTS
 #define IMPEX __declspec(dllexport)

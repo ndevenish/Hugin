@@ -32,7 +32,7 @@
 
 #define FLANN_VERSION_ "1.7.1"
 
-#if WIN32 && defined Hugin_shared
+#if defined _WIN32 && defined Hugin_shared
 /* win32 dll export/import directives */
 #ifdef flann_cpp_EXPORTS
   #define FLANN_EXPORT __declspec(dllexport)

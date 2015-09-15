@@ -21,7 +21,7 @@
 #ifndef __utils_h
 #define __utils_h
 
-#ifdef WIN32
+#ifdef _WIN32
 #include <vigra/windows.h>
 #include <process.h>
 #else
@@ -38,7 +38,7 @@ namespace utils
 
 //extern "C" {
 
-#ifdef WIN32
+#ifdef _WIN32
 typedef DWORD os_TIME;
 #else
 typedef struct timeval os_TIME;
@@ -46,7 +46,7 @@ typedef struct timeval os_TIME;
 
 inline void os_GetTime(os_TIME* time)
 {
-#ifdef WIN32
+#ifdef _WIN32
     *time = GetTickCount();
 #else
     struct timezone tz;
@@ -56,7 +56,7 @@ inline void os_GetTime(os_TIME* time)
 
 inline int os_TimeDiff(os_TIME* time1, os_TIME* time2)
 {
-#ifdef WIN32
+#ifdef _WIN32
     return *time1 - *time2;
 #else
     return (int)((double)time1->tv_sec*1000 + ((double)time1->tv_usec)*1e-3 -

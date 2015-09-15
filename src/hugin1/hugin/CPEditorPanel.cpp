@@ -1136,7 +1136,7 @@ bool CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
 #if wxCHECK_VERSION(2, 9, 0)
         wxMessageDialog dlg(this,
             _("No similar point found."),
-#ifdef _WINDOWS
+#ifdef _WIN32
             _("Hugin"),
 #else
             wxT(""),
@@ -1146,7 +1146,7 @@ bool CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
         dlg.ShowModal();
 #else
         wxMessageBox(_("An internal transformation went wrong.\nCheck that the point is inside the image."),
-#ifdef _WINDOWS
+#ifdef _WIN32
             _("Hugin"),
 #else
             wxT(""),
@@ -1161,7 +1161,7 @@ bool CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
 #if wxCHECK_VERSION(2, 9, 0)
         wxMessageDialog dlg(this,
             _("No similar point found."),
-#ifdef _WINDOWS
+#ifdef _WIN32
             _("Hugin"),
 #else
             wxT(""),
@@ -1174,7 +1174,7 @@ bool CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
         wxMessageBox(
             wxString::Format(_("No similar point found. Check the similarity visually.\nCorrelation coefficient (%.3f) is lower than the threshold set in the preferences."),
                              res.maxi),
-#ifdef _WINDOWS
+#ifdef _WIN32
             _("Hugin"),
 #else
             wxT(""),

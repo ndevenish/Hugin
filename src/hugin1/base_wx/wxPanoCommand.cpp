@@ -520,7 +520,7 @@ bool wxAddImagesCmd::processPanorama(HuginBase::Panorama& pano)
         message.append(wxT("\n"));
         message.append(_("Should the position of images in each stack be linked?"));
         wxMessageDialog dialog(wxGetActiveWindow(), message,
-#ifdef _WINDOWS
+#ifdef _WIN32
             _("Hugin"),
 #else
             wxT(""),

@@ -32,7 +32,7 @@
 /** description of default cp generator, for fall back procedure */
 wxString default_cpgenerator_desc(wxT("Hugin's Cpfind"));
 /** program name of default cp generator, for fall back procedure */
-#ifdef __WINDOWS__
+#ifdef _WIN32
 wxString default_cpgenerator_prog(wxT("cpfind.exe"));
 #else
 wxString default_cpgenerator_prog(wxT("cpfind"));

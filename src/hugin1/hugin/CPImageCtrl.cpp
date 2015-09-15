@@ -64,7 +64,7 @@ using namespace hugin_utils;
 // definition of the control point event
 
 IMPLEMENT_DYNAMIC_CLASS( CPEvent, wxEvent )
-#if _WINDOWS && defined Hugin_shared
+#if defined _WIN32 && defined Hugin_shared
 DEFINE_LOCAL_EVENT_TYPE( EVT_CPEVENT )
 #else
 DEFINE_EVENT_TYPE( EVT_CPEVENT )

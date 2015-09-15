@@ -1569,7 +1569,7 @@ bool PanoPanel::CheckGoodSize()
     {
         wxMessageBox(
             wxString::Format(_("The width and height of jpeg images has to be smaller than 65500 pixel. But you have requested a jpeg image with %dx%d pixel.\nThis is not supported by the jpeg file format.\nDecrease the canvas size on the stitch panel or select TIF or PNG as output format."), cropped_region.width(), cropped_region.height()),
-#ifdef _WINDOWS
+#ifdef _WIN32
             _("Hugin"),
 #else
             wxT(""),
@@ -1599,7 +1599,7 @@ bool PanoPanel::CheckGoodSize()
 #if wxCHECK_VERSION(2,9,0)
         wxMessageDialog dialog(this,
                 _("Are you sure you want to stitch such a large panorama?"),
-#ifdef _WINDOWS
+#ifdef _WIN32
                 _("Hugin"),
 #else
                 wxT(""),
@@ -1625,7 +1625,7 @@ bool PanoPanel::CheckGoodSize()
         message.Prepend(wxT("\n\n"));
         message=_("Are you sure you want to stitch such a large panorama?")+message;
         wxMessageDialog dialog(this, message,
-#ifdef _WINDOWS
+#ifdef _WIN32
                 _("Hugin"),
 #else
                 wxT(""),
@@ -1660,7 +1660,7 @@ bool PanoPanel::CheckHasImages()
     if(images.size()==0)
     {
         wxMessageBox(_("There are no active images in the output region.\nPlease check your settings, so that at least one image is in the output region."),
-#ifdef _WINDOWS
+#ifdef _WIN32
             _("Hugin"),
 #else
             wxT(""),
@@ -1681,7 +1681,7 @@ bool PanoPanel::CheckFreeSpace(const wxString& folder)
 #if wxCHECK_VERSION(2,9,0)
             wxMessageDialog dialog(this,
                 wxString::Format(_("The folder \"%s\" has only %.1f MiB free. This is not enough for stitching the current panorama. Decrease the output size or select another output folder.\nAre you sure that you still want to stitch it?"), folder.c_str(), freeSpace / 1048576.0f),
-#ifdef _WINDOWS
+#ifdef _WIN32
                 _("Hugin"),
 #else
                 wxT(""),
@@ -1691,7 +1691,7 @@ bool PanoPanel::CheckFreeSpace(const wxString& folder)
 #else // replacement for old wxWidgets versions.
             wxMessageDialog dialog(this,
                 wxString::Format(_("The folder \"%s\" has only %.1f MiB free. This is not enough for stitching the current panorama. Decrease the output size or select another output folder.\nAre you sure that you still want to stitch it?"), folder.c_str(), freeSpace / 1048576.0f),
-#ifdef _WINDOWS
+#ifdef _WIN32
                 _("Hugin"),
 #else
                 wxT(""),

@@ -2935,7 +2935,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
         
         string file = iImgInfo[i].filename;
         // add prefix if only a relative path.
-#ifdef WIN32
+#ifdef _WIN32
         bool absPath = ( (file[1]==':' && file[2]=='\\') || (file[1]==':' && file[2]=='/') || (file[0] == '\\' && file[1] == '\\'));
 #else
         bool absPath = file[0] == '/';

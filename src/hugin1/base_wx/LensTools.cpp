@@ -459,7 +459,7 @@ bool CheckLensStacks(HuginBase::Panorama* pano, bool allowCancel)
             flags = flags | wxCANCEL;
         };
         if (wxMessageBox(_("This project contains stacks with linked positions. But the lens parameters are not linked for these images.\nThis will result in unwanted results.\nPlease check and correct this before proceeding."),
-#ifdef _WINDOWS
+#ifdef _WIN32
             _("Hugin"),
 #else
             wxT(""),

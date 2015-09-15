@@ -26,7 +26,7 @@
 
 #include <fstream>
 #include <getopt.h>
-#ifdef _WINDOWS
+#ifdef _WIN32
 #include <io.h>
 #endif
 #include <vigra/imageinfo.hxx>
@@ -199,7 +199,7 @@ int main(int argc, char* argv[])
     while(optind<argc)
     {
         string input;
-#ifdef _WINDOWS
+#ifdef _WIN32
         //do globbing
         input=GetAbsoluteFilename(argv[optind]);
         char drive[_MAX_DRIVE];

@@ -170,7 +170,7 @@ void OptimizePanel::OnOptimizeButton(wxCommandEvent & e)
         if (imgs.size() == 0)
         {
             wxMessageBox(_("The project does not contain any active images.\nPlease activate at least one image in the (fast) preview window.\nOptimization canceled."),
-#ifdef _WINDOWS
+#ifdef _WIN32
                 _("Hugin"),
 #else
                 wxT(""),

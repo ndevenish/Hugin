@@ -27,7 +27,7 @@
 #include <fstream>
 #include <sstream>
 #include <getopt.h>
-#ifndef WIN32
+#ifndef _WIN32
 #include <unistd.h>
 #endif
 #include <panodata/Panorama.h>
@@ -427,7 +427,7 @@ int main(int argc, char* argv[])
     PT_setInfoDlgFcn(ptinfoDlg);
 
     std::cout << hugin_utils::stripPath(argv[0]) << " is searching for vertical lines" << std::endl;
-#if _WINDOWS
+#if _WIN32
     //multi threading of image loading results sometime in a race condition
     //try to prevent this by initialisation of codecManager before
     //running multi threading part

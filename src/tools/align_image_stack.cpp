@@ -48,7 +48,7 @@
 #include <lensdb/LensDB.h>
 
 #include <getopt.h>
-#ifndef WIN32
+#ifndef _WIN32
 #include <unistd.h>
 #endif
 

@@ -47,7 +47,7 @@ void RestoreFramePosition(wxTopLevelWindow * frame, const wxString & basename);
   void InitXmlResource();
 #endif
 
-#if _WINDOWS && defined Hugin_shared
+#if defined _WIN32 && defined Hugin_shared
 DECLARE_LOCAL_EVENT_TYPE( EVT_IMAGE_READY, )
 #else
 DECLARE_EVENT_TYPE( EVT_IMAGE_READY, )

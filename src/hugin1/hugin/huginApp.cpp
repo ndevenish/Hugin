@@ -105,7 +105,7 @@ wxString Components2Str(const HuginBase::CPComponents & comp)
     return ret;
 }
 
-#if _WINDOWS && defined Hugin_shared
+#if defined _WIN32 && defined Hugin_shared
 DEFINE_LOCAL_EVENT_TYPE( EVT_IMAGE_READY )
 #else
 DEFINE_EVENT_TYPE( EVT_IMAGE_READY )

@@ -637,7 +637,7 @@ void ImagesPanel::OnMinimumOverlapChanged(wxCommandEvent & e)
     if(fabs(val)<0.001 || val>1)
     {
         wxMessageBox(_("The minimum overlap has to be greater than 0 and smaller than 1."),
-#ifdef _WINDOWS
+#ifdef _WIN32
             _("Hugin"),
 #else
             wxT(""),
@@ -671,7 +671,7 @@ void ImagesPanel::OnMaxEvDiffChanged(wxCommandEvent& e)
     if(val<0)
     {
         wxMessageBox(_("The maximum Ev difference has to be greater than 0."),
-#ifdef _WINDOWS
+#ifdef _WIN32
             _("Hugin"),
 #else
             wxT(""),

@@ -47,7 +47,7 @@ std::vector<ImageType *> loadImagesPyr(std::vector<std::string> files, int pyrLe
 {
     typedef typename ImageType::value_type PixelType;
     std::vector<ImageType *> srcImgs(files.size());
-#ifdef _WINDOWS
+#ifdef _WIN32
     // init vigra codec manager before threaded section
     // otherwise there could be sometimes race conditions
     // which results in exceptions

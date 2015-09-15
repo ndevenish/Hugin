@@ -65,7 +65,7 @@ str wxQuoteStringInternal(const str & arg, const str & quotechar,
 template <class str>
 str wxQuoteString(const str & arg)
 {
-#ifdef WIN32
+#ifdef _WIN32
     // escape all strange chars with ^
     // is this true for create process?
     return wxQuoteStringInternal(arg, str(wxT("^")), str(wxT("^ \"$|()")));
@@ -81,7 +81,7 @@ str wxQuoteString(const str & arg)
 template <class str>
 str wxQuoteFilename(const str & arg)
 {
-#ifdef WIN32
+#ifdef _WIN32
     str ret;
     // just a guess
     ret = wxQuoteStringInternal(arg, str(wxT("^")), str(wxT("\"")));

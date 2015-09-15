@@ -42,7 +42,7 @@
 #include <vigra_ext/HDRUtils.h>
 #include <vigra_ext/ReduceOpenEXR.h>
 
-#ifdef WIN32
+#ifdef _WIN32
 #include <getopt.h>
 #else
 #include <unistd.h>

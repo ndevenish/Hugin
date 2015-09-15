@@ -150,7 +150,7 @@ void OptimizePhotometricPanel::OnOptimizeButton(wxCommandEvent & e)
         if (imgs.size() < 2)
         {
             wxMessageBox(_("The project does not contain any active images.\nPlease activate at least 2 images in the (fast) preview window.\nOptimization canceled."),
-#ifdef _WINDOWS
+#ifdef _WIN32
                 _("Hugin"),
 #else
                 wxT(""),

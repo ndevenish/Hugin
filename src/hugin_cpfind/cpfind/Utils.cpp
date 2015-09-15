@@ -22,7 +22,7 @@
 #if defined(HW_NCPU) || defined(__APPLE__)
 #include <sys/sysctl.h>
 #endif
-#ifdef _WINDOWS
+#ifdef _WIN32
 #include <Windows.h>
 #include <algorithm>
 #elif defined __APPLE__
@@ -31,7 +31,7 @@
 #include <unistd.h>
 #endif
 
-#ifdef _WINDOWS
+#ifdef _WIN32
 unsigned long long utils::getTotalMemory()
 {
     MEMORYSTATUSEX status;

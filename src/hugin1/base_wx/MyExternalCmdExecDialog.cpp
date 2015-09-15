@@ -37,7 +37,7 @@
 #include "wx/mimetype.h"
 #include <wx/sstream.h>
 
-#ifdef __WINDOWS__
+#ifdef _WIN32
     #include "wx/dde.h"
 	#include <windows.h>
 	#include <tlhelp32.h>	//needed to pause process on windows
@@ -45,7 +45,7 @@
 	#include <sys/types.h>	
 	#include <signal.h>	//needed to pause on unix - kill function
 	#include <unistd.h> //needed to separate the process group of make
-#endif // __WINDOWS__
+#endif // _WIN32
 
 // Slightly reworked fix for BUG_2075064 
 #ifdef __WXMAC__
@@ -243,7 +243,7 @@ int MyExecPanel::ExecWithRedirect(wxString cmd)
     else
     {
         AddAsyncProcess(process);
-#ifndef __WINDOWS__
+#ifndef _WIN32
 		//on linux we put the new process into a separate group, 
 		//so it can be paused with all it's children at the same time
 		setpgid(m_pidLast,m_pidLast);	

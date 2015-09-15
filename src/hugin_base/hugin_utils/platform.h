@@ -85,7 +85,7 @@ namespace hugin_utils {
         return ret;
     }
 
-#ifdef _WINDOWS
+#ifdef _WIN32
     /// utility function; replaces backslash with slash
     template <class str>
     str replaceBackslash(const str & arg)
@@ -116,7 +116,7 @@ namespace hugin_utils {
     template <class str>
     str quoteString(const str & arg)
     {
-    #ifdef WIN32
+    #ifdef _WIN32
         // escape all strange chars with ^
         // is this true for create process?
         return quoteStringInternal(arg, str("^"), str("^ \"$|()"));
@@ -138,7 +138,7 @@ namespace hugin_utils {
     template <class str>
     str quoteStringShell(const str & arg)
     {
-#ifdef WIN32
+#ifdef _WIN32
         // Do not quote backslash,: and ~ on win32.
         // we only need to escape hash (#) and $, all other chars are handled by quoting with " "
         return str("\"")+quoteStringInternal(quoteStringInternal(replaceBackslash(arg),str("\\"),str("#")), str("$"), str("$"))+str("\"");
@@ -153,7 +153,7 @@ namespace hugin_utils {
     template <class str>
     str escapeStringMake(const str & arg)
     {
-#ifdef WIN32
+#ifdef _WIN32
         // Do not escape colon in windows because it causes problems with absolute paths
         return quoteStringInternal(quoteStringInternal(replaceBackslash(arg), str("\\"), str(" #=")), str("$"), str("$"));
 #else
@@ -168,7 +168,7 @@ namespace hugin_utils {
     template <class str>
     str quoteFilename(const str & arg)
     {
-    #ifdef WIN32
+    #ifdef _WIN32
         str ret;
         // just a guess
         ret = quoteStringInternal(arg, str("^"), str("\""));

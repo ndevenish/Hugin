@@ -24,7 +24,7 @@
  *
  */
 
-#if _WINDOWS && defined Hugin_shared
+#if defined _WIN32 && defined Hugin_shared
 #ifdef hugin_python_interface_EXPORTS
 #define hsi_IMPEX __declspec(dllexport)
 #else

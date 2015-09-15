@@ -25,7 +25,7 @@
 #include "utils.h"
 #include "hugin_version.h"
 
-#ifdef WIN32
+#ifdef _WIN32
     #define NOMINMAX
     #include <sys/utime.h>
     #include <ShlObj.h>
@@ -40,7 +40,7 @@
 #include <fstream>
 #include <stdio.h>
 #include <cstdio>
-#ifdef _WINDOWS
+#ifdef _WIN32
 #define NOMINMAX
 #include <windows.h>
 #else
@@ -57,7 +57,7 @@
 #include <libgen.h>       /* dirname */
 #endif
 
-#if !defined Hugin_shared || !defined _WINDOWS
+#if !defined Hugin_shared || !defined _WIN32
 #define GLEW_STATIC
 #endif
 #include <GL/glew.h>
@@ -354,7 +354,7 @@ bool FileExists(const std::string& filename)
 
 std::string GetAbsoluteFilename(const std::string& filename)
 {
-#ifdef _WINDOWS
+#ifdef _WIN32
     char fullpath[_MAX_PATH];
     _fullpath(fullpath,filename.c_str(),_MAX_PATH);
     return std::string(fullpath);
@@ -391,7 +391,7 @@ std::string GetAbsoluteFilename(const std::string& filename)
 
 std::string GetDataDir()
 {
-#if _WINDOWS
+#if _WIN32
     char buffer[MAX_PATH];//always use MAX_PATH for filepaths
     GetModuleFileName(NULL,buffer,sizeof(buffer));
     std::string working_path(buffer);

@@ -118,7 +118,7 @@ private:
     bool option;
 };
 
-#if _WINDOWS && defined Hugin_shared 
+#if defined _WIN32 && defined Hugin_shared 
 WX_DECLARE_USER_EXPORTED_OBJARRAY(CPDetectorSetting,ArraySettings,ICPIMPEX);
 #else
 WX_DECLARE_OBJARRAY(CPDetectorSetting,ArraySettings);

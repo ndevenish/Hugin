@@ -46,7 +46,7 @@
 // ie. 1 for neighbourhood of size 3x3, 2 for 5x5 etc.
 #define NEIGHB_DIST 1
 
-#if defined WIN32
+#if defined _WIN32
     #define snprintf _snprintf
 #endif
 // define for use atan based kernel function

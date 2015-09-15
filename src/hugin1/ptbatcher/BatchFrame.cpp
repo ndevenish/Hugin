@@ -731,7 +731,7 @@ void BatchFrame::OnButtonOpenWithHugin(wxCommandEvent& event)
     {
         //ask user if he/she wants to load an empty project
         wxMessageDialog message(this,_("No project selected. Open Hugin without project?"),
-#ifdef _WINDOWS
+#ifdef _WIN32
                                 _("PTBatcherGUI"),
 #else
                                 wxT(""),
@@ -777,7 +777,7 @@ void BatchFrame::OnButtonRemoveComplete(wxCommandEvent& event)
     if(!m_batch->NoErrors())
     {
         wxMessageDialog message(this,_("There are failed projects in the list.\nRemove them too?"),
-#ifdef _WINDOWS
+#ifdef _WIN32
                                 _("PTBatcherGUI"),
 #else
                                 wxT(""),
@@ -809,7 +809,7 @@ void BatchFrame::OnButtonRemoveFromList(wxCommandEvent& event)
         if(m_batch->GetStatus(selIndex)==Project::RUNNING || m_batch->GetStatus(selIndex)==Project::PAUSED)
         {
             wxMessageDialog message(this, _("Cannot remove project in progress.\nDo you want to cancel it?"),
-#ifdef _WINDOWS
+#ifdef _WIN32
                                     _("PTBatcherGUI"),
 #else
                                     wxT(""),
@@ -844,7 +844,7 @@ void BatchFrame::OnButtonReset(wxCommandEvent& event)
         if(m_batch->GetStatus(selIndex)==Project::RUNNING || m_batch->GetStatus(selIndex)==Project::PAUSED)
         {
             wxMessageDialog message(this, _("Cannot reset project in progress.\nDo you want to cancel it?"),
-#ifdef _WINDOWS
+#ifdef _WIN32
                                     _("PTBatcherGUI"),
 #else
                                     wxT(""),
@@ -873,7 +873,7 @@ void BatchFrame::OnButtonResetAll(wxCommandEvent& event)
     if(m_batch->GetRunningCount()!=0)
     {
         wxMessageDialog message(this, _("Cannot reset projects in progress.\nDo you want to cancel the batch?"),
-#ifdef _WINDOWS
+#ifdef _WIN32
                                 _("PTBatcherGUI"),
 #else
                                 wxT(""),

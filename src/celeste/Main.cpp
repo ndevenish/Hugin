@@ -26,7 +26,7 @@
 #include <panodata/Panorama.h>
 #include <hugin_utils/utils.h>
 
-#ifdef _WINDOWS
+#ifdef _WIN32
 #include <getopt.h>
 #else
  #include <unistd.h>

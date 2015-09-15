@@ -21,7 +21,7 @@
 #ifndef __imageimport_h
 #define __imageimport_h
 
-#ifdef WIN32
+#ifdef _WIN32
 #define NOMINMAX
 #include "vigra/windows.h"
 #endif

@@ -35,7 +35,7 @@ BEGIN_EVENT_TABLE(Batch, wxFrame)
     EVT_END_PROCESS(-1, Batch::OnProcessTerminate)
 END_EVENT_TABLE()
 
-#if _WINDOWS && defined Hugin_shared
+#if defined _WIN32 && defined Hugin_shared
 DEFINE_LOCAL_EVENT_TYPE(EVT_BATCH_FAILED)
 DEFINE_LOCAL_EVENT_TYPE(EVT_INFORMATION)
 DEFINE_LOCAL_EVENT_TYPE(EVT_UPDATE_PARENT)
@@ -223,7 +223,7 @@ int Batch::ClearBatch()
     if(m_stitchFrames.GetCount()!=0)
     {
         wxMessageDialog message(this, _("Cannot clear batch in progress.\nDo you want to cancel it?"),
-#ifdef _WINDOWS
+#ifdef _WIN32
                                 _("PTBatcherGUI"),
 #else
                                 wxT(""),

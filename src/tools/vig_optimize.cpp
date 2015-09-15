@@ -31,7 +31,7 @@
 #include <algorithms/optimizer/PhotometricOptimizer.h>
 #include "ExtractPoints.h"
 
-#ifdef WIN32
+#ifdef _WIN32
 #include <getopt.h>
 #else
 #include <unistd.h>

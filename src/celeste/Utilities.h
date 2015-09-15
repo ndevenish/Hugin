@@ -31,7 +31,7 @@ Copyright (c) 2002-3 Adriaan Tijsseling
 #include <fstream>
 #include <iostream>
 #include <stdio.h>
-#ifdef _WINDOWS
+#ifdef _WIN32
 #include "direct.h"
 #else
 #include <unistd.h>
