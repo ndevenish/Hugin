@@ -46,7 +46,7 @@
                   <label>Exposure</label>
                   <checked>1</checked>
                 </object>
-                <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_HORIZONTAL</flag>
+                <flag>wxALL|wxEXPAND</flag>
                 <border>5</border>
               </object>
               <object class="sizeritem">
@@ -59,7 +59,7 @@
                   <style>wxCB_READONLY</style>
                 </object>
                 <option>1</option>
-                <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_HORIZONTAL</flag>
+                <flag>wxALL|wxEXPAND</flag>
                 <border>5</border>
               </object>
               <object class="sizeritem">
@@ -67,7 +67,7 @@
                   <label>Color</label>
                   <checked>1</checked>
                 </object>
-                <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_HORIZONTAL</flag>
+                <flag>wxALL|wxEXPAND</flag>
                 <border>5</border>
               </object>
               <object class="sizeritem">
@@ -80,7 +80,7 @@
                   <style>wxCB_READONLY</style>
                 </object>
                 <option>1</option>
-                <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_HORIZONTAL</flag>
+                <flag>wxALL|wxEXPAND</flag>
                 <border>5</border>
               </object>
               <cols>2</cols>
@@ -89,7 +89,6 @@
             </object>
             <flag>wxEXPAND</flag>
           </object>
-          
           <object class="sizeritem">
             <object class="wxCheckBox" name="reset_vignetting">
               <label>Vignetting</label>
