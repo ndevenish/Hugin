@@ -6,7 +6,7 @@
 #define HUGIN_WC_REVISION ${HUGIN_WC_REVISION}
 #define HUGIN_API_VERSION "${V_MAJOR}.${V_MINOR}"
 
-#if defined (_MSC_VER) || (__APPLE__)
+#if defined _WIN32 || defined __APPLE__
 #define PACKAGE_VERSION "${HUGIN_PACKAGE_VERSION} built by ${HUGIN_BUILDER}"
 #define DISPLAY_VERSION "${DISPLAY_VERSION} built by ${HUGIN_BUILDER}"
 #else

@@ -388,7 +388,7 @@ std::string GetAbsoluteFilename(const std::string& filename)
 
 std::string GetDataDir()
 {
-#if _WIN32
+#ifdef _WIN32
     char buffer[MAX_PATH];//always use MAX_PATH for filepaths
     GetModuleFileName(NULL,buffer,sizeof(buffer));
     std::string working_path(buffer);
