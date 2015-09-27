@@ -26,7 +26,8 @@ IF(WIN32)
   FILE(GLOB PANO13_EXECUTABLES ${PANO13_EXE_DIR}/*.exe)
   INSTALL(FILES ${PANO13_EXECUTABLES} DESTINATION ${BINDIR})
   IF(${HUGIN_SHARED})
-    FIND_FILE(PANO13_DLL pano13.dll
+    FIND_FILE(PANO13_DLL 
+              NAMES pano13.dll libpano13.dll
               PATHS ${SOURCE_BASE_DIR}/libpano13/bin
               NO_SYSTEM_ENVIRONMENT_PATH
               )
@@ -93,7 +94,7 @@ IF(WIN32)
       NO_SYSTEM_ENVIRONMENT_PATH
     )
     FIND_FILE(JPEG_DLL
-      NAMES jpeg.dll 
+      NAMES jpeg.dll libjpeg.dll
       PATHS 
             ${SOURCE_BASE_DIR}/jpeg-9a/lib 
             ${SOURCE_BASE_DIR}/jpeg-9a/x64/Release
@@ -111,12 +112,12 @@ IF(WIN32)
       NO_SYSTEM_ENVIRONMENT_PATH
     )
     FIND_FILE(ZLIB_DLL
-      NAMES zlib1.dll zlib.dll
+      NAMES zlib1.dll zlib.dll libz.dll libzlib.dll
       PATHS ${SOURCE_BASE_DIR}/zlib ${SOURCE_BASE_DIR}/zlib/bin
       NO_SYSTEM_ENVIRONMENT_PATH
     )
     FIND_PATH(OPENEXR_BIN_DIR 
-            NAMES Half.dll 
+            NAMES Half.dll libHalf.dll
             PATHS ${SOURCE_BASE_DIR}/Deploy/lib ${SOURCE_BASE_DIR}/Deploy/bin ${SOURCE_BASE_DIR}/Deploy/lib/Release ${SOURCE_BASE_DIR}/Deploy/bin/Release
             DOC "Location of OpenEXR libraries"
             NO_SYSTEM_ENVIRONMENT_PATH
@@ -128,20 +129,20 @@ IF(WIN32)
        PATHS ${SOURCE_BASE_DIR}/vigra/bin
        NO_SYSTEM_ENVIRONMENT_PATH
     )
-    FILE(GLOB BOOST_SYSTEM_DLL ${Boost_LIBRARY_DIRS}/boost_system*.dll)
-    FILE(GLOB BOOST_FILESYSTEM_DLL ${Boost_LIBRARY_DIRS}/boost_filesystem*.dll)
+    FILE(GLOB BOOST_SYSTEM_DLL ${Boost_LIBRARY_DIRS}/*boost_system*.dll)
+    FILE(GLOB BOOST_FILESYSTEM_DLL ${Boost_LIBRARY_DIRS}/*boost_filesystem*.dll)
     LIST(APPEND BOOST_DLLs ${BOOST_SYSTEM_DLL} ${BOOST_FILESYSTEM_DLL})
     IF(NOT CXX11_THREAD)
-      FILE(GLOB BOOST_THREAD_DLL ${Boost_LIBRARY_DIRS}/boost_thread*.dll)
-      FILE(GLOB BOOST_DATE_TIME_DLL ${Boost_LIBRARY_DIRS}/boost_date_time*.dll)
-      FILE(GLOB BOOST_CHRONO_DLL ${Boost_LIBRARY_DIRS}/boost_chrono*.dll)
+      FILE(GLOB BOOST_THREAD_DLL ${Boost_LIBRARY_DIRS}/*boost_thread*.dll)
+      FILE(GLOB BOOST_DATE_TIME_DLL ${Boost_LIBRARY_DIRS}/*boost_date_time*.dll)
+      FILE(GLOB BOOST_CHRONO_DLL ${Boost_LIBRARY_DIRS}/*boost_chrono*.dll)
       LIST(APPEND BOOST_DLLs ${BOOST_THREAD_DLL} ${BOOST_DATE_TIME_DLL})
       IF(NOT "${BOOST_CHRONO_DLL}" MATCHES "-NOTFOUND")
         LIST(APPEND BOOST_DLLs ${BOOST_CHRONO_DLL})
       ENDIF()
     ENDIF()
     FIND_FILE(EXIV2_DLL 
-      NAMES exiv2.dll 
+      NAMES exiv2.dll libexiv2.dll
       PATHS ${SOURCE_BASE_DIR}/exiv2/bin ${SOURCE_BASE_DIR}/exiv2/msvc2012/exiv2lib/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.25/msvc2012/exiv2lib/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.24/msvc2012/exiv2lib/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/bin/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/bin/Win32/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.22/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.21.1/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.20/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.19/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.18.2/msvc/bin/ReleaseDLL
       NO_SYSTEM_ENVIRONMENT_PATH
     )
@@ -156,7 +157,7 @@ IF(WIN32)
       NO_SYSTEM_ENVIRONMENT_PATH
     )
     FIND_FILE(LCMS2_DLL
-      NAMES lcms2.dll
+      NAMES lcms2.dll liblcms2.dll liblcms2-2.dll
       PATHS ${LCMS2_ROOT_DIR}/bin
       NO_SYSTEM_ENVIRONMENT_PATH
     )
@@ -197,7 +198,10 @@ IF(WIN32)
         DESTINATION ${BINDIR}
     )
     
-    FIND_FILE(SQLITE3_DLL NAMES sqlite3.dll PATHS ${SOURCE_BASE_DIR}/sqlite3 NO_SYSTEM_ENVIRONMENT_PATH)
+    FIND_FILE(SQLITE3_DLL 
+        NAMES sqlite3.dll libsqlite3.dll 
+        PATHS ${SOURCE_BASE_DIR}/sqlite3 NO_SYSTEM_ENVIRONMENT_PATH
+    )
     INSTALL(FILES ${SQLITE3_DLL} DESTINATION ${BINDIR})
 
     IF(HAVE_FFTW)
