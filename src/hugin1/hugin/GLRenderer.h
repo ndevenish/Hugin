@@ -27,7 +27,7 @@
 // TODO needed?
 //#include <vector>
 /* something messed up... temporary fix :-( */
-#include "hugin_utils/utils.h"
+#include "base_wx/wxutils.h"
 #include <base_wx/wxImageCache.h>
 #include <vigra_ext/ROIImage.h>
 #include <vigra/diff2d.hxx>

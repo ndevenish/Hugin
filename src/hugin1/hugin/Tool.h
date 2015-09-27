@@ -24,7 +24,7 @@
 #ifndef _PREVIEWTOOL_H
 #define _PREVIEWTOOL_H
 
-#include "hugin_utils/utils.h"
+#include "base_wx/wxutils.h"
 #include <wx/event.h>
 
 #include "ToolHelper.h"

@@ -10,7 +10,7 @@ SET(HUGIN_WX_BASE_HEADER wxImageCache.h MyProgressDialog.h PTWXDlg.h
                       RunStitchPanel.h LensTools.h wxLensDB.h HFOVDialog.h
                       Command.h PanoCommand.h wxPanoCommand.h CommandHistory.h
                       Executor.h AssistantExecutor.h StitchingExecutor.h wxcms.h 
-                      wxPlatform.h )
+                      wxPlatform.h wxutils.h )
 
 IF (${HUGIN_SHARED_LIBS})
   add_library(huginbasewx SHARED ${HUGIN_WX_BASE_SRC} ${HUGIN_WX_BASE_HEADER})

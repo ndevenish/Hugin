@@ -63,7 +63,7 @@
 #ifndef __VIEWSTATE_H
 #define __VIEWSTATE_H
 
-#include "hugin_utils/utils.h"
+#include "base_wx/wxutils.h"
 #include <panodata/PanoramaData.h>
 #include <panodata/Panorama.h>
 #include "OutputProjectionInfo.h"

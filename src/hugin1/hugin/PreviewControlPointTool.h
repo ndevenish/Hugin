@@ -26,7 +26,7 @@
 
 #include "Tool.h"
 #include "GreatCircles.h"
-#include "hugin_utils/utils.h"
+#include "base_wx/wxutils.h"
 
 #include <panotools/PanoToolsInterface.h>
 

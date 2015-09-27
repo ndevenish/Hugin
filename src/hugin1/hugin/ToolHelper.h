@@ -53,7 +53,7 @@
 #include "panoinc.h"
 #endif
 
-#include "hugin_utils/utils.h"
+#include "base_wx/wxutils.h"
 #include "base_wx/platform.h"
 #include <wx/defs.h>
 #include <wx/event.h>

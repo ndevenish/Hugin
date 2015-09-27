@@ -26,7 +26,7 @@
 #define _PREVIEWCOLORPICKERTOOL_H
 
 #include "Tool.h"
-#include "hugin_utils/utils.h"
+#include "base_wx/wxutils.h"
 
 /** The PreviewColorPickerTool allows to select a region in the panorama which should be grey.
  *  In the selected region it calculates the new red multiplier and blue multiplier to get
