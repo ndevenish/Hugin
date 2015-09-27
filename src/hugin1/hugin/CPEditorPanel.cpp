@@ -1628,6 +1628,20 @@ void CPEditorPanel::OnCPListDeselect(wxListEvent & ev)
 
 void CPEditorPanel::OnZoom(wxCommandEvent & e)
 {
+    int leftX = 0;
+    int leftY = 0;
+    int rightX = 0;
+    int rightY = 0;
+    const wxSize leftSize = m_leftImg->GetClientSize();
+    const wxSize rightSize = m_rightImg->GetClientSize();
+    if (m_leftImg->getScale() > 0)
+    {
+        // remember old scroll position
+        leftX = (m_leftImg->GetScrollPos(wxHORIZONTAL) + leftSize.GetWidth() / 2 )/ m_leftImg->getScale();
+        leftY = (m_leftImg->GetScrollPos(wxVERTICAL) + leftSize.GetHeight() / 2) / m_leftImg->getScale();
+        rightX = (m_rightImg->GetScrollPos(wxHORIZONTAL) + rightSize.GetWidth() / 2) / m_rightImg->getScale();
+        rightY = (m_rightImg->GetScrollPos(wxVERTICAL) + rightSize.GetHeight() / 2) / m_rightImg->getScale();
+    };
     double factor;
     switch (e.GetSelection()) {
     case 0:
@@ -1664,6 +1678,15 @@ void CPEditorPanel::OnZoom(wxCommandEvent & e)
     // if a point is selected, keep it in view
     if (m_selectedPoint < UINT_MAX) {
         SelectLocalPoint(m_selectedPoint);
+    }
+    else
+    {
+        if (factor > 0)
+        {
+            // scroll to keep old position in view
+            m_leftImg->Scroll(leftX*factor - leftSize.GetWidth() / 2, leftY*factor - leftSize.GetHeight() / 2);
+            m_rightImg->Scroll(rightX*factor - rightSize.GetWidth() / 2, rightY*factor - rightSize.GetHeight() / 2);
+        };
     }
 }
 

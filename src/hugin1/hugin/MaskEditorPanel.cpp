@@ -580,6 +580,15 @@ void MaskEditorPanel::OnMaskDelete(wxCommandEvent &e)
 
 void MaskEditorPanel::OnZoom(wxCommandEvent & e)
 {
+    int posX = 0;
+    int posY = 0;
+    const wxSize ctrlSize = m_editImg->GetClientSize();
+    if (m_editImg->getScale() > 0)
+    {
+        // remember old scroll position
+        posX = (m_editImg->GetScrollPos(wxHORIZONTAL) + ctrlSize.GetWidth() / 2) / m_editImg->getScale();
+        posY = (m_editImg->GetScrollPos(wxVERTICAL) + ctrlSize.GetHeight() / 2) / m_editImg->getScale();
+    };
     double factor;
     switch (e.GetSelection()) 
     {
@@ -610,6 +619,10 @@ void MaskEditorPanel::OnZoom(wxCommandEvent & e)
             factor = 1;
     }
     m_editImg->setScale(factor);
+    if (factor > 0)
+    {
+        m_editImg->Scroll(posX*factor - ctrlSize.GetWidth() / 2, posY*factor - ctrlSize.GetHeight() / 2);
+    };
 }
 
 void MaskEditorPanel::OnColourChanged(wxColourPickerEvent &e)

@@ -15,6 +15,7 @@ Hugin 2015.2
   framebufferformat" error.
 * Use own code for OpenGL intialization. Now freeglut is not needed anymore.
   (This should prevent the appearing of window when running "nona -g".)
+* Control point and mask editor retain viewpoint when changing zoom factor.
 
 ============================================================================================
 Hugin 2015.0
