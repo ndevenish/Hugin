@@ -39,7 +39,10 @@
 #endif
 
 /* Define if you have log2 function */
-#cmakedefine HAVE_LOG2 0
+#cmakedefine HAVE_LOG2 1
+
+/* Define if you have log1p function */
+#cmakedefine HAVE_LOG1P 1
 
 /* locate of the xrc files, as defined during configuration */
 #define INSTALL_LOCALE_DIR "${INSTALL_LOCALE_DIR}"

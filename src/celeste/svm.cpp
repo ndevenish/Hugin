@@ -43,8 +43,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <limits.h>
 #include <locale.h>
 #include "svm.h"
-#if _MSC_VER <= 1600
-// Visual C++ 2010 and older do not support log1p()
+#include <hugin_config.h>
+#ifndef HAVE_LOG1P
 #define log1p(x) log(1+x)
 #endif
 

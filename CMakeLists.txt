@@ -122,6 +122,7 @@ set(CMAKE_REQUIRED_LIBRARIES -lm)
 check_function_exists(log2 HAVE_LOG2)
 # use messages only for debug - on Windows they are extremely intrusive
 # message("LOG2 ${HAVE_LOG2}")
+check_function_exists(log1p HAVE_LOG1P)
 
 #
 # find dependencies
