@@ -8,13 +8,13 @@ IF(WIN32)
   # for dynamic build, it's glew32.lib and the dll must be copied into hugin's bin folder
   IF(${HUGIN_SHARED})
   FIND_LIBRARY(GLEW_LIBRARIES 
-    NAMES glew32.lib
+    NAMES glew32.lib libglew32.dll.a
     PATHS
       ${SOURCE_BASE_DIR}/glew/lib
   )
   ELSE(${HUGIN_SHARED})
   FIND_LIBRARY(GLEW_LIBRARIES 
-    NAMES glew32s.lib 
+    NAMES glew32s.lib libglew32.a
     PATHS
       ${SOURCE_BASE_DIR}/glew/lib
   )

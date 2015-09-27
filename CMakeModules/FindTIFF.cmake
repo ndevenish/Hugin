@@ -31,7 +31,7 @@ FIND_PATH(TIFF_INCLUDE_DIR tiff.h
 
 include(FindLibraryWithDebug)
 
-IF(WIN32 AND ${HUGIN_SHARED})
+IF(WIN32 AND ${HUGIN_SHARED} AND MSVC)
 # on windows the libtiff library contains a static lib libtiff
 # and the import library libtiff_i for dynamic build
   find_library(TIFF_LIBRARIES
@@ -44,7 +44,7 @@ IF(WIN32 AND ${HUGIN_SHARED})
           ${SOURCE_BASE_DIR}/tiff-4.0.0beta6/libtiff
           ${SOURCE_BASE_DIR}/tiff-4.0.0beta5/libtiff
   )
-ELSE(WIN32 AND ${HUGIN_SHARED})
+ELSE()
   find_library_with_debug(TIFF_LIBRARIES
     WIN32_DEBUG_POSTFIX d
     NAMES tiff libtiff wxtiff
@@ -59,7 +59,7 @@ ELSE(WIN32 AND ${HUGIN_SHARED})
           ${SOURCE_BASE_DIR}/tiff-4.0.0alpha/libtiff
           ${wxWidgets_LIB_DIR}
   )
-ENDIF(WIN32 AND ${HUGIN_SHARED})
+ENDIF()
 
 
 include(FindPackageHandleStandardArgs)
