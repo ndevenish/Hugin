@@ -351,6 +351,13 @@ void ImagesTreeCtrl::panoramaImagesChanged(Panorama &pano, const UIntSet &change
 void ImagesTreeCtrl::UpdateImageText(wxTreeItemId item)
 {
     ImagesTreeData* itemData=static_cast<ImagesTreeData*>(GetItemData(item));
+    // NAMEisLinked returns always false, if the lens or stacks contains only a single image
+    // so add a special handling for this case
+    bool isSingleImage = false;
+    if (m_groupMode != GROUP_NONE)
+    {
+        isSingleImage = (GetChildrenCount(GetItemParent(item)) == 1);
+    };
     wxString s;
     const size_t imgNr=itemData->GetImgNr();
     const SrcPanoImage & img = m_pano->getImage(imgNr);
@@ -466,7 +473,7 @@ void ImagesTreeCtrl::UpdateImageText(wxTreeItemId item)
     };
     SetItemText(item, m_columnMap["iso"], s);
 
-    if(m_groupMode==GROUP_STACK && img.YawisLinked())
+    if (m_groupMode == GROUP_STACK && (img.YawisLinked() || isSingleImage))
     {
         SetItemText(item, m_columnMap["y"], wxEmptyString);
         SetItemText(item, m_columnMap["p"], wxEmptyString);
@@ -508,7 +515,7 @@ void ImagesTreeCtrl::UpdateImageText(wxTreeItemId item)
         SetItemText(item, m_columnMap["response"], getResponseString(img));
     };
 
-    if(m_groupMode==GROUP_LENS && img.HFOVisLinked())
+    if (m_groupMode == GROUP_LENS && (img.HFOVisLinked() || isSingleImage))
     {
         SetItemText(item, m_columnMap["v"], wxEmptyString);
     }
@@ -517,7 +524,7 @@ void ImagesTreeCtrl::UpdateImageText(wxTreeItemId item)
         SetItemText(item, m_columnMap["v"], doubleTowxString(img.getHFOV(), m_degDigits));
     };
 
-    if(m_groupMode==GROUP_LENS && img.RadialDistortionisLinked())
+    if (m_groupMode == GROUP_LENS && (img.RadialDistortionisLinked() || isSingleImage))
     {
         SetItemText(item, m_columnMap["a"], wxEmptyString);
         SetItemText(item, m_columnMap["b"], wxEmptyString);
@@ -531,7 +538,7 @@ void ImagesTreeCtrl::UpdateImageText(wxTreeItemId item)
         SetItemText(item, m_columnMap["c"], doubleTowxString(dist[2],m_distDigits));
     };
 
-    if(m_groupMode==GROUP_LENS && img.RadialDistortionCenterShiftisLinked())
+    if (m_groupMode == GROUP_LENS && (img.RadialDistortionCenterShiftisLinked() || isSingleImage))
     {
         SetItemText(item, m_columnMap["d"], wxEmptyString);
         SetItemText(item, m_columnMap["e"], wxEmptyString);
@@ -543,7 +550,7 @@ void ImagesTreeCtrl::UpdateImageText(wxTreeItemId item)
         SetItemText(item, m_columnMap["e"], doubleTowxString(p.y,m_pixelDigits));
     };
 
-    if(m_groupMode==GROUP_LENS && img.ShearisLinked())
+    if (m_groupMode == GROUP_LENS && (img.ShearisLinked() || isSingleImage))
     {
         SetItemText(item, m_columnMap["g"], wxEmptyString);
         SetItemText(item, m_columnMap["t"], wxEmptyString);
@@ -555,7 +562,7 @@ void ImagesTreeCtrl::UpdateImageText(wxTreeItemId item)
         SetItemText(item, m_columnMap["t"], doubleTowxString(p.y,m_distDigits));
     };
 
-    if(m_groupMode==GROUP_LENS && img.ExposureValueisLinked())
+    if (m_groupMode == GROUP_LENS && (img.ExposureValueisLinked() || isSingleImage))
     {
         SetItemText(item, m_columnMap["Eev"], wxEmptyString);
     }
@@ -564,7 +571,7 @@ void ImagesTreeCtrl::UpdateImageText(wxTreeItemId item)
         SetItemText(item, m_columnMap["Eev"], doubleTowxString(img.getExposureValue(), m_pixelDigits));
     };
 
-    if(m_groupMode==GROUP_LENS && img.WhiteBalanceRedisLinked())
+    if (m_groupMode == GROUP_LENS && (img.WhiteBalanceRedisLinked() || isSingleImage))
     {
         SetItemText(item, m_columnMap["Er"], wxEmptyString);
     }
@@ -573,7 +580,7 @@ void ImagesTreeCtrl::UpdateImageText(wxTreeItemId item)
         SetItemText(item, m_columnMap["Er"], doubleTowxString(img.getWhiteBalanceRed(), m_pixelDigits+1));
     };
 
-    if(m_groupMode==GROUP_LENS && img.WhiteBalanceBlueisLinked())
+    if (m_groupMode == GROUP_LENS && (img.WhiteBalanceBlueisLinked() || isSingleImage))
     {
         SetItemText(item, m_columnMap["Eb"], wxEmptyString);
     }
@@ -582,7 +589,7 @@ void ImagesTreeCtrl::UpdateImageText(wxTreeItemId item)
         SetItemText(item, m_columnMap["Eb"], doubleTowxString(img.getWhiteBalanceBlue(), m_pixelDigits+1));
     };
 
-    if(m_groupMode==GROUP_LENS && img.RadialVigCorrCoeffisLinked())
+    if (m_groupMode == GROUP_LENS && (img.RadialVigCorrCoeffisLinked() || isSingleImage))
     {
         SetItemText(item, m_columnMap["Vb"], wxEmptyString);
         SetItemText(item, m_columnMap["Vc"], wxEmptyString);
@@ -596,7 +603,7 @@ void ImagesTreeCtrl::UpdateImageText(wxTreeItemId item)
         SetItemText(item, m_columnMap["Vd"], doubleTowxString(dist[3],m_distDigits));
     };
 
-    if(m_groupMode==GROUP_LENS && img.RadialVigCorrCenterShiftisLinked())
+    if (m_groupMode == GROUP_LENS && (img.RadialVigCorrCenterShiftisLinked() || isSingleImage))
     {
         SetItemText(item, m_columnMap["Vx"], wxEmptyString);
         SetItemText(item, m_columnMap["Vy"], wxEmptyString);
@@ -608,7 +615,7 @@ void ImagesTreeCtrl::UpdateImageText(wxTreeItemId item)
         SetItemText(item, m_columnMap["Vy"], doubleTowxString(p.y,m_distDigits));
     };
 
-    if(m_groupMode==GROUP_LENS && img.EMoRParamsisLinked())
+    if (m_groupMode == GROUP_LENS && (img.EMoRParamsisLinked() || isSingleImage))
     {
         SetItemText(item, m_columnMap["Ra"], wxEmptyString);
         SetItemText(item, m_columnMap["Rb"], wxEmptyString);
@@ -648,12 +655,19 @@ void ImagesTreeCtrl::UpdateGroupText(wxTreeItemId item)
     SetItemBold(item,1,true);
     wxTreeItemIdValue cookie;
     wxTreeItemId childItem=GetFirstChild(item,cookie);
+    // NAMEisLinked returns always false, if the lens or stacks contains only a single image
+    // so add a special handling for this case
+    bool haveSingleChild = false;
+    if (m_groupMode != GROUP_NONE)
+    {
+        haveSingleChild = (GetChildrenCount(item, false) == 1);
+    };
     if(childItem.IsOk())
     {
         ImagesTreeData* data=static_cast<ImagesTreeData*>(GetItemData(childItem));
         const SrcPanoImage& img=m_pano->getImage(data->GetImgNr());
 
-        if(m_groupMode==GROUP_STACK && img.YawisLinked())
+        if (m_groupMode == GROUP_STACK && (img.YawisLinked() || haveSingleChild))
         {
             SetItemText(item, m_columnMap["y"], doubleTowxString(img.getYaw(), m_degDigits));
             SetItemText(item, m_columnMap["p"], doubleTowxString(img.getPitch(), m_degDigits));
@@ -695,7 +709,7 @@ void ImagesTreeCtrl::UpdateGroupText(wxTreeItemId item)
             SetItemText(item, m_columnMap["response"], wxEmptyString);
         };
 
-        if(m_groupMode==GROUP_LENS && img.HFOVisLinked())
+        if (m_groupMode == GROUP_LENS && (img.HFOVisLinked() || haveSingleChild))
         {
             SetItemText(item, m_columnMap["v"], doubleTowxString(img.getHFOV(), m_degDigits));
         }
@@ -704,7 +718,7 @@ void ImagesTreeCtrl::UpdateGroupText(wxTreeItemId item)
             SetItemText(item, m_columnMap["v"], wxEmptyString);
         };
 
-        if(m_groupMode==GROUP_LENS && img.RadialDistortionisLinked())
+        if (m_groupMode == GROUP_LENS && (img.RadialDistortionisLinked() || haveSingleChild))
         {
             std::vector<double> dist=img.getRadialDistortion();
             SetItemText(item, m_columnMap["a"], doubleTowxString(dist[0],m_distDigits));
@@ -718,7 +732,7 @@ void ImagesTreeCtrl::UpdateGroupText(wxTreeItemId item)
             SetItemText(item, m_columnMap["c"], wxEmptyString);
         };
 
-        if(m_groupMode==GROUP_LENS && img.RadialDistortionCenterShiftisLinked())
+        if (m_groupMode == GROUP_LENS && (img.RadialDistortionCenterShiftisLinked() || haveSingleChild))
         {
             hugin_utils::FDiff2D p=img.getRadialDistortionCenterShift();
             SetItemText(item, m_columnMap["d"], doubleTowxString(p.x,m_pixelDigits));
@@ -730,7 +744,7 @@ void ImagesTreeCtrl::UpdateGroupText(wxTreeItemId item)
             SetItemText(item, m_columnMap["e"], wxEmptyString);
         };
 
-        if(m_groupMode==GROUP_LENS && img.ShearisLinked())
+        if (m_groupMode == GROUP_LENS && (img.ShearisLinked() || haveSingleChild))
         {
             hugin_utils::FDiff2D p=img.getShear();
             SetItemText(item, m_columnMap["g"], doubleTowxString(p.x,m_distDigits));
@@ -742,7 +756,7 @@ void ImagesTreeCtrl::UpdateGroupText(wxTreeItemId item)
             SetItemText(item, m_columnMap["t"], wxEmptyString);
         };
 
-        if(m_groupMode==GROUP_LENS && img.ExposureValueisLinked())
+        if (m_groupMode == GROUP_LENS && (img.ExposureValueisLinked() || haveSingleChild))
         {
             SetItemText(item, m_columnMap["Eev"], doubleTowxString(img.getExposureValue(), m_pixelDigits));
         }
@@ -751,7 +765,7 @@ void ImagesTreeCtrl::UpdateGroupText(wxTreeItemId item)
             SetItemText(item, m_columnMap["Eev"], wxEmptyString);
         };
 
-        if(m_groupMode==GROUP_LENS && img.WhiteBalanceRedisLinked())
+        if (m_groupMode == GROUP_LENS && (img.WhiteBalanceRedisLinked() || haveSingleChild))
         {
             SetItemText(item, m_columnMap["Er"], doubleTowxString(img.getWhiteBalanceRed(), m_pixelDigits+1));
         }
@@ -760,7 +774,7 @@ void ImagesTreeCtrl::UpdateGroupText(wxTreeItemId item)
             SetItemText(item, m_columnMap["Er"], wxEmptyString);
         };
 
-        if(m_groupMode==GROUP_LENS && img.WhiteBalanceBlueisLinked())
+        if (m_groupMode == GROUP_LENS && (img.WhiteBalanceBlueisLinked() || haveSingleChild))
         {
             SetItemText(item, m_columnMap["Eb"], doubleTowxString(img.getWhiteBalanceBlue(), m_pixelDigits+1));
         }
@@ -769,7 +783,7 @@ void ImagesTreeCtrl::UpdateGroupText(wxTreeItemId item)
             SetItemText(item, m_columnMap["Eb"], wxEmptyString);
         };
 
-        if(m_groupMode==GROUP_LENS && img.RadialVigCorrCoeffisLinked())
+        if (m_groupMode == GROUP_LENS && (img.RadialVigCorrCoeffisLinked() || haveSingleChild))
         {
             std::vector<double> dist=img.getRadialVigCorrCoeff();
             SetItemText(item, m_columnMap["Vb"], doubleTowxString(dist[1],m_distDigits));
@@ -783,7 +797,7 @@ void ImagesTreeCtrl::UpdateGroupText(wxTreeItemId item)
             SetItemText(item, m_columnMap["Vd"], wxEmptyString);
         };
 
-        if(m_groupMode==GROUP_LENS && img.RadialVigCorrCenterShiftisLinked())
+        if (m_groupMode == GROUP_LENS && (img.RadialVigCorrCenterShiftisLinked() || haveSingleChild))
         {
             hugin_utils::FDiff2D p=img.getRadialVigCorrCenterShift();
             SetItemText(item, m_columnMap["Vx"], doubleTowxString(p.x,m_distDigits));
@@ -795,7 +809,7 @@ void ImagesTreeCtrl::UpdateGroupText(wxTreeItemId item)
             SetItemText(item, m_columnMap["Vy"], wxEmptyString);
         };
 
-        if(m_groupMode==GROUP_LENS && img.EMoRParamsisLinked())
+        if (m_groupMode == GROUP_LENS && (img.EMoRParamsisLinked() || haveSingleChild))
         {
             std::vector<float> vec=img.getEMoRParams();
             SetItemText(item, m_columnMap["Ra"], doubleTowxString(vec[0],m_distDigits));
