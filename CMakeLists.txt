@@ -144,8 +144,9 @@ IF (WIN32)
   IF(NOT wxWidgets_ROOT_SUFFIX)
     SET( wxWidgets_ROOT_SUFFIX 2.8.10 CACHE STRING "version of wxWidgets." FORCE )
   ENDIF(NOT wxWidgets_ROOT_SUFFIX)
-
-  SET(wxWidgets_ROOT_DIR ${SOURCE_BASE_DIR}/wxWidgets-${wxWidgets_ROOT_SUFFIX})
+  IF(NOT wxWidgets_ROOT_DIR)
+    SET(wxWidgets_ROOT_DIR ${SOURCE_BASE_DIR}/wxWidgets-${wxWidgets_ROOT_SUFFIX})
+  ENDIF()
 ENDIF(WIN32)
 
 ##
