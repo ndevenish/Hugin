@@ -55,7 +55,6 @@ void PointSampler::sampleAndExtractPoints(AppBase::ProgressDisplay* progress)
     
     std::vector<vigra::FImage *> lapImgs;
     std::vector<vigra::Size2D> origsize;
-    std::vector<SrcPanoImage> srcDescr;
     
     // convert to interpolating images
     typedef vigra_ext::ImageInterpolator<vigra::FRGBImage::const_traverser, vigra::FRGBImage::ConstAccessor, vigra_ext::interp_cubic> InterpolImg;
@@ -68,7 +67,6 @@ void PointSampler::sampleAndExtractPoints(AppBase::ProgressDisplay* progress)
         SrcPanoImage simg = pano.getSrcImage(i);
         origsize.push_back(simg.getSize());
         simg.resize(images[i]->size());
-        srcDescr.push_back(simg);
         pano.setSrcImage(i, simg);
         interpolImages.push_back(InterpolImg(srcImageRange(*(images[i])), interp, false));
         
@@ -93,6 +91,11 @@ void PointSampler::sampleAndExtractPoints(AppBase::ProgressDisplay* progress)
     fitPano.run();
     opts.setHFOV(fitPano.getResultHorizontalFOV());
     opts.setHeight(roundi(fitPano.getResultHeight()));
+    // set roi to maximal size, so that the whole panorama is used for sampling
+    // a more reasonable solution would be to use the maximal
+    // used area, but this is currently not support to
+    // calculate optimal roi
+    opts.setROI(vigra::Rect2D(opts.getSize()));
     pano.setOptions(opts);
     SetWidthOptimal(pano).run();
     
@@ -110,8 +113,7 @@ void PointSampler::sampleAndExtractPoints(AppBase::ProgressDisplay* progress)
     progress->setMessage("sampling points");
     samplePoints(interpolImages,
                  lapImgs,
-                 srcDescr,
-                 pano.getOptions(),
+                 pano,
                  1/255.0f,
                  250/255.0f,
                  radiusHist,

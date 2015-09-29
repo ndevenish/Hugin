@@ -78,8 +78,7 @@ namespace HuginBase
             ///
             virtual void samplePoints(const std::vector<InterpolImg>& imgs,
                                       const std::vector<vigra::FImage*>& voteImgs,
-                                      const std::vector<SrcPanoImage>& src,
-                                      const PanoramaOptions& dest,
+                                      const PanoramaData& pano,
                                       float minI,
                                       float maxI,
                                       std::vector<std::multimap<double,vigra_ext::PointPairRGB> >& radiusHist,
@@ -155,8 +154,7 @@ namespace HuginBase
             template <class Img, class VoteImg, class PP>
             static void sampleAllPanoPoints(const std::vector<Img> &imgs,
                                      const std::vector<VoteImg *> &voteImgs,
-                                     const std::vector<SrcPanoImage> & src,
-                                     const PanoramaOptions & dest,
+                                     const PanoramaData& pano,
                                      int nPoints,
                                      float minI,
                                      float maxI,
@@ -169,8 +167,7 @@ namespace HuginBase
             ///
             virtual void samplePoints(const std::vector<InterpolImg>& imgs,
                                       const std::vector<vigra::FImage*>& voteImgs,
-                                      const std::vector<SrcPanoImage>& src,
-                                      const PanoramaOptions& dest,
+                                      const PanoramaData& pano,
                                       float minI,
                                       float maxI,
                                       std::vector<std::multimap<double,vigra_ext::PointPairRGB> >& radiusHist,
@@ -180,9 +177,8 @@ namespace HuginBase
             {
                 sampleAllPanoPoints(imgs,
                                     voteImgs,
-                                    src,
-                                    dest,
-                                     o_numPoints,
+                                    pano,
+                                    o_numPoints,
                                     minI,
                                     maxI,
                                     radiusHist,
@@ -215,8 +211,7 @@ namespace HuginBase
             template <class Img, class VoteImg, class PP>
             static void sampleRandomPanoPoints(const std::vector<Img>& imgs,
                                                const std::vector<VoteImg *> &voteImgs,
-                                               const std::vector<SrcPanoImage> & src,
-                                               const PanoramaOptions & dest,
+                                               const PanoramaData& pano,
                                                int nPoints,
                                                float minI,
                                                float maxI,
@@ -228,8 +223,7 @@ namespace HuginBase
             ///
             virtual void samplePoints(const std::vector<InterpolImg>& imgs,
                                       const std::vector<vigra::FImage*>& voteImgs,
-                                      const std::vector<SrcPanoImage>& src,
-                                      const PanoramaOptions& dest,
+                                      const PanoramaData& pano,
                                       float minI,
                                       float maxI,
                                       std::vector<std::multimap<double,vigra_ext::PointPairRGB> >& radiusHist,
@@ -239,9 +233,8 @@ namespace HuginBase
             {
                  sampleRandomPanoPoints(imgs,
                                         voteImgs,
-                                        src,
-                                        dest,
-                                         5*o_numPoints,
+                                        pano,
+                                        5*o_numPoints,
                                         minI,
                                         maxI,
                                         radiusHist,
@@ -300,8 +293,7 @@ void PointSampler::sampleRadiusUniform(const std::vector<std::multimap<double, P
 template <class Img, class VoteImg, class PP>
 void AllPointSampler::sampleAllPanoPoints(const std::vector<Img> &imgs,
                                           const std::vector<VoteImg *> &voteImgs,
-                                          const std::vector<SrcPanoImage> & src,
-                                          const PanoramaOptions & dest,
+                                          const PanoramaData& pano,
                                           int nPoints,
                                           float minI,
                                           float maxI,
@@ -315,16 +307,15 @@ void AllPointSampler::sampleAllPanoPoints(const std::vector<Img> &imgs,
 
     // use 10 bins
     radiusHist.resize(10);
-    unsigned pairsPerBin = nPoints / radiusHist.size();
+    const unsigned pairsPerBin = nPoints / radiusHist.size();
 
     nGoodPoints = 0;
     nBadPoints = 0;
     vigra_precondition(imgs.size() > 1, "sampleAllPanoPoints: At least two images required");
-    vigra_precondition(imgs.size() == src.size(), "number of src images doesn't match");
     
-    unsigned nImg = imgs.size();
+    const unsigned nImg = imgs.size();
 
-    vigra::Size2D srcSize = src[0].getSize();
+    vigra::Size2D srcSize = pano.getSrcImage(0).getSize();
     double maxr = sqrt(((double)srcSize.x)*srcSize.x + ((double)srcSize.y)*srcSize.y) / 2.0;
 
     // create an array of transforms.
@@ -332,23 +323,24 @@ void AllPointSampler::sampleAllPanoPoints(const std::vector<Img> &imgs,
     std::vector<PTools::Transform*> transf(imgs.size());
 
     // initialize transforms, and interpolating accessors
-    for(unsigned i=0; i < imgs.size(); i++) {
-        vigra_precondition(src[i].getSize() == srcSize, "images need to have the same size");
+    for(unsigned i=0; i < nImg; i++) {
+        vigra_precondition(pano.getSrcImage(i).getSize() == srcSize, "images need to have the same size");
         transf[i] = new PTools::Transform;
-        transf[i]->createTransform(src[i], dest);
+        transf[i]->createTransform(pano.getSrcImage(i), pano.getOptions());
     }
 
-    for (int y=dest.getROI().top(); y < dest.getROI().bottom(); ++y) {
-        for (int x=dest.getROI().left(); x < dest.getROI().right(); ++x) {
+    const vigra::Rect2D roi = pano.getOptions().getROI();
+    for (int y=roi.top(); y < roi.bottom(); ++y) {
+        for (int x=roi.left(); x < roi.right(); ++x) {
             hugin_utils::FDiff2D panoPnt(x,y);
-            for (unsigned i=0; i< nImg; i++) {
+            for (unsigned i=0; i< nImg-1; i++) {
             // transform pixel
                 hugin_utils::FDiff2D p1;
                 if(!transf[i]->transformImgCoord(p1, panoPnt))
                     continue;
                 vigra::Point2D p1Int(p1.toDiff2D());
                 // is inside:
-                if (!src[i].isInside(p1Int)) {
+                if (!pano.getSrcImage(i).isInside(p1Int)) {
                     // point is outside image
                     continue;
                 }
@@ -360,7 +352,7 @@ void AllPointSampler::sampleAllPanoPoints(const std::vector<Img> &imgs,
                         // ignore pixels that are too dark or bright
                         continue;
                     }
-                    double r1 = hugin_utils::norm((p1 - src[i].getRadialVigCorrCenter())/maxr);
+                    double r1 = hugin_utils::norm((p1 - pano.getSrcImage(i).getRadialVigCorrCenter()) / maxr);
 
                     // check inner image
                     for (unsigned j=i+1; j < nImg; j++) {
@@ -368,7 +360,7 @@ void AllPointSampler::sampleAllPanoPoints(const std::vector<Img> &imgs,
                         if(!transf[j]->transformImgCoord(p2, panoPnt))
                             continue;
                         vigra::Point2D p2Int(p2.toDiff2D());
-                        if (!src[j].isInside(p2Int)) {
+                        if (!pano.getSrcImage(j).isInside(p2Int)) {
                             // point is outside image
                             continue;
                         }
@@ -380,7 +372,7 @@ void AllPointSampler::sampleAllPanoPoints(const std::vector<Img> &imgs,
                                 // ignore pixels that are too dark or bright
                                 continue;
                             }
-                            double r2 = hugin_utils::norm((p2 - src[j].getRadialVigCorrCenter())/maxr);
+                            double r2 = hugin_utils::norm((p2 - pano.getSrcImage(j).getRadialVigCorrCenter()) / maxr);
                             // add pixel
                             const VoteImg & vimg1 =  *voteImgs[i];
                             const VoteImg & vimg2 =  *voteImgs[j];
@@ -432,7 +424,7 @@ void AllPointSampler::sampleAllPanoPoints(const std::vector<Img> &imgs,
         }
     }
 
-    for(unsigned i=0; i < imgs.size(); i++) {
+    for(unsigned i=0; i < nImg; i++) {
         delete transf[i];
     }
 }
@@ -442,8 +434,7 @@ void AllPointSampler::sampleAllPanoPoints(const std::vector<Img> &imgs,
 template <class Img, class VoteImg, class PP>
 void RandomPointSampler::sampleRandomPanoPoints(const std::vector<Img>& imgs,
                                                 const std::vector<VoteImg *> &voteImgs,
-                                                const std::vector<SrcPanoImage> & src,
-                                                const PanoramaOptions & dest,
+                                                const PanoramaData& pano,
                                                 int nPoints,
                                                 float minI,
                                                 float maxI,
@@ -455,12 +446,11 @@ void RandomPointSampler::sampleRandomPanoPoints(const std::vector<Img>& imgs,
     typedef typename Img::PixelType PixelType;
 
     vigra_precondition(imgs.size() > 1, "sampleRandomPanoPoints: At least two images required");
-    vigra_precondition(imgs.size() == src.size(), "number of src images doesn't match");
     
-    unsigned nImg = imgs.size();
+    const unsigned nImg = imgs.size();
 
-    unsigned nBins = radiusHist.size();
-    unsigned pairsPerBin = nPoints / nBins;
+    const unsigned nBins = radiusHist.size();
+    const unsigned pairsPerBin = nPoints / nBins;
 
     int allPoints = nPoints;
 
@@ -470,19 +460,20 @@ void RandomPointSampler::sampleRandomPanoPoints(const std::vector<Img>& imgs,
     std::vector<double> maxr(imgs.size());
 
     // initialize transforms, and interpolating accessors
-    for(unsigned i=0; i < imgs.size(); i++) {
+    for(unsigned i=0; i < nImg; i++) {
         // same size is not needed?
 //        vigra_precondition(src[i].getSize() == srcSize, "images need to have the same size");
         transf[i] = new PTools::Transform;
-        transf[i]->createTransform(src[i], dest);
-        vigra::Size2D srcSize = src[i].getSize();
+        transf[i]->createTransform(pano.getSrcImage(i), pano.getOptions());
+        vigra::Size2D srcSize = pano.getSrcImage(i).getSize();
         maxr[i] = sqrt(((double)srcSize.x)*srcSize.x + ((double)srcSize.y)*srcSize.y) / 2.0;
     }
     // init random number generator
+    const vigra::Rect2D roi = pano.getOptions().getROI();
 #ifdef HAVE_CXX11
     std::mt19937 rng(static_cast<unsigned int>(std::time(0)));
-    std::uniform_int_distribution<unsigned int> distribx(dest.getROI().left(), dest.getROI().right()-1);
-    std::uniform_int_distribution<unsigned int> distriby(dest.getROI().top(), dest.getROI().bottom()-1);
+    std::uniform_int_distribution<unsigned int> distribx(roi.left(), roi.right()-1);
+    std::uniform_int_distribution<unsigned int> distriby(roi.top(), roi.bottom()-1);
 
     auto randX = std::bind(distribx, std::ref(rng));
     auto randY = std::bind(distriby, std::ref(rng));
@@ -491,8 +482,8 @@ void RandomPointSampler::sampleRandomPanoPoints(const std::vector<Img>& imgs,
     // start with a different seed every time.
     rng.seed(static_cast<unsigned int>(std::time(0)));
     // randomly sample points.
-    boost::uniform_int<> distribx(dest.getROI().left(), dest.getROI().right()-1);
-    boost::uniform_int<> distriby(dest.getROI().top(), dest.getROI().bottom()-1);
+    boost::uniform_int<> distribx(roi.left(), roi.right()-1);
+    boost::uniform_int<> distriby(roi.top(), roi.bottom()-1);
 
     boost::variate_generator<boost::mt19937&, boost::uniform_int<> >
             randX(rng, distribx);             // glues randomness with mapping
@@ -504,7 +495,7 @@ void RandomPointSampler::sampleRandomPanoPoints(const std::vector<Img>& imgs,
         unsigned x = randX();
         unsigned y = randY();
         hugin_utils::FDiff2D panoPnt(x,y);
-        for (unsigned i=0; i< nImg; i++) {
+        for (unsigned i=0; i< nImg-1; i++) {
             // transform pixel
             PixelType i1;
             hugin_utils::FDiff2D p1;
@@ -512,7 +503,7 @@ void RandomPointSampler::sampleRandomPanoPoints(const std::vector<Img>& imgs,
                 continue;
             vigra::Point2D p1Int(p1.toDiff2D());
             // check if pixel is valid
-            if (!src[i].isInside(p1Int)) {
+            if (!pano.getSrcImage(i).isInside(p1Int)) {
                 // point is outside image
                 continue;
             }
@@ -523,7 +514,7 @@ void RandomPointSampler::sampleRandomPanoPoints(const std::vector<Img>& imgs,
                     // ignore pixels that are too dark or bright
                     continue;
                 }
-                double r1 = hugin_utils::norm((p1 - src[i].getRadialVigCorrCenter())/maxr[i]);
+                double r1 = hugin_utils::norm((p1 - pano.getSrcImage(i).getRadialVigCorrCenter()) / maxr[i]);
                 for (unsigned j=i+1; j < nImg; j++) {
                     PixelType i2;
                     hugin_utils::FDiff2D p2;
@@ -531,7 +522,7 @@ void RandomPointSampler::sampleRandomPanoPoints(const std::vector<Img>& imgs,
                         continue;
                     // check if a pixel is inside the source image
                     vigra::Point2D p2Int(p2.toDiff2D());
-                    if (!src[j].isInside(p2Int)) {
+                    if (!pano.getSrcImage(j).isInside(p2Int)) {
                         // point is outside image
                         continue;
                     }
@@ -543,7 +534,7 @@ void RandomPointSampler::sampleRandomPanoPoints(const std::vector<Img>& imgs,
                             continue;
                         }
                         // TODO: add check for gradient radius.
-                        double r2 = hugin_utils::norm((p2 - src[j].getRadialVigCorrCenter())/maxr[j]);
+                        double r2 = hugin_utils::norm((p2 - pano.getSrcImage(j).getRadialVigCorrCenter()) / maxr[j]);
 #if 0
                         // add pixel
                         if (im1 <= im2) {
