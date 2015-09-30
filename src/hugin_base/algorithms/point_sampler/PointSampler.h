@@ -315,7 +315,7 @@ void AllPointSampler::sampleAllPanoPoints(const std::vector<Img> &imgs,
     
     const unsigned nImg = imgs.size();
 
-    vigra::Size2D srcSize = pano.getSrcImage(0).getSize();
+    vigra::Size2D srcSize = pano.getImage(0).getSize();
     double maxr = sqrt(((double)srcSize.x)*srcSize.x + ((double)srcSize.y)*srcSize.y) / 2.0;
 
     // create an array of transforms.
@@ -324,9 +324,9 @@ void AllPointSampler::sampleAllPanoPoints(const std::vector<Img> &imgs,
 
     // initialize transforms, and interpolating accessors
     for(unsigned i=0; i < nImg; i++) {
-        vigra_precondition(pano.getSrcImage(i).getSize() == srcSize, "images need to have the same size");
+        vigra_precondition(pano.getImage(i).getSize() == srcSize, "images need to have the same size");
         transf[i] = new PTools::Transform;
-        transf[i]->createTransform(pano.getSrcImage(i), pano.getOptions());
+        transf[i]->createTransform(pano.getImage(i), pano.getOptions());
     }
 
     const vigra::Rect2D roi = pano.getOptions().getROI();
@@ -340,7 +340,7 @@ void AllPointSampler::sampleAllPanoPoints(const std::vector<Img> &imgs,
                     continue;
                 vigra::Point2D p1Int(p1.toDiff2D());
                 // is inside:
-                if (!pano.getSrcImage(i).isInside(p1Int)) {
+                if (!pano.getImage(i).isInside(p1Int)) {
                     // point is outside image
                     continue;
                 }
@@ -352,7 +352,7 @@ void AllPointSampler::sampleAllPanoPoints(const std::vector<Img> &imgs,
                         // ignore pixels that are too dark or bright
                         continue;
                     }
-                    double r1 = hugin_utils::norm((p1 - pano.getSrcImage(i).getRadialVigCorrCenter()) / maxr);
+                    double r1 = hugin_utils::norm((p1 - pano.getImage(i).getRadialVigCorrCenter()) / maxr);
 
                     // check inner image
                     for (unsigned j=i+1; j < nImg; j++) {
@@ -360,7 +360,7 @@ void AllPointSampler::sampleAllPanoPoints(const std::vector<Img> &imgs,
                         if(!transf[j]->transformImgCoord(p2, panoPnt))
                             continue;
                         vigra::Point2D p2Int(p2.toDiff2D());
-                        if (!pano.getSrcImage(j).isInside(p2Int)) {
+                        if (!pano.getImage(j).isInside(p2Int)) {
                             // point is outside image
                             continue;
                         }
@@ -372,7 +372,7 @@ void AllPointSampler::sampleAllPanoPoints(const std::vector<Img> &imgs,
                                 // ignore pixels that are too dark or bright
                                 continue;
                             }
-                            double r2 = hugin_utils::norm((p2 - pano.getSrcImage(j).getRadialVigCorrCenter()) / maxr);
+                            double r2 = hugin_utils::norm((p2 - pano.getImage(j).getRadialVigCorrCenter()) / maxr);
                             // add pixel
                             const VoteImg & vimg1 =  *voteImgs[i];
                             const VoteImg & vimg2 =  *voteImgs[j];
@@ -464,8 +464,8 @@ void RandomPointSampler::sampleRandomPanoPoints(const std::vector<Img>& imgs,
         // same size is not needed?
 //        vigra_precondition(src[i].getSize() == srcSize, "images need to have the same size");
         transf[i] = new PTools::Transform;
-        transf[i]->createTransform(pano.getSrcImage(i), pano.getOptions());
-        vigra::Size2D srcSize = pano.getSrcImage(i).getSize();
+        transf[i]->createTransform(pano.getImage(i), pano.getOptions());
+        vigra::Size2D srcSize = pano.getImage(i).getSize();
         maxr[i] = sqrt(((double)srcSize.x)*srcSize.x + ((double)srcSize.y)*srcSize.y) / 2.0;
     }
     // init random number generator
@@ -503,7 +503,7 @@ void RandomPointSampler::sampleRandomPanoPoints(const std::vector<Img>& imgs,
                 continue;
             vigra::Point2D p1Int(p1.toDiff2D());
             // check if pixel is valid
-            if (!pano.getSrcImage(i).isInside(p1Int)) {
+            if (!pano.getImage(i).isInside(p1Int)) {
                 // point is outside image
                 continue;
             }
@@ -514,7 +514,7 @@ void RandomPointSampler::sampleRandomPanoPoints(const std::vector<Img>& imgs,
                     // ignore pixels that are too dark or bright
                     continue;
                 }
-                double r1 = hugin_utils::norm((p1 - pano.getSrcImage(i).getRadialVigCorrCenter()) / maxr[i]);
+                double r1 = hugin_utils::norm((p1 - pano.getImage(i).getRadialVigCorrCenter()) / maxr[i]);
                 for (unsigned j=i+1; j < nImg; j++) {
                     PixelType i2;
                     hugin_utils::FDiff2D p2;
@@ -522,7 +522,7 @@ void RandomPointSampler::sampleRandomPanoPoints(const std::vector<Img>& imgs,
                         continue;
                     // check if a pixel is inside the source image
                     vigra::Point2D p2Int(p2.toDiff2D());
-                    if (!pano.getSrcImage(j).isInside(p2Int)) {
+                    if (!pano.getImage(j).isInside(p2Int)) {
                         // point is outside image
                         continue;
                     }
@@ -534,7 +534,7 @@ void RandomPointSampler::sampleRandomPanoPoints(const std::vector<Img>& imgs,
                             continue;
                         }
                         // TODO: add check for gradient radius.
-                        double r2 = hugin_utils::norm((p2 - pano.getSrcImage(j).getRadialVigCorrCenter()) / maxr[j]);
+                        double r2 = hugin_utils::norm((p2 - pano.getImage(j).getRadialVigCorrCenter()) / maxr[j]);
 #if 0
                         // add pixel
                         if (im1 <= im2) {
