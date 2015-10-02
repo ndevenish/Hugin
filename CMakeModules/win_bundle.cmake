@@ -164,39 +164,36 @@ IF(WIN32)
       NO_SYSTEM_ENVIRONMENT_PATH
     )
     # hand tuned dll, so that only necesarry dll are install and not all wxWidgets DLL to save space
-    FIND_FILE(WXWIDGETS_DLL1 
-              NAMES wxbase310u_vc_custom.dll wxbase30u_vc_custom.dll wxbase295u_vc_custom.dll wxbase294u_vc_custom.dll wxbase293u_vc_custom.dll wxbase292u_vc_custom.dll wxbase291u_vc_custom.dll wxbase28u_vc_custom.dll 
-              PATHS ${wxWidgets_LIB_DIR} NO_SYSTEM_ENVIRONMENT_PATH)
-    FIND_FILE(WXWIDGETS_DLL2 
-              NAMES wxmsw310u_core_vc_custom.dll wxmsw30u_core_vc_custom.dll wxmsw295u_core_vc_custom.dll wxmsw294u_core_vc_custom.dll wxmsw293u_core_vc_custom.dll wxmsw292u_core_vc_custom.dll wxmsw291u_core_vc_custom.dll wxmsw28u_core_vc_custom.dll
-              PATHS ${wxWidgets_LIB_DIR} NO_SYSTEM_ENVIRONMENT_PATH)
-    FIND_FILE(WXWIDGETS_DLL3 
-              NAMES wxmsw310u_xrc_vc_custom.dll wxmsw30u_xrc_vc_custom.dll wxmsw295u_xrc_vc_custom.dll wxmsw294u_xrc_vc_custom.dll wxmsw293u_xrc_vc_custom.dll wxmsw292u_xrc_vc_custom.dll wxmsw291u_xrc_vc_custom.dll wxmsw28u_xrc_vc_custom.dll
-              PATHS ${wxWidgets_LIB_DIR} NO_SYSTEM_ENVIRONMENT_PATH)
-    FIND_FILE(WXWIDGETS_DLL4 
-              NAMES wxmsw310u_adv_vc_custom.dll wxmsw30u_adv_vc_custom.dll wxmsw295u_adv_vc_custom.dll wxmsw294u_adv_vc_custom.dll wxmsw293u_adv_vc_custom.dll wxmsw292u_adv_vc_custom.dll wxmsw291u_adv_vc_custom.dll wxmsw28u_adv_vc_custom.dll
-              PATHS ${wxWidgets_LIB_DIR} NO_SYSTEM_ENVIRONMENT_PATH)
-    FIND_FILE(WXWIDGETS_DLL5 
-              NAMES wxmsw310u_gl_vc_custom.dll wxmsw30u_gl_vc_custom.dll wxmsw295u_gl_vc_custom.dll wxmsw294u_gl_vc_custom.dll wxmsw293u_gl_vc_custom.dll wxmsw292u_gl_vc_custom.dll wxmsw291u_gl_vc_custom.dll wxmsw28u_gl_vc_custom.dll
-              PATHS ${wxWidgets_LIB_DIR} NO_SYSTEM_ENVIRONMENT_PATH)
-    FIND_FILE(WXWIDGETS_DLL6 
-              NAMES wxmsw310u_html_vc_custom.dll wxmsw30u_html_vc_custom.dll wxmsw295u_html_vc_custom.dll wxmsw294u_html_vc_custom.dll wxmsw293u_html_vc_custom.dll wxmsw292u_html_vc_custom.dll wxmsw291u_html_vc_custom.dll wxmsw28u_html_vc_custom.dll
-              PATHS ${wxWidgets_LIB_DIR} NO_SYSTEM_ENVIRONMENT_PATH)
-    FIND_FILE(WXWIDGETS_DLL7 
-              NAMES wxbase310u_xml_vc_custom.dll wxbase30u_xml_vc_custom.dll wxbase295u_xml_vc_custom.dll wxbase294u_xml_vc_custom.dll wxbase293u_xml_vc_custom.dll wxbase292u_xml_vc_custom.dll wxbase291u_xml_vc_custom.dll wxbase28u_xml_vc_custom.dll
-              PATHS ${wxWidgets_LIB_DIR} NO_SYSTEM_ENVIRONMENT_PATH)
-    FIND_FILE(WXWIDGETS_DLL8 
-              NAMES wxmsw310u_aui_vc_custom.dll wxmsw30u_aui_vc_custom.dll wxmsw295u_aui_vc_custom.dll wxmsw294u_aui_vc_custom.dll wxmsw293u_aui_vc_custom.dll wxmsw292u_aui_vc_custom.dll wxmsw291u_aui_vc_custom.dll wxmsw28u_aui_vc_custom.dll
-              PATHS ${wxWidgets_LIB_DIR} NO_SYSTEM_ENVIRONMENT_PATH)
-    FIND_FILE(WXWIDGETS_DLL9 
-              NAMES wxmsw310u_qa_vc_custom.dll wxmsw30u_qa_vc_custom.dll wxmsw295u_qa_vc_custom.dll wxmsw294u_qa_vc_custom.dll wxmsw293u_qa_vc_custom.dll wxmsw292u_qa_vc_custom.dll wxmsw291u_qa_vc_custom.dll wxmsw28u_qa_vc_custom.dll
-              PATHS ${wxWidgets_LIB_DIR} NO_SYSTEM_ENVIRONMENT_PATH)
+    IF(MSVC)
+      SET(WXSUFFIX vc)
+    ELSE()
+      IF(MINGW)
+        SET(WXSUFFIX gcc)
+      ELSE()
+        MESSAGE(FATAL_ERROR "Unknown target for Win32 wxWidgets DLLs")
+      ENDIF()
+    ENDIF()
+    # first variant is for development versions with 3 numbers, second variant for stable versions with 2 numbers
+    FILE(GLOB WXWIDGETS_DLL
+      ${wxWidgets_LIB_DIR}/wxbase[2-3][0-9][0-9]u_${WXSUFFIX}*.dll     ${wxWidgets_LIB_DIR}/wxbase[2-3][0-9]u_${WXSUFFIX}*.dll
+      ${wxWidgets_LIB_DIR}/wxmsw[2-3][0-9][0-9]u_core_${WXSUFFIX}*.dll ${wxWidgets_LIB_DIR}/wxmsw[2-3][0-9]u_core_${WXSUFFIX}*.dll
+      ${wxWidgets_LIB_DIR}/wxmsw[2-3][0-9][0-9]u_xrc_${WXSUFFIX}*.dll  ${wxWidgets_LIB_DIR}/wxmsw[2-3][0-9]u_xrc_${WXSUFFIX}*.dll
+      ${wxWidgets_LIB_DIR}/wxmsw[2-3][0-9][0-9]u_adv_${WXSUFFIX}*.dll  ${wxWidgets_LIB_DIR}/wxmsw[2-3][0-9]u_adv_${WXSUFFIX}*.dll
+      ${wxWidgets_LIB_DIR}/wxmsw[2-3][0-9][0-9]u_gl_${WXSUFFIX}*.dll   ${wxWidgets_LIB_DIR}/wxmsw[2-3][0-9]u_gl_${WXSUFFIX}*.dll
+      ${wxWidgets_LIB_DIR}/wxmsw[2-3][0-9][0-9]u_html_${WXSUFFIX}*.dll ${wxWidgets_LIB_DIR}/wxmsw[2-3][0-9]u_html_${WXSUFFIX}*.dll
+      ${wxWidgets_LIB_DIR}/wxbase[2-3][0-9][0-9]u_xml_${WXSUFFIX}*.dll ${wxWidgets_LIB_DIR}/wxbase[2-3][0-9]u_xml_${WXSUFFIX}*.dll
+      ${wxWidgets_LIB_DIR}/wxmsw[2-3][0-9][0-9]u_aui_${WXSUFFIX}*.dll  ${wxWidgets_LIB_DIR}/wxmsw[2-3][0-9]u_aui_${WXSUFFIX}*.dll
+      ${wxWidgets_LIB_DIR}/wxmsw[2-3][0-9][0-9]u_qa_${WXSUFFIX}*.dll   ${wxWidgets_LIB_DIR}/wxmsw[2-3][0-9]u_qa_${WXSUFFIX}*.dll
+    )
+    # some checking in ensure all is found okay
+    list(LENGTH WXWIDGETS_DLL COUNT_WXWIDGETS_DLL)
+    IF(NOT ${COUNT_WXWIDGETS_DLL} EQUAL 9)
+      MESSAGE(FATAL_ERROR "Not all necessary wxWidgets dlls could be found.")
+    ENDIF()
 
     INSTALL(FILES ${TIFF_DLL} ${JPEG_DLL} ${PNG_DLL} ${ZLIB_DLL} ${OPENEXR_DLL} ${VIGRA_DLL}
         ${BOOST_DLLs} ${EXIV2_DLL} ${LIBEXPAT_DLL} ${GLEW_DLL} ${LCMS2_DLL}
-        ${WXWIDGETS_DLL1} ${WXWIDGETS_DLL2} ${WXWIDGETS_DLL2} ${WXWIDGETS_DLL3}
-        ${WXWIDGETS_DLL3} ${WXWIDGETS_DLL4} ${WXWIDGETS_DLL5} ${WXWIDGETS_DLL6}
-        ${WXWIDGETS_DLL7} ${WXWIDGETS_DLL8} ${WXWIDGETS_DLL9}
+        ${WXWIDGETS_DLL}
         DESTINATION ${BINDIR}
     )
     
