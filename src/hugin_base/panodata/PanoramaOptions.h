@@ -25,13 +25,11 @@
 #define _PANODATA_PANORAMAMEMENTO_H
 
 #include <hugin_config.h>
+#include <hugin_shared.h>
 
 #include <string>
 #include <vector>
-//#include <map>
-//#include <algorithm>
-//#include <set>
-//#include <math.h>
+
 #include <vigra/diff2d.hxx>
 
 extern "C" {
@@ -68,9 +66,8 @@ extern "C" {
 #undef MAX
 #endif
 
-    }
+}
 
-#include <hugin_shared.h>
 #include <vigra_ext/Interpolators.h>
 
 namespace HuginBase {
