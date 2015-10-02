@@ -34,8 +34,6 @@
 //#include <math.h>
 #include <vigra/diff2d.hxx>
 
-#include <vigra/windows.h>
-
 extern "C" {
 
     #ifdef __INTEL__
@@ -43,6 +41,8 @@ extern "C" {
     #undef __INTEL__
     #endif
 
+    // Define __NO_SYSTEM__ in order to turn off including of windows.h in pano13/panorama.h
+    #define __NO_SYSTEM__
     #include <pano13/panorama.h>
 
     #ifdef __INTELMEMO__

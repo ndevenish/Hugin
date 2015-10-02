@@ -35,6 +35,11 @@
 #include <wx/cmdline.h>
 #include <wx/arrstr.h>
 #include <wx/stdpaths.h>
+#if defined _WIN32
+// undefine DIFFERENCE defined in windows.h (included by wx/app.h)
+#undef DIFFERENCE
+#endif
+
 #include "base_wx/huginConfig.h"
 #include "base_wx/platform.h"
 #include "panodata/Panorama.h"
