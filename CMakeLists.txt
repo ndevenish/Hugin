@@ -299,6 +299,8 @@ IF(WIN32)
   IF(NOT BOOST_ROOT)
     SET(BOOST_ROOT ${SOURCE_BASE_DIR}/boost${Boost_root_suffix})
   ENDIF()
+  # for Windows Vista support
+  ADD_DEFINITIONS(-DPSAPI_VERSION=1)
 ENDIF(WIN32)
 
 IF(USE_CXX11_THREAD)
