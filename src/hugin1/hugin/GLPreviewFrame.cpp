@@ -1116,7 +1116,7 @@ void GLPreviewFrame::panoramaChanged(Panorama &pano)
             const size_t n= HuginBase::findCPComponents(graph, comps);
             if (n > 1)
             {
-                alignMsg += wxString::Format(_("%d unconnected image groups found: "), n) + Components2Str(comps) + wxT("\n");
+                alignMsg += wxString::Format(_("%lu unconnected image groups found: %s\n"), static_cast<unsigned long int>(n), Components2Str(comps).c_str());
                 alignMsg += _("Please use the Control Points tab to connect all images with control points.\n");
             }
             else
