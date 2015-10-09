@@ -1,6 +1,6 @@
 
 # require at least cmake 2.8
-cmake_minimum_required(VERSION 2.8 FATAL_ERROR )
+cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR )
 
 # prevent in-tree building
 if("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
