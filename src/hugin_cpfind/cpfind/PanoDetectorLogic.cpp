@@ -302,25 +302,25 @@ bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDet
             {
                 radius=2;
             };
-            vigra::BImage celeste_mask=celeste::getCelesteMask(iPanoDetector.svmModel,image16,radius,iPanoDetector.getCelesteThreshold(),800,true,false);
+            vigra::BImage* celeste_mask=celeste::getCelesteMask(iPanoDetector.svmModel,image16,radius,iPanoDetector.getCelesteThreshold(),800,true,false);
 #ifdef DEBUG_LOADING_REMAPPING
             // DEBUG: export celeste mask
             std::ostringstream maskfilename;
             maskfilename << ioImgInfo._name << "_celeste_mask.JPG";
             vigra::ImageExportInfo maskexinfo(maskfilename.str().c_str());
-            vigra::exportImage(srcImageRange(celeste_mask), maskexinfo);
+            vigra::exportImage(srcImageRange(*celeste_mask), maskexinfo);
 #endif
             image16.resize(0,0);
             if(final_mask.width()>0)
             {
-                vigra::copyImageIf(srcImageRange(celeste_mask),srcImage(final_mask),destImage(final_mask));
+                vigra::copyImageIf(srcImageRange(*celeste_mask),srcImage(final_mask),destImage(final_mask));
             }
             else
             {
                 final_mask.resize(ioImgInfo._detectWidth,ioImgInfo._detectHeight);
-                vigra::copyImage(srcImageRange(celeste_mask),destImage(final_mask));
+                vigra::copyImage(srcImageRange(*celeste_mask),destImage(final_mask));
             };
-            celeste_mask.resize(0,0);
+            delete celeste_mask;
             TRACE_IMG("Convert to greyscale double...");
             final_img.resize(ioImgInfo._detectWidth,ioImgInfo._detectHeight);
             vigra::copyImage(scaled.upperLeft(), scaled.lowerRight(), vigra::RGBToGrayAccessor<vigra::RGBValue<double> >(),

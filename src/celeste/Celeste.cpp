@@ -313,7 +313,7 @@ void generateMask(vigra::BImage& mask,int& gNumLocs, int**& gLocations,std::vect
     }
 };
 
-vigra::BImage getCelesteMask(struct svm_model* model, vigra::UInt16RGBImage& input, int radius, float threshold, int resize_dimension,bool adaptThreshold,bool verbose)
+vigra::BImage* getCelesteMask(struct svm_model* model, vigra::UInt16RGBImage& input, int radius, float threshold, int resize_dimension,bool adaptThreshold,bool verbose)
 {
     vigra::UInt16RGBImage luv;
     double sizefactor=1.0;
@@ -355,8 +355,8 @@ vigra::BImage getCelesteMask(struct svm_model* model, vigra::UInt16RGBImage& inp
     vigra::BImage mask_out(luv.width(), luv.height(),255);
     generateMask(mask_out,gNumLocs,gLocations,svm_responses,radius,threshold);
     // Re-size mask to match original image
-    vigra::BImage mask_resize(input.width(),input.height());			   
-    resizeImageNoInterpolation(srcImageRange(mask_out),destImageRange(mask_resize));		
+    vigra::BImage* mask_resize = new vigra::BImage(input.size());
+    vigra::resizeImageNoInterpolation(vigra::srcImageRange(mask_out), vigra::destImageRange(*mask_resize));		
     DisposeMatrix(pixels,luv.height());
     DisposeMatrix(gLocations,gNumLocs);
     mask_out.resize(0,0);

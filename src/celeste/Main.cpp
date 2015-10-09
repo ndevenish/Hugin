@@ -362,8 +362,9 @@ int main(int argc, char* argv[])
 
                 cout << "Generating mask:\t" << mask_name << endl;				
                 // Create mask
-                vigra::BImage mask=celeste::getCelesteMask(model,in,radius,threshold,resize_dimension);
-                exportImage(srcImageRange(mask), vigra::ImageExportInfo(mask_name.c_str()).setPixelType("UINT8"));
+                vigra::BImage* mask=celeste::getCelesteMask(model,in,radius,threshold,resize_dimension);
+                exportImage(srcImageRange(*mask), vigra::ImageExportInfo(mask_name.c_str()).setPixelType("UINT8"));
+                delete mask;
             }
             catch (vigra::StdException & e)
             {
@@ -425,8 +426,9 @@ int main(int argc, char* argv[])
                     {
                         string mask_name = generateMaskName(imagefile,mask_format);
                         // Create mask
-                        vigra::BImage mask=celeste::getCelesteMask(model,in,radius,threshold,resize_dimension);
-                        exportImage(srcImageRange(mask), vigra::ImageExportInfo(mask_name.c_str()).setPixelType("UINT8"));
+                        vigra::BImage* mask=celeste::getCelesteMask(model,in,radius,threshold,resize_dimension);
+                        exportImage(srcImageRange(*mask), vigra::ImageExportInfo(mask_name.c_str()).setPixelType("UINT8"));
+                        delete mask;
                     };
                 }
                 catch (vigra::StdException & e)

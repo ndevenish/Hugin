@@ -58,7 +58,7 @@ CELESTEIMPEX void destroySVMmodel(struct svm_model*& model);
  *  @param adaptThreshold if true then the threshold is changed, if the all values are higher than threshold
  *  @return vigra::BImage, which contains the masks
  */
-CELESTEIMPEX vigra::BImage getCelesteMask(struct svm_model* model, vigra::UInt16RGBImage& input, int radius, float threshold, int resize_dimension,bool adaptThreshold=false,bool verbose=true);
+CELESTEIMPEX vigra::BImage* getCelesteMask(struct svm_model* model, vigra::UInt16RGBImage& input, int radius, float threshold, int resize_dimension,bool adaptThreshold=false,bool verbose=true);
 
 CELESTEIMPEX HuginBase::UIntSet getCelesteControlPoints(struct svm_model* model, vigra::UInt16RGBImage& input, HuginBase::CPointVector cps, int radius, float threshold, int resize_dimension,bool verbose=true);
 
