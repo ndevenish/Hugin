@@ -796,8 +796,6 @@ bool PanoDetector::loadProject()
         img.setY(0);
         img.setZ(0);
         img.setActive(true);
-        img.setResponseType(SrcPanoImage::RESPONSE_LINEAR);
-        img.setExposureValue(0);
         _panoramaInfoCopy.setImage(imgNr,img);
 
         // Number pointing to image info in _panoramaInfo
