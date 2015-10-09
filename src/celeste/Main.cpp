@@ -23,6 +23,7 @@
 #include <sys/stat.h> 
 #include "hugin_config.h" 
 #include <vigra_ext/impexalpha.hxx>
+#include <vigra_ext/cms.h>
 #include <panodata/Panorama.h>
 #include <hugin_utils/utils.h>
 
@@ -146,6 +147,11 @@ vigra::UInt16RGBImage loadAndConvertImage(string imagefile)
                 {
                     std::cerr << "Unsupported pixel type" << std::endl;
                 };
+    // convert to sRGB colorspace if images contains icc profile
+    if (!info.getICCProfile().empty())
+    {
+        HuginBase::Color::ApplyICCProfile(image, info.getICCProfile(), TYPE_RGB_16);
+    }
     return image;
 };
 

@@ -117,6 +117,7 @@ panotools/PanoToolsInterface.h
 panotools/PanoToolsOptimizerWrapper.h
 panotools/PanoToolsUtils.h
 vigra_ext/Correlation.h
+vigra_ext/cms.h
 vigra_ext/emor.h
 vigra_ext/FileRAII.h
 vigra_ext/HDRUtils.h

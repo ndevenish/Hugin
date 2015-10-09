@@ -59,6 +59,7 @@
 #include "vigra/localminmax.hxx"
 #include "vigra_ext/openmp_vigra.h"
 #include "vigra_ext/Correlation.h"
+#include "vigra_ext/cms.h"
 
 // Celeste header
 #include "Celeste.h"
@@ -2046,6 +2047,11 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
             ImageCache::ImageCacheRGB8Ptr im8=img->get8BitImage();
             in.resize(im8->size());
             vigra::omp::transformImage(srcImageRange(*im8),destImage(in),vigra::functor::Arg1()*vigra::functor::Param(65535/255));
+        };
+        // convert to sRGB if icc profile found in file
+        if (!img->iccProfile->empty())
+        { 
+            HuginBase::Color::ApplyICCProfile(in, *(img->iccProfile), TYPE_RGB_16);
         };
         if (!progress.updateDisplayValue())
         {
