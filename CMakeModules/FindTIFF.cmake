@@ -17,6 +17,9 @@
 FIND_PATH(TIFF_INCLUDE_DIR tiff.h
   /usr/local/include
   /usr/include
+  ${SOURCE_BASE_DIR}/libtiff/include
+  ${SOURCE_BASE_DIR}/tiff-4.0.6/libtiff
+  ${SOURCE_BASE_DIR}/tiff-4.0.5/libtiff
   ${SOURCE_BASE_DIR}/tiff-4.0.4/libtiff
   ${SOURCE_BASE_DIR}/tiff-4.0.3/libtiff
   ${SOURCE_BASE_DIR}/tiff-4.0.1/libtiff
@@ -35,8 +38,11 @@ IF(WIN32 AND ${HUGIN_SHARED} AND MSVC)
 # on windows the libtiff library contains a static lib libtiff
 # and the import library libtiff_i for dynamic build
   find_library(TIFF_LIBRARIES
-    NAMES libtiff_i
+    NAMES libtiff_i tiff
     PATHS ${SYSTEM_LIB_DIRS}
+          ${SOURCE_BASE_DIR}/libtiff/lib
+          ${SOURCE_BASE_DIR}/tiff-4.0.6/libtiff
+          ${SOURCE_BASE_DIR}/tiff-4.0.5/libtiff
           ${SOURCE_BASE_DIR}/tiff-4.0.4/libtiff
           ${SOURCE_BASE_DIR}/tiff-4.0.3/libtiff
           ${SOURCE_BASE_DIR}/tiff-4.0.1/libtiff
@@ -49,6 +55,9 @@ ELSE()
     WIN32_DEBUG_POSTFIX d
     NAMES tiff libtiff wxtiff
     PATHS ${SYSTEM_LIB_DIRS}
+          ${SOURCE_BASE_DIR}/libtiff/lib
+          ${SOURCE_BASE_DIR}/tiff-4.0.6/libtiff
+          ${SOURCE_BASE_DIR}/tiff-4.0.5/libtiff
           ${SOURCE_BASE_DIR}/tiff-4.0.4/libtiff
           ${SOURCE_BASE_DIR}/tiff-4.0.3/libtiff
           ${SOURCE_BASE_DIR}/tiff-4.0.1/libtiff

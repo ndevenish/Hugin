@@ -86,8 +86,11 @@ IF(WIN32)
   # now install all necessary DLL
   IF(${HUGIN_SHARED})
     FIND_FILE(TIFF_DLL
-      NAMES libtiff.dll 
+      NAMES libtiff.dll tiff.dll
       PATHS 
+            ${SOURCE_BASE_DIR}/libtiff/bin
+            ${SOURCE_BASE_DIR}/tiff-4.0.6/libtiff
+            ${SOURCE_BASE_DIR}/tiff-4.0.5/libtiff
             ${SOURCE_BASE_DIR}/tiff-4.0.4/libtiff
             ${SOURCE_BASE_DIR}/tiff-4.0.3/libtiff
             ${SOURCE_BASE_DIR}/tiff-4.0.1/libtiff
