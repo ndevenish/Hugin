@@ -71,7 +71,7 @@
             <object class="wxStaticText">
               <label>Command line options</label>
             </object>
-            <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+            <flag>wxALIGN_CENTRE_VERTICAL</flag>
           </object>
           <object class="sizeritem">
             <object class="wxTextCtrl" name="blender_arguments_text"/>
@@ -155,7 +155,7 @@
             <orient>wxVERTICAL</orient>
             <object class="sizeritem">
               <object class="wxGridBagSizer">
-              <!-- The projection, field of view, and crop rows could be
+                <!-- The projection, field of view, and crop rows could be
                    removed, because they are all duplicated (including the
                    numeric entries) on the fast preview.
                    People still use them since when creating things like
@@ -236,7 +236,7 @@
                     </object>
                     <object class="sizeritem">
                       <object class="wxButton" name="pano_button_calc_fov">
-                      <!-- Gnome wants command buttons in header case, Microsoft and Apple want sentence case.
+                        <!-- Gnome wants command buttons in header case, Microsoft and Apple want sentence case.
                              I don't know about OS/2, but any label is better than none.-->
                         <label platform="win|mac|os2">Calculate field of view</label>
                         <label platform="unix">Calculate Field of View</label>
@@ -439,9 +439,7 @@
                   <cellpos>3,5</cellpos>
                   <cellspan>2,1</cellspan>
                 </object>
-                    
                 <!--Panorama output section -->
-                    
                 <object class="sizeritem">
                   <object class="wxStaticText">
                     <label>Panorama Outputs:</label>
@@ -518,7 +516,7 @@
                   <cellspan>1,1</cellspan>
                 </object>
                 <object class="sizeritem">
-                <!--There is either a text box for jpeg quality or a combo box for TIFF compression schemes in this cell.
+                  <!--There is either a text box for jpeg quality or a combo box for TIFF compression schemes in this cell.
                     The wxBoxSizer contains both, we just hide one and show the other. -->
                   <object class="wxBoxSizer">
                     <orient>wxHORIZONTAL</orient>
@@ -752,7 +750,6 @@
                   <cellpos>17,3</cellpos>
                   <cellspan>1,1</cellspan>
                 </object>
-                    
                 <object class="sizeritem">
                   <object class="wxStaticText" name="pano_text_fusion">
                     <label>Image fusion:</label>
@@ -780,7 +777,6 @@
                   <cellpos>18,3</cellpos>
                   <cellspan>1,1</cellspan>
                 </object>
-                    
                 <object class="sizeritem">
                   <object class="wxStaticText" name="pano_text_hdrmerge">
                     <label>HDR merger:</label>
@@ -808,7 +804,6 @@
                   <cellpos>19,3</cellpos>
                   <cellspan>1,1</cellspan>
                 </object>
-                    
                 <object class="sizeritem">
                   <object class="wxStaticText" name="pano_text_blender">
                     <label>Blender:</label>
@@ -855,19 +850,15 @@
         </object>
         <flag>wxEXPAND</flag>
       </object>
-      
       <object class="sizeritem">
-            
-            <object class="wxButton" name="pano_button_stitch">
-              <label platform="win|mac|os2">Stitch!</label>
-              <label platform="unix">Stitch!</label>
-              <enabled>0</enabled>
-            </object>
-            
+        <object class="wxButton" name="pano_button_stitch">
+          <label platform="win|mac|os2">Stitch!</label>
+          <label platform="unix">Stitch!</label>
+          <enabled>0</enabled>
+        </object>
         <flag>wxALIGN_RIGHT|wxALL</flag>
         <border>16</border>
       </object>
-      
     </object>
     <style>wxTAB_TRAVERSAL</style>
   </object>
@@ -1129,10 +1120,6 @@
                 <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                 <border>3</border>
               </object>
-              
-              
-              
-              
               <orient>wxHORIZONTAL</orient>
             </object>
             <flag>wxALL|wxEXPAND</flag>
