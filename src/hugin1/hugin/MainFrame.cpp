@@ -1175,7 +1175,7 @@ void MainFrame::OnAbout(wxCommandEvent & e)
 
 void MainFrame::OnHelp(wxCommandEvent & e)
 {
-    DisplayHelp(wxT("/Hugin.html"));
+    DisplayHelp();
 }
 
 void MainFrame::OnKeyboardHelp(wxCommandEvent & e)
@@ -1198,15 +1198,27 @@ void MainFrame::DisplayHelp(wxString section)
     // make it look nicer with some CSS styling
 
     // section is the HTML document to be displayed, from inside the data folder
-    if(section==wxT("")){
-        section = wxT("/Hugin.html");
-    }
 
     DEBUG_TRACE("");
 
 #ifdef __WXMSW__
-    GetHelpController().DisplaySection(section);
+    if (section.IsEmpty())
+    {
+        // wxWidgets 3.x has a bug, that prevents DisplaySection to work on Win8/10 64 bit
+        // see: http://trac.wxwidgets.org/ticket/14888
+        // workaround: using DisplayContents() which works also on these systems
+        // but Help, Keyboard shortcuts and FAQ is still crashing
+        GetHelpController().DisplayContents();
+    }
+    else
+    {
+        GetHelpController().DisplaySection(section);
+    };
 #else
+    if (section.IsEmpty())
+    {
+        section = wxT("/Hugin.html");
+    }
 #if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
     // On Mac, xrc/data/help_LOCALE should be in the bundle as LOCALE.lproj/help
     // which we can rely on the operating sytem to pick the right locale's.

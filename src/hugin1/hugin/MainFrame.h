@@ -140,7 +140,7 @@ public:
     void OnSetGuiExpert(wxCommandEvent & e);
 
     /** call help browser with given file */
-    void DisplayHelp(wxString section);
+    void DisplayHelp(wxString section = wxEmptyString);
 
     /** opens the control points tab with the both images selected */
     void ShowCtrlPointEditor(unsigned int img1, unsigned int img2);
