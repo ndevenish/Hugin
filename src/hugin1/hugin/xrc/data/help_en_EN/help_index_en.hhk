@@ -109,11 +109,6 @@
 		<param name="Local" value="Calibrate_lens_gui.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
-		<param name="Name" value="Camera and lens tab">
-		<param name="Name" value="Hugin Camera and Lens tab">
-		<param name="Local" value="Hugin_Camera_and_Lens_tab.html">
-		</OBJECT>
-	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Camera response curve">
 		<param name="Name" value="Camera response curve">
 		<param name="Local" value="Camera_response_curve.html">
@@ -699,6 +694,11 @@
 		<param name="Name" value="Photo-mosaic">
 		<param name="Name" value="Stitching a photo-mosaic - PanoTools.org Wiki">
 		<param name="Local" value="Stitching_a_photo-mosaic.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Photos tab">
+		<param name="Name" value="Hugin Photos tab - PanoTools.org Wiki">
+		<param name="Local" value="Hugin_Photos_tab.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Photos tab">
