@@ -20,7 +20,19 @@ http://panotools.sourceforge.net/
 
 Enblend-Enfuse originally by Andrew Mihal http://enblend.sourceforge.net/
 
-VIGRA: http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/ 
+VIGRA by Ullrich Koethe: http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/ 
+
+FFTW by Matteo Frigo and Steven G. Johnson: http://www.fftw.org
+
+Exiv2 by Andreas Huggel: http://exiv2.org/
+
+Exiftool by Phil Harvey: http://owl.phy.queensu.ca/~phil/exiftool/
+
+OpenGL Extension Wrangler Library (GLEW): http://glew.sourceforge.net/
+
+SQLite: http://www.sqlite.org/
+
+Little CMS2 by Marti Maria: http://www.littlecms.com/
 
 Many thanks to the whole Hugin-PTX mailing list, for great feedback and interesting discussions.
 
