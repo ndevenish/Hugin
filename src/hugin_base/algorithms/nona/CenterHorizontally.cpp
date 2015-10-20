@@ -28,7 +28,7 @@
 #include <vigra/copyimage.hxx>
 #include <panodata/PanoramaData.h>
 #include <nona/RemappedPanoImage.h>
-
+#include <algorithms/basic/RotatePanorama.h>
 
 
 namespace HuginBase {
@@ -50,9 +50,10 @@ void CenterHorizontally::centerHorizontically(PanoramaData& panorama)
     Nona::RemappedPanoImage<vigra::BImage, vigra::BImage> remapped;
     
     // use selected images.
-    UIntSet allActiveImgs = panorama.getActiveImages();
+    const UIntSet allActiveImgs(panorama.getActiveImages());
 
-    if (allActiveImgs.size() == 0) {
+    if (allActiveImgs.empty())
+    {
         // do nothing if there are no images
         return;
     }
@@ -74,21 +75,12 @@ void CenterHorizontally::centerHorizontically(PanoramaData& panorama)
                 };
             };
         };
-        if(img.getX()!=0 || img.getY()!=0 || img.getZ()!=0)
-        {
-            //if translation parameters are non-zero break, 
-            //because centering by modifying yaw does not work in this case
-            return;
-        };
         if(consider)
             activeImgs.insert(*it);
     };
 
-    for (UIntSet::iterator it = activeImgs.begin(); it != activeImgs.end(); ++it) {
-        //    for (unsigned int imgNr=0; imgNr < getNrOfImages(); imgNr++) {
-        //        const PanoImage & img = getImage(*it);
-        //        Size2D sz(img.getWidth(), img.getHeight());
-        //        remapped.setPanoImage(*this, *it, sz, opts);
+    for (UIntSet::iterator it = activeImgs.begin(); it != activeImgs.end(); ++it)
+    {
         remapped.setPanoImage(panorama.getSrcImage(*it), opts, vigra::Rect2D(0,0,360,180));
         // calculate alpha channel
         remapped.calcAlpha();
@@ -140,41 +132,10 @@ void CenterHorizontally::centerHorizontically(PanoramaData& panorama)
         borders = newBorders;
     }
     
-    double dYaw=(borders[0] + borders[lastidx])/2;
+    const double dYaw=(borders[0] + borders[lastidx])/2;
     
-    // apply yaw shift
-    unsigned int nImg = panorama.getNrOfImages();
-    for (unsigned int i=0; i < nImg; i++) {
-        const SrcPanoImage & image = panorama.getImage(i);
-        // only adjust yaw if we haven't already done so because of linking.
-        bool update=true;
-        if(image.YawisLinked())
-        {
-            for(unsigned int j=0; j<i; j++)
-            {
-                if(image.YawisLinkedWith(panorama.getImage(j)))
-                {
-                    update=false;
-                    break;
-                };
-            };
-        };
-        if (update)
-        {
-            double yaw = image.getYaw();
-            yaw = yaw - dYaw;
-            while (yaw < 180) {
-                yaw += 360;
-            }
-            while (yaw > 180) {
-                yaw -= 360;
-            }
-            SrcPanoImage newImage = image;
-            newImage.setYaw(yaw);
-            panorama.setImage(i, newImage);
-            panorama.imageChanged(i);
-        }
-    }
+    // apply yaw shift, takes also translation parameters into account
+    RotatePanorama(panorama, -dYaw, 0, 0).run();
 }
 
 } ///namespace
