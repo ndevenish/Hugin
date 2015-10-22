@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2015-10-21 19:39+0200\n"
-"PO-Revision-Date: 2015-08-03 17:25+0000\n"
+"POT-Creation-Date: 2015-10-20 21:57+0200\n"
+"PO-Revision-Date: 2015-10-22 18:13+0000\n"
 "Last-Translator: Kornel Benko <kornel@lyx.org>\n"
 "Language-Team: Slovak <kornel@lyx.org>\n"
 "Language: sk\n"
@@ -1625,9 +1625,9 @@ msgid "Images are connected by %lu control points.\n"
 msgstr "Obrázky sú prepojené %lu kontrolnými bodmi.\n"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1119
-#, fuzzy, c-format
+#, c-format
 msgid "%lu unconnected image groups found: %s\n"
-msgstr "bolo nájdených %d neprepojených skupín obrázkov: "
+msgstr "bolo nájdených %lu neprepojených skupín obrázkov: %s\n"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1120
 msgid ""
@@ -4497,6 +4497,10 @@ msgstr "Licencia"
 #: translations/xrc.cpp:8
 msgid "System"
 msgstr "Systém"
+
+#: hugin1/hugin/xrc/about.xrc:188
+msgid "Dedication"
+msgstr "Venovanie"
 
 #: translations/xrc.cpp:9 translations/xrc.cpp:175 translations/xrc.cpp:179
 #: translations/xrc.cpp:223 translations/xrc.cpp:231 translations/xrc.cpp:267
@@ -7737,9 +7741,6 @@ msgstr ""
 "Optimalizácia všetkých parametrov skreslenia \"všetko\" má zmysel iba vtedy, "
 "ak sa obrázky veľmi prekrývajú a použili ste tiež mnoho dobre rozprestrených "
 "kontrolných bodov."
-
-#~ msgid "Dedication"
-#~ msgstr "Venovanie"
 
 #~ msgid "Removed %d control points"
 #~ msgstr "Odstránených %d kontrolných bodov"
