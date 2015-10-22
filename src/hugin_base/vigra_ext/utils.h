@@ -285,7 +285,7 @@ inline
 V
 getMinComponent(vigra::RGBValue<V> const & v)
 {
-    return std::max(std::max(v.red(), v.green()), v.blue());
+    return std::min(std::min(v.red(), v.green()), v.blue());
 }
 
 /** get the maximum component of a vector (also works for single pixel types...) */
