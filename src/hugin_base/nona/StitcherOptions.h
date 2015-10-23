@@ -39,10 +39,12 @@ typedef std::map<std::string, std::string> AdvancedOptions;
 /** check if given option is saved and return its boolean value, otherwise return defaultValue */
 IMPEX bool GetAdvancedOption(const AdvancedOptions& opts, const std::string& name, const bool defaultValue);
 IMPEX std::string GetAdvancedOption(const AdvancedOptions& opts, const std::string& name, const std::string& defaultValue = std::string(""));
+IMPEX float GetAdvancedOption(const AdvancedOptions& opts, const std::string& name, const float defaultValue);
 
 /** store the option with name in AdvancedOptions*/
 IMPEX void SetAdvancedOption(AdvancedOptions& opts, const std::string& name, const bool value);
 IMPEX void SetAdvancedOption(AdvancedOptions& opts, const std::string& name, const std::string& value);
+IMPEX void SetAdvancedOption(AdvancedOptions& opts, const std::string& name, const float value);
 
 } // namespace Nona
 } // namespace HuginBase

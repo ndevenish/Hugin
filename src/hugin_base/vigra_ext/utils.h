@@ -285,7 +285,7 @@ inline
 V
 getMinComponent(vigra::RGBValue<V> const & v)
 {
-    return std::max(std::max(v.red(), v.green()), v.blue());
+    return std::min(std::min(v.red(), v.green()), v.blue());
 }
 
 /** get the maximum component of a vector (also works for single pixel types...) */
@@ -317,8 +317,9 @@ void applyExposureClipMask(vigra::triple<ImgIter, ImgIter, ImgAccessor> image, v
         AlphaIter xmd(ymd);
         for (int x = 0; x < imgSize.x; ++x, ++xd.x, ++xmd.x)
         {
-            const double val = getMaxComponent(*xd);
-            if (val < LowerLimit || val>UpperLimit)
+            const double minVal = vigra_ext::getMinComponent(*xd);
+            const double maxVal = vigra_ext::getMaxComponent(*xd);
+            if (minVal < LowerLimit || maxVal > UpperLimit)
             {
                 *xmd = 0;
             };

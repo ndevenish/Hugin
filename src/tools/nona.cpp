@@ -107,7 +107,11 @@ static void usage(const char* name)
          << "      --intermediate-suffix=SUFFIX  suffix for intermediate images" << std::endl
          << "      --create-exposure-layers  create all exposure layers" << std::endl
          << "                   (this will always use TIFF)" << std::endl
-         << "      --clip-exposure  mask automatically all dark and bright pixels" << std::endl
+         << "      --clip-exposure[=lower cutoff:upper cutoff]" << std::endl
+         << "                   mask automatically all dark and bright pixels" << std::endl
+         << "                   optionally you can specifiy the limits for the" << std::endl
+         << "                   lower and upper cutoff (specify in range 0...1," << std::endl
+         << "                   relative the full range)" << std::endl
          << std::endl;
 }
 
@@ -150,7 +154,7 @@ int main(int argc, char* argv[])
         { "intermediate-suffix", required_argument, NULL, INTERMEDIATESUFFIX },
         { "compression", required_argument, NULL, 'z' },
         { "create-exposure-layers", no_argument, NULL, EXPOSURELAYERS },
-        { "clip-exposure", no_argument, NULL, MASKCLIPEXPOSURE },
+        { "clip-exposure", optional_argument, NULL, MASKCLIPEXPOSURE },
         0
     };
     
@@ -209,6 +213,55 @@ int main(int argc, char* argv[])
                 break;
             case MASKCLIPEXPOSURE:
                 HuginBase::Nona::SetAdvancedOption(advOptions, "maskClipExposure", true);
+                if (optarg != NULL && *optarg != 0)
+                {
+                    // optional argument given, check if valid
+                    std::vector<std::string> tokens = hugin_utils::SplitString(std::string(optarg), ":");
+                    if (tokens.size() == 2)
+                    {
+                        double lowerCutoff;
+                        double upperCutoff;
+                        if (hugin_utils::stringToDouble(tokens[0], lowerCutoff) && hugin_utils::stringToDouble(tokens[1], upperCutoff))
+                        {
+                            if (lowerCutoff < 0 || lowerCutoff>1)
+                            {
+                                std::cerr << "nona: Argument \"" << tokens[0] << "\" is not a valid number for lower cutoff." << std::endl
+                                    << "      Aborting." << std::endl;
+                                return 1;
+                            };
+                            if (upperCutoff < 0 || upperCutoff>1)
+                            {
+                                std::cerr << "nona: Argument \"" << tokens[1] << "\" is not a valid number for upper cutoff." << std::endl
+                                    << "      Aborting." << std::endl;
+                                return 1;
+                            };
+                            if (lowerCutoff >= upperCutoff)
+                            {
+                                std::cerr << "nona: Lower cutoff \"" << tokens[0] << "\" is higher than upper cutoff" << std::endl
+                                    << "     \"" << tokens[1] << "\". This is no valid input." << std::endl
+                                    << "      Aborting." << std::endl;
+                                return 1;
+                            };
+                            HuginBase::Nona::SetAdvancedOption(advOptions, "maskClipExposureLowerCutoff", static_cast<float>(lowerCutoff));
+                            HuginBase::Nona::SetAdvancedOption(advOptions, "maskClipExposureUpperCutoff", static_cast<float>(upperCutoff));
+                        }
+                        else
+                        {
+                            std::cerr << "nona: Argument \"" << optarg << "\" is not valid number for --clip-exposure" << std::endl
+                                << "      Expected --clip-exposure=lower cutoff:upper cutoff" << std::endl
+                                << "      Both should be numbers between 0 and 1."
+                                << "      Aborting." << std::endl;
+                            return 1;
+                        }
+                    }
+                    else
+                    {
+                        std::cerr << "nona: Argument \"" << optarg << "\" is not valid for --clip-exposure" << std::endl
+                            << "      Expected --clip-exposure=lower cutoff:upper cutoff" << std::endl
+                            << "      Aborting." << std::endl;
+                        return 1;
+                    };
+                }
                 break;
             case '?':
             case 'h':
