@@ -147,9 +147,9 @@ Suffix for intermediate images
 
 Create all exposure layers (this will always use TIFF)
 
-=item B<--clip-exposure>
+=item B<--clip-exposure[=lower cutoff:upper cutoff]>
 
-Mask automatically all dark and bright pixels
+Mask automatically all dark and bright pixels. Optionally you can specify the limits for the lower and upper cutoff (specify in range 0...1, relative the full range)
 
 =back
 
