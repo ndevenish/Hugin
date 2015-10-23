@@ -23,6 +23,7 @@
  */
 
 #include "StitcherOptions.h"
+#include "hugin_utils/utils.h"
 
 namespace HuginBase
 {
@@ -62,6 +63,28 @@ std::string GetAdvancedOption(const AdvancedOptions& opts, const std::string& na
     };
 };
 
+float GetAdvancedOption(const AdvancedOptions& opts, const std::string& name, const float defaultValue)
+{
+    AdvancedOptions::const_iterator it = opts.find(name);
+    if (it != opts.end())
+    {
+        //option is stored
+        double value;
+        if (hugin_utils::stringToDouble(it->second, value))
+        {
+            return static_cast<float>(value);
+        }
+        else
+        {
+            return defaultValue;
+        };
+    }
+    else
+    {
+        return defaultValue;
+    };
+};
+
 void SetAdvancedOption(AdvancedOptions& opts, const std::string& name, const bool value)
 {
     if (value)
@@ -77,6 +100,11 @@ void SetAdvancedOption(AdvancedOptions& opts, const std::string& name, const boo
 void SetAdvancedOption(AdvancedOptions& opts, const std::string& name, const std::string& value)
 {
     opts[name] = value;
+};
+
+void SetAdvancedOption(AdvancedOptions& opts, const std::string& name, const float value)
+{
+    opts[name] = hugin_utils::doubleToString(value);
 };
 
 } // namespace Nona

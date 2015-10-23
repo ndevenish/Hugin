@@ -34,11 +34,16 @@
 #include <vigra_ext/ROIImage.h>
 
 #include <appbase/ProgressDisplay.h>
+#include <nona/StitcherOptions.h>
 
 #include <panodata/SrcPanoImage.h>
 #include <panodata/Mask.h>
 #include <panodata/PanoramaOptions.h>
 #include <panotools/PanoToolsInterface.h>
+
+// default values for exposure cutoff
+#define NONA_DEFAULT_EXPOSURE_LOWER_CUTOFF 1/255.0f
+#define NONA_DEFAULT_EXPOSURE_UPPER_CUTOFF 250/255.0f
 
 
 namespace HuginBase {
@@ -98,7 +103,7 @@ class RemappedPanoImage : public vigra_ext::ROIImage<RemapImage, AlphaImage>
          *
          *  the actual remapping is done by the remapImage() function.
          */
-        RemappedPanoImage() : m_clipExposureMask(false)
+        RemappedPanoImage() : m_advancedOptions()
         {};
 
         
@@ -107,9 +112,9 @@ class RemappedPanoImage : public vigra_ext::ROIImage<RemapImage, AlphaImage>
         void setPanoImage(const SrcPanoImage & src,
                           const PanoramaOptions & dest,
                           vigra::Rect2D roi);
-        void setMaskClipExposure(const bool doClipExposure)
+        void setAdvancedOptions(const AdvancedOptions& advancedOptions)
         {
-            m_clipExposureMask = doClipExposure;
+            m_advancedOptions = advancedOptions;
         };
 
     public:
@@ -154,7 +159,7 @@ class RemappedPanoImage : public vigra_ext::ROIImage<RemapImage, AlphaImage>
         SrcPanoImage m_srcImg;
         PanoramaOptions m_destImg;
         PTools::Transform m_transf;
-        bool m_clipExposureMask;
+        AdvancedOptions m_advancedOptions;
 
 };
 
@@ -460,8 +465,7 @@ void RemappedPanoImage<RemapImage,AlphaImage>::remapImage(vigra::triple<ImgIter,
         invResponse.setHDROutput(true,1.0/pow(2.0,m_destImg.outputExposureValue));
     }
 
-
-    if ((m_srcImg.hasActiveMasks()) || (m_srcImg.getCropMode() != SrcPanoImage::NO_CROP) || m_clipExposureMask)
+    if ((m_srcImg.hasActiveMasks()) || (m_srcImg.getCropMode() != SrcPanoImage::NO_CROP) || Nona::GetAdvancedOption(m_advancedOptions, "maskClipExposure", false))
     {
         // need to create and additional alpha image for the crop mask...
         // not very efficient during the remapping phase, but works.
@@ -517,9 +521,11 @@ void RemappedPanoImage<RemapImage,AlphaImage>::remapImage(vigra::triple<ImgIter,
         }
         if(m_srcImg.hasActiveMasks())
             vigra_ext::applyMask(vigra::destImageRange(alpha), m_srcImg.getActiveMasks());
-        if (m_clipExposureMask)
+        if (Nona::GetAdvancedOption(m_advancedOptions, "maskClipExposure", false))
         {
-            vigra_ext::applyExposureClipMask(srcImg, vigra::destImageRange(alpha), 1/255.0f, 250/255.0f);
+            const float lowerCutoff = Nona::GetAdvancedOption(m_advancedOptions, "maskClipExposureLowerCutoff", NONA_DEFAULT_EXPOSURE_LOWER_CUTOFF);
+            const float upperCutoff = Nona::GetAdvancedOption(m_advancedOptions, "maskClipExposureUpperCutoff", NONA_DEFAULT_EXPOSURE_UPPER_CUTOFF);
+            vigra_ext::applyExposureClipMask(srcImg, vigra::destImageRange(alpha), lowerCutoff, upperCutoff);
         };
         if (useGPU) {
             transformImageAlphaGPU(srcImg,
@@ -644,7 +650,7 @@ void RemappedPanoImage<RemapImage,AlphaImage>::remapImage(vigra::triple<ImgIter,
         invResponse.setHDROutput(true,1.0/pow(2.0,m_destImg.outputExposureValue));
     }
 
-    if ((m_srcImg.hasActiveMasks()) || (m_srcImg.getCropMode() != SrcPanoImage::NO_CROP) || m_clipExposureMask) {
+    if ((m_srcImg.hasActiveMasks()) || (m_srcImg.getCropMode() != SrcPanoImage::NO_CROP) || Nona::GetAdvancedOption(m_advancedOptions, "maskClipExposure", false)) {
         vigra::BImage alpha(srcImgSize);
         vigra::Rect2D cR = m_srcImg.getCropRect();
         switch (m_srcImg.getCropMode()) {
@@ -689,9 +695,11 @@ void RemappedPanoImage<RemapImage,AlphaImage>::remapImage(vigra::triple<ImgIter,
         }
         if(m_srcImg.hasActiveMasks())
             vigra_ext::applyMask(vigra::destImageRange(alpha), m_srcImg.getActiveMasks());
-        if (m_clipExposureMask)
+        if (Nona::GetAdvancedOption(m_advancedOptions, "maskClipExposure", false))
         {
-            vigra_ext::applyExposureClipMask(srcImg, vigra::destImageRange(alpha), 1 / 255.0f, 250 / 255.0f);
+            const float lowerCutoff = Nona::GetAdvancedOption(m_advancedOptions, "maskClipExposureLowerCutoff", NONA_DEFAULT_EXPOSURE_LOWER_CUTOFF);
+            const float upperCutoff = Nona::GetAdvancedOption(m_advancedOptions, "maskClipExposureUpperCutoff", NONA_DEFAULT_EXPOSURE_UPPER_CUTOFF);
+            vigra_ext::applyExposureClipMask(srcImg, vigra::destImageRange(alpha), lowerCutoff, upperCutoff);
         };
         if (useGPU) {
             vigra_ext::transformImageAlphaGPU(srcImg,

@@ -42,7 +42,7 @@ namespace Nona {
     {
         
         public:
-            SingleImageRemapper() : m_clipExposureMask(false)
+            SingleImageRemapper() : m_advancedOptions()
             {};
 
             /** create a remapped pano image.
@@ -57,15 +57,15 @@ namespace Nona {
             
             virtual ~SingleImageRemapper() {};
             
-            void SetClipExposureMask(bool doClipExposure)
+            void setAdvancedOptions(const HuginBase::Nona::AdvancedOptions advancedOptions)
             {
-                m_clipExposureMask = doClipExposure;
+                m_advancedOptions = advancedOptions;
             }
 
             ///
             virtual	void release(RemappedPanoImage<ImageType,AlphaType>* d) = 0;
         protected:
-            bool m_clipExposureMask;
+            HuginBase::Nona::AdvancedOptions m_advancedOptions;
         
     };
 
@@ -226,7 +226,7 @@ RemappedPanoImage<ImageType, AlphaType>*
         ffImg.resize(ffInfo.width(), ffInfo.height());
         vigra::importImage(ffInfo, vigra::destImage(ffImg));
     }
-    m_remapped->setMaskClipExposure(SingleImageRemapper<ImageType, AlphaType>::m_clipExposureMask);
+    m_remapped->setAdvancedOptions(SingleImageRemapper<ImageType, AlphaType>::m_advancedOptions);
     // remap the image
     
     remapImage(srcImg, srcAlpha, ffImg,
