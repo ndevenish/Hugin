@@ -30,9 +30,6 @@
 
 namespace deghosting {
 
-using namespace vigra;
-using namespace vigra::functor;
-
 /** Logarithm functor
  */
 template <class PixelType>
@@ -51,16 +48,16 @@ class LogarithmFunctor {
  * specialization for RGBValue
  */
 template <class ComponentType>
-class LogarithmFunctor<RGBValue<ComponentType> > {
+class LogarithmFunctor<vigra::RGBValue<ComponentType> > {
     public:
         explicit LogarithmFunctor(ComponentType off=0) : offset(off) {}
         
-        RGBValue<ComponentType> operator()(RGBValue<ComponentType> const& v) const {
-            RGBValue<ComponentType> retVal;
+        vigra::RGBValue<ComponentType> operator()(vigra::RGBValue<ComponentType> const& v) const {
+            vigra::RGBValue<ComponentType> retVal;
             retVal[0] = log(v[0] + offset);
             retVal[1] = log(v[1] + offset);
             retVal[2] = log(v[2] + offset);
-            //cout << retVal[0] << "," << retVal[1] << "," << retVal[2] << endl;
+            //cout << retVal[0] << "," << retVal[1] << "," << retVal[2] << std::endl;
             return retVal;
         }
     protected:
@@ -90,11 +87,11 @@ class HatFunctor {
  * specialization for RGBValue
  */
 template <class ComponentType>
-class HatFunctor<RGBValue<ComponentType> > {
+class HatFunctor<vigra::RGBValue<ComponentType> > {
     public:
         HatFunctor() {}
         
-        ComponentType operator()(RGBValue<ComponentType> v) const {
+        ComponentType operator()(vigra::RGBValue<ComponentType> v) const {
             ComponentType t = (v.luminance()/127.5 -1);
             t *= t; // ^2
             t *= t; // ^4
@@ -123,17 +120,17 @@ class NormalizeFunctor {
  * specialization for RGBValue
  */
 template <class ComponentType>
-class NormalizeFunctor<RGBValue<ComponentType> > {
+class NormalizeFunctor<vigra::RGBValue<ComponentType> > {
     public:
-        NormalizeFunctor(RGBValue<ComponentType> oldMaxValue, RGBValue<ComponentType> newMaxValue) {
+        NormalizeFunctor(vigra::RGBValue<ComponentType> oldMaxValue, vigra::RGBValue<ComponentType> newMaxValue) {
             // TODO
         }
         
-        RGBValue<ComponentType> operator()(RGBValue<ComponentType> const &v) {
+        vigra::RGBValue<ComponentType> operator()(vigra::RGBValue<ComponentType> const &v) {
             // TODO
         }
     protected:
-        RGBValue<ComponentType> foo;
+        vigra::RGBValue<ComponentType> foo;
 };
 
 }  // namespace deghosting

@@ -57,8 +57,6 @@
 #include "MyExternalCmdExecDialog.h"
 #include "hugin/config_defaults.h"
 
-using namespace std;
-
 // ----------------------------------------------------------------------------
 // event tables and other macros for wxWidgets
 // ----------------------------------------------------------------------------

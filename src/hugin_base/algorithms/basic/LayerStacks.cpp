@@ -30,11 +30,10 @@
 
 namespace HuginBase
 {
-using namespace std;
 
-vector<UIntSet> getHDRStacks(const PanoramaData & pano, UIntSet allImgs, PanoramaOptions opts)
+std::vector<UIntSet> getHDRStacks(const PanoramaData & pano, UIntSet allImgs, PanoramaOptions opts)
 {
-    vector<UIntSet> result;
+    std::vector<UIntSet> result;
 
     // if no images are available, return empty result vector
     if ( allImgs.empty() )
@@ -80,14 +79,14 @@ vector<UIntSet> getHDRStacks(const PanoramaData & pano, UIntSet allImgs, Panoram
     return result;
 }
 
-vector<UIntSet> getExposureLayers(const PanoramaData & pano, UIntSet allImgs, PanoramaOptions opts)
+std::vector<UIntSet> getExposureLayers(const PanoramaData & pano, UIntSet allImgs, PanoramaOptions opts)
 {
     return getExposureLayers(pano, allImgs, opts.outputLayersExposureDiff);
 };
 
 std::vector<UIntSet> getExposureLayers(const PanoramaData & pano, UIntSet allImgs, const double maxEVDiff)
 {
-    vector<UIntSet> result;
+    std::vector<UIntSet> result;
 
     // if no images are available, return empty result vector
     if ( allImgs.empty() )

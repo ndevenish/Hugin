@@ -34,8 +34,6 @@
 #include "panodata/Panorama.h"
 #include "base_wx/platform.h"
 
-using namespace HuginBase;
-
 class Project;
 
 WX_DECLARE_OBJARRAY(Project, ProjectArray);		//declare an array of projects - main data structure for the batch processor
@@ -87,7 +85,7 @@ public:
     //Returns status of project in string form
     wxString GetStatusText();
     //Reads and returns options from a project file
-    PanoramaOptions ReadOptions(wxString projectFile);
+    HuginBase::PanoramaOptions ReadOptions(wxString projectFile);
     //Resets the project options of project
     void ResetOptions();
 };

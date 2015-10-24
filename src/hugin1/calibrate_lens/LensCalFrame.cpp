@@ -41,8 +41,6 @@
 #include "base_wx/wxLensDB.h"
 #include "panodata/StandardImageVariableGroups.h"
 
-using namespace HuginBase;
-
 const unsigned int cps_per_line=10;
 
 #define DEFAULT_LENSCAL_SCALE 2.0
@@ -227,16 +225,16 @@ LensCalFrame::~LensCalFrame()
         delete m_images[i];
     };
     m_images.clear();
-    LensDB::LensDB::Clean();
+    HuginBase::LensDB::LensDB::Clean();
     DEBUG_TRACE("dtor end");
 }
 
 void LensCalFrame::ParametersToDisplay()
 {
-    XRCCTRL(*this,"lenscal_scale",wxTextCtrl)->SetValue(doubleTowxString(m_edge_scale,2));
-    XRCCTRL(*this,"lenscal_threshold",wxTextCtrl)->SetValue(doubleTowxString(m_edge_threshold,2));
-    XRCCTRL(*this,"lenscal_resizedim",wxTextCtrl)->SetValue(wxString::Format(wxT("%d"),m_resize_dimension));
-    XRCCTRL(*this,"lenscal_minlinelength",wxTextCtrl)->SetValue(doubleTowxString(m_minlinelength,2));
+    XRCCTRL(*this,"lenscal_scale",wxTextCtrl)->SetValue(hugin_utils::doubleTowxString(m_edge_scale,2));
+    XRCCTRL(*this, "lenscal_threshold", wxTextCtrl)->SetValue(hugin_utils::doubleTowxString(m_edge_threshold, 2));
+    XRCCTRL(*this, "lenscal_resizedim", wxTextCtrl)->SetValue(wxString::Format(wxT("%d"), m_resize_dimension));
+    XRCCTRL(*this, "lenscal_minlinelength", wxTextCtrl)->SetValue(hugin_utils::doubleTowxString(m_minlinelength, 2));
 };
 
 const wxString & LensCalFrame::GetXRCPath()
@@ -504,44 +502,44 @@ bool LensCalFrame::ReadInputs(bool readFocalLength,bool readOptions,bool readLen
 {
     if(readFocalLength)
     {
-        m_projection = (SrcPanoImage::Projection)GetSelectedValue(m_choice_projection);
-        if(!str2double(XRCCTRL(*this,"lenscal_focallength",wxTextCtrl)->GetValue(),m_focallength))
+        m_projection = (HuginBase::SrcPanoImage::Projection)GetSelectedValue(m_choice_projection);
+        if (!hugin_utils::str2double(XRCCTRL(*this, "lenscal_focallength", wxTextCtrl)->GetValue(), m_focallength))
             return false;
         if(m_focallength<1)
             return false;
-        if(!str2double(XRCCTRL(*this,"lenscal_cropfactor",wxTextCtrl)->GetValue(),m_cropfactor))
+        if (!hugin_utils::str2double(XRCCTRL(*this, "lenscal_cropfactor", wxTextCtrl)->GetValue(), m_cropfactor))
             return false;
         if(m_cropfactor<0.1)
             return false;
     }
     if(readOptions)
     {
-        if(!str2double(XRCCTRL(*this,"lenscal_scale",wxTextCtrl)->GetValue(),m_edge_scale))
+        if (!hugin_utils::str2double(XRCCTRL(*this, "lenscal_scale", wxTextCtrl)->GetValue(), m_edge_scale))
             return false;
-        if(!str2double(XRCCTRL(*this,"lenscal_threshold",wxTextCtrl)->GetValue(),m_edge_threshold))
+        if (!hugin_utils::str2double(XRCCTRL(*this, "lenscal_threshold", wxTextCtrl)->GetValue(), m_edge_threshold))
             return false;
         double resize_dim;
-        if(!str2double(XRCCTRL(*this,"lenscal_resizedim",wxTextCtrl)->GetValue(),resize_dim))
+        if (!hugin_utils::str2double(XRCCTRL(*this, "lenscal_resizedim", wxTextCtrl)->GetValue(), resize_dim))
             return false;
         if(resize_dim<100)
             return false;
         m_resize_dimension=(unsigned int)resize_dim;
-        if(!str2double(XRCCTRL(*this,"lenscal_minlinelength",wxTextCtrl)->GetValue(),m_minlinelength))
+        if (!hugin_utils::str2double(XRCCTRL(*this, "lenscal_minlinelength", wxTextCtrl)->GetValue(), m_minlinelength))
             return false;
         if(m_minlinelength<=0 || m_minlinelength>1)
             return false;
     };
     if(readLensParameter)
     {
-        if(!str2double(XRCCTRL(*this,"lenscal_a",wxTextCtrl)->GetValue(),m_a))
+        if (!hugin_utils::str2double(XRCCTRL(*this, "lenscal_a", wxTextCtrl)->GetValue(), m_a))
             return false;
-        if(!str2double(XRCCTRL(*this,"lenscal_b",wxTextCtrl)->GetValue(),m_b))
+        if (!hugin_utils::str2double(XRCCTRL(*this, "lenscal_b", wxTextCtrl)->GetValue(), m_b))
             return false;
-        if(!str2double(XRCCTRL(*this,"lenscal_c",wxTextCtrl)->GetValue(),m_c))
+        if (!hugin_utils::str2double(XRCCTRL(*this, "lenscal_c", wxTextCtrl)->GetValue(), m_c))
             return false;
-        if(!str2double(XRCCTRL(*this,"lenscal_d",wxTextCtrl)->GetValue(),m_d))
+        if (!hugin_utils::str2double(XRCCTRL(*this, "lenscal_d", wxTextCtrl)->GetValue(), m_d))
             return false;
-        if(!str2double(XRCCTRL(*this,"lenscal_e",wxTextCtrl)->GetValue(),m_e))
+        if (!hugin_utils::str2double(XRCCTRL(*this, "lenscal_e", wxTextCtrl)->GetValue(), m_e))
             return false;
     }
     return true;
@@ -588,14 +586,14 @@ void LensCalFrame::OnOptimize(wxCommandEvent &e)
     Optimize();
 };
 
-Panorama LensCalFrame::GetPanorama()
+HuginBase::Panorama LensCalFrame::GetPanorama()
 {
     HuginBase::Panorama pano;
-    OptimizeVector optvec;
+    HuginBase::OptimizeVector optvec;
     unsigned int line_number=3; 
     for(unsigned int i=0;i<m_images.size();i++)
     {
-        SrcPanoImage image(*(m_images[i]->GetPanoImage()));
+        HuginBase::SrcPanoImage image(*(m_images[i]->GetPanoImage()));
         image.setProjection(m_projection);
         image.setExifFocalLength(m_focallength);
         image.setCropFactor(m_cropfactor);
@@ -604,7 +602,7 @@ Panorama LensCalFrame::GetPanorama()
         image.setVar("c",m_c);
         image.setVar("d",m_d);
         image.setVar("e",m_e);
-        double hfov=SrcPanoImage::calcHFOV(image.getProjection(),image.getExifFocalLength(),image.getCropFactor(),image.getSize());
+        double hfov = HuginBase::SrcPanoImage::calcHFOV(image.getProjection(), image.getExifFocalLength(), image.getCropFactor(), image.getSize());
         image.setHFOV(hfov);
         pano.addImage(image);
         std::set<std::string> imgopt;
@@ -637,13 +635,13 @@ Panorama LensCalFrame::GetPanorama()
         };
     };
     //assign all images the same lens number
-    StandardImageVariableGroups variable_groups(pano);
-    ImageVariableGroup & lenses = variable_groups.getLenses();
+    HuginBase::StandardImageVariableGroups variable_groups(pano);
+    HuginBase::ImageVariableGroup & lenses = variable_groups.getLenses();
     if(pano.getNrOfImages()>1)
     {
         for(unsigned int i=1;i<pano.getNrOfImages();i++)
         {
-            SrcPanoImage img=pano.getSrcImage(i);
+            HuginBase::SrcPanoImage img = pano.getSrcImage(i);
             lenses.switchParts(i,lenses.getPartNumber(0));
             lenses.unlinkVariableImage(HuginBase::ImageVariableGroup::IVE_ExposureValue, i);
             img.setExposureValue(0);
@@ -655,7 +653,7 @@ Panorama LensCalFrame::GetPanorama()
         };
     };
     //set default exposure value
-    PanoramaOptions opts = pano.getOptions();
+    HuginBase::PanoramaOptions opts = pano.getOptions();
     opts.outputExposureValue = 0;
     opts.setProjection(HuginBase::PanoramaOptions::RECTILINEAR);
     pano.setOptions(opts);
@@ -667,10 +665,10 @@ Panorama LensCalFrame::GetPanorama()
 void LensCalFrame::Optimize()
 {
     SetStatusText(_("Optimizing lens distortion parameters..."));
-    Panorama pano=GetPanorama();
+    HuginBase::Panorama pano = GetPanorama();
     HuginBase::PTools::optimize(pano);
 
-    const SrcPanoImage img=pano.getImage(0);
+    const HuginBase::SrcPanoImage img = pano.getImage(0);
     m_a=img.getVar("a");
     m_b=img.getVar("b");
     m_c=img.getVar("c");
@@ -708,7 +706,7 @@ void LensCalFrame::SaveLensToIni()
                 return;
             }
         }
-        Panorama pano=GetPanorama();
+        HuginBase::Panorama pano = GetPanorama();
         SaveLensParameters(filename.GetFullPath(),&pano,0);
     }
 };
@@ -741,7 +739,7 @@ void LensCalFrame::OnSaveLens(wxCommandEvent &e)
         }
         else
         {
-            Panorama pano=GetPanorama();
+            HuginBase::Panorama pano = GetPanorama();
             SaveLensParameters(this,pano.getImage(0),false);
         };
     };
@@ -773,8 +771,8 @@ void LensCalFrame::OnSaveProject(wxCommandEvent &e)
                 return;
             }
         }
-        Panorama pano=GetPanorama();
-        std::string path = getPathPrefix(std::string(filename.GetFullPath().mb_str(HUGIN_CONV_FILENAME)));
+        HuginBase::Panorama pano = GetPanorama();
+        std::string path = hugin_utils::getPathPrefix(std::string(filename.GetFullPath().mb_str(HUGIN_CONV_FILENAME)));
         std::ofstream script(filename.GetFullPath().mb_str(HUGIN_CONV_FILENAME));
         script.exceptions ( std::ofstream::eofbit | std::ofstream::failbit | std::ofstream::badbit );
         HuginBase::UIntSet all;

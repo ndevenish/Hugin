@@ -44,34 +44,30 @@
 #include <panodata/Panorama.h>
 #include <panotools/PanoToolsInterface.h>
 
-using namespace std;
-using namespace HuginBase;
-using namespace AppBase;
-
 static void usage(const char* name)
 {
-    cout << name << ": transform pixel coordinates" << endl
-         << "pano_trafo version " << hugin_utils::GetHuginVersion() << endl
-         << endl
-         << "Usage:  " << name << " input.pto [ image_nr ]" << endl
-         << endl
-         << "pano_trafo reads pixel coordinates from standard input and" << endl
-         << "prints the transformed coordinates to standard output." << endl
-         << "If you pass an image number on the command line," << endl
-         << "it reads pairs of coordinates and transforms them." << endl
-         << "If you don't pass an image number, it will read triplets" << endl
-         << "of the form <image number> <x coordinate> <y coordinate>" << endl
-         << "and output the transformed coordinates." << endl
-         << endl
-         << "     -r       Transform from panorama to image coordinates" << endl
-         << "     -h       shows help" << endl
-         << endl;
+    std::cout << name << ": transform pixel coordinates" << std::endl
+         << "pano_trafo version " << hugin_utils::GetHuginVersion() << std::endl
+         << std::endl
+         << "Usage:  " << name << " input.pto [ image_nr ]" << std::endl
+         << std::endl
+         << "pano_trafo reads pixel coordinates from standard input and" << std::endl
+         << "prints the transformed coordinates to standard output." << std::endl
+         << "If you pass an image number on the command line," << std::endl
+         << "it reads pairs of coordinates and transforms them." << std::endl
+         << "If you don't pass an image number, it will read triplets" << std::endl
+         << "of the form <image number> <x coordinate> <y coordinate>" << std::endl
+         << "and output the transformed coordinates." << std::endl
+         << std::endl
+         << "     -r       Transform from panorama to image coordinates" << std::endl
+         << "     -h       shows help" << std::endl
+         << std::endl;
 }
 
 // alternative behaviour if no image number is passed.
 // main() with the original behaviour follows below.
 
-void work_on_triplets ( Panorama pano , bool reverse )
+void work_on_triplets(const HuginBase::Panorama& pano, bool reverse)
 {
     // pano tools interface
     int images = pano.getNrOfImages() ;
@@ -84,7 +80,7 @@ void work_on_triplets ( Panorama pano , bool reverse )
 
     if ( ! trafo_set )
     {
-        cerr << "not enough memory" ; // very unlikely...
+        std::cerr << "not enough memory" ; // very unlikely...
         exit ( -1 ) ;
     }
 
@@ -104,15 +100,15 @@ void work_on_triplets ( Panorama pano , bool reverse )
 
     double xin , yin , xout , yout ;
 
-    while ( cin >> image >> xin >> yin )
+    while ( std::cin >> image >> xin >> yin )
     {
         if ( image < 0 || image >= images )
         {
-            cerr << "no image " << image << " in pano" << endl ;
+            std::cerr << "no image " << image << " in pano" << std::endl ;
             exit ( 1 ) ; // we don't want an index out of range
         }
         trafo_set[image].transformImgCoord(xout, yout, xin, yin);
-        cout << xout << " " << yout << endl ;
+        std::cout << xout << " " << yout << std::endl ;
     }
 }
 
@@ -146,27 +142,27 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-    string input=argv[optind];
+    std::string input=argv[optind];
 
-    Panorama pano;
-    ifstream prjfile(input.c_str());
+    HuginBase::Panorama pano;
+    std::ifstream prjfile(input.c_str());
     if (!prjfile.good())
     {
-        cerr << "could not open script : " << input << endl;
+        std::cerr << "could not open script : " << input << std::endl;
         return 1;
     }
     pano.setFilePrefix(hugin_utils::getPathPrefix(input));
-    DocumentData::ReadWriteError err = pano.readData(prjfile);
-    if (err != DocumentData::SUCCESSFUL)
+    AppBase::DocumentData::ReadWriteError err = pano.readData(prjfile);
+    if (err != AppBase::DocumentData::SUCCESSFUL)
     {
-        cerr << "error while parsing panos tool script: " << input << endl;
-        cerr << "DocumentData::ReadWriteError code: " << err << endl;
+        std::cerr << "error while parsing panos tool script: " << input << std::endl;
+        std::cerr << "AppBase::DocumentData::ReadWriteError code: " << err << std::endl;
         return 1;
     }
 
     // set up output format
-    cout.setf ( ios::fixed ) ;
-    cout.precision ( 6 ) ; // should be ample
+    std::cout.setf ( std::ios::fixed ) ;
+    std::cout.precision ( 6 ) ; // should be ample
 
     if ( argc - optind == 1 )
     {
@@ -182,7 +178,7 @@ int main(int argc, char* argv[])
     int imageNumber = atoi(argv[optind+1]);
     if (imageNumber >= pano.getNrOfImages())
     {
-        cerr << "Not enough images in panorama" << endl;
+        std::cerr << "Not enough images in panorama" << std::endl;
         return 1;
     }
 
@@ -201,9 +197,9 @@ int main(int argc, char* argv[])
 
     // here's where the old-style IO was, now it's all streams.
     // It's also format-free input, so newlines don't matter
-    while ( cin >> xin >> yin )
+    while ( std::cin >> xin >> yin )
     {
         trafo.transformImgCoord(xout, yout, xin, yin);
-        cout << xout << " " << yout << endl ;
+        std::cout << xout << " " << yout << std::endl ;
     }
 }

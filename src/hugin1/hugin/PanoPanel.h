@@ -29,7 +29,6 @@
 #include "hugin/MainFrame.h"
 #include "GuiLevel.h"
 
-//using namespace PT;
 class PanoDialog;
 class wxSpinCtrl;
 class wxTextCtrl;

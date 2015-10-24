@@ -40,15 +40,14 @@
 //#define DEBUG_DESC
 //#define DEBUG_ROT
 
-using namespace lfeat;
-using namespace std;
-
+namespace lfeat
+{
 LUT<0, 83> Exp1_2(exp, 0.5, -0.08);
 
 CircularKeyPointDescriptor::CircularKeyPointDescriptor(Image& iImage,
-        std::vector<int> rings, std::vector<double>ring_radius,
-        std::vector<double>ring_gradient_width,
-        int ori_nbins, double ori_sample_scale, int ori_gridsize) :
+    std::vector<int> rings, std::vector<double>ring_radius,
+    std::vector<double>ring_gradient_width,
+    int ori_nbins, double ori_sample_scale, int ori_gridsize) :
     _image(iImage), _ori_nbins(ori_nbins), _ori_sample_scale(ori_sample_scale),
     _ori_gridsize(ori_gridsize)
 {
@@ -95,7 +94,7 @@ CircularKeyPointDescriptor::CircularKeyPointDescriptor(Image& iImage,
     */
     // compute number of sampling points
     _subRegions = 0;
-    for (unsigned int i=0; i < rings.size(); i++)
+    for (unsigned int i = 0; i < rings.size(); i++)
     {
         _subRegions += rings[i];
     }
@@ -104,18 +103,18 @@ CircularKeyPointDescriptor::CircularKeyPointDescriptor(Image& iImage,
     _samples = new SampleSpec[_subRegions];
 
     // precompute positions of the sampling points
-    int j=0;
-    for (unsigned int i=0; i < rings.size(); i++)
+    int j = 0;
+    for (unsigned int i = 0; i < rings.size(); i++)
     {
         // alternate the phi offset of the rings,
         // so that the circles don't overlap too much with the
         // next ring
-        double phioffset = i % 2== 0 ? 0 : M_PI/rings[i];
-        for (int ri=0; ri < rings[i]; ri++)
+        double phioffset = i % 2 == 0 ? 0 : M_PI / rings[i];
+        for (int ri = 0; ri < rings[i]; ri++)
         {
-            double phi = ri*2*M_PI /rings[i] + phioffset;
-            _samples[j].x = ring_radius[i]*cos(phi);
-            _samples[j].y = ring_radius[i]*sin(phi);
+            double phi = ri * 2 * M_PI / rings[i] + phioffset;
+            _samples[j].x = ring_radius[i] * cos(phi);
+            _samples[j].y = ring_radius[i] * sin(phi);
             _samples[j].size = ring_gradient_width[i];
             j++;
         }
@@ -127,7 +126,7 @@ CircularKeyPointDescriptor::CircularKeyPointDescriptor(Image& iImage,
     _vecLen = 3;
     _descrLen = _vecLen * _subRegions - 1;
 
-    _ori_hist = new double [_ori_nbins + 2];
+    _ori_hist = new double[_ori_nbins + 2];
 
 }
 
@@ -137,7 +136,7 @@ CircularKeyPointDescriptor::~CircularKeyPointDescriptor()
     delete[] _samples;
 }
 
-void CircularKeyPointDescriptor::makeDescriptor(KeyPoint& ioKeyPoint) const
+void CircularKeyPointDescriptor::makeDescriptor(lfeat::KeyPoint& ioKeyPoint) const
 {
     // create a descriptor context
     //KeyPointDescriptorContext aCtx(_subRegions, _vecLen, ioKeyPoint._ori);
@@ -155,9 +154,9 @@ void CircularKeyPointDescriptor::makeDescriptor(KeyPoint& ioKeyPoint) const
     Math::Normalize(ioKeyPoint._vec, getDescriptorLength());
 }
 
-int CircularKeyPointDescriptor::assignOrientation(KeyPoint& ioKeyPoint, double angles[4]) const
+int CircularKeyPointDescriptor::assignOrientation(lfeat::KeyPoint& ioKeyPoint, double angles[4]) const
 {
-    double* hist = _ori_hist+1;
+    double* hist = _ori_hist + 1;
     unsigned int aRX = Math::Round(ioKeyPoint._x);
     unsigned int aRY = Math::Round(ioKeyPoint._y);
     int aStep = (int)(ioKeyPoint._scale + 0.8);
@@ -172,10 +171,10 @@ int CircularKeyPointDescriptor::assignOrientation(KeyPoint& ioKeyPoint, double a
 #ifdef _MSC_VER
 #pragma message("use LUT after parameter tuning")
 #else
-#warning use LUT after parameter tuning
+    #warning use LUT after parameter tuning
 #endif
     double coeffadd = 0.5;
-    double coeffmul = (0.5 + 6 ) / - (_ori_nbins*_ori_nbins);
+    double coeffmul = (0.5 + 6) / -(_ori_nbins*_ori_nbins);
 
     memset(_ori_hist, 0, sizeof(double)*(_ori_nbins + 2));
     // compute haar wavelet responses in a circular neighborhood of _ori_gridsize s
@@ -192,24 +191,24 @@ int CircularKeyPointDescriptor::assignOrientation(KeyPoint& ioKeyPoint, double a
                 double aWavX = aWaveFilter.getWx(aSX, aSY);
                 // y axis for derivate seems is from bottom to top (typical math coordinate system),
                 // not from top to bottom (as in the typical image coordinate system).
-                double aWavY = - aWaveFilter.getWy(aSX, aSY);
+                double aWavY = -aWaveFilter.getWy(aSX, aSY);
                 double aWavResp = sqrt(aWavX * aWavX + aWavY * aWavY);
                 if (aWavResp > 0)
                 {
                     // add PI ->  0 .. 2*PI interval
-                    double angle = atan2(aWavY, aWavX)+PI;
-                    int bin =  angle/(2*PI) * _ori_nbins;
+                    double angle = atan2(aWavY, aWavX) + PI;
+                    int bin = angle / (2 * PI) * _ori_nbins;
                     // deal with possible rounding problems.
-                    bin = (bin+_ori_nbins)%_ori_nbins;
+                    bin = (bin + _ori_nbins) % _ori_nbins;
                     // center of bin 0 equals -PI + 16°deg, etc.
-                    double weight = exp(coeffmul * (aSqDist+coeffadd));
+                    double weight = exp(coeffmul * (aSqDist + coeffadd));
                     hist[bin] += aWavResp * weight;
                     //hist[bin] += aWavResp * Exp1_2(aSqDist);
 #ifdef DEBUG_ROT_2
                     std::cerr << "[ " << aSX << ", " << aSY << ", "
-                              << aWavX << ", " << aWavY << ", "
-                              << aWavResp << ", " << angle << ", " << bin << ", "
-                              << aSqDist << ", " << aWavResp* Exp1_2(aSqDist) << "], " << std::endl;
+                        << aWavX << ", " << aWavY << ", "
+                        << aWavResp << ", " << angle << ", " << bin << ", "
+                        << aSqDist << ", " << aWavResp* Exp1_2(aSqDist) << "], " << std::endl;
 #endif
                 }
             }
@@ -237,7 +236,7 @@ int CircularKeyPointDescriptor::assignOrientation(KeyPoint& ioKeyPoint, double a
 #endif
 
     // avoid boundary problems, wrap around histogram
-    hist[-1] = hist[_ori_nbins-1];
+    hist[-1] = hist[_ori_nbins - 1];
     hist[_ori_nbins] = hist[0];
 
     // find bin with the maximum response.
@@ -246,7 +245,7 @@ int CircularKeyPointDescriptor::assignOrientation(KeyPoint& ioKeyPoint, double a
 #ifdef DEBUG_ROT
     std::cerr << "rot_hist: [ " << aMax;
 #endif
-    for (int i=1; i < _ori_nbins; i++)
+    for (int i = 1; i < _ori_nbins; i++)
     {
 #ifdef DEBUG_ROT
         std::cerr << ", " << hist[i];
@@ -261,24 +260,24 @@ int CircularKeyPointDescriptor::assignOrientation(KeyPoint& ioKeyPoint, double a
     std::cerr << " ] " << std::endl;
 #endif
 
-    double prev = hist[iMax-1];
+    double prev = hist[iMax - 1];
     double curr = hist[iMax];
-    double next = hist[iMax+1];
-    double dsub = -0.5*(next-prev)/(prev+next-2*curr);
-    ioKeyPoint._ori = (iMax+0.5+dsub) / _ori_nbins * 2*PI - PI;
+    double next = hist[iMax + 1];
+    double dsub = -0.5*(next - prev) / (prev + next - 2 * curr);
+    ioKeyPoint._ori = (iMax + 0.5 + dsub) / _ori_nbins * 2 * PI - PI;
 
     // add more keypoints that are within 0.8 of the maximum strength.
     aMax *= 0.8;
     int nNewOri = 0;
-    for (int i=0; i < _ori_nbins; i++)
+    for (int i = 0; i < _ori_nbins; i++)
     {
-        double prev = hist[i-1];
+        double prev = hist[i - 1];
         double curr = hist[i];
-        double next = hist[i+1];
+        double next = hist[i + 1];
         if (curr > aMax && prev < curr && next < curr && i != iMax)
         {
-            dsub = -0.5*(next-prev)/(prev+next-2*curr);
-            angles[nNewOri] = (i+0.5+dsub) / _ori_nbins * 2*PI - PI;
+            dsub = -0.5*(next - prev) / (prev + next - 2 * curr);
+            angles[nNewOri] = (i + 0.5 + dsub) / _ori_nbins * 2 * PI - PI;
             nNewOri++;
             if (nNewOri == 4)
             {
@@ -318,10 +317,10 @@ void CircularKeyPointDescriptor::createDescriptor(KeyPoint& ioKeyPoint) const
     WaveFilter aWaveFilter(10, _image);
 
     // compute features at each position and store in feature vector
-    int j=0;
+    int j = 0;
     double middleMean = 0;
 
-    for (int i=0; i < _subRegions; i++)
+    for (int i = 0; i < _subRegions; i++)
     {
         // scale radius with aS.
         double xS = _samples[i].x * aS;
@@ -347,14 +346,14 @@ void CircularKeyPointDescriptor::createDescriptor(KeyPoint& ioKeyPoint) const
             }
 #ifdef DEBUG_DESC
             dlog << xS << " " << yS << " "
-                 << aIntXSample << " " << aIntYSample << " " << aIntSampleSize << " "
-                 << 0 << " " << 0 << " " << 0 << " " << 0 << " " << 0 << std::endl;
+                << aIntXSample << " " << aIntYSample << " " << aIntSampleSize << " "
+                << 0 << " " << 0 << " " << 0 << " " << 0 << " " << 0 << std::endl;
 #endif
             continue;
         }
 
         double aWavX = aWaveFilter.getWx(aIntXSample, aIntYSample, aIntSampleSize) / sampleArea;
-        double aWavY = - aWaveFilter.getWy(aIntXSample, aIntYSample, aIntSampleSize) / sampleArea;
+        double aWavY = -aWaveFilter.getWy(aIntXSample, aIntYSample, aIntSampleSize) / sampleArea;
 
         double meanGray = aWaveFilter.getSum(aIntXSample, aIntYSample, aIntSampleSize) / sampleArea;
 
@@ -376,8 +375,8 @@ void CircularKeyPointDescriptor::createDescriptor(KeyPoint& ioKeyPoint) const
 
 #ifdef DEBUG_DESC
         dlog << xS << " " << yS << " "
-             << aIntXSample << " " << aIntYSample << " " << aIntSampleSize << " "
-             << aWavX << " " << aWavY << " " << meanGray << " " << aWavXR << " " << aWavYR << std::endl;
+            << aIntXSample << " " << aIntYSample << " " << aIntSampleSize << " "
+            << aWavX << " " << aWavY << " " << meanGray << " " << aWavXR << " " << aWavYR << std::endl;
 #endif
 
         // store descriptor
@@ -385,18 +384,18 @@ void CircularKeyPointDescriptor::createDescriptor(KeyPoint& ioKeyPoint) const
         ioKeyPoint._vec[j++] = aWavYR;
         /*
         if (aWavXR > 0) {
-        	ioKeyPoint._vec[j++] = aWavXR;
-        	ioKeyPoint._vec[j++] = 0;
+        ioKeyPoint._vec[j++] = aWavXR;
+        ioKeyPoint._vec[j++] = 0;
         } else {
-        	ioKeyPoint._vec[j++] = 0;
-        	ioKeyPoint._vec[j++] = -aWavXR;
+        ioKeyPoint._vec[j++] = 0;
+        ioKeyPoint._vec[j++] = -aWavXR;
         }
         if (aWavYR > 0) {
-        	ioKeyPoint._vec[j++] = aWavYR;
-        	ioKeyPoint._vec[j++] = 0;
+        ioKeyPoint._vec[j++] = aWavYR;
+        ioKeyPoint._vec[j++] = 0;
         } else {
-        	ioKeyPoint._vec[j++] = 0;
-        	ioKeyPoint._vec[j++] = -aWavYR;
+        ioKeyPoint._vec[j++] = 0;
+        ioKeyPoint._vec[j++] = -aWavYR;
         }
         */
         if (i != 0)
@@ -409,3 +408,5 @@ void CircularKeyPointDescriptor::createDescriptor(KeyPoint& ioKeyPoint) const
 #endif
 
 }
+
+} // namespace lfeat

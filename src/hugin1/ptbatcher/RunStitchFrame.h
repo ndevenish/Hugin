@@ -39,9 +39,6 @@
 #undef SetDesc
 #endif
 
-using namespace vigra;
-using namespace std;
-
 class RunStitchFrame: public wxFrame
 {
 public:

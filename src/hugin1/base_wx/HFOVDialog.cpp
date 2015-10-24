@@ -34,9 +34,6 @@
 #include "LensTools.h"
 #include "HFOVDialog.h"
 
-using namespace std;
-using namespace hugin_utils;
-
 BEGIN_EVENT_TABLE(HFOVDialog, wxDialog)
     EVT_CHOICE (XRCID("lensdlg_type_choice"),HFOVDialog::OnTypeChanged)
     EVT_TEXT ( XRCID("lensdlg_cropfactor_text"), HFOVDialog::OnCropFactorChanged )
@@ -82,27 +79,27 @@ HFOVDialog::HFOVDialog(wxWindow * parent, HuginBase::SrcPanoImage & srcImg)
         m_HFOV = HuginBase::SrcPanoImage::calcHFOV(m_srcImg.getProjection(), m_focalLength,
                           m_cropFactor, m_srcImg.getSize());
 
-        m_HFOVStr = doubleTowxString(m_HFOV,2);
+        m_HFOVStr = hugin_utils::doubleTowxString(m_HFOV,2);
         m_hfovText->SetValue(m_HFOVStr);
-        m_focalLengthStr = doubleTowxString(m_focalLength,2);
+        m_focalLengthStr = hugin_utils::doubleTowxString(m_focalLength,2);
         m_focalLengthText->SetValue(m_focalLengthStr);
-        m_cropFactorStr = doubleTowxString(m_cropFactor,2);
+        m_cropFactorStr = hugin_utils::doubleTowxString(m_cropFactor,2);
         m_cropText->SetValue(m_cropFactorStr);
     } else if (m_cropFactor > 0 && m_focalLength <= 0) {
         // focal length unknown
-        m_cropFactorStr = doubleTowxString(m_cropFactor,2);
+        m_cropFactorStr = hugin_utils::doubleTowxString(m_cropFactor,2);
         m_cropText->SetValue(m_cropFactorStr);
         m_okButton->Disable();
     } else if (m_cropFactor <= 0 && m_focalLength > 0) {
         // crop factor unknown
-        m_focalLengthStr = doubleTowxString(m_focalLength,2);
+        m_focalLengthStr = hugin_utils::doubleTowxString(m_focalLength,2);
         m_focalLengthText->SetValue(m_focalLengthStr);
         m_okButton->Disable();
     } else {
         // everything unknown
         // assume a crop factor of one
         m_cropFactor = 1;
-        m_cropFactorStr = doubleTowxString(m_cropFactor,2);
+        m_cropFactorStr = hugin_utils::doubleTowxString(m_cropFactor,2);
         m_cropText->SetValue(m_cropFactorStr);
         m_okButton->Disable();
     }
@@ -118,7 +115,7 @@ void HFOVDialog::OnTypeChanged(wxCommandEvent & e)
     if (m_cropFactor > 0 && m_focalLength > 0) {
         m_HFOV = HuginBase::SrcPanoImage::calcHFOV(m_srcImg.getProjection(), m_focalLength,
                           m_cropFactor, m_srcImg.getSize());
-        m_HFOVStr = doubleTowxString(m_HFOV,2);
+        m_HFOVStr = hugin_utils::doubleTowxString(m_HFOV,2);
         m_hfovText->SetValue(m_HFOVStr);
     }
 }
@@ -147,7 +144,7 @@ void HFOVDialog::OnHFOVChanged(wxCommandEvent & e)
         return;
     }
 
-    if (!str2double(text, m_HFOV)) {
+    if (!hugin_utils::str2double(text, m_HFOV)) {
         m_okButton->Disable();
         return;
     }
@@ -157,7 +154,7 @@ void HFOVDialog::OnHFOVChanged(wxCommandEvent & e)
     if (m_HFOV <= 0) {
         wxMessageBox(_("The horizontal field of view must be positive."));
         m_HFOV = 50;
-        m_HFOVStr = doubleTowxString(m_HFOV,2);
+        m_HFOVStr = hugin_utils::doubleTowxString(m_HFOV,2);
         m_hfovText->SetValue(m_HFOVStr);
         return;
     }
@@ -165,14 +162,14 @@ void HFOVDialog::OnHFOVChanged(wxCommandEvent & e)
     if (m_srcImg.getProjection() == HuginBase::SrcPanoImage::RECTILINEAR && m_HFOV > 179) {
         DEBUG_DEBUG("HFOV " << m_HFOV << " too big, resetting to 179");
         m_HFOV=179;
-        m_HFOVStr = doubleTowxString(m_HFOV,2);
+        m_HFOVStr = hugin_utils::doubleTowxString(m_HFOV,2);
         m_hfovText->SetValue(m_HFOVStr);
     }
 
     if (m_cropFactor > 0) {
         // set focal length only if crop factor is known
         m_focalLength = HuginBase::SrcPanoImage::calcFocalLength(m_srcImg.getProjection(), m_HFOV, m_cropFactor, m_srcImg.getSize());
-        m_focalLengthStr = doubleTowxString(m_focalLength,2);
+        m_focalLengthStr = hugin_utils::doubleTowxString(m_focalLength,2);
         m_focalLengthText->SetValue(m_focalLengthStr);
     }
     m_okButton->Enable();
@@ -194,7 +191,7 @@ void HFOVDialog::OnFocalLengthChanged(wxCommandEvent & e)
         m_focalLength = 0;
         return;
     }
-    if (!str2double(text, m_focalLength)) {
+    if (!hugin_utils::str2double(text, m_focalLength)) {
         return;
     }
     DEBUG_DEBUG(m_focalLength);
@@ -205,7 +202,7 @@ void HFOVDialog::OnFocalLengthChanged(wxCommandEvent & e)
     }
     if (m_focalLength <= 0) {
         m_focalLength=1;
-        m_focalLengthStr = doubleTowxString(m_focalLength,2);
+        m_focalLengthStr = hugin_utils::doubleTowxString(m_focalLength,2);
         m_focalLengthText->SetValue(m_focalLengthStr);
         wxMessageBox(_("The focal length must be positive."));
     }
@@ -214,7 +211,7 @@ void HFOVDialog::OnFocalLengthChanged(wxCommandEvent & e)
         // calculate HFOV.
         m_HFOV = HuginBase::SrcPanoImage::calcHFOV(m_srcImg.getProjection(), m_focalLength,
                           m_cropFactor, m_srcImg.getSize());
-        m_HFOVStr = doubleTowxString(m_HFOV,2);
+        m_HFOVStr = hugin_utils::doubleTowxString(m_HFOV,2);
         m_hfovText->SetValue(m_HFOVStr);
         m_okButton->Enable();
     }
@@ -236,7 +233,7 @@ void HFOVDialog::OnCropFactorChanged(wxCommandEvent & e)
         m_cropFactor = 0;
         return;
     }
-    if (!str2double(text, m_cropFactor)) {
+    if (!hugin_utils::str2double(text, m_cropFactor)) {
         return;
     }
 
@@ -249,7 +246,7 @@ void HFOVDialog::OnCropFactorChanged(wxCommandEvent & e)
     if (m_cropFactor <= 0) {
         wxMessageBox(_("The crop factor must be positive."));
         m_cropFactor=1;
-        m_cropFactorStr = doubleTowxString(m_cropFactor,2);
+        m_cropFactorStr = hugin_utils::doubleTowxString(m_cropFactor,2);
         m_cropText->SetValue(m_cropFactorStr);
         return;
     }
@@ -257,7 +254,7 @@ void HFOVDialog::OnCropFactorChanged(wxCommandEvent & e)
     if (m_focalLength > 0) {
         m_HFOV = HuginBase::SrcPanoImage::calcHFOV(m_srcImg.getProjection(), m_focalLength,
                           m_cropFactor, m_srcImg.getSize());
-        m_HFOVStr = doubleTowxString(m_HFOV,2);
+        m_HFOVStr = hugin_utils::doubleTowxString(m_HFOV,2);
         m_hfovText->SetValue(m_HFOVStr);
         m_okButton->Enable();
     }
@@ -289,7 +286,7 @@ void HFOVDialog::OnLoadLensParameters(wxCommandEvent & e)
         radialDist[2] = const_map_get(lens.variables,"c").getValue();
         radialDist[3] = 1 - radialDist[0] - radialDist[1] - radialDist[2];
         m_srcImg.setRadialDistortion(radialDist);
-        FDiff2D t;
+        hugin_utils::FDiff2D t;
         t.x = const_map_get(lens.variables,"d").getValue();
         t.y = const_map_get(lens.variables,"e").getValue();
         m_srcImg.setRadialDistortionCenterShift(t);
@@ -338,11 +335,11 @@ void HFOVDialog::OnLoadLensParameters(wxCommandEvent & e)
         };
 
         // display in GUI
-        m_focalLengthStr = doubleTowxString(m_focalLength,2);
+        m_focalLengthStr = hugin_utils::doubleTowxString(m_focalLength,2);
         m_focalLengthText->SetValue(m_focalLengthStr);
-        m_cropFactorStr = doubleTowxString(m_cropFactor,2);
+        m_cropFactorStr = hugin_utils::doubleTowxString(m_cropFactor,2);
         m_cropText->SetValue(m_cropFactorStr);
-        m_HFOVStr = doubleTowxString(m_HFOV,2);
+        m_HFOVStr = hugin_utils::doubleTowxString(m_HFOV,2);
         m_hfovText->SetValue(m_HFOVStr);
         SelectListValue(m_projChoice, m_srcImg.getProjection());
 

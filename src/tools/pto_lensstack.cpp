@@ -34,10 +34,6 @@
 #include <panodata/StandardImageVariableGroups.h>
 #include "hugin_utils/utils.h"
 
-using namespace std;
-using namespace HuginBase;
-using namespace AppBase;
-
 struct ParsedImg
 {
     int imgNr;
@@ -101,7 +97,7 @@ void ParseImageLensStackString(ParseImgVec& parseVec, std::string input)
 };
 
 // assign a new lens/stack
-void NewPart(Panorama& pano, std::set<HuginBase::ImageVariableGroup::ImageVariableEnum> vars, unsigned int imgNr)
+void NewPart(HuginBase::Panorama& pano, std::set<HuginBase::ImageVariableGroup::ImageVariableEnum> vars, unsigned int imgNr)
 {
     for (std::set<HuginBase::ImageVariableGroup::ImageVariableEnum>::iterator it = vars.begin();  it != vars.end(); ++it)
     {
@@ -119,27 +115,27 @@ case HuginBase::ImageVariableGroup::IVE_##name:\
 
 static void usage(const char* name)
 {
-    cout << name << ": modify assigned lenses and stack in pto files" << endl
-         << name << " version " << hugin_utils::GetHuginVersion() << endl
-         << endl
-         << "Usage:  " << name << " [options] --switches imglist input.pto" << endl
-         << endl
-         << "     -o, --output=file.pto   Output Hugin PTO file. Default: <filename>_lens.pto" << endl
-         << "     -h, --help              Shows this help" << endl
-         << endl
-         << "     --new-lens imglist      Assign to given images a new lens number" << endl
-         << "     --new-stack imglist     Assign to given images a new stack number" << endl
-         << "                               Examples:" << endl
-         << "           --new-lens i2          Image 2 gets a new lens" << endl
-         << "           --new-stack i4,i5      Images 4 and 5 get a new stack" << endl
-         << endl
-         << "     --change-lens imglist   Assign to given images a new lens number" << endl
-         << "     --change-stack imglist  Assign to given images a new stack number" << endl
-         << "                               Examples:" << endl
-         << "           --change-lens i2=0      Image 2 is assigned lens number 0" << endl
-         << "           --change-stack i4=0,i5=1   Image 4 is assigned to stack 0," << endl
-         << "                                      image 5 to stack number 1" << endl
-         << endl;
+    std::cout << name << ": modify assigned lenses and stack in pto files" << std::endl
+         << name << " version " << hugin_utils::GetHuginVersion() << std::endl
+         << std::endl
+         << "Usage:  " << name << " [options] --switches imglist input.pto" << std::endl
+         << std::endl
+         << "     -o, --output=file.pto   Output Hugin PTO file. Default: <filename>_lens.pto" << std::endl
+         << "     -h, --help              Shows this help" << std::endl
+         << std::endl
+         << "     --new-lens imglist      Assign to given images a new lens number" << std::endl
+         << "     --new-stack imglist     Assign to given images a new stack number" << std::endl
+         << "                               Examples:" << std::endl
+         << "           --new-lens i2          Image 2 gets a new lens" << std::endl
+         << "           --new-stack i4,i5      Images 4 and 5 get a new stack" << std::endl
+         << std::endl
+         << "     --change-lens imglist   Assign to given images a new lens number" << std::endl
+         << "     --change-stack imglist  Assign to given images a new stack number" << std::endl
+         << "                               Examples:" << std::endl
+         << "           --change-lens i2=0      Image 2 is assigned lens number 0" << std::endl
+         << "           --change-stack i4=0,i5=1   Image 4 is assigned to stack 0," << std::endl
+         << "                                      image 5 to stack number 1" << std::endl
+         << std::endl;
 }
 
 int main(int argc, char* argv[])
@@ -171,7 +167,7 @@ int main(int argc, char* argv[])
     ParseImgVec changeStackImgs;
     int c;
     int optionIndex = 0;
-    string output;
+    std::string output;
     while ((c = getopt_long (argc, argv, optstring, longOptions,&optionIndex)) != -1)
     {
         switch (c)
@@ -195,7 +191,7 @@ int main(int argc, char* argv[])
                 ParseImageLensStackString(changeStackImgs, std::string(optarg));
                 break;
             case ':':
-                cerr <<"Option " << longOptions[optionIndex].name << " requires a parameter" << endl;
+                std::cerr <<"Option " << longOptions[optionIndex].name << " requires a parameter" << std::endl;
                 return 1;
                 break;
             case '?':
@@ -207,43 +203,43 @@ int main(int argc, char* argv[])
 
     if (argc - optind == 0)
     {
-        cout << "Error: " << argv[0] << " needs at least one project file." << endl;
+        std::cout << "Error: " << argv[0] << " needs at least one project file." << std::endl;
         return 1;
     };
     if (argc - optind != 1)
     {
-        cout << "Error: " << argv[0] << " can only work on one project file at one time" << endl;
+        std::cout << "Error: " << argv[0] << " can only work on one project file at one time" << std::endl;
         return 1;
     };
 
     if(newLensImgs.size() + newStackImgs.size() + changeLensImgs.size() + changeStackImgs.size()==0)
     {
-        cerr << "Error: no images/lens/stacks to modify given" << endl;
+        std::cerr << "Error: no images/lens/stacks to modify given" << std::endl;
         return 1;
     };
 
-    string input=argv[optind];
+    std::string input=argv[optind];
     // read panorama
-    Panorama pano;
-    ifstream prjfile(input.c_str());
+    HuginBase::Panorama pano;
+    std::ifstream prjfile(input.c_str());
     if (!prjfile.good())
     {
-        cerr << "could not open script : " << input << endl;
+        std::cerr << "could not open script : " << input << std::endl;
         return 1;
     }
     pano.setFilePrefix(hugin_utils::getPathPrefix(input));
-    DocumentData::ReadWriteError err = pano.readData(prjfile);
-    if (err != DocumentData::SUCCESSFUL)
+    AppBase::DocumentData::ReadWriteError err = pano.readData(prjfile);
+    if (err != AppBase::DocumentData::SUCCESSFUL)
     {
-        cerr << "error while parsing panos tool script: " << input << endl;
-        cerr << "DocumentData::ReadWriteError code: " << err << endl;
+        std::cerr << "error while parsing panos tool script: " << input << std::endl;
+        std::cerr << "AppBase::DocumentData::ReadWriteError code: " << err << std::endl;
         return 1;
     }
 
     if(pano.getNrOfImages()==0)
     {
-        cerr << "error: project file does not contains any image" << endl;
-        cerr << "aborting processing" << endl;
+        std::cerr << "error: project file does not contains any image" << std::endl;
+        std::cerr << "aborting processing" << std::endl;
         return 1;
     };
 
@@ -265,8 +261,8 @@ int main(int argc, char* argv[])
         }
         else
         {
-            cout << "Warning: Pto project contains already for each image an own lens" << endl
-                 << "         Nothing to do." << endl;
+            std::cout << "Warning: Pto project contains already for each image an own lens" << std::endl
+                 << "         Nothing to do." << std::endl;
         };
     };
 
@@ -288,8 +284,8 @@ int main(int argc, char* argv[])
         }
         else
         {
-            cout << "Warning: Pto project contains already for each image an own stack" << endl
-                 << "         Nothing to do." << endl;
+            std::cout << "Warning: Pto project contains already for each image an own stack" << std::endl
+                 << "         Nothing to do." << std::endl;
         };
     };
 
@@ -311,14 +307,14 @@ int main(int argc, char* argv[])
                 {
                     continue;
                 };
-                ImageVariableGroup group(StandardImageVariableGroups::getLensVariables(), pano);
+                HuginBase::ImageVariableGroup group(HuginBase::StandardImageVariableGroups::getLensVariables(), pano);
                 group.switchParts(changeLensImgs[i].imgNr, changeLensImgs[i].lensStackNr);
             };
         }
         else
         {
-            cout << "Warning: Pto project contains only one lens." << endl
-                 << "         Therefor the lens can not be changed. Use --new-lens instead." << endl;
+            std::cout << "Warning: Pto project contains only one lens." << std::endl
+                 << "         Therefor the lens can not be changed. Use --new-lens instead." << std::endl;
         };
     };
 
@@ -340,28 +336,28 @@ int main(int argc, char* argv[])
                 {
                     continue;
                 };
-                ImageVariableGroup group(StandardImageVariableGroups::getStackVariables(), pano);
+                HuginBase::ImageVariableGroup group(HuginBase::StandardImageVariableGroups::getStackVariables(), pano);
                 group.switchParts(changeStackImgs[i].imgNr, changeStackImgs[i].lensStackNr);
             };
         }
         else
         {
-            cout << "Warning: Pto project contains only one stack." << endl
-                 << "         Therefore the stack can not be changed. Use --new-stack instead." << endl;
+            std::cout << "Warning: Pto project contains only one stack." << std::endl
+                 << "         Therefore the stack can not be changed. Use --new-stack instead." << std::endl;
         };
     };
 
     //write output
-    UIntSet imgs;
+    HuginBase::UIntSet imgs;
     fill_set(imgs,0, pano.getNrOfImages()-1);
     // Set output .pto filename if not given
     if (output=="")
     {
         output=input.substr(0,input.length()-4).append("_lens.pto");
     }
-    ofstream of(output.c_str());
+    std::ofstream of(output.c_str());
     pano.printPanoramaScript(of, pano.getOptimizeVector(), pano.getOptions(), imgs, false, hugin_utils::getPathPrefix(input));
 
-    cout << endl << "Written output to " << output << endl;
+    std::cout << std::endl << "Written output to " << output << std::endl;
     return 0;
 }

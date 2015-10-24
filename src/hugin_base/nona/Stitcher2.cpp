@@ -25,9 +25,6 @@
 
 #include "Stitcher.h"
 
-using namespace std;
-using namespace vigra;
-
 void HuginBase::Nona::stitchPanoGray_8_16(const PanoramaData & pano,
                             const PanoramaOptions & opts,
                             AppBase::ProgressDisplay* progress,
@@ -37,11 +34,11 @@ void HuginBase::Nona::stitchPanoGray_8_16(const PanoramaData & pano,
                             const AdvancedOptions& advOptions)
 {
     if (strcmp(pixelType, "UINT8") == 0 ) {
-        stitchPanoIntern<BImage, BImage>(pano, opts, progress, basename, usedImgs, advOptions);
+        stitchPanoIntern<vigra::BImage, vigra::BImage>(pano, opts, progress, basename, usedImgs, advOptions);
     } else if (strcmp(pixelType, "INT16") == 0 ) {
-        stitchPanoIntern<SImage, BImage>(pano, opts, progress, basename, usedImgs, advOptions);
+        stitchPanoIntern<vigra::SImage, vigra::BImage>(pano, opts, progress, basename, usedImgs, advOptions);
     } else if (strcmp(pixelType, "UINT16") == 0 ) {
-        stitchPanoIntern<UInt16Image, BImage>(pano, opts, progress, basename, usedImgs, advOptions);
+        stitchPanoIntern<vigra::UInt16Image, vigra::BImage>(pano, opts, progress, basename, usedImgs, advOptions);
     } else {
         UTILS_THROW(std::runtime_error, "Unsupported pixel type: " << pixelType );
         return;

@@ -23,20 +23,12 @@
  *
  */
 
-
-
-
-
 #include "Stitcher.h"
 
 #include <vigra/stdimage.hxx>
 
 namespace HuginBase {
 namespace Nona {
-
-using namespace std;
-using namespace vigra;
-using namespace vigra_ext;
 
 /** The main stitching function.
  *  This function delegates all the work to the other functions
@@ -56,7 +48,7 @@ void stitchPanorama(const PanoramaData & pano,
 
     // probe the first image to determine a suitable image type for stitching
     unsigned int imgNr = *(usedImgs.begin());
-    string fname =  pano.getImage(imgNr).getFilename().c_str();
+    std::string fname =  pano.getImage(imgNr).getFilename().c_str();
     DEBUG_DEBUG("Probing image: " << fname);
     vigra::ImageImportInfo info(fname.c_str());
     std::string pixelType = info.getPixelType();
@@ -103,9 +95,9 @@ void stitchPanorama(const PanoramaData & pano,
 #if 1
     if (opts.outputMode == PanoramaOptions::OUTPUT_HDR) {
         if (bands == 1 || bands == 2 && extraBands == 1) {
-            stitchPanoIntern<FImage,BImage>(pano, opts, progress, basename, usedImgs, advOptions);
+            stitchPanoIntern<vigra::FImage, vigra::BImage>(pano, opts, progress, basename, usedImgs, advOptions);
         } else if (bands == 3 || bands == 4 && extraBands == 1) {
-            stitchPanoIntern<FRGBImage,BImage>(pano, opts, progress, basename, usedImgs, advOptions);
+            stitchPanoIntern<vigra::FRGBImage, vigra::BImage>(pano, opts, progress, basename, usedImgs, advOptions);
         } else {
             DEBUG_ERROR("unsupported depth, only images with 1 and 3 channel images are supported");
             throw std::runtime_error("unsupported depth, only images with 1 and 3 channel images are supported");

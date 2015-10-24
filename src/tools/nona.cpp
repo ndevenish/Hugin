@@ -48,14 +48,9 @@
 
 #include <tiffio.h>
 
-using namespace vigra;
-using namespace HuginBase;
-using namespace hugin_utils;
-using namespace std;
-
 static void usage(const char* name)
 {
-    cerr << name << ": stitch a panorama image" << std::endl
+    std::cerr << name << ": stitch a panorama image" << std::endl
          << std::endl
          << "nona version " << hugin_utils::GetHuginVersion() << std::endl
          << std::endl
@@ -125,18 +120,18 @@ int main(int argc, char* argv[])
     opterr = 0;
 
     bool doCoord = false;
-    UIntSet outputImages;
-    string basename;
-    string outputFormat;
+    HuginBase::UIntSet outputImages;
+    std::string basename;
+    std::string outputFormat;
     bool overrideOutputMode = false;
     std::string compression;
-    PanoramaOptions::OutputMode outputMode = PanoramaOptions::OUTPUT_LDR;
+    HuginBase::PanoramaOptions::OutputMode outputMode = HuginBase::PanoramaOptions::OUTPUT_LDR;
     bool overrideExposure = false;
     double exposure=0;
     HuginBase::Nona::AdvancedOptions advOptions;
     int verbose = 0;
     bool useGPU = false;
-    string outputPixelType;
+    std::string outputPixelType;
     bool createExposureLayers = false;
 
     enum
@@ -179,15 +174,15 @@ int main(int argc, char* argv[])
                 outputPixelType = optarg;
                 break;
             case 'r':
-                if (string(optarg) == "ldr")
+                if (std::string(optarg) == "ldr")
                 {
                     overrideOutputMode = true;
-                    outputMode = PanoramaOptions::OUTPUT_LDR;
+                    outputMode = HuginBase::PanoramaOptions::OUTPUT_LDR;
                 }
-                else if (string(optarg) == "hdr")
+                else if (std::string(optarg) == "hdr")
                 {
                     overrideOutputMode = true;
-                    outputMode = PanoramaOptions::OUTPUT_HDR;
+                    outputMode = HuginBase::PanoramaOptions::OUTPUT_HDR;
                 }
                 else
                 {
@@ -304,25 +299,25 @@ int main(int argc, char* argv[])
     AppBase::ProgressDisplay* pdisp = NULL;
     if(verbose > 0)
     {
-        pdisp = new AppBase::StreamProgressDisplay(cout);
+        pdisp = new AppBase::StreamProgressDisplay(std::cout);
     }
     else
     {
         pdisp = new AppBase::DummyProgressDisplay;
     }
 
-    Panorama pano;
-    ifstream prjfile(scriptFile);
+    HuginBase::Panorama pano;
+    std::ifstream prjfile(scriptFile);
     if (prjfile.bad())
     {
-        cerr << "could not open script : " << scriptFile << std::endl;
+        std::cerr << "could not open script : " << scriptFile << std::endl;
         exit(1);
     }
     pano.setFilePrefix(hugin_utils::getPathPrefix(scriptFile));
     AppBase::DocumentData::ReadWriteError err = pano.readData(prjfile);
     if (err != AppBase::DocumentData::SUCCESSFUL)
     {
-        cerr << "error while parsing panos tool script: " << scriptFile << std::endl;
+        std::cerr << "error while parsing panos tool script: " << scriptFile << std::endl;
         exit(1);
     }
 
@@ -330,7 +325,7 @@ int main(int argc, char* argv[])
     {
         if (nCmdLineImgs != pano.getNrOfImages())
         {
-            cerr << "Incorrect number of images specified on command line\nProject required " << pano.getNrOfImages() << " but " << nCmdLineImgs << " where given" << std::endl;
+            std::cerr << "Incorrect number of images specified on command line\nProject required " << pano.getNrOfImages() << " but " << nCmdLineImgs << " where given" << std::endl;
             exit(1);
         }
         for (unsigned i=0; i < pano.getNrOfImages(); i++)
@@ -339,7 +334,7 @@ int main(int argc, char* argv[])
         }
 
     }
-    PanoramaOptions  opts = pano.getOptions();
+    HuginBase::PanoramaOptions  opts = pano.getOptions();
 
     // save coordinate images, if requested
     opts.saveCoordImgs = doCoord;
@@ -360,56 +355,56 @@ int main(int argc, char* argv[])
     };
     if (outputFormat == "TIFF_m")
     {
-        opts.outputFormat = PanoramaOptions::TIFF_m;
+        opts.outputFormat = HuginBase::PanoramaOptions::TIFF_m;
         opts.outputImageType = "tif";
     }
     else if (outputFormat == "JPEG_m")
     {
-        opts.outputFormat = PanoramaOptions::JPEG_m;
+        opts.outputFormat = HuginBase::PanoramaOptions::JPEG_m;
         opts.tiff_saveROI = false;
         opts.outputImageType = "jpg";
     }
     else if (outputFormat == "JPEG")
     {
-        opts.outputFormat = PanoramaOptions::JPEG;
+        opts.outputFormat = HuginBase::PanoramaOptions::JPEG;
         opts.tiff_saveROI = false;
         opts.outputImageType = "jpg";
     }
     else if (outputFormat == "PNG_m")
     {
-        opts.outputFormat = PanoramaOptions::PNG_m;
+        opts.outputFormat = HuginBase::PanoramaOptions::PNG_m;
         opts.tiff_saveROI = false;
         opts.outputImageType = "png";
     }
     else if (outputFormat == "PNG")
     {
-        opts.outputFormat = PanoramaOptions::PNG;
+        opts.outputFormat = HuginBase::PanoramaOptions::PNG;
         opts.tiff_saveROI = false;
         opts.outputImageType = "png";
     }
     else if (outputFormat == "TIFF")
     {
-        opts.outputFormat = PanoramaOptions::TIFF;
+        opts.outputFormat = HuginBase::PanoramaOptions::TIFF;
         opts.outputImageType = "tif";
     }
     else if (outputFormat == "TIFF_multilayer")
     {
-        opts.outputFormat = PanoramaOptions::TIFF_multilayer;
+        opts.outputFormat = HuginBase::PanoramaOptions::TIFF_multilayer;
         opts.outputImageType = "tif";
     }
     else if (outputFormat == "EXR_m")
     {
-        opts.outputFormat = PanoramaOptions::EXR_m;
+        opts.outputFormat = HuginBase::PanoramaOptions::EXR_m;
         opts.outputImageType = "exr";
     }
     else if (outputFormat == "EXR")
     {
-        opts.outputFormat = PanoramaOptions::EXR;
+        opts.outputFormat = HuginBase::PanoramaOptions::EXR;
         opts.outputImageType = "exr";
     }
     else if (outputFormat != "")
     {
-        cerr << "Error: unknown output format: " << outputFormat << endl;
+        std::cerr << "Error: unknown output format: " << outputFormat << endl;
         return 1;
     }
 
@@ -464,8 +459,8 @@ int main(int argc, char* argv[])
     }
     else
     {
-        UIntSet activeImages = HuginBase::getImagesinROI(pano, pano.getActiveImages());
-        for(UIntSet::const_iterator it=outputImages.begin(); it!=outputImages.end(); ++it)
+        HuginBase::UIntSet activeImages = HuginBase::getImagesinROI(pano, pano.getActiveImages());
+        for (HuginBase::UIntSet::const_iterator it = outputImages.begin(); it != outputImages.end(); ++it)
         {
             if(!set_contains(activeImages,*it))
             {
@@ -502,7 +497,7 @@ int main(int argc, char* argv[])
     {
         if (useGPU)
         {
-            useGPU = initGPU(&argc, argv);
+            useGPU = hugin_utils::initGPU(&argc, argv);
         }
         opts.remapUsingGPU = useGPU;
         pano.setOptions(opts);
@@ -528,30 +523,30 @@ int main(int argc, char* argv[])
                     // build filename
                     std::ostringstream filename;
                     filename << basename << std::setfill('0') << std::setw(4) << i;
-                    NonaFileOutputStitcher(pano, pdisp, modOptions, exposureLayers[i], filename.str(), advOptions).run();
+                    HuginBase::NonaFileOutputStitcher(pano, pdisp, modOptions, exposureLayers[i], filename.str(), advOptions).run();
                 }
             }
         }
         else
         {
             // stitch panorama
-            NonaFileOutputStitcher(pano, pdisp, opts, outputImages, basename, advOptions).run();
+            HuginBase::NonaFileOutputStitcher(pano, pdisp, opts, outputImages, basename, advOptions).run();
         };
         // add a final newline, after the last progress message
         if (verbose > 0)
         {
-            cout << std::endl;
+            std::cout << std::endl;
         }
 
         if (useGPU)
         {
-            wrapupGPU();
+            hugin_utils::wrapupGPU();
         }
 
     }
     catch (std::exception& e)
     {
-        cerr << "caught exception: " << e.what() << std::endl;
+        std::cerr << "caught exception: " << e.what() << std::endl;
         return 1;
     }
 

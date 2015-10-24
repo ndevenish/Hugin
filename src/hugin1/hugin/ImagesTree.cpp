@@ -41,9 +41,6 @@
 #include "hugin/ImageVariableDialog.h"
 #include "hugin/huginApp.h"
 
-using namespace HuginBase;
-using namespace hugin_utils;
-
 enum
 {
     ID_LINK=wxID_HIGHEST+230,
@@ -236,19 +233,19 @@ void ImagesTreeCtrl::panoramaChanged(HuginBase::Panorama & pano)
     };
     if(m_needsUpdate && (m_groupMode==GROUP_OUTPUTLAYERS || m_groupMode==GROUP_OUTPUTSTACK))
     {
-        UIntSet imgs;
+        HuginBase::UIntSet imgs;
         fill_set(imgs, 0, pano.getNrOfImages()-1);
         panoramaImagesChanged(pano, imgs);
     };
     m_needsUpdate=true;
 };
 
-void ImagesTreeCtrl::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
+void ImagesTreeCtrl::panoramaImagesChanged(HuginBase::Panorama &pano, const HuginBase::UIntSet &changed)
 {
     DEBUG_TRACE("");
 
     Freeze();
-    UIntSet changedImgs(changed);
+    HuginBase::UIntSet changedImgs(changed);
     // Make sure the part numbers are up to date before writing them to the table.
     size_t oldLensCount=m_variable_groups->getLenses().getNumberOfParts();
     size_t oldStackCount=m_variable_groups->getStacks().getNumberOfParts();
@@ -278,7 +275,7 @@ void ImagesTreeCtrl::panoramaImagesChanged(Panorama &pano, const UIntSet &change
     };
     if(m_groupMode==GROUP_NONE)
     {
-        UIntSet imgs;
+        HuginBase::UIntSet imgs;
         if(m_pano->getNrOfImages()>0)
         {
             fill_set(imgs,0,m_pano->getNrOfImages()-1);
@@ -360,7 +357,7 @@ void ImagesTreeCtrl::UpdateImageText(wxTreeItemId item)
     };
     wxString s;
     const size_t imgNr=itemData->GetImgNr();
-    const SrcPanoImage & img = m_pano->getImage(imgNr);
+    const HuginBase::SrcPanoImage & img = m_pano->getImage(imgNr);
     wxFileName fn(wxString (img.getFilename().c_str(), HUGIN_CONV_FILENAME));
 
     s << imgNr;
@@ -487,14 +484,14 @@ void ImagesTreeCtrl::UpdateImageText(wxTreeItemId item)
     }
     else
     {
-        SetItemText(item, m_columnMap["y"], doubleTowxString(img.getYaw(), m_degDigits));
-        SetItemText(item, m_columnMap["p"], doubleTowxString(img.getPitch(), m_degDigits));
-        SetItemText(item, m_columnMap["r"], doubleTowxString(img.getRoll(), m_degDigits));
-        SetItemText(item, m_columnMap["TrX"], doubleTowxString(img.getX(), m_degDigits));
-        SetItemText(item, m_columnMap["TrY"], doubleTowxString(img.getY(), m_degDigits));
-        SetItemText(item, m_columnMap["TrZ"], doubleTowxString(img.getZ(), m_degDigits));
-        SetItemText(item, m_columnMap["Tpy"], doubleTowxString(img.getTranslationPlaneYaw(), m_degDigits));
-        SetItemText(item, m_columnMap["Tpp"], doubleTowxString(img.getTranslationPlanePitch(), m_degDigits));
+        SetItemText(item, m_columnMap["y"], hugin_utils::doubleTowxString(img.getYaw(), m_degDigits));
+        SetItemText(item, m_columnMap["p"], hugin_utils::doubleTowxString(img.getPitch(), m_degDigits));
+        SetItemText(item, m_columnMap["r"], hugin_utils::doubleTowxString(img.getRoll(), m_degDigits));
+        SetItemText(item, m_columnMap["TrX"], hugin_utils::doubleTowxString(img.getX(), m_degDigits));
+        SetItemText(item, m_columnMap["TrY"], hugin_utils::doubleTowxString(img.getY(), m_degDigits));
+        SetItemText(item, m_columnMap["TrZ"], hugin_utils::doubleTowxString(img.getZ(), m_degDigits));
+        SetItemText(item, m_columnMap["Tpy"], hugin_utils::doubleTowxString(img.getTranslationPlaneYaw(), m_degDigits));
+        SetItemText(item, m_columnMap["Tpp"], hugin_utils::doubleTowxString(img.getTranslationPlanePitch(), m_degDigits));
         wxString text=_("not active");
         if(img.getX()!=0.0 || img.getY()!=0.0 || img.getZ()!=0.0 || img.getTranslationPlaneYaw()!=0.0 || img.getTranslationPlanePitch()!=0.0)
         {
@@ -521,7 +518,7 @@ void ImagesTreeCtrl::UpdateImageText(wxTreeItemId item)
     }
     else
     {
-        SetItemText(item, m_columnMap["v"], doubleTowxString(img.getHFOV(), m_degDigits));
+        SetItemText(item, m_columnMap["v"], hugin_utils::doubleTowxString(img.getHFOV(), m_degDigits));
     };
 
     if (m_groupMode == GROUP_LENS && (img.RadialDistortionisLinked() || isSingleImage))
@@ -533,9 +530,9 @@ void ImagesTreeCtrl::UpdateImageText(wxTreeItemId item)
     else
     {
         std::vector<double> dist=img.getRadialDistortion();
-        SetItemText(item, m_columnMap["a"], doubleTowxString(dist[0],m_distDigits));
-        SetItemText(item, m_columnMap["b"], doubleTowxString(dist[1],m_distDigits));
-        SetItemText(item, m_columnMap["c"], doubleTowxString(dist[2],m_distDigits));
+        SetItemText(item, m_columnMap["a"], hugin_utils::doubleTowxString(dist[0],m_distDigits));
+        SetItemText(item, m_columnMap["b"], hugin_utils::doubleTowxString(dist[1],m_distDigits));
+        SetItemText(item, m_columnMap["c"], hugin_utils::doubleTowxString(dist[2],m_distDigits));
     };
 
     if (m_groupMode == GROUP_LENS && (img.RadialDistortionCenterShiftisLinked() || isSingleImage))
@@ -546,8 +543,8 @@ void ImagesTreeCtrl::UpdateImageText(wxTreeItemId item)
     else
     {
         hugin_utils::FDiff2D p=img.getRadialDistortionCenterShift();
-        SetItemText(item, m_columnMap["d"], doubleTowxString(p.x,m_pixelDigits));
-        SetItemText(item, m_columnMap["e"], doubleTowxString(p.y,m_pixelDigits));
+        SetItemText(item, m_columnMap["d"], hugin_utils::doubleTowxString(p.x,m_pixelDigits));
+        SetItemText(item, m_columnMap["e"], hugin_utils::doubleTowxString(p.y,m_pixelDigits));
     };
 
     if (m_groupMode == GROUP_LENS && (img.ShearisLinked() || isSingleImage))
@@ -558,8 +555,8 @@ void ImagesTreeCtrl::UpdateImageText(wxTreeItemId item)
     else
     {
         hugin_utils::FDiff2D p=img.getShear();
-        SetItemText(item, m_columnMap["g"], doubleTowxString(p.x,m_distDigits));
-        SetItemText(item, m_columnMap["t"], doubleTowxString(p.y,m_distDigits));
+        SetItemText(item, m_columnMap["g"], hugin_utils::doubleTowxString(p.x,m_distDigits));
+        SetItemText(item, m_columnMap["t"], hugin_utils::doubleTowxString(p.y,m_distDigits));
     };
 
     if (m_groupMode == GROUP_LENS && (img.ExposureValueisLinked() || isSingleImage))
@@ -568,7 +565,7 @@ void ImagesTreeCtrl::UpdateImageText(wxTreeItemId item)
     }
     else
     {
-        SetItemText(item, m_columnMap["Eev"], doubleTowxString(img.getExposureValue(), m_pixelDigits));
+        SetItemText(item, m_columnMap["Eev"], hugin_utils::doubleTowxString(img.getExposureValue(), m_pixelDigits));
     };
 
     if (m_groupMode == GROUP_LENS && (img.WhiteBalanceRedisLinked() || isSingleImage))
@@ -577,7 +574,7 @@ void ImagesTreeCtrl::UpdateImageText(wxTreeItemId item)
     }
     else
     {
-        SetItemText(item, m_columnMap["Er"], doubleTowxString(img.getWhiteBalanceRed(), m_pixelDigits+1));
+        SetItemText(item, m_columnMap["Er"], hugin_utils::doubleTowxString(img.getWhiteBalanceRed(), m_pixelDigits+1));
     };
 
     if (m_groupMode == GROUP_LENS && (img.WhiteBalanceBlueisLinked() || isSingleImage))
@@ -586,7 +583,7 @@ void ImagesTreeCtrl::UpdateImageText(wxTreeItemId item)
     }
     else
     {
-        SetItemText(item, m_columnMap["Eb"], doubleTowxString(img.getWhiteBalanceBlue(), m_pixelDigits+1));
+        SetItemText(item, m_columnMap["Eb"], hugin_utils::doubleTowxString(img.getWhiteBalanceBlue(), m_pixelDigits+1));
     };
 
     if (m_groupMode == GROUP_LENS && (img.RadialVigCorrCoeffisLinked() || isSingleImage))
@@ -598,9 +595,9 @@ void ImagesTreeCtrl::UpdateImageText(wxTreeItemId item)
     else
     {
         std::vector<double> dist=img.getRadialVigCorrCoeff();
-        SetItemText(item, m_columnMap["Vb"], doubleTowxString(dist[1],m_distDigits));
-        SetItemText(item, m_columnMap["Vc"], doubleTowxString(dist[2],m_distDigits));
-        SetItemText(item, m_columnMap["Vd"], doubleTowxString(dist[3],m_distDigits));
+        SetItemText(item, m_columnMap["Vb"], hugin_utils::doubleTowxString(dist[1],m_distDigits));
+        SetItemText(item, m_columnMap["Vc"], hugin_utils::doubleTowxString(dist[2],m_distDigits));
+        SetItemText(item, m_columnMap["Vd"], hugin_utils::doubleTowxString(dist[3],m_distDigits));
     };
 
     if (m_groupMode == GROUP_LENS && (img.RadialVigCorrCenterShiftisLinked() || isSingleImage))
@@ -611,8 +608,8 @@ void ImagesTreeCtrl::UpdateImageText(wxTreeItemId item)
     else
     {
         hugin_utils::FDiff2D p=img.getRadialVigCorrCenterShift();
-        SetItemText(item, m_columnMap["Vx"], doubleTowxString(p.x,m_distDigits));
-        SetItemText(item, m_columnMap["Vy"], doubleTowxString(p.y,m_distDigits));
+        SetItemText(item, m_columnMap["Vx"], hugin_utils::doubleTowxString(p.x,m_distDigits));
+        SetItemText(item, m_columnMap["Vy"], hugin_utils::doubleTowxString(p.y,m_distDigits));
     };
 
     if (m_groupMode == GROUP_LENS && (img.EMoRParamsisLinked() || isSingleImage))
@@ -626,11 +623,11 @@ void ImagesTreeCtrl::UpdateImageText(wxTreeItemId item)
     else
     {
         std::vector<float> vec=img.getEMoRParams();
-        SetItemText(item, m_columnMap["Ra"], doubleTowxString(vec[0],m_distDigits));
-        SetItemText(item, m_columnMap["Rb"], doubleTowxString(vec[1],m_distDigits));
-        SetItemText(item, m_columnMap["Rc"], doubleTowxString(vec[2],m_distDigits));
-        SetItemText(item, m_columnMap["Rd"], doubleTowxString(vec[3],m_distDigits));
-        SetItemText(item, m_columnMap["Re"], doubleTowxString(vec[4],m_distDigits));
+        SetItemText(item, m_columnMap["Ra"], hugin_utils::doubleTowxString(vec[0],m_distDigits));
+        SetItemText(item, m_columnMap["Rb"], hugin_utils::doubleTowxString(vec[1],m_distDigits));
+        SetItemText(item, m_columnMap["Rc"], hugin_utils::doubleTowxString(vec[2],m_distDigits));
+        SetItemText(item, m_columnMap["Rd"], hugin_utils::doubleTowxString(vec[3],m_distDigits));
+        SetItemText(item, m_columnMap["Re"], hugin_utils::doubleTowxString(vec[4],m_distDigits));
     };
 };
 
@@ -665,18 +662,18 @@ void ImagesTreeCtrl::UpdateGroupText(wxTreeItemId item)
     if(childItem.IsOk())
     {
         ImagesTreeData* data=static_cast<ImagesTreeData*>(GetItemData(childItem));
-        const SrcPanoImage& img=m_pano->getImage(data->GetImgNr());
+        const HuginBase::SrcPanoImage& img=m_pano->getImage(data->GetImgNr());
 
         if (m_groupMode == GROUP_STACK && (img.YawisLinked() || haveSingleChild))
         {
-            SetItemText(item, m_columnMap["y"], doubleTowxString(img.getYaw(), m_degDigits));
-            SetItemText(item, m_columnMap["p"], doubleTowxString(img.getPitch(), m_degDigits));
-            SetItemText(item, m_columnMap["r"], doubleTowxString(img.getRoll(), m_degDigits));
-            SetItemText(item, m_columnMap["TrX"], doubleTowxString(img.getX(), m_degDigits));
-            SetItemText(item, m_columnMap["TrY"], doubleTowxString(img.getY(), m_degDigits));
-            SetItemText(item, m_columnMap["TrZ"], doubleTowxString(img.getZ(), m_degDigits));
-            SetItemText(item, m_columnMap["Tpy"], doubleTowxString(img.getTranslationPlaneYaw(), m_degDigits));
-            SetItemText(item, m_columnMap["Tpp"], doubleTowxString(img.getTranslationPlanePitch(), m_degDigits));
+            SetItemText(item, m_columnMap["y"], hugin_utils::doubleTowxString(img.getYaw(), m_degDigits));
+            SetItemText(item, m_columnMap["p"], hugin_utils::doubleTowxString(img.getPitch(), m_degDigits));
+            SetItemText(item, m_columnMap["r"], hugin_utils::doubleTowxString(img.getRoll(), m_degDigits));
+            SetItemText(item, m_columnMap["TrX"], hugin_utils::doubleTowxString(img.getX(), m_degDigits));
+            SetItemText(item, m_columnMap["TrY"], hugin_utils::doubleTowxString(img.getY(), m_degDigits));
+            SetItemText(item, m_columnMap["TrZ"], hugin_utils::doubleTowxString(img.getZ(), m_degDigits));
+            SetItemText(item, m_columnMap["Tpy"], hugin_utils::doubleTowxString(img.getTranslationPlaneYaw(), m_degDigits));
+            SetItemText(item, m_columnMap["Tpp"], hugin_utils::doubleTowxString(img.getTranslationPlanePitch(), m_degDigits));
             wxString text=_("not active");
             if(img.getX()!=0.0 || img.getY()!=0.0 || img.getZ()!=0.0 || img.getTranslationPlaneYaw()!=0.0 || img.getTranslationPlanePitch()!=0.0)
             {
@@ -711,7 +708,7 @@ void ImagesTreeCtrl::UpdateGroupText(wxTreeItemId item)
 
         if (m_groupMode == GROUP_LENS && (img.HFOVisLinked() || haveSingleChild))
         {
-            SetItemText(item, m_columnMap["v"], doubleTowxString(img.getHFOV(), m_degDigits));
+            SetItemText(item, m_columnMap["v"], hugin_utils::doubleTowxString(img.getHFOV(), m_degDigits));
         }
         else
         {
@@ -721,9 +718,9 @@ void ImagesTreeCtrl::UpdateGroupText(wxTreeItemId item)
         if (m_groupMode == GROUP_LENS && (img.RadialDistortionisLinked() || haveSingleChild))
         {
             std::vector<double> dist=img.getRadialDistortion();
-            SetItemText(item, m_columnMap["a"], doubleTowxString(dist[0],m_distDigits));
-            SetItemText(item, m_columnMap["b"], doubleTowxString(dist[1],m_distDigits));
-            SetItemText(item, m_columnMap["c"], doubleTowxString(dist[2],m_distDigits));
+            SetItemText(item, m_columnMap["a"], hugin_utils::doubleTowxString(dist[0],m_distDigits));
+            SetItemText(item, m_columnMap["b"], hugin_utils::doubleTowxString(dist[1],m_distDigits));
+            SetItemText(item, m_columnMap["c"], hugin_utils::doubleTowxString(dist[2],m_distDigits));
         }
         else
         {
@@ -735,8 +732,8 @@ void ImagesTreeCtrl::UpdateGroupText(wxTreeItemId item)
         if (m_groupMode == GROUP_LENS && (img.RadialDistortionCenterShiftisLinked() || haveSingleChild))
         {
             hugin_utils::FDiff2D p=img.getRadialDistortionCenterShift();
-            SetItemText(item, m_columnMap["d"], doubleTowxString(p.x,m_pixelDigits));
-            SetItemText(item, m_columnMap["e"], doubleTowxString(p.y,m_pixelDigits));
+            SetItemText(item, m_columnMap["d"], hugin_utils::doubleTowxString(p.x,m_pixelDigits));
+            SetItemText(item, m_columnMap["e"], hugin_utils::doubleTowxString(p.y,m_pixelDigits));
         }
         else
         {
@@ -747,8 +744,8 @@ void ImagesTreeCtrl::UpdateGroupText(wxTreeItemId item)
         if (m_groupMode == GROUP_LENS && (img.ShearisLinked() || haveSingleChild))
         {
             hugin_utils::FDiff2D p=img.getShear();
-            SetItemText(item, m_columnMap["g"], doubleTowxString(p.x,m_distDigits));
-            SetItemText(item, m_columnMap["t"], doubleTowxString(p.y,m_distDigits));
+            SetItemText(item, m_columnMap["g"], hugin_utils::doubleTowxString(p.x,m_distDigits));
+            SetItemText(item, m_columnMap["t"], hugin_utils::doubleTowxString(p.y,m_distDigits));
         }
         else
         {
@@ -758,7 +755,7 @@ void ImagesTreeCtrl::UpdateGroupText(wxTreeItemId item)
 
         if (m_groupMode == GROUP_LENS && (img.ExposureValueisLinked() || haveSingleChild))
         {
-            SetItemText(item, m_columnMap["Eev"], doubleTowxString(img.getExposureValue(), m_pixelDigits));
+            SetItemText(item, m_columnMap["Eev"], hugin_utils::doubleTowxString(img.getExposureValue(), m_pixelDigits));
         }
         else
         {
@@ -767,7 +764,7 @@ void ImagesTreeCtrl::UpdateGroupText(wxTreeItemId item)
 
         if (m_groupMode == GROUP_LENS && (img.WhiteBalanceRedisLinked() || haveSingleChild))
         {
-            SetItemText(item, m_columnMap["Er"], doubleTowxString(img.getWhiteBalanceRed(), m_pixelDigits+1));
+            SetItemText(item, m_columnMap["Er"], hugin_utils::doubleTowxString(img.getWhiteBalanceRed(), m_pixelDigits+1));
         }
         else
         {
@@ -776,7 +773,7 @@ void ImagesTreeCtrl::UpdateGroupText(wxTreeItemId item)
 
         if (m_groupMode == GROUP_LENS && (img.WhiteBalanceBlueisLinked() || haveSingleChild))
         {
-            SetItemText(item, m_columnMap["Eb"], doubleTowxString(img.getWhiteBalanceBlue(), m_pixelDigits+1));
+            SetItemText(item, m_columnMap["Eb"], hugin_utils::doubleTowxString(img.getWhiteBalanceBlue(), m_pixelDigits+1));
         }
         else
         {
@@ -786,9 +783,9 @@ void ImagesTreeCtrl::UpdateGroupText(wxTreeItemId item)
         if (m_groupMode == GROUP_LENS && (img.RadialVigCorrCoeffisLinked() || haveSingleChild))
         {
             std::vector<double> dist=img.getRadialVigCorrCoeff();
-            SetItemText(item, m_columnMap["Vb"], doubleTowxString(dist[1],m_distDigits));
-            SetItemText(item, m_columnMap["Vc"], doubleTowxString(dist[2],m_distDigits));
-            SetItemText(item, m_columnMap["Vd"], doubleTowxString(dist[3],m_distDigits));
+            SetItemText(item, m_columnMap["Vb"], hugin_utils::doubleTowxString(dist[1],m_distDigits));
+            SetItemText(item, m_columnMap["Vc"], hugin_utils::doubleTowxString(dist[2],m_distDigits));
+            SetItemText(item, m_columnMap["Vd"], hugin_utils::doubleTowxString(dist[3],m_distDigits));
         }
         else
         {
@@ -800,8 +797,8 @@ void ImagesTreeCtrl::UpdateGroupText(wxTreeItemId item)
         if (m_groupMode == GROUP_LENS && (img.RadialVigCorrCenterShiftisLinked() || haveSingleChild))
         {
             hugin_utils::FDiff2D p=img.getRadialVigCorrCenterShift();
-            SetItemText(item, m_columnMap["Vx"], doubleTowxString(p.x,m_distDigits));
-            SetItemText(item, m_columnMap["Vy"], doubleTowxString(p.y,m_distDigits));
+            SetItemText(item, m_columnMap["Vx"], hugin_utils::doubleTowxString(p.x,m_distDigits));
+            SetItemText(item, m_columnMap["Vy"], hugin_utils::doubleTowxString(p.y,m_distDigits));
         }
         else
         {
@@ -812,11 +809,11 @@ void ImagesTreeCtrl::UpdateGroupText(wxTreeItemId item)
         if (m_groupMode == GROUP_LENS && (img.EMoRParamsisLinked() || haveSingleChild))
         {
             std::vector<float> vec=img.getEMoRParams();
-            SetItemText(item, m_columnMap["Ra"], doubleTowxString(vec[0],m_distDigits));
-            SetItemText(item, m_columnMap["Rb"], doubleTowxString(vec[1],m_distDigits));
-            SetItemText(item, m_columnMap["Rc"], doubleTowxString(vec[2],m_distDigits));
-            SetItemText(item, m_columnMap["Rd"], doubleTowxString(vec[3],m_distDigits));
-            SetItemText(item, m_columnMap["Re"], doubleTowxString(vec[4],m_distDigits));
+            SetItemText(item, m_columnMap["Ra"], hugin_utils::doubleTowxString(vec[0],m_distDigits));
+            SetItemText(item, m_columnMap["Rb"], hugin_utils::doubleTowxString(vec[1],m_distDigits));
+            SetItemText(item, m_columnMap["Rc"], hugin_utils::doubleTowxString(vec[2],m_distDigits));
+            SetItemText(item, m_columnMap["Rd"], hugin_utils::doubleTowxString(vec[3],m_distDigits));
+            SetItemText(item, m_columnMap["Re"], hugin_utils::doubleTowxString(vec[4],m_distDigits));
         }
         else
         {
@@ -829,7 +826,7 @@ void ImagesTreeCtrl::UpdateGroupText(wxTreeItemId item)
     };
 };
 
-void ImagesTreeCtrl::UpdateGroup(wxTreeItemId parent, const UIntSet imgs, UIntSet& changed)
+void ImagesTreeCtrl::UpdateGroup(wxTreeItemId parent, const HuginBase::UIntSet imgs, HuginBase::UIntSet& changed)
 {
     size_t nrItems=GetChildrenCount(parent,false);
     bool forceUpdate=false;
@@ -856,7 +853,7 @@ void ImagesTreeCtrl::UpdateGroup(wxTreeItemId parent, const UIntSet imgs, UIntSe
     //now update values
     wxTreeItemIdValue cookie;
     wxTreeItemId item=GetFirstChild(parent,cookie);
-    UIntSet::const_iterator it=imgs.begin();
+    HuginBase::UIntSet::const_iterator it=imgs.begin();
     while(item.IsOk())
     {
         ImagesTreeData* data=static_cast<ImagesTreeData*>(GetItemData(item));
@@ -899,7 +896,7 @@ void ImagesTreeCtrl::UpdateOptimizerVariables()
     while(item.IsOk())
     {
         ImagesTreeData* data=static_cast<ImagesTreeData*>(GetItemData(item));
-        UIntSet imgNrs;
+        HuginBase::UIntSet imgNrs;
         if(data->IsGroup())
         {
             wxTreeItemIdValue childCookie;
@@ -922,7 +919,7 @@ void ImagesTreeCtrl::UpdateOptimizerVariables()
                 if(set_contains(m_editableColumns,i))
                 {
                     bool opt=false;
-                    for(UIntSet::const_iterator it=imgNrs.begin(); it!=imgNrs.end() && !opt;++it)
+                    for(HuginBase::UIntSet::const_iterator it=imgNrs.begin(); it!=imgNrs.end() && !opt;++it)
                     {
                         if(m_columnVector[i]=="cam_trans")
                         {
@@ -955,7 +952,7 @@ void ImagesTreeCtrl::UpdateOptimizerVariables()
 HuginBase::UIntSet ImagesTreeCtrl::GetSelectedImages()
 {
     wxArrayTreeItemIds selected;
-    UIntSet imgs;
+    HuginBase::UIntSet imgs;
     if(GetSelections (selected)>0)
     {
         for(size_t i=0;i<selected.size();i++)
@@ -1000,7 +997,7 @@ void ImagesTreeCtrl::SetGuiLevel(GuiLevel newSetting)
 void ImagesTreeCtrl::SetOptimizerMode()
 {
     m_optimizerMode=true;
-    for(UIntSet::const_iterator it=m_editableColumns.begin(); it!=m_editableColumns.end(); ++it)
+    for(HuginBase::UIntSet::const_iterator it=m_editableColumns.begin(); it!=m_editableColumns.end(); ++it)
     {
         if(m_columnVector[*it]!="cam_trans")
         {
@@ -1023,7 +1020,7 @@ void ImagesTreeCtrl::SetGroupMode(GroupMode newGroup)
             SetWindowStyle(GetWindowStyle() & ~wxTR_NO_LINES);
         };
         DeleteChildren(m_root);
-        UIntSet imgs;
+        HuginBase::UIntSet imgs;
         if(m_pano->getNrOfImages()>0)
         {
             fill_set(imgs,0,m_pano->getNrOfImages()-1);
@@ -1229,7 +1226,7 @@ void ImagesTreeCtrl::OnContextMenu(wxTreeEvent & e)
 
 void ImagesTreeCtrl::GenerateSubMenu(wxMenu* menu, PanoOperation::PanoOperationVector* operations, int& id)
 {
-    UIntSet imgs=GetSelectedImages();
+    HuginBase::UIntSet imgs=GetSelectedImages();
     for(size_t i=0; i<operations->size(); i++)
     {
         if((*operations)[i]->IsEnabled(*m_pano, imgs, m_guiLevel))
@@ -1256,7 +1253,7 @@ void ImagesTreeCtrl::OnHeaderContextMenu(wxListEvent & e)
 
 void ImagesTreeCtrl::UnLinkImageVariables(bool linked)
 {
-    UIntSet images=GetSelectedImages();
+    HuginBase::UIntSet images=GetSelectedImages();
     if(images.size()>0 && m_variableVector[m_selectedColumn]!=HuginBase::ImageVariableGroup::IVE_Filename)
     {
         std::set<HuginBase::ImageVariableGroup::ImageVariableEnum> variables;
@@ -1298,7 +1295,7 @@ void ImagesTreeCtrl::OnUnlinkImageVariables(wxCommandEvent &e)
 
 void ImagesTreeCtrl::OnEditImageVariables(wxCommandEvent &e)
 {
-    UIntSet imgs=GetSelectedImages();
+    HuginBase::UIntSet imgs=GetSelectedImages();
     if(imgs.size()>0)
     {
         ImageVariableDialog dlg(this, m_pano, imgs);
@@ -1615,7 +1612,7 @@ void ImagesTreeCtrl::SelectAllParameters(bool select, bool allImages)
 
     };
 
-    UIntSet imgs;
+    HuginBase::UIntSet imgs;
     if(allImages)
     {
         fill_set(imgs, 0, m_pano->getNrOfImages()-1);
@@ -1650,7 +1647,7 @@ void ImagesTreeCtrl::SelectAllParameters(bool select, bool allImages)
     };
 
     HuginBase::OptimizeVector optVec = m_pano->getOptimizeVector();
-    for(UIntSet::iterator img=imgs.begin(); img!=imgs.end(); ++img)
+    for(HuginBase::UIntSet::iterator img=imgs.begin(); img!=imgs.end(); ++img)
     {
         for(std::set<std::string>::const_iterator it=imgVars.begin(); it!=imgVars.end(); ++it)
         {
@@ -1748,7 +1745,7 @@ void ImagesTreeCtrl::OnBeginEdit(wxTreeEvent &e)
             data=static_cast<ImagesTreeData*>(GetItemData(item));
         };
         m_editVal=m_pano->getImage(data->GetImgNr()).getVar(m_columnVector[e.GetInt()]);
-        SetItemText(e.GetItem(), e.GetInt(), doubleTowxString(m_editVal));
+        SetItemText(e.GetItem(), e.GetInt(), hugin_utils::doubleTowxString(m_editVal));
         e.Allow();
     };
 };
@@ -1764,7 +1761,7 @@ void ImagesTreeCtrl::OnEndEdit(wxTreeEvent &e)
     else
     {
         double val;
-        if(!str2double(e.GetLabel(),val))
+        if(!hugin_utils::str2double(e.GetLabel(),val))
         {
             //restore old string
             SetItemText(e.GetItem(), e.GetInt(), m_editOldString);
@@ -1783,11 +1780,11 @@ void ImagesTreeCtrl::OnEndEdit(wxTreeEvent &e)
                     wxTreeItemId item=GetFirstChild(e.GetItem(), cookie);
                     data=static_cast<ImagesTreeData*>(GetItemData(item));
                 };
-                UIntSet imgs;
+                HuginBase::UIntSet imgs;
                 imgs.insert(data->GetImgNr());
                 if(m_columnVector[e.GetInt()]=="v")
                 {
-                    if(m_pano->getImage(data->GetImgNr()).getProjection()==SrcPanoImage::FISHEYE_ORTHOGRAPHIC && val>190)
+                    if(m_pano->getImage(data->GetImgNr()).getProjection()==HuginBase::SrcPanoImage::FISHEYE_ORTHOGRAPHIC && val>190)
                     {
                         if(wxMessageBox(
                             wxString::Format(_("You have given a field of view of %.2f degrees.\n But the orthographic projection is limited to a field of view of 180 degress.\nDo you want still use that high value?"), val),

@@ -133,7 +133,7 @@ bool PTOCopyMove(bool movingFile, fs::path src, fs::path dest, bool overwriteAll
     std::ifstream prjfile(input.c_str());
     if (!prjfile.good())
     {
-        std::cerr << "ERROR: Could not open script: " << src.string() << endl;
+        std::cerr << "ERROR: Could not open script: " << src.string() << std::endl;
         return false;
     }
     std::string inputPathPrefix=hugin_utils::getPathPrefix(input);
@@ -143,7 +143,7 @@ bool PTOCopyMove(bool movingFile, fs::path src, fs::path dest, bool overwriteAll
     if (err != AppBase::DocumentData::SUCCESSFUL)
     {
         std::cerr << "ERROR: error while parsing panos tool script: " << input << std::endl
-                  << "DocumentData::ReadWriteError code: " << err << std::endl;
+                  << "AppBase::DocumentData::ReadWriteError code: " << err << std::endl;
         return false;
     };
     prjfile.close();

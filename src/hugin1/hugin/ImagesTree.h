@@ -32,8 +32,6 @@
 #include "GuiLevel.h"
 #include "hugin/PanoOperation.h"
 
-using namespace HuginBase;
-
 /** the main images tree control, used on images and optimizer tabs */
 #if wxCHECK_VERSION(2,9,0)
 class ImagesTreeCtrl: public wxcode::wxTreeListCtrl, public HuginBase::PanoramaObserver
@@ -102,7 +100,7 @@ protected:
     /** updates the information fot the given lens/stack in the tree */
     void UpdateGroupText(wxTreeItemId item);
     /** updates the given group, updates number of images and the images itself */
-    void UpdateGroup(wxTreeItemId parent, const UIntSet imgs, UIntSet& changed);
+    void UpdateGroup(wxTreeItemId parent, const HuginBase::UIntSet imgs, HuginBase::UIntSet& changed);
     /** event handler, when column width was changed, save into wxConfig */
     void OnColumnWidthChange(wxListEvent & e );
     /** event handler for linking image variables */
@@ -156,7 +154,7 @@ private:
     void GenerateSubMenu(wxMenu* menu, PanoOperation::PanoOperationVector* operations, int& id);
 
     // the model
-    Panorama * m_pano;
+    HuginBase::Panorama * m_pano;
     /** the active group mode */
     GroupMode m_groupMode;
     

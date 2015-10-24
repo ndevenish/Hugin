@@ -25,8 +25,6 @@
 
 #include "Homography.h"
 
-using namespace std;
-
 namespace lfeat
 {
 
@@ -129,11 +127,11 @@ void Homography::initMatchesNormalization(PointMatchVector_t& iMatches)
 }
 
 
-ostream& operator<< (ostream& o, const Homography& H)
+std::ostream& operator<< (std::ostream& o, const Homography& H)
 {
-    o << H._H[0][0] << "\t" << H._H[0][1] << "\t" << H._H[0][2] << endl;
-    o << H._H[1][0] << "\t" << H._H[1][1] << "\t" << H._H[1][2] << endl;
-    o << H._H[2][0] << "\t" << H._H[2][1] << "\t" << H._H[2][2] << endl;
+    o << H._H[0][0] << "\t" << H._H[0][1] << "\t" << H._H[0][2] << std::endl
+        << H._H[1][0] << "\t" << H._H[1][1] << "\t" << H._H[1][2] << std::endl
+        << H._H[2][0] << "\t" << H._H[2][1] << "\t" << H._H[2][2] << std::endl;
 
     return o;
 }

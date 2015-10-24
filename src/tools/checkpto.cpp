@@ -38,28 +38,24 @@
 #include "algorithms/basic/CalculateCPStatistics.h"
 #include "algorithms/basic/LayerStacks.h"
 
-using namespace std;
-using namespace HuginBase;
-using namespace AppBase;
-
 static void usage(const char* name)
 {
-    cout << name << ": report the number of image groups in a project" << endl
-         << name << " version " << hugin_utils::GetHuginVersion() << endl
-         << endl
-         << "Usage:  " << name << " input.pto" << endl
-         << endl
-         << name << " examines the connections between images in a project and" << endl
-         << "reports back the number of parts or image groups in that project" << endl
-         << endl
-         << "Further switches:" << endl
-         << "  --print-output-info     Print more information about the output" << endl
-         << "  --print-lens-info       Print more information about lenses" << endl
-         << "  --print-stack-info      Print more information about assigned stacks" << endl
-         << "                          spaceholders will be replaced with real values" << endl
-         << endl
-         << name << " is used by the assistant and by the stitching makefiles" << endl
-         << endl;
+    std::cout << name << ": report the number of image groups in a project" << std::endl
+         << name << " version " << hugin_utils::GetHuginVersion() << std::endl
+         << std::endl
+         << "Usage:  " << name << " input.pto" << std::endl
+         << std::endl
+         << name << " examines the connections between images in a project and" << std::endl
+         << "reports back the number of parts or image groups in that project" << std::endl
+         << std::endl
+         << "Further switches:" << std::endl
+         << "  --print-output-info     Print more information about the output" << std::endl
+         << "  --print-lens-info       Print more information about lenses" << std::endl
+         << "  --print-stack-info      Print more information about assigned stacks" << std::endl
+         << "                          spaceholders will be replaced with real values" << std::endl
+         << std::endl
+         << name << " is used by the assistant and by the stitching makefiles" << std::endl
+         << std::endl;
 }
 
 void printImageGroup(const std::vector<HuginBase::UIntSet>& imageGroup, const std::string& prefix=std::string())
@@ -143,32 +139,32 @@ int main(int argc, char* argv[])
         return -1;
     };
 
-    string input=argv[optind];
+    std::string input=argv[optind];
 
-    Panorama pano;
-    ifstream prjfile(input.c_str());
+    HuginBase::Panorama pano;
+    std::ifstream prjfile(input.c_str());
     if (!prjfile.good())
     {
-        cerr << "could not open script : " << input << endl;
+        std::cerr << "could not open script : " << input << std::endl;
         return -1;
     }
     pano.setFilePrefix(hugin_utils::getPathPrefix(input));
-    DocumentData::ReadWriteError err = pano.readData(prjfile);
-    if (err != DocumentData::SUCCESSFUL)
+    AppBase::DocumentData::ReadWriteError err = pano.readData(prjfile);
+    if (err != AppBase::DocumentData::SUCCESSFUL)
     {
-        cerr << "error while parsing panos tool script: " << input << endl;
-        cerr << "DocumentData::ReadWriteError code: " << err << endl;
+        std::cerr << "error while parsing panos tool script: " << input << std::endl
+            << "DocumentData::ReadWriteError code: " << err << std::endl;
         return -1;
     }
 
     HuginBase::ConstStandardImageVariableGroups variable_groups(pano);
-    std::cout << endl
-              << "Opened project " << input << endl << endl
-              << "Project contains" << endl
-              << pano.getNrOfImages() << " images" << endl
-              << variable_groups.getLenses().getNumberOfParts() << " lenses" << endl
-              << variable_groups.getStacks().getNumberOfParts() << " stacks" << endl
-              << pano.getNrOfCtrlPoints() << " control points" << endl << endl;
+    std::cout << std::endl
+              << "Opened project " << input << std::endl << std::endl
+              << "Project contains" << std::endl
+              << pano.getNrOfImages() << " images" << std::endl
+              << variable_groups.getLenses().getNumberOfParts() << " lenses" << std::endl
+              << variable_groups.getStacks().getNumberOfParts() << " stacks" << std::endl
+              << pano.getNrOfCtrlPoints() << " control points" << std::endl << std::endl;
     //cp statistics
     if(pano.getNrOfCtrlPoints()>0)
     {
@@ -177,38 +173,38 @@ int main(int argc, char* argv[])
         double mean;
         double var;
         HuginBase::PTools::calcCtrlPointErrors(pano);
-        CalculateCPStatisticsError::calcCtrlPntsErrorStats(pano, min, max, mean, var);
+        HuginBase::CalculateCPStatisticsError::calcCtrlPntsErrorStats(pano, min, max, mean, var);
         if(max>0)
         {
             std::cout << "Control points statistics" << std::endl
-                      << fixed << std::setprecision(2)
+                      << std::fixed << std::setprecision(2)
                       << "\tMean error        : " << mean << std::endl
                       << "\tStandard deviation: " << sqrt(var) << std::endl
                       << "\tMinimum           : " << min << std::endl
                       << "\tMaximum           : " << max << std::endl;
         };
     };
-    CPGraph graph;
+    HuginBase::CPGraph graph;
     createCPGraph(pano, graph);
-    CPComponents comps;
-    const size_t n = findCPComponents(graph, comps);
+    HuginBase::CPComponents comps;
+    const size_t n = HuginBase::findCPComponents(graph, comps);
     int returnValue=0;
     if(n==1)
     {
-        std::cout << "All images are connected." << endl;
+        std::cout << "All images are connected." << std::endl;
         // return value must be 0, otherwise the assistant does not continue
         returnValue=0;
     }
     else
     {
-        std::cout << "Found unconnected images!" << endl
-                  << "There are " << n << " image groups." << endl;
+        std::cout << "Found unconnected images!" << std::endl
+                  << "There are " << n << " image groups." << std::endl;
 
-        std::cout << "Image groups: " << endl;
+        std::cout << "Image groups: " << std::endl;
         for (size_t i=0; i < comps.size(); i++)
         {
             std::cout << "[";
-            CPComponents::value_type::const_iterator it;
+            HuginBase::CPComponents::value_type::const_iterator it;
             size_t c=0;
             for (it = comps[i].begin(); it != comps[i].end(); ++it)
             {
@@ -222,7 +218,7 @@ int main(int argc, char* argv[])
             std::cout << "]";
             if (i+1 != comps.size())
             {
-                std::cout << ", " << endl;
+                std::cout << ", " << std::endl;
             }
         }
         returnValue=n;
@@ -242,11 +238,11 @@ int main(int argc, char* argv[])
     {
         HuginBase::UIntSet outputImages=HuginBase::getImagesinROI(pano, pano.getActiveImages());
         std::vector<HuginBase::UIntSet> stacks=HuginBase::getHDRStacks(pano, outputImages, pano.getOptions());
-        cout << endl << "Output contains" << endl
-             << stacks.size() << " images stacks:" << endl;
+        std::cout << std::endl << "Output contains" << std::endl
+             << stacks.size() << " images stacks:" << std::endl;
         printImageGroup(stacks);
         std::vector<HuginBase::UIntSet> layers=HuginBase::getExposureLayers(pano, outputImages, pano.getOptions());
-        cout << endl << endl << "and " << layers.size() << " exposure layers:" << std::endl;
+        std::cout << std::endl << std::endl << "and " << layers.size() << " exposure layers:" << std::endl;
         printImageGroup(layers);
     };
     return returnValue;

@@ -44,10 +44,6 @@
 #include "hugin/PanoOperation.h"
 #include "base_wx/LensTools.h"
 
-using namespace std;
-using namespace HuginBase;
-using namespace hugin_utils;
-
 //============================================================================
 //============================================================================
 //============================================================================
@@ -162,7 +158,7 @@ void OptimizePanel::OnOptimizeButton(wxCommandEvent & e)
     DEBUG_TRACE("");
     // run optimizer
 
-    UIntSet imgs;
+    HuginBase::UIntSet imgs;
     if (m_only_active_images_cb->IsChecked() || m_pano->getOptimizerSwitch()!=0)
     {
         // use only selected images.
@@ -189,7 +185,7 @@ void OptimizePanel::OnOptimizeButton(wxCommandEvent & e)
     };
 }
 
-void OptimizePanel::runOptimizer(const UIntSet & imgs)
+void OptimizePanel::runOptimizer(const HuginBase::UIntSet & imgs)
 {
     DEBUG_TRACE("");
     // open window that shows a status dialog, and allows to
@@ -198,7 +194,7 @@ void OptimizePanel::runOptimizer(const UIntSet & imgs)
     // remember active window for dialogs
     wxWindow* activeWindow = wxGetActiveWindow();
 
-    Panorama optPano = m_pano->getSubset(imgs);
+    HuginBase::Panorama optPano = m_pano->getSubset(imgs);
     HuginBase::PanoramaOptions opts = optPano.getOptions();
     switch(opts.getProjection())
     {
@@ -212,7 +208,7 @@ void OptimizePanel::runOptimizer(const UIntSet & imgs)
             optPano.setOptions(opts);
             break;
     }
-    UIntSet allImg;
+    HuginBase::UIntSet allImg;
     fill_set(allImg,0, imgs.size()-1);
 
     char *p = setlocale(LC_ALL,NULL);
@@ -249,7 +245,7 @@ void OptimizePanel::runOptimizer(const UIntSet & imgs)
         if (m_edit_cb->IsChecked() && mode==0)
         {
             // show and edit script..
-            ostringstream scriptbuf;
+            std::ostringstream scriptbuf;
             optPano.printPanoramaScript(scriptbuf, optPano.getOptimizeVector(), optPano.getOptions(), allImg, true);
             // open a text dialog with an editor inside
             wxDialog * edit_dlg = wxXmlResource::Get()->LoadDialog(this, wxT("edit_script_dialog"));
@@ -298,7 +294,7 @@ void OptimizePanel::runOptimizer(const UIntSet & imgs)
     }
 }
 
-bool OptimizePanel::AskApplyResult(wxWindow* activeWindow, const Panorama & pano)
+bool OptimizePanel::AskApplyResult(wxWindow* activeWindow, const HuginBase::Panorama & pano)
 {
     double min;
     double max;

@@ -36,25 +36,22 @@
 #include "svm.h"
 #include <stdio.h>
 
-using namespace vigra; 
-using namespace std; 
-
 namespace celeste
 {
 
 typedef vigra::BRGBImage::PixelType RGB;
 
 // load SVM model
-bool loadSVMmodel(struct svm_model*& model, string& model_file)
+bool loadSVMmodel(struct svm_model*& model, std::string& model_file)
 {
     if((model = svm_load_model(model_file.c_str())) == 0)
     {
-        cout << "Couldn't load model file '" << model_file << "'" << endl << endl;
+        std::cout << "Couldn't load model file '" << model_file << "'" << std::endl << std::endl;
         return false;
     }
     else
     {
-        cout << "Loaded model file:\t" << model_file << endl;
+        std::cout << "Loaded model file:\t" << model_file << std::endl;
         return true;
     }
 };
@@ -87,9 +84,9 @@ void prepareCelesteImage(vigra::UInt16RGBImage& rgb,vigra::UInt16RGBImage& luv, 
             resize_dimension = nh;
         }
     }
-    //cout << "Re-size dimenstion:\t" << resize_dimension << endl;
+    //std::cout << "Re-size dimenstion:\t" << resize_dimension << std::endl;
     if(verbose)
-        cout << "Image dimensions:\t" << rgb.width() << " x " << rgb.height() << endl;
+        std::cout << "Image dimensions:\t" << rgb.width() << " x " << rgb.height() << std::endl;
 
     // Re-size to max dimension
     vigra::UInt16RGBImage temp;
@@ -113,8 +110,8 @@ void prepareCelesteImage(vigra::UInt16RGBImage& rgb,vigra::UInt16RGBImage& luv, 
 
         if(verbose)
         {
-            cout << "Scaling by:\t\t" << sizefactor << endl;
-            cout << "New dimensions:\t\t" << nw << " x " << nh << endl;
+            std::cout << "Scaling by:\t\t" << sizefactor << std::endl;
+            std::cout << "New dimensions:\t\t" << nw << " x " << nh << std::endl;
         };
 
         // create a RGB image of appropriate size
@@ -132,7 +129,7 @@ void prepareCelesteImage(vigra::UInt16RGBImage& rgb,vigra::UInt16RGBImage& luv, 
 
     // Convert to Luv colour space
     luv.resize(temp.width(),temp.height());
-    vigra::transformImage(srcImageRange(temp), destImage(luv), RGB2LuvFunctor<double>() );
+    vigra::transformImage(srcImageRange(temp), destImage(luv), vigra::RGB2LuvFunctor<double>() );
     //exportImage(srcImageRange(luv), ImageExportInfo("test_luv.tif").setPixelType("UINT16"));
     temp.resize(0,0);
 };
@@ -147,13 +144,13 @@ void prepareGaborImage(vigra::UInt16RGBImage& luv, float**& pixels)
         for (int j = 0; j < luv.width(); j++ )
         {
             pixels[i][j] = luv(j,i)[0];
-            //cout << i << " " << j << " = " << k << " - " << frameBuf[k] << endl;
+            //std::cout << i << " " << j << " = " << k << " - " << frameBuf[k] << std::endl;
         }
     }
 };
 
 //classify the points with SVM
-vector<double> classifySVM(struct svm_model* model, int gNumLocs,int**& gLocations,int width,int height,int vector_length, float*& response,int gRadius,vigra::UInt16RGBImage& luv,bool needsMoreIndex=false)
+std::vector<double> classifySVM(struct svm_model* model, int gNumLocs,int**& gLocations,int width,int height,int vector_length, float*& response,int gRadius,vigra::UInt16RGBImage& luv,bool needsMoreIndex=false)
 {
     std::vector<double> svm_response;
     // Integers and containers for libsvm
@@ -187,7 +184,7 @@ vector<double> classifySVM(struct svm_model* model, int gNumLocs,int**& gLocatio
         {
             gabor_responses[feature-1].index = feature;
             gabor_responses[feature-1].value = response[v];					
-            //cout << feature << ":" << response[v] << " ";
+            //std::cout << feature << ":" << response[v] << " ";
             feature++;
         }
 
@@ -201,27 +198,27 @@ vector<double> classifySVM(struct svm_model* model, int gNumLocs,int**& gLocatio
 
         gabor_responses[feature-1].index = feature;
         gabor_responses[feature-1].value = average.average()[1];
-        //cout << feature << ":" << u_ave << " ";
+        //std::cout << feature << ":" << u_ave << " ";
         feature++;
         gabor_responses[feature-1].index = feature;
         gabor_responses[feature-1].value = sqrt(average.variance()[1]);
-        //cout << feature << ":" << std_u << " ";
+        //std::cout << feature << ":" << std_u << " ";
         feature++;
         gabor_responses[feature-1].index = feature;
         gabor_responses[feature-1].value = average.average()[2];
-        //cout << feature << ":" << v_ave << " ";
+        //std::cout << feature << ":" << v_ave << " ";
         feature++;
         gabor_responses[feature-1].index = feature;
         gabor_responses[feature-1].value = sqrt(average.variance()[2]);
-        //cout << feature << ":" << std_v << " ";
+        //std::cout << feature << ":" << std_v << " ";
         feature++;
         gabor_responses[feature-1].index = feature;
         gabor_responses[feature-1].value = luv(gLocations[j][0],gLocations[j][1])[1];
-        //cout << feature << ":" << u_values[pixel_number] << " ";
+        //std::cout << feature << ":" << u_values[pixel_number] << " ";
         feature++;
         gabor_responses[feature-1].index = feature;
         gabor_responses[feature-1].value = luv(gLocations[j][0],gLocations[j][1])[2];
-        //cout << feature << ":" << v_values[pixel_number] << " " << endl;
+        //std::cout << feature << ":" << v_values[pixel_number] << " " << std::endl;
         gabor_responses[feature].index = -1;
 
         svm_predict_probability(model,gabor_responses,prob_estimates);	
@@ -262,7 +259,7 @@ void createGrid(int& gNumLocs,int**& gLocations,int gRadius,int width, int heigh
         {
             gLocations[gNumLocs][0] = j;
             gLocations[gNumLocs][1] = i;
-            //cout << "fPoint " << gNumLocs << ":\t" << i << " " << j << endl;
+            //std::cout << "fPoint " << gNumLocs << ":\t" << i << " " << j << std::endl;
             gNumLocs++;
         }
 
@@ -271,7 +268,7 @@ void createGrid(int& gNumLocs,int**& gLocations,int gRadius,int width, int heigh
         {
             gLocations[gNumLocs][0] = width - gRadius - 1;
             gLocations[gNumLocs][1] = i;
-            //cout << "efPoint " << gNumLocs << ":\t" << i << " " << nw - gRadius - 1 << endl;
+            //std::cout << "efPoint " << gNumLocs << ":\t" << i << " " << nw - gRadius - 1 << std::endl;
             gNumLocs++;
         }
     }
@@ -283,7 +280,7 @@ void createGrid(int& gNumLocs,int**& gLocations,int gRadius,int width, int heigh
         {
             gLocations[gNumLocs][0] = j;
             gLocations[gNumLocs][1] = height - gRadius - 1;
-            //cout << "efPoint " << gNumLocs << ":\t" << nh - gRadius - 1 << " " << j << endl;
+            //std::cout << "efPoint " << gNumLocs << ":\t" << nh - gRadius - 1 << " " << j << std::endl;
             gNumLocs++;
         }
     }
@@ -300,7 +297,7 @@ void generateMask(vigra::BImage& mask,int& gNumLocs, int**& gLocations,std::vect
             unsigned int sub_y0 = gLocations[j][1] - gRadius;
             unsigned int sub_x1 = gLocations[j][0] + gRadius + 1;
             unsigned int sub_y1 = gLocations[j][1] + gRadius + 1;
-            //cout << sub_x0 << ","<< sub_y0 << " - " << sub_x1 << "," << sub_y1 << endl;
+            //std::cout << sub_x0 << ","<< sub_y0 << " - " << sub_x1 << "," << sub_y1 << std::endl;
 
             // Set region to black
             vigra::initImage(srcIterRange(mask.upperLeft() + vigra::Diff2D(sub_x0, sub_y0),
@@ -308,7 +305,7 @@ void generateMask(vigra::BImage& mask,int& gNumLocs, int**& gLocations,std::vect
         }
         else
         {
-            //cout << "Non-cloud\t(score " << prob_estimates[0] << " <= " << threshold << ")" << endl;	
+            //std::cout << "Non-cloud\t(score " << prob_estimates[0] << " <= " << threshold << ")" << std::endl;	
         }
     }
 };
@@ -333,7 +330,7 @@ vigra::BImage* getCelesteMask(struct svm_model* model, vigra::UInt16RGBImage& in
     float* mask_response=NULL;
     mask_response = ProcessChannel(pixels,luv.width(),luv.height(),gNumLocs,gLocations,radius,mask_response,&len);
     // Turn the response into SVM vector, and add colour features
-    vector<double> svm_responses=classifySVM(model,gNumLocs,gLocations,luv.width(),luv.height(),(int)len/gNumLocs,mask_response,radius,luv);
+    std::vector<double> svm_responses=classifySVM(model,gNumLocs,gLocations,luv.width(),luv.height(),(int)len/gNumLocs,mask_response,radius,luv);
     delete [] mask_response;
 
     if(adaptThreshold)
@@ -348,7 +345,7 @@ vigra::BImage* getCelesteMask(struct svm_model* model, vigra::UInt16RGBImage& in
         };
         if(threshold<minVal)
         {
-            threshold=min(minVal+0.1,1.0);
+            threshold = std::min(minVal + 0.1, 1.0);
         };
     };
     // Create mask of same dimensions
@@ -404,7 +401,7 @@ HuginBase::UIntSet getCelesteControlPoints(struct svm_model* model, vigra::UInt1
     float* response=NULL;
     response = ProcessChannel(pixels,luv.width(),luv.height(),gNumLocs,gLocations,radius,response,&len);
     // Turn the response into SVM vector, and add colour features
-    vector<double> svm_responses=classifySVM(model,gNumLocs,gLocations,luv.width(),luv.height(),(int)len/gNumLocs,response,radius,luv);
+    std::vector<double> svm_responses = classifySVM(model, gNumLocs, gLocations, luv.width(), luv.height(), (int)len / gNumLocs, response, radius, luv);
     delete [] response;
 
     for(unsigned int i=0;i<svm_responses.size();i++)

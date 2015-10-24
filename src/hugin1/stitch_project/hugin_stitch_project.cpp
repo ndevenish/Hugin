@@ -50,11 +50,6 @@
 
 #include <wx/cmdline.h>
 
-using namespace vigra;
-using namespace std;
-using namespace hugin_utils;
-
-
 class RunStitchFrame: public wxFrame
 {
 public:
@@ -393,13 +388,13 @@ bool stitchApp::OnInit()
         }
     } else if(wxIsEmpty(scriptFile)) {
         scriptFile = parser.GetParam(0);
-        cout << "********************* script file: " << (const char *)scriptFile.mb_str(wxConvLocal) << endl;
+        std::cout << "********************* script file: " << (const char *)scriptFile.mb_str(wxConvLocal) << std::endl;
         if (! wxIsAbsolutePath(scriptFile)) {
             scriptFile = wxGetCwd() + wxFileName::GetPathSeparator() + scriptFile;
         }
     }
 
-    cout << "input file is " << (const char *)scriptFile.mb_str(wxConvLocal) << endl;
+    std::cout << "input file is " << (const char *)scriptFile.mb_str(wxConvLocal) << std::endl;
 
     wxString outname;
 

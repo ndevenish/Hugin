@@ -21,8 +21,6 @@
 #include "RansacFiltering.h"
 #include "Homography.h"
 
-using namespace std;
-
 static int genint(int x)
 {
     return (int)((double)rand()*x/(double)RAND_MAX);

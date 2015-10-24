@@ -35,8 +35,6 @@
 /** half size of color picker window size */
 #define ColorPickerSize 10
 
-using namespace HuginBase;
-
 // we want to be notified if the user click into the panorama
 void PreviewColorPickerTool::Activate()
 {
@@ -67,10 +65,10 @@ void PreviewColorPickerTool::CalcCorrection(hugin_utils::FDiff2D pos)
     m_blue=0;
     m_count=0;
     HuginBase::Panorama* pano=helper->GetPanoramaPtr();
-    UIntSet activeImages=pano->getActiveImages();
+    HuginBase::UIntSet activeImages=pano->getActiveImages();
     if(activeImages.size()>0)
     {
-        for(UIntSet::iterator it=activeImages.begin();it!=activeImages.end();++it)
+        for(HuginBase::UIntSet::iterator it=activeImages.begin();it!=activeImages.end();++it)
         {
             //check if point is inside the image, check also all 4 corners of rectangle
             HuginBase::PTools::Transform trans;
@@ -101,8 +99,8 @@ void PreviewColorPickerTool::CalcCorrection(hugin_utils::FDiff2D pos)
 
 void PreviewColorPickerTool::CalcCorrectionForImage(unsigned int i,vigra::Point2D pos)
 {
-    const SrcPanoImage & img = helper->GetPanoramaPtr()->getImage(i);
-    ImageCache::ImageCacheRGB8Ptr cacheImage8 = ImageCache::getInstance().getImage(img.getFilename())->get8BitImage();
+    const HuginBase::SrcPanoImage & img = helper->GetPanoramaPtr()->getImage(i);
+    HuginBase::ImageCache::ImageCacheRGB8Ptr cacheImage8 = HuginBase::ImageCache::getInstance().getImage(img.getFilename())->get8BitImage();
 
     //copy only region to be inspected
     vigra::BRGBImage tempImage(2*ColorPickerSize,2*ColorPickerSize);
@@ -112,8 +110,8 @@ void PreviewColorPickerTool::CalcCorrectionForImage(unsigned int i,vigra::Point2
                      destImage(tempImage) );
 
     //now apply photometric corrections
-    Photometric::InvResponseTransform<vigra::UInt8,double> invResponse(img);
-    if (helper->GetPanoramaPtr()->getOptions().outputMode == PanoramaOptions::OUTPUT_LDR)
+    HuginBase::Photometric::InvResponseTransform<vigra::UInt8, double> invResponse(img);
+    if (helper->GetPanoramaPtr()->getOptions().outputMode == HuginBase::PanoramaOptions::OUTPUT_LDR)
     {
         // select exposure and response curve for LDR output
         std::vector<double> outLut;

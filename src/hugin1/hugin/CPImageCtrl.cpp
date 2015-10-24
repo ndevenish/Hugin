@@ -51,9 +51,6 @@
 
 #include "vigra_ext/ImageTransforms.h"
 
-using namespace std;
-using namespace hugin_utils;
-
 #if !wxCHECK_VERSION(3,0,0)
 #define wxPENSTYLE_SOLID wxSOLID
 #define wxPENSTYLE_DOT wxDOT
@@ -77,7 +74,7 @@ CPEvent::CPEvent( )
     mode = NONE;
 }
 
-CPEvent::CPEvent(wxWindow* win, FDiff2D & p)
+CPEvent::CPEvent(wxWindow* win, hugin_utils::FDiff2D & p)
 {
     SetEventType( EVT_CPEVENT );
     SetEventObject( win );
@@ -93,7 +90,7 @@ CPEvent::CPEvent(wxWindow *win, unsigned int cpNr)
     pointNr = cpNr;
 }
 
-CPEvent::CPEvent(wxWindow* win, unsigned int cpNr, const FDiff2D & p)
+CPEvent::CPEvent(wxWindow* win, unsigned int cpNr, const hugin_utils::FDiff2D & p)
 {
     SetEventType( EVT_CPEVENT );
     SetEventObject( win );
@@ -107,10 +104,11 @@ CPEvent::CPEvent(wxWindow* win, const hugin_utils::FDiff2D & p1, const hugin_uti
     SetEventType(EVT_CPEVENT);
     SetEventObject(win);
     mode=DELETE_REGION_SELECTED;
-    region=wxRect(roundi(min(p1.x,p2.x)),roundi(min(p1.y,p2.y)),abs(roundi(p2.x-p1.x)),abs(roundi(p2.y-p1.y)));
+    region=wxRect(hugin_utils::roundi(std::min(p1.x,p2.x)), hugin_utils::roundi(std::min(p1.y,p2.y)),
+        abs(hugin_utils::roundi(p2.x-p1.x)),abs(hugin_utils::roundi(p2.y-p1.y)));
 };
 
-CPEvent::CPEvent(wxWindow* win, CPEventMode evt_mode, const FDiff2D & p)
+CPEvent::CPEvent(wxWindow* win, CPEventMode evt_mode, const hugin_utils::FDiff2D & p)
 {
     SetEventType(EVT_CPEVENT);
     SetEventObject(win);
@@ -202,15 +200,15 @@ void DisplayedControlPoint::Draw(wxDC& dc, bool selected, bool newPoint)
     dc.SetPen(wxPen(wxT("WHITE"), 1, wxPENSTYLE_SOLID));
     dc.SetBrush(wxBrush(wxT("BLACK"),wxBRUSHSTYLE_TRANSPARENT));
 
-    FDiff2D pointInput=m_mirrored ? hugin_utils::FDiff2D(m_cp.x2, m_cp.y2) : hugin_utils::FDiff2D(m_cp.x1, m_cp.y1);
-    FDiff2D point = m_control->applyRot(pointInput);
+    hugin_utils::FDiff2D pointInput = m_mirrored ? hugin_utils::FDiff2D(m_cp.x2, m_cp.y2) : hugin_utils::FDiff2D(m_cp.x1, m_cp.y1);
+    hugin_utils::FDiff2D point = m_control->applyRot(pointInput);
     wxPoint p = m_control->roundP(m_control->scale(point));
-    FDiff2D pointInput2;
+    hugin_utils::FDiff2D pointInput2;
     wxPoint p2;
     if(m_line)
     {
         pointInput2=m_mirrored ? hugin_utils::FDiff2D(m_cp.x1, m_cp.y1) : hugin_utils::FDiff2D(m_cp.x2, m_cp.y2);
-        FDiff2D point2 = m_control->applyRot(pointInput2);
+        hugin_utils::FDiff2D point2 = m_control->applyRot(pointInput2);
         p2 = m_control->roundP(m_control->scale(point2));
     };
     int l = 6;
@@ -218,12 +216,12 @@ void DisplayedControlPoint::Draw(wxDC& dc, bool selected, bool newPoint)
     vigra::Rect2D box;
     if(m_line)
     {
-        box.setUpperLeft(vigra::Point2D(roundi(std::min(m_cp.x1, m_cp.x2))-l, roundi(std::min(m_cp.y1, m_cp.y2))-l));
-        box.setSize(roundi(abs(m_cp.x1-m_cp.x2)+2.0*l), roundi(abs(m_cp.y1-m_cp.y2)+2.0*l)); 
+        box.setUpperLeft(vigra::Point2D(hugin_utils::roundi(std::min(m_cp.x1, m_cp.x2)) - l, hugin_utils::roundi(std::min(m_cp.y1, m_cp.y2)) - l));
+        box.setSize(hugin_utils::roundi(abs(m_cp.x1 - m_cp.x2) + 2.0*l), hugin_utils::roundi(abs(m_cp.y1 - m_cp.y2) + 2.0*l));
     }
     else
     {
-        box.setUpperLeft(vigra::Point2D(roundi(pointInput.x-l), roundi(pointInput.y-l)));
+        box.setUpperLeft(vigra::Point2D(hugin_utils::roundi(pointInput.x - l), hugin_utils::roundi(pointInput.y - l)));
         box.setSize(2*l, 2*l);
     };                
     // only use part inside.
@@ -390,7 +388,7 @@ void DisplayedControlPoint::DrawLine(wxDC& dc)
     {
         return;
     };
-    FDiff2D p1, p2, dp;
+    hugin_utils::FDiff2D p1, p2, dp;
     // transform end points to pano space
     if(!m_control->getFirstInvTrans()->transformImgCoord(p1, hugin_utils::FDiff2D(m_cp.x1, m_cp.y1)))
     {
@@ -401,7 +399,7 @@ void DisplayedControlPoint::DrawLine(wxDC& dc)
         return;
     };
     dp=p2-p1;
-    int len=roundi(sqrt((m_cp.x1-m_cp.x2)*(m_cp.x1-m_cp.x2)+(m_cp.y1-m_cp.y2)*(m_cp.y1-m_cp.y2)))+1;
+    int len = hugin_utils::roundi(sqrt((m_cp.x1 - m_cp.x2)*(m_cp.x1 - m_cp.x2) + (m_cp.y1 - m_cp.y2)*(m_cp.y1 - m_cp.y2))) + 1;
     if(len<5)
     {
         //very short line, draw straight line
@@ -414,7 +412,7 @@ void DisplayedControlPoint::DrawLine(wxDC& dc)
         wxPoint* points=new wxPoint[len+1];
         for(size_t i=0; i<len+1; i++)
         {
-            FDiff2D p=p1+dp*((double)i/len);
+            hugin_utils::FDiff2D p = p1 + dp*((double)i / len);
             // transform line coordinates back to image space
             if(!m_control->getFirstTrans()->transformImgCoord(p2, p))
             {
@@ -438,9 +436,9 @@ void DisplayedControlPoint::DrawLineSegment(wxDC& dc)
         return;
     };
     // calculate line equation
-    FDiff2D p1_image=m_mirrored ? hugin_utils::FDiff2D(m_cp.x2, m_cp.y2) : hugin_utils::FDiff2D(m_cp.x1, m_cp.y1);
-    FDiff2D p2_image=m_mirrored ? hugin_utils::FDiff2D(m_cp.x1, m_cp.y1) : hugin_utils::FDiff2D(m_cp.x2, m_cp.y2);
-    FDiff2D p1, p2, dp;
+    hugin_utils::FDiff2D p1_image = m_mirrored ? hugin_utils::FDiff2D(m_cp.x2, m_cp.y2) : hugin_utils::FDiff2D(m_cp.x1, m_cp.y1);
+    hugin_utils::FDiff2D p2_image = m_mirrored ? hugin_utils::FDiff2D(m_cp.x1, m_cp.y1) : hugin_utils::FDiff2D(m_cp.x2, m_cp.y2);
+    hugin_utils::FDiff2D p1, p2, dp;
     if(!m_control->getFirstInvTrans()->transformImgCoord(p1, p1_image))
     {
         return;
@@ -479,7 +477,7 @@ void DisplayedControlPoint::DrawLineSegment(wxDC& dc)
     wxPoint* points=new wxPoint[2*line_length+1];
     for(size_t i=0; i<2*line_length+1; i++)
     {
-        FDiff2D p=p1+dp*f*(((double)i-line_length)/(2.0f*line_length));
+        hugin_utils::FDiff2D p = p1 + dp*f*(((double)i - line_length) / (2.0f*line_length));
         if(!m_control->getFirstTrans()->transformImgCoord(p2, p))
         {
             delete []points;
@@ -607,7 +605,7 @@ void DisplayedControlPoint::StartLineControlPoint(hugin_utils::FDiff2D newPoint)
 
 hugin_utils::FDiff2D DisplayedControlPoint::GetPos() const
 {
-    return m_mirrored ? FDiff2D(m_cp.x2, m_cp.y2) : FDiff2D(m_cp.x1, m_cp.y1);
+    return m_mirrored ? hugin_utils::FDiff2D(m_cp.x2, m_cp.y2) : hugin_utils::FDiff2D(m_cp.x1, m_cp.y1);
 };
 
 bool DisplayedControlPoint::operator==(const DisplayedControlPoint other)
@@ -790,12 +788,12 @@ void CPImageCtrl::OnDraw(wxDC & dc)
         dc.SetPen(wxPen(wxT("WHITE"), 1, wxPENSTYLE_SOLID));
         dc.SetBrush(wxBrush(wxT("WHITE"), wxBRUSHSTYLE_TRANSPARENT));
 
-        FDiff2D upperLeft = applyRot(m_mousePos);
+        hugin_utils::FDiff2D upperLeft = applyRot(m_mousePos);
         upperLeft = scale(upperLeft);
         int width = scale(m_searchRectWidth);
         DEBUG_DEBUG("drawing rect " << upperLeft << " with width " << 2*width << " orig: " << m_searchRectWidth*2  << " scale factor: " << getScaleFactor());
 
-        dc.DrawRectangle(roundi(upperLeft.x - width), roundi(upperLeft.y-width), 2*width, 2*width);
+        dc.DrawRectangle(hugin_utils::roundi(upperLeft.x - width), hugin_utils::roundi(upperLeft.y - width), 2 * width, 2 * width);
         dc.SetLogicalFunction(wxCOPY);
     }
 }
@@ -816,7 +814,7 @@ public:
     double m_scale;
 };
 
-wxBitmap CPImageCtrl::generateMagBitmap(FDiff2D point, wxPoint canvasPos) const
+wxBitmap CPImageCtrl::generateMagBitmap(hugin_utils::FDiff2D point, wxPoint canvasPos) const
 {
     typedef vigra::RGBValue<vigra::UInt8> VT;
     DEBUG_TRACE("")
@@ -1081,14 +1079,14 @@ void CPImageCtrl::deselect()
     update();
 }
 
-void CPImageCtrl::showPosition(FDiff2D point, bool warpPointer)
+void CPImageCtrl::showPosition(hugin_utils::FDiff2D point, bool warpPointer)
 {
     DEBUG_DEBUG("x: " << point.x  << " y: " << point.y);
     // transform and scale the co-ordinate to the screen.
     point = applyRot(point);
     point = scale(point);
-    int x = roundi(point.x);
-    int y = roundi(point.y);
+    int x = hugin_utils::roundi(point.x);
+    int y = hugin_utils::roundi(point.y);
 
     wxSize sz = GetClientSize();
     int scrollx = x - sz.GetWidth()/2;
@@ -1102,7 +1100,7 @@ void CPImageCtrl::showPosition(FDiff2D point, bool warpPointer)
     }
 }
 
-CPImageCtrl::EditorState CPImageCtrl::isOccupied(wxPoint mousePos, const FDiff2D &p, unsigned int & pointNr) const
+CPImageCtrl::EditorState CPImageCtrl::isOccupied(wxPoint mousePos, const hugin_utils::FDiff2D &p, unsigned int & pointNr) const
 {
     // check if mouse is hovering over a label
     if(m_points.size()>0)
@@ -1116,7 +1114,7 @@ CPImageCtrl::EditorState CPImageCtrl::isOccupied(wxPoint mousePos, const FDiff2D
             }
         };
         // check if mouse is over a known point
-        for(vector<DisplayedControlPoint>::const_iterator it=m_points.begin(); it!=m_points.end(); ++it)
+        for(std::vector<DisplayedControlPoint>::const_iterator it=m_points.begin(); it!=m_points.end(); ++it)
         {
             if(it->isOccupiedPos(p))
             {
@@ -1147,7 +1145,7 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent& mouse)
     wxPoint unScrolledMousePos;
     CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
                            &unScrolledMousePos.x, & unScrolledMousePos.y);
-    FDiff2D mpos(unScrolledMousePos.x, unScrolledMousePos.y);
+    hugin_utils::FDiff2D mpos(unScrolledMousePos.x, unScrolledMousePos.y);
     bool doUpdate = false;
     mpos = applyRotInv(invScale(mpos));
     wxPoint mpos_ = applyRotInv(invScale(unScrolledMousePos));
@@ -1208,13 +1206,13 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent& mouse)
             double speed = (double)GetVirtualSize().GetHeight() / GetClientSize().GetHeight();
 //          int speed = wxConfigBase::Get()->Read(wxT("/CPEditorPanel/scrollSpeed"),5);
             wxPoint delta;
-            delta.x = roundi(delta_.x * speed);
-            delta.y =  roundi(delta_.y * speed);
+            delta.x = hugin_utils::roundi(delta_.x * speed);
+            delta.y =  hugin_utils::roundi(delta_.y * speed);
             // scrolling is done later
             if (mouse.ShiftDown()) {
                 // emit scroll event, so that other window can be scrolled
                 // as well.
-                CPEvent e(this, CPEvent::SCROLLED, FDiff2D(delta.x, delta.y));
+                CPEvent e(this, CPEvent::SCROLLED, hugin_utils::FDiff2D(delta.x, delta.y));
                 emit(e);
             } else {
                 // scroll only our window
@@ -1263,7 +1261,7 @@ void CPImageCtrl::mousePressLMBEvent(wxMouseEvent& mouse)
     wxPoint unScrolledMousePos;
     CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
                            &unScrolledMousePos.x, & unScrolledMousePos.y);
-    FDiff2D mpos(unScrolledMousePos.x, unScrolledMousePos.y);
+    hugin_utils::FDiff2D mpos(unScrolledMousePos.x, unScrolledMousePos.y);
     mpos = applyRotInv(invScale(mpos));
     wxPoint mpos_ = applyRotInv(invScale(unScrolledMousePos));
     DEBUG_DEBUG("mousePressEvent, pos:" << mpos.x
@@ -1329,7 +1327,7 @@ void CPImageCtrl::mouseReleaseLMBEvent(wxMouseEvent& mouse)
     wxPoint mpos_;
     CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
                            &mpos_.x, & mpos_.y);
-    FDiff2D mpos(mpos_.x, mpos_.y);
+    hugin_utils::FDiff2D mpos(mpos_.x, mpos_.y);
     mpos = applyRotInv(invScale(mpos));
     DEBUG_DEBUG("mouseReleaseEvent, pos:" << mpos.x
                 << ", " << mpos.y);
@@ -1400,7 +1398,7 @@ void CPImageCtrl::mousePressRMBEvent(wxMouseEvent& mouse)
         return;
     wxPoint mpos_;
     CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y, &mpos_.x, & mpos_.y);
-    FDiff2D mpos(mpos_.x, mpos_.y);
+    hugin_utils::FDiff2D mpos(mpos_.x, mpos_.y);
     mpos = applyRotInv(invScale(mpos));
     // if mouseclick is out of image, ignore
     if (mpos.x >= m_realSize.GetWidth() || mpos.y >= m_realSize.GetHeight())
@@ -1421,7 +1419,7 @@ void CPImageCtrl::mouseReleaseRMBEvent(wxMouseEvent& mouse)
     wxPoint mpos_;
     CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
                            &mpos_.x, & mpos_.y);
-    FDiff2D mpos(mpos_.x, mpos_.y);
+    hugin_utils::FDiff2D mpos(mpos_.x, mpos_.y);
     mpos = applyRotInv(invScale(mpos));
     DEBUG_DEBUG("mouseReleaseEvent, pos:" << mpos.x
                 << ", " << mpos.y);
@@ -1538,14 +1536,14 @@ void CPImageCtrl::OnKey(wxKeyEvent & e)
         if (e.ShiftDown()) {
             // emit scroll event, so that other window can be scrolled
             // as well.
-            CPEvent e(this, CPEvent::SCROLLED, FDiff2D(delta.x, delta.y));
+            CPEvent e(this, CPEvent::SCROLLED, hugin_utils::FDiff2D(delta.x, delta.y));
             emit(e);
         } else if (e.CmdDown()) {
             ScrollDelta(delta);
         }
     } else if (delta.x != 0 || delta.y != 0 ) {
 
-        FDiff2D shift(delta.x/3.0, delta.y/3.0);
+        hugin_utils::FDiff2D shift(delta.x/3.0, delta.y/3.0);
         // rotate shift according to current display
         double t;
         switch (m_imgRotation) {
@@ -1584,7 +1582,7 @@ void CPImageCtrl::OnKey(wxKeyEvent & e)
         DEBUG_DEBUG("adding point with a key, faking right click");
         // faking right mouse button with "a"
         // set right up event
-        CPEvent ev(this, CPEvent::RIGHT_CLICK, FDiff2D(0,0));
+        CPEvent ev(this, CPEvent::RIGHT_CLICK, hugin_utils::FDiff2D(0,0));
         emit(ev);
     } else {
         // forward some keys...
@@ -1639,7 +1637,7 @@ void CPImageCtrl::OnKeyDown(wxKeyEvent & e)
 void CPImageCtrl::OnMouseLeave(wxMouseEvent & e)
 {
     DEBUG_TRACE("MOUSE LEAVE");
-    m_mousePos = FDiff2D(-1,-1);
+    m_mousePos = hugin_utils::FDiff2D(-1,-1);
     m_mouseInWindow = false;
     update();
 }
@@ -1652,14 +1650,14 @@ void CPImageCtrl::OnMouseEnter(wxMouseEvent & e)
     update();
 }
 
-FDiff2D CPImageCtrl::getNewPoint()
+hugin_utils::FDiff2D CPImageCtrl::getNewPoint()
 {
     // only possible if a new point is actually selected
     // DEBUG_ASSERT(editState == NEW_POINT_SELECTED);
     return newPoint;
 }
 
-void CPImageCtrl::setNewPoint(const FDiff2D & p)
+void CPImageCtrl::setNewPoint(const hugin_utils::FDiff2D & p)
 {
     DEBUG_DEBUG("setting new point " << p.x << "," << p.y);
     // should we need to check for some precondition?
@@ -1682,7 +1680,7 @@ void CPImageCtrl::showSearchArea(bool show)
         int templSearchAreaPercent = wxConfigBase::Get()->Read(wxT("/Finetune/SearchAreaPercent"), HUGIN_FT_SEARCH_AREA_PERCENT);
         m_searchRectWidth = (m_realSize.GetWidth() * templSearchAreaPercent) / 200;
         DEBUG_DEBUG("Setting new search area: w in %:" << templSearchAreaPercent << " bitmap width: " << bitmap.GetWidth() << "  resulting size: " << m_searchRectWidth);
-        m_mousePos = FDiff2D(-1,-1);
+        m_mousePos = hugin_utils::FDiff2D(-1,-1);
     }
 }
 

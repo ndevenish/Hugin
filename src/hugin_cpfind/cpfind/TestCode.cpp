@@ -22,9 +22,6 @@
 #include "TestCode.h"
 #include <localfeatures/RansacFiltering.h>
 
-using namespace vigra;
-using namespace lfeat;
-
 // bresenham
 
 static int gen127()
@@ -85,7 +82,7 @@ void drawLine(vigra::DRGBImage& img, int x0, int y0, int x1, int y1, vigra::RGBV
 void TestCode::drawRansacMatches(std::string& i1, std::string& i2,
                                  lfeat::PointMatchVector_t& iOK,
                                  lfeat::PointMatchVector_t& iNOK,
-                                 Ransac& iRansac, bool iHalf)
+                                 lfeat::Ransac& iRansac, bool iHalf)
 {
     double aDoubleFactor = 1.0;
     if (iHalf)
@@ -94,17 +91,17 @@ void TestCode::drawRansacMatches(std::string& i1, std::string& i2,
     }
 
 
-    std::cout << "writing file outcomp.png ..." << endl;
+    std::cout << "writing file outcomp.png ..." << std::endl;
 
     // write a side by side image with match pairs and
-    ImageImportInfo info1(i1.c_str());
-    ImageImportInfo info2(i2.c_str());
+    vigra::ImageImportInfo info1(i1.c_str());
+    vigra::ImageImportInfo info2(i2.c_str());
 
     vigra::DRGBImage out1(info1.width() * 2, info1.height());
 
     if ((info1.width() != info2.width()) || (info1.height() != info2.height()))
     {
-        std::cout << "images of different size, skip write of test img" << endl;
+        std::cout << "images of different size, skip write of test img" << std::endl;
         return;
     }
 
@@ -116,9 +113,9 @@ void TestCode::drawRansacMatches(std::string& i1, std::string& i2,
         // copy left img
         vigra::copyImage(aImageGrey.upperLeft(),
                          aImageGrey.lowerRight(),
-                         DImage::Accessor(),
+                         vigra::DImage::Accessor(),
                          out1.upperLeft(),
-                         DImage::Accessor());
+                         vigra::DImage::Accessor());
 
     }
     else
@@ -137,9 +134,9 @@ void TestCode::drawRansacMatches(std::string& i1, std::string& i2,
         // copy left img
         vigra::copyImage(aImageRGB.upperLeft(),
                          aImageRGB.lowerRight(),
-                         RGBToGrayAccessor<RGBValue<double> >(),
+                         vigra::RGBToGrayAccessor<vigra::RGBValue<double> >(),
                          out1.upperLeft(),
-                         DImage::Accessor());
+                         vigra::DImage::Accessor());
     }
 
     if(info2.isGrayscale())
@@ -150,9 +147,9 @@ void TestCode::drawRansacMatches(std::string& i1, std::string& i2,
         // copy left img
         vigra::copyImage(aImageGrey.upperLeft(),
                          aImageGrey.lowerRight(),
-                         DImage::Accessor(),
+                         vigra::DImage::Accessor(),
                          out1.upperLeft() + vigra::Diff2D(info1.width(), 0),
-                         DImage::Accessor());
+                         vigra::DImage::Accessor());
 
     }
     else
@@ -171,14 +168,14 @@ void TestCode::drawRansacMatches(std::string& i1, std::string& i2,
         // copy left img
         vigra::copyImage(aImageRGB.upperLeft(),
                          aImageRGB.lowerRight(),
-                         RGBToGrayAccessor<RGBValue<double> >(),
+                         vigra::RGBToGrayAccessor<vigra::RGBValue<double> >(),
                          out1.upperLeft() + vigra::Diff2D(info1.width(), 0),
-                         DImage::Accessor());
+                         vigra::DImage::Accessor());
     }
 
     for (size_t i = 0; i < iOK.size(); ++i)
     {
-        PointMatchPtr& aV = iOK[i];
+        lfeat::PointMatchPtr& aV = iOK[i];
         vigra::RGBValue<int> color(gen127(), 255 , gen127());
         drawLine(out1,  aDoubleFactor * aV->_img1_x,
                  aDoubleFactor * aV->_img1_y,
@@ -219,7 +216,7 @@ void TestCode::drawRansacMatches(std::string& i1, std::string& i2,
 
     for(size_t i=0; i<iNOK.size(); ++i)
     {
-        PointMatchPtr& aV = iNOK[i];
+        lfeat::PointMatchPtr& aV = iNOK[i];
         vigra::RGBValue<int> color(255, gen127() , gen127());
         drawLine(out1,  aDoubleFactor * aV->_img1_x,
                  aDoubleFactor * aV->_img1_y,

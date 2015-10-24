@@ -26,68 +26,66 @@
 #include <getopt.h>
 #include "hugin_utils/stl_utils.h"
 
-using namespace std;
-
 #include "PanoDetector.h"
 
 void printVersion()
 {
-    std::cout << "Hugin's cpfind " << hugin_utils::GetHuginVersion() << endl;
-    std::cout << "based on Pan-o-matic by Anael Orlinski" << endl;
+    std::cout << "Hugin's cpfind " << hugin_utils::GetHuginVersion() << std::endl;
+    std::cout << "based on Pan-o-matic by Anael Orlinski" << std::endl;
 };
 
 void printUsage()
 {
     printVersion();
-    cout << endl
-        << "Basic usage: " << endl
-        << "  cpfind -o output_project project.pto" << endl
-        << "  cpfind -k i0 -k i1 ... -k in project.pto" << endl
-        << "  cpfind --kall project.pto" << endl
-        << endl << "The input project file is required." << endl
-        << endl << "General options" << endl
-        << "  -q|--quiet   Do not output progress" << endl
-        << "  -v|--verbose  Verbose output" << endl
-        << "  -h|--help     Shows this help screen" << endl
-        << "  --version     Prints the version number and exits then" << endl
-        << "  -o|--output=<string>  Sets the filename of the output file" << endl
-        << "                        (default: default.pto)" << endl
-        << endl << "Matching strategy (these options are mutually exclusive)" << endl
-        << "  --linearmatch   Enable linear images matching" << endl
-        << "                  Can be fine tuned with" << endl
-        << "      --linearmatchlen=<int>  Number of images to match (default: 1)" << endl
-        << "  --multirow      Enable heuristic multi row matching" << endl
-        << "  --prealigned    Match only overlapping images," << endl
-        << "                  requires a rough aligned panorama" << endl
-        << endl << "Feature description options" << endl
-        << "  --sieve1width=<int>    Sieve 1: Number of buckets on width (default: 10)" << endl
-        << "  --sieve1height=<int>   Sieve 1: Number of buckets on height (default: 10)" << endl
-        << "  --sieve1size=<int>     Sieve 1: Max points per bucket (default: 100)" << endl
-        << "  --kdtreesteps=<int>          KDTree: search steps (default: 200)" << endl
-        << "  --kdtreeseconddist=<double>  KDTree: distance of 2nd match (default: 0.25)" << endl
-        << endl << "Feature matching options" << endl
-        << "  --ransaciter=<int>     Ransac: iterations (default: 1000)" << endl
-        << "  --ransacdist=<int>     Ransac: homography estimation distance threshold" << endl
-        << "                                 (in pixels) (default: 25)" << endl
-        << "  --ransacmode=<string>  Ransac: Select the mode used in the ransac step." << endl
-        << "                                 Possible values: auto, hom, rpy, rpyv, rpyb" << endl
-        << "                                 (default: auto)" << endl
-        << "  --minmatches=<int>     Minimum matches (default: 6)" << endl
-        << "  --sieve2width=<int>    Sieve 2: Number of buckets on width (default: 5)" << endl
-        << "  --sieve2height=<int>   Sieve 2: Number of buckets on height (default: 5)" << endl
-        << "  --sieve2size=<int>     Sieve 2: Max points per bucket (default: 1)" << endl
-        << endl << "Caching options" << endl
-        << "  -c|--cache    Caches automaticall keypoints to external file" << endl
-        << "  --clean       Clean up cached keyfiles" << endl
-        << "  -p|--keypath=<string>    Store keyfiles in given path" << endl
-        << "  -k|--writekeyfile=<int>  Write a keyfile for this image number" << endl
-        << "  --kall                   Write keyfiles for all images in the project" << endl
-        << endl << "Advanced options" << endl
-        << "  --celeste       Masks area with clouds before running feature descriptor" << endl
-        << "                  Celeste can be fine tuned with the following parameters" << endl
-        << "      --celestethreshold=<int>  Threshold for celeste (default 0.5)" << endl
-        << "      --celesteradius=<int>     Radius for celeste (in pixels, default 20)" << endl
-        << "  --ncores=<int>  Number of threads to use (default: autodetect number of cores)" << endl;
+    std::cout << std::endl
+        << "Basic usage: " << std::endl
+        << "  cpfind -o output_project project.pto" << std::endl
+        << "  cpfind -k i0 -k i1 ... -k in project.pto" << std::endl
+        << "  cpfind --kall project.pto" << std::endl
+        << std::endl << "The input project file is required." << std::endl
+        << std::endl << "General options" << std::endl
+        << "  -q|--quiet   Do not output progress" << std::endl
+        << "  -v|--verbose  Verbose output" << std::endl
+        << "  -h|--help     Shows this help screen" << std::endl
+        << "  --version     Prints the version number and exits then" << std::endl
+        << "  -o|--output=<string>  Sets the filename of the output file" << std::endl
+        << "                        (default: default.pto)" << std::endl
+        << std::endl << "Matching strategy (these options are mutually exclusive)" << std::endl
+        << "  --linearmatch   Enable linear images matching" << std::endl
+        << "                  Can be fine tuned with" << std::endl
+        << "      --linearmatchlen=<int>  Number of images to match (default: 1)" << std::endl
+        << "  --multirow      Enable heuristic multi row matching" << std::endl
+        << "  --prealigned    Match only overlapping images," << std::endl
+        << "                  requires a rough aligned panorama" << std::endl
+        << std::endl << "Feature description options" << std::endl
+        << "  --sieve1width=<int>    Sieve 1: Number of buckets on width (default: 10)" << std::endl
+        << "  --sieve1height=<int>   Sieve 1: Number of buckets on height (default: 10)" << std::endl
+        << "  --sieve1size=<int>     Sieve 1: Max points per bucket (default: 100)" << std::endl
+        << "  --kdtreesteps=<int>          KDTree: search steps (default: 200)" << std::endl
+        << "  --kdtreeseconddist=<double>  KDTree: distance of 2nd match (default: 0.25)" << std::endl
+        << std::endl << "Feature matching options" << std::endl
+        << "  --ransaciter=<int>     Ransac: iterations (default: 1000)" << std::endl
+        << "  --ransacdist=<int>     Ransac: homography estimation distance threshold" << std::endl
+        << "                                 (in pixels) (default: 25)" << std::endl
+        << "  --ransacmode=<string>  Ransac: Select the mode used in the ransac step." << std::endl
+        << "                                 Possible values: auto, hom, rpy, rpyv, rpyb" << std::endl
+        << "                                 (default: auto)" << std::endl
+        << "  --minmatches=<int>     Minimum matches (default: 6)" << std::endl
+        << "  --sieve2width=<int>    Sieve 2: Number of buckets on width (default: 5)" << std::endl
+        << "  --sieve2height=<int>   Sieve 2: Number of buckets on height (default: 5)" << std::endl
+        << "  --sieve2size=<int>     Sieve 2: Max points per bucket (default: 1)" << std::endl
+        << std::endl << "Caching options" << std::endl
+        << "  -c|--cache    Caches automaticall keypoints to external file" << std::endl
+        << "  --clean       Clean up cached keyfiles" << std::endl
+        << "  -p|--keypath=<string>    Store keyfiles in given path" << std::endl
+        << "  -k|--writekeyfile=<int>  Write a keyfile for this image number" << std::endl
+        << "  --kall                   Write keyfiles for all images in the project" << std::endl
+        << std::endl << "Advanced options" << std::endl
+        << "  --celeste       Masks area with clouds before running feature descriptor" << std::endl
+        << "                  Celeste can be fine tuned with the following parameters" << std::endl
+        << "      --celestethreshold=<int>  Threshold for celeste (default 0.5)" << std::endl
+        << "      --celesteradius=<int>     Radius for celeste (in pixels, default 20)" << std::endl
+        << "  --ncores=<int>  Number of threads to use (default: autodetect number of cores)" << std::endl;
 };
 
 bool parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
@@ -159,8 +157,8 @@ bool parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
     int optionIndex = 0;
     int number;
     double floatNumber;
-    string ransacMode;
-    vector<int> keyfilesIndex;
+    std::string ransacMode;
+    std::vector<int> keyfilesIndex;
     int doLinearMatch=0;
     int doMultirow=0;
     int doPrealign=0;
@@ -236,41 +234,41 @@ bool parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
                 };
                 break;
             case RANSACMODE:
-                ransacMode=optarg;
-                cout << "Ransac: " << ransacMode << endl;
+                ransacMode = optarg;
+                std::cout << "Ransac: " << ransacMode << std::endl;
                 ransacMode=hugin_utils::tolower(ransacMode);
-                cout << "Ransac: " << ransacMode << endl;
+                std::cout << "Ransac: " << ransacMode << std::endl;
                 if(ransacMode=="auto")
                 {
-                    ioPanoDetector.setRansacMode(RANSACOptimizer::AUTO);
+                    ioPanoDetector.setRansacMode(HuginBase::RANSACOptimizer::AUTO);
                 }
                 else
                 {
                     if(ransacMode=="hom")
                     {
-                        ioPanoDetector.setRansacMode(RANSACOptimizer::HOMOGRAPHY);
+                        ioPanoDetector.setRansacMode(HuginBase::RANSACOptimizer::HOMOGRAPHY);
                     }
                     else
                     {
                         if(ransacMode=="rpy")
                         {
-                            ioPanoDetector.setRansacMode(RANSACOptimizer::RPY);
+                            ioPanoDetector.setRansacMode(HuginBase::RANSACOptimizer::RPY);
                         }
                         else
                         {
                             if(ransacMode=="rpyv")
                             {
-                                ioPanoDetector.setRansacMode(RANSACOptimizer::RPYV);
+                                ioPanoDetector.setRansacMode(HuginBase::RANSACOptimizer::RPYV);
                             }
                             else
                             {
                                 if(ransacMode=="rpyvb")
                                 {
-                                    ioPanoDetector.setRansacMode(RANSACOptimizer::RPYVB);
+                                    ioPanoDetector.setRansacMode(HuginBase::RANSACOptimizer::RPYVB);
                                 }
                                 else
                                 {
-                                    cout << "Warning: Invalid parameter in --ransacmode." << endl;
+                                    std::cout << "Warning: Invalid parameter in --ransacmode." << std::endl;
                                 };
                             };
                         };
@@ -329,7 +327,7 @@ bool parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
                 number=atoi(optarg);
                 if((number==0) && (strcmp(optarg,"0")!=0))
                 {
-                    cout << "Warning: " << optarg << " is not a valid image number of writekeyfile." << endl;
+                    std::cout << "Warning: " << optarg << " is not a valid image number of writekeyfile." << std::endl;
                 }
                 else
                 {
@@ -374,7 +372,7 @@ bool parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
                 return false;
                 break;
             case ':':
-                cerr <<"Option " << longOptions[optionIndex].name << " requires an argument" << endl;
+                std::cerr <<"Option " << longOptions[optionIndex].name << " requires an argument" << std::endl;
                 return false;
                 break;
             case '?':
@@ -385,14 +383,14 @@ bool parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
     
     if (argc - optind != 1)
     {
-        cout << "Error: cpfind requires at least an input project file." << endl;
+        std::cout << "Error: cpfind requires at least an input project file." << std::endl;
         return false;
     };
     ioPanoDetector.setInputFile(argv[optind]);
     if(doLinearMatch + doMultirow + doPrealign>1)
     {
-        cout << "Error: The arguments --linearmatch, --multirow and --prealigned are" << endl
-             << "       mutually exclusive. Use only one of them." << endl;
+        std::cout << "Error: The arguments --linearmatch, --multirow and --prealigned are" << std::endl
+             << "       mutually exclusive. Use only one of them." << std::endl;
         return false;
     };
     if(doLinearMatch)

@@ -23,8 +23,8 @@
 
 #include "Image.h"
 
-using namespace lfeat;
-using namespace std;
+namespace lfeat
+{
 
 Image::Image(vigra::DImage &img)
 {
@@ -64,22 +64,22 @@ void Image::buildIntegralImage(vigra::DImage &img)
     // so the image has a size of +1 for width and height compared to orig image.
 
     // fill first line with zero
-    for(unsigned int i = 0; i <= _width; ++i)
+    for (unsigned int i = 0; i <= _width; ++i)
     {
         _ii[0][i] = 0;
     }
 
     // fill first row with zero
-    for(unsigned int i = 0; i <= _height; ++i)
+    for (unsigned int i = 0; i <= _height; ++i)
     {
         _ii[i][0] = 0;
     }
 
     // compute all the others pixels
-    for(unsigned int i = 1; i <= _height; ++i)
-        for(unsigned int j = 1; j <= _width; ++j)
+    for (unsigned int i = 1; i <= _height; ++i)
+        for (unsigned int j = 1; j <= _width; ++j)
         {
-            _ii[i][j] = img[i-1][j-1] + _ii[i-1][j] + _ii[i][j-1] - _ii[i-1][j-1];
+            _ii[i][j] = img[i - 1][j - 1] + _ii[i - 1][j] + _ii[i][j - 1] - _ii[i - 1][j - 1];
         }
 
 }
@@ -88,10 +88,10 @@ void Image::buildIntegralImage(vigra::DImage &img)
 double** Image::AllocateImage(unsigned int iWidth, unsigned int iHeight)
 {
     // create the lines holder
-    double** aImagePtr = new double* [iHeight];
+    double** aImagePtr = new double*[iHeight];
 
     // create the lines
-    for(unsigned int i = 0; i < iHeight; ++i)
+    for (unsigned int i = 0; i < iHeight; ++i)
     {
         aImagePtr[i] = new double[iWidth];
     }
@@ -102,7 +102,7 @@ double** Image::AllocateImage(unsigned int iWidth, unsigned int iHeight)
 void Image::DeallocateImage(double** iImagePtr, unsigned int iHeight)
 {
     // delete the lines
-    for(unsigned int i = 0; i < iHeight; ++i)
+    for (unsigned int i = 0; i < iHeight; ++i)
     {
         delete[] iImagePtr[i];
     }
@@ -110,3 +110,5 @@ void Image::DeallocateImage(double** iImagePtr, unsigned int iHeight)
     // delete the lines holder
     delete[] iImagePtr;
 }
+
+} // namespace lfeat

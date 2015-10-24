@@ -25,15 +25,13 @@
 
 #include "KeyPointIO.h"
 
-using namespace lfeat;
-using namespace std;
-
-
+namespace lfeat
+{
 // extremly fagile check...
-static bool identifySIFTKeypoints( const std::string& filename)
+static bool identifySIFTKeypoints(const std::string& filename)
 {
     ImageInfo info;
-    ifstream in(filename.c_str());
+    std::ifstream in(filename.c_str());
     if (!in)
     {
         return false;
@@ -42,13 +40,13 @@ static bool identifySIFTKeypoints( const std::string& filename)
     int nKeypoints = 0;
     int dims = 0;
     in >> nKeypoints >> dims;
-    return (cin && nKeypoints > 0 && dims >= 0);
+    return (in && nKeypoints > 0 && dims >= 0);
 }
 
-static ImageInfo loadSIFTKeypoints( const std::string& filename, KeyPointVect_t& vec)
+static ImageInfo loadSIFTKeypoints(const std::string& filename, KeyPointVect_t& vec)
 {
     ImageInfo info;
-    ifstream in(filename.c_str());
+    std::ifstream in(filename.c_str());
     if (!in.good())
     {
         return info;
@@ -62,12 +60,12 @@ static ImageInfo loadSIFTKeypoints( const std::string& filename, KeyPointVect_t&
 
     for (int i = 0; i < nKeypoints; i++)
     {
-        KeyPointPtr k(new lfeat::KeyPoint(0,0,0,0,0));
+        KeyPointPtr k(new lfeat::KeyPoint(0, 0, 0, 0, 0));
         in >> k->_y >> k->_x >> k->_scale >> k->_ori >> k->_score;
         if (dims > 0)
         {
             k->allocVector(dims);
-            for (int j=0; j < dims; j++)
+            for (int j = 0; j < dims; j++)
             {
                 in >> k->_vec[j];
             }
@@ -79,16 +77,16 @@ static ImageInfo loadSIFTKeypoints( const std::string& filename, KeyPointVect_t&
     // read line with filename
     std::getline(in, info.filename);
     in >> info.width >> info.height;
-    //std::cerr << "*** Loaded keypoints for image " << info.filename  << " ("<<info.width<<"x"<<info.height<<")"  << std::endl;
+    //std::cerr << "*** Loaded keypoints for image " << info.filename  << " ("<<info.width<<"x"<<info.height<<")"  << std::std::endl;
 
     return info;
 }
 
-ImageInfo lfeat::loadKeypoints( const std::string& filename, KeyPointVect_t& vec)
+ImageInfo loadKeypoints(const std::string& filename, KeyPointVect_t& vec)
 {
     if (identifySIFTKeypoints(filename))
     {
-        return loadSIFTKeypoints( filename, vec );
+        return loadSIFTKeypoints(filename, vec);
     }
     else
     {
@@ -98,49 +96,49 @@ ImageInfo lfeat::loadKeypoints( const std::string& filename, KeyPointVect_t& vec
 }
 
 
-void SIFTFormatWriter::writeHeader ( const ImageInfo& imageinfo, int nKeypoints, int dims )
+void SIFTFormatWriter::writeHeader(const ImageInfo& imageinfo, int nKeypoints, int dims)
 {
     _image = imageinfo;
-    o << nKeypoints << endl;
-    o << dims << endl;
+    o << nKeypoints << std::endl;
+    o << dims << std::endl;
 }
 
 
-void SIFTFormatWriter::writeKeypoint ( double x, double y, double scale, double orientation, double score, int dims, double* vec )
+void SIFTFormatWriter::writeKeypoint(double x, double y, double scale, double orientation, double score, int dims, double* vec)
 {
     o << y << " " << x << " " << scale << " " << orientation << " " << score;
-    for ( int i=0; i < dims; i++ )
+    for (int i = 0; i < dims; i++)
     {
-        o << " " <<  vec[i];
+        o << " " << vec[i];
     }
-    o << endl;
+    o << std::endl;
 }
 
 void SIFTFormatWriter::writeFooter()
 {
-    o << _image.filename << endl;
-    o << _image.width << " " << _image.height << endl;
+    o << _image.filename << std::endl;
+    o << _image.width << " " << _image.height << std::endl;
 }
 
 
-void DescPerfFormatWriter::writeHeader ( const ImageInfo& imageinfo, int nKeypoints, int dims )
+void DescPerfFormatWriter::writeHeader(const ImageInfo& imageinfo, int nKeypoints, int dims)
 {
     _image = imageinfo;
-    o << dims << endl;
-    o << nKeypoints << endl;
+    o << dims << std::endl;
+    o << nKeypoints << std::endl;
 }
 
 
-void DescPerfFormatWriter::writeKeypoint ( double x, double y, double scale, double orientation, double score, int dims, double* vec )
+void DescPerfFormatWriter::writeKeypoint(double x, double y, double scale, double orientation, double score, int dims, double* vec)
 {
     double sc = 2.5 * scale;
-    sc*=sc;
-    o << x << " " << y << " " << 1.0/sc << " 0 " << 1.0/sc;
-    for ( int i=0; i < dims; i++ )
+    sc *= sc;
+    o << x << " " << y << " " << 1.0 / sc << " 0 " << 1.0 / sc;
+    for (int i = 0; i < dims; i++)
     {
-        o << " " <<  vec[i];
+        o << " " << vec[i];
     }
-    o << endl;
+    o << std::endl;
 }
 
 void DescPerfFormatWriter::writeFooter()
@@ -148,41 +146,41 @@ void DescPerfFormatWriter::writeFooter()
 }
 
 
-void AutopanoSIFTWriter::writeHeader ( const ImageInfo& imageinfo, int nKeypoints, int dims )
+void AutopanoSIFTWriter::writeHeader(const ImageInfo& imageinfo, int nKeypoints, int dims)
 {
-    o << "<?xml version=\"1.0\" encoding=\"utf-8\"?>"<< endl;
+    o << "<?xml version=\"1.0\" encoding=\"utf-8\"?>" << std::endl;
     o << "<KeypointXMLList xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n";
-    o << "  <XDim>"<< imageinfo.width <<"</XDim>"<< endl;
-    o << "  <YDim>"<< imageinfo.height <<"</YDim>"<< endl;
-    o << "  <ImageFile>"<< imageinfo.filename <<"</ImageFile>"<< endl;
-    o << "  <Arr>"<< endl;
+    o << "  <XDim>" << imageinfo.width << "</XDim>" << std::endl;
+    o << "  <YDim>" << imageinfo.height << "</YDim>" << std::endl;
+    o << "  <ImageFile>" << imageinfo.filename << "</ImageFile>" << std::endl;
+    o << "  <Arr>" << std::endl;
 }
 
-void AutopanoSIFTWriter::writeKeypoint ( double x, double y, double scale, double orientation, double score, int dims, double* vec )
+void AutopanoSIFTWriter::writeKeypoint(double x, double y, double scale, double orientation, double score, int dims, double* vec)
 {
-    o << "    <KeypointN>"<< endl;
-    o << "      <X>"<< x <<"</X>"<<endl;
-    o << "      <Y>"<< y <<"</Y>"<<endl;
-    o << "      <Scale>"<< scale <<"</Scale>"<<endl;
-    o << "      <Orientation>"<< orientation <<"</Orientation>"<<endl;
-    if ( dims > 0 )
+    o << "    <KeypointN>" << std::endl;
+    o << "      <X>" << x << "</X>" << std::endl;
+    o << "      <Y>" << y << "</Y>" << std::endl;
+    o << "      <Scale>" << scale << "</Scale>" << std::endl;
+    o << "      <Orientation>" << orientation << "</Orientation>" << std::endl;
+    if (dims > 0)
     {
-        o << "      <Dim>"<< dims <<"</Dim>"<<endl;
-        o << "      <Descriptor>"<<endl;
+        o << "      <Dim>" << dims << "</Dim>" << std::endl;
+        o << "      <Descriptor>" << std::endl;
 
-        for ( int i=0; i < dims; i++ )
+        for (int i = 0; i < dims; i++)
         {
-            o << "        <int>"<< ( vec[i]*256 ) << "</int>" << endl;
+            o << "        <int>" << (vec[i] * 256) << "</int>" << std::endl;
         }
-        o << "      </Descriptor>"<<endl;
+        o << "      </Descriptor>" << std::endl;
     }
-    o << "    </KeypointN>"<< endl;
+    o << "    </KeypointN>" << std::endl;
 }
 
 void AutopanoSIFTWriter::writeFooter()
 {
-    o << "  </Arr>"<< endl;
-    o << "</KeypointXMLList>"<< endl;
+    o << "  </Arr>" << std::endl;
+    o << "</KeypointXMLList>" << std::endl;
 }
 
-
+} // namespace lfeat

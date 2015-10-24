@@ -73,10 +73,6 @@
 #include "PluginItems.h"
 #endif
 
-using namespace HuginBase;
-using namespace std;
-using namespace hugin_utils;
-
 #ifdef __MINGW32__
 // fixes for mingw compilation...
 #undef FindWindow
@@ -264,7 +260,7 @@ END_EVENT_TABLE()
 //wxBitmap *p_img = (wxBitmap *) NULL;
 //WX_DEFINE_ARRAY()
 
-MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
+MainFrame::MainFrame(wxWindow* parent, HuginBase::Panorama & pano)
     : cp_frame(0), pano(pano)
 {
     preview_frame = 0;
@@ -568,7 +564,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 #endif
     //reload gui level
     long guiLevel=config->Read(wxT("/GuiLevel"),(long)0);
-    guiLevel=max<long>(0,min<long>(2,guiLevel));
+    guiLevel = std::max<long>(0, std::min<long>(2, guiLevel));
     if(guiLevel==GUI_SIMPLE && disableOpenGL)
     {
         guiLevel=GUI_ADVANCED;
@@ -772,7 +768,7 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
         scriptName = m_filename;
     } else {
         // the project file is just a PTOptimizer script...
-        std::string path = getPathPrefix(std::string(scriptName.GetFullPath().mb_str(HUGIN_CONV_FILENAME)));
+        std::string path = hugin_utils::getPathPrefix(std::string(scriptName.GetFullPath().mb_str(HUGIN_CONV_FILENAME)));
         DEBUG_DEBUG("stripping " << path << " from image filenames");
         std::ofstream script(scriptName.GetFullPath().mb_str(HUGIN_CONV_FILENAME));
         script.exceptions ( std::ofstream::eofbit | std::ofstream::failbit | std::ofstream::badbit );
@@ -1024,7 +1020,7 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
 {
     DEBUG_TRACE("");
     PanoOperation::AddImageOperation addImage;
-    UIntSet images;
+    HuginBase::UIntSet images;
     PanoCommand::PanoCommand* cmd = addImage.GetCommand(wxGetActiveWindow(), pano, images, m_guiLevel);
     if(cmd!=NULL)
     {
@@ -1075,7 +1071,7 @@ void MainFrame::AddImages(wxArrayString& filenameArray)
 void MainFrame::OnAddTimeImages( wxCommandEvent& event )
 {
     PanoOperation::AddImagesSeriesOperation imageSeriesOp;
-    UIntSet images;
+    HuginBase::UIntSet images;
     PanoCommand::PanoCommand* cmd = imageSeriesOp.GetCommand(wxGetActiveWindow(), pano, images, m_guiLevel);
     if(cmd!=NULL)
     {
@@ -1430,7 +1426,7 @@ void MainFrame::OnMergeProject(wxCommandEvent & e)
             int ptoversion=0;
             if (newPano.loadPTScript(in, ptoversion, (const char *)path.mb_str(HUGIN_CONV_FILENAME)))
             {
-                Panorama new_pano;
+                HuginBase::Panorama new_pano;
                 new_pano.setMemento(newPano);
                 PanoCommand::GlobalCmdHist::getInstance().addCommand(
                     new PanoCommand::MergePanoCmd(pano, new_pano)
@@ -1562,8 +1558,8 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
                         pano.getImage(cps[*it].image1Nr).getFilename())->get8BitImage();
 
                     vigra_ext::CorrelationResult res;
-                    vigra::Diff2D roundP1(roundi(cps[*it].x1), roundi(cps[*it].y1));
-                    vigra::Diff2D roundP2(roundi(cps[*it].x2), roundi(cps[*it].y2));
+                    vigra::Diff2D roundP1(hugin_utils::roundi(cps[*it].x1), hugin_utils::roundi(cps[*it].y1));
+                    vigra::Diff2D roundP2(hugin_utils::roundi(cps[*it].x2), hugin_utils::roundi(cps[*it].y2));
 
                     res = PointFineTuneProjectionAware(pano.getImage(cps[*it].image1Nr), *templImg, roundP1, templWidth,
                         pano.getImage(cps[*it].image2Nr), *searchImg, roundP2, sWidth);
@@ -1617,7 +1613,7 @@ void MainFrame::OnRemoveCPinMasks(wxCommandEvent & e)
 {
     if(pano.getCtrlPoints().size()<2)
         return;
-    UIntSet cps=getCPinMasks(pano);
+    HuginBase::UIntSet cps=getCPinMasks(pano);
     if(cps.size()>0)
     {
         PanoCommand::GlobalCmdHist::getInstance().addCommand(
@@ -1872,7 +1868,7 @@ struct celeste::svm_model* MainFrame::GetSVMModel()
         // get XRC path from application
         wxString wxstrModelFileName = huginApp::Get()->GetDataPath() + wxT(HUGIN_CELESTE_MODEL);
         // convert wxString to string
-        string strModelFileName(wxstrModelFileName.mb_str(HUGIN_CONV_FILENAME));
+        std::string strModelFileName(wxstrModelFileName.mb_str(HUGIN_CONV_FILENAME));
 
         // SVM model file
         if (! wxFile::Exists(wxstrModelFileName) ) {
@@ -2164,7 +2160,7 @@ void MainFrame::OnSendToAssistantQueue(wxCommandEvent &e)
             // error, can't find PTBatcherGUI
             wxMessageBox(wxString::Format(_("External program %s not found in the bundle, reverting to system path"), wxT("open")), _("Error"));
             // Possibly a silly attempt otherwise the previous would have worked as well, but just try it.
-            wxExecute(_T("open -b net.sourceforge.hugin.PTBatcherGUI ")+wxQuoteFilename(projectFile));
+            wxExecute(_T("open -b net.sourceforge.hugin.PTBatcherGUI ")+hugin_utils::wxQuoteFilename(projectFile));
             return;
         }
 
@@ -2202,7 +2198,7 @@ void MainFrame::OnSendToAssistantQueue(wxCommandEvent &e)
         }
 #else
         const wxFileName exePath(wxStandardPaths::Get().GetExecutablePath());
-        wxExecute(exePath.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR) + wxT("PTBatcherGUI -a ")+wxQuoteFilename(projectFile));
+        wxExecute(exePath.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR) + wxT("PTBatcherGUI -a ")+hugin_utils::wxQuoteFilename(projectFile));
 #endif
     }
 };

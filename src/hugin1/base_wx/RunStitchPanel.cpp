@@ -45,11 +45,6 @@
 
 #include "hugin/config_defaults.h"
 
-using namespace vigra;
-using namespace std;
-using namespace hugin_utils;
-
-
 // ==========================================
 // Implementation of stitch window
 
@@ -110,7 +105,7 @@ bool RunStitchPanel::StitchProject(const wxString& scriptFile, const wxString& o
     wxFileName::SplitPath(scriptFile, &pathToPTO, NULL, NULL);
     pathToPTO.Append(wxFileName::GetPathSeparator());
 
-    ifstream prjfile((const char *)scriptFile.mb_str(HUGIN_CONV_FILENAME));
+    std::ifstream prjfile((const char *)scriptFile.mb_str(HUGIN_CONV_FILENAME));
     if (prjfile.bad()) {
         wxLogError( wxString::Format(_("could not open script: %s"), scriptFile.c_str()) );
         return false;
@@ -188,7 +183,7 @@ bool RunStitchPanel::StitchProject(const wxString& scriptFile, const wxString& o
         }
         DEBUG_DEBUG("tmpPTOfn file: " << (const char *)m_currentPTOfn.mb_str(wxConvLocal));
         // copy is not enough, need to adjust image path names...
-        ofstream script(m_currentPTOfn.mb_str(HUGIN_CONV_FILENAME));
+        std::ofstream script(m_currentPTOfn.mb_str(HUGIN_CONV_FILENAME));
         HuginBase::UIntSet all;
         fill_set(all, 0, pano.getNrOfImages()-1);
         pano.printPanoramaScript(script, pano.getOptimizeVector(), pano.getOptions(), all, false, "");
@@ -250,7 +245,7 @@ bool RunStitchPanel::StitchProject(const wxString& scriptFile, const wxString& o
         };
     } catch (std::exception & e)
     {
-        cerr << "caught exception: " << e.what() << std::endl;
+        std::cerr << "caught exception: " << e.what() << std::endl;
         wxMessageBox(wxString(e.what(), wxConvLocal),
                      _("Error during stitching"), wxICON_ERROR | wxOK );
     }
@@ -271,7 +266,7 @@ bool RunStitchPanel::DetectProject(const wxString& scriptFile)
     pathToPTO.Append(wxFileName::GetPathSeparator());
 
     //read project file
-    ifstream prjfile((const char *)scriptFile.mb_str(HUGIN_CONV_FILENAME));
+    std::ifstream prjfile((const char *)scriptFile.mb_str(HUGIN_CONV_FILENAME));
     if (prjfile.bad())
     {
         wxLogError( wxString::Format(_("could not open script: %s"), scriptFile.c_str()));
@@ -315,7 +310,7 @@ bool RunStitchPanel::DetectProject(const wxString& scriptFile)
     } 
     catch (std::exception & e)
     {
-        cerr << "caught exception: " << e.what() << std::endl;
+        std::cerr << "caught exception: " << e.what() << std::endl;
         wxMessageBox(wxString(e.what(), wxConvLocal),
                      _("Error during running assistant"), wxICON_ERROR | wxOK );
     }

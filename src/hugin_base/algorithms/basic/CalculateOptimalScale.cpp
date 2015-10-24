@@ -30,8 +30,6 @@
 
 namespace HuginBase {
 
-using namespace hugin_utils;
-
 ///
 double CalculateOptimalScale::calcOptimalScale(PanoramaData& panorama)
 {
@@ -69,11 +67,11 @@ double CalculateOptimalScale::calcOptimalPanoScale(const SrcPanoImage & src,
     timg.setY(0);
     timg.setZ(0);
     transf.createTransform(timg, dest);
-    FDiff2D imgp1;
-    FDiff2D imgp2;
+    hugin_utils::FDiff2D imgp1;
+    hugin_utils::FDiff2D imgp2;
 
-    transf.transform(imgp1, FDiff2D(0,0));
-    transf.transform(imgp2, FDiff2D(1,1));
+    transf.transform(imgp1, hugin_utils::FDiff2D(0, 0));
+    transf.transform(imgp2, hugin_utils::FDiff2D(1, 1));
     double dist = hugin_utils::norm(imgp2-imgp1);
 
     return dist / sqrt(2.0);

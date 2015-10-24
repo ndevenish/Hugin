@@ -29,8 +29,6 @@
 #include "base_wx/huginConfig.h"
 #include <fstream>
 
-using namespace std;
-
 long Project::idGenerator=1;
 
 Project::Project(wxString pth,wxString pfx, Project::Target newTarget)
@@ -83,9 +81,9 @@ wxString Project::GetStatusText()
     }
 }
 
-PanoramaOptions Project::ReadOptions(wxString projectFile)
+HuginBase::PanoramaOptions Project::ReadOptions(wxString projectFile)
 {
-    ifstream prjfile((const char*)projectFile.mb_str(HUGIN_CONV_FILENAME));
+    std::ifstream prjfile((const char*)projectFile.mb_str(HUGIN_CONV_FILENAME));
     if (prjfile.bad())
     {
         wxLogError( wxString::Format(_("could not open script: %s"), projectFile.c_str()) );
@@ -128,7 +126,7 @@ PanoramaOptions Project::ReadOptions(wxString projectFile)
         wxLogError( wxString::Format(_("error while parsing panotools script: %s"), projectFile.c_str()) );
     }
     // get options and correct for correct makefile
-    PanoramaOptions opts = pano.getOptions();
+    HuginBase::PanoramaOptions opts = pano.getOptions();
     return opts;
 }
 

@@ -22,7 +22,6 @@
 #define __lsurf_homography_h
 
 #include <iostream>
-using namespace std;
 
 #include "PointMatch.h"
 #include <vector>
@@ -40,7 +39,7 @@ public:
 
     bool estimate(PointMatchVector_t& iMatches);
 
-    friend ostream& operator<< (ostream& o, const Homography& H);
+    friend std::ostream& operator<< (std::ostream& o, const Homography& H);
 
     void transformPoint(double iX, double iY, double& oX, double& oY);
 
@@ -72,7 +71,7 @@ public:
 
 };
 
-ostream& operator<< (ostream& o, const Homography& H);
+std::ostream& operator<< (std::ostream& o, const Homography& H);
 
 }
 

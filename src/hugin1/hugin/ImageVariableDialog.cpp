@@ -36,8 +36,6 @@
 #include "base_wx/PanoCommand.h"
 #include "panotools/PanoToolsInterface.h"
 
-using namespace HuginBase;
-
 BEGIN_EVENT_TABLE(ImageVariableDialog,wxDialog)
     EVT_BUTTON(wxID_OK, ImageVariableDialog::OnOk)
     EVT_BUTTON(wxID_HELP, ImageVariableDialog::OnHelp)
@@ -107,10 +105,10 @@ void ImageVariableDialog::InitValues()
     {
         return;
     };
-    BaseSrcPanoImage::ResponseType responseType= m_pano->getImage(*m_images.begin()).getResponseType();
+    HuginBase::BaseSrcPanoImage::ResponseType responseType = m_pano->getImage(*m_images.begin()).getResponseType();
     bool identical=true;
 
-    for(UIntSet::const_iterator it=m_images.begin();it!=m_images.end() && identical;++it)
+    for (HuginBase::UIntSet::const_iterator it = m_images.begin(); it != m_images.end() && identical; ++it)
     {
         identical=(responseType==m_pano->getImage(*it).getResponseType());
     };
@@ -123,7 +121,7 @@ void ImageVariableDialog::InitValues()
     int pixelDigits = wxConfigBase::Get()->Read(wxT("/General/PixelFractionalDigitsEdit"),2);
     int distDigitsEdit = wxConfigBase::Get()->Read(wxT("/General/DistortionFractionalDigitsEdit"),5);
     
-    VariableMapVector imgVarVector=m_pano->getVariables();
+    HuginBase::VariableMapVector imgVarVector = m_pano->getVariables();
 
     for (const char** varname = m_varNames; *varname != 0; ++varname)
     {
@@ -142,7 +140,7 @@ void ImageVariableDialog::InitValues()
         }
         double val=const_map_get(imgVarVector[*m_images.begin()],*varname).getValue();
         bool identical=true;
-        for(UIntSet::const_iterator it=m_images.begin();it!=m_images.end() && identical;++it)
+        for(HuginBase::UIntSet::const_iterator it=m_images.begin();it!=m_images.end() && identical;++it)
         {
             identical=(val==const_map_get(imgVarVector[*it],*varname).getValue());
         };
@@ -178,26 +176,26 @@ void ImageVariableDialog::SetGuiLevel(GuiLevel newLevel)
 bool ImageVariableDialog::ApplyNewVariables()
 {
     std::vector<PanoCommand::PanoCommand*> commands;
-    VariableMap varMap;
+    HuginBase::VariableMap varMap;
     for (const char** varname = m_varNames; *varname != 0; ++varname)
     {
         wxString s=GetImageVariableControl(this, *varname)->GetValue();
         if(!s.empty())
         {
             double val;
-            if(str2double(s,val))
+            if(hugin_utils::str2double(s,val))
             {
                 if(strcmp(*varname, "v")==0)
                 {
                     switch(m_pano->getImage(*m_images.begin()).getProjection())
                     {
-                        case SrcPanoImage::RECTILINEAR:
+                        case HuginBase::SrcPanoImage::RECTILINEAR:
                             if(val>179)
                             {
                                 val=179;
                             };
                             break;
-                        case SrcPanoImage::FISHEYE_ORTHOGRAPHIC:
+                        case HuginBase::SrcPanoImage::FISHEYE_ORTHOGRAPHIC:
                             if(val>190)
                             {
                                 if(wxMessageBox(
@@ -217,7 +215,7 @@ bool ImageVariableDialog::ApplyNewVariables()
                             break;
                     };
                 };
-                varMap.insert(std::make_pair(std::string(*varname), Variable(std::string(*varname), val)));
+                varMap.insert(std::make_pair(std::string(*varname), HuginBase::Variable(std::string(*varname), val)));
             }
             else
             {
@@ -229,18 +227,18 @@ bool ImageVariableDialog::ApplyNewVariables()
     int sel=XRCCTRL(*this, "image_variable_responseType", wxChoice)->GetSelection();
     if(sel!=wxNOT_FOUND)
     {
-        std::vector<SrcPanoImage> SrcImgs;
-        for (UIntSet::const_iterator it=m_images.begin(); it!=m_images.end(); ++it)
+        std::vector<HuginBase::SrcPanoImage> SrcImgs;
+        for (HuginBase::UIntSet::const_iterator it=m_images.begin(); it!=m_images.end(); ++it)
         {
             HuginBase::SrcPanoImage img=m_pano->getSrcImage(*it);
-            img.setResponseType((SrcPanoImage::ResponseType)sel);
+            img.setResponseType((HuginBase::SrcPanoImage::ResponseType)sel);
             SrcImgs.push_back(img);
         }
         commands.push_back(new PanoCommand::UpdateSrcImagesCmd( *m_pano, m_images, SrcImgs ));
     }
     if(varMap.size()>0)
     {
-        for(UIntSet::const_iterator it=m_images.begin();it!=m_images.end();++it)
+        for(HuginBase::UIntSet::const_iterator it=m_images.begin();it!=m_images.end();++it)
         {
             commands.push_back(
                 new PanoCommand::UpdateImageVariablesCmd(*m_pano,*it,varMap)
@@ -487,7 +485,7 @@ void ImageVariableDialog::OnShowDistortionGraph(wxCommandEvent & e)
         return;
     };
     std::vector<double> radialDist(4 ,0);
-    if(!str2double(stringa, radialDist[0]) || !str2double(stringb, radialDist[1]) || !str2double(stringc, radialDist[2]))
+    if(!hugin_utils::str2double(stringa, radialDist[0]) || !hugin_utils::str2double(stringb, radialDist[1]) || !hugin_utils::str2double(stringc, radialDist[2]))
     {
         wxBell();
         return;
@@ -495,15 +493,15 @@ void ImageVariableDialog::OnShowDistortionGraph(wxCommandEvent & e)
     radialDist[3] = 1 - radialDist[0] - radialDist[1] - radialDist[2];
 
     //create transformation
-    SrcPanoImage srcImage;
+    HuginBase::SrcPanoImage srcImage;
 #define NRPOINTS 100
     srcImage.setSize(m_pano->getImage(*(m_images.begin())).getSize());
     // set projection to rectilinear, just in case, it should be the default value
-    srcImage.setProjection(SrcPanoImage::RECTILINEAR);
+    srcImage.setProjection(HuginBase::SrcPanoImage::RECTILINEAR);
     srcImage.setRadialDistortion(radialDist);
-    PanoramaOptions opts;
+    HuginBase::PanoramaOptions opts;
     opts.setHFOV(srcImage.getHFOV());
-    opts.setProjection(PanoramaOptions::RECTILINEAR);
+    opts.setProjection(HuginBase::PanoramaOptions::RECTILINEAR);
     opts.setWidth(srcImage.getWidth());
     opts.setHeight(srcImage.getHeight());
     HuginBase::PTools::Transform transform;
@@ -564,7 +562,7 @@ void ImageVariableDialog::OnShowVignettingGraph(wxCommandEvent & e)
     };
     std::vector<double> vigCorr(4,0);
     vigCorr[0]=1.0;
-    if(!str2double(stringVb, vigCorr[1]) || !str2double(stringVc, vigCorr[2]) || !str2double(stringVd,  vigCorr[3]))
+    if(!hugin_utils::str2double(stringVb, vigCorr[1]) || !hugin_utils::str2double(stringVc, vigCorr[2]) || !hugin_utils::str2double(stringVd,  vigCorr[3]))
     {
         wxBell();
         return;
@@ -576,10 +574,10 @@ void ImageVariableDialog::OnShowVignettingGraph(wxCommandEvent & e)
     graph.DrawGrid(6, 6);
 
     //create ResponseTransform with vignetting only
-    SrcPanoImage srcImage;
+    HuginBase::SrcPanoImage srcImage;
     srcImage.setRadialVigCorrCoeff(vigCorr);
     srcImage.setSize(vigra::Size2D(2*NRPOINTS, 2*NRPOINTS));
-    Photometric::ResponseTransform<double> transform(srcImage);
+    HuginBase::Photometric::ResponseTransform<double> transform(srcImage);
     transform.enforceMonotonicity();
 
     //now calc vignetting curve
@@ -601,7 +599,7 @@ void ImageVariableDialog::OnShowVignettingGraph(wxCommandEvent & e)
 
 void ImageVariableDialog::OnShowResponseGraph(wxCommandEvent & e)
 {
-    SrcPanoImage::ResponseType responseType=(SrcPanoImage::ResponseType)XRCCTRL(*this, "image_variable_responseType", wxChoice)->GetSelection();
+    HuginBase::SrcPanoImage::ResponseType responseType=(HuginBase::SrcPanoImage::ResponseType)XRCCTRL(*this, "image_variable_responseType", wxChoice)->GetSelection();
     wxString stringRa=GetImageVariableControl(this, "Ra")->GetValue();
     wxString stringRb=GetImageVariableControl(this, "Rb")->GetValue();
     wxString stringRc=GetImageVariableControl(this, "Rc")->GetValue();
@@ -613,8 +611,8 @@ void ImageVariableDialog::OnShowResponseGraph(wxCommandEvent & e)
         return;
     };
     double Ra, Rb, Rc, Rd, Re;
-    if(!str2double(stringRa, Ra) || !str2double(stringRb, Rb) || !str2double(stringRc, Rc) ||
-        !str2double(stringRd, Rd) || !str2double(stringRe, Re))
+    if(!hugin_utils::str2double(stringRa, Ra) || !hugin_utils::str2double(stringRb, Rb) || !hugin_utils::str2double(stringRc, Rc) ||
+        !hugin_utils::str2double(stringRd, Rd) || !hugin_utils::str2double(stringRe, Re))
     {
         wxBell();
         return;
@@ -626,7 +624,7 @@ void ImageVariableDialog::OnShowResponseGraph(wxCommandEvent & e)
     graph.DrawGrid(6, 6);
     switch(responseType)
     {
-        case SrcPanoImage::RESPONSE_EMOR:
+        case HuginBase::SrcPanoImage::RESPONSE_EMOR:
             {
                 //draw standard EMOR curve
                 std::vector<float> emor(5, 0.0);
@@ -659,7 +657,7 @@ void ImageVariableDialog::OnShowResponseGraph(wxCommandEvent & e)
                 graph.DrawLine(points, wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOWTEXT), 2);
             };
             break;
-        case SrcPanoImage::RESPONSE_LINEAR:
+        case HuginBase::SrcPanoImage::RESPONSE_LINEAR:
         default:
             {
                 std::vector<hugin_utils::FDiff2D> points;

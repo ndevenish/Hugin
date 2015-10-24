@@ -33,40 +33,36 @@
  #include <unistd.h>
 #endif
 
-using namespace std;
-using namespace HuginBase;
-using namespace AppBase;
-
 static void usage(){
 
 	// Print usage and exit
-	cout << endl << "Celeste: Removes cloud-like control points from Hugin project files and creates image masks" << endl;
-	cout << "using Support Vector Machines." << endl;
-    cout << endl << "Version " << hugin_utils::GetHuginVersion() << endl;
-	cout << endl << "Usage: celeste_standalone [options] image1 image2 [..]" << endl << endl;
-	cout << "Options:" << endl << endl;
-	cout << "  -i <filename>   Input Hugin PTO file. Control points over SVM threshold will" << endl;
-	cout << "                  be removed before being written to the output file. If -m is" << endl;
-	cout << "                  set to 1, images in the file will be also be masked." << endl;
-	cout << "  -o <filename>   Output Hugin PTO file. Default: '<filename>_celeste.pto'" << endl;
-	cout << "  -d <filename>   SVM model file. Default: 'data/celeste.model'" << endl;
-	cout << "  -s <int>        Maximum dimension for re-sized image prior to processing. A" << endl;
-	cout << "                  higher value will increase the resolution of the mask but is" << endl;
-	cout << "                  significantly slower. Default: 800" << endl;
-	cout << "  -t <float>      SVM threshold. Raise this value to remove fewer control points," << endl;
-	cout << "                  lower it to remove more. Range 0 to 1. Default: 0.5" << endl;
-	cout << "  -m <1|0>        Create masks when processing Hugin PTO file. Default: 0" << endl;
-	cout << "  -f <string>     Mask file format. Options are PNG, JPEG, BMP, GIF and TIFF." << endl;
-	cout << "                  Default: PNG" << endl;
-	cout << "  -r <1|0>        Filter radius. 0 = large (more accurate), 1 = small (higher" << endl;
-	cout << "                  resolution mask, slower, less accurate). Default: 0" << endl;
-	cout << "  -h              Print usage." << endl; 
-	cout << "  image1 image2.. Image files to be masked." << endl << endl;
+	std::cout << std::endl << "Celeste: Removes cloud-like control points from Hugin project files and creates image masks" << std::endl;
+	std::cout << "using Support Vector Machines." << std::endl;
+    std::cout << std::endl << "Version " << hugin_utils::GetHuginVersion() << std::endl;
+	std::cout << std::endl << "Usage: celeste_standalone [options] image1 image2 [..]" << std::endl << std::endl;
+	std::cout << "Options:" << std::endl << std::endl;
+	std::cout << "  -i <filename>   Input Hugin PTO file. Control points over SVM threshold will" << std::endl;
+	std::cout << "                  be removed before being written to the output file. If -m is" << std::endl;
+	std::cout << "                  set to 1, images in the file will be also be masked." << std::endl;
+	std::cout << "  -o <filename>   Output Hugin PTO file. Default: '<filename>_celeste.pto'" << std::endl;
+	std::cout << "  -d <filename>   SVM model file. Default: 'data/celeste.model'" << std::endl;
+	std::cout << "  -s <int>        Maximum dimension for re-sized image prior to processing. A" << std::endl;
+	std::cout << "                  higher value will increase the resolution of the mask but is" << std::endl;
+	std::cout << "                  significantly slower. Default: 800" << std::endl;
+	std::cout << "  -t <float>      SVM threshold. Raise this value to remove fewer control points," << std::endl;
+	std::cout << "                  lower it to remove more. Range 0 to 1. Default: 0.5" << std::endl;
+	std::cout << "  -m <1|0>        Create masks when processing Hugin PTO file. Default: 0" << std::endl;
+	std::cout << "  -f <std::string>     Mask file format. Options are PNG, JPEG, BMP, GIF and TIFF." << std::endl;
+	std::cout << "                  Default: PNG" << std::endl;
+	std::cout << "  -r <1|0>        Filter radius. 0 = large (more accurate), 1 = small (higher" << std::endl;
+	std::cout << "                  resolution mask, slower, less accurate). Default: 0" << std::endl;
+	std::cout << "  -h              Print usage." << std::endl; 
+	std::cout << "  image1 image2.. Image files to be masked." << std::endl << std::endl;
 	exit(1);
 
 }
 
-vigra::UInt16RGBImage loadAndConvertImage(string imagefile)
+vigra::UInt16RGBImage loadAndConvertImage(std::string imagefile)
 {
     vigra::ImageImportInfo info(imagefile.c_str());
     std::string pixelType=info.getPixelType();
@@ -155,9 +151,9 @@ vigra::UInt16RGBImage loadAndConvertImage(string imagefile)
     return image;
 };
 
-std::string generateMaskName(string imagefile,string mask_format)
+std::string generateMaskName(std::string imagefile,std::string mask_format)
 {
-    string mask_name = ("");
+    std::string mask_name = ("");
     if (imagefile.substr(imagefile.length()-4,1)==("."))
     {
         mask_name.append(imagefile.substr(0,imagefile.length()-4));
@@ -183,10 +179,10 @@ int main(int argc, char* argv[])
 
     int mask = 0;
     double threshold = 0.5;
-    vector<string> images_to_mask;
-    string pto_file = (""),output_pto = ("");
-    string mask_format = ("PNG");
-    string model_file = ("celeste.model");
+    std::vector<std::string> images_to_mask;
+    std::string pto_file = (""),output_pto = ("");
+    std::string mask_format = ("PNG");
+    std::string model_file = ("celeste.model");
     int course_fine = 0;
     int resize_dimension=800;
 
@@ -212,7 +208,7 @@ int main(int argc, char* argv[])
                 threshold = atof(optarg);
                 if(threshold<=0 || threshold>1)
                 {
-                    cerr << "Invalid parameter: threshold (-t) should be between 0 and 1" << std::endl;
+                    std::cerr << "Invalid parameter: threshold (-t) should be between 0 and 1" << std::endl;
                     return 1;
                 };
                 break;
@@ -220,7 +216,7 @@ int main(int argc, char* argv[])
                 mask = atoi(optarg);
                 if(mask<0 || mask>1)
                 {
-                    cerr << "Invalid parameter: mask parameter (-m) can only be 0 or 1" << std::endl;
+                    std::cerr << "Invalid parameter: mask parameter (-m) can only be 0 or 1" << std::endl;
                     return 1;
                 };
                 break;
@@ -237,12 +233,12 @@ int main(int argc, char* argv[])
                 resize_dimension = atoi(optarg);
                 if(resize_dimension<100)
                 {
-                    cerr << "Invalid parameter: maximum dimension (-s) should be bigger than 100" << std::endl;
+                    std::cerr << "Invalid parameter: maximum dimension (-s) should be bigger than 100" << std::endl;
                     return 1;
                 };
                 break;
             case ':':
-                cerr <<"Missing parameter for parameter " << argv[optind] << endl;
+                std::cerr <<"Missing parameter for parameter " << argv[optind] << std::endl;
                 return 1;
                 break;
             case '?': /* invalid parameter */
@@ -261,7 +257,7 @@ int main(int argc, char* argv[])
     
     if(images_to_mask.size()==0 && pto_file.empty())
     {
-        cout << "No project file or image files given."<< endl;
+        std::cout << "No project file or image files given."<< std::endl;
         return 1;
     };
 
@@ -269,13 +265,13 @@ int main(int argc, char* argv[])
 	// Check model file
     if (!hugin_utils::FileExists(model_file))
     {
-        string install_path_model=hugin_utils::GetDataDir();
+        std::string install_path_model=hugin_utils::GetDataDir();
 		install_path_model.append(model_file);
 		
 		if (!hugin_utils::FileExists(install_path_model)){
 		
-    			cout << endl << "Couldn't open SVM model file " << model_file << endl;
-			cout << "Also tried " << install_path_model << endl << endl; 
+    			std::cout << std::endl << "Couldn't open SVM model file " << model_file << std::endl;
+			std::cout << "Also tried " << install_path_model << std::endl << std::endl; 
     			exit(1);
 
 		}else{
@@ -300,35 +296,35 @@ int main(int argc, char* argv[])
 	}
 
 	// Print some stuff out
-	cout << endl << "Celeste: Removes cloud-like control points from Hugin project files and creates image masks" << endl;
-	cout << "using Support Vector Machines." << endl;
-    cout << endl << "Version " << hugin_utils::GetHuginVersion() << endl << endl;
-	cout << "Arguments:" << endl;
-	cout << "Input Hugin file:\t" << pto_file << endl;
-	cout << "Output Hugin file:\t" << output_pto << endl;
-	cout << "SVM model file:\t\t" << model_file << endl;
-	cout << "Max dimension:\t\t" << resize_dimension << endl;
-	cout << "SVM threshold:\t\t" << threshold << endl;
-	cout << "Create PTO masks:\t";
+	std::cout << std::endl << "Celeste: Removes cloud-like control points from Hugin project files and creates image masks" << std::endl;
+	std::cout << "using Support Vector Machines." << std::endl;
+    std::cout << std::endl << "Version " << hugin_utils::GetHuginVersion() << std::endl << std::endl;
+	std::cout << "Arguments:" << std::endl;
+	std::cout << "Input Hugin file:\t" << pto_file << std::endl;
+	std::cout << "Output Hugin file:\t" << output_pto << std::endl;
+	std::cout << "SVM model file:\t\t" << model_file << std::endl;
+	std::cout << "Max dimension:\t\t" << resize_dimension << std::endl;
+	std::cout << "SVM threshold:\t\t" << threshold << std::endl;
+	std::cout << "Create PTO masks:\t";
 	if (mask){
-		cout << "Yes" << endl;
+		std::cout << "Yes" << std::endl;
 	}else{
-		cout << "No" << endl;
+		std::cout << "No" << std::endl;
 	} 
-	cout << "Mask format:\t\t" << mask_format << endl;
-	cout << "Filter radius:\t\t";
+	std::cout << "Mask format:\t\t" << mask_format << std::endl;
+	std::cout << "Filter radius:\t\t";
 
 	// Mask resolution
     int radius;
 	if (course_fine)
     {
         radius = 10;
-        cout << "Small" << endl << endl;
+        std::cout << "Small" << std::endl << std::endl;
 	}
     else
     {
         radius=20;
-        cout << "Large" << endl << endl;
+        std::cout << "Large" << std::endl << std::endl;
 	} 
 	
 	// Convert mask format to lower case
@@ -343,13 +339,13 @@ int main(int argc, char* argv[])
     // Mask images
 	if (images_to_mask.size())
     {
-        cout << "Masking images..." << endl << endl;
+        std::cout << "Masking images..." << std::endl << std::endl;
         for (unsigned int l = 0; l < images_to_mask.size(); l++)
         {
             std::string imagefile=images_to_mask[l];
             try
             {
-                cout << "Opening image file:\t" << imagefile << endl;
+                std::cout << "Opening image file:\t" << imagefile << std::endl;
                 // Read image given and convert to UInt16
                 vigra::UInt16RGBImage in=loadAndConvertImage(imagefile);
                 if(in.width()==0 || in.height()==0)
@@ -358,9 +354,9 @@ int main(int argc, char* argv[])
                 };
 
                 // Create mask file name
-                string mask_name = generateMaskName(imagefile,mask_format);
+                std::string mask_name = generateMaskName(imagefile,mask_format);
 
-                cout << "Generating mask:\t" << mask_name << endl;				
+                std::cout << "Generating mask:\t" << mask_name << std::endl;				
                 // Create mask
                 vigra::BImage* mask=celeste::getCelesteMask(model,in,radius,threshold,resize_dimension);
                 exportImage(srcImageRange(*mask), vigra::ImageExportInfo(mask_name.c_str()).setPixelType("UINT8"));
@@ -369,8 +365,8 @@ int main(int argc, char* argv[])
             catch (vigra::StdException & e)
             {
                 // catch any errors that might have occured and print their reason
-                cout << "Unable to open file:\t" << imagefile << endl << endl;
-                cout << e.what() << endl << endl;
+                std::cout << "Unable to open file:\t" << imagefile << std::endl << std::endl;
+                std::cout << e.what() << std::endl << std::endl;
     		};
         };
 	};
@@ -378,34 +374,34 @@ int main(int argc, char* argv[])
     // Process PTO file
     if (pto_file != (""))
     {
-  		cout << "Parsing Hugin project file " << pto_file << endl << endl;
+  		std::cout << "Parsing Hugin project file " << pto_file << std::endl << std::endl;
 
-        Panorama pano;
-        ifstream prjfile(pto_file.c_str());
+        HuginBase::Panorama pano;
+        std::ifstream prjfile(pto_file.c_str());
         if (!prjfile.good())
         {
-            cerr << "could not open script : " << pto_file << endl;
+            std::cerr << "could not open script : " << pto_file << std::endl;
             celeste::destroySVMmodel(model);
             return 1;
         }
         pano.setFilePrefix(hugin_utils::getPathPrefix(pto_file));
-        DocumentData::ReadWriteError err = pano.readData(prjfile);
-        if (err != DocumentData::SUCCESSFUL)
+        AppBase::DocumentData::ReadWriteError err = pano.readData(prjfile);
+        if (err != AppBase::DocumentData::SUCCESSFUL)
         {
-            cerr << "error while parsing panos tool script: " << pto_file << endl;
-            cerr << "DocumentData::ReadWriteError code: " << err << endl;
+            std::cerr << "error while parsing panos tool script: " << pto_file << std::endl;
+            std::cerr << "DocumentData::ReadWriteError code: " << err << std::endl;
             celeste::destroySVMmodel(model);
             return 1;
         }
 
         for(unsigned int i=0;i<pano.getNrOfImages();i++)
         {
-            CPointVector cps=pano.getCtrlPointsVectorForImage(i);
+            HuginBase::CPointVector cps = pano.getCtrlPointsVectorForImage(i);
             if(cps.size()>0 || mask)
             {
                 try
                 {
-                    string imagefile=pano.getImage(i).getFilename();
+                    std::string imagefile=pano.getImage(i).getFilename();
                     vigra::UInt16RGBImage in=loadAndConvertImage(imagefile);
                     if(in.width()==0 || in.height()==0)
                     {
@@ -413,10 +409,10 @@ int main(int argc, char* argv[])
                     };
                     if(cps.size()>0)
                     {
-                        UIntSet cloudCP=celeste::getCelesteControlPoints(model,in,cps,radius,threshold,resize_dimension);
+                        HuginBase::UIntSet cloudCP = celeste::getCelesteControlPoints(model, in, cps, radius, threshold, resize_dimension);
                         if(cloudCP.size()>0)
                         {
-                            for(UIntSet::reverse_iterator it=cloudCP.rbegin();it!=cloudCP.rend();++it)
+                            for (HuginBase::UIntSet::reverse_iterator it = cloudCP.rbegin(); it != cloudCP.rend(); ++it)
                             {
                                 pano.removeCtrlPoint(*it);
                             };
@@ -424,7 +420,7 @@ int main(int argc, char* argv[])
                     };
                     if(mask)
                     {
-                        string mask_name = generateMaskName(imagefile,mask_format);
+                        std::string mask_name = generateMaskName(imagefile,mask_format);
                         // Create mask
                         vigra::BImage* mask=celeste::getCelesteMask(model,in,radius,threshold,resize_dimension);
                         exportImage(srcImageRange(*mask), vigra::ImageExportInfo(mask_name.c_str()).setPixelType("UINT8"));
@@ -434,19 +430,19 @@ int main(int argc, char* argv[])
                 catch (vigra::StdException & e)
                 {
                     // catch any errors that might have occured and print their reason
-                    cout << "Unable to open file:\t" << pano.getImage(i).getFilename() << endl << endl;
-                    cout << e.what() << endl << endl;
+                    std::cout << "Unable to open file:\t" << pano.getImage(i).getFilename() << std::endl << std::endl;
+                    std::cout << e.what() << std::endl << std::endl;
     		    };
             };
         };
 
 		// write new pto file
-        ofstream of(output_pto.c_str());
-        UIntSet imgs;
+        std::ofstream of(output_pto.c_str());
+        HuginBase::UIntSet imgs;
         fill_set(imgs,0, pano.getNrOfImages()-1);
         pano.printPanoramaScript(of, pano.getOptimizeVector(), pano.getOptions(), imgs, false, hugin_utils::getPathPrefix(pto_file));
     
-        cout << endl << "Written file " << output_pto << endl << endl;
+        std::cout << std::endl << "Written file " << output_pto << std::endl << std::endl;
 	}
     celeste::destroySVMmodel(model);
 	return(0);

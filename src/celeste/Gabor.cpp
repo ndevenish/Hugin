@@ -28,8 +28,6 @@
 #include "CelesteGlobals.h"
 #define kUseContrast 1
 
-using namespace std; 
-
 namespace celeste
 {
 float* ProcessChannel( float** image, int w, int h, int gNumLocs, int**& gLocations, int gRadius, float* response, int* len){
@@ -88,13 +86,13 @@ float* ProcessChannel( float** image, int w, int h, int gNumLocs, int**& gLocati
 
 	}
 
-	//cout << "off " << offset << " gflen " << gflen << " len " << *len << endl; 
+	//std::cout << "off " << offset << " gflen " << gflen << " len " << *len << std::endl; 
 
 	for ( i = 0; i < gflen; i++ ){
 		
 		
 		response[i+offset] = gaborJet->GetResponse(i);
-		//cout << i << " / " << gaborJet->GetResponse(i) << endl;
+		//std::cout << i << " / " << gaborJet->GetResponse(i) << std::endl;
 	}
 
 	delete gaborJet;

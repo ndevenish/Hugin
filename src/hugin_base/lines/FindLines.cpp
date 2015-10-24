@@ -32,14 +32,11 @@
 #include <algorithms/optimizer/PTOptimizer.h>
 #include "algorithms/basic/CalculateCPStatistics.h"
 
-using namespace vigra;
-using namespace std;
-
 namespace HuginLines
 {
 
 template <class SrcImageIterator, class SrcAccessor, class DestImage>
-double resize_image(const triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src, DestImage& dest, int resize_dimension)
+double resize_image(const vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src, DestImage& dest, int resize_dimension)
 {
     // Re-size to max dimension
     double sizefactor=1.0;
@@ -76,27 +73,27 @@ double resize_image(const triple<SrcImageIterator, SrcImageIterator, SrcAccessor
     return 1.0/sizefactor;
 }
 
-vigra::BImage* detectEdges(const UInt8RGBImage& input, const double scale, const double threshold, const unsigned int resize_dimension, double& size_factor)
+vigra::BImage* detectEdges(const vigra::UInt8RGBImage& input, const double scale, const double threshold, const unsigned int resize_dimension, double& size_factor)
 {
     // Resize image
-    UInt8Image scaled;
-    size_factor=resize_image(vigra::srcImageRange(input, vigra::RGBToGrayAccessor<RGBValue<UInt8> >()), scaled, resize_dimension);
+    vigra::UInt8Image scaled;
+    size_factor = resize_image(vigra::srcImageRange(input, vigra::RGBToGrayAccessor<vigra::RGBValue<vigra::UInt8> >()), scaled, resize_dimension);
 
     // Run Canny edge detector
-    BImage* image = new BImage(scaled.width(), scaled.height(), 255);
-    cannyEdgeImage(srcImageRange(scaled), destImage(*image), scale, threshold, 0);
+    vigra::BImage* image = new vigra::BImage(scaled.width(), scaled.height(), 255);
+    vigra::cannyEdgeImage(vigra::srcImageRange(scaled), vigra::destImage(*image), scale, threshold, 0);
     return image;
 };
 
-vigra::BImage* detectEdges(const BImage& input, const double scale, const double threshold, const unsigned int resize_dimension, double& size_factor)
+vigra::BImage* detectEdges(const vigra::BImage& input, const double scale, const double threshold, const unsigned int resize_dimension, double& size_factor)
 {
     // Resize image
-    UInt8Image scaled;
+    vigra::UInt8Image scaled;
     size_factor=resize_image(vigra::srcImageRange(input), scaled, resize_dimension);
 
     // Run Canny edge detector
-    BImage* image=new BImage(scaled.width(), scaled.height(), 255);
-    cannyEdgeImage(srcImageRange(scaled), destImage(*image), scale, threshold, 0);
+    vigra::BImage* image = new vigra::BImage(scaled.width(), scaled.height(), 255);
+    vigra::cannyEdgeImage(vigra::srcImageRange(scaled), vigra::destImage(*image), scale, threshold, 0);
     return image;
 };
 
@@ -123,7 +120,7 @@ Lines findLines(vigra::BImage& edge, double length_threshold, double focal_lengt
     int lmin = int(sqrt(min_line_length_squared));
     double flpix=calculate_focal_length_pixels(focal_length,crop_factor,edge.width(),edge.height());
 
-    BImage lineImage = edgeMap2linePts(edge);
+    vigra::BImage lineImage = edgeMap2linePts(edge);
     Lines lines;
     linePts2lineList( lineImage, lmin, flpix, lines );
 

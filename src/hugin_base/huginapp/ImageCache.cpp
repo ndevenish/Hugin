@@ -46,10 +46,6 @@
 
 namespace HuginBase {
     
-using namespace std;
-using namespace vigra::functor;
-
-
 template <class T1>
 class GetRange
 {
@@ -133,12 +129,12 @@ ImageCache * ImageCache::instance = NULL;
 
 void ImageCache::removeImage(const std::string & filename)
 {
-    map<string, EntryPtr>::iterator it = images.find(filename);
+    std::map<std::string, EntryPtr>::iterator it = images.find(filename);
     if (it != images.end()) {
         images.erase(it);
     }
 
-    string sfilename = filename + string("_small");
+    std::string sfilename = filename + std::string("_small");
     it = images.find(sfilename);
     if (it != images.end()) {
         images.erase(it);
@@ -149,7 +145,7 @@ void ImageCache::removeImage(const std::string & filename)
     do {
         // found. xyz
         PyramidKey key(filename,level);
-        map<string, vigra::BImage*>::iterator it = pyrImages.find(key.toString());
+        std::map<std::string, vigra::BImage*>::iterator it = pyrImages.find(key.toString());
         found = (it != pyrImages.end());
         if (found) {
             delete it->second;
@@ -170,7 +166,7 @@ void ImageCache::flush()
 {
     images.clear();
 
-    for (map<string, vigra::BImage*>::iterator it = pyrImages.begin();
+    for (std::map<std::string, vigra::BImage*>::iterator it = pyrImages.begin();
          it != pyrImages.end();
          ++it)
     {
@@ -240,7 +236,7 @@ void ImageCache::softFlush()
         // use least recently uses strategy.
         // sort images by their access time
         std::map<int,std::string> accessMap;
-        for (map<string, EntryPtr>::iterator it = images.begin();
+        for (std::map<std::string, EntryPtr>::iterator it = images.begin();
              it != images.end();
              ++it)
         {
@@ -264,7 +260,7 @@ void ImageCache::softFlush()
                 deleted = true;
             } else if (!accessMap.empty()) {
                 std::map<int,std::string>::iterator accIt = accessMap.begin();
-                map<string, EntryPtr>::iterator it = images.find(accIt->second);
+                std::map<std::string, EntryPtr>::iterator it = images.find(accIt->second);
                 // check for uniqueness.
                 if (it != images.end()) {
                     DEBUG_DEBUG("soft flush: removing image: " << it->first);
@@ -400,9 +396,9 @@ void ImageCache::importAndConvertImage(const vigra::ImageImportInfo & info,
         double scale = 1.0/vigra_ext::LUTTraits<SrcPixelType>::max();
 //        DestPixelType factor(scale);
         vigra_ext::Multiply<double> f(scale);
-        transformImage(dest.first, dest.first+ vigra::Diff2D(info.width(), info.height()), dest.second,
-                       dest.first, dest.second,
-                       Arg1()*Param(scale));
+        vigra::transformImage(dest.first, dest.first + vigra::Diff2D(info.width(), info.height()), dest.second,
+            dest.first, dest.second,
+            vigra::functor::Arg1()*vigra::functor::Param(scale));
     }
 }
 
@@ -501,9 +497,9 @@ void ImageCache::importAndConvertAlphaImage(const vigra::ImageImportInfo & info,
         // integer image.. scale to 0 .. 1
         vigra::importImageAlpha(info, dest, mask);
         double scale = 1.0/vigra_ext::LUTTraits<SrcPixelType>::max();
-        transformImage(dest.first, dest.first+ vigra::Diff2D(info.width(), info.height()),  dest.second, 
-                       dest.first, dest.second,
-                       Arg1()*Param(scale));
+        vigra::transformImage(dest.first, dest.first + vigra::Diff2D(info.width(), info.height()), dest.second,
+            dest.first, dest.second,
+            vigra::functor::Arg1()*vigra::functor::Param(scale));
     }
 }
 
@@ -733,7 +729,7 @@ ImageCache::EntryPtr ImageCache::getSmallImage(const std::string & filename)
     softFlush();
     std::map<std::string, EntryPtr>::iterator it;
     // "_small" is only used internally
-    string name = filename + string(":small");
+    std::string name = filename + std::string(":small");
     it = images.find(name);
     if (it != images.end()) {
         return it->second;
@@ -824,7 +820,7 @@ ImageCache::EntryPtr ImageCache::getSmallImageIfAvailable(const std::string & fi
     softFlush();
     std::map<std::string, EntryPtr>::iterator it;
     // "_small" is only used internally
-    string name = filename + string(":small");
+    std::string name = filename + std::string(":small");
     it = images.find(name);
     if (it != images.end()) {
         return it->second;

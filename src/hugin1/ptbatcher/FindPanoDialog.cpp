@@ -49,7 +49,7 @@ BEGIN_EVENT_TABLE(FindPanoDialog,wxDialog)
     EVT_CLOSE(FindPanoDialog::OnClose)
 END_EVENT_TABLE()
 
-bool SortFilename::operator()(const SrcPanoImage* img1, const SrcPanoImage* img2)
+bool SortFilename::operator()(const HuginBase::SrcPanoImage* img1, const HuginBase::SrcPanoImage* img2)
 {
     return doj::alphanum_comp(img1->getFilename(),img2->getFilename())<0;
 };
@@ -390,7 +390,7 @@ void FindPanoDialog::SearchInDir(wxString dirstring, const bool includeSubdir, c
                 ext.CmpNoCase(wxT("tif"))==0 || ext.CmpNoCase(wxT("tiff"))==0)
         {
             std::string filenamestr(file.GetFullPath().mb_str(HUGIN_CONV_FILENAME));
-            SrcPanoImage* img=new SrcPanoImage;
+            HuginBase::SrcPanoImage* img = new HuginBase::SrcPanoImage;
             img->setFilename(filenamestr);
             img->readEXIF();
             // check for black/white images, if so skip
@@ -506,7 +506,7 @@ PossiblePano::~PossiblePano()
     };
 };
 
-bool PossiblePano::BelongsTo(SrcPanoImage* img, const wxTimeSpan max_time_diff)
+bool PossiblePano::BelongsTo(HuginBase::SrcPanoImage* img, const wxTimeSpan max_time_diff)
 {
     if(m_make.compare(img->getExifMake())!=0)
     {
@@ -535,7 +535,7 @@ bool PossiblePano::BelongsTo(SrcPanoImage* img, const wxTimeSpan max_time_diff)
     return true;
 };
 
-const wxDateTime PossiblePano::GetDateTime(const SrcPanoImage* img)
+const wxDateTime PossiblePano::GetDateTime(const HuginBase::SrcPanoImage* img)
 {
     struct tm exifdatetime;
     if(img->getExifDateTime(&exifdatetime)==0)
@@ -710,7 +710,7 @@ wxString PossiblePano::GeneratePanorama(NamingConvention nc, bool createLinks, H
         };
         for(unsigned int i=1; i<pano.getNrOfImages(); i++)
         {
-            SrcPanoImage img=pano.getSrcImage(i);
+            HuginBase::SrcPanoImage img = pano.getSrcImage(i);
             double ev=img.getExposureValue();
             lenses.switchParts(i,lenses.getPartNumber(0));
             lenses.unlinkVariableImage(HuginBase::ImageVariableGroup::IVE_ExposureValue, i);
@@ -727,7 +727,7 @@ wxString PossiblePano::GeneratePanorama(NamingConvention nc, bool createLinks, H
         pano.linkPossibleStacks(createLinks);
     };
     // Setup pano with options from preferences
-    PanoramaOptions opts = pano.getOptions();
+    HuginBase::PanoramaOptions opts = pano.getOptions();
     //set default exposure value
     opts.outputExposureValue = pano.getImage(0).getExposureValue();
     wxConfigBase* config = wxConfigBase::Get();
@@ -768,13 +768,13 @@ wxString PossiblePano::GeneratePanorama(NamingConvention nc, bool createLinks, H
             opts.outputImageType ="tif";
             break;
     }
-    opts.outputFormat = PanoramaOptions::TIFF_m;
+    opts.outputFormat = HuginBase::PanoramaOptions::TIFF_m;
     opts.blendMode = defaultBlender;
     opts.enblendOptions = config->Read(wxT("Enblend/Args"),wxT(HUGIN_ENBLEND_ARGS)).mb_str(wxConvLocal);
     opts.enfuseOptions = config->Read(wxT("Enfuse/Args"),wxT(HUGIN_ENFUSE_ARGS)).mb_str(wxConvLocal);
     opts.interpolator = (vigra_ext::Interpolator)config->Read(wxT("Nona/Interpolator"),HUGIN_NONA_INTERPOLATOR);
     opts.tiff_saveROI = config->Read(wxT("Nona/CroppedImages"),HUGIN_NONA_CROPPEDIMAGES)!=0;
-    opts.hdrMergeMode = PanoramaOptions::HDRMERGE_AVERAGE;
+    opts.hdrMergeMode = HuginBase::PanoramaOptions::HDRMERGE_AVERAGE;
     opts.hdrmergeOptions = HUGIN_HDRMERGE_ARGS;
     pano.setOptions(opts);
     // set optimizer switches

@@ -28,8 +28,6 @@
 
 #include "base_wx/wxImageCache.h"
 
-using namespace HuginBase;
-
 // forward declarations, to save the #include statements
 class ImagesTreeCtrl;
 
@@ -96,7 +94,7 @@ private:
     void OnSize(wxSizeEvent & e);
 
     /** the model */
-    Panorama * m_pano;
+    HuginBase::Panorama * m_pano;
 
     /** control point detection event handler*/
     void CPGenerate(wxCommandEvent & e);

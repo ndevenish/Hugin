@@ -39,8 +39,6 @@ extern "C"
     #include <pano13/filter.h>  // for PT_setProgressFcn, PT_setInfoDlgFcn
 }
 
-using namespace std;
- 
 void iCPApp::ReadDetectorConfig()
 {
     wxConfig config(wxT("hugin"));
@@ -112,12 +110,12 @@ int iCPApp::OnRun()
     std::ifstream in((const char *)file.GetFullPath().mb_str(HUGIN_CONV_FILENAME));
     if(!in.good())
     {
-        cerr << "could not open script : " << file.GetFullPath().char_str() << endl;
+        std::cerr << "could not open script : " << file.GetFullPath().char_str() << std::endl;
         return 1;
     }
     if(!newPano.loadPTScript(in, ptoVersion,(std::string)file.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR).mb_str(HUGIN_CONV_FILENAME)))
     {
-        cerr << "could not parse script: " << file.GetFullPath().char_str() << endl;
+        std::cerr << "could not parse script: " << file.GetFullPath().char_str() << std::endl;
         return 1;
     };
     pano.setMemento(newPano);
@@ -143,13 +141,13 @@ int iCPApp::OnRun()
 
     //write output
     HuginBase::OptimizeVector optvec = pano.getOptimizeVector();
-    ofstream of((const char *)m_output.mb_str(HUGIN_CONV_FILENAME));
+    std::ofstream of((const char *)m_output.mb_str(HUGIN_CONV_FILENAME));
     wxFileName outputFile(m_output);
     outputFile.MakeAbsolute();
-    string prefix(outputFile.GetPath(wxPATH_GET_SEPARATOR | wxPATH_GET_VOLUME).char_str());
+    std::string prefix(outputFile.GetPath(wxPATH_GET_SEPARATOR | wxPATH_GET_VOLUME).char_str());
     pano.printPanoramaScript(of, optvec, pano.getOptions(), imgs, false, prefix);
     
-    cout << endl << "Written output to " << m_output.char_str() << endl;
+    std::cout << std::endl << "Written output to " << m_output.char_str() << std::endl;
 
     return 0;
 };

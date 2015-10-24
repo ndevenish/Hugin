@@ -44,66 +44,62 @@
 #include <algorithms/basic/CalculateMeanExposure.h>
 #include "hugin_utils/utils.h"
 
-using namespace std;
-using namespace HuginBase;
-using namespace AppBase;
-
 static void usage(const char* name)
 {
-    cout << name << ": change output parameters of project file" << endl
-         << "pano_modify version " << hugin_utils::GetHuginVersion() << endl
-         << endl
-         << "Usage:  " << name << " [options] input.pto" << endl
-         << endl
-         << "  Options:" << endl
-         << "    -o, --output=file.pto  Output Hugin PTO file. Default: <filename>_mod.pto" << endl
-         << "    -p, --projection=x     Sets the output projection to number x" << endl
-         << "    --fov=AUTO|HFOV|HFOVxVFOV   Sets field of view" << endl
-         << "                                AUTO: calculates optimal fov" << endl
-         << "                                HFOV|HFOVxVFOV: set to given fov" << endl
-         << "    -s, --straighten       Straightens the panorama" << endl
-         << "    -c, --center           Centers the panorama" << endl
-         << "    --canvas=AUTO|num%|WIDTHxHEIGHT  Sets the output canvas size" << endl
-         << "                                AUTO: calculate optimal canvas size" << endl
-         << "                                num%: scales the optimal size by given percent" << endl
-         << "                                WIDTHxHEIGHT: set to given size" << endl
-         << "    --crop=AUTO|AUTOHDR|left,right,top,bottom  Sets the crop rectangle" << endl
-         << "                                AUTO: autocrop panorama" << endl
-         << "                                AUTOHDR: autocrop HDR panorama" << endl
-         << "                                left,right,top,bottom: to given size" << endl
-         << "    --output-exposure=AUTO|num  Sets the output exposure value to mean" << endl
-         << "                                exposure (AUTO) or to given value" << endl
-         << "    --output-cropped-tiff    Output cropped tiffs as intermediate images" << endl
-         << "    --output-uncropped-tiff  Output uncropped tiffs as intermediate images" << endl
-         << "    --output-type=str       Sets the type of output" << endl
-         << "                              Valid items are" << endl
-         << "                                NORMAL|N: normal panorama" << endl
-         << "                                STACKSFUSEDBLENDED|BF: LDR panorama with" << endl
-         << "                                    blended stacks" << endl
-         << "                                EXPOSURELAYERSFUSED|FB: LDR panorama with" << endl
-         << "                                    fused exposure layers (any arrangement)" << endl
-         << "                                HDR: HDR panorama" << endl
-         << "                                REMAP: remapped images with corrected exposure" << endl
-         << "                                REMAPORIG: remapped images with" << endl
-         << "                                    uncorrected exposure" << endl
-         << "                                HDRREMAP: remapped images in linear color space" << endl
-         << "                                FUSEDSTACKS: exposure fused stacks" << endl
-         << "                                HDRSTACKS: HDR stacks" << endl
-         << "                                EXPOSURELAYERS: blended exposure layers" << endl
-         << "                              and separated by a comma." << endl
-         << "    --ldr-file=JPG|TIF|PNG  Sets the filetype for LDR panorama output" << endl
-         << "    --ldr-compression=str   Sets the compression for LDR panorama output" << endl
-         << "                              For TIF: NONE|PACKBITS|LZW|DEFLATE" << endl
-         << "                              For JPEG: quality as number" << endl
-         << "    --hdr-file=EXR|TIF      Sets the filetype for HDR panorama output" << endl
-         << "    --hdr-compression=str   Sets the compression for HDR panorama output" << endl
-         << "                              For TIF: NONE|PACKBITS|LZW|DEFLATE" << endl
-         << "    --blender=ENBLEND|INTERNAL  Sets the blender to be used at stitching" << endl
-         << "                            stage." << endl
-         << "    --rotate=yaw,pitch,roll Rotates the whole panorama with the given angles" << endl
-         << "    --translate=x,y,z       Translate the whole panorama with the given values" << endl
-         << "    -h, --help             Shows this help" << endl
-         << endl;
+    std::cout << name << ": change output parameters of project file" << std::endl
+         << "pano_modify version " << hugin_utils::GetHuginVersion() << std::endl
+         << std::endl
+         << "Usage:  " << name << " [options] input.pto" << std::endl
+         << std::endl
+         << "  Options:" << std::endl
+         << "    -o, --output=file.pto  Output Hugin PTO file. Default: <filename>_mod.pto" << std::endl
+         << "    -p, --projection=x     Sets the output projection to number x" << std::endl
+         << "    --fov=AUTO|HFOV|HFOVxVFOV   Sets field of view" << std::endl
+         << "                                AUTO: calculates optimal fov" << std::endl
+         << "                                HFOV|HFOVxVFOV: set to given fov" << std::endl
+         << "    -s, --straighten       Straightens the panorama" << std::endl
+         << "    -c, --center           Centers the panorama" << std::endl
+         << "    --canvas=AUTO|num%|WIDTHxHEIGHT  Sets the output canvas size" << std::endl
+         << "                                AUTO: calculate optimal canvas size" << std::endl
+         << "                                num%: scales the optimal size by given percent" << std::endl
+         << "                                WIDTHxHEIGHT: set to given size" << std::endl
+         << "    --crop=AUTO|AUTOHDR|left,right,top,bottom  Sets the crop rectangle" << std::endl
+         << "                                AUTO: autocrop panorama" << std::endl
+         << "                                AUTOHDR: autocrop HDR panorama" << std::endl
+         << "                                left,right,top,bottom: to given size" << std::endl
+         << "    --output-exposure=AUTO|num  Sets the output exposure value to mean" << std::endl
+         << "                                exposure (AUTO) or to given value" << std::endl
+         << "    --output-cropped-tiff    Output cropped tiffs as intermediate images" << std::endl
+         << "    --output-uncropped-tiff  Output uncropped tiffs as intermediate images" << std::endl
+         << "    --output-type=str       Sets the type of output" << std::endl
+         << "                              Valid items are" << std::endl
+         << "                                NORMAL|N: normal panorama" << std::endl
+         << "                                STACKSFUSEDBLENDED|BF: LDR panorama with" << std::endl
+         << "                                    blended stacks" << std::endl
+         << "                                EXPOSURELAYERSFUSED|FB: LDR panorama with" << std::endl
+         << "                                    fused exposure layers (any arrangement)" << std::endl
+         << "                                HDR: HDR panorama" << std::endl
+         << "                                REMAP: remapped images with corrected exposure" << std::endl
+         << "                                REMAPORIG: remapped images with" << std::endl
+         << "                                    uncorrected exposure" << std::endl
+         << "                                HDRREMAP: remapped images in linear color space" << std::endl
+         << "                                FUSEDSTACKS: exposure fused stacks" << std::endl
+         << "                                HDRSTACKS: HDR stacks" << std::endl
+         << "                                EXPOSURELAYERS: blended exposure layers" << std::endl
+         << "                              and separated by a comma." << std::endl
+         << "    --ldr-file=JPG|TIF|PNG  Sets the filetype for LDR panorama output" << std::endl
+         << "    --ldr-compression=str   Sets the compression for LDR panorama output" << std::endl
+         << "                              For TIF: NONE|PACKBITS|LZW|DEFLATE" << std::endl
+         << "                              For JPEG: quality as number" << std::endl
+         << "    --hdr-file=EXR|TIF      Sets the filetype for HDR panorama output" << std::endl
+         << "    --hdr-compression=str   Sets the compression for HDR panorama output" << std::endl
+         << "                              For TIF: NONE|PACKBITS|LZW|DEFLATE" << std::endl
+         << "    --blender=ENBLEND|INTERNAL  Sets the blender to be used at stitching" << std::endl
+         << "                            stage." << std::endl
+         << "    --rotate=yaw,pitch,roll Rotates the whole panorama with the given angles" << std::endl
+         << "    --translate=x,y,z       Translate the whole panorama with the given values" << std::endl
+         << "    -h, --help             Shows this help" << std::endl
+         << std::endl;
 }
 
 int main(int argc, char* argv[])
@@ -181,8 +177,8 @@ int main(int argc, char* argv[])
     std::string ldrcompression;
     std::string hdrfiletype;
     std::string hdrcompression;
-    string output;
-    string param;
+    std::string output;
+    std::string param;
     std::string blender;
     while ((c = getopt_long (argc, argv, optstring, longOptions,&optionIndex)) != -1)
     {
@@ -199,12 +195,12 @@ int main(int argc, char* argv[])
                 projection=atoi(optarg);
                 if((projection==0) && (strcmp(optarg,"0")!=0))
                 {
-                    cerr << "Could not parse projection number.";
+                    std::cerr << "Could not parse projection number.";
                     return 1;
                 };
                 if(projection>=panoProjectionFormatCount())
                 {
-                    cerr << "projection " << projection << " is an invalid projection number.";
+                    std::cerr << "projection " << projection << " is an invalid projection number.";
                     return 1;
                 };
                 break;
@@ -228,7 +224,7 @@ int main(int argc, char* argv[])
                         }
                         else
                         {
-                            cerr << "Invalid field of view" << endl;
+                            std::cerr << "Invalid field of view" << std::endl;
                             return 1;
                         };
                     }
@@ -243,13 +239,13 @@ int main(int argc, char* argv[])
                             }
                             else
                             {
-                                cerr << "Invalid field of view" << endl;
+                                std::cerr << "Invalid field of view" << std::endl;
                                 return 1;
                             };
                         }
                         else
                         {
-                            cerr << "Could not parse field of view" << endl;
+                            std::cerr << "Could not parse field of view" << std::endl;
                             return 1;
                         };
                     };
@@ -272,13 +268,13 @@ int main(int argc, char* argv[])
                 else
                 {
                     int pos=param.find("%");
-                    if(pos!=string::npos)
+                    if(pos!=std::string::npos)
                     {
                         param=param.substr(0,pos);
                         scale=atoi(param.c_str());
                         if(scale==0)
                         {
-                            cerr << "No valid scale factor given." << endl;
+                            std::cerr << "No valid scale factor given." << std::endl;
                             return 1;
                         };
                         doOptimalSize=true;
@@ -296,13 +292,13 @@ int main(int argc, char* argv[])
                             }
                             else
                             {
-                                cerr << "Invalid canvas size" << endl;
+                                std::cerr << "Invalid canvas size" << std::endl;
                                 return 1;
                             };
                         }
                         else
                         {
-                            cerr << "Could not parse canvas size" << endl;
+                            std::cerr << "Could not parse canvas size" << std::endl;
                             return 1;
                         };
                     };
@@ -333,13 +329,13 @@ int main(int argc, char* argv[])
                         }
                         else
                         {
-                            cerr << "Invalid crop area" << endl;
+                            std::cerr << "Invalid crop area" << std::endl;
                             return 1;
                         };
                     }
                     else
                     {
-                        cerr << "Could not parse crop values" << endl;
+                        std::cerr << "Could not parse crop values" << std::endl;
                         return 1;
                     };
                 };
@@ -362,7 +358,7 @@ int main(int argc, char* argv[])
                     int n = sscanf(optarg, "%lf", &outputExposure);
                     if (n != 1)
                     {
-                        cerr << "Could not parse output exposure value.";
+                        std::cerr << "Could not parse output exposure value.";
                         return 1;
                     };
                 };
@@ -394,7 +390,7 @@ int main(int argc, char* argv[])
                     int n=sscanf(optarg, "%lf,%lf,%lf", &yaw, &pitch, &roll);
                     if(n!=3)
                     {
-                        cerr << "Could not parse rotate angles values. Given: \"" << optarg << "\"" << endl;
+                        std::cerr << "Could not parse rotate angles values. Given: \"" << optarg << "\"" << std::endl;
                         return 1;
                     };
                 };
@@ -404,13 +400,13 @@ int main(int argc, char* argv[])
                     int n=sscanf(optarg, "%lf,%lf,%lf", &x, &y, &z);
                     if(n!=3)
                     {
-                        cerr << "Could not parse translation values. Given: \"" << optarg << "\"" << endl;
+                        std::cerr << "Could not parse translation values. Given: \"" << optarg << "\"" << std::endl;
                         return 1;
                     };
                 };
                 break;
             case ':':
-                cerr <<"Option " << longOptions[optionIndex].name << " requires a number" << endl;
+                std::cerr <<"Option " << longOptions[optionIndex].name << " requires a number" << std::endl;
                 return 1;
                 break;
             case '?':
@@ -422,7 +418,7 @@ int main(int argc, char* argv[])
 
     if (argc - optind != 1)
     {
-        cout << "Warning: pano_modify can only work on one project file at one time" << endl << endl;
+        std::cout << "Warning: pano_modify can only work on one project file at one time" << std::endl << std::endl;
         usage(hugin_utils::stripPath(argv[0]).c_str());
         return 1;
     };
@@ -438,40 +434,40 @@ int main(int argc, char* argv[])
         doFit=true;
     };
 
-    string input=argv[optind];
+    std::string input=argv[optind];
     // read panorama
-    Panorama pano;
-    ifstream prjfile(input.c_str());
+    HuginBase::Panorama pano;
+    std::ifstream prjfile(input.c_str());
     if (!prjfile.good())
     {
-        cerr << "could not open script : " << input << endl;
+        std::cerr << "could not open script : " << input << std::endl;
         return 1;
     }
     pano.setFilePrefix(hugin_utils::getPathPrefix(input));
-    DocumentData::ReadWriteError err = pano.readData(prjfile);
-    if (err != DocumentData::SUCCESSFUL)
+    AppBase::DocumentData::ReadWriteError err = pano.readData(prjfile);
+    if (err != AppBase::DocumentData::SUCCESSFUL)
     {
-        cerr << "error while parsing panos tool script: " << input << endl;
-        cerr << "DocumentData::ReadWriteError code: " << err << endl;
+        std::cerr << "error while parsing panos tool script: " << input << std::endl;
+        std::cerr << "DocumentData::ReadWriteError code: " << err << std::endl;
         return 1;
     }
 
     // sets the projection
     if(projection!=-1)
     {
-        PanoramaOptions opt=pano.getOptions();
-        opt.setProjection((PanoramaOptions::ProjectionFormat)projection);
+        HuginBase::PanoramaOptions opt = pano.getOptions();
+        opt.setProjection((HuginBase::PanoramaOptions::ProjectionFormat)projection);
         pano_projection_features proj;
         if (panoProjectionFeaturesQuery(projection, &proj))
         {
-            cout << "Setting projection to " << proj.name << endl;
+            std::cout << "Setting projection to " << proj.name << std::endl;
         }
         pano.setOptions(opt);
     };
     // output exposure value
     if (outputExposure > -1000 || calcMeanExposure)
     {
-        PanoramaOptions opt = pano.getOptions();
+        HuginBase::PanoramaOptions opt = pano.getOptions();
         if (calcMeanExposure)
         {
             opt.outputExposureValue = HuginBase::CalculateMeanExposure::calcMeanExposure(pano);
@@ -486,7 +482,7 @@ int main(int argc, char* argv[])
     // output type: normal, fused, hdr pano..
     if (!outputType.empty())
     {
-        PanoramaOptions opt = pano.getOptions();
+        HuginBase::PanoramaOptions opt = pano.getOptions();
         // reset all output
         // final pano
         opt.outputLDRBlended = false;
@@ -604,17 +600,17 @@ int main(int argc, char* argv[])
     // blender type
     if (!blender.empty())
     {
-        PanoramaOptions opt = pano.getOptions();
+        HuginBase::PanoramaOptions opt = pano.getOptions();
         if (blender == "enblend")
         {
-            opt.blendMode = PanoramaOptions::ENBLEND_BLEND;
+            opt.blendMode = HuginBase::PanoramaOptions::ENBLEND_BLEND;
             std::cout << "Setting blender type to \"ENBLEND\"." << std::endl;
         }
         else
         {
             if (blender == "internal" || blender == "verdandi")
             {
-                opt.blendMode = PanoramaOptions::INTERNAL_BLEND;
+                opt.blendMode = HuginBase::PanoramaOptions::INTERNAL_BLEND;
                 std::cout << "Setting blender type to \"INTERNAL\"." << std::endl;
             }
             else
@@ -628,7 +624,7 @@ int main(int argc, char* argv[])
     // ldr output file type
     if (!ldrfiletype.empty())
     {
-        PanoramaOptions opt = pano.getOptions();
+        HuginBase::PanoramaOptions opt = pano.getOptions();
         if (ldrfiletype == "jpg" || ldrfiletype == "png" || ldrfiletype == "tif")
         {
             opt.outputImageType = ldrfiletype;
@@ -644,7 +640,7 @@ int main(int argc, char* argv[])
     // ldr compression
     if (!ldrcompression.empty())
     {
-        PanoramaOptions opt = pano.getOptions();
+        HuginBase::PanoramaOptions opt = pano.getOptions();
         if (opt.outputImageType == "tif")
         {
             if (ldrcompression == "NONE" || ldrcompression == "PACKBITS" || ldrcompression == "LZW" || ldrcompression == "DEFLATE")
@@ -702,7 +698,7 @@ int main(int argc, char* argv[])
     // hdr output file type
     if (!hdrfiletype.empty())
     {
-        PanoramaOptions opt = pano.getOptions();
+        HuginBase::PanoramaOptions opt = pano.getOptions();
         if (hdrfiletype == "exr" || hdrfiletype == "tif")
         {
             opt.outputImageTypeHDR = hdrfiletype;
@@ -718,7 +714,7 @@ int main(int argc, char* argv[])
     // hdr compression
     if (!hdrcompression.empty())
     {
-        PanoramaOptions opt = pano.getOptions();
+        HuginBase::PanoramaOptions opt = pano.getOptions();
         if (opt.outputImageTypeHDR == "tif")
         {
             if (hdrcompression == "NONE" || hdrcompression == "PACKBITS" || hdrcompression == "LZW" || hdrcompression == "DEFLATE")
@@ -749,77 +745,77 @@ int main(int argc, char* argv[])
     // rotate complete pano
     if (abs(yaw) + abs(pitch) + abs(roll) > 0.0)
     {
-        cout << "Rotate panorama (yaw=" << yaw << ", pitch= " << pitch << ", roll=" << roll << ")" << endl;
-        RotatePanorama(pano, yaw, pitch, roll).run();
+        std::cout << "Rotate panorama (yaw=" << yaw << ", pitch= " << pitch << ", roll=" << roll << ")" << std::endl;
+        HuginBase::RotatePanorama(pano, yaw, pitch, roll).run();
     };
     // translate complete pano
     if(abs(x) + abs(y) + abs(z) > 0.0)
     {
-        cout << "Translate panorama (x=" << x << ", y=" << y << ", z=" << z << ")" << endl;
-        TranslatePanorama(pano, x, y, z).run();
+        std::cout << "Translate panorama (x=" << x << ", y=" << y << ", z=" << z << ")" << std::endl;
+        HuginBase::TranslatePanorama(pano, x, y, z).run();
     };
     // straighten
     if(doStraighten)
     {
-        cout << "Straighten panorama" << endl;
-        StraightenPanorama(pano).run();
-        CenterHorizontally(pano).run();
+        std::cout << "Straighten panorama" << std::endl;
+        HuginBase::StraightenPanorama(pano).run();
+        HuginBase::CenterHorizontally(pano).run();
     };
     // center
     if(doCenter)
     {
-        cout << "Center panorama" << endl;
-        CenterHorizontally(pano).run();
+        std::cout << "Center panorama" << std::endl;
+        HuginBase::CenterHorizontally(pano).run();
     }
     //fit fov
     if(doFit)
     {
-        cout << "Fit panorama field of view to best size" << endl;
-        PanoramaOptions opt=pano.getOptions();
-        CalculateFitPanorama fitPano = CalculateFitPanorama(pano);
+        std::cout << "Fit panorama field of view to best size" << std::endl;
+        HuginBase::PanoramaOptions opt = pano.getOptions();
+        HuginBase::CalculateFitPanorama fitPano(pano);
         fitPano.run();
         opt.setHFOV(fitPano.getResultHorizontalFOV());
-        opt.setHeight(roundi(fitPano.getResultHeight()));
-        cout << "Setting field of view to " << opt.getHFOV() << " x " << opt.getVFOV() << endl;
+        opt.setHeight(hugin_utils::roundi(fitPano.getResultHeight()));
+        std::cout << "Setting field of view to " << opt.getHFOV() << " x " << opt.getVFOV() << std::endl;
         pano.setOptions(opt);
     };
     //set field of view manually
     if(newHFOV>0)
     {
-        PanoramaOptions opt=pano.getOptions();
+        HuginBase::PanoramaOptions opt = pano.getOptions();
         opt.setHFOV(newHFOV);
         if(opt.fovCalcSupported(opt.getProjection()) && newVFOV>0)
         {
             opt.setVFOV(newVFOV);
         }
-        cout << "Setting field of view to " << opt.getHFOV() << " x " << opt.getVFOV() << endl;
+        std::cout << "Setting field of view to " << opt.getHFOV() << " x " << opt.getVFOV() << std::endl;
         pano.setOptions(opt);
     };
     // calc optimal size
     if(doOptimalSize)
     {
-        cout << "Calculate optimal size of panorama" << endl;
-        double s = CalculateOptimalScale::calcOptimalScale(pano);
-        PanoramaOptions opt=pano.getOptions();
-        opt.setWidth(roundi(opt.getWidth()*s*scale/100), true);
-        cout << "Setting canvas size to " << opt.getWidth() << " x " << opt.getHeight() << endl;
+        std::cout << "Calculate optimal size of panorama" << std::endl;
+        double s = HuginBase::CalculateOptimalScale::calcOptimalScale(pano);
+        HuginBase::PanoramaOptions opt = pano.getOptions();
+        opt.setWidth(hugin_utils::roundi(opt.getWidth()*s*scale/100), true);
+        std::cout << "Setting canvas size to " << opt.getWidth() << " x " << opt.getHeight() << std::endl;
         pano.setOptions(opt);
     };
     // set canvas size
     if(newWidth>0 && newHeight>0)
     {
-        PanoramaOptions opt=pano.getOptions();
+        HuginBase::PanoramaOptions opt = pano.getOptions();
         opt.setWidth(newWidth);
         opt.setHeight(newHeight);
-        cout << "Setting canvas size to " << opt.getWidth() << " x " << opt.getHeight() << endl;
+        std::cout << "Setting canvas size to " << opt.getWidth() << " x " << opt.getHeight() << std::endl;
         pano.setOptions(opt);
     };
     // auto crop
     if(doAutocrop)
     {
-        cout << "Searching for best crop rectangle" << endl;
-        DummyProgressDisplay dummy;
-        CalculateOptimalROI cropPano(pano, &dummy);
+        std::cout << "Searching for best crop rectangle" << std::endl;
+        AppBase::DummyProgressDisplay dummy;
+        HuginBase::CalculateOptimalROI cropPano(pano, &dummy);
         if(autocropHDR)
         {
             cropPano.setStacks(getHDRStacks(pano,pano.getActiveImages(), pano.getOptions()));
@@ -827,40 +823,40 @@ int main(int argc, char* argv[])
         cropPano.run();
 
         vigra::Rect2D roi=cropPano.getResultOptimalROI();
-        PanoramaOptions opt = pano.getOptions();
+        HuginBase::PanoramaOptions opt = pano.getOptions();
         //set the ROI - fail if the right/bottom is zero, meaning all zero
         if(!roi.isEmpty())
         {
             opt.setROI(roi);
-            cout << "Set crop size to " << roi.left() << "," << roi.top() << "," << roi.right() << "," << roi.bottom() << endl;
+            std::cout << "Set crop size to " << roi.left() << "," << roi.top() << "," << roi.right() << "," << roi.bottom() << std::endl;
             pano.setOptions(opt);
         }
         else
         {
-            cout << "Could not find best crop rectangle" << endl;
+            std::cout << "Could not find best crop rectangle" << std::endl;
         }
     };
     //setting crop rectangle manually
     if(newROI.right() != 0 && newROI.bottom() != 0)
     {
-        PanoramaOptions opt = pano.getOptions();
+        HuginBase::PanoramaOptions opt = pano.getOptions();
         opt.setROI(newROI);
-        cout << "Set crop size to " << newROI.left() << "," << newROI.right() << "," << newROI.top() << "," << newROI.bottom() << endl;
+        std::cout << "Set crop size to " << newROI.left() << "," << newROI.right() << "," << newROI.top() << "," << newROI.bottom() << std::endl;
         pano.setOptions(opt);
     };
 
     //write output
-    OptimizeVector optvec = pano.getOptimizeVector();
-    UIntSet imgs;
+    HuginBase::OptimizeVector optvec = pano.getOptimizeVector();
+    HuginBase::UIntSet imgs;
     fill_set(imgs,0, pano.getNrOfImages()-1);
     // Set output .pto filename if not given
     if (output=="")
     {
         output=input.substr(0,input.length()-4).append("_mod.pto");
     }
-    ofstream of(output.c_str());
+    std::ofstream of(output.c_str());
     pano.printPanoramaScript(of, optvec, pano.getOptions(), imgs, false, hugin_utils::getPathPrefix(input));
 
-    cout << endl << "Written output to " << output << endl;
+    std::cout << std::endl << "Written output to " << output << std::endl;
     return 0;
 }

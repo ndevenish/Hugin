@@ -102,10 +102,10 @@ private:
 
 struct SortFilename
 {
-    bool operator() (const SrcPanoImage* img1, const SrcPanoImage* img2);
+    bool operator() (const HuginBase::SrcPanoImage* img1, const HuginBase::SrcPanoImage* img2);
 };
 
-typedef set<SrcPanoImage*,SortFilename> ImageSet;
+typedef std::set<HuginBase::SrcPanoImage*, SortFilename> ImageSet;
 
 class PossiblePano
 {
@@ -124,9 +124,9 @@ public:
     ~PossiblePano();
     /** return true, if the image could belong to the given PossiblePano,
       * it checks camera maker and model, focal length, image size and date/time */
-    bool BelongsTo(SrcPanoImage* img,const wxTimeSpan max_time_diff);
+    bool BelongsTo(HuginBase::SrcPanoImage* img, const wxTimeSpan max_time_diff);
     /** adds the given SrcPanoImage to this pano-group */
-    void AddSrcPanoImage(SrcPanoImage* img);
+    void AddSrcPanoImage(HuginBase::SrcPanoImage* img);
     /** returns number of images in this group */
     const unsigned int GetImageCount() const
     {
@@ -154,7 +154,7 @@ public:
 
 private:
     /** does some reformating date/time format */
-    const wxDateTime GetDateTime(const SrcPanoImage* img);
+    const wxDateTime GetDateTime(const HuginBase::SrcPanoImage* img);
     /** returns a given filename, which does not already exists */
     bool GetNewProjectFilename(NamingConvention nc,const wxString basePath, wxFileName& projectFile);
 

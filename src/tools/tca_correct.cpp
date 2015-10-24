@@ -62,15 +62,6 @@
 
 #include <tiff.h>
 
-using namespace vigra;
-using namespace HuginBase;
-using namespace AppBase;
-using namespace std;
-using namespace vigra_ext;
-using namespace HuginBase::PTools;
-using namespace HuginBase::Nona;
-using namespace vigra::functor;
-
 #define DEFAULT_OPTIMISATION_PARAMETER "abcvde"
 
 struct Parameters
@@ -98,11 +89,11 @@ struct Parameters
     std::string alignedPrefix;
     std::string ptoFile;
     std::string ptoOutputFile;
-    string basename;
+    std::string basename;
 
-    string red_name;
-    string green_name;
-    string blue_name;
+    std::string red_name;
+    std::string green_name;
+    std::string blue_name;
 
     double scale;
     int nPoints;
@@ -115,9 +106,9 @@ Parameters g_param;
 // Optimiser code
 struct OptimData
 {
-    PanoramaData& m_pano;
+    HuginBase::PanoramaData& m_pano;
     double huberSigma;
-    const OptimizeVector& m_optvars;
+    const HuginBase::OptimizeVector& m_optvars;
 
     double m_dist[3][3]; // a,b,c for all imgs
     double m_shift[2];   // x,y shift
@@ -127,7 +118,7 @@ struct OptimData
 
     int m_maxIter;
 
-    OptimData(PanoramaData& pano, const OptimizeVector& optvars,
+    OptimData(HuginBase::PanoramaData& pano, const HuginBase::OptimizeVector& optvars,
         double mEstimatorSigma, int maxIter)
         : m_pano(pano), huberSigma(mEstimatorSigma), m_optvars(optvars), m_maxIter(maxIter)
     {
@@ -155,7 +146,7 @@ struct OptimData
                 }
                 else
                 {
-                    cerr << "Unknown parameter detected, ignoring!" << std::endl;
+                    std::cerr << "Unknown parameter detected, ignoring!" << std::endl;
                 }
             }
         }
@@ -183,7 +174,7 @@ struct OptimData
     {
         for (unsigned int i = 0; i < 3; i++)
         {
-            SrcPanoImage img = m_pano.getSrcImage(i);
+            HuginBase::SrcPanoImage img = m_pano.getSrcImage(i);
             m_hfov[i] = img.getHFOV();
             m_dist[i][0] = img.getRadialDistortion()[0];
             m_dist[i][1] = img.getRadialDistortion()[1];
@@ -201,7 +192,7 @@ struct OptimData
     {
         for (unsigned int i = 0; i < 3; i++)
         {
-            SrcPanoImage img = m_pano.getSrcImage(i);
+            HuginBase::SrcPanoImage img = m_pano.getSrcImage(i);
             img.setHFOV(m_hfov[i]);
             std::vector<double> radialDist(4);
             radialDist[0] = m_dist[i][0];
@@ -215,9 +206,9 @@ struct OptimData
     };
 };
 
-void get_optvars(OptimizeVector& _retval)
+void get_optvars(HuginBase::OptimizeVector& _retval)
 {
-    OptimizeVector optvars;
+    HuginBase::OptimizeVector optvars;
     std::set<std::string> vars = g_param.optvars;
     optvars.push_back(vars);
     optvars.push_back(std::set<std::string>());
@@ -241,7 +232,7 @@ static int ptinfoDlg(int command, char* argument)
 
 // Method 0: using PTOptimizer
 //   PTOptimizer minimizes the tangential and sagittal distance between the points
-int optimize_old(Panorama& pano)
+int optimize_old(HuginBase::Panorama& pano)
 {
     if (g_param.verbose == 0)
     {
@@ -250,10 +241,10 @@ int optimize_old(Panorama& pano)
         PT_setInfoDlgFcn(ptinfoDlg);
     };
 
-    OptimizeVector optvars;
+    HuginBase::OptimizeVector optvars;
     get_optvars(optvars);
     pano.setOptimizeVector(optvars);
-    PTools::optimize(pano);
+    HuginBase::PTools::optimize(pano);
     return 0;
 }
 
@@ -289,13 +280,13 @@ void optGetError(double* p, double* x, int m, int n, void* data)
 
     double base_size = std::min(dat->m_center[0], dat->m_center[1]);
 
-    CPVector newCPs;
+    HuginBase::CPVector newCPs;
 
     unsigned int noPts = dat->m_pano.getNrOfCtrlPoints();
     // loop over all points to calculate the error
     for (unsigned int ptIdx = 0; ptIdx < noPts; ptIdx++)
     {
-        const ControlPoint& cp = dat->m_pano.getCtrlPoint(ptIdx);
+        const HuginBase::ControlPoint& cp = dat->m_pano.getCtrlPoint(ptIdx);
 
         double dist_p1 = vigra::hypot(cp.x1 - center[0], cp.y1 - center[1]);
         double dist_p2 = vigra::hypot(cp.x2 - center[0], cp.y2 - center[1]);
@@ -321,7 +312,7 @@ void optGetError(double* p, double* x, int m, int n, void* data)
             x[ptIdx] = corr_dist_p2 - dist_p1;
         }
 
-        ControlPoint newcp = cp;
+        HuginBase::ControlPoint newcp = cp;
         newcp.error = fabs(x[ptIdx]);
         newCPs.push_back(newcp);
 
@@ -350,9 +341,9 @@ int optVis(double* p, double* x, int m, int n, int iter, double sqerror, void* d
 // Method 1: minimize only the center distance difference (sagittal distance) of the points
 //   the tangential distance is not of interest for TCA correction, 
 //   and is caused by the limited accuracy of the fine tune function, especially close the the edge of the fisheye image
-void optimize_new(PanoramaData& pano)
+void optimize_new(HuginBase::PanoramaData& pano)
 {
-    OptimizeVector optvars;
+    HuginBase::OptimizeVector optvars;
     get_optvars(optvars);
 
     int nMaxIter = 1000;
@@ -424,8 +415,8 @@ void optimize_new(PanoramaData& pano)
 
 static void usage(const char* name)
 {
-    cerr << name << ": Parameter estimation of transverse chromatic abberations" << std::endl
-         << name << " version " << hugin_utils::GetHuginVersion() << endl
+    std::cerr << name << ": Parameter estimation of transverse chromatic abberations" << std::endl
+         << name << " version " << hugin_utils::GetHuginVersion() << std::endl
          << std::endl
          << "Usage: " << name  << " [options] <inputfile>" << std::endl
          << "  option are: " << std::endl
@@ -435,40 +426,40 @@ static void usage(const char* name)
          << "    -o optvars    string of variables to optimize (\"abcvde\")" << std::endl
          << "    -r            reset values (this will zero a,b,c,d,e params and set v to 10)" << std::endl
          << "                  makes sense only with -l option" << std::endl
-         << "    -s <scale>    Scale for corner detection" << endl
-         << "    -n <number>   number of points per grid cell (default: 10)" << endl
-         << "    -g <number>   divide image in <number>x<number> grid cells (default: 10)" << endl
+         << "    -s <scale>    Scale for corner detection" << std::endl
+         << "    -n <number>   number of points per grid cell (default: 10)" << std::endl
+         << "    -g <number>   divide image in <number>x<number> grid cells (default: 10)" << std::endl
          << "    -t num        Remove all control points with an error higher than num pixels (default: 1.5)" << std::endl
          << "    -v            Verbose" << std::endl
          << "    --save-into-database  Saves the tca data into Hugin lens database" << std::endl
          << "    -w filename   write PTO file" << std::endl
-         << "    -R <r>        Use this file as red channel" << endl
-         << "    -G <g>        Use this file as green channel" << endl
-         << "    -B <b>        Use this file as blue channel" << endl
-         << endl
-         << "  <inputfile> is the base name of 4 image files:" << endl
-         << "    <inputfile>        Colour file to compute TCA parameters" << endl
-         << "    red_<inputfile>    Red channel of <inputfile>" << endl
-         << "    green_<inputfile>  Green channel of <inputfile>" << endl
-         << "    blue_<inputfile>   Blue channel of <inputfile>" << endl
-         << "    The channel images must be colour images with 3 identical channels." << endl
-         << "    If any of -R, -G, or -B is given, this file name is used instead of the derived name." << endl
-         << endl
-         << "  Output:" << endl
-         << "    commandline arguments for fulla" << endl;
+         << "    -R <r>        Use this file as red channel" << std::endl
+         << "    -G <g>        Use this file as green channel" << std::endl
+         << "    -B <b>        Use this file as blue channel" << std::endl
+         << std::endl
+         << "  <inputfile> is the base name of 4 image files:" << std::endl
+         << "    <inputfile>        Colour file to compute TCA parameters" << std::endl
+         << "    red_<inputfile>    Red channel of <inputfile>" << std::endl
+         << "    green_<inputfile>  Green channel of <inputfile>" << std::endl
+         << "    blue_<inputfile>   Blue channel of <inputfile>" << std::endl
+         << "    The channel images must be colour images with 3 identical channels." << std::endl
+         << "    If any of -R, -G, or -B is given, this file name is used instead of the derived name." << std::endl
+         << std::endl
+         << "  Output:" << std::endl
+         << "    commandline arguments for fulla" << std::endl;
 }
 
 static hugin_omp::Lock lock;
 typedef std::multimap<double, vigra::Diff2D> MapPoints;
 
 template <class ImageType>
-void createCtrlPoints(Panorama& pano, const ImageType& img, int imgRedNr, int imgGreenNr, int imgBlueNr, double scale, int nPoints, unsigned grid)
+void createCtrlPoints(HuginBase::Panorama& pano, const ImageType& img, int imgRedNr, int imgGreenNr, int imgBlueNr, double scale, int nPoints, unsigned grid)
 {
-    vigra::BasicImage<RGBValue<UInt8> > img8(img.size());
+    vigra::BasicImage<vigra::RGBValue<vigra::UInt8> > img8(img.size());
 
     double ratio = 255.0/vigra_ext::LUTTraits<typename ImageType::value_type>::max();
     transformImage(srcImageRange(img), destImage(img8),
-                   Arg1()*Param(ratio));
+        vigra::functor::Arg1()*vigra::functor::Param(ratio));
     if (g_param.verbose > 0)
     {
         std::cout << "image8 size:" << img8.size() << std::endl;
@@ -507,10 +498,10 @@ void createCtrlPoints(Panorama& pano, const ImageType& img, int imgRedNr, int im
     {
         MapPoints points;
         vigra::Rect2D rect(rects[i]);
-        vigra_ext::findInterestPointsPartial(srcImageRange(img8, GreenAccessor<RGBValue<UInt8> >()), rect, scale, 5 * nPoints, points);
+        vigra_ext::findInterestPointsPartial(vigra::srcImageRange(img8, vigra::GreenAccessor<vigra::RGBValue<vigra::UInt8> >()), rect, scale, 5 * nPoints, points);
 
         // loop over all points, starting with the highest corner score
-        CPVector cps;
+        HuginBase::CPVector cps;
         size_t nBad = 0;
         for (MapPoints::const_reverse_iterator it = points.rbegin(); it != points.rend(); ++it)
         {
@@ -521,14 +512,14 @@ void createCtrlPoints(Panorama& pano, const ImageType& img, int imgRedNr, int im
             };
 
             // Green <-> Red
-            ControlPoint p1(imgGreenNr, it->second.x, it->second.y, imgRedNr, it->second.x, it->second.y);
+            HuginBase::ControlPoint p1(imgGreenNr, it->second.x, it->second.y, imgRedNr, it->second.x, it->second.y);
             vigra::Diff2D roundP1(hugin_utils::roundi(p1.x1), hugin_utils::roundi(p1.y1));
             vigra::Diff2D roundP2(hugin_utils::roundi(p1.x2), hugin_utils::roundi(p1.y2));
 
-            vigra_ext::CorrelationResult res = PointFineTune(
-                img8, GreenAccessor<RGBValue<UInt8> >(),
+            vigra_ext::CorrelationResult res = vigra_ext::PointFineTune(
+                img8, vigra::GreenAccessor<vigra::RGBValue<vigra::UInt8> >(),
                 roundP1, templWidth,
-                img8, RedAccessor<RGBValue<UInt8> >(),
+                img8, vigra::RedAccessor<vigra::RGBValue<vigra::UInt8> >(),
                 roundP2, sWidth);
 
             if (res.maxi > 0.98)
@@ -546,13 +537,13 @@ void createCtrlPoints(Panorama& pano, const ImageType& img, int imgRedNr, int im
             };
 
             // Green <-> Blue
-            ControlPoint p2(imgGreenNr, it->second.x, it->second.y, imgBlueNr, it->second.x, it->second.y);
+            HuginBase::ControlPoint p2(imgGreenNr, it->second.x, it->second.y, imgBlueNr, it->second.x, it->second.y);
             roundP1 = vigra::Diff2D(hugin_utils::roundi(p2.x1), hugin_utils::roundi(p2.y1));
             roundP2 = vigra::Diff2D(hugin_utils::roundi(p2.x2), hugin_utils::roundi(p2.y2));
 
-            res = PointFineTune(
-                img8, GreenAccessor<RGBValue<UInt8> >(), roundP1, templWidth,
-                img8, BlueAccessor<RGBValue<UInt8> >(), roundP2, sWidth);
+            res = vigra_ext::PointFineTune(
+                img8, vigra::GreenAccessor<vigra::RGBValue<vigra::UInt8> >(), roundP1, templWidth,
+                img8, vigra::BlueAccessor<vigra::RGBValue<vigra::UInt8> >(), roundP2, sWidth);
 
             if (res.maxi > 0.98)
             {
@@ -572,12 +563,12 @@ void createCtrlPoints(Panorama& pano, const ImageType& img, int imgRedNr, int im
         {
             std::ostringstream buf;
             buf << "Number of good matches: " << cps.size() << ", bad matches: " << nBad << std::endl;
-            cout << buf.str();
+            std::cout << buf.str();
         }
         if (!cps.empty())
         {
             hugin_omp::ScopedLock sl(lock);
-            for (CPVector::const_iterator it = cps.begin(); it != cps.end(); ++it)
+            for (HuginBase::CPVector::const_iterator it = cps.begin(); it != cps.end(); ++it)
             {
                 pano.addCtrlPoint(*it);
             };
@@ -585,7 +576,7 @@ void createCtrlPoints(Panorama& pano, const ImageType& img, int imgRedNr, int im
     };
 };
 
-int main2(Panorama& pano);
+int main2(HuginBase::Panorama& pano);
 
 template <class PixelType>
 int processImg(const char* filename)
@@ -603,17 +594,17 @@ int processImg(const char* filename)
 
         if (!(bands == 3 || (bands == 4 && extraBands == 1)))
         {
-            cerr << "Unsupported number of bands!";
+            std::cerr << "Unsupported number of bands!";
             exit(-1);
         }
 
         vigra::importImageAlpha(imgInfo, destImage(imgOrig), destImage(alpha));
-        Panorama pano;
+        HuginBase::Panorama pano;
         // add the first image to the panorama object
-        StandardImageVariableGroups variable_groups(pano);
-        ImageVariableGroup& lenses = variable_groups.getLenses();
+        HuginBase::StandardImageVariableGroups variable_groups(pano);
+        HuginBase::ImageVariableGroup& lenses = variable_groups.getLenses();
 
-        string red_name;
+        std::string red_name;
         if( g_param.red_name.size())
         {
             red_name=g_param.red_name;
@@ -623,9 +614,9 @@ int processImg(const char* filename)
             red_name=std::string("red_")+filename;
         }
 
-        SrcPanoImage srcRedImg;
+        HuginBase::SrcPanoImage srcRedImg;
         srcRedImg.setSize(imgInfo.size());
-        srcRedImg.setProjection(SrcPanoImage::RECTILINEAR);
+        srcRedImg.setProjection(HuginBase::SrcPanoImage::RECTILINEAR);
         srcRedImg.setHFOV(10);
         srcRedImg.setCropFactor(1);
         srcRedImg.setFilename(red_name);
@@ -633,7 +624,7 @@ int processImg(const char* filename)
         lenses.updatePartNumbers();
         lenses.switchParts(imgRedNr, 0);
 
-        string green_name;
+        std::string green_name;
         if( g_param.green_name.size())
         {
             green_name=g_param.green_name;
@@ -643,9 +634,9 @@ int processImg(const char* filename)
             green_name=std::string("green_")+filename;
         }
 
-        SrcPanoImage srcGreenImg;
+        HuginBase::SrcPanoImage srcGreenImg;
         srcGreenImg.setSize(imgInfo.size());
-        srcGreenImg.setProjection(SrcPanoImage::RECTILINEAR);
+        srcGreenImg.setProjection(HuginBase::SrcPanoImage::RECTILINEAR);
         srcGreenImg.setHFOV(10);
         srcGreenImg.setCropFactor(1);
         srcGreenImg.setFilename(green_name);
@@ -653,7 +644,7 @@ int processImg(const char* filename)
         lenses.updatePartNumbers();
         lenses.switchParts(imgGreenNr, 0);
 
-        string blue_name;
+        std::string blue_name;
         if( g_param.blue_name.size())
         {
             blue_name=g_param.blue_name;
@@ -663,9 +654,9 @@ int processImg(const char* filename)
             blue_name=std::string("blue_")+filename;
         }
 
-        SrcPanoImage srcBlueImg;
+        HuginBase::SrcPanoImage srcBlueImg;
         srcBlueImg.setSize(imgInfo.size());
-        srcBlueImg.setProjection(SrcPanoImage::RECTILINEAR);
+        srcBlueImg.setProjection(HuginBase::SrcPanoImage::RECTILINEAR);
         srcBlueImg.setHFOV(10);
         srcBlueImg.setCropFactor(1);
         srcBlueImg.setFilename(blue_name);
@@ -675,18 +666,18 @@ int processImg(const char* filename)
 
         // lens variables are linked by default. Unlink the field of view and
         // the radial distortion.
-        lenses.unlinkVariablePart(ImageVariableGroup::IVE_HFOV, 0);
-        lenses.unlinkVariablePart(ImageVariableGroup::IVE_RadialDistortion, 0);
+        lenses.unlinkVariablePart(HuginBase::ImageVariableGroup::IVE_HFOV, 0);
+        lenses.unlinkVariablePart(HuginBase::ImageVariableGroup::IVE_RadialDistortion, 0);
 
         // setup output to be exactly similar to input image
-        PanoramaOptions opts;
-        opts.setProjection(PanoramaOptions::RECTILINEAR);
+        HuginBase::PanoramaOptions opts;
+        opts.setProjection(HuginBase::PanoramaOptions::RECTILINEAR);
         opts.setHFOV(srcGreenImg.getHFOV(), false);
         opts.setWidth(srcGreenImg.getSize().x, false);
         opts.setHeight(srcGreenImg.getSize().y);
 
         // output to tiff format
-        opts.outputFormat = PanoramaOptions::TIFF_m;
+        opts.outputFormat = HuginBase::PanoramaOptions::TIFF_m;
         opts.tiff_saveROI = false;
         // m estimator, to be more robust against points on moving objects
         opts.huberSigma = 0.5;
@@ -698,7 +689,7 @@ int processImg(const char* filename)
     }
     catch (std::exception& e)
     {
-        cerr << "ERROR: caught exception: " << e.what() << std::endl;
+        std::cerr << "ERROR: caught exception: " << e.what() << std::endl;
         return 1;
     }
     return 0;
@@ -706,30 +697,30 @@ int processImg(const char* filename)
 
 int processPTO(const char* filename)
 {
-    Panorama pano;
+    HuginBase::Panorama pano;
 
-    ifstream ptofile(filename);
+    std::ifstream ptofile(filename);
     if (ptofile.bad())
     {
-        cerr << "could not open script : " << filename << std::endl;
+        std::cerr << "could not open script : " << filename << std::endl;
         return 1;
     }
     pano.setFilePrefix(hugin_utils::getPathPrefix(filename));
     AppBase::DocumentData::ReadWriteError err = pano.readData(ptofile);
     if (err != AppBase::DocumentData::SUCCESSFUL)
     {
-        cerr << "error while parsing script: " << filename << std::endl;
+        std::cerr << "error while parsing script: " << filename << std::endl;
         return 1;
     }
 
     return main2(pano);
 }
 
-void resetValues(Panorama& pano)
+void resetValues(HuginBase::Panorama& pano)
 {
     for (unsigned int i=0; i < 3; i++)
     {
-        SrcPanoImage img = pano.getSrcImage(i);
+        HuginBase::SrcPanoImage img = pano.getSrcImage(i);
 
         img.setHFOV(10);
 
@@ -746,7 +737,7 @@ void resetValues(Panorama& pano)
     }
 }
 
-void print_result(Panorama& pano)
+void print_result(HuginBase::Panorama& pano)
 {
     double dist[3][3]; // a,b,c for all imgs
     double shift[2];   // x,y shift
@@ -754,7 +745,7 @@ void print_result(Panorama& pano)
 
     for (unsigned int i=0; i < 3; i++)
     {
-        SrcPanoImage img = pano.getSrcImage(i);
+        HuginBase::SrcPanoImage img = pano.getSrcImage(i);
         hfov[i] = img.getHFOV();
         dist[i][0] = img.getRadialDistortion()[0];
         dist[i][1] = img.getRadialDistortion()[1];
@@ -798,7 +789,7 @@ void print_result(Panorama& pano)
     {
         // save information into database
         // read EXIF data, using routines of HuginBase::SrcPanoImage
-        SrcPanoImage img;
+        HuginBase::SrcPanoImage img;
         img.setFilename(g_param.basename);
         img.readEXIF();
         std::string lensname = img.getDBLensName();
@@ -863,7 +854,7 @@ void print_result(Panorama& pano)
     }
 }
 
-int main2(Panorama& pano)
+int main2(HuginBase::Panorama& pano)
 {
     if (g_param.reset)
     {
@@ -882,15 +873,15 @@ int main2(Panorama& pano)
         }
         else
         {
-            cerr << "Unknown optimizer strategy." << endl
-                << "Using newfit method." << endl;
+            std::cerr << "Unknown optimizer strategy." << std::endl
+                << "Using newfit method." << std::endl;
             g_param.optMethod = 1;
             optimize_new(pano);
         };
 
-        CPVector cps = pano.getCtrlPoints();
-        CPVector newCPs;
-        for (CPVector::const_iterator it = cps.begin(); it != cps.end(); ++it)
+        HuginBase::CPVector cps = pano.getCtrlPoints();
+        HuginBase::CPVector newCPs;
+        for (HuginBase::CPVector::const_iterator it = cps.begin(); it != cps.end(); ++it)
         {
             if (it->error < g_param.cpErrorThreshold)
             {
@@ -899,7 +890,7 @@ int main2(Panorama& pano)
         }
         if (g_param.verbose > 0)
         {
-            cerr << "Ctrl points before pruning: " << cps.size() << ", after: " << newCPs.size() << std::endl;
+            std::cerr << "Ctrl points before pruning: " << cps.size() << ", after: " << newCPs.size() << std::endl;
         }
         pano.setCtrlPoints(newCPs);
 
@@ -912,9 +903,9 @@ int main2(Panorama& pano)
 
     if (!g_param.ptoOutputFile.empty())
     {
-        OptimizeVector optvars;
+        HuginBase::OptimizeVector optvars;
         get_optvars(optvars);
-        UIntSet allImgs;
+        HuginBase::UIntSet allImgs;
         fill_set(allImgs, 0, pano.getNrOfImages() - 1);
         std::ofstream script(g_param.ptoOutputFile.c_str());
         pano.printPanoramaScript(script, optvars, pano.getOptions(), allImgs, true, "");
@@ -979,7 +970,7 @@ int main(int argc, char* argv[])
                 g_param.cpErrorThreshold = atof(optarg);
                 if (g_param.cpErrorThreshold <= 0)
                 {
-                    cerr << "Invalid parameter: control point error threshold (-t) must be greater than 0" << std::endl;
+                    std::cerr << "Invalid parameter: control point error threshold (-t) must be greater than 0" << std::endl;
                     return 1;
                 }
                 break;
@@ -1011,7 +1002,7 @@ int main(int argc, char* argv[])
                 g_param.saveDB = true;
                 break;
             default:
-                cerr << "Invalid parameter: '" << argv[optind-1] << " " << optarg << "'" << std::endl;
+                std::cerr << "Invalid parameter: '" << argv[optind-1] << " " << optarg << "'" << std::endl;
                 usage(hugin_utils::stripPath(argv[0]).c_str());
                 return 1;
         }
@@ -1037,7 +1028,7 @@ int main(int argc, char* argv[])
     // Program will crash if nothing is to be optimised.
     if ( g_param.optvars.empty())
     {
-        cerr << "No parameters to optimize." << endl;
+        std::cerr << "No parameters to optimize." << std::endl;
         usage(hugin_utils::stripPath(argv[0]).c_str());
         return 1;
     }
@@ -1049,19 +1040,19 @@ int main(int argc, char* argv[])
         std::string pixelType = firstImgInfo.getPixelType();
         if (pixelType == "UINT8")
         {
-            return processImg<RGBValue<UInt8> >(argv[optind]);
+            return processImg<vigra::RGBValue<vigra::UInt8> >(argv[optind]);
         }
         else if (pixelType == "INT16")
         {
-            return processImg<RGBValue<Int16> >(argv[optind]);
+            return processImg<vigra::RGBValue<vigra::Int16> >(argv[optind]);
         }
         else if (pixelType == "UINT16")
         {
-            return processImg<RGBValue<UInt16> >(argv[optind]);
+            return processImg<vigra::RGBValue<vigra::UInt16> >(argv[optind]);
         }
         else
         {
-            cerr << " ERROR: unsupported pixel type: " << pixelType << std::endl;
+            std::cerr << " ERROR: unsupported pixel type: " << pixelType << std::endl;
             return 1;
         }
     }

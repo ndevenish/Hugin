@@ -28,8 +28,6 @@ Copyright (c) 2002-3 Adriaan Tijsseling
 #include <cstring>
 #include "PGMImage.h"
 
-using namespace std; 
-
 namespace celeste
 {
 // read PGM image from file
@@ -37,15 +35,15 @@ int PGMImage::Read( char* file )
 {
 	int			i,j;
 	char		buf[256];
-	ifstream	imgFile( file );
+	std::ifstream	imgFile( file );
 
 	if ( !imgFile ) // Invalid FileName
 	{
-		cerr << "invalid filename: \"" << file << "\"" << endl;
+		std::cerr << "invalid filename: \"" << file << "\"" << std::endl;
 		exit(1);
 		return 0;
 	}
-	if ( mVerbosity ) cerr << "reading image from file \"" << file << "\"" << endl;
+	if ( mVerbosity ) std::cerr << "reading image from file \"" << file << "\"" << std::endl;
 
 // get file type
 	imgFile.getline( mMagicNumber, 256 );
@@ -72,7 +70,7 @@ int PGMImage::Read( char* file )
 
 // determine number of bits given image level
 	mNumBits = (int)( log( (float)( mNumLevels+2 ) )/log( 2.0 ) );
-	if ( mVerbosity ) cerr << "[" << mNumBits << "-bit ";
+	if ( mVerbosity ) std::cerr << "[" << mNumBits << "-bit ";
 
 // read pixels
 	if ( mMagicNumber[1] == '5' || mMagicNumber[1] == '2' )	  // GrayScale
@@ -82,13 +80,13 @@ int PGMImage::Read( char* file )
 
 		if ( mMagicNumber[1] == '5' )		// RAWBITs
 		{
-			if ( mVerbosity ) cerr << "GrayScale RAWBITs PGM format]";
+			if ( mVerbosity ) std::cerr << "GrayScale RAWBITs PGM format]";
 			for ( i = 0; i < mHeight; i++ )
 				imgFile.read( (char *)mPixels[i], mWidth );
 		}
 		else								// ASCII
 		{
-			if ( mVerbosity ) cerr << "GrayScale ASCII PGM format]";
+			if ( mVerbosity ) std::cerr << "GrayScale ASCII PGM format]";
 			for ( i = 0; i < mHeight; i++ )
 			{
 				for ( j = 0; j < mWidth; j++ )
@@ -107,7 +105,7 @@ int PGMImage::Read( char* file )
 		
 		if ( mMagicNumber[1] == '6' )	// RAWBITs
 		{
-			if ( mVerbosity ) cerr << "RGB RAWBITs PPM format]";
+			if ( mVerbosity ) std::cerr << "RGB RAWBITs PPM format]";
 			for ( i = 0; i < mHeight; i++ )
 				for ( j = 0; j < mWidth; j++ )
 				{
@@ -120,7 +118,7 @@ int PGMImage::Read( char* file )
 		}
 		else							// ASCII
 		{
-			if ( mVerbosity ) cerr << "RGB ASCII PPM format]";
+			if ( mVerbosity ) std::cerr << "RGB ASCII PPM format]";
 			for ( i = 0; i < mHeight; i++ )
 				for ( j = 0; j < mWidth; j++ )
 				{
@@ -137,7 +135,7 @@ int PGMImage::Read( char* file )
 
 		if ( mMagicNumber[1] == '4' )		// RAWBITs
 		{
-			if ( mVerbosity ) cerr << "Binary RAWBITs PBM format]";
+			if ( mVerbosity ) std::cerr << "Binary RAWBITs PBM format]";
 			for ( i = 0; i < mHeight; i++ )
 				for ( j = 0; j < mWidth; j += 8 )
 				{
@@ -157,7 +155,7 @@ int PGMImage::Read( char* file )
 		}
 		else
 		{
-			if ( mVerbosity ) cerr << "Binary ASCII PBM format]";
+			if ( mVerbosity ) std::cerr << "Binary ASCII PBM format]";
 			for ( i = 0; i < mHeight; i++ )
 				for ( j = 0; j < mWidth; j++ )
 				{
@@ -175,10 +173,10 @@ int PGMImage::Read( char* file )
 
 	if ( mVerbosity )
 	{
-		cerr << endl;
-		cerr << "\twidth = " << mWidth << endl;
-		cerr << "\theight = " << mHeight << endl;
-		cerr << "\t#pixels = " << mNumPixels << endl;
+		std::cerr << std::endl;
+		std::cerr << "\twidth = " << mWidth << std::endl;
+		std::cerr << "\theight = " << mHeight << std::endl;
+		std::cerr << "\t#pixels = " << mNumPixels << std::endl;
 	}
 	mNumLevels = 255;
 	mNumBits = 8;
@@ -191,24 +189,24 @@ int PGMImage::Read( char* file )
 // write PGM image to file
 void PGMImage::Write( char* file )
 {
-	ofstream outfile( file );
+	std::ofstream outfile( file );
 
 	if ( mVerbosity )
 	{
-		//cerr << "writing " << mWidth << "x" << mHeight;
-		//cerr << " image to file1 \"" << file << "\"...";
+		//std::cerr << "writing " << mWidth << "x" << mHeight;
+		//std::cerr << " image to file1 \"" << file << "\"...";
 	}
-	outfile << mMagicNumber[0] << mMagicNumber[1] << endl;  // 8-bit grayscale
-	outfile << "# grayscale image" << endl;
-	outfile << mWidth << " " << mHeight << endl;
-	outfile << mNumLevels << endl;
+	outfile << mMagicNumber[0] << mMagicNumber[1] << std::endl;  // 8-bit grayscale
+	outfile << "# grayscale image" << std::endl;
+	outfile << mWidth << " " << mHeight << std::endl;
+	outfile << mNumLevels << std::endl;
 
 	for ( int i = 0; i < mHeight; i++ )
 		outfile.write( (char *)mPixels[i], mWidth );
 
 	outfile.close();
 
-	//if ( mVerbosity ) cerr << "done" << endl;
+	//if ( mVerbosity ) std::cerr << "done" << std::endl;
 }
 
 
@@ -239,16 +237,16 @@ void PGMImage::Write( char* filename, float** output, int height, int width )
 // Write a color PPM image in a file
 void PGMImage::Write( char* filename, float*** pixels, int height, int width )
 {
-	ofstream		outfile( filename );
+	std::ofstream outfile( filename );
 	unsigned char	rgb[3];
 	
 	// set dimensions of pixelmap and allocate memory
-	//if ( mVerbosity ) cerr << "writing " << width << "x" << height;
-	//if ( mVerbosity ) cerr << " image to file2 \"" << filename << "\"...";
-	outfile << "P6" << endl;  // 8-bit color
-	outfile << "# color image" << endl;
-	outfile << width << " " << height << endl;
-	outfile << 255 << endl;
+	//if ( mVerbosity ) std::cerr << "writing " << width << "x" << height;
+	//if ( mVerbosity ) std::cerr << " image to file2 \"" << filename << "\"...";
+	outfile << "P6" << std::endl;  // 8-bit color
+	outfile << "# color image" << std::endl;
+	outfile << width << " " << height << std::endl;
+	outfile << 255 << std::endl;
 
 	for ( int i = 0; i < height; i++ )
 		for ( int j = 0; j < width; j++ )
@@ -261,25 +259,25 @@ void PGMImage::Write( char* filename, float*** pixels, int height, int width )
 
 	outfile.close();
 
-	//if ( mVerbosity ) cerr << "done" << endl;
+	//if ( mVerbosity ) std::cerr << "done" << std::endl;
 }
 
 
 // Write a one-channel color PPM image in a file
 void PGMImage::Write( char* filename, float** pixels, int height, int width, int channel )
 {
-	ofstream		outfile( filename );
+	std::ofstream outfile( filename );
 	unsigned char	rgb[3];
     float			max, min, maxmin;
 	int				i, j;
 	
 	// set dimensions of pixelmap and allocate memory
-	//if ( mVerbosity ) cerr << "writing " << width << "x" << height;
-	//if ( mVerbosity ) cerr << " image to file3 \"" << filename << "\"...";
-	outfile << "P6" << endl;  // 8-bit color
-	outfile << "# color image" << endl;
-	outfile << width << " " << height << endl;
-	outfile << 255 << endl;
+	//if ( mVerbosity ) std::cerr << "writing " << width << "x" << height;
+	//if ( mVerbosity ) std::cerr << " image to file3 \"" << filename << "\"...";
+	outfile << "P6" << std::endl;  // 8-bit color
+	outfile << "# color image" << std::endl;
+	outfile << width << " " << height << std::endl;
+	outfile << 255 << std::endl;
 
 	// original float values scaled to [0,255]
 	max = min = pixels[0][0];
@@ -328,7 +326,7 @@ void PGMImage::Write( char* filename, float** pixels, int height, int width, int
 
 	outfile.close();
 
-	//if ( mVerbosity ) cerr << "done" << endl;
+	//if ( mVerbosity ) std::cerr << "done" << std::endl;
 }
 
 

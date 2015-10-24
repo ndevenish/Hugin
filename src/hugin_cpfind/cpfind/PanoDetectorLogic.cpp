@@ -48,45 +48,37 @@
 
 #include <time.h>
 
-#define TRACE_IMG(X) {if (iPanoDetector.getVerbose() > 1) { TRACE_INFO("i" << ioImgInfo._number << " : " << X << endl);} }
+#define TRACE_IMG(X) {if (iPanoDetector.getVerbose() > 1) { TRACE_INFO("i" << ioImgInfo._number << " : " << X << std::endl);} }
 #define TRACE_PAIR(X) {if (iPanoDetector.getVerbose() > 1){ TRACE_INFO("i" << ioMatchData._i1->_number << " <> " \
-                "i" << ioMatchData._i2->_number << " : " << X << endl)}}
-
-using namespace std;
-using namespace lfeat;
-using namespace HuginBase;
-using namespace AppBase;
-using namespace HuginBase::Nona;
-using namespace hugin_utils;
-
+                "i" << ioMatchData._i2->_number << " : " << X << std::endl)}}
 
 // define a Keypoint insertor
 class KeyPointVectInsertor : public lfeat::KeyPointInsertor
 {
 public:
-    explicit KeyPointVectInsertor(KeyPointVect_t& iVect) : _v(iVect) {};
+    explicit KeyPointVectInsertor(lfeat::KeyPointVect_t& iVect) : _v(iVect) {};
     inline virtual void operator()(const lfeat::KeyPoint& k)
     {
-        _v.push_back(KeyPointPtr(new lfeat::KeyPoint(k)));
+        _v.push_back(lfeat::KeyPointPtr(new lfeat::KeyPoint(k)));
     }
 
 private:
-    KeyPointVect_t& _v;
+    lfeat::KeyPointVect_t& _v;
 
 };
 
 
 // define a sieve extractor
-class SieveExtractorKP : public lfeat::SieveExtractor<KeyPointPtr>
+class SieveExtractorKP : public lfeat::SieveExtractor<lfeat::KeyPointPtr>
 {
 public:
-    explicit SieveExtractorKP(KeyPointVect_t& iV) : _v(iV) {};
-    inline virtual void operator()(const KeyPointPtr& k)
+    explicit SieveExtractorKP(lfeat::KeyPointVect_t& iV) : _v(iV) {};
+    inline virtual void operator()(const lfeat::KeyPointPtr& k)
     {
         _v.push_back(k);
     }
 private:
-    KeyPointVect_t& _v;
+    lfeat::KeyPointVect_t& _v;
 };
 
 class SieveExtractorMatch : public lfeat::SieveExtractor<lfeat::PointMatchPtr>
@@ -105,14 +97,14 @@ bool PanoDetector::LoadKeypoints(ImgData& ioImgInfo, const PanoDetector& iPanoDe
 {
     TRACE_IMG("Loading keypoints...");
 
-    ImageInfo info = lfeat::loadKeypoints(ioImgInfo._keyfilename, ioImgInfo._kp);
+    lfeat::ImageInfo info = lfeat::loadKeypoints(ioImgInfo._keyfilename, ioImgInfo._kp);
     ioImgInfo._loadFail = (info.filename.size() == 0);
 
     // update ImgData
     if(ioImgInfo._needsremap)
     {
-        ioImgInfo._detectWidth = max(info.width,info.height);
-        ioImgInfo._detectHeight = max(info.width,info.height);
+        ioImgInfo._detectWidth = std::max(info.width,info.height);
+        ioImgInfo._detectHeight = std::max(info.width,info.height);
         ioImgInfo._projOpts.setWidth(ioImgInfo._detectWidth);
         ioImgInfo._projOpts.setHeight(ioImgInfo._detectHeight);
     }
@@ -216,7 +208,7 @@ void HandleDownscaleImage(const HuginBase::SrcPanoImage& srcImage, ImageType*& i
     size_t detectWidth, size_t detectHeight, bool downscale,
     ImageType*& finalImage, vigra::BImage*& finalMask)
 {
-    if (srcImage.hasActiveMasks() || (srcImage.getCropMode() != SrcPanoImage::NO_CROP && !srcImage.getCropRect().isEmpty()))
+    if (srcImage.hasActiveMasks() || (srcImage.getCropMode() != HuginBase::SrcPanoImage::NO_CROP && !srcImage.getCropRect().isEmpty()))
     {
         if (!mask)
         {
@@ -691,7 +683,7 @@ bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDet
     }
     catch (std::exception& e)
     {
-        TRACE_INFO("An error happened while loading image : caught exception: " << e.what() << endl);
+        TRACE_INFO("An error happened while loading image : caught exception: " << e.what() << std::endl);
         ioImgInfo._loadFail=true;
         return false;
     }
@@ -731,7 +723,7 @@ bool PanoDetector::FilterKeyPointsInImage(ImgData& ioImgInfo, const PanoDetector
     const bool distmap_valid=(ioImgInfo._distancemap.width()>0 && ioImgInfo._distancemap.height()>0);
     for (size_t i = 0; i < ioImgInfo._kp.size(); ++i)
     {
-        KeyPointPtr& aK = ioImgInfo._kp[i];
+        lfeat::KeyPointPtr& aK = ioImgInfo._kp[i];
         if(distmap_valid)
         {
             if(aK->_x > 0 && aK->_x < ioImgInfo._distancemap.width() && aK->_y > 0 && aK->_y < ioImgInfo._distancemap.height()
@@ -765,19 +757,19 @@ bool PanoDetector::MakeKeyPointDescriptorsInImage(ImgData& ioImgInfo, const Pano
     TRACE_IMG("Make keypoint descriptors...");
 
     // build a keypoint descriptor
-    CircularKeyPointDescriptor aKPD(ioImgInfo._ii);
+    lfeat::CircularKeyPointDescriptor aKPD(ioImgInfo._ii);
 
     // vector for keypoints with more than one orientation
-    KeyPointVect_t kp_new_ori;
+    lfeat::KeyPointVect_t kp_new_ori;
     for (size_t j = 0; j < ioImgInfo._kp.size(); ++j)
     {
-        KeyPointPtr& aK = ioImgInfo._kp[j];
+        lfeat::KeyPointPtr& aK = ioImgInfo._kp[j];
         double angles[4];
         int nAngles = aKPD.assignOrientation(*aK, angles);
         for (int i=0; i < nAngles; i++)
         {
             // duplicate Keypoint with additional angles
-            KeyPointPtr aKn = KeyPointPtr ( new lfeat::KeyPoint ( *aK ) );
+            lfeat::KeyPointPtr aKn = lfeat::KeyPointPtr ( new lfeat::KeyPoint ( *aK ) );
             aKn->_ori = angles[i];
             kp_new_ori.push_back(aKn);
         }
@@ -804,7 +796,7 @@ bool PanoDetector::RemapBackKeypoints(ImgData& ioImgInfo, const PanoDetector& iP
         {
             for (size_t i = 0; i < ioImgInfo._kp.size(); ++i)
             {
-                KeyPointPtr& aK = ioImgInfo._kp[i];
+                lfeat::KeyPointPtr& aK = ioImgInfo._kp[i];
                 aK->_x *= scale;
                 aK->_y *= scale;
                 aK->_scale *= scale;
@@ -823,7 +815,7 @@ bool PanoDetector::RemapBackKeypoints(ImgData& ioImgInfo, const PanoDetector& iP
 
         for (size_t i = 0; i < ioImgInfo._kp.size(); ++i)
         {
-            KeyPointPtr& aK = ioImgInfo._kp[i];
+            lfeat::KeyPointPtr& aK = ioImgInfo._kp[i];
             double xout, yout;
             if(trafo1.transformImgCoord(xout, yout, aK->_x + dx1, aK->_y+ dy1))
             {
@@ -898,11 +890,11 @@ bool PanoDetector::FindMatchesInPair(MatchData& ioMatchData, const PanoDetector&
     // store the matches already found to avoid 2 points in image1
     // match the same point in image2
     // both matches will be removed.
-    set<int> aAlreadyMatched;
-    set<int> aBadMatch;
+    std::set<int> aAlreadyMatched;
+    std::set<int> aBadMatch;
 
     // unfiltered vector of matches
-    typedef std::pair<KeyPointPtr, int> TmpPair_t;
+    typedef std::pair<lfeat::KeyPointPtr, int> TmpPair_t;
     std::vector<TmpPair_t>	aUnfilteredMatches;
 
     //PointMatchVector_t aMatches;
@@ -955,9 +947,9 @@ bool PanoDetector::FindMatchesInPair(MatchData& ioMatchData, const PanoDetector&
 bool PanoDetector::RansacMatchesInPair(MatchData& ioMatchData, const PanoDetector& iPanoDetector)
 {
     // Use panotools model for wide angle lenses
-    RANSACOptimizer::Mode rmode = iPanoDetector._ransacMode;
-    if (rmode == RANSACOptimizer::HOMOGRAPHY ||
-            (rmode == RANSACOptimizer::AUTO && iPanoDetector._panoramaInfo->getImage(ioMatchData._i1->_number).getHFOV() < 65 &&
+    HuginBase::RANSACOptimizer::Mode rmode = iPanoDetector._ransacMode;
+    if (rmode == HuginBase::RANSACOptimizer::HOMOGRAPHY ||
+        (rmode == HuginBase::RANSACOptimizer::AUTO && iPanoDetector._panoramaInfo->getImage(ioMatchData._i1->_number).getHFOV() < 65 &&
              iPanoDetector._panoramaInfo->getImage(ioMatchData._i2->_number).getHFOV() < 65))
     {
         return RansacMatchesInPairHomography(ioMatchData, iPanoDetector);
@@ -988,7 +980,7 @@ bool PanoDetector::RansacMatchesInPairCam(MatchData& ioMatchData, const PanoDete
 
     // setup a panorama project with the two images.
     // is this threadsafe (is this read only access?)
-    UIntSet imgs;
+    HuginBase::UIntSet imgs;
     int pano_i1 = ioMatchData._i1->_number;
     int pano_i2 = ioMatchData._i2->_number;
     imgs.insert(pano_i1);
@@ -1006,14 +998,14 @@ bool PanoDetector::RansacMatchesInPairCam(MatchData& ioMatchData, const PanoDete
     std::vector<int> inliers;
 #pragma omp critical
     {
-        PanoramaData* panoSubset = iPanoDetector._panoramaInfo->getNewSubset(imgs);
+        HuginBase::PanoramaData* panoSubset = iPanoDetector._panoramaInfo->getNewSubset(imgs);
 
         // create control point vector
-        CPVector controlPoints(ioMatchData._matches.size());
+        HuginBase::CPVector controlPoints(ioMatchData._matches.size());
         for (size_t i = 0; i < ioMatchData._matches.size(); ++i)
         {
-            PointMatchPtr& aM=ioMatchData._matches[i];
-            controlPoints[i] = ControlPoint(pano_local_i1, aM->_img1_x, aM->_img1_y,
+            lfeat::PointMatchPtr& aM=ioMatchData._matches[i];
+            controlPoints[i] = HuginBase::ControlPoint(pano_local_i1, aM->_img1_x, aM->_img1_y,
                                             pano_local_i2, aM->_img2_x, aM->_img2_y);
         }
         panoSubset->setCtrlPoints(controlPoints);
@@ -1022,10 +1014,10 @@ bool PanoDetector::RansacMatchesInPairCam(MatchData& ioMatchData, const PanoDete
         PT_setProgressFcn(ptProgress);
         PT_setInfoDlgFcn(ptinfoDlg);
 
-        RANSACOptimizer::Mode rmode = iPanoDetector._ransacMode;
-        if (rmode == RANSACOptimizer::AUTO)
+        HuginBase::RANSACOptimizer::Mode rmode = iPanoDetector._ransacMode;
+        if (rmode == HuginBase::RANSACOptimizer::AUTO)
         {
-            rmode = RANSACOptimizer::RPY;
+            rmode = HuginBase::RANSACOptimizer::RPY;
         }
         inliers = HuginBase::RANSACOptimizer::findInliers(*panoSubset, pano_local_i1, pano_local_i2,
                   iPanoDetector.getRansacDistanceThreshold(), rmode);
@@ -1052,7 +1044,7 @@ bool PanoDetector::RansacMatchesInPairCam(MatchData& ioMatchData, const PanoDete
     }
 
     // keep only inlier matches
-    PointMatchVector_t aInlierMatches;
+    lfeat::PointMatchVector_t aInlierMatches;
     aInlierMatches.reserve(inliers.size());
 
     for (size_t i = 0; i < inliers.size(); ++i)
@@ -1088,9 +1080,9 @@ bool PanoDetector::RansacMatchesInPairHomography(MatchData& ioMatchData, const P
         return true;
     }
 
-    PointMatchVector_t aRemovedMatches;
+    lfeat::PointMatchVector_t aRemovedMatches;
 
-    Ransac aRansacFilter;
+    lfeat::Ransac aRansacFilter;
     aRansacFilter.setIterations(iPanoDetector.getRansacIterations());
     int thresholdDistance=iPanoDetector.getRansacDistanceThreshold();
     //increase RANSAC distance if the image were remapped to not exclude
@@ -1133,14 +1125,14 @@ bool PanoDetector::FilterMatchesInPair(MatchData& ioMatchData, const PanoDetecto
 
     // compute min,max of x,y for image1
 
-    double aMinX = numeric_limits<double>::max();
-    double aMinY = numeric_limits<double>::max();
-    double aMaxX = -numeric_limits<double>::max();
-    double aMaxY = -numeric_limits<double>::max();
+    double aMinX = std::numeric_limits<double>::max();
+    double aMinY = std::numeric_limits<double>::max();
+    double aMaxX = -std::numeric_limits<double>::max();
+    double aMaxY = -std::numeric_limits<double>::max();
 
     for (size_t i = 0; i < ioMatchData._matches.size(); ++i)
     {
-        PointMatchPtr& aM = ioMatchData._matches[i];
+        lfeat::PointMatchPtr& aM = ioMatchData._matches[i];
         if (aM->_img1_x < aMinX)
         {
             aMinX = aM->_img1_x;
@@ -1165,7 +1157,7 @@ bool PanoDetector::FilterMatchesInPair(MatchData& ioMatchData, const PanoDetecto
 
     //
 
-    Sieve<PointMatchPtr, PointMatchPtrSort> aSieve(iPanoDetector.getSieve2Width(),
+    lfeat::Sieve<lfeat::PointMatchPtr, lfeat::PointMatchPtrSort> aSieve(iPanoDetector.getSieve2Width(),
             iPanoDetector.getSieve2Height(),
             iPanoDetector.getSieve2Size());
 
@@ -1174,7 +1166,7 @@ bool PanoDetector::FilterMatchesInPair(MatchData& ioMatchData, const PanoDetecto
     double aYF = (double)iPanoDetector.getSieve2Height() / aSizeY;
     for (size_t i = 0; i < ioMatchData._matches.size(); ++i)
     {
-        PointMatchPtr& aM = ioMatchData._matches[i];
+        lfeat::PointMatchPtr& aM = ioMatchData._matches[i];
         aSieve.insert(aM, (int)((aM->_img1_x - aMinX) * aXF), (int)((aM->_img1_y - aMinY) * aYF));
     }
 
@@ -1193,21 +1185,21 @@ void PanoDetector::writeOutput()
 {
     // Write output pto file
 
-    ofstream aOut(_outputFile.c_str(), ios_base::trunc);
+    std::ofstream aOut(_outputFile.c_str(), std::ios_base::trunc);
     if( !aOut )
     {
-        cerr << "ERROR : "
-             << "Couldn't open file '" << _outputFile << "'!" << endl; //STS
+        std::cerr << "ERROR : "
+             << "Couldn't open file '" << _outputFile << "'!" << std::endl; //STS
         return;
     }
 
-    aOut << "# pto project file generated by Hugin's cpfind" << endl << endl;
+    aOut << "# pto project file generated by Hugin's cpfind" << std::endl << std::endl;
 
     _panoramaInfo->removeDuplicateCtrlPoints();
     AppBase::DocumentData::ReadWriteError err = _panoramaInfo->writeData(aOut);
     if (err != AppBase::DocumentData::SUCCESSFUL)
     {
-        cerr << "ERROR couldn't write to output file '" << _outputFile << "'!" << endl;
+        std::cerr << "ERROR couldn't write to output file '" << _outputFile << "'!" << std::endl;
         return;
     }
 }
@@ -1216,20 +1208,20 @@ void PanoDetector::writeKeyfile(ImgData& imgInfo)
 {
     // Write output keyfile
 
-    ofstream aOut(imgInfo._keyfilename.c_str(), ios_base::trunc);
+    std::ofstream aOut(imgInfo._keyfilename.c_str(), std::ios_base::trunc);
 
-    SIFTFormatWriter writer(aOut);
+    lfeat::SIFTFormatWriter writer(aOut);
 
     int origImgWidth =  _panoramaInfo->getImage(imgInfo._number).getSize().width();
     int origImgHeight =  _panoramaInfo->getImage(imgInfo._number).getSize().height();
 
-    ImageInfo img_info(imgInfo._name, origImgWidth, origImgHeight);
+    lfeat::ImageInfo img_info(imgInfo._name, origImgWidth, origImgHeight);
 
     writer.writeHeader ( img_info, imgInfo._kp.size(), imgInfo._descLength );
 
     for(size_t i=0; i<imgInfo._kp.size(); ++i)
     {
-        KeyPointPtr& aK=imgInfo._kp[i];
+        lfeat::KeyPointPtr& aK=imgInfo._kp[i];
         writer.writeKeypoint ( aK->_x, aK->_y, aK->_scale, aK->_ori, aK->_score,
                                imgInfo._descLength, aK->_vec );
     }

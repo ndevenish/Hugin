@@ -35,10 +35,6 @@
 #include "wx/odcombo.h"
 #include "wx/xrc/xh_odcombo.h"
 
-
-using namespace std;
-using namespace HuginBase;
-
 /**  Owner Drawn ComboBox for showing connected images on CP tab */
 class CPImagesComboBox : public wxOwnerDrawnComboBox
 {
@@ -49,9 +45,9 @@ public:
                             int item,
                             int WXUNUSED(flags)) const;
     /** Get maximum CP distance for all images pairs containing the reference image	*/
-    void CalcCPDistance(Panorama * pano);
+    void CalcCPDistance(HuginBase::Panorama * pano);
     /** Set new reference image	*/
-    void SetRefImage(Panorama * pano, unsigned int newRefImg)
+    void SetRefImage(HuginBase::Panorama * pano, unsigned int newRefImg)
     {
         refImage=newRefImg;
         CalcCPDistance(pano);

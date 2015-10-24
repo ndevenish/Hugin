@@ -25,9 +25,9 @@
 #include "BoxFilter.h"
 #include "MathStuff.h"
 
-using namespace lfeat;
-
-const double lfeat::KeyPointDetector::kBaseSigma = 1.2;
+namespace lfeat
+{
+const double KeyPointDetector::kBaseSigma = 1.2;
 
 KeyPointDetector::KeyPointDetector()
 {
@@ -45,7 +45,7 @@ KeyPointDetector::KeyPointDetector()
 void KeyPointDetector::detectKeypoints(Image& iImage, KeyPointInsertor& iInsertor)
 {
     // allocate lots of memory for the scales
-    double** * aSH = new double** [_maxScales];
+    double** * aSH = new double**[_maxScales];
     for (unsigned int s = 0; s < _maxScales; ++s)
     {
         aSH[s] = Image::AllocateImage(iImage.getWidth(), iImage.getHeight());
@@ -96,34 +96,34 @@ void KeyPointDetector::detectKeypoints(Image& iImage, KeyPointInsertor& iInserto
         }
 
         // detect the feature points with a 3x3x3 neighborhood non-maxima suppression
-        for (unsigned int aSIt = 1; aSIt < (_maxScales - 1); aSIt +=2)
+        for (unsigned int aSIt = 1; aSIt < (_maxScales - 1); aSIt += 2)
         {
-            const int aBS = aBorderSize[aSIt+1];
-            for (int aYIt = aBS + 1; aYIt < aOctaveHeight - aBS - 1; aYIt+=2)
+            const int aBS = aBorderSize[aSIt + 1];
+            for (int aYIt = aBS + 1; aYIt < aOctaveHeight - aBS - 1; aYIt += 2)
             {
-                for (int aXIt = aBS + 1; aXIt < aOctaveWidth - aBS - 1; aXIt+=2)
+                for (int aXIt = aBS + 1; aXIt < aOctaveWidth - aBS - 1; aXIt += 2)
                 {
                     // find the maximum in the 2x2x2 cube
                     double aTab[8];
 
                     // get the values in a
-                    aTab[0] = aSH[aSIt]  [aYIt]  [aXIt];
-                    aTab[1] = aSH[aSIt]  [aYIt]  [aXIt+1];
-                    aTab[2] = aSH[aSIt]  [aYIt+1][aXIt];
-                    aTab[3] = aSH[aSIt]  [aYIt+1][aXIt+1];
-                    aTab[4] = aSH[aSIt+1][aYIt]  [aXIt];
-                    aTab[5] = aSH[aSIt+1][aYIt]  [aXIt+1];
-                    aTab[6] = aSH[aSIt+1][aYIt+1][aXIt];
-                    aTab[7] = aSH[aSIt+1][aYIt+1][aXIt+1];
+                    aTab[0] = aSH[aSIt][aYIt][aXIt];
+                    aTab[1] = aSH[aSIt][aYIt][aXIt + 1];
+                    aTab[2] = aSH[aSIt][aYIt + 1][aXIt];
+                    aTab[3] = aSH[aSIt][aYIt + 1][aXIt + 1];
+                    aTab[4] = aSH[aSIt + 1][aYIt][aXIt];
+                    aTab[5] = aSH[aSIt + 1][aYIt][aXIt + 1];
+                    aTab[6] = aSH[aSIt + 1][aYIt + 1][aXIt];
+                    aTab[7] = aSH[aSIt + 1][aYIt + 1][aXIt + 1];
 
                     // find the max index without using a loop.
-                    unsigned int a04 = (aTab[0]>aTab[4]?0:4);
-                    unsigned int a15 = (aTab[1]>aTab[5]?1:5);
-                    unsigned int a26 = (aTab[2]>aTab[6]?2:6);
-                    unsigned int a37 = (aTab[3]>aTab[7]?3:7);
-                    unsigned int a0426 = (aTab[a04]>aTab[a26]?a04:a26);
-                    unsigned int a1537 = (aTab[a15]>aTab[a37]?a15:a37);
-                    unsigned int aMaxIdx = (aTab[a0426]>aTab[a1537]?a0426:a1537);
+                    unsigned int a04 = (aTab[0] > aTab[4] ? 0 : 4);
+                    unsigned int a15 = (aTab[1] > aTab[5] ? 1 : 5);
+                    unsigned int a26 = (aTab[2] > aTab[6] ? 2 : 6);
+                    unsigned int a37 = (aTab[3] > aTab[7] ? 3 : 7);
+                    unsigned int a0426 = (aTab[a04] > aTab[a26] ? a04 : a26);
+                    unsigned int a1537 = (aTab[a15] > aTab[a37] ? a15 : a37);
+                    unsigned int aMaxIdx = (aTab[a0426] > aTab[a1537] ? a0426 : a1537);
 
                     // calculate approximate threshold
                     double aApproxThres = _scoreThreshold * 0.8;
@@ -137,15 +137,15 @@ void KeyPointDetector::detectKeypoints(Image& iImage, KeyPointInsertor& iInserto
                     }
 
                     // verify that other missing points in the 3x3x3 cube are also below treshold
-                    int aXShift = 2*(aMaxIdx & 1)-1;
+                    int aXShift = 2 * (aMaxIdx & 1) - 1;
                     int aXAdj = aXIt + (aMaxIdx & 1);
                     aMaxIdx >>= 1;
 
-                    int aYShift = 2*(aMaxIdx & 1)-1;
+                    int aYShift = 2 * (aMaxIdx & 1) - 1;
                     int aYAdj = aYIt + (aMaxIdx & 1);
                     aMaxIdx >>= 1;
 
-                    int aSShift = 2*(aMaxIdx & 1)-1;
+                    int aSShift = 2 * (aMaxIdx & 1) - 1;
                     int aSAdj = aSIt + (aMaxIdx & 1);
 
                     // skip too high scale ajusting
@@ -154,28 +154,28 @@ void KeyPointDetector::detectKeypoints(Image& iImage, KeyPointInsertor& iInserto
                         continue;
                     }
 
-                    if (	(aSH[aSAdj + aSShift][aYAdj - aYShift][aXAdj - 1] > aScore) ||
-                            (aSH[aSAdj + aSShift][aYAdj - aYShift][aXAdj    ] > aScore) ||
-                            (aSH[aSAdj + aSShift][aYAdj - aYShift][aXAdj + 1] > aScore) ||
-                            (aSH[aSAdj + aSShift][aYAdj			][aXAdj - 1] > aScore) ||
-                            (aSH[aSAdj + aSShift][aYAdj			][aXAdj    ] > aScore) ||
-                            (aSH[aSAdj + aSShift][aYAdj			][aXAdj + 1] > aScore) ||
-                            (aSH[aSAdj + aSShift][aYAdj + aYShift][aXAdj - 1] > aScore) ||
-                            (aSH[aSAdj + aSShift][aYAdj + aYShift][aXAdj    ] > aScore) ||
-                            (aSH[aSAdj + aSShift][aYAdj + aYShift][aXAdj + 1] > aScore) ||
+                    if ((aSH[aSAdj + aSShift][aYAdj - aYShift][aXAdj - 1] > aScore) ||
+                        (aSH[aSAdj + aSShift][aYAdj - aYShift][aXAdj] > aScore) ||
+                        (aSH[aSAdj + aSShift][aYAdj - aYShift][aXAdj + 1] > aScore) ||
+                        (aSH[aSAdj + aSShift][aYAdj][aXAdj - 1] > aScore) ||
+                        (aSH[aSAdj + aSShift][aYAdj][aXAdj] > aScore) ||
+                        (aSH[aSAdj + aSShift][aYAdj][aXAdj + 1] > aScore) ||
+                        (aSH[aSAdj + aSShift][aYAdj + aYShift][aXAdj - 1] > aScore) ||
+                        (aSH[aSAdj + aSShift][aYAdj + aYShift][aXAdj] > aScore) ||
+                        (aSH[aSAdj + aSShift][aYAdj + aYShift][aXAdj + 1] > aScore) ||
 
-                            (aSH[aSAdj][		aYAdj + aYShift	][aXAdj - 1] > aScore) ||
-                            (aSH[aSAdj][			aYAdj + aYShift	][aXAdj] > aScore) ||
-                            (aSH[aSAdj][		aYAdj + aYShift	][aXAdj + 1] > aScore) ||
-                            (aSH[aSAdj][	aYAdj			][aXAdj + aXShift] > aScore) ||
-                            (aSH[aSAdj][	aYAdj - aYShift	][aXAdj + aXShift] > aScore) ||
+                        (aSH[aSAdj][aYAdj + aYShift][aXAdj - 1] > aScore) ||
+                        (aSH[aSAdj][aYAdj + aYShift][aXAdj] > aScore) ||
+                        (aSH[aSAdj][aYAdj + aYShift][aXAdj + 1] > aScore) ||
+                        (aSH[aSAdj][aYAdj][aXAdj + aXShift] > aScore) ||
+                        (aSH[aSAdj][aYAdj - aYShift][aXAdj + aXShift] > aScore) ||
 
-                            (aSH[aSAdj - aSShift][		aYAdj + aYShift	][aXAdj - 1] > aScore) ||
-                            (aSH[aSAdj - aSShift][			aYAdj + aYShift	][aXAdj] > aScore) ||
-                            (aSH[aSAdj - aSShift][		aYAdj + aYShift	][aXAdj + 1] > aScore) ||
-                            (aSH[aSAdj - aSShift][	aYAdj			][aXAdj + aXShift] > aScore) ||
-                            (aSH[aSAdj - aSShift][	aYAdj - aYShift	][aXAdj + aXShift] > aScore)
-                       )
+                        (aSH[aSAdj - aSShift][aYAdj + aYShift][aXAdj - 1] > aScore) ||
+                        (aSH[aSAdj - aSShift][aYAdj + aYShift][aXAdj] > aScore) ||
+                        (aSH[aSAdj - aSShift][aYAdj + aYShift][aXAdj + 1] > aScore) ||
+                        (aSH[aSAdj - aSShift][aYAdj][aXAdj + aXShift] > aScore) ||
+                        (aSH[aSAdj - aSShift][aYAdj - aYShift][aXAdj + aXShift] > aScore)
+                        )
                     {
                         continue;
                     }
@@ -185,20 +185,20 @@ void KeyPointDetector::detectKeypoints(Image& iImage, KeyPointInsertor& iInserto
                     double aY = aYAdj;
                     double aS = aSAdj;
 
-                    if(aBorderSize[aSAdj+1]>aBorderSize[aSAdj])
+                    if (aBorderSize[aSAdj + 1] > aBorderSize[aSAdj])
                     {
-                        if(aX<aBorderSize[aSAdj+1] || aX>aOctaveWidth-aBorderSize[aSAdj+1]-1)
+                        if (aX<aBorderSize[aSAdj + 1] || aX>aOctaveWidth - aBorderSize[aSAdj + 1] - 1)
                         {
                             continue;
                         };
-                        if(aY<aBorderSize[aSAdj+1] || aY>aOctaveHeight-aBorderSize[aSAdj+1]-1)
+                        if (aY<aBorderSize[aSAdj + 1] || aY>aOctaveHeight - aBorderSize[aSAdj + 1] - 1)
                         {
                             continue;
                         };
                     };
                     // try to fine tune, restore the values if it failed
                     // if the returned value is true,  keep the point, else drop it.
-                    if (!fineTuneExtrema(aSH, aXAdj, aYAdj, aSAdj, aX, aY, aS, aScore, aOctaveWidth, aOctaveHeight, aBorderSize[aSAdj+1]))
+                    if (!fineTuneExtrema(aSH, aXAdj, aYAdj, aSAdj, aX, aY, aS, aScore, aOctaveWidth, aOctaveHeight, aBorderSize[aSAdj + 1]))
                     {
                         continue;
                     }
@@ -218,7 +218,7 @@ void KeyPointDetector::detectKeypoints(Image& iImage, KeyPointInsertor& iInserto
                     // adjust the values
                     aX *= aPixelStep;
                     aY *= aPixelStep;
-                    aS = ((2* aS * aPixelStep) + _initialBoxFilterSize + (aPixelStep-1) * _maxScales  ) / 3.0; // this one was hard to guess...
+                    aS = ((2 * aS * aPixelStep) + _initialBoxFilterSize + (aPixelStep - 1) * _maxScales) / 3.0; // this one was hard to guess...
 
                     // store the point
                     int aTrace;
@@ -242,12 +242,12 @@ void KeyPointDetector::detectKeypoints(Image& iImage, KeyPointInsertor& iInserto
     {
         Image::DeallocateImage(aSH[s], iImage.getHeight());
     }
-    delete []aBorderSize;
+    delete[]aBorderSize;
 }
 
 bool KeyPointDetector::fineTuneExtrema(double** * iSH, unsigned int iX, unsigned int iY, unsigned int iS,
-                                       double& oX, double& oY, double& oS, double& oScore,
-                                       unsigned int iOctaveWidth, unsigned int iOctaveHeight, unsigned int iBorder)
+    double& oX, double& oY, double& oS, double& oScore,
+    unsigned int iOctaveWidth, unsigned int iOctaveHeight, unsigned int iBorder)
 {
     // maximum fine tune iterations
     const unsigned int	kMaxFineTuneIters = 6;
@@ -276,22 +276,22 @@ bool KeyPointDetector::fineTuneExtrema(double** * iSH, unsigned int iX, unsigned
         double aM[3][3]; //symetric, no ordering problem.
 
         // fill the result vector with gradient from pixels differences (negate to prepare system solve)
-        aDx = ( iSH[aS  ][aY  ][aX+1] - iSH[aS  ][aY  ][aX-1] ) * 0.5;
-        aDy = ( iSH[aS  ][aY+1][aX  ] - iSH[aS  ][aY-1][aX  ] ) * 0.5;
-        aDs = ( iSH[aS+1][aY  ][aX  ] - iSH[aS-1][aY  ][aX  ] ) * 0.5;
+        aDx = (iSH[aS][aY][aX + 1] - iSH[aS][aY][aX - 1]) * 0.5;
+        aDy = (iSH[aS][aY + 1][aX] - iSH[aS][aY - 1][aX]) * 0.5;
+        aDs = (iSH[aS + 1][aY][aX] - iSH[aS - 1][aY][aX]) * 0.5;
 
-        aV[0] = - aDx;
-        aV[1] = - aDy;
-        aV[2] = - aDs;
+        aV[0] = -aDx;
+        aV[1] = -aDy;
+        aV[2] = -aDs;
 
         // fill the matrix with values of the hessian from pixel differences
-        aM[0][0] = iSH[aS  ][aY  ][aX-1] - 2.0 * iSH[aS][aY][aX] + iSH[aS  ][aY  ][aX+1];
-        aM[1][1] = iSH[aS  ][aY-1][aX  ] - 2.0 * iSH[aS][aY][aX] + iSH[aS  ][aY+1][aX  ];
-        aM[2][2] = iSH[aS-1][aY  ][aX  ] - 2.0 * iSH[aS][aY][aX] + iSH[aS+1][aY  ][aX  ];
+        aM[0][0] = iSH[aS][aY][aX - 1] - 2.0 * iSH[aS][aY][aX] + iSH[aS][aY][aX + 1];
+        aM[1][1] = iSH[aS][aY - 1][aX] - 2.0 * iSH[aS][aY][aX] + iSH[aS][aY + 1][aX];
+        aM[2][2] = iSH[aS - 1][aY][aX] - 2.0 * iSH[aS][aY][aX] + iSH[aS + 1][aY][aX];
 
-        aM[0][1] = aM[1][0] =  ( iSH[aS  ][aY+1][aX+1] + iSH[aS  ][aY-1][aX-1] - iSH[aS  ][aY+1][aX-1] - iSH[aS  ][aY-1][aX+1] ) * 0.25;
-        aM[0][2] = aM[2][0] =  ( iSH[aS+1][aY  ][aX+1] + iSH[aS-1][aY  ][aX-1] - iSH[aS+1][aY  ][aX-1] - iSH[aS-1][aY  ][aX+1] ) * 0.25;
-        aM[1][2] = aM[2][1] =  ( iSH[aS+1][aY+1][aX  ] + iSH[aS-1][aY-1][aX  ] - iSH[aS+1][aY-1][aX  ] - iSH[aS-1][aY+1][aX  ] ) * 0.25;
+        aM[0][1] = aM[1][0] = (iSH[aS][aY + 1][aX + 1] + iSH[aS][aY - 1][aX - 1] - iSH[aS][aY + 1][aX - 1] - iSH[aS][aY - 1][aX + 1]) * 0.25;
+        aM[0][2] = aM[2][0] = (iSH[aS + 1][aY][aX + 1] + iSH[aS - 1][aY][aX - 1] - iSH[aS + 1][aY][aX - 1] - iSH[aS - 1][aY][aX + 1]) * 0.25;
+        aM[1][2] = aM[2][1] = (iSH[aS + 1][aY + 1][aX] + iSH[aS - 1][aY - 1][aX] - iSH[aS + 1][aY - 1][aX] - iSH[aS - 1][aY + 1][aX]) * 0.25;
 
         // solve the linear system. results are in aV. exit with error if a problem happened
         if (!Math::SolveLinearSystem33(aV, aM))
@@ -325,7 +325,7 @@ bool KeyPointDetector::fineTuneExtrema(double** * iSH, unsigned int iX, unsigned
                 aShiftY--;
             }
 
-            if( aShiftX == 0 && aShiftY == 0)
+            if (aShiftX == 0 && aShiftY == 0)
             {
                 break;
             }
@@ -336,7 +336,7 @@ bool KeyPointDetector::fineTuneExtrema(double** * iSH, unsigned int iX, unsigned
     oScore = iSH[aS][aY][aX] + 0.5 * (aDx * aV[0] + aDy * aV[1] + aDs * aV[2]);
 
     // reject too big deviation in last step (unfinished job).
-    if (Math::Abs(aV[0]) > 1.5 || Math::Abs(aV[1]) > 1.5  || Math::Abs(aV[2]) > 1.5)
+    if (Math::Abs(aV[0]) > 1.5 || Math::Abs(aV[1]) > 1.5 || Math::Abs(aV[2]) > 1.5)
     {
         return false;
     }
@@ -367,17 +367,17 @@ unsigned int		KeyPointDetector::getBorderSize(unsigned int iOctave, unsigned int
 }
 
 bool KeyPointDetector::calcTrace(Image& iImage,
-                                 double iX,
-                                 double iY,
-                                 double iScale,
-                                 int& oTrace)
+    double iX,
+    double iY,
+    double iScale,
+    int& oTrace)
 {
     unsigned int aRX = Math::Round(iX);
     unsigned int aRY = Math::Round(iY);
 
-    BoxFilter aBox(3*iScale, iImage);
+    BoxFilter aBox(3 * iScale, iImage);
 
-    if(!aBox.checkBounds(aRX, aRY))
+    if (!aBox.checkBounds(aRX, aRY))
     {
         return false;
     }
@@ -389,3 +389,4 @@ bool KeyPointDetector::calcTrace(Image& iImage,
     return true;
 }
 
+} // namespace lfeat

@@ -37,8 +37,6 @@ Copyright (c) 2002-3 Adriaan Tijsseling
 #include <unistd.h>
 #endif
 
-using namespace std; 
-
 namespace celeste
 {
 enum
@@ -67,10 +65,10 @@ void		DisposeMatrix( float** matrix, int row );
 float 		ReturnDistance( float *pat1, float *pat2, int size );
 
 void		GetStreamDefaults( void );
-void 		AdjustStream( ostream &os, int precision, int width, int pos, bool trailers );
-void		SetStreamDefaults( ostream &os );
+void 		AdjustStream( std::ostream &os, int precision, int width, int pos, bool trailers );
+void		SetStreamDefaults( std::ostream &os );
 
-void 		SkipComments( ifstream* infile );
+void 		SkipComments( std::ifstream* infile );
 void 		FileCreateError( char* filename );
 void 		FileOpenError( char* filename );
 

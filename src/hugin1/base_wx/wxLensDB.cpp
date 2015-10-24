@@ -34,8 +34,6 @@
 #include "base_wx/PanoCommand.h"
 #include <set>
 
-using namespace std;
-
 /** dialog for loading lens parameter from lens database */
 class LoadLensDBDialog : public wxDialog
 {

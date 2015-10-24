@@ -27,10 +27,6 @@
 
 #include "graph.h"
 
-
-using namespace hugin_utils;
-
-
 /** find subgraphs (separate panoramas)
  *
  *  Actually, we could just use the BOOST graph library instead

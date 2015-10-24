@@ -37,9 +37,7 @@
 
 namespace HuginBase {
 
-using namespace hugin_utils;
-
-bool MaskPolygon::isInside(const FDiff2D p) const
+bool MaskPolygon::isInside(const hugin_utils::FDiff2D p) const
 {
     if(m_polygon.size()<3)
         return false;
@@ -52,7 +50,7 @@ bool MaskPolygon::isInside(const FDiff2D p) const
         return wind!=0;
 };
 
-int MaskPolygon::getWindingNumber(const FDiff2D p) const
+int MaskPolygon::getWindingNumber(const hugin_utils::FDiff2D p) const
 {
     // algorithm is modified version of winding number method
     // described at http://www.softsurfer.com/Archive/algorithm_0103/algorithm_0103.htm
@@ -62,10 +60,10 @@ int MaskPolygon::getWindingNumber(const FDiff2D p) const
     if(m_polygon.size()<3)
         return 0;
     int wind=0;
-    FDiff2D a=m_polygon[m_polygon.size()-1];
+    hugin_utils::FDiff2D a=m_polygon[m_polygon.size()-1];
     for(unsigned int i=0;i<m_polygon.size();i++)
     {
-        FDiff2D b=m_polygon[i];
+        hugin_utils::FDiff2D b=m_polygon[i];
         if(a.y<=p.y)
         {
             if(b.y>p.y)
@@ -93,7 +91,7 @@ int MaskPolygon::getTotalWindingNumber() const
     {
         diffPoly.addPoint(m_polygon[(i+1)%count]-m_polygon[i]);
     };
-    return diffPoly.getWindingNumber(FDiff2D(0,0));
+    return diffPoly.getWindingNumber(hugin_utils::FDiff2D(0,0));
 };
 
 bool MaskPolygon::isPositive() const
@@ -108,13 +106,13 @@ void MaskPolygon::setMaskPolygon(const VectorPolygon& newMask)
     calcBoundingBox();
 };
 
-void MaskPolygon::addPoint(const FDiff2D p) 
+void MaskPolygon::addPoint(const hugin_utils::FDiff2D p) 
 {
     m_polygon.push_back(p);
     calcBoundingBox();
 };
 
-void MaskPolygon::insertPoint(const unsigned int index, const FDiff2D p)
+void MaskPolygon::insertPoint(const unsigned int index, const hugin_utils::FDiff2D p)
 {
     if(index<=m_polygon.size())
     {
@@ -171,7 +169,7 @@ void MaskPolygon::transformPolygon(const PTools::Transform &trans)
     {
         if(trans.transformImgCoord(xnew,ynew,m_polygon[i].x,m_polygon[i].y))
         {
-            newPoly.push_back(FDiff2D(xnew,ynew));
+            newPoly.push_back(hugin_utils::FDiff2D(xnew,ynew));
         };
     };
     m_polygon=newPoly;
@@ -188,8 +186,8 @@ void MaskPolygon::subSample(const double max_distance)
     for(unsigned int i=0;i<count;i++)
     {
         addPoint(oldPoly[i]);
-        FDiff2D p1=oldPoly[i];
-        FDiff2D p2=oldPoly[(i+1)%count];
+        hugin_utils::FDiff2D p1=oldPoly[i];
+        hugin_utils::FDiff2D p2=oldPoly[(i+1)%count];
         double distance=norm(p2-p1);
         if(distance>max_distance)
         {
@@ -197,7 +195,7 @@ void MaskPolygon::subSample(const double max_distance)
             double currentDistance=max_distance;
             while(currentDistance<distance)
             {
-                FDiff2D p_new=p1+(p2-p1)*currentDistance/distance;
+                hugin_utils::FDiff2D p_new=p1+(p2-p1)*currentDistance/distance;
                 addPoint(p_new);
                 currentDistance+=max_distance;
             };
@@ -233,7 +231,7 @@ enum clipSide
     clipBottom
 };
 
-bool clip_isSide(const FDiff2D p, const vigra::Rect2D r, const clipSide side)
+bool clip_isSide(const hugin_utils::FDiff2D p, const vigra::Rect2D r, const clipSide side)
 {
     switch(side){
         case clipLeft:
@@ -249,7 +247,7 @@ bool clip_isSide(const FDiff2D p, const vigra::Rect2D r, const clipSide side)
     return false;
 }
 
-FDiff2D clip_getIntersection(const FDiff2D p, const FDiff2D q, const vigra::Rect2D r, const clipSide side)
+hugin_utils::FDiff2D clip_getIntersection(const hugin_utils::FDiff2D p, const hugin_utils::FDiff2D q, const vigra::Rect2D r, const clipSide side)
 {
     double a;
     double b;
@@ -289,7 +287,7 @@ FDiff2D clip_getIntersection(const FDiff2D p, const FDiff2D q, const vigra::Rect
                 xnew=p.x;
             break;
     };
-    return FDiff2D(xnew,ynew);
+    return hugin_utils::FDiff2D(xnew,ynew);
 };
 
 VectorPolygon clip_onPlane(const VectorPolygon& polygon, const vigra::Rect2D r, const clipSide side)
@@ -298,8 +296,8 @@ VectorPolygon clip_onPlane(const VectorPolygon& polygon, const vigra::Rect2D r, 
     {
         return polygon;
     };
-    FDiff2D s=polygon[polygon.size()-1];
-    FDiff2D p;
+    hugin_utils::FDiff2D s=polygon[polygon.size()-1];
+    hugin_utils::FDiff2D p;
     VectorPolygon newPolygon;
     for(unsigned int i=0;i<polygon.size();i++)
     {
@@ -341,7 +339,7 @@ bool MaskPolygon::clipPolygon(const vigra::Rect2D rect)
     @param center center point of circle test
     @param radius radius of circle to test
 */
-bool clip_insideCircle(const FDiff2D p, const FDiff2D center, const double radius)
+bool clip_insideCircle(const hugin_utils::FDiff2D p, const hugin_utils::FDiff2D center, const double radius)
 {
     return p.squareDistance(center)<=radius*radius;
 };
@@ -353,15 +351,15 @@ bool clip_insideCircle(const FDiff2D p, const FDiff2D center, const double radiu
     @param radius radius of circle
     @returns vector with all intersection of line between p and s and given circle
 */
-std::vector<FDiff2D> clip_getIntersectionCircle(const FDiff2D p, const FDiff2D s, const FDiff2D center, const double radius)
+std::vector<hugin_utils::FDiff2D> clip_getIntersectionCircle(const hugin_utils::FDiff2D p, const hugin_utils::FDiff2D s, const hugin_utils::FDiff2D center, const double radius)
 {
-    std::vector<FDiff2D> intersections;
-    FDiff2D slope=s-p;
+    std::vector<hugin_utils::FDiff2D> intersections;
+    hugin_utils::FDiff2D slope=s-p;
     if(slope.squareLength()<1e-5)
     {
         return intersections;
     };
-    FDiff2D p2=p-center;
+    hugin_utils::FDiff2D p2=p-center;
     double dotproduct=p2.x*slope.x+p2.y*slope.y;
     double root=sqrt(dotproduct*dotproduct-slope.squareLength()*(p2.squareLength()-radius*radius));
     double t1=(-dotproduct+root)/slope.squareLength();
@@ -389,7 +387,7 @@ std::vector<FDiff2D> clip_getIntersectionCircle(const FDiff2D p, const FDiff2D s
 };
 
 /** calculates angle between vector a and b in radians */
-double angle_between(const FDiff2D a, const FDiff2D b)
+double angle_between(const hugin_utils::FDiff2D a, const hugin_utils::FDiff2D b)
 {
     return asin((a.x*b.y-a.y*b.x)/(sqrt(a.squareLength())*sqrt(b.squareLength())));
 };
@@ -401,13 +399,13 @@ double angle_between(const FDiff2D a, const FDiff2D b)
     @param radius radius of arc
     @param clockwise true, if arc should go clockwise; else it goes anti-clockwise
 */
-void generateArc(VectorPolygon& poly, const FDiff2D s, const FDiff2D center, const double radius, const bool clockwise)
+void generateArc(VectorPolygon& poly, const hugin_utils::FDiff2D s, const hugin_utils::FDiff2D center, const double radius, const bool clockwise)
 {
     if(poly.size()==0)
     {
         return;
     };
-    FDiff2D p=poly[poly.size()-1];
+    hugin_utils::FDiff2D p=poly[poly.size()-1];
     double maxDistance=5.0;
     if(p.squareDistance(s)<maxDistance*maxDistance)
     {
@@ -426,7 +424,7 @@ void generateArc(VectorPolygon& poly, const FDiff2D s, const FDiff2D center, con
         angle+=step;
         while(angle<final_angle)
         {
-            poly.push_back(FDiff2D(cos(angle)*radius+center.x,sin(angle)*radius+center.y));
+            poly.push_back(hugin_utils::FDiff2D(cos(angle)*radius+center.x,sin(angle)*radius+center.y));
             angle+=step;
         };
     }
@@ -439,21 +437,21 @@ void generateArc(VectorPolygon& poly, const FDiff2D s, const FDiff2D center, con
         angle-=step;
         while(angle>final_angle)
         {
-            poly.push_back(FDiff2D(cos(angle)*radius+center.x,sin(angle)*radius+center.y));
+            poly.push_back(hugin_utils::FDiff2D(cos(angle)*radius+center.x,sin(angle)*radius+center.y));
             angle-=step;
         };
     };
 };
 
-bool MaskPolygon::clipPolygon(const FDiff2D center,const double radius)
+bool MaskPolygon::clipPolygon(const hugin_utils::FDiff2D center,const double radius)
 {
     if(radius<=0 || m_polygon.size()<3)
     {
         return false;
     };
-    FDiff2D s=m_polygon[m_polygon.size()-1];
+    hugin_utils::FDiff2D s=m_polygon[m_polygon.size()-1];
     bool s_inside=clip_insideCircle(s,center,radius);
-    FDiff2D p;
+    hugin_utils::FDiff2D p;
     VectorPolygon newPolygon;
     bool needsFinalArc=false;
     double angleCovered=0;
@@ -472,7 +470,7 @@ bool MaskPolygon::clipPolygon(const FDiff2D center,const double radius)
             else
             {
                 //line crosses circles from outside
-                std::vector<FDiff2D> points=clip_getIntersectionCircle(p,s,center,radius);
+                std::vector<hugin_utils::FDiff2D> points=clip_getIntersectionCircle(p,s,center,radius);
                 DEBUG_ASSERT(points.size()==1);
                 angleCovered+=angle_between(s-center,points[0]-center);
                 if(newPolygon.size()==0)
@@ -493,7 +491,7 @@ bool MaskPolygon::clipPolygon(const FDiff2D center,const double radius)
             if(!s_inside)
             {
                 //both points outside of circle
-                std::vector<FDiff2D> points=clip_getIntersectionCircle(s,p,center,radius);
+                std::vector<hugin_utils::FDiff2D> points=clip_getIntersectionCircle(s,p,center,radius);
                 //intersection can only be zero points or 2 points
                 if(points.size()>1)
                 {
@@ -519,7 +517,7 @@ bool MaskPolygon::clipPolygon(const FDiff2D center,const double radius)
             else
             {
                 //line segment intersects circle from inside
-                std::vector<FDiff2D> points=clip_getIntersectionCircle(s,p,center,radius);
+                std::vector<hugin_utils::FDiff2D> points=clip_getIntersectionCircle(s,p,center,radius);
                 angleCovered=0;
                 DEBUG_ASSERT(points.size()==1);
                 newPolygon.push_back(points[0]);
@@ -542,38 +540,38 @@ void MaskPolygon::rotate90(bool clockwise,unsigned int maskWidth,unsigned int ma
     {
         if(clockwise)
         {
-            FDiff2D p=m_polygon[i];
+            hugin_utils::FDiff2D p=m_polygon[i];
             m_polygon[i].x=maskHeight-p.y;
             m_polygon[i].y=p.x;
         }
         else
         {
-            FDiff2D p=m_polygon[i];
+            hugin_utils::FDiff2D p=m_polygon[i];
             m_polygon[i].x=p.y;
             m_polygon[i].y=maskWidth-p.x;
         };
     };
 };
 
-unsigned int MaskPolygon::FindPointNearPos(const FDiff2D p, const double tol)
+unsigned int MaskPolygon::FindPointNearPos(const hugin_utils::FDiff2D p, const double tol)
 {
     if(m_polygon.size()==0)
         return UINT_MAX;
-    FDiff2D p1;
+    hugin_utils::FDiff2D p1;
     unsigned int j=m_polygon.size()-1;
-    FDiff2D p2=m_polygon[j];
+    hugin_utils::FDiff2D p2=m_polygon[j];
     for(unsigned int i=0;i<m_polygon.size();i++)
     {
         p1=m_polygon[i];
         // find intersection of perpendicular through point p and line between point i and j 
-        FDiff2D diff=p2-p1;
+        hugin_utils::FDiff2D diff=p2-p1;
         if(norm(diff)<0.001)
             continue;
-        double u=((p.x-p1.x)*(p2.x-p1.x)+(p.y-p1.y)*(p2.y-p1.y))/sqr(norm(diff));
+        double u=((p.x-p1.x)*(p2.x-p1.x)+(p.y-p1.y)*(p2.y-p1.y))/hugin_utils::sqr(norm(diff));
         if((u>=0.1) && (u<=0.9))
         {
             // intersection is between p1 and p2
-            FDiff2D footpoint=p1+diff*u;
+            hugin_utils::FDiff2D footpoint=p1+diff*u;
             // now check distance between intersection and p
             if(norm(p-footpoint)<tol)
                 return i==0 ? j+1 : i;
@@ -614,7 +612,7 @@ bool MaskPolygon::parsePolygonString(const std::string& polygonStr)
             double y;
             if (is >> y)
             {
-                m_polygon.push_back(FDiff2D(x, y));
+                m_polygon.push_back(hugin_utils::FDiff2D(x, y));
             };
         };
     };

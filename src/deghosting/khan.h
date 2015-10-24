@@ -53,8 +53,6 @@
 // leave undefined for gaussian normal distribution function
 //#define ATAN_KH
 
-using namespace vigra;
-
 namespace deghosting
 {
     template <class PixelType>
@@ -62,16 +60,16 @@ namespace deghosting
         public:
             typedef vigra::FImage ImageType;
             typedef sharedPtrNamespace::shared_ptr<ImageType> ImagePtr;
-            typedef BasicImage<float> ProcessImageType;
+            typedef vigra::BasicImage<float> ProcessImageType;
             typedef sharedPtrNamespace::shared_ptr<ProcessImageType> ProcessImageTypePtr;
     };
 
     template <class PixelType>
-    class ImageTypes<RGBValue<PixelType> > {
+    class ImageTypes<vigra::RGBValue<PixelType> > {
         public:
             typedef vigra::FRGBImage ImageType;
             typedef sharedPtrNamespace::shared_ptr<ImageType> ImagePtr;
-            typedef BasicImage<AlgTinyVector<float, 3> > ProcessImageType;
+            typedef vigra::BasicImage<vigra::AlgTinyVector<float, 3> > ProcessImageType;
             typedef sharedPtrNamespace::shared_ptr<ProcessImageType> ProcessImageTypePtr;
     };
 
@@ -80,7 +78,7 @@ namespace deghosting
     {
         public:
             Khan(std::vector<std::string>& inputFiles, const uint16_t flags, const uint16_t debugFlags, int iterations, double sigma, int verbosity);
-            Khan(std::vector<ImageImportInfo>& inputFiles, const uint16_t flags, const uint16_t debugFlags, int iterations, double sigma, int verbosity);
+            Khan(std::vector<vigra::ImageImportInfo>& inputFiles, const uint16_t flags, const uint16_t debugFlags, int iterations, double sigma, int verbosity);
             std::vector<FImagePtr> createWeightMasks();
             ~Khan() {}
         protected:
@@ -89,7 +87,7 @@ namespace deghosting
             typedef typename ImageTypes<PixelType>::ProcessImageType::traverser ProcessImageTraverser;
             typedef typename ImageTypes<PixelType>::ProcessImageType::PixelType ProcessImagePixelType;
             typedef typename ImageTypes<PixelType>::ProcessImageTypePtr ProcessImageTypePtr;
-            typedef typename NumericTraits<PixelType>::isScalar srcIsScalar;
+            typedef typename vigra::NumericTraits<PixelType>::isScalar srcIsScalar;
             
             // Kh() things
             // (2*pi)^(1/2)
@@ -123,13 +121,13 @@ namespace deghosting
              * if input image is RGB then convert it to L*a*b
              * if input image is grayscale then only copy image
              */
-            void convertImage(ImageType * in, ProcessImageTypePtr & out, VigraFalseType);
-            void convertImage(ImageType * in, ProcessImageTypePtr & out, VigraTrueType);
+            void convertImage(ImageType * in, ProcessImageTypePtr & out, vigra::VigraFalseType);
+            void convertImage(ImageType * in, ProcessImageTypePtr & out, vigra::VigraTrueType);
             
             /** import RGB image
              */
-            void importRGBImage(ImageImportInfo & info, ImageType * img, VigraFalseType);
-            void importRGBImage(ImageImportInfo & info, ImageType * img, VigraTrueType);
+            void importRGBImage(vigra::ImageImportInfo & info, ImageType * img, vigra::VigraFalseType);
+            void importRGBImage(vigra::ImageImportInfo & info, ImageType * img, vigra::VigraTrueType);
             
             /** function to preprocess input image
              * This function loads image, linearize it using EMoR (FIXME),
@@ -150,7 +148,7 @@ namespace deghosting
             
             // I don't know why, but sigma for HDR input have to approximately 10 times smaller
             // FIXME: Maybe it would be better to use different sigma for different images in case both HDR and LDR are mixed
-            const char * fileType= ImageImportInfo(newInputFiles[0].c_str()).getFileType();
+            const char * fileType= vigra::ImageImportInfo(newInputFiles[0].c_str()).getFileType();
             if ( (!strcmp(fileType,"TIFF") && strcmp(fileType,"UINT8")) || !strcmp(fileType,"EXR") || !strcmp(fileType,"FLOAT")) {
                 setSigma(newSigma/10);
             } else {
@@ -167,7 +165,7 @@ namespace deghosting
     }
     
     template <class PixelType>
-    Khan<PixelType>::Khan(std::vector<ImageImportInfo>& newInputFiles, const uint16_t newFlags, const uint16_t newDebugFlags,
+    Khan<PixelType>::Khan(std::vector<vigra::ImageImportInfo>& newInputFiles, const uint16_t newFlags, const uint16_t newDebugFlags,
                 int newIterations, double newSigma, int newVerbosity) {
         try {
             Deghosting::loadImages(newInputFiles);
@@ -240,48 +238,48 @@ namespace deghosting
     
     // RGB
     template <class PixelType>
-    void Khan<PixelType>::convertImage(ImageType * in, ProcessImageTypePtr & out, VigraFalseType) {
-        RGB2LabFunctor<float> RGB2Lab;
-        transformImage(srcImageRange(*in), destImage(*out), RGB2Lab);
+    void Khan<PixelType>::convertImage(ImageType * in, ProcessImageTypePtr & out, vigra::VigraFalseType) {
+        vigra::RGB2LabFunctor<float> RGB2Lab;
+        vigra::transformImage(vigra::srcImageRange(*in), vigra::destImage(*out), RGB2Lab);
     }
     
     // grayscale
     template <class PixelType>
-    void Khan<PixelType>::convertImage(ImageType* in, ProcessImageTypePtr& out, VigraTrueType) {
-        copyImage(srcImageRange(*in), destImage(*out));
+    void Khan<PixelType>::convertImage(ImageType* in, ProcessImageTypePtr& out, vigra::VigraTrueType) {
+        vigra::copyImage(srcImageRange(*in), destImage(*out));
     }
     
     // load image and convert it to grayscale
     template <class PixelType>
-    void Khan<PixelType>::importRGBImage(ImageImportInfo & info, ImageType * img, VigraTrueType) {
+    void Khan<PixelType>::importRGBImage(vigra::ImageImportInfo & info, ImageType * img, vigra::VigraTrueType) {
         // NOTE: I guess this is not optimal, but it works
-        RGBToGrayAccessor<FRGBImage::PixelType> color2gray;
-        FRGBImage tmpImg(info.size());
+        vigra::RGBToGrayAccessor<vigra::FRGBImage::PixelType> color2gray;
+        vigra::FRGBImage tmpImg(info.size());
         if (info.numBands() == 4) {
-            BImage imgAlpha(info.size());
-            importImageAlpha(info, destImage(tmpImg), destImage(imgAlpha));
+            vigra::BImage imgAlpha(info.size());
+            vigra::importImageAlpha(info, destImage(tmpImg), destImage(imgAlpha));
         } else {
-            importImage(info, destImage(tmpImg));
+            vigra::importImage(info, destImage(tmpImg));
         }
-        transformImage(srcImageRange(tmpImg, color2gray), destImage(*img), log(Arg1()+Param(1.0f)));
+        vigra::transformImage(vigra::srcImageRange(tmpImg, color2gray), vigra::destImage(*img), log(vigra::functor::Arg1() + vigra::functor::Param(1.0f)));
     }
     
     // only load image
     template <class PixelType>
-    void Khan<PixelType>::importRGBImage(ImageImportInfo & info, ImageType * img, VigraFalseType) {
+    void Khan<PixelType>::importRGBImage(vigra::ImageImportInfo & info, ImageType * img, vigra::VigraFalseType) {
         if (info.numBands() == 4) {
-            BImage imgAlpha(info.size());
-            importImageAlpha(info, destImage(*img), destImage(imgAlpha));
+            vigra::BImage imgAlpha(info.size());
+            vigra::importImageAlpha(info, destImage(*img), destImage(imgAlpha));
         } else {
-            importImage(info, destImage(*img));
+            vigra::importImage(info, destImage(*img));
         }
     }
     
     template <class PixelType>
     void Khan<PixelType>::preprocessImage(unsigned int i, FImagePtr &weight, ProcessImageTypePtr &output) {
-        ImageImportInfo imgInfo(inputFiles[i]);
+        vigra::ImageImportInfo imgInfo(inputFiles[i]);
         ImageType * pInputImg =  new ImageType(imgInfo.size());
-        weight = FImagePtr(new FImage(imgInfo.size()));
+        weight = FImagePtr(new vigra::FImage(imgInfo.size()));
         output = ProcessImageTypePtr(new ProcessImageType(imgInfo.size()));
         
         // import image
@@ -307,16 +305,16 @@ namespace deghosting
                 // I have to use BrightnessContrastFunctor
                 // TODO: change to the GammaFunctor in the future
                 vigra::FindMinMax<float> minmax;
-                vigra::inspectImage(srcImageRange(*pInputImg), minmax);
-                transformImage(srcImageRange(*pInputImg),destImage(*pInputImg),BrightnessContrastFunctor<PixelType>(0.45f,1.0,minmax.min, minmax.max));
+                vigra::inspectImage(vigra::srcImageRange(*pInputImg), minmax);
+                vigra::transformImage(vigra::srcImageRange(*pInputImg), vigra::destImage(*pInputImg), vigra::BrightnessContrastFunctor<PixelType>(0.45f, 1.0, minmax.min, minmax.max));
             } else {
                 // take logarithm
-                transformImage(srcImageRange(*pInputImg),destImage(*pInputImg),LogarithmFunctor<PixelType>(1.0));
+                vigra::transformImage(vigra::srcImageRange(*pInputImg), vigra::destImage(*pInputImg), LogarithmFunctor<PixelType>(1.0));
             }
         }
         
         // generate initial weights
-        transformImage(srcImageRange(*pInputImg),destImage(*weight),HatFunctor<PixelType>());
+        vigra::transformImage(vigra::srcImageRange(*pInputImg), vigra::destImage(*weight), HatFunctor<PixelType>());
         
         convertImage(pInputImg, output, srcIsScalar());
         
@@ -337,8 +335,8 @@ namespace deghosting
             if (debugFlags & SAVE_INITWEIGHTS) {
                 char tmpfn[100];
                 snprintf(tmpfn, 99, "init_weights_%u.tiff", i);
-                ImageExportInfo exWeights(tmpfn);
-                exportImage(srcImageRange(*weight), exWeights.setPixelType("UINT8"));
+                vigra::ImageExportInfo exWeights(tmpfn);
+                vigra::exportImage(vigra::srcImageRange(*weight), exWeights.setPixelType("UINT8"));
             }
         }
         
@@ -379,21 +377,21 @@ namespace deghosting
                     //compute height
                     int resized_height = origHeight / ( iterations/(it+1) );
                     // destination images
-                    FImage resizedWeight;
+                    vigra::FImage resizedWeight;
                     ProcessImageType resizedLab;
                     // it's not worthy to scale to less than 100px per side
                     if (resized_width > 100 && resized_height > 100) {
                         // create destination image of desired size
-                        resizedWeight = FImage(Size2D(resized_width,resized_height));
-                        resizedLab = ProcessImageType(Size2D(resized_width,resized_height));
+                        resizedWeight = vigra::FImage(vigra::Size2D(resized_width,resized_height));
+                        resizedLab = ProcessImageType(vigra::Size2D(resized_width, resized_height));
                     } else if (origWidth >= 100 && origHeight >= 100) {
                         // resize it to the smallest value (ie 100px for the shorter side)
                         if (origWidth >= origHeight) {
-                            resizedWeight = FImage(Size2D(100*origWidth/origHeight, 100));
-                            resizedLab = ProcessImageType(Size2D(100*origWidth/origHeight, 100));
+                            resizedWeight = vigra::FImage(vigra::Size2D(100 * origWidth / origHeight, 100));
+                            resizedLab = ProcessImageType(vigra::Size2D(100 * origWidth / origHeight, 100));
                         } else {
-                            resizedWeight = FImage(Size2D(100, 100*origHeight/origWidth));
-                            resizedLab = ProcessImageType(Size2D(100, 100*origHeight/origWidth));
+                            resizedWeight = vigra::FImage(vigra::Size2D(100, 100 * origHeight / origWidth));
+                            resizedLab = ProcessImageType(vigra::Size2D(100, 100 * origHeight / origWidth));
                         }
                     } else {
                         // don't scale at all
@@ -405,13 +403,13 @@ namespace deghosting
                     resizeImageNoInterpolation(srcImageRange(*weights[i]), destImageRange(resizedWeight));
                     resizeImageNoInterpolation(srcImageRange(*backupLab[i]), destImageRange(resizedLab));
                     
-                    FImagePtr tmp(new FImage(resizedWeight));
+                    FImagePtr tmp(new vigra::FImage(resizedWeight));
                     prevWeights.push_back(tmp);
                     processImages[i] = ProcessImageTypePtr(new ProcessImageType(resizedLab));
-                    weights[i] = FImagePtr(new FImage(resizedWeight));
+                    weights[i] = FImagePtr(new vigra::FImage(resizedWeight));
                 } else {
                     DONTSCALE:
-                    FImagePtr tmp(new FImage(*weights[i]));
+                    FImagePtr tmp(new vigra::FImage(*weights[i]));
                     prevWeights.push_back(tmp);
                 }
             }
@@ -435,13 +433,13 @@ namespace deghosting
                 // iterator to the lower right corner
                 ProcessImageTraverser send = processImages[i]->lowerRight();
                 // iterator to the weight image left corner
-                FImage::traverser wy = weights[i]->upperLeft();
+                vigra::FImage::traverser wy = weights[i]->upperLeft();
                 // loop through the row
                 for (int y=0; sy.y != send.y; ++sy.y, ++wy.y, ++y) {
                     // iterator to the source (L*a*b image)
                     ProcessImageTraverser sx = sy;
                     // iterator to the weight
-                    FImage::traverser wx = wy;
+                    vigra::FImage::traverser wx = wy;
                     // loop over the pixels
                     for (int x=0; sx.x != send.x; ++sx.x, ++wx.x, ++x) {
                         if (verbosity > 2)
@@ -457,7 +455,7 @@ namespace deghosting
                             // iterator to the neighbour
                             ProcessImageTraverser neighby = processImages[j]->upperLeft();
                             // iterator to the weight
-                            FImage::traverser weighty = prevWeights[j]->upperLeft();
+                            vigra::FImage::traverser weighty = prevWeights[j]->upperLeft();
                             // pixel offset
                             int ndy = -NEIGHB_DIST;
                             // move them to the upper bound
@@ -474,7 +472,7 @@ namespace deghosting
                             int maxDisty = (height - y) > NEIGHB_DIST ? NEIGHB_DIST : (height - y-1);
                             for (; ndy <= maxDisty; ++neighby.y, ++weighty.y, ++ndy) {
                                 ProcessImageTraverser neighbx = neighby;
-                                FImage::traverser weightx = weighty;
+                                vigra::FImage::traverser weightx = weighty;
                                 // pixel offset
                                 int ndx = -NEIGHB_DIST;
                                 // move them to the upper bound

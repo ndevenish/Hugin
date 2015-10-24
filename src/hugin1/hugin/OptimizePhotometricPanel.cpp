@@ -46,11 +46,6 @@
 #include "hugin_base/panodata/OptimizerSwitches.h"
 #include "hugin/PanoOperation.h"
 
-using namespace std;
-using namespace hugin_utils;
-using namespace vigra;
-using namespace vigra_ext;
-
 //============================================================================
 //============================================================================
 //============================================================================
@@ -106,7 +101,7 @@ bool OptimizePhotometricPanel::Create(wxWindow *parent, wxWindowID id, const wxP
     return true;
 }
 
-void OptimizePhotometricPanel::Init(Panorama * panorama)
+void OptimizePhotometricPanel::Init(HuginBase::Panorama * panorama)
 {
     m_pano = panorama;
     // observe the panorama
@@ -142,7 +137,7 @@ void OptimizePhotometricPanel::OnOptimizeButton(wxCommandEvent & e)
     DEBUG_TRACE("");
     // run optimizer
 
-    UIntSet imgs;
+    HuginBase::UIntSet imgs;
     if (m_only_active_images_cb->IsChecked() || m_pano->getPhotometricOptimizerSwitch()!=0)
     {
         // use only selected images.
@@ -179,7 +174,7 @@ void OptimizePhotometricPanel::panoramaImagesChanged(HuginBase::Panorama &pano,
     XRCCTRL(*this, "optimize_photo_panel_reset", wxButton)->Enable(pano.getNrOfImages()>0);    
 }
 
-void OptimizePhotometricPanel::runOptimizer(const UIntSet & imgs)
+void OptimizePhotometricPanel::runOptimizer(const HuginBase::UIntSet & imgs)
 {
     DEBUG_TRACE("");
     int mode = m_pano->getPhotometricOptimizerSwitch();
@@ -234,7 +229,7 @@ void OptimizePhotometricPanel::runOptimizer(const UIntSet & imgs)
         }
     }
 
-    Panorama optPano = m_pano->getSubset(imgs);
+    HuginBase::Panorama optPano = m_pano->getSubset(imgs);
     HuginBase::PanoramaOptions opts = optPano.getOptions();
 
     HuginBase::OptimizeVector optvars;
@@ -272,7 +267,7 @@ void OptimizePhotometricPanel::runOptimizer(const UIntSet & imgs)
         for (size_t i=0; i < optPano.getNrOfImages(); i++)
         {
             ImageCache::EntryPtr e = ImageCache::getInstance().getSmallImage(optPano.getImage(i).getFilename());
-            vigra::FRGBImage * img = new FRGBImage;
+            vigra::FRGBImage * img = new vigra::FRGBImage;
             if (!e)
             {
                 wxMessageBox(_("Error: could not load all images"), _("Error"));
@@ -280,7 +275,7 @@ void OptimizePhotometricPanel::runOptimizer(const UIntSet & imgs)
             }
             if (e->image8 && e->image8->width() > 0)
             {
-                reduceToNextLevel(*(e->image8), *img);
+                vigra_ext::reduceToNextLevel(*(e->image8), *img);
                 vigra::omp::transformImage(vigra::srcImageRange(*img), vigra::destImage(*img),
                                 vigra::functor::Arg1()/vigra::functor::Param(255.0));
             }
@@ -288,13 +283,13 @@ void OptimizePhotometricPanel::runOptimizer(const UIntSet & imgs)
             {
                 if (e->image16 && e->image16->width() > 0)
                 {
-                    reduceToNextLevel(*(e->image16), *img);
+                    vigra_ext::reduceToNextLevel(*(e->image16), *img);
                     vigra::omp::transformImage(vigra::srcImageRange(*img), vigra::destImage(*img),
                                    vigra::functor::Arg1()/vigra::functor::Param(65535.0));
                 }
                 else
                 {
-                    reduceToNextLevel(*(e->imageFloat), *img);
+                    vigra_ext::reduceToNextLevel(*(e->imageFloat), *img);
                 }
             };
             srcImgs.push_back(img);

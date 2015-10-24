@@ -63,9 +63,6 @@ extern "C" {
 
 #define WX_BROKEN_SIZER_UNKNOWN
 
-using namespace std;
-using namespace hugin_utils;
-
 BEGIN_EVENT_TABLE(PanoPanel, wxPanel)
     EVT_CHOICE ( XRCID("pano_choice_pano_type"),PanoPanel::ProjectionChanged )
     EVT_TEXT_ENTER( XRCID("pano_text_hfov"),PanoPanel::HFOVChanged )
@@ -262,7 +259,7 @@ bool PanoPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, cons
     return true;
 }
 
-void PanoPanel::Init(Panorama * panorama)
+void PanoPanel::Init(HuginBase::Panorama * panorama)
 {
     pano = panorama;
     // observe the panorama
@@ -314,9 +311,9 @@ bool PanoPanel::StackCheck(HuginBase::Panorama &pano)
     HuginBase::PanoramaOptions opt = pano.getOptions();
 
     // Determine if there are stacks in the pano.
-    UIntSet activeImages = pano.getActiveImages();
-    UIntSet images = getImagesinROI(pano,activeImages);
-    vector<UIntSet> hdrStacks = HuginBase::getHDRStacks(pano, images, pano.getOptions());
+    HuginBase::UIntSet activeImages = pano.getActiveImages();
+    HuginBase::UIntSet images = getImagesinROI(pano, activeImages);
+    std::vector<HuginBase::UIntSet> hdrStacks = HuginBase::getHDRStacks(pano, images, pano.getOptions());
     DEBUG_DEBUG(hdrStacks.size() << ": HDR stacks detected");
     const bool hasStacks = (hdrStacks.size() != activeImages.size());
 
@@ -368,9 +365,9 @@ void PanoPanel::UpdateDisplay(const HuginBase::PanoramaOptions & opt, const bool
     m_keepViewOnResize = opt.fovCalcSupported(opt.getProjection());
 
     std::string val;
-    val = doubleToString(opt.getHFOV(),1);
+    val = hugin_utils::doubleToString(opt.getHFOV(),1);
     m_HFOVText->SetValue(wxString(val.c_str(), wxConvLocal));
-    val = doubleToString(opt.getVFOV(),1);
+    val = hugin_utils::doubleToString(opt.getVFOV(), 1);
     m_VFOVText->SetValue(wxString(val.c_str(), wxConvLocal));
 
     // disable VFOV edit field, due to bugs in setHeight(), setWidth()
@@ -618,7 +615,7 @@ void PanoPanel::HFOVChanged ( wxCommandEvent & e )
     }
 
     double hfov;
-    if (!str2double(text, hfov)) {
+    if (!hugin_utils::str2double(text, hfov)) {
         wxLogError(_("Value must be numeric."));
         return;
     }
@@ -649,7 +646,7 @@ void PanoPanel::VFOVChanged ( wxCommandEvent & e )
     }
 
     double vfov;
-    if (!str2double(text, vfov)) {
+    if (!hugin_utils::str2double(text, vfov)) {
         wxLogError(_("Value must be numeric."));
         return;
     }
@@ -923,7 +920,7 @@ void PanoPanel::DoCalcFOV(wxCommandEvent & e)
     HuginBase::CalculateFitPanorama fitPano(*pano);
     fitPano.run();
     opt.setHFOV(fitPano.getResultHorizontalFOV());
-    opt.setHeight(roundi(fitPano.getResultHeight()));
+    opt.setHeight(hugin_utils::roundi(fitPano.getResultHeight()));
 
     DEBUG_INFO ( "hfov: " << opt.getHFOV() << "  w: " << opt.getWidth() << " h: " << opt.getHeight() << "  => vfov: " << opt.getVFOV()  << "  before update");
 
@@ -1013,7 +1010,7 @@ void PanoPanel::DoStitch()
     }
     DEBUG_DEBUG("tmp PTO file: " << (const char *)currentPTOfn.mb_str(wxConvLocal));
     // copy is not enough, need to adjust image path names...
-    ofstream script(currentPTOfn.mb_str(HUGIN_CONV_FILENAME));
+    std::ofstream script(currentPTOfn.mb_str(HUGIN_CONV_FILENAME));
     HuginBase::UIntSet all;
     if (pano->getNrOfImages() > 0) {
         fill_set(all, 0, pano->getNrOfImages()-1);
@@ -1092,7 +1089,7 @@ void PanoPanel::DoStitch()
     wxString switches(wxT(" --delete -o "));
     if(wxConfigBase::Get()->Read(wxT("/Processor/overwrite"), HUGIN_PROCESSOR_OVERWRITE) == 1)
         switches=wxT(" --overwrite")+switches;
-    wxString command = hugin_stitch_project + switches + wxQuoteFilename(dlg.GetPath()) + wxT(" ") + wxQuoteFilename(currentPTOfn);
+    wxString command = hugin_stitch_project + switches + hugin_utils::wxQuoteFilename(dlg.GetPath()) + wxT(" ") + hugin_utils::wxQuoteFilename(currentPTOfn);
     
     wxConfigBase::Get()->Flush();
 #ifdef __WXGTK__
@@ -1217,19 +1214,19 @@ void PanoPanel::DoSendToBatch()
 			//We need to call the binary from it's own bundle and not from the hugin bundle otherwise we get no menu as OSX assumes that the hugin bundle
 			//will provide the menu
 			cmd = wxQuoteString(cmd); 
-			cmd += wxT(" ")+switches+wxQuoteFilename(projectFile)+wxT(" ")+wxQuoteFilename(dlg.GetPath());	
+            cmd += wxT(" ")+switches+hugin_utils::wxQuoteFilename(projectFile)+wxT(" ")+hugin_utils::wxQuoteFilename(dlg.GetPath());	
 			wxExecute(cmd);
 		}
 		else
 		{ //Can't find PTBatcherGui.app bundle. Use the most straightforward call possible to the bundle but this should actually not work either.
 				wxMessageBox(wxString::Format(_("External program %s not found in the bundle, reverting to system path"), wxT("open")), _("Error"));
-				cmd = wxT("open -b net.sourceforge.hugin.PTBatcherGUI ")+wxQuoteFilename(projectFile);
+                cmd = wxT("open -b net.sourceforge.hugin.PTBatcherGUI ")+hugin_utils::wxQuoteFilename(projectFile);
 				wxExecute(cmd);
 		}
 		
 #else
         const wxFileName exePath(wxStandardPaths::Get().GetExecutablePath());
-        wxExecute(exePath.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR) + wxT("PTBatcherGUI ")+switches+wxQuoteFilename(projectFile)+wxT(" ")+wxQuoteFilename(dlg.GetPath()));
+        wxExecute(exePath.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR) + wxT("PTBatcherGUI ") + switches + hugin_utils::wxQuoteFilename(projectFile) + wxT(" ") + hugin_utils::wxQuoteFilename(dlg.GetPath()));
 #endif
         HuginBase::LensDB::SaveLensDataFromPano(*pano);
     }
@@ -1284,7 +1281,7 @@ void PanoPanel::DoUserDefinedStitch()
     }
     DEBUG_DEBUG("tmp PTO file: " << (const char *)currentPTOfn.mb_str(wxConvLocal));
     // copy is not enough, need to adjust image path names...
-    ofstream script(currentPTOfn.mb_str(HUGIN_CONV_FILENAME));
+    std::ofstream script(currentPTOfn.mb_str(HUGIN_CONV_FILENAME));
     HuginBase::UIntSet all;
     fill_set(all, 0, pano->getNrOfImages() - 1);
     pano->printPanoramaScript(script, pano->getOptimizeVector(), pano->getOptions(), all, false, "");
@@ -1358,10 +1355,10 @@ void PanoPanel::DoUserDefinedStitch()
         return;
     };
 
-    wxString switches(wxT(" --user-defined-output=") + wxQuoteFilename(userOutputDlg.GetPath()) + wxT(" --delete -o "));
+    wxString switches(wxT(" --user-defined-output=") + hugin_utils::wxQuoteFilename(userOutputDlg.GetPath()) + wxT(" --delete -o "));
     if (wxConfigBase::Get()->Read(wxT("/Processor/overwrite"), HUGIN_PROCESSOR_OVERWRITE) == 1)
         switches = wxT(" --overwrite") + switches;
-    wxString command = hugin_stitch_project + switches + wxQuoteFilename(dlg.GetPath()) + wxT(" ") + wxQuoteFilename(currentPTOfn);
+    wxString command = hugin_stitch_project + switches + hugin_utils::wxQuoteFilename(dlg.GetPath()) + wxT(" ") + hugin_utils::wxQuoteFilename(currentPTOfn);
 
     wxConfigBase::Get()->Flush();
 #ifdef __WXGTK__
@@ -1656,7 +1653,7 @@ bool PanoPanel::CheckGoodSize()
 
 bool PanoPanel::CheckHasImages()
 {
-    UIntSet images=getImagesinROI(*pano, pano->getActiveImages());
+    HuginBase::UIntSet images=getImagesinROI(*pano, pano->getActiveImages());
     if(images.size()==0)
     {
         wxMessageBox(_("There are no active images in the output region.\nPlease check your settings, so that at least one image is in the output region."),
