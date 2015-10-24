@@ -33,8 +33,6 @@
 
 namespace HuginBase {
 
-using namespace hugin_utils;
-
 /** calculate the outline of the image
  *
  *  @param src       description of source picture
@@ -66,7 +64,7 @@ void estimateImageAlpha(const SrcPanoImage & src,
                        vigra::BImage & alpha,
                        double & scale)
 {
-    FDiff2D ul,lr;
+    hugin_utils::FDiff2D ul, lr;
     ul.x = DBL_MAX;
     ul.y = DBL_MAX;
     lr.x = -DBL_MAX;
@@ -97,7 +95,7 @@ void estimateImageAlpha(const SrcPanoImage & src,
     DEBUG_DEBUG("dest Sz: " << destSz);
     DEBUG_DEBUG("dest rect: " << destRect);
 
-    FDiff2D cropCenter;
+    hugin_utils::FDiff2D cropCenter;
     double radius2=0;
     if (src.getCropMode() == SrcPanoImage::CROP_CIRCLE) {
         cropCenter.x = src.getCropRect().left() + src.getCropRect().width()/2.0;

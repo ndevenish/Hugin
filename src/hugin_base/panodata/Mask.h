@@ -35,10 +35,8 @@ namespace HuginBase
 {
 namespace PTools { class Transform; }
 
-using namespace hugin_utils;
-
 /** vector, which stores coordinates of one polygon */
-typedef std::vector<FDiff2D> VectorPolygon;
+typedef std::vector<hugin_utils::FDiff2D> VectorPolygon;
 
 /** polygon can exceed the image maximal maskOffset pixels in each direction
  *  bigger polygons will be clipped after loading 
@@ -66,9 +64,9 @@ public:
     /** constructor */
     MaskPolygon() : m_maskType(Mask_negative), m_imgNr(0), m_invert(false) {};
     /** checks if given point is inside of the stored polygon */
-    bool isInside(const FDiff2D p) const;
+    bool isInside(const hugin_utils::FDiff2D p) const;
     /** returns the winding number of the polygon around point p */
-    int getWindingNumber(const FDiff2D p) const;
+    int getWindingNumber(const hugin_utils::FDiff2D p) const;
     /** returns the total winding number of the polygon*/
     int getTotalWindingNumber() const;
 
@@ -94,15 +92,15 @@ public:
 
     // polygon modifier
     /** adds point at the end to the polygon */
-    void addPoint(const FDiff2D p);
+    void addPoint(const hugin_utils::FDiff2D p);
     /** insert point at the position index into the polygon */
-    void insertPoint(const unsigned int index, const FDiff2D p);
+    void insertPoint(const unsigned int index, const hugin_utils::FDiff2D p);
     /** removes point at the position index from the polygon */
     void removePoint(const unsigned int index);
     /** moves the point at position index to the new absolute position p */
-    void movePointTo(const unsigned int index, const FDiff2D p);
+    void movePointTo(const unsigned int index, const hugin_utils::FDiff2D p);
     /** relativ moves the point at position index by diff */
-    void movePointBy(const unsigned int index, const FDiff2D diff);
+    void movePointBy(const unsigned int index, const hugin_utils::FDiff2D diff);
     /** scales all polygon coordinates by factorx for x position and factory for y position */
     void scale(const double factorx, const double factory);
     /** scales x and y axis equally by factor */
@@ -112,14 +110,14 @@ public:
     /** clips the polygon to the given rectangle */
     bool clipPolygon(const vigra::Rect2D rect);
     /** clips the polygon to the circle with center and radius */
-    bool clipPolygon(const FDiff2D center, const double radius);
+    bool clipPolygon(const hugin_utils::FDiff2D center, const double radius);
     /** rotate the polygon by 90 degrees */
     void rotate90(bool clockwise,unsigned int maskWidth,unsigned int maskHeight);
     /** subsamples the polygon, so that the longest distance between 2 points is max_distance */
     void subSample(const double max_distance);
 
     /** search a point which lies near the polygon line and return the index for inserting the new point */
-    unsigned int FindPointNearPos(const FDiff2D p, const double tol);
+    unsigned int FindPointNearPos(const hugin_utils::FDiff2D p, const double tol);
 
     //operators
     /** assign operator */
@@ -174,7 +172,7 @@ void applyMask(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccessor> im
         xd.y += y;
         for(int x=0; x < imgSize.x; ++x, ++xd.x)
         {
-            HuginBase::FDiff2D newPoint(x,y);
+            hugin_utils::FDiff2D newPoint(x,y);
             bool insideMasks=false;
             unsigned int i=0;
             while(!insideMasks && (i<masks.size()))

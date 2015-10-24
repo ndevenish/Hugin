@@ -33,9 +33,6 @@
 #include <vigra/copyimage.hxx>
 #include <vigra/pixelneighborhood.hxx>
 
-using namespace vigra;
-using namespace std;
-
 namespace HuginLines
 {
 // colors used in lines image
@@ -43,17 +40,17 @@ namespace HuginLines
 #define N8_end 1
 #define N8_mid 96
 
-BImage edgeMap2linePts(BImage & input)
+vigra::BImage edgeMap2linePts(vigra::BImage & input)
 {
-    BImage edge(input.width(),input.height(),N8_bg);
-    BImage line(input.size());
+    vigra::BImage edge(input.width(), input.height(), N8_bg);
+    vigra::BImage line(input.size());
     //copy input image, left border pixel in background color
-    vigra::copyImage(input.upperLeft()+Diff2D(1,1),input.lowerRight()-Diff2D(1,1),input.accessor(),edge.upperLeft(),edge.accessor());
+    vigra::copyImage(input.upperLeft() + vigra::Diff2D(1, 1), input.lowerRight() - vigra::Diff2D(1, 1), input.accessor(), edge.upperLeft(), edge.accessor());
 
     int width  = input.width(),
         height = input.height();
 
-    BImage::traverser eul, lul;
+    vigra::BImage::traverser eul, lul;
 
     /* first pass erases "elbow" points  from edge image,
        leaving only diagonal connections.  An elbow point
@@ -61,10 +58,10 @@ BImage edgeMap2linePts(BImage & input)
        more than 4 neighbors in all.
 
     */
-    eul = edge.upperLeft() + Diff2D( 1, 1 );
+    eul = edge.upperLeft() + vigra::Diff2D(1, 1);
     for(int y=1; y<height-1; ++y, ++eul.y )
     {
-        BImage::traverser ix = eul;
+        vigra::BImage::traverser ix = eul;
         for(int x=1; x<width-1; ++x, ++ix.x )
         {
           // center must be an edge point
@@ -98,14 +95,14 @@ BImage edgeMap2linePts(BImage & input)
        visible on a debug image.
 
     */
-    eul = (edge.upperLeft() + Diff2D(1,1));
-    lul = (line.upperLeft() + Diff2D(1,1));
+    eul = (edge.upperLeft() + vigra::Diff2D(1, 1));
+    lul = (line.upperLeft() + vigra::Diff2D(1, 1));
     line.init(N8_bg);
 
     for(int y=1; y<height-1; ++y, ++eul.y, ++lul.y)
     {
-        BImage::traverser ix = eul;
-        BImage::traverser ox = lul;
+        vigra::BImage::traverser ix = eul;
+        vigra::BImage::traverser ox = lul;
         for(int x=1; x<width-1; ++x, ++ix.x, ++ox.x)
         {
             if( *ix != N8_bg )
@@ -153,11 +150,11 @@ BImage edgeMap2linePts(BImage & input)
        orientations differ by more than one unit.  This breaks corners.
 
     */
-    lul = (line.upperLeft() + Diff2D(1,1));
+    lul = (line.upperLeft() + vigra::Diff2D(1, 1));
 
     for(int y=1; y<height-1; ++y, ++lul.y)
     {
-        BImage::traverser ix = lul;
+        vigra::BImage::traverser ix = lul;
         for(int x=1; x<width-1; ++x, ++ix.x )
         {
             int c = *ix;
@@ -165,7 +162,7 @@ BImage edgeMap2linePts(BImage & input)
             {
                 assert( c > 0 && c < 9 );
                 int n = 0, omin = 9, omax = 0;
-                NeighborhoodCirculator<BImage::traverser, EightNeighborCode>
+                vigra::NeighborhoodCirculator<vigra::BImage::traverser, vigra::EightNeighborCode>
                                circulator(ix),
                                end(circulator);
                 do {
@@ -195,19 +192,19 @@ BImage edgeMap2linePts(BImage & input)
     /* 4th pass changes marks in temp image from orientation to
        end = 1, interior = 2, and erases isolated points.
     */
-    lul = (line.upperLeft() + Diff2D(1,1));
+    lul = (line.upperLeft() + vigra::Diff2D(1, 1));
 
     for(int y=1; y<height-1; ++y, ++lul.y)
     {
-        BImage::traverser ix = lul;
+        vigra::BImage::traverser ix = lul;
         for(int x=1; x<width-1; ++x, ++ix.x )
         {
             int c = *ix;
             if( c != N8_bg )
             {
                 int n = 0;
-                NeighborhoodCirculator<BImage::traverser, EightNeighborCode> circulator(ix);
-                NeighborhoodCirculator<BImage::traverser, EightNeighborCode> end(circulator);
+                vigra::NeighborhoodCirculator<vigra::BImage::traverser, vigra::EightNeighborCode> circulator(ix);
+                vigra::NeighborhoodCirculator<vigra::BImage::traverser, vigra::EightNeighborCode> end(circulator);
                 do {
                     int nc = *circulator;
                     if( nc != N8_bg )
@@ -227,22 +224,22 @@ BImage edgeMap2linePts(BImage & input)
        neighbors of end points (this removes 2-point lines).  End points are
        marked N8_end, interior points N8_mid.
     */
-    lul = (line.upperLeft() + Diff2D(1,1));
-    eul = (edge.upperLeft() + Diff2D(1,1)); // rewind edge
+    lul = (line.upperLeft() + vigra::Diff2D(1, 1));
+    eul = (edge.upperLeft() + vigra::Diff2D(1, 1)); // rewind edge
     edge.init(N8_bg);
 
     for(int y=1; y<height-1; ++y, ++lul.y, ++eul.y )
     {
-        BImage::traverser ox = eul;
-        BImage::traverser ix = lul;
+        vigra::BImage::traverser ox = eul;
+        vigra::BImage::traverser ix = lul;
         for(int x=1; x<width-1; ++x, ++ix.x, ++ox.x )
         {
             int c = *ix;
             if( c != N8_bg )
             {
                 int n = 0;
-                NeighborhoodCirculator<BImage::traverser, EightNeighborCode> circulator(ix);
-                NeighborhoodCirculator<BImage::traverser, EightNeighborCode> end(circulator);
+                vigra::NeighborhoodCirculator<vigra::BImage::traverser, vigra::EightNeighborCode> circulator(ix);
+                vigra::NeighborhoodCirculator<vigra::BImage::traverser, vigra::EightNeighborCode> end(circulator);
                 do {
                     int nc = *circulator;
                     if( nc != N8_bg )
@@ -274,7 +271,7 @@ BImage edgeMap2linePts(BImage & input)
 inline float ccdist( int dx, int dy )
 {
     dx = abs(dx); dy = abs(dy);
-    return float(max(dx,dy)) + float(0.41421 * min(dx,dy));
+    return float(std::max(dx,dy)) + float(0.41421 * std::min(dx,dy));
 }
 
 // Euclidian distance
@@ -285,7 +282,7 @@ inline float eudist( int dx, int dy )
 }
 
 // chord and arc using chain code distance
-static double CtoAcc( vector<Point2D> & pts,
+static double CtoAcc( std::vector<vigra::Point2D> & pts,
                     int start, int count,
                     double & C, double & A)
 {
@@ -307,7 +304,7 @@ static double CtoAcc( vector<Point2D> & pts,
 }
 
 // chord and arc using Euclidian distance
-static double CtoAeu( vector<Point2D> & pts,
+static double CtoAeu( std::vector<vigra::Point2D> & pts,
                     int start, int count,
                     double & C, double & A)
 {
@@ -331,7 +328,7 @@ static double CtoAeu( vector<Point2D> & pts,
 /* 3-point scalar curvature
    positive clockwise
 */
-inline float scurv( Point2D & l, Point2D & m, Point2D & r )
+inline float scurv(vigra::Point2D & l, vigra::Point2D & m, vigra::Point2D & r)
 {
     return float(m.x - l.x) * float(r.y - l.y)
          + float(m.y - l.y) * float(l.x - r.x );
@@ -340,7 +337,7 @@ inline float scurv( Point2D & l, Point2D & m, Point2D & r )
 /* 3-point float vector curvature
    positive inward
 */
-inline void vcurv ( Point2D & l, Point2D & m, Point2D & r, float & vx, float & vy )
+inline void vcurv(vigra::Point2D & l, vigra::Point2D & m, vigra::Point2D & r, float & vx, float & vy)
 {
     vx = 0.5 * (l.x + r.x) - float( m.x );
     vy = 0.5 * (l.y + r.y) - float( m.y );
@@ -360,7 +357,7 @@ inline void vcurv ( Point2D & l, Point2D & m, Point2D & r, float & vx, float & v
   Note if a segment has multiple smooth parts, only the longest
   one will survive.
 */
-static int lineFilter( vector< Point2D > & pts,
+static int lineFilter(std::vector< vigra::Point2D > & pts,
                        int lmin,
                        double flpix,
                        double xcen, double ycen
@@ -439,19 +436,19 @@ static int lineFilter( vector< Point2D > & pts,
   a single segment of nearly uniform curvature.
 */
 
-int linePts2lineList( BImage & img, int minsize, double flpix, Lines& lines)
+int linePts2lineList(vigra::BImage & img, int minsize, double flpix, Lines& lines)
 {
     int nadd = 0, nrejL = 0;
 
-    static Diff2D offs[8] = {
-        Diff2D( 1, 0 ),
-        Diff2D( 1, -1 ),
-        Diff2D( 0, -1 ),
-        Diff2D( -1, -1 ),
-        Diff2D( -1, 0 ),
-        Diff2D( -1, 1 ),
-        Diff2D( 0, 1 ),
-        Diff2D( 1, 1 )
+    static vigra::Diff2D offs[8] = {
+        vigra::Diff2D(1, 0),
+        vigra::Diff2D(1, -1),
+        vigra::Diff2D(0, -1),
+        vigra::Diff2D(-1, -1),
+        vigra::Diff2D(-1, 0),
+        vigra::Diff2D(-1, 1),
+        vigra::Diff2D(0, 1),
+        vigra::Diff2D(1, 1)
     };
 
     // corner filter parameters
@@ -466,23 +463,23 @@ int linePts2lineList( BImage & img, int minsize, double flpix, Lines& lines)
            ycen = 0.5 * height;
 
 
-    BImage::traverser ul(img.upperLeft() + Diff2D( 1, 1 ));
+    vigra::BImage::traverser ul(img.upperLeft() + vigra::Diff2D(1, 1));
     for(int y=1; y<height-1; ++y, ++ul.y)
     {
-        BImage::traverser ix = ul;
+        vigra::BImage::traverser ix = ul;
         for(int x=1; x<width-1; ++x, ++ix.x )
         {
             int cd = *ix;    // point code
             if( cd == N8_end )
             { // new line...
               // trace and erase the line
-                BImage::traverser tr = ix;
-                Point2D pos( x, y );
-                vector<Point2D> pts;
+                vigra::BImage::traverser tr = ix;
+                vigra::Point2D pos(x, y);
+                std::vector<vigra::Point2D> pts;
                 pts.push_back(pos);
                 *tr = N8_bg;
                 int dir;
-                Diff2D dif;
+                vigra::Diff2D dif;
                 do {    // scan the neighborhood
                     for( dir = 0; dir < 8; dir++ )
                     {
@@ -512,7 +509,7 @@ int linePts2lineList( BImage & img, int minsize, double flpix, Lines& lines)
                         */
                         int ip = 0, np = (int)pts.size();
 
-                        vector<Point2D> tmp;
+                        std::vector<vigra::Point2D> tmp;
                         float ccd[32];    // rolling interpoint chaincode distances
                         int isql = 0, isqr = 0;    // left & rgt indices to same
                         int xl = pts.at( 0 ).x,
@@ -536,7 +533,7 @@ int linePts2lineList( BImage & img, int minsize, double flpix, Lines& lines)
                         {
                             for( int i = 0; i < span; i++ )
                             {
-                                tmp.push_back(Point2D( pts.at(i).x, pts.at(i).y ));
+                                tmp.push_back(vigra::Point2D(pts.at(i).x, pts.at(i).y));
                             }
                         }
 
@@ -562,7 +559,7 @@ int linePts2lineList( BImage & img, int minsize, double flpix, Lines& lines)
                             if( Arc - Chord <= maxacd )
                             {
                                 ++ncopy;
-                                tmp.push_back(Point2D( pts.at(irgt).x, pts.at(irgt).y ));
+                                tmp.push_back(vigra::Point2D(pts.at(irgt).x, pts.at(irgt).y));
                             }
                             else
                             {

@@ -31,13 +31,11 @@
 
 namespace HuginBase {
 
-using namespace hugin_utils;
-
-FDiff2D CalculateFOV::calcFOV(const PanoramaData& panorama)
+hugin_utils::FDiff2D CalculateFOV::calcFOV(const PanoramaData& panorama)
 {
     if (panorama.getNrOfImages() == 0) {
         // no change
-        return FDiff2D(panorama.getOptions().getHFOV(), panorama.getOptions().getVFOV());
+        return hugin_utils::FDiff2D(panorama.getOptions().getHFOV(), panorama.getOptions().getVFOV());
     }
 
     vigra::Size2D panoSize(360*2,180*2);
@@ -73,7 +71,7 @@ FDiff2D CalculateFOV::calcFOV(const PanoramaData& panorama)
         }
 
     // get field of view
-    FDiff2D ul,lr;
+    hugin_utils::FDiff2D ul, lr;
     bool found = false;
     ul.x = DBL_MAX;
     ul.y = DBL_MAX;
@@ -104,7 +102,7 @@ FDiff2D CalculateFOV::calcFOV(const PanoramaData& panorama)
     }
     if (!found) {
         // if nothing found, return current fov
-        return FDiff2D(panorama.getOptions().getHFOV(), panorama.getOptions().getVFOV());
+        return hugin_utils::FDiff2D(panorama.getOptions().getHFOV(), panorama.getOptions().getVFOV());
     }
     ul=ul/2.0;
     lr=lr/2.0;
@@ -112,7 +110,7 @@ FDiff2D CalculateFOV::calcFOV(const PanoramaData& panorama)
     ul.y = ul.y - 90;
     lr.x = lr.x - 180;
     lr.y = lr.y - 90;
-    FDiff2D fov (2*std::max(fabs(ul.x), fabs(lr.x)), 2*std::max(fabs(ul.y), fabs(lr.y)));
+    hugin_utils::FDiff2D fov(2 * std::max(fabs(ul.x), fabs(lr.x)), 2 * std::max(fabs(ul.y), fabs(lr.y)));
     if(fov.x<40)
     {
         fov.x+=1;

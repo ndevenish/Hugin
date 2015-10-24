@@ -773,7 +773,7 @@ void MaskEditorPanel::UpdateCrop(bool updateFromImgCtrl)
     {
         m_cropRect=m_editImg->getCrop();
     };
-    vector<HuginBase::SrcPanoImage> imgs;
+    std::vector<HuginBase::SrcPanoImage> imgs;
     for (HuginBase::UIntSet::iterator it = m_selectedImages.begin(); it != m_selectedImages.end(); ++it)
     {
         HuginBase::SrcPanoImage img=m_pano->getSrcImage(*it);

@@ -48,10 +48,6 @@
 #include "hugin_script_interface/hpi.h"
 #endif
 
-using namespace std;
-using namespace vigra;
-using namespace hugin_utils;
-
 namespace PanoCommand
 {
 
@@ -75,8 +71,8 @@ bool wxAddCtrlPointGridCmd::processPanorama(HuginBase::Panorama& pano)
     //const vigra::BImage & leftImg = ImageCache::getInstance().getPyramidImage(
     //    i1.getFilename(),1);
 
-    BImage leftCorners(leftImg.size());
-    FImage leftCornerResponse(leftImg.size());
+    vigra::BImage leftCorners(leftImg.size());
+    vigra::FImage leftCornerResponse(leftImg.size());
 
     // empty corner image
     leftCorners.init(0);
@@ -91,13 +87,13 @@ bool wxAddCtrlPointGridCmd::processPanorama(HuginBase::Panorama& pano)
     //    saveScaledImage(leftCornerResponse,"corner_response.png");
     DEBUG_DEBUG("finding local maxima");
     // find local maxima of corner response, mark with 1
-    vigra::localMaxima(srcImageRange(leftCornerResponse), destImage(leftCorners), 255);
+    vigra::localMaxima(vigra::srcImageRange(leftCornerResponse), vigra::destImage(leftCorners), 255);
 
 //    exportImage(srcImageRange(leftCorners), vigra::ImageExportInfo("c:/corner_response_maxima.png"));
 
     DEBUG_DEBUG("thresholding corner response");
     // threshold corner response to keep only strong corners (above 400.0)
-    transformImage(srcImageRange(leftCornerResponse), destImage(leftCornerResponse),
+    vigra::transformImage(vigra::srcImageRange(leftCornerResponse), vigra::destImage(leftCornerResponse),
         vigra::Threshold<double, double>(
         cornerThreshold, DBL_MAX, 0.0, 1.0));
 
@@ -636,7 +632,7 @@ bool wxLoadPTProjectCmd::processPanorama(HuginBase::Panorama& pano)
                         // Is file in the new path
                 if (basedir != wxT("")) {
                     DEBUG_DEBUG("Old filename: " << pano.getImage(i).getFilename());
-                    std::string fn = stripPath(pano.getImage(i).getFilename());
+                    std::string fn = hugin_utils::stripPath(pano.getImage(i).getFilename());
                     DEBUG_DEBUG("Old filename, without path): " << fn);
                     wxString newname(fn.c_str(), HUGIN_CONV_FILENAME);
                             // GetFullName does only work with local paths (not compatible across platforms)

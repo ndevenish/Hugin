@@ -32,9 +32,6 @@
 
 namespace HuginBase {
 
-using namespace hugin_utils;
-
-
 Lens::Lens()
     : m_hasExif(false), m_projectionFormat(BaseSrcPanoImage::RECTILINEAR),
       m_imageSize(0,0), m_cropFactor(1.0)

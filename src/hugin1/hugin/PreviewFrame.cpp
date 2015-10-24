@@ -56,8 +56,6 @@ extern "C" {
 #include <pano13/queryfeature.h>
 }
 
-using namespace hugin_utils;
-
 // a random id, hope this doesn't break something..
 enum {
     ID_PROJECTION_CHOICE = wxID_HIGHEST +1,
@@ -434,7 +432,7 @@ void PreviewFrame::OnChangeDisplayedImgs(wxCommandEvent & e)
 {
     int id = e.GetId() - ID_TOGGLE_BUT;
     int nImg = m_pano.getNrOfImages();
-    UIntSet activeImages = m_pano.getActiveImages();
+    HuginBase::UIntSet activeImages = m_pano.getActiveImages();
     DEBUG_DEBUG("toggle_button_id: " << id << " nImg:" << nImg << "  m_ToggleButtons.size(): " << m_ToggleButtons.size());
     if (id >= 0 && id < nImg) {
         if (e.IsChecked()) {
@@ -451,7 +449,7 @@ void PreviewFrame::OnChangeDisplayedImgs(wxCommandEvent & e)
     }
 }
 
-void PreviewFrame::panoramaChanged(Panorama &pano)
+void PreviewFrame::panoramaChanged(HuginBase::Panorama &pano)
 {
     const HuginBase::PanoramaOptions & opts = pano.getOptions();
 
@@ -475,7 +473,7 @@ void PreviewFrame::panoramaChanged(Panorama &pano)
         m_incExposureBut->Show();
         */
     }
-    m_exposureTextCtrl->SetValue(wxString(doubleToString(opts.outputExposureValue,2).c_str(), wxConvLocal));
+    m_exposureTextCtrl->SetValue(wxString(hugin_utils::doubleToString(opts.outputExposureValue,2).c_str(), wxConvLocal));
 
     bool activeImgs = pano.getActiveImages().size() > 0;
     m_ToolBar->EnableTool(XRCID("preview_center_tool"), activeImgs);
@@ -499,7 +497,7 @@ void PreviewFrame::panoramaChanged(Panorama &pano)
                 wxString str2(pp->name, wxConvLocal);
                 str2 = wxGetTranslation(str2);
                 m_projParamNamesLabel[i]->SetLabel(str2);
-                m_projParamSlider[i]->SetRange(roundi(pp->minValue), roundi(pp->maxValue));
+                m_projParamSlider[i]->SetRange(hugin_utils::roundi(pp->minValue), hugin_utils::roundi(pp->maxValue));
             }
             for(;i < PANO_PROJECTION_MAX_PARMS; i++) {
                 m_projParamNamesLabel[i]->Hide();
@@ -517,9 +515,9 @@ void PreviewFrame::panoramaChanged(Panorama &pano)
         std::vector<double> params = opts.getProjectionParameters();
         assert((int) params.size() == nParam);
         for (int i=0; i < nParam; i++) {
-            wxString val = wxString(doubleToString(params[i],1).c_str(), wxConvLocal);
+            wxString val = wxString(hugin_utils::doubleToString(params[i],1).c_str(), wxConvLocal);
             m_projParamTextCtrl[i]->SetValue(wxString(val.wc_str(), wxConvLocal));
-            m_projParamSlider[i]->SetValue(roundi(params[i]));
+            m_projParamSlider[i]->SetValue(hugin_utils::roundi(params[i]));
         }
     }
     if (relayout) {
@@ -528,14 +526,14 @@ void PreviewFrame::panoramaChanged(Panorama &pano)
     }
     SetStatusText(_("Center panorama with left mouse button, set horizon with right button"),0);
     SetStatusText(wxString::Format(wxT("%.1f x %.1f"), opts.getHFOV(), opts.getVFOV()),2);
-    m_HFOVSlider->SetValue(roundi(opts.getHFOV()));
-    m_VFOVSlider->SetValue(roundi(opts.getVFOV()));
+    m_HFOVSlider->SetValue(hugin_utils::roundi(opts.getHFOV()));
+    m_VFOVSlider->SetValue(hugin_utils::roundi(opts.getVFOV()));
 
     m_oldProjFormat = opts.getProjection();
     updatePano();
 }
 
-void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
+void PreviewFrame::panoramaImagesChanged(HuginBase::Panorama &pano, const HuginBase::UIntSet &changed)
 {
     DEBUG_TRACE("");
 
@@ -557,7 +555,7 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
 
     // add buttons
     if ( nrImages >= nrButtons ) {
-        for(UIntSet::const_iterator it = changed.begin(); it != changed.end(); ++it){
+        for(HuginBase::UIntSet::const_iterator it = changed.begin(); it != changed.end(); ++it){
             if (*it >= nrButtons) {
                 // create new item.
 //                wxImage * bmp = new wxImage(sz.GetWidth(), sz.GetHeight());
@@ -590,7 +588,7 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
     }
 
     // update existing items
-    UIntSet displayedImages = m_pano.getActiveImages();
+    HuginBase::UIntSet displayedImages = m_pano.getActiveImages();
     for (unsigned i=0; i < nrImages; i++) {
         m_ToggleButtons[i]->SetValue(set_contains(displayedImages, i));
         wxFileName tFilename(wxString (pano.getImage(i).getFilename().c_str(), HUGIN_CONV_FILENAME));
@@ -694,7 +692,7 @@ void PreviewFrame::OnFitPano(wxCommandEvent & e)
     HuginBase::CalculateFitPanorama fitPano(m_pano);
     fitPano.run();
     opt.setHFOV(fitPano.getResultHorizontalFOV());
-    opt.setHeight(roundi(fitPano.getResultHeight()));
+    opt.setHeight(hugin_utils::roundi(fitPano.getResultHeight()));
 
     PanoCommand::GlobalCmdHist::getInstance().addCommand(
         new PanoCommand::SetPanoOptionsCmd( m_pano, opt )
@@ -709,7 +707,7 @@ void PreviewFrame::OnShowAll(wxCommandEvent & e)
     if (m_pano.getNrOfImages() == 0) return;
 
     DEBUG_ASSERT(m_pano.getNrOfImages() == m_ToggleButtons.size());
-    UIntSet displayedImgs;
+    HuginBase::UIntSet displayedImgs;
     for (unsigned int i=0; i < m_pano.getNrOfImages(); i++) {
         displayedImgs.insert(i);
     }
@@ -727,7 +725,7 @@ void PreviewFrame::OnShowNone(wxCommandEvent & e)
     for (unsigned int i=0; i < m_pano.getNrOfImages(); i++) {
         m_ToggleButtons[i]->SetValue(false);
     }
-    UIntSet displayedImgs;
+    HuginBase::UIntSet displayedImgs;
     PanoCommand::GlobalCmdHist::getInstance().addCommand(
         new PanoCommand::SetActiveImagesCmd(m_pano, displayedImgs)
         );
@@ -744,19 +742,19 @@ void PreviewFrame::OnNumTransform(wxCommandEvent & e)
     if (dlg.ShowModal() == wxID_OK ) {
         wxString text = XRCCTRL(dlg, "numtrans_yaw", wxTextCtrl)->GetValue();
         double y;
-        if (!str2double(text, y)) {
+        if (!hugin_utils::str2double(text, y)) {
             wxLogError(_("Yaw value must be numeric."));
             return;
         }
         text = XRCCTRL(dlg, "numtrans_pitch", wxTextCtrl)->GetValue();
         double p;
-        if (!str2double(text, p)) {
+        if (!hugin_utils::str2double(text, p)) {
             wxLogError(_("Pitch value must be numeric."));
             return;
         }
         text = XRCCTRL(dlg, "numtrans_roll", wxTextCtrl)->GetValue();
         double r;
-        if (!str2double(text, r)) {
+        if (!hugin_utils::str2double(text, r)) {
             wxLogError(_("Roll value must be numeric."));
             return;
         }
@@ -779,7 +777,7 @@ void PreviewFrame::OnTextCtrlChanged(wxCommandEvent & e)
         DEBUG_INFO ("target exposure = " << text.mb_str(wxConvLocal) );
         double p = 0;
         if (text != wxT("")) {
-            if (!str2double(text, p)) {
+            if (!hugin_utils::str2double(text, p)) {
                 wxLogError(_("Value must be numeric."));
                 return;
             }
@@ -794,7 +792,7 @@ void PreviewFrame::OnTextCtrlChanged(wxCommandEvent & e)
                 DEBUG_INFO ("param " << i << ":  = " << text.mb_str(wxConvLocal) );
                 double p = 0;
                 if (text != wxT("")) {
-                    if (!str2double(text, p)) {
+                    if (!hugin_utils::str2double(text, p)) {
                         wxLogError(_("Value must be numeric."));
                         return;
                     }

@@ -44,12 +44,7 @@
 
 #include <math.h>
 
-using namespace std;
-using namespace vigra;
-using namespace vigra_ext;
-using namespace hugin_utils;
-
-typedef RGBValue<unsigned char> BRGBValue;
+typedef vigra::RGBValue<unsigned char> BRGBValue;
 
 BEGIN_EVENT_TABLE(PreviewPanel, wxPanel)
     EVT_SIZE(PreviewPanel::OnResize)
@@ -241,7 +236,7 @@ void PreviewPanel::updatePreview()
     double finalWidth = pano->getOptions().getWidth();
     double finalHeight = pano->getOptions().getHeight();
 
-    m_panoImgSize = Diff2D(GetClientSize().GetWidth(), GetClientSize().GetHeight());
+    m_panoImgSize = vigra::Diff2D(GetClientSize().GetWidth(), GetClientSize().GetHeight());
 
     double ratioPano = finalWidth / finalHeight;
     double ratioPanel = (double)m_panoImgSize.x / (double)m_panoImgSize.y;
@@ -266,15 +261,15 @@ void PreviewPanel::updatePreview()
     // always use bilinear for preview.
 
     // reset ROI. The preview needs to draw the parts outside the ROI, too!
-    opts.setROI(Rect2D(opts.getSize()));
+    opts.setROI(vigra::Rect2D(opts.getSize()));
     opts.interpolator = vigra_ext::INTERP_BILINEAR;
 
     // create images
     wxImage panoImage(m_panoImgSize.x, m_panoImgSize.y);
     try {
-        vigra::BasicImageView<RGBValue<unsigned char> > panoImg8((RGBValue<unsigned char> *)panoImage.GetData(), panoImage.GetWidth(), panoImage.GetHeight());
-        FRGBImage panoImg(m_panoImgSize);
-        BImage alpha(m_panoImgSize);
+        vigra::BasicImageView<vigra::RGBValue<unsigned char> > panoImg8((vigra::RGBValue<unsigned char> *)panoImage.GetData(), panoImage.GetWidth(), panoImage.GetHeight());
+        vigra::FRGBImage panoImg(m_panoImgSize);
+        vigra::BImage alpha(m_panoImgSize);
 
         DEBUG_DEBUG("about to stitch images, pano size: " << m_panoImgSize);
         HuginBase::UIntSet displayedImages = pano->getActiveImages();
@@ -282,8 +277,8 @@ void PreviewPanel::updatePreview()
             if (opts.outputMode == HuginBase::PanoramaOptions::OUTPUT_HDR) {
                 DEBUG_DEBUG("HDR output merge");
 
-                ReduceToHDRFunctor<RGBValue<float> > hdrmerge;
-                HuginBase::Nona::ReduceStitcher<FRGBImage, BImage> stitcher(*pano, parentWindow);
+                vigra_ext::ReduceToHDRFunctor<vigra::RGBValue<float> > hdrmerge;
+                HuginBase::Nona::ReduceStitcher<vigra::FRGBImage, vigra::BImage> stitcher(*pano, parentWindow);
                 stitcher.stitch(opts, displayedImages,
                                 destImageRange(panoImg), destImage(alpha),
                                 m_remapCache,
@@ -301,13 +296,13 @@ void PreviewPanel::updatePreview()
 
                 // find min and max
                 vigra::FindMinMax<float> minmax;   // init functor
-                vigra::inspectImageIf(srcImageRange(panoImg), srcImage(alpha),
+                vigra::inspectImageIf(vigra::srcImageRange(panoImg), vigra::srcImage(alpha),
                                     minmax);
                 double min = std::max(minmax.min, 1e-6f);
                 double max = minmax.max;
 
                 int mapping = wxConfigBase::Get()->Read(wxT("/ImageCache/MappingFloat"), HUGIN_IMGCACHE_MAPPING_FLOAT);
-                applyMapping(srcImageRange(panoImg), destImage(panoImg8), min, max, mapping);
+                vigra_ext::applyMapping(vigra::srcImageRange(panoImg), vigra::destImage(panoImg8), min, max, mapping);
 
             } else {
                     // LDR output
@@ -316,7 +311,7 @@ void PreviewPanel::updatePreview()
                 case BLEND_COPY:
                 {
                     HuginBase::Nona::StackingBlender blender;
-                    HuginBase::Nona::SimpleStitcher<FRGBImage, BImage> stitcher(*pano, parentWindow);
+                    HuginBase::Nona::SimpleStitcher<vigra::FRGBImage, vigra::BImage> stitcher(*pano, parentWindow);
                     stitcher.stitch(opts, displayedImages,
                                     destImageRange(panoImg), destImage(alpha),
                                     m_remapCache,
@@ -326,8 +321,8 @@ void PreviewPanel::updatePreview()
                 }
                 case BLEND_DIFFERENCE:
                 {
-                    HuginBase::Nona::ReduceToDifferenceFunctor<RGBValue<float> > func;
-                    HuginBase::Nona::ReduceStitcher<FRGBImage, BImage> stitcher(*pano, parentWindow);
+                    HuginBase::Nona::ReduceToDifferenceFunctor<vigra::RGBValue<float> > func;
+                    HuginBase::Nona::ReduceStitcher<vigra::FRGBImage, vigra::BImage> stitcher(*pano, parentWindow);
                     stitcher.stitch(opts, displayedImages,
                                     destImageRange(panoImg), destImage(alpha),
                                     m_remapCache,
@@ -368,11 +363,11 @@ void PreviewPanel::updatePreview()
                     switch(src.getResponseType())
                     {
                         case HuginBase::SrcPanoImage::RESPONSE_EMOR:
-                            EMoR::createEMoRLUT(src.getEMoRParams(), lut);
+                            vigra_ext::EMoR::createEMoRLUT(src.getEMoRParams(), lut);
                             break;
                         case HuginBase::SrcPanoImage::RESPONSE_GAMMA:
                             lut.resize(256);
-                            createGammaLUT(1/src.getGamma(), lut);
+                            vigra_ext::createGammaLUT(1/src.getGamma(), lut);
                             break;
                         default:
                             vigra_fail("Unknown or unsupported response function type");
@@ -382,7 +377,7 @@ void PreviewPanel::updatePreview()
                     for (size_t i=0; i < lut.size(); i++) 
                         lut[i] = lut[i]*255;
                     typedef vigra::RGBValue<float> FRGB;
-                    LUTFunctor<FRGB, LUT> lutf(lut);
+                    vigra_ext::LUTFunctor<FRGB, LUT> lutf(lut);
 
                     vigra::transformImage(srcImageRange(panoImg), destImage(panoImg8),
                                           lutf);
@@ -415,7 +410,7 @@ void PreviewPanel::updatePreview()
     HuginBase::SrcPanoImage src;
     src.setProjection(HuginBase::SrcPanoImage::EQUIRECTANGULAR);
     src.setHFOV(360);
-    src.setSize(Size2D(360,180));
+    src.setSize(vigra::Size2D(360,180));
     m_pano2erect = new HuginBase::PTools::Transform;
     m_pano2erect->createTransform(src, opts);
 
@@ -492,13 +487,13 @@ void PreviewPanel::DrawPreview(wxDC & dc)
         dc.DrawBitmap(*m_panoBitmap, offsetX, offsetY);
 
         // draw ROI
-        Size2D panoSize =  pano->getOptions().getSize();
-        Rect2D panoROI =  pano->getOptions().getROI();
+        vigra::Size2D panoSize = pano->getOptions().getSize();
+        vigra::Rect2D panoROI = pano->getOptions().getROI();
         if (panoROI != vigra::Rect2D(panoSize)) {
 
-            double scale = min(w/(double)panoSize.x, h/(double)panoSize.y);
-            Rect2D previewROI = Rect2D(panoROI.upperLeft()* scale, panoROI.lowerRight() * scale);
-            Rect2D screenROI = previewROI;
+            double scale = std::min(w/(double)panoSize.x, h/(double)panoSize.y);
+            vigra::Rect2D previewROI = vigra::Rect2D(panoROI.upperLeft()* scale, panoROI.lowerRight() * scale);
+            vigra::Rect2D screenROI = previewROI;
             screenROI.moveBy(offsetX, offsetY);
 
 
@@ -693,20 +688,20 @@ void PreviewPanel::mouse2erect(int xm, int ym, double &xd, double & yd)
      }
 }
 
-void PreviewPanel::DrawOutline(const vector<FDiff2D> & points, wxDC & dc, int offX, int offY)
+void PreviewPanel::DrawOutline(const std::vector<hugin_utils::FDiff2D> & points, wxDC & dc, int offX, int offY)
 {
-    for (vector<FDiff2D>::const_iterator pnt = points.begin();
+    for (std::vector<hugin_utils::FDiff2D>::const_iterator pnt = points.begin();
          pnt != points.end() ;
          ++pnt)
     {
-        Diff2D point = pnt->toDiff2D();
+        vigra::Diff2D point = pnt->toDiff2D();
         if (point.x < 0) point.x = 0;
         if (point.y < 0) point.y = 0;
         if (point.x >= m_panoImgSize.x)
             point.x = m_panoImgSize.y-1;
         if (point.y >= m_panoImgSize.y)
             point.y = m_panoImgSize.y -1;
-        dc.DrawPoint(roundi(offX + point.x), roundi(offY + point.y));
+        dc.DrawPoint(hugin_utils::roundi(offX + point.x), hugin_utils::roundi(offY + point.y));
     }
 }
 

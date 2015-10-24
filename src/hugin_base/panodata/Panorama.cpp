@@ -38,8 +38,6 @@
 
 namespace HuginBase {
 
-using namespace hugin_utils;
-
 Panorama::Panorama() : dirty(false), m_forceImagesUpdate(false)
 {
     // init map with ptoptimizer variables.
@@ -509,8 +507,6 @@ void Panorama::printPanoramaScript(std::ostream & o,
                                    bool forPTOptimizer,
                                    const std::string & stripPrefix) const
 {
-    using namespace std;
-    
 #ifdef __unix__
     // set numeric locale to C, for correct number output
     char * t = setlocale(LC_NUMERIC,NULL);
@@ -760,8 +756,8 @@ void Panorama::printPanoramaScript(std::ostream & o,
     o << "#hugin_outputImageTypeHDR " << output.outputImageTypeHDR << endl;
     o << "#hugin_outputImageTypeHDRCompression " << output.outputImageTypeHDRCompression << endl;
 
-    o << "#hugin_outputStacksMinOverlap " << setprecision(3) << output.outputStacksMinOverlap << endl;
-    o << "#hugin_outputLayersExposureDiff " << setprecision(2) << output.outputLayersExposureDiff << endl;
+    o << "#hugin_outputStacksMinOverlap " << std::setprecision(3) << output.outputStacksMinOverlap << endl;
+    o << "#hugin_outputLayersExposureDiff " << std::setprecision(2) << output.outputLayersExposureDiff << endl;
 
     if(optvars==getOptimizeVector())
     {
@@ -843,9 +839,6 @@ void Panorama::printStitcherScript(std::ostream & o,
 void Panorama::parseOptimizerScript(std::istream & i, const UIntSet & imgs,
                                     VariableMapVector & imgVars, CPVector & CPs) const
 {
-    using namespace std;
-    using namespace PTScriptParsing;
-    
     DEBUG_TRACE("");
 #ifdef __unix__
     // set numeric locale to C, for correct number output
@@ -879,7 +872,7 @@ void Panorama::parseOptimizerScript(std::istream & i, const UIntSet & imgs,
 
     // 0 = read output (image lines), 1 = read control point distances
     int state = 0;
-    string line;
+    std::string line;
     unsigned int lineNr = 0;
     unsigned int scriptImgCounter = 0;
     unsigned int scriptCPCounter = 0;
@@ -915,11 +908,11 @@ void Panorama::parseOptimizerScript(std::istream & i, const UIntSet & imgs,
             DEBUG_DEBUG("reading image variables for image:" << scriptImgCounter);
             // read position variables
             int link;
-            readVar(map_get(var, "r"), link, line);
+            PTScriptParsing::readVar(map_get(var, "r"), link, line);
             DEBUG_ASSERT(link == -1);
-            readVar(map_get(var, "p"), link, line);
+            PTScriptParsing::readVar(map_get(var, "p"), link, line);
             DEBUG_ASSERT(link == -1);
-            readVar(map_get(var, "y"), link, line);
+            PTScriptParsing::readVar(map_get(var, "y"), link, line);
             DEBUG_ASSERT(link == -1);
 
             DEBUG_DEBUG("yaw: " << map_get(var, "y").getValue()
@@ -927,15 +920,15 @@ void Panorama::parseOptimizerScript(std::istream & i, const UIntSet & imgs,
                         << " roll " << map_get(var, "r").getValue());
             // read lens variables
 
-            readVar(map_get(var, "TrX"), link, line);
+            PTScriptParsing::readVar(map_get(var, "TrX"), link, line);
             DEBUG_ASSERT(link == -1);
-            readVar(map_get(var, "TrY"), link, line);
+            PTScriptParsing::readVar(map_get(var, "TrY"), link, line);
             DEBUG_ASSERT(link == -1);
-            readVar(map_get(var, "TrZ"), link, line);
+            PTScriptParsing::readVar(map_get(var, "TrZ"), link, line);
             DEBUG_ASSERT(link == -1);
-            readVar(map_get(var, "Tpy"), link, line);
+            PTScriptParsing::readVar(map_get(var, "Tpy"), link, line);
             DEBUG_ASSERT(link == -1);
-            readVar(map_get(var, "Tpp"), link, line);
+            PTScriptParsing::readVar(map_get(var, "Tpp"), link, line);
             DEBUG_ASSERT(link == -1);
 
             DEBUG_DEBUG("X: " << map_get(var, "TrX").getValue()
@@ -946,7 +939,7 @@ void Panorama::parseOptimizerScript(std::istream & i, const UIntSet & imgs,
 
             for (const char **c = Lens::variableNames; *c != 0; ++c) {
                 Variable & curVar = map_get(var, *c);
-                if (!readVar(curVar, link, line)) {
+                if (!PTScriptParsing::readVar(curVar, link, line)) {
                     DEBUG_ERROR("Could not read "<< *c << " at script line " << lineNr);
                 }
                 // linking in output forbidden
@@ -966,8 +959,8 @@ void Panorama::parseOptimizerScript(std::istream & i, const UIntSet & imgs,
             }
             if (line.find("# Control Point No") != 0) continue;
             DEBUG_DEBUG("reading cp dist line: " << line);
-            string::size_type p;
-            if ((p=line.find(':')) == string::npos) assert(0);
+            std::string::size_type p;
+            if ((p=line.find(':')) == std::string::npos) assert(0);
             p++;
             DEBUG_DEBUG("parsing point " << scriptCPCounter << " (idx:" << p << "): " << line.substr(p));
             double err = -1;
@@ -1078,7 +1071,7 @@ void Panorama::transferMask(MaskPolygon mask,unsigned int imgNr, const UIntSet& 
             case BaseSrcPanoImage::CROP_CIRCLE:
                 {
                     vigra::Rect2D cropRect=state.images[imgNr]->getCropRect();
-                    FDiff2D center=FDiff2D((cropRect.left()+cropRect.right())/2.0,(cropRect.top()+cropRect.bottom())/2.0);
+                    hugin_utils::FDiff2D center((cropRect.left()+cropRect.right())/2.0,(cropRect.top()+cropRect.bottom())/2.0);
                     double radius=((cropRect.width()<cropRect.height())?cropRect.width():cropRect.height())/2.0;
                     if(radius>10)
                     {
@@ -1334,8 +1327,8 @@ vigra::Rect2D Panorama::centerCropImage(unsigned int imgNr)
     {
         return cropRect;
     };
-    int dx = roundi(state.images[imgNr]->getRadialDistortionCenterShift().x);
-    int dy = roundi(state.images[imgNr]->getRadialDistortionCenterShift().y);
+    int dx = hugin_utils::roundi(state.images[imgNr]->getRadialDistortionCenterShift().x);
+    int dy = hugin_utils::roundi(state.images[imgNr]->getRadialDistortionCenterShift().y);
     vigra::Point2D center = vigra::Point2D(state.images[imgNr]->getSize().width()/2 + dx, state.images[imgNr]->getSize().height()/2 + dy);
 
     vigra::Diff2D d(state.images[imgNr]->getCropRect().width() / 2, state.images[imgNr]->getCropRect().height() / 2);
@@ -2248,24 +2241,21 @@ void PanoramaMemento::deleteAllImages()
 
 bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std::string &prefix)
 {
-    using namespace std;
-    using namespace PTScriptParsing;
-    
     DEBUG_TRACE("");
     // set numeric locale to C, for correct number output
     char * p = setlocale(LC_NUMERIC,NULL);
     char * old_locale = strdup(p);
     setlocale(LC_NUMERIC,"C");
     PTParseState state;
-    string line;
+    std::string line;
 
     // vector with the different information lines about images
-    vector<ImgInfo> oImgInfo;
-    vector<ImgInfo> iImgInfo;
+    std::vector<PTScriptParsing::ImgInfo> oImgInfo;
+    std::vector<PTScriptParsing::ImgInfo> iImgInfo;
     // strange comment information.
-    vector<ImgInfo> cImgInfo;
+    std::vector<PTScriptParsing::ImgInfo> cImgInfo;
     // hugin additional information
-    vector<ImgInfo> huginImgInfo;
+    std::vector<PTScriptParsing::ImgInfo> huginImgInfo;
     // vector with readed masks
     MaskPolygonVector ImgMasks;
     CPVector loadedCp;
@@ -2280,7 +2270,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
     bool PTGUILensLine = false;
 
     bool PTGUILensLoaded = false;
-    ImgInfo PTGUILens;
+    PTScriptParsing::ImgInfo PTGUILens;
 
     // set new options to some sensible default.
     options.reset();
@@ -2307,30 +2297,30 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
         {
             DEBUG_DEBUG("p line: " << line);
             int i;
-            if (getIntParam(i,line,"f"))
+            if (PTScriptParsing::getIntParam(i, line, "f"))
                 options.setProjection( (PanoramaOptions::ProjectionFormat) i );
             unsigned int w;
-            if (getIntParam(w, line, "w"))
+            if (PTScriptParsing::getIntParam(w, line, "w"))
                 options.setWidth(w);
             double v;
-            if (getDoubleParam(v, line, "v"))
+            if (PTScriptParsing::getDoubleParam(v, line, "v"))
                 options.setHFOV(v, false);
             int height;
-            if (getIntParam(height, line, "h"))
+            if (PTScriptParsing::getIntParam(height, line, "h"))
                 options.setHeight(height);
 
             double newE;
-            if (getDoubleParam(newE, line, "E"))
+            if (PTScriptParsing::getDoubleParam(newE, line, "E"))
                 options.outputExposureValue = newE;
             int ar=0;
-            if (getIntParam(ar, line, "R"))
+            if (PTScriptParsing::getIntParam(ar, line, "R"))
                 options.outputMode = (PanoramaOptions::OutputMode) ar;
 
-            string format;
-            if (getPTParam(format,line,"T"))
+            std::string format;
+            if (PTScriptParsing::getPTParam(format, line, "T"))
                 options.outputPixelType = format;
 
-            if ( getPTParam(format, line, "S") ) {
+            if (PTScriptParsing::getPTParam(format, line, "S")) {
                 int left, right, top, bottom;
                 int n = sscanf(format.c_str(), "%d,%d,%d,%d", &left, &right, &top, &bottom);
                 if (n == 4) {
@@ -2341,7 +2331,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
             }
 
             // parse projection parameters
-            if (getPTParam(format,line,"P")) {
+            if (PTScriptParsing::getPTParam(format, line, "P")) {
                 char * tstr = strdup(format.c_str());
                 std::vector<double> projParam;
                 char * b = strtok(tstr, " \"");
@@ -2364,7 +2354,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
             // this is fragile.. hope nobody adds additional whitespace
             // and other arguments than q...
             // n"JPEG q80"
-            if (getPTParam(format,line,"n")) {
+            if (PTScriptParsing::getPTParam(format, line, "n")) {
                 int t = format.find(' ');
                 options.outputFormat = options.getFormatFromName(format.substr(0,t));
 
@@ -2376,7 +2366,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
                     {
                         // "parse" jpg quality
                         int q;
-                        if (getIntParam(q, format, "q") ) {
+                        if (PTScriptParsing::getIntParam(q, format, "q")) {
                         options.quality = (int) q;
                         }
                     }
@@ -2384,7 +2374,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
                     case PanoramaOptions::TIFF_m:
                     {
                         int coordImgs = 0;
-                        if (getIntParam(coordImgs, format, "p"))
+                        if (PTScriptParsing::getIntParam(coordImgs, format, "p"))
                         if (coordImgs)
                             options.saveCoordImgs = true;
                     }
@@ -2395,7 +2385,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
                     {
                         // parse tiff compression mode
                         std::string comp;
-                        if (getPTParam(comp, format, "c:")) {
+                        if (PTScriptParsing::getPTParam(comp, format, "c:")) {
                             if (comp == "NONE" || comp == "LZW" ||
                                 comp == "PACKBITS" || comp == "DEFLATE")
                             {
@@ -2405,7 +2395,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
                             }
                         }
                         // read tiff roi
-                        if (getPTParam(comp, format, "r:")) {
+                        if (PTScriptParsing::getPTParam(comp, format, "r:")) {
                             if (comp == "CROP") {
                                 options.tiff_saveROI = true;
                             } else {
@@ -2420,11 +2410,11 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
             }
 
             int cRefImg = 0;
-            if (getIntParam(cRefImg, line,"k")) {
+            if (PTScriptParsing::getIntParam(cRefImg, line, "k")) {
                 options.colorCorrection = PanoramaOptions::BRIGHTNESS_COLOR;
-            } else if (getIntParam(cRefImg, line,"b")) {
+            } else if (PTScriptParsing::getIntParam(cRefImg, line,"b")) {
                 options.colorCorrection = PanoramaOptions::BRIGHTNESS;
-            } else if (getIntParam(cRefImg, line,"d")) {
+            } else if (PTScriptParsing::getIntParam(cRefImg, line,"d")) {
                 options.colorCorrection = PanoramaOptions::COLOR;
             } else {
                 options.colorCorrection = PanoramaOptions::NONE;
@@ -2438,11 +2428,11 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
             DEBUG_DEBUG("m line: " << line);
             // parse misc options
             int i;
-            if (getIntParam(i,line,"i"))
+            if (PTScriptParsing::getIntParam(i, line, "i"))
 		options.interpolator = (vigra_ext::Interpolator) i;
-            (void)getDoubleParam(options.gamma,line,"g");
+            (void)PTScriptParsing::getDoubleParam(options.gamma, line, "g");
 
-            if (getIntParam(i,line,"f")) {
+            if (PTScriptParsing::getIntParam(i, line, "f")) {
                 switch(i) {
                 case 0:
                     options.remapAcceleration = PanoramaOptions::MAX_SPEEDUP;
@@ -2465,14 +2455,14 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
             DEBUG_DEBUG("v line: " << line);
             if (!PTGUIScriptFile) {
                 if (firstOptVecParse) {
-                    int nImg = max(iImgInfo.size(), oImgInfo.size());
+                    int nImg = std::max(iImgInfo.size(), oImgInfo.size());
                     DEBUG_DEBUG("nImg: " << nImg);
                     optvec = OptimizeVector(nImg);
                     firstOptVecParse = false;
                 }
                 std::stringstream optstream;
                 optstream << line.substr(1);
-                string var;
+                std::string var;
                 while (!(optstream >> std::ws).eof()) {
                     optstream >> var;
                     if (var.length() == 1) {
@@ -2509,15 +2499,15 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
             // read control points
             ControlPoint point;
 	    // TODO - should verify that line syntax is correct
-            getIntParam(point.image1Nr, line, "n");
+            PTScriptParsing::getIntParam(point.image1Nr, line, "n");
             point.image1Nr += ctrlPointsImgNrOffset;
-            getIntParam(point.image2Nr, line, "N");
+            PTScriptParsing::getIntParam(point.image2Nr, line, "N");
             point.image2Nr += ctrlPointsImgNrOffset;
-            getDoubleParam(point.x1, line, "x");
-            getDoubleParam(point.x2, line, "X");
-            getDoubleParam(point.y1, line, "y");
-            getDoubleParam(point.y2, line, "Y");
-            if (!getIntParam(t, line, "t") ){
+            PTScriptParsing::getDoubleParam(point.x1, line, "x");
+            PTScriptParsing::getDoubleParam(point.x2, line, "X");
+            PTScriptParsing::getDoubleParam(point.y1, line, "y");
+            PTScriptParsing::getDoubleParam(point.y2, line, "Y");
+            if (!PTScriptParsing::getIntParam(t, line, "t")){
                 t = 0;
             }
 
@@ -2537,7 +2527,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
                 PTGUILensLoaded = true;
                 PTGUILens.parse(line);
             } else {
-                iImgInfo.push_back(ImgInfo(line));
+                iImgInfo.push_back(PTScriptParsing::ImgInfo(line));
             }
             break;
         }
@@ -2548,7 +2538,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
                 PTGUILensLoaded = true;
                 PTGUILens.parse(line);
             } else {
-                oImgInfo.push_back(ImgInfo(line));
+                oImgInfo.push_back(PTScriptParsing::ImgInfo(line));
             }
             break;
         }
@@ -2556,14 +2546,14 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
         case 'k':
         {
             unsigned int param;
-            if (getIntParam(param,line,"i"))
+            if (PTScriptParsing::getIntParam(param, line, "i"))
             {
                 MaskPolygon newPolygon;
                 newPolygon.setImgNr(param);
-                if (getIntParam(param,line,"t"))
+                if (PTScriptParsing::getIntParam(param, line, "t"))
                     newPolygon.setMaskType((HuginBase::MaskPolygon::MaskType)param);
                 std::string format;
-                if (getPTParam(format,line,"p"))
+                if (PTScriptParsing::getPTParam(format, line, "p"))
                 {
                     if(newPolygon.parsePolygonString(format))
                         ImgMasks.push_back(newPolygon);
@@ -2575,7 +2565,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
         case '#':
         {
             // parse special comments...
-            if (line.substr(0,20) == string("# ptGui project file")) {
+            if (line.substr(0,20) == std::string("# ptGui project file")) {
                 PTGUIScriptFile = true;
             }
             if (line.substr(0,12) == "#-dummyimage") {
@@ -2612,7 +2602,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
 
             if (line.substr(0,8) == "#-hugin ") {
                 // read hugin image line
-                ImgInfo info;
+                PTScriptParsing::ImgInfo info;
                 info.autoCenterCrop = (line.find("autoCenterCrop=1") != std::string::npos);
                 size_t pos = line.find("cropFactor=");
                 if (pos > 0 && pos < line.length()) {
@@ -2654,7 +2644,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
                 };
                 DEBUG_DEBUG("next height " << nextHeight);
 
-                string nextFilename;
+                std::string nextFilename;
                 try {
                     b = line.find_first_not_of(" \"",e);
                     e = line.find_first_of("\"",b);
@@ -2665,7 +2655,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
                 }
                 DEBUG_DEBUG("next filename " << nextFilename);
 
-                ImgInfo info;
+                PTScriptParsing::ImgInfo info;
                 info.width  = nextWidth;
                 info.height = nextHeight;
                 info.filename = nextFilename;
@@ -2675,8 +2665,8 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
 
             // parse hugin properties
             if (line.substr(0,7) == "#hugin_") {
-                istringstream is(line);
-                string var,value;
+                std::istringstream is(line);
+                std::string var,value;
                 is >> var >> value;
                 if (!is.fail()) {
                     if (var == "#hugin_ptoversion") {
@@ -2865,7 +2855,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
         // i lines. or it is linked on the o lines)
 
         // ordinary variables
-        for (const char ** v = ImgInfo::varnames; *v ; v++) {
+        for (const char ** v = PTScriptParsing::ImgInfo::varnames; *v; v++) {
 
             if (iImgInfo[i].links[*v] == -2 && oImgInfo[i].links[*v] != -2 || iImgInfo[i].links[*v] == -1 && oImgInfo[i].links[*v] >=0) {
                 DEBUG_DEBUG(*v << ": o -> i");
@@ -2924,7 +2914,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
         int link = -2;
         fillVariableMap(vars);
 
-        for (const char ** v = ImgInfo::varnames; *v != 0; v++) {
+        for (const char ** v = PTScriptParsing::ImgInfo::varnames; *v != 0; v++) {
             std::string name(*v);
             double val = iImgInfo[i].vars[*v];
             map_get(vars,name).setValue(val);
@@ -2933,7 +2923,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
             }
         }
         
-        string file = iImgInfo[i].filename;
+        std::string file = iImgInfo[i].filename;
         // add prefix if only a relative path.
 #ifdef _WIN32
         bool absPath = ( (file[1]==':' && file[2]=='\\') || (file[1]==':' && file[2]=='/') || (file[0] == '\\' && file[1] == '\\'));

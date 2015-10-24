@@ -21,9 +21,7 @@
 #include "MathStuff.h"
 #include <math.h>
 
-using namespace lfeat;
-
-bool Math::SolveLinearSystem33(double* solution, double sq[3][3])
+bool lfeat::Math::SolveLinearSystem33(double* solution, double sq[3][3])
 {
     const int size = 3;
     int row, col, c, pivot = 0, i;
@@ -83,7 +81,7 @@ bool Math::SolveLinearSystem33(double* solution, double sq[3][3])
     return true;
 }
 
-bool Math::Normalize(double* iVec, int iLen)
+bool lfeat::Math::Normalize(double* iVec, int iLen)
 {
 
     int i;

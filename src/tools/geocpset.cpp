@@ -34,13 +34,9 @@
 #include <algorithms/basic/CalculateOverlap.h>
 #include <algorithms/nona/ComputeImageROI.h>
 
-using namespace std;
-using namespace HuginBase;
-using namespace AppBase;
-
 // check if given point x,y is inside both images img1 and img2,
 // using PTools::Tranform object to prevent creating of this transform for each point
-bool CheckAndAddPoint(Panorama& pano, size_t img1, size_t img2, PTools::Transform& transform1, PTools::Transform& transform2, double x, double y)
+bool CheckAndAddPoint(HuginBase::Panorama& pano, size_t img1, size_t img2, HuginBase::PTools::Transform& transform1, HuginBase::PTools::Transform& transform2, double x, double y)
 {
     double x1, y1, x2, y2;
     if(!transform1.transformImgCoord(x1, y1, x, y))
@@ -59,20 +55,20 @@ bool CheckAndAddPoint(Panorama& pano, size_t img1, size_t img2, PTools::Transfor
     {
         return false;
     };
-    pano.addCtrlPoint(ControlPoint(img1, x1, y1, img2, x2, y2));
+    pano.addCtrlPoint(HuginBase::ControlPoint(img1, x1, y1, img2, x2, y2));
     return true;
 };
 
 //helper class for sort
-bool sortByDistance(FDiff2D p1, FDiff2D p2)
+bool sortByDistance(hugin_utils::FDiff2D p1, hugin_utils::FDiff2D p2)
 {
     return p1.squareLength()<p2.squareLength();
 };
 
 // add geometric control point to overlap of images img1 and img2
-void AddGeometricControlPoint(Panorama& pano, size_t img1, size_t img2)
+void AddGeometricControlPoint(HuginBase::Panorama& pano, size_t img1, size_t img2)
 {
-    PanoramaOptions opts=pano.getOptions();
+    HuginBase::PanoramaOptions opts = pano.getOptions();
     //reset ROI to prevent unwanted clipping in this algorithm
     opts.setROI(vigra::Rect2D(0, 0, opts.getWidth(), opts.getHeight()));
     vigra::Rect2D rect1=estimateOutputROI(pano, opts, img1);
@@ -81,18 +77,18 @@ void AddGeometricControlPoint(Panorama& pano, size_t img1, size_t img2)
     rect1=rect1 & rect2;
     if(rect1.area()>0)
     {
-        PTools::Transform transform1, transform2;
+        HuginBase::PTools::Transform transform1, transform2;
         transform1.createTransform(pano.getImage(img1), opts);
         transform2.createTransform(pano.getImage(img2), opts);
 
-        FDiff2D mid=(rect1.upperLeft()+rect1.lowerRight())/2.0;
+        hugin_utils::FDiff2D mid=(rect1.upperLeft()+rect1.lowerRight())/2.0;
         //create grid of points to check
-        vector<FDiff2D> points;
+        std::vector<hugin_utils::FDiff2D> points;
         for(int dx=-5; dx<=5; dx++)
         {
             for(int dy=-5; dy<=5; dy++)
             {
-                points.push_back(FDiff2D(dx*rect1.width()/10.0, dy*rect1.height()/10.0));
+                points.push_back(hugin_utils::FDiff2D(dx*rect1.width()/10.0, dy*rect1.height()/10.0));
             };
         };
         //sort by distance
@@ -109,18 +105,18 @@ void AddGeometricControlPoint(Panorama& pano, size_t img1, size_t img2)
 };
 
 // only add control points for images without control points
-void SetGeometricControlPointsUnconnected(Panorama& pano, const int minOverlap)
+void SetGeometricControlPointsUnconnected(HuginBase::Panorama& pano, const int minOverlap)
 {
     //first test: have image control points?
-    CPVector cp=pano.getCtrlPoints();
-    UIntSet imgsWithCp;
-    UIntSet imgsWithoutCp;
+    HuginBase::CPVector cp = pano.getCtrlPoints();
+    HuginBase::UIntSet imgsWithCp;
+    HuginBase::UIntSet imgsWithoutCp;
     for(size_t i=0; i<pano.getNrOfImages(); i++)
     {
         bool hasControlPoints=false;
-        for(CPVector::const_iterator it=cp.begin(); it!=cp.end(); ++it)
+        for (HuginBase::CPVector::const_iterator it = cp.begin(); it != cp.end(); ++it)
         {
-            if((it->image1Nr==i || it->image2Nr==i) && (it->mode==ControlPoint::X_Y))
+            if ((it->image1Nr == i || it->image2Nr == i) && (it->mode == HuginBase::ControlPoint::X_Y))
             {
                 hasControlPoints=true;
                 break;
@@ -136,14 +132,14 @@ void SetGeometricControlPointsUnconnected(Panorama& pano, const int minOverlap)
         };
     };
     // now test if images without control points have a linked position with an image with control point
-    UIntSet imgsToTest;
-    for(UIntSet::const_iterator img=imgsWithoutCp.begin(); img!=imgsWithoutCp.end(); ++img)
+    HuginBase::UIntSet imgsToTest;
+    for (HuginBase::UIntSet::const_iterator img = imgsWithoutCp.begin(); img != imgsWithoutCp.end(); ++img)
     {
-        const SrcPanoImage& img1=pano.getImage(*img);
+        const HuginBase::SrcPanoImage& img1 = pano.getImage(*img);
         bool connected=false;
         if(img1.YawisLinked())
         {
-            for(UIntSet::const_iterator img2=imgsWithCp.begin(); img2!=imgsWithCp.end(); ++img2)
+            for (HuginBase::UIntSet::const_iterator img2 = imgsWithCp.begin(); img2 != imgsWithCp.end(); ++img2)
             {
                 if(img1.YawisLinkedWith(pano.getImage(*img2)))
                 {
@@ -162,20 +158,20 @@ void SetGeometricControlPointsUnconnected(Panorama& pano, const int minOverlap)
     // have we found unconnected images?
     if(imgsToTest.size()==0)
     {
-        cout << "No unconnected images found." << endl
-             << "No control point added." << endl;
+        std::cout << "No unconnected images found." << std::endl
+             << "No control point added." << std::endl;
         return;
     };
-    cout << endl << "Found " << imgsToTest.size() << " unconnected images." << endl;
+    std::cout << std::endl << "Found " << imgsToTest.size() << " unconnected images." << std::endl;
 
     // now find overlapping images
-    CalculateImageOverlap overlap(&pano);
+    HuginBase::CalculateImageOverlap overlap(&pano);
     overlap.limitToImages(imgsToTest);
     overlap.calculate(10);
-    vector<UIntSet> checkedImgPairs(pano.getNrOfImages());
-    for(UIntSet::const_iterator img=imgsToTest.begin(); img!=imgsToTest.end(); ++img)
+    std::vector<HuginBase::UIntSet> checkedImgPairs(pano.getNrOfImages());
+    for (HuginBase::UIntSet::const_iterator img = imgsToTest.begin(); img != imgsToTest.end(); ++img)
     {
-        UIntSet overlappingImgs;
+        HuginBase::UIntSet overlappingImgs;
         // search overlapping images, take linked positions into account
         for(size_t i=0; i<pano.getNrOfImages(); i++)
         {
@@ -187,10 +183,10 @@ void SetGeometricControlPointsUnconnected(Panorama& pano, const int minOverlap)
             {
                 //ignore overlap for linked images
                 bool ignoreImage=false;
-                const SrcPanoImage& img2=pano.getImage(i);
+                const HuginBase::SrcPanoImage& img2 = pano.getImage(i);
                 if(img2.YawisLinked())
                 {
-                    for(UIntSet::const_iterator it=overlappingImgs.begin(); it!=overlappingImgs.end(); ++it)
+                    for (HuginBase::UIntSet::const_iterator it = overlappingImgs.begin(); it != overlappingImgs.end(); ++it)
                     {
                         if(img2.YawisLinkedWith(pano.getImage(*it)))
                         {
@@ -212,25 +208,25 @@ void SetGeometricControlPointsUnconnected(Panorama& pano, const int minOverlap)
             };
         };
         // now add control points
-        for(UIntSet::const_iterator overlapImg=overlappingImgs.begin(); overlapImg!=overlappingImgs.end(); ++overlapImg)
+        for (HuginBase::UIntSet::const_iterator overlapImg = overlappingImgs.begin(); overlapImg != overlappingImgs.end(); ++overlapImg)
         {
             AddGeometricControlPoint(pano, *img, *overlapImg);
         };
     };
-    cout << "Added " << pano.getCtrlPoints().size() - cp.size() << " control points." << endl;
+    std::cout << "Added " << pano.getCtrlPoints().size() - cp.size() << " control points." << std::endl;
 };
 
 // only add control points for images without control points
-void SetGeometricControlPointsOverlap(Panorama& pano, const int minOverlap)
+void SetGeometricControlPointsOverlap(HuginBase::Panorama& pano, const int minOverlap)
 {
-    CPVector cp=pano.getCtrlPoints();
+    HuginBase::CPVector cp = pano.getCtrlPoints();
     // find overlapping images
-    CalculateImageOverlap overlap(&pano);
+    HuginBase::CalculateImageOverlap overlap(&pano);
     overlap.calculate(10);
     for(size_t i=0; i<pano.getNrOfImages()-1; i++)
     {
-        UIntSet overlappingImgs;
-        const SrcPanoImage& img1=pano.getImage(i);
+        HuginBase::UIntSet overlappingImgs;
+        const HuginBase::SrcPanoImage& img1 = pano.getImage(i);
         // search overlapping images, take linked positions into account
         for(size_t j=i+1; j<pano.getNrOfImages(); j++)
         {
@@ -246,11 +242,11 @@ void SetGeometricControlPointsOverlap(Panorama& pano, const int minOverlap)
             {
                 // we have an overlap, now check if there are control points
                 bool hasControlPoints=false;
-                for(CPVector::const_iterator it=cp.begin(); it!=cp.end(); ++it)
+                for (HuginBase::CPVector::const_iterator it = cp.begin(); it != cp.end(); ++it)
                 {
                     if(((it->image1Nr==i && it->image2Nr==j) ||
                             (it->image1Nr==j && it->image2Nr==i) ) &&
-                            (it->mode==ControlPoint::X_Y))
+                            (it->mode == HuginBase::ControlPoint::X_Y))
                     {
                         hasControlPoints=true;
                         break;
@@ -260,10 +256,10 @@ void SetGeometricControlPointsOverlap(Panorama& pano, const int minOverlap)
                 {
                     //ignore overlap for linked images
                     bool ignoreImage=false;
-                    const SrcPanoImage& img2=pano.getImage(j);
+                    const HuginBase::SrcPanoImage& img2 = pano.getImage(j);
                     if(img2.YawisLinked())
                     {
-                        for(UIntSet::const_iterator it=overlappingImgs.begin(); it!=overlappingImgs.end(); ++it)
+                        for (HuginBase::UIntSet::const_iterator it = overlappingImgs.begin(); it != overlappingImgs.end(); ++it)
                         {
                             if(img2.YawisLinkedWith(pano.getImage(*it)))
                             {
@@ -280,30 +276,30 @@ void SetGeometricControlPointsOverlap(Panorama& pano, const int minOverlap)
             };
         };
         // now add control points
-        for(UIntSet::const_iterator overlapImg=overlappingImgs.begin(); overlapImg!=overlappingImgs.end(); ++overlapImg)
+        for (HuginBase::UIntSet::const_iterator overlapImg = overlappingImgs.begin(); overlapImg != overlappingImgs.end(); ++overlapImg)
         {
             AddGeometricControlPoint(pano, i, *overlapImg);
         };
     };
-    cout << endl << "Added " << pano.getCtrlPoints().size() - cp.size() << " control points." << endl;
+    std::cout << std::endl << "Added " << pano.getCtrlPoints().size() - cp.size() << " control points." << std::endl;
 };
 
 static void usage(const char* name)
 {
-    cout << name << ": set geometric control points" << endl
-         << name << " version " << hugin_utils::GetHuginVersion() << endl
-         << endl
-         << "Usage:  " << name << " [options] input.pto" << endl
-         << endl
-         << "  Options:" << endl
-         << "     -o, --output=file.pto  Output Hugin PTO file. Default: <filename>_geo.pto" << endl
-         << "     -e, --each-overlap     By default, geocpset will only work on the overlap" << endl
-         << "                            of unconnected images. With this switch it will" << endl
-         << "                            work on all overlaps without control points." << endl
-         << "     --minimum-overlap=NUM  Take only these images into account where the" << endl
-         << "                            overlap is bigger than NUM percent (default 10)." << endl
-         << "     -h, --help             Shows this help" << endl
-         << endl;
+    std::cout << name << ": set geometric control points" << std::endl
+         << name << " version " << hugin_utils::GetHuginVersion() << std::endl
+         << std::endl
+         << "Usage:  " << name << " [options] input.pto" << std::endl
+         << std::endl
+         << "  Options:" << std::endl
+         << "     -o, --output=file.pto  Output Hugin PTO file. Default: <filename>_geo.pto" << std::endl
+         << "     -e, --each-overlap     By default, geocpset will only work on the overlap" << std::endl
+         << "                            of unconnected images. With this switch it will" << std::endl
+         << "                            work on all overlaps without control points." << std::endl
+         << "     --minimum-overlap=NUM  Take only these images into account where the" << std::endl
+         << "                            overlap is bigger than NUM percent (default 10)." << std::endl
+         << "     -h, --help             Shows this help" << std::endl
+         << std::endl;
 }
 
 int main(int argc, char* argv[])
@@ -328,7 +324,7 @@ int main(int argc, char* argv[])
     int optionIndex = 0;
     bool eachOverlap=false;
     int minOverlap=10;
-    string output;
+    std::string output;
     while ((c = getopt_long (argc, argv, optstring, longOptions,&optionIndex)) != -1)
     {
         switch (c)
@@ -343,8 +339,8 @@ int main(int argc, char* argv[])
                 minOverlap=atoi(optarg);
                 if(minOverlap<1 || minOverlap>99)
                 {
-                    cerr << "Invalid minimum overlap: " << optarg << endl
-                         << "Minimum overlap have to be between 1 and 99." << endl;
+                    std::cerr << "Invalid minimum overlap: " << optarg << std::endl
+                         << "Minimum overlap have to be between 1 and 99." << std::endl;
                     return 1;
                 };
                 break;
@@ -352,7 +348,7 @@ int main(int argc, char* argv[])
                 usage(hugin_utils::stripPath(argv[0]).c_str());
                 return 0;
             case ':':
-                cerr <<"Option " << longOptions[optionIndex].name << " requires a parameter" << endl;
+                std::cerr <<"Option " << longOptions[optionIndex].name << " requires a parameter" << std::endl;
                 return 1;
                 break;
             case '?':
@@ -364,47 +360,47 @@ int main(int argc, char* argv[])
 
     if (argc - optind == 0)
     {
-        cout << "Error: No project file given." << endl << endl;
+        std::cout << "Error: No project file given." << std::endl << std::endl;
         return 1;
     };
     if (argc - optind != 1)
     {
-        cout << "Error: geocpset can only work on one project file at one time" << endl << endl;
+        std::cout << "Error: geocpset can only work on one project file at one time" << std::endl << std::endl;
         return 1;
     };
 
-    string input=argv[optind];
+    std::string input=argv[optind];
     // read panorama
-    Panorama pano;
-    ifstream prjfile(input.c_str());
+    HuginBase::Panorama pano;
+    std::ifstream prjfile(input.c_str());
     if (!prjfile.good())
     {
-        cerr << "could not open script : " << input << endl;
+        std::cerr << "could not open script : " << input << std::endl;
         return 1;
     }
     pano.setFilePrefix(hugin_utils::getPathPrefix(input));
-    DocumentData::ReadWriteError err = pano.readData(prjfile);
-    if (err != DocumentData::SUCCESSFUL)
+    AppBase::DocumentData::ReadWriteError err = pano.readData(prjfile);
+    if (err != AppBase::DocumentData::SUCCESSFUL)
     {
-        cerr << "error while parsing panos tool script: " << input << endl;
-        cerr << "DocumentData::ReadWriteError code: " << err << endl;
+        std::cerr << "error while parsing panos tool script: " << input << std::endl
+            << "DocumentData::ReadWriteError code: " << err << std::endl;
         return 1;
     }
 
     if(pano.getNrOfImages()==0)
     {
-        cerr << "error: project file does not contains any image" << endl;
-        cerr << "aborting processing" << endl;
+        std::cerr << "error: project file does not contains any image" << std::endl
+            << "aborting processing" << std::endl;
         return 1;
     };
     if(pano.getNrOfImages()==1)
     {
-        cerr << "error: project file contains only one image" << endl;
-        cerr << "aborting processing" << endl;
+        std::cerr << "error: project file contains only one image" << std::endl
+            << "aborting processing" << std::endl;
         return 1;
     };
 
-    cout << "Adding geometric control points..." << endl;
+    std::cout << "Adding geometric control points..." << std::endl;
     if(eachOverlap)
     {
         SetGeometricControlPointsOverlap(pano, minOverlap);
@@ -415,16 +411,16 @@ int main(int argc, char* argv[])
     };
 
     //write output
-    UIntSet imgs;
+    HuginBase::UIntSet imgs;
     fill_set(imgs, 0, pano.getNrOfImages()-1);
     // Set output .pto filename if not given
     if (output=="")
     {
         output=input.substr(0,input.length()-4).append("_geo.pto");
     }
-    ofstream of(output.c_str());
+    std::ofstream of(output.c_str());
     pano.printPanoramaScript(of, pano.getOptimizeVector(), pano.getOptions(), imgs, false, hugin_utils::getPathPrefix(input));
 
-    cout << endl << "Written output to " << output << endl;
+    std::cout << std::endl << "Written output to " << output << std::endl;
     return 0;
 }

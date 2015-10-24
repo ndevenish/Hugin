@@ -34,22 +34,18 @@
 #endif
 #include <panodata/Panorama.h>
 
-using namespace std;
-using namespace HuginBase;
-using namespace AppBase;
-
 static void usage(const char* name)
 {
-    cout << name << ": merges several project files" << endl
-         << "pto_merge version " << hugin_utils::GetHuginVersion() << endl
-         << endl
-         << "Usage:  " << name << " [options] input.pto input2.pto ..." << endl
-         << endl
-         << "  Options:" << endl
-         << "     -o, --output=file.pto  Output Hugin PTO file." << endl
-         << "                            Default: <filename>_merge.pto" << endl
-         << "     -h, --help             Shows this help" << endl
-         << endl;
+    std::cout << name << ": merges several project files" << std::endl
+         << "pto_merge version " << hugin_utils::GetHuginVersion() << std::endl
+         << std::endl
+         << "Usage:  " << name << " [options] input.pto input2.pto ..." << std::endl
+         << std::endl
+         << "  Options:" << std::endl
+         << "     -o, --output=file.pto  Output Hugin PTO file." << std::endl
+         << "                            Default: <filename>_merge.pto" << std::endl
+         << "     -h, --help             Shows this help" << std::endl
+         << std::endl;
 }
 
 int main(int argc, char* argv[])
@@ -66,7 +62,7 @@ int main(int argc, char* argv[])
 
     int c;
     int optionIndex = 0;
-    string output;
+    std::string output;
     while ((c = getopt_long (argc, argv, optstring, longOptions,&optionIndex)) != -1)
     {
         switch (c)
@@ -86,46 +82,46 @@ int main(int argc, char* argv[])
 
     if (argc - optind < 2)
     {
-        cout << "Warning: pto_merge requires at least 2 project files" << endl << endl;
+        std::cout << "Warning: pto_merge requires at least 2 project files" << std::endl << std::endl;
         usage(hugin_utils::stripPath(argv[0]).c_str());
         return 1;
     };
 
-    string input=argv[optind];
+    std::string input=argv[optind];
     // read panorama
-    Panorama pano;
-    ifstream prjfile(input.c_str());
+    HuginBase::Panorama pano;
+    std::ifstream prjfile(input.c_str());
     if (!prjfile.good())
     {
-        cerr << "could not open script : " << input << endl;
+        std::cerr << "could not open script : " << input << std::endl;
         return 1;
     }
     pano.setFilePrefix(hugin_utils::getPathPrefix(input));
-    DocumentData::ReadWriteError err = pano.readData(prjfile);
-    if (err != DocumentData::SUCCESSFUL)
+    AppBase::DocumentData::ReadWriteError err = pano.readData(prjfile);
+    if (err != AppBase::DocumentData::SUCCESSFUL)
     {
-        cerr << "error while parsing panos tool script: " << input << endl;
-        cerr << "DocumentData::ReadWriteError code: " << err << endl;
+        std::cerr << "error while parsing panos tool script: " << input << std::endl;
+        std::cerr << "AppBase::DocumentData::ReadWriteError code: " << err << std::endl;
         return 1;
     }
 
     optind++;
     while(optind<argc)
     {
-        Panorama pano2;
-        string input2=argv[optind];
-        ifstream prjfile2(input2.c_str());
+        HuginBase::Panorama pano2;
+        std::string input2=argv[optind];
+        std::ifstream prjfile2(input2.c_str());
         if (!prjfile2.good())
         {
-            cerr << "could not open script : " << input << endl;
+            std::cerr << "could not open script : " << input << std::endl;
             return 1;
         }
         pano2.setFilePrefix(hugin_utils::getPathPrefix(input2));
-        DocumentData::ReadWriteError err = pano2.readData(prjfile2);
-        if (err != DocumentData::SUCCESSFUL)
+        AppBase::DocumentData::ReadWriteError err = pano2.readData(prjfile2);
+        if (err != AppBase::DocumentData::SUCCESSFUL)
         {
-            cerr << "error while parsing panos tool script: " << input << endl;
-            cerr << "DocumentData::ReadWriteError code: " << err << endl;
+            std::cerr << "error while parsing panos tool script: " << input << std::endl;
+            std::cerr << "AppBase::DocumentData::ReadWriteError code: " << err << std::endl;
             return 1;
         }
         pano.mergePanorama(pano2);
@@ -133,17 +129,17 @@ int main(int argc, char* argv[])
     };
 
     //write output
-    OptimizeVector optvec = pano.getOptimizeVector();
-    UIntSet imgs;
+    HuginBase::OptimizeVector optvec = pano.getOptimizeVector();
+    HuginBase::UIntSet imgs;
     fill_set(imgs,0, pano.getNrOfImages()-1);
     // Set output .pto filename if not given
     if (output=="")
     {
         output=input.substr(0,input.length()-4).append("_merge.pto");
     }
-    ofstream of(output.c_str());
+    std::ofstream of(output.c_str());
     pano.printPanoramaScript(of, optvec, pano.getOptions(), imgs, false, hugin_utils::getPathPrefix(input));
 
-    cout << endl << "Written output to " << output << endl;
+    std::cout << std::endl << "Written output to " << output << std::endl;
     return 0;
 }

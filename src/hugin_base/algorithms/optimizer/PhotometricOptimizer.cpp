@@ -35,9 +35,6 @@
 
 namespace HuginBase {
     
-using namespace std;
-
-
 /** expects the abs(error) values */
 inline double weightHuber(double x, double sigma)
 {

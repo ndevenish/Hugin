@@ -37,10 +37,6 @@
 #include "hugin_utils/utils.h"
 #include "ParseExp.h"
 
-using namespace std;
-using namespace HuginBase;
-using namespace AppBase;
-
 struct ParseVar
 {
     std::string varname;
@@ -216,7 +212,7 @@ void RemoveFromOptVec(HuginBase::OptimizeVector& optVec, std::string varname, si
 };
 
 // link or unlink the parsed image variables
-void UnLinkVars(Panorama& pano, ParseVarVec parseVec, bool link)
+void UnLinkVars(HuginBase::Panorama& pano, ParseVarVec parseVec, bool link)
 {
     for(size_t i=0; i<parseVec.size(); i++)
     {
@@ -285,80 +281,80 @@ void UnLinkVars(Panorama& pano, ParseVarVec parseVec, bool link)
                 }
                 else
                 {
-                    cerr << "Warning: " << parseVec[i].varname << " is not a valid linkable variable." << endl;
+                    std::cerr << "Warning: " << parseVec[i].varname << " is not a valid linkable variable." << std::endl;
                 };
             };
         };
     };
 };
 
-bool UpdateSingleVar(Panorama& pano, ParseVar parseVar, size_t imgNr)
+bool UpdateSingleVar(HuginBase::Panorama& pano, ParseVar parseVar, size_t imgNr)
 {
     double val=pano.getImage(imgNr).getVar(parseVar.varname);
     Parser::ConstantMap constMap;
     constMap["i"]=1.0*imgNr;
     constMap["val"]=val;
-    cout << "Updating variable " << parseVar.varname << imgNr << ": " << val;
+    std::cout << "Updating variable " << parseVar.varname << imgNr << ": " << val;
     if(Parser::ParseExpression(parseVar.expression, val, constMap))
     {
-        cout << " -> " << val << endl;
+        std::cout << " -> " << val << std::endl;
         HuginBase::Variable var(parseVar.varname, val);
         pano.updateVariable(imgNr, var);
         return true;
     }
     else
     {
-        cout << endl;
-        cerr << "Could not parse given expression \"" << parseVar.expression << "\" for image " << imgNr << "." << endl;
+        std::cout << std::endl;
+        std::cerr << "Could not parse given expression \"" << parseVar.expression << "\" for image " << imgNr << "." << std::endl;
         return false;
     };
 };
 
 static void usage(const char* name)
 {
-    cout << name << ": change image variables inside pto files" << endl
-         << name << " version " << hugin_utils::GetHuginVersion() << endl
-         << endl
-         << "Usage:  " << name << " [options] --opt|--link|--unlink|--set varlist input.pto" << endl
-         << endl
-         << "     -o, --output=file.pto  Output Hugin PTO file. Default: <filename>_var.pto" << endl
-         << "     -h, --help             Shows this help" << endl
-         << endl
-         << "     --opt varlist          Change optimizer variables" << endl
-         << "     --modify-opt           Modify the existing optimizer variables" << endl
-         << "                            (without pto_var will start with an" << endl
-         << "                             empty variables set)" << endl
-         << "                            Examples:" << endl
-         << "           --opt y,p,r        Optimize yaw, pitch and roll of all images" << endl
-         << "                              (special treatment for anchor image applies)" << endl
-         << "           --opt v0,b2        Optimize hfov of image 0 and barrel distortion" << endl
-         << "                              of image 2" << endl
-         << "           --opt v,!v0        Optimize field of view for all images except" << endl
-         << "                              for the first image" << endl
-         << "           --opt !a,!b,!c     Don't optimise distortion (works only with" << endl
-         << "                              switch --modify-opt together)" << endl
-         << endl
-         << "     --link varlist         Link given variables" << endl
-         << "                            Example:" << endl
-         << "           --link v3          Link hfov of image 3" << endl
-         << "           --link a1,b1,c1    Link distortions parameter for image 1" << endl
-         << endl
-         << "     --unlink varlist       Unlink given variables" << endl
-         << "                            Examples:" << endl
-         << "           --unlink v5        Unlink hfov for image 5" << endl
-         << "           --unlink a2,b2,c2  Unlink distortions parameters for image 2" << endl
-         << endl
-         << "     --set varlist          Sets variables to new values" << endl
-         << "                            Examples:" << endl
-         << "           --set y0=0,r0=0,p0=0  Resets position of image 0" << endl
-         << "           --set Vx4=-10,Vy4=10  Sets vignetting offset for image 4" << endl
-         << "           --set v=20            Sets the field of view to 20 for all images" << endl
-         << "           --set y=val+20        Increase yaw by 20 deg for all images" << endl
-         << "           --set v=val*1.1       Increase fov by 10 % for all images" << endl
-         << "           --set y=i*20          Set yaw to 0, 20, 40, ..." << endl
-         << "     --set-from-file filename  Sets variables to new values" << endl
-         << "                               It reads the varlist from a file" << endl
-         << endl;
+    std::cout << name << ": change image variables inside pto files" << std::endl
+         << name << " version " << hugin_utils::GetHuginVersion() << std::endl
+         << std::endl
+         << "Usage:  " << name << " [options] --opt|--link|--unlink|--set varlist input.pto" << std::endl
+         << std::endl
+         << "     -o, --output=file.pto  Output Hugin PTO file. Default: <filename>_var.pto" << std::endl
+         << "     -h, --help             Shows this help" << std::endl
+         << std::endl
+         << "     --opt varlist          Change optimizer variables" << std::endl
+         << "     --modify-opt           Modify the existing optimizer variables" << std::endl
+         << "                            (without pto_var will start with an" << std::endl
+         << "                             empty variables set)" << std::endl
+         << "                            Examples:" << std::endl
+         << "           --opt y,p,r        Optimize yaw, pitch and roll of all images" << std::endl
+         << "                              (special treatment for anchor image applies)" << std::endl
+         << "           --opt v0,b2        Optimize hfov of image 0 and barrel distortion" << std::endl
+         << "                              of image 2" << std::endl
+         << "           --opt v,!v0        Optimize field of view for all images except" << std::endl
+         << "                              for the first image" << std::endl
+         << "           --opt !a,!b,!c     Don't optimise distortion (works only with" << std::endl
+         << "                              switch --modify-opt together)" << std::endl
+         << std::endl
+         << "     --link varlist         Link given variables" << std::endl
+         << "                            Example:" << std::endl
+         << "           --link v3          Link hfov of image 3" << std::endl
+         << "           --link a1,b1,c1    Link distortions parameter for image 1" << std::endl
+         << std::endl
+         << "     --unlink varlist       Unlink given variables" << std::endl
+         << "                            Examples:" << std::endl
+         << "           --unlink v5        Unlink hfov for image 5" << std::endl
+         << "           --unlink a2,b2,c2  Unlink distortions parameters for image 2" << std::endl
+         << std::endl
+         << "     --set varlist          Sets variables to new values" << std::endl
+         << "                            Examples:" << std::endl
+         << "           --set y0=0,r0=0,p0=0  Resets position of image 0" << std::endl
+         << "           --set Vx4=-10,Vy4=10  Sets vignetting offset for image 4" << std::endl
+         << "           --set v=20            Sets the field of view to 20 for all images" << std::endl
+         << "           --set y=val+20        Increase yaw by 20 deg for all images" << std::endl
+         << "           --set v=val*1.1       Increase fov by 10 % for all images" << std::endl
+         << "           --set y=i*20          Set yaw to 0, 20, 40, ..." << std::endl
+         << "     --set-from-file filename  Sets variables to new values" << std::endl
+         << "                               It reads the varlist from a file" << std::endl
+         << std::endl;
 }
 
 int main(int argc, char* argv[])
@@ -395,7 +391,7 @@ int main(int argc, char* argv[])
     bool modifyOptVec=false;
     int c;
     int optionIndex = 0;
-    string output;
+    std::string output;
     while ((c = getopt_long (argc, argv, optstring, longOptions,&optionIndex)) != -1)
     {
         switch (c)
@@ -420,19 +416,19 @@ int main(int argc, char* argv[])
                 break;
             case SWITCH_SET_FILE:
                 {
-                    ifstream ifs(optarg);
+                    std::ifstream ifs(optarg);
                     if(ifs.is_open())
                     {
-                        ostringstream contents;
+                        std::ostringstream contents;
                         contents << ifs.rdbuf();
                         ifs.close();
-                        string s(contents.str());
+                        std::string s(contents.str());
                         hugin_utils::ReplaceAll(s, "\n", ',');
                         ParseVariableString(setVars, s, ParseSingleVar);
                     }
                     else
                     {
-                        cerr << "Could not open file " << optarg << endl;
+                        std::cerr << "Could not open file " << optarg << std::endl;
                     };
                 };
                 break;
@@ -440,7 +436,7 @@ int main(int argc, char* argv[])
                 modifyOptVec=true;
                 break;
             case ':':
-                cerr <<"Option " << longOptions[optionIndex].name << " requires a parameter." << endl;
+                std::cerr <<"Option " << longOptions[optionIndex].name << " requires a parameter." << std::endl;
                 return 1;
                 break;
             case '?':
@@ -452,43 +448,43 @@ int main(int argc, char* argv[])
 
     if (argc - optind == 0)
     {
-        cerr << "Error: " << argv[0] << " needs at least one project file." << endl;
+        std::cerr << "Error: " << argv[0] << " needs at least one project file." << std::endl;
         return 1;
     };
     if (argc - optind != 1)
     {
-        cout << "Error: " << argv[0] << " can only work on one project file at one time" << endl;
+        std::cout << "Error: " << argv[0] << " can only work on one project file at one time" << std::endl;
         return 1;
     };
 
     if(optVars.size() + linkVars.size() + unlinkVars.size() + setVars.size()==0)
     {
-        cerr << "Error: no variables to modify given" << endl;
+        std::cerr << "Error: no variables to modify given" << std::endl;
         return 1;
     };
 
-    string input=argv[optind];
+    std::string input=argv[optind];
     // read panorama
-    Panorama pano;
-    ifstream prjfile(input.c_str());
+    HuginBase::Panorama pano;
+    std::ifstream prjfile(input.c_str());
     if (!prjfile.good())
     {
-        cerr << "could not open script : " << input << endl;
+        std::cerr << "could not open script : " << input << std::endl;
         return 1;
     }
     pano.setFilePrefix(hugin_utils::getPathPrefix(input));
-    DocumentData::ReadWriteError err = pano.readData(prjfile);
-    if (err != DocumentData::SUCCESSFUL)
+    AppBase::DocumentData::ReadWriteError err = pano.readData(prjfile);
+    if (err != AppBase::DocumentData::SUCCESSFUL)
     {
-        cerr << "error while parsing panos tool script: " << input << endl;
-        cerr << "DocumentData::ReadWriteError code: " << err << endl;
+        std::cerr << "error while parsing panos tool script: " << input << std::endl;
+        std::cerr << "AppBase::DocumentData::ReadWriteError code: " << err << std::endl;
         return 1;
     }
 
     if(pano.getNrOfImages()==0)
     {
-        cerr << "error: project file does not contains any image" << endl;
-        cerr << "aborting processing" << endl;
+        std::cerr << "error: project file does not contains any image" << std::endl;
+        std::cerr << "aborting processing" << std::endl;
         return 1;
     };
 
@@ -515,7 +511,7 @@ int main(int argc, char* argv[])
             };
             if(setVars[i].imgNr<0)
             {
-                UIntSet updatedImgs;
+                HuginBase::UIntSet updatedImgs;
                 for(size_t j=0; j<pano.getNrOfImages(); j++)
                 {
                     //if we already update the variable in this image via links, skip it
@@ -636,16 +632,15 @@ int main(int argc, char* argv[])
     };
 
     //write output
-    UIntSet imgs;
+    HuginBase::UIntSet imgs;
     fill_set(imgs,0, pano.getNrOfImages()-1);
     // Set output .pto filename if not given
     if (output=="")
     {
         output=input.substr(0,input.length()-4).append("_var.pto");
     }
-    ofstream of(output.c_str());
+    std::ofstream of(output.c_str());
     pano.printPanoramaScript(of, pano.getOptimizeVector(), pano.getOptions(), imgs, false, hugin_utils::getPathPrefix(input));
-
-    cout << endl << "Written output to " << output << endl;
+    std::cout << std::endl << "Written output to " << output << std::endl;
     return 0;
 }

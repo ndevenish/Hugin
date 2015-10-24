@@ -37,9 +37,6 @@
 #include "hugin/MainFrame.h"
 #endif
 
-using namespace HuginBase;
-using namespace hugin_utils;
-
 #if wxCHECK_VERSION(2,9,0)
     wxDEFINE_EVENT(EVT_IMAGE_ADD,wxCommandEvent);
     wxDEFINE_EVENT(EVT_IMAGE_DEL,wxCommandEvent);
@@ -121,7 +118,7 @@ ImagesList::~ImagesList(void)
     delete variable_groups;
 }
 
-void ImagesList::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
+void ImagesList::panoramaImagesChanged(HuginBase::Panorama &pano, const HuginBase::UIntSet &changed)
 {
     DEBUG_TRACE("");
 
@@ -149,7 +146,7 @@ void ImagesList::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
 
     // update existing items
 //    if ( nrImages >= nrItems ) {
-        for(UIntSet::const_iterator it = changed.begin(); it != changed.end(); ++it){
+    for (HuginBase::UIntSet::const_iterator it = changed.begin(); it != changed.end(); ++it){
             if (*it >= nrItems) {
                 // create new item.
                 DEBUG_DEBUG("creating " << *it);
@@ -191,7 +188,7 @@ void ImagesList::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
     GetEventHandler()->ProcessEvent(e);
 }
 
-const UIntSet & ImagesList::GetSelected() const      
+const HuginBase::UIntSet & ImagesList::GetSelected() const      
 { 
     return selectedItems; 
 }
@@ -475,7 +472,7 @@ void ImagesListMask::Init(HuginBase::Panorama * panorama)
 
 void ImagesListMask::UpdateItem(unsigned int imgNr)
 {
-    const SrcPanoImage & img = pano->getImage(imgNr);
+    const HuginBase::SrcPanoImage & img = pano->getImage(imgNr);
     wxFileName fn(wxString (img.getFilename().c_str(), HUGIN_CONV_FILENAME));
     SetItem(imgNr, 1, fn.GetFullName() );
 
@@ -487,7 +484,7 @@ void ImagesListMask::UpdateItem(unsigned int imgNr)
     SetItem(imgNr, 2, maskstr);
 
     wxString cropstr(wxT("-"));
-    if ( img.getCropMode() != SrcPanoImage::NO_CROP )
+    if ( img.getCropMode() != HuginBase::SrcPanoImage::NO_CROP )
     {
         vigra::Rect2D c = img.getCropRect();
         cropstr.Printf(wxT("%d,%d,%d,%d"), c.left(), c.right(), c.top(), c.bottom());

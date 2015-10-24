@@ -33,7 +33,6 @@
 #include "hugin_base/panotools/PanoToolsUtils.h"
 
 namespace HuginBase {
-using namespace std;
 
 UIntSet getCPoutsideLimit_pair(Panorama pano, AppBase::ProgressDisplay& progress, double n)
 {

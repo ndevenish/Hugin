@@ -29,8 +29,6 @@ Copyright (c) 2002-3 Adriaan Tijsseling
 #include <stdlib.h>
 #include "Utilities.h"
 
-using namespace std; 
-
 namespace celeste
 {
 std::streamsize gPrecision;
@@ -169,7 +167,7 @@ float ReturnDistance( float *pat1, float *pat2, int size )
 }
 
 // For file reading purposes. Skips blanks and lines starting with #
-void SkipComments( ifstream* infile )
+void SkipComments( std::ifstream* infile )
 {
 	bool garbage = true;
 	char c;
@@ -195,8 +193,8 @@ void FileCreateError( char* filename )
 	char folder[FILENAME_MAX];
 	
 	getcwd( folder, FILENAME_MAX );		
-	cerr << "Error: Could not create file " << filename << " in directory ";
-	cerr << folder << endl;
+	std::cerr << "Error: Could not create file " << filename << " in directory ";
+	std::cerr << folder << std::endl;
 }
 
 void FileOpenError( char* filename )
@@ -204,40 +202,40 @@ void FileOpenError( char* filename )
 	char folder[FILENAME_MAX];
 	
 	getcwd( folder, FILENAME_MAX );		
-	cerr << "Error: Could not open file " << filename << " in directory ";
-	cerr << folder << endl;
+	std::cerr << "Error: Could not open file " << filename << " in directory ";
+	std::cerr << folder << std::endl;
 }
 
 
-// cout, cerr and ostream formatting utilities
+// std::cout, std::cerr and std::ostream formatting utilities
 
 void GetStreamDefaults( void )
 {
-	gWidth = cout.width();
-	gPrecision = cout.precision();
+	gWidth = std::cout.width();
+	gPrecision = std::cout.precision();
 }
 
-void AdjustStream( ostream &os, int precision, int width, int pos, bool trailers )
+void AdjustStream( std::ostream &os, int precision, int width, int pos, bool trailers )
 {
 	os.precision( precision );
 	os.width( width );
 	os.fill( ' ' );
 	if ( trailers )
-		os.setf( ios::showpoint,  ios::showpoint );
+        os.setf(std::ios::showpoint, std::ios::showpoint);
 	else
-		os.unsetf( ios::showpoint );
+        os.unsetf(std::ios::showpoint);
 	if ( pos == kLeft )
-		os.setf( ios::left, ios::adjustfield );
+        os.setf(std::ios::left, std::ios::adjustfield);
 	else
-		os.setf( ios::right, ios::adjustfield );
+        os.setf(std::ios::right, std::ios::adjustfield);
 }
 
-void SetStreamDefaults( ostream &os )
+void SetStreamDefaults( std::ostream &os )
 {
 	os.precision( gPrecision );
 	os.width( gWidth );
-	os.unsetf( ios::showpoint );
-	os.setf( ios::left, ios::adjustfield );
+    os.unsetf(std::ios::showpoint);
+    os.setf(std::ios::left, std::ios::adjustfield);
 }
 
 

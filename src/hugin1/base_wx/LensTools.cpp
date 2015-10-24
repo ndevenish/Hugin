@@ -32,8 +32,6 @@
 #include "panodata/StandardImageVariableGroups.h"
 #include "base_wx/PanoCommand.h"
 
-using namespace std;
-
 void FillLensProjectionList(wxControlWithItems* list)
 {
     list->Clear();
@@ -130,7 +128,7 @@ void SaveLensParameters(const wxString filename, HuginBase::Panorama* pano, unsi
     while (*varname)
     {
         //ignore exposure value and hfov, hfov is separately handled by the code above
-        if (string(*varname) == "Eev" || string(*varname) == "v")
+        if (std::string(*varname) == "Eev" || std::string(*varname) == "v")
         {
             varname++;
             continue;
@@ -282,7 +280,7 @@ bool LoadLensParametersChoose(wxWindow * parent, HuginBase::Lens & lens,
             if (w>0 && h>0) {
                 vigra::Size2D sz = lens.getImageSize();
                 if (w != sz.x || h != sz.y) {
-                    cerr << "Image size: " << sz << " size in lens parameter file: " << w << "x" << h << std::endl;
+                    std::cerr << "Image size: " << sz << " size in lens parameter file: " << w << "x" << h << std::endl;
                     int ret = wxMessageBox(_("Incompatible lens parameter file, image sizes do not match\nApply settings anyway?"), _("Error loading lens parameters"), wxICON_QUESTION |wxYES_NO);
                     if (ret == wxNO) {
                         setlocale(LC_NUMERIC,old_locale);
@@ -320,7 +318,7 @@ bool LoadLensParametersChoose(wxWindow * parent, HuginBase::Lens & lens,
             // loop to load lens variables
             const char ** varname = HuginBase::Lens::variableNames;
             while (*varname) {
-                if (string(*varname) == "Eev")
+                if (std::string(*varname) == "Eev")
                 {
                     varname++;
                     continue;

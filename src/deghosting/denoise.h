@@ -21,8 +21,6 @@
 #include <vigra/stdimage.hxx>
 #include <vigra/pixelneighborhood.hxx>
 
-using namespace vigra;
-
 template <class SrcIterator, class SrcAccessor,
           class DestIterator, class DestAccessor>
 void simpleDenoise(SrcIterator sy, SrcIterator send, SrcAccessor sa,
@@ -38,7 +36,7 @@ void simpleDenoise(SrcIterator sy, SrcIterator send, SrcAccessor sa,
         sx.x++, dx.x++;
         
         for (int x=1; x<width-1; ++x, ++dx.x, ++sx.x) {
-            NeighborhoodCirculator<SrcIterator, EightNeighborCode>
+            vigra::NeighborhoodCirculator<SrcIterator, vigra::EightNeighborCode>
                            circulator(sx),
                            end(circulator);
             int whitePixels = 0;
@@ -65,7 +63,7 @@ void simpleDenoise(SrcIterator sy, SrcIterator send, SrcAccessor sa,
 
 template <class SrcIterator, class SrcAccessor,
           class DestIterator, class DestAccessor>
-void simpleDenoise(triple<SrcIterator, SrcIterator, SrcAccessor> src,
-                    pair<DestIterator, DestAccessor> dest) {
+void simpleDenoise(vigra::triple<SrcIterator, SrcIterator, SrcAccessor> src,
+                    std::pair<DestIterator, DestAccessor> dest) {
     simpleDenoise(src.first, src.second, src.third, dest.first, dest.second);
 }

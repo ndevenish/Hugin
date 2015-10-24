@@ -51,15 +51,6 @@
 #include "../deghosting/deghosting.h"
 #include "../deghosting/khan.h"
 
-using namespace std;
-
-using namespace hugin_utils;
-using namespace vigra;
-using namespace vigra::functor;
-using namespace vigra_ext;
-
-using namespace deghosting;
-
 // define the types of images we will use.
 // use float for RGB
 typedef vigra::FRGBImage ImageType;
@@ -73,16 +64,16 @@ const uint16_t OTHER_GRAY = 1;
 
 // load all images and apply a weighted average merge, with
 // special cases for completely over or underexposed pixels.
-bool mergeWeightedAverage(vector<string> inputFiles, FRGBImage& output)
+bool mergeWeightedAverage(std::vector<std::string> inputFiles, vigra::FRGBImage& output)
 {
     // load all images into memory
-    vector<ImagePtr> images;
-    vector<BImagePtr> weightImages;
+    std::vector<ImagePtr> images;
+    std::vector<deghosting::BImagePtr> weightImages;
 
     for (size_t i=0; i < inputFiles.size(); i++)
     {
         ImagePtr img = ImagePtr(new ImageType());
-        BImagePtr weight = BImagePtr(new BImage());
+        deghosting::BImagePtr weight = deghosting::BImagePtr(new vigra::BImage());
 
         if (g_verbose > 0)
         {
@@ -121,7 +112,7 @@ bool mergeWeightedAverage(vector<string> inputFiles, FRGBImage& output)
     }
     // apply weighted average functor with
     // heuristic to deal with pixels that are overexposed in all images
-    ReduceToHDRFunctor<ImageType::value_type> waverage;
+    vigra_ext::ReduceToHDRFunctor<ImageType::value_type> waverage;
 
     // loop over all pixels in the image (very low level access)
     for (int y=0; y < height; y++)
@@ -143,53 +134,53 @@ bool mergeWeightedAverage(vector<string> inputFiles, FRGBImage& output)
 }
 
 /** compute output image when given source images */
-bool weightedAverageOfImageFiles(const vector<string>& inputFiles,
-                                 const vector<FImagePtr>& weights,
-                                 FRGBImage& output)
+bool weightedAverageOfImageFiles(const std::vector<std::string>& inputFiles,
+                                 const std::vector<deghosting::FImagePtr>& weights,
+                                 vigra::FRGBImage& output)
 {
     if(g_verbose > 0)
     {
-        cout << "Merging input images" << endl;
+        std::cout << "Merging input images" << std::endl;
     }
     int width = (weights[0])->width();
     int height = (weights[0])->height();
 
     assert(inputFiles.size() == weights.size());
 
-    BasicImage<NumericTraits<FRGBImage::PixelType>::Promote> weightedImg(width, height);
-    BasicImage<NumericTraits<FImage::PixelType>::Promote> weightAdded(width, height);
+    vigra::BasicImage<vigra::NumericTraits<vigra::FRGBImage::PixelType>::Promote> weightedImg(width, height);
+    vigra::BasicImage<vigra::NumericTraits<vigra::FImage::PixelType>::Promote> weightAdded(width, height);
     for(unsigned i = 0; i < inputFiles.size(); i++)
     {
-        ImageImportInfo inputInfo(inputFiles[i].c_str());
-        BasicImage<NumericTraits<FRGBImage::PixelType>::Promote> tmpImg(inputInfo.size());
+        vigra::ImageImportInfo inputInfo(inputFiles[i].c_str());
+        vigra::BasicImage<vigra::NumericTraits<vigra::FRGBImage::PixelType>::Promote> tmpImg(inputInfo.size());
 
         //load image
         if (inputInfo.numBands() == 4)
         {
-            BImage tmpMask(inputInfo.size());
-            importImageAlpha(inputInfo, destImage(tmpImg), destImage(tmpMask));
+            vigra::BImage tmpMask(inputInfo.size());
+            vigra::importImageAlpha(inputInfo, vigra::destImage(tmpImg), vigra::destImage(tmpMask));
         }
         else
         {
-            importImage(inputInfo, destImage(tmpImg));
+            vigra::importImage(inputInfo, vigra::destImage(tmpImg));
         }
 
         //combine with weight
-        combineTwoImages(srcImageRange(tmpImg), srcImage(*(weights[i])), destImage(tmpImg), Arg1() * Arg2());
+        vigra::combineTwoImages(vigra::srcImageRange(tmpImg), vigra::srcImage(*(weights[i])), vigra::destImage(tmpImg), vigra::functor::Arg1() * vigra::functor::Arg2());
 
-        combineTwoImages(srcImageRange(tmpImg), srcImage(weightedImg), destImage(weightedImg), Arg1() + Arg2());
+        vigra::combineTwoImages(srcImageRange(tmpImg), srcImage(weightedImg), destImage(weightedImg), vigra::functor::Arg1() + vigra::functor::Arg2());
 
-        combineTwoImages(srcImageRange(weightAdded), srcImage(*(weights[i])), destImage(weightAdded), Arg1() + Arg2());
+        vigra::combineTwoImages(srcImageRange(weightAdded), srcImage(*(weights[i])), destImage(weightAdded), vigra::functor::Arg1() + vigra::functor::Arg2());
     }
     output.resize(width, height);
-    combineTwoImages(srcImageRange(weightedImg), srcImage(weightAdded), destImage(output), Arg1() / Arg2());
+    vigra::combineTwoImages(srcImageRange(weightedImg), srcImage(weightAdded), destImage(output), vigra::functor::Arg1() / vigra::functor::Arg2());
 
     return true;
 }
 
 static void usage(const char* name)
 {
-    cerr << name << ": merge overlapping images" << std::endl
+    std::cerr << name << ": merge overlapping images" << std::endl
          << std::endl
          << "hugin_hdrmerge version " << hugin_utils::GetHuginVersion() << std::endl
          << std::endl
@@ -199,13 +190,13 @@ static void usage(const char* name)
          << "  -m mode   merge mode, can be one of: avg (default), avg_slow, khan, if avg, no" << std::endl
          << "            -i and -s options apply" << std::endl
          << "  -i iter   number of iterations to execute (default is 4). Khan only" << std::endl
-         << "  -s sigma  standard deviation of Gaussian weighting" << endl
-         << "            function (sigma > 0); default: 30. Khan only" << endl
-         << "  -a set    advanced settings. Possible options are:" << endl
-         << "              f   use gray images for computation. It's about two times faster" << endl
-         << "                  but it usually returns worse results." << endl
-         << "              g   use gamma 2.2 correction instead of logarithm" << endl
-         << "              m   do not scale image, NOTE: slows down process" << endl
+         << "  -s sigma  standard deviation of Gaussian weighting" << std::endl
+         << "            function (sigma > 0); default: 30. Khan only" << std::endl
+         << "  -a set    advanced settings. Possible options are:" << std::endl
+         << "              f   use gray images for computation. It's about two times faster" << std::endl
+         << "                  but it usually returns worse results." << std::endl
+         << "              g   use gamma 2.2 correction instead of logarithm" << std::endl
+         << "              m   do not scale image, NOTE: slows down process" << std::endl
          << "  -c        Only consider pixels that are defined in all images (avg mode only)" << std::endl
          << "  -v        Verbose, print progress messages, repeat for" << std::endl
          << "            even more verbose output" << std::endl
@@ -254,13 +245,13 @@ int main(int argc, char* argv[])
                             otherFlags += OTHER_GRAY;
                             break;
                         case 'g':
-                            flags += ADV_GAMMA;
+                            flags += deghosting::ADV_GAMMA;
                             break;
                         case 'm':
-                            flags -= ADV_MULTIRES;
+                            flags -= deghosting::ADV_MULTIRES;
                             break;
                         default:
-                            cerr<< "Error: unknown option" << endl;
+                            std::cerr<< "Error: unknown option" << std::endl;
                             exit(1);
                     }
                 }
@@ -277,7 +268,7 @@ int main(int argc, char* argv[])
                 usage(hugin_utils::stripPath(argv[0]).c_str());
                 return 0;
             default:
-                cerr << "Invalid parameter: " << optarg << std::endl;
+                std::cerr << "Invalid parameter: " << optarg << std::endl;
                 usage(hugin_utils::stripPath(argv[0]).c_str());
                 return 1;
         }
@@ -301,7 +292,7 @@ int main(int argc, char* argv[])
     }
 
     // load all images
-    vector<string> inputFiles;
+    std::vector<std::string> inputFiles;
     for (size_t i=optind; i < (size_t)argc; i++)
     {
         inputFiles.push_back(argv[i]);
@@ -317,7 +308,7 @@ int main(int argc, char* argv[])
             // that are completely over or underexposed in all exposures.
             if (g_verbose > 0)
             {
-                cout << "Running simple weighted avg algorithm" << std::endl;
+                std::cout << "Running simple weighted avg algorithm" << std::endl;
             }
 
             mergeWeightedAverage(inputFiles, output);
@@ -326,33 +317,33 @@ int main(int argc, char* argv[])
             {
                 std::cout << "Writing " << outputFile << std::endl;
             }
-            ImageExportInfo exinfo(outputFile.c_str());
+            vigra::ImageExportInfo exinfo(outputFile.c_str());
             exinfo.setPixelType("FLOAT");
-            BImage alpha(output.width(), output.height(), 255);
-            exportImageAlpha(srcImageRange(output), srcImage(alpha), exinfo);
+            vigra::BImage alpha(output.width(), output.height(), 255);
+            vigra::exportImageAlpha(srcImageRange(output), srcImage(alpha), exinfo);
         }
         else if (mode == "avg")
         {
             // apply weighted average functor with
             // heuristic to deal with pixels that are overexposed in all images
-            ReduceToHDRFunctor<ImageType::value_type> waverage;
+            vigra_ext::ReduceToHDRFunctor<ImageType::value_type> waverage;
             // calc weighted average without loading the whole images into memory
             reduceFilesToHDR(inputFiles, outputFile, onlyCompleteOverlap, waverage);
         }
         else if (mode == "khan")
         {
-            Deghosting* deghoster = NULL;
-            vector<FImagePtr> weights;
+            deghosting::Deghosting* deghoster = NULL;
+            std::vector<deghosting::FImagePtr> weights;
 
             if (otherFlags & OTHER_GRAY)
             {
-                Khan<float> khanDeghoster(inputFiles, flags, 0, iterations, sigma, g_verbose);
+                deghosting::Khan<float> khanDeghoster(inputFiles, flags, 0, iterations, sigma, g_verbose);
                 deghoster = &khanDeghoster;
                 weights = deghoster->createWeightMasks();
             }
             else
             {
-                Khan<RGBValue<float> > khanDeghoster(inputFiles, flags, 0, iterations, sigma, g_verbose);
+                deghosting::Khan<vigra::RGBValue<float> > khanDeghoster(inputFiles, flags, 0, iterations, sigma, g_verbose);
                 deghoster = &khanDeghoster;
                 weights = deghoster->createWeightMasks();
             }
@@ -362,10 +353,10 @@ int main(int argc, char* argv[])
             {
                 std::cout << "Writing " << outputFile << std::endl;
             }
-            ImageExportInfo exinfo(outputFile.c_str());
+            vigra::ImageExportInfo exinfo(outputFile.c_str());
             exinfo.setPixelType("FLOAT");
-            BImage alpha(output.width(), output.height(), 255);
-            exportImageAlpha(srcImageRange(output), srcImage(alpha), exinfo);
+            vigra::BImage alpha(output.width(), output.height(), 255);
+            vigra::exportImageAlpha(vigra::srcImageRange(output), vigra::srcImage(alpha), exinfo);
         }
         else
         {
@@ -375,7 +366,7 @@ int main(int argc, char* argv[])
     }
     catch (std::exception& e)
     {
-        cerr << "caught exception: " << e.what() << std::endl;
+        std::cerr << "caught exception: " << e.what() << std::endl;
         abort();
     }
 

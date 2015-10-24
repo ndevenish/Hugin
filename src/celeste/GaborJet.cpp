@@ -32,8 +32,6 @@ Copyright (c) 2002-3 Adriaan Tijsseling
 #define M_PI 3.1415926535897932384626433832795
 #endif
 
-using namespace std; 
-
 namespace celeste
 {
 // default constructor just sets everything to default
@@ -116,7 +114,7 @@ void GaborJet::Filter( float** image, int* len )
 	int			h, i, j;	// iterating over filter field
 	float		sumI, sumR;	// sum of imaginary and of real parts
 	
-	if ( kVerbosity ) cerr << "convoluting..." << endl;
+	if ( kVerbosity ) std::cerr << "convoluting..." << std::endl;
 
 // convolve at center of filter location
 	// collect responses over angles and frequencies

@@ -64,13 +64,6 @@
 // Celeste header
 #include "Celeste.h"
 
-using namespace std;
-using namespace HuginBase;
-using namespace vigra;
-using namespace vigra_ext;
-using namespace vigra::functor;
-using namespace hugin_utils;
-
 BEGIN_EVENT_TABLE(CPEditorPanel, wxPanel)
     EVT_CPEVENT(CPEditorPanel::OnCPEvent)
     EVT_COMBOBOX(XRCID("cp_editor_left_choice"), CPEditorPanel::OnLeftChoiceChange )
@@ -360,7 +353,7 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
     DEBUG_TRACE("");
     wxString text;
     unsigned int nr = ev.getPointNr();
-    FDiff2D point = ev.getPoint();
+    hugin_utils::FDiff2D point = ev.getPoint();
     bool left (TRUE);
     if (ev.GetEventObject() == m_leftImg) {
         left = true;
@@ -449,7 +442,7 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
         }
     case CPEvent::SCROLLED:
         {
-            wxPoint d(roundi(point.x), roundi(point.y));
+            wxPoint d(hugin_utils::roundi(point.x), hugin_utils::roundi(point.y));
             d = m_rightImg->MaxScrollDelta(d);
             d = m_leftImg->MaxScrollDelta(d);
             m_rightImg->ScrollDelta(d);
@@ -458,7 +451,7 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
         break;
     case CPEvent::DELETE_REGION_SELECTED:
         {
-            UIntSet cpToRemove;
+            HuginBase::UIntSet cpToRemove;
             if(!currentPoints.empty())
             {
                 wxRect rect=ev.getRect();
@@ -470,14 +463,14 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
                         //checking only normal control points
                         if(left)
                         {
-                            if(rect.Contains(roundi(cp.x1),roundi(cp.y1)))
+                            if (rect.Contains(hugin_utils::roundi(cp.x1), hugin_utils::roundi(cp.y1)))
                             {
                                 cpToRemove.insert(localPNr2GlobalPNr(i));
                             };
                         }
                         else
                         {
-                            if(rect.Contains(roundi(cp.x2),roundi(cp.y2)))
+                            if (rect.Contains(hugin_utils::roundi(cp.x2), hugin_utils::roundi(cp.y2)))
                             {
                                 cpToRemove.insert(localPNr2GlobalPNr(i));
                             };
@@ -501,8 +494,8 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
 void CPEditorPanel::CreateNewPoint()
 {
     DEBUG_TRACE("");
-    FDiff2D p1 = m_leftImg->getNewPoint();
-    FDiff2D p2 = m_rightImg->getNewPoint();
+    hugin_utils::FDiff2D p1 = m_leftImg->getNewPoint();
+    hugin_utils::FDiff2D p2 = m_rightImg->getNewPoint();
     HuginBase::ControlPoint point;
     point.image1Nr = m_leftImageNr;
     point.x1 = p1.x;
@@ -650,7 +643,7 @@ unsigned int CPEditorPanel::localPNr2GlobalPNr(unsigned int localNr) const
 }
 
 
-void CPEditorPanel::estimateAndAddOtherPoint(const FDiff2D & p,
+void CPEditorPanel::estimateAndAddOtherPoint(const hugin_utils::FDiff2D & p,
                                              bool left,
                                              CPImageCtrl * thisImg,
                                              unsigned int thisImgNr,
@@ -661,10 +654,10 @@ void CPEditorPanel::estimateAndAddOtherPoint(const FDiff2D & p,
                                              CPCreationState OTHER_POINT,
                                              CPCreationState OTHER_POINT_RETRY)
 {
-    FDiff2D op;
-    op = EstimatePoint(FDiff2D(p.x, p.y), left);
+    hugin_utils::FDiff2D op;
+    op = EstimatePoint(hugin_utils::FDiff2D(p.x, p.y), left);
     // check if point is in image.
-    const SrcPanoImage & pImg = m_pano->getImage(otherImgNr);
+    const HuginBase::SrcPanoImage & pImg = m_pano->getImage(otherImgNr);
     if (op.x < (int) pImg.getSize().width() && op.x >= 0
         && op.y < (int) pImg.getSize().height() && op.y >= 0)
     {
@@ -673,15 +666,15 @@ void CPEditorPanel::estimateAndAddOtherPoint(const FDiff2D & p,
         // hmm probably there should be another separate function for this..
         if (m_fineTuneCB->IsChecked()) {
             MainFrame::Get()->SetStatusText(_("searching similar points..."),0);
-            FDiff2D newPoint = otherImg->getNewPoint();
+            hugin_utils::FDiff2D newPoint = otherImg->getNewPoint();
 
             long templWidth = wxConfigBase::Get()->Read(wxT("/Finetune/TemplateSize"), HUGIN_FT_TEMPLATE_SIZE);
-            const SrcPanoImage & img = m_pano->getImage(thisImgNr);
+            const HuginBase::SrcPanoImage & img = m_pano->getImage(thisImgNr);
             double sAreaPercent = wxConfigBase::Get()->Read(wxT("/Finetune/SearchAreaPercent"),HUGIN_FT_SEARCH_AREA_PERCENT);
             int sWidth = std::min((int)(img.getWidth() * sAreaPercent / 100.0), 500);
-            CorrelationResult corrPoint;
+            vigra_ext::CorrelationResult corrPoint;
             bool corrOk=false;
-            Diff2D roundp(p.toDiff2D());
+            vigra::Diff2D roundp(p.toDiff2D());
             try {
                 corrOk = PointFineTune(thisImgNr,
                                       roundp,
@@ -738,7 +731,7 @@ void CPEditorPanel::estimateAndAddOtherPoint(const FDiff2D & p,
     }
 }
 
-void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
+void CPEditorPanel::NewPointChange(hugin_utils::FDiff2D p, bool left)
 {
     DEBUG_TRACE("");
 
@@ -810,18 +803,18 @@ void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
 
             // TODO: option to ignore the auto fine tune button when multiple images are selected.
             if (m_fineTuneCB->IsChecked() ) {
-                CorrelationResult corrRes;
+                vigra_ext::CorrelationResult corrRes;
 
-                FDiff2D newPoint = otherImg->getNewPoint();
+                hugin_utils::FDiff2D newPoint = otherImg->getNewPoint();
 
                 long templWidth = wxConfigBase::Get()->Read(wxT("/Finetune/TemplateSize"),HUGIN_FT_TEMPLATE_SIZE);
-                const SrcPanoImage & img = m_pano->getImage(thisImgNr);
+                const HuginBase::SrcPanoImage & img = m_pano->getImage(thisImgNr);
                 double sAreaPercent = wxConfigBase::Get()->Read(wxT("/Finetune/SearchAreaPercent"),
                                                                 HUGIN_FT_SEARCH_AREA_PERCENT);
                 int sWidth = std::min((int) (img.getWidth() * sAreaPercent / 100.0), 500);
                 bool corrOk = false;
                 // corr point
-                Diff2D newPoint_round = newPoint.toDiff2D();
+                vigra::Diff2D newPoint_round = newPoint.toDiff2D();
                 try {
                     corrOk = PointFineTune(otherImgNr,
                                            newPoint_round,
@@ -907,10 +900,10 @@ void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
 }
 
 // return a SrcPanoImage so that the given point is in the center
-SrcPanoImage GetImageRotatedTo(const SrcPanoImage& img, const vigra::Diff2D& point, int testWidth, double& neededHFOV)
+HuginBase::SrcPanoImage GetImageRotatedTo(const HuginBase::SrcPanoImage& img, const vigra::Diff2D& point, int testWidth, double& neededHFOV)
 {
     // copy only necessary information into temporary SrcPanoImage
-    SrcPanoImage imgMod;
+    HuginBase::SrcPanoImage imgMod;
     imgMod.setSize(img.getSize());
     imgMod.setProjection(img.getProjection());
     imgMod.setHFOV(img.getHFOV());
@@ -989,9 +982,9 @@ SrcPanoImage GetImageRotatedTo(const SrcPanoImage& img, const vigra::Diff2D& poi
     return imgMod;
 };
 
-CorrelationResult PointFineTuneProjectionAware(const SrcPanoImage& templ, const vigra::UInt8RGBImage& templImg,
+vigra_ext::CorrelationResult PointFineTuneProjectionAware(const HuginBase::SrcPanoImage& templ, const vigra::UInt8RGBImage& templImg,
     vigra::Diff2D templPos, int templSize,
-    const SrcPanoImage& search, const vigra::UInt8RGBImage& searchImg,
+    const HuginBase::SrcPanoImage& search, const vigra::UInt8RGBImage& searchImg,
     vigra::Diff2D searchPos, int sWidth)
 {
     wxBusyCursor busy;
@@ -1010,7 +1003,7 @@ CorrelationResult PointFineTuneProjectionAware(const SrcPanoImage& templ, const 
         && templ.getHFOV() < 65 && search.getHFOV() < 65
         && fabs(templ.getHFOV() - search.getHFOV()) < 5)
     {
-        CorrelationResult res;
+        vigra_ext::CorrelationResult res;
         if (rotatingFinetune)
         {
             res = vigra_ext::PointFineTuneRotSearch(templImg, templPos, templSize,
@@ -1018,8 +1011,8 @@ CorrelationResult PointFineTuneProjectionAware(const SrcPanoImage& templ, const 
         }
         else
         {
-            res = vigra_ext::PointFineTune(templImg, vigra::RGBToGrayAccessor<RGBValue<UInt8> >(), templPos, templSize,
-                searchImg, vigra::RGBToGrayAccessor<RGBValue<UInt8> >(), searchPos, sWidth);
+            res = vigra_ext::PointFineTune(templImg, vigra::RGBToGrayAccessor<vigra::RGBValue<vigra::UInt8> >(), templPos, templSize,
+                searchImg, vigra::RGBToGrayAccessor<vigra::RGBValue<vigra::UInt8> >(), searchPos, sWidth);
         };
         res.corrPos = templPos;
         return res;
@@ -1029,11 +1022,11 @@ CorrelationResult PointFineTuneProjectionAware(const SrcPanoImage& templ, const 
     // rotate image so that interest point is in the center
     double templHFOV = 0;
     double searchHFOV = 0;
-    SrcPanoImage templMod = GetImageRotatedTo(templ, templPos, templSize, templHFOV);
-    SrcPanoImage searchMod = GetImageRotatedTo(search, searchPos, sWidth + templSize + 5, searchHFOV);
-    CorrelationResult res;
-    res.maxpos = FDiff2D(-1, -1);
-    res.corrPos = FDiff2D(-1, -1);
+    HuginBase::SrcPanoImage templMod = GetImageRotatedTo(templ, templPos, templSize, templHFOV);
+    HuginBase::SrcPanoImage searchMod = GetImageRotatedTo(search, searchPos, sWidth + templSize + 5, searchHFOV);
+    vigra_ext::CorrelationResult res;
+    res.maxpos = hugin_utils::FDiff2D(-1, -1);
+    res.corrPos = hugin_utils::FDiff2D(-1, -1);
     if (templHFOV < 0 || searchHFOV < 0)
     {
         //something went wrong, e.g. image outside of projection circle for fisheye lenses
@@ -1065,7 +1058,7 @@ CorrelationResult PointFineTuneProjectionAware(const SrcPanoImage& templ, const 
         vigra::Diff2D(0, 0), transform, ptf, false, vigra_ext::INTERP_CUBIC, &dummy);
     // now remap template, we need to remap a little bigger area to have enough information when the template
     // is rotated in PointFineTuneRotSearch
-    Diff2D templPointInt(hugin_utils::roundi(templX), hugin_utils::roundi(templY));
+    vigra::Diff2D templPointInt(hugin_utils::roundi(templX), hugin_utils::roundi(templY));
     vigra::Rect2D rect(templPointInt.x - templSize - 2, templPointInt.y - templSize - 2,
         templPointInt.x + templSize + 2, templPointInt.y + templSize + 2);
     rect &= vigra::Rect2D(opts.getSize());
@@ -1085,7 +1078,7 @@ CorrelationResult PointFineTuneProjectionAware(const SrcPanoImage& templ, const 
     // we are always using the rotate fine-tune algorithm, because for this case
     // often a rotation is involved
     res = vigra_ext::PointFineTuneRotSearch(templImgMod, templPointInt, templSize,
-        searchImgMod, Diff2D(hugin_utils::roundi(searchX), hugin_utils::roundi(searchY)), sWidth, startAngle, stopAngle, nSteps);
+        searchImgMod, vigra::Diff2D(hugin_utils::roundi(searchX), hugin_utils::roundi(searchY)), sWidth, startAngle, stopAngle, nSteps);
     // we transfer also the new found template position back to the original image
     transform.createTransform(templMod, opts);
     transform.transformImgCoord(res.corrPos.x, res.corrPos.y, templPointInt.x + 0.00001, templPointInt.y + 0.00001);
@@ -1096,12 +1089,12 @@ CorrelationResult PointFineTuneProjectionAware(const SrcPanoImage& templ, const 
 };
 
 bool CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
-                                  const Diff2D & tmplPoint,
+                                  const vigra::Diff2D & tmplPoint,
                                   int templSize,
                                   unsigned int subjImgNr,
-                                  const FDiff2D & o_subjPoint,
+                                  const hugin_utils::FDiff2D & o_subjPoint,
                                   int sWidth,
-                                  CorrelationResult & res)
+                                  vigra_ext::CorrelationResult & res)
 {
     DEBUG_TRACE("tmpl img nr: " << tmplImgNr << " corr src: "
                 << subjImgNr);
@@ -1188,7 +1181,7 @@ bool CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
     return true;
 }
 
-void CPEditorPanel::panoramaChanged(Panorama &pano)
+void CPEditorPanel::panoramaChanged(HuginBase::Panorama &pano)
 {
     int nGui = m_cpModeChoice->GetCount();
     int nPano = pano.getNextCPTypeLineNumber()+1;
@@ -1226,7 +1219,7 @@ void CPEditorPanel::panoramaChanged(Panorama &pano)
     DEBUG_TRACE("");
 }
 
-void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
+void CPEditorPanel::panoramaImagesChanged(HuginBase::Panorama &pano, const HuginBase::UIntSet &changed)
 {
     unsigned int nrImages = pano.getNrOfImages();
     unsigned int nrTabs = m_leftChoice->GetCount();
@@ -1325,7 +1318,7 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
 
     // update changed images
     bool update(false);
-    for(UIntSet::const_iterator it = changed.begin(); it != changed.end(); ++it) {
+    for(HuginBase::UIntSet::const_iterator it = changed.begin(); it != changed.end(); ++it) {
         unsigned int imgNr = *it;
         // we only need to update the view if the currently
         // selected images were changed.
@@ -1428,7 +1421,7 @@ void CPEditorPanel::UpdateDisplay(bool newPair)
         if ((point.image1Nr == m_leftImageNr) && (point.image2Nr == m_rightImageNr)){
             m_leftImg->setCtrlPoint(point, false);
             m_rightImg->setCtrlPoint(point, true);
-            currentPoints.push_back(make_pair(index, point));
+            currentPoints.push_back(std::make_pair(index, point));
             i++;
         } else if ((point.image2Nr == m_leftImageNr) && (point.image1Nr == m_rightImageNr)){
             m_leftImg->setCtrlPoint(point, true);
@@ -1542,7 +1535,7 @@ void CPEditorPanel::OnTextPointChange(wxCommandEvent &e)
 
     // update point state
     double oldValue=cp.x1;
-    bool valid_input=str2double(m_x1Text->GetValue(), cp.x1);
+    bool valid_input=hugin_utils::str2double(m_x1Text->GetValue(), cp.x1);
     if(valid_input)
         valid_input=(cp.x1>=0) && (cp.x1<=m_pano->getSrcImage(cp.image1Nr).getWidth());
     if (!valid_input) {
@@ -1551,7 +1544,7 @@ void CPEditorPanel::OnTextPointChange(wxCommandEvent &e)
         return;
     }
     oldValue=cp.y1;
-    valid_input=str2double(m_y1Text->GetValue(), cp.y1);
+    valid_input = hugin_utils::str2double(m_y1Text->GetValue(), cp.y1);
     if(valid_input)
         valid_input=(cp.y1>=0) && (cp.y1<=m_pano->getSrcImage(cp.image1Nr).getHeight());
     if (!valid_input) {
@@ -1560,7 +1553,7 @@ void CPEditorPanel::OnTextPointChange(wxCommandEvent &e)
         return;
     }
     oldValue=cp.x2;
-    valid_input=str2double(m_x2Text->GetValue(), cp.x2);
+    valid_input = hugin_utils::str2double(m_x2Text->GetValue(), cp.x2);
     if(valid_input)
         valid_input=(cp.x2>=0) && (cp.x2<=m_pano->getSrcImage(cp.image2Nr).getWidth());
     if (!valid_input) {
@@ -1569,7 +1562,7 @@ void CPEditorPanel::OnTextPointChange(wxCommandEvent &e)
         return;
     }
     oldValue=cp.y2;
-    valid_input=str2double(m_y2Text->GetValue(), cp.y2);
+    valid_input = hugin_utils::str2double(m_y2Text->GetValue(), cp.y2);
     if(valid_input)
         valid_input=(cp.y2>=0) && (cp.y2<=m_pano->getSrcImage(cp.image1Nr).getHeight());
     if (!valid_input) {
@@ -2006,7 +1999,7 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
     if (currentPoints.empty())
     {
         wxMessageBox(_("Cannot run celeste without at least one control point connecting the two images"),_("Error"));
-        cout << "Cannot run celeste without at least one control point connecting the two images" << endl;
+        std::cout << "Cannot run celeste without at least one control point connecting the two images" << std::endl;
     }
     else
     {
@@ -2057,7 +2050,7 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
         {
             return;
         };
-        UIntSet cloudCP=celeste::getCelesteControlPoints(model,in,currentPoints,radius,threshold,800);
+        HuginBase::UIntSet cloudCP = celeste::getCelesteControlPoints(model, in, currentPoints, radius, threshold, 800);
         in.resize(0,0);
         if (!progress.updateDisplay())
         {
@@ -2144,15 +2137,15 @@ void CPEditorPanel::OnActionSelectCleanCP(wxCommandEvent& e)
     wxConfig::Get()->Write(wxT("/CPEditorPanel/ActionMode"), static_cast<long>(m_cpActionButtonMode));
 };
 
-FDiff2D CPEditorPanel::LocalFineTunePoint(unsigned int srcNr,
-                                          const Diff2D & srcPnt,
+hugin_utils::FDiff2D CPEditorPanel::LocalFineTunePoint(unsigned int srcNr,
+                                          const vigra::Diff2D & srcPnt,
                                           hugin_utils::FDiff2D & movedSrcPnt,
                                           unsigned int moveNr,
-                                          const FDiff2D & movePnt)
+                                          const hugin_utils::FDiff2D & movePnt)
 {
     long templWidth = wxConfigBase::Get()->Read(wxT("/Finetune/TemplateSize"),HUGIN_FT_TEMPLATE_SIZE);
     long sWidth = templWidth + wxConfigBase::Get()->Read(wxT("/Finetune/LocalSearchWidth"),HUGIN_FT_LOCAL_SEARCH_WIDTH);
-    CorrelationResult result;
+    vigra_ext::CorrelationResult result;
     PointFineTune(srcNr,
                   srcPnt,
                   templWidth,
@@ -2163,7 +2156,7 @@ FDiff2D CPEditorPanel::LocalFineTunePoint(unsigned int srcNr,
     movedSrcPnt = result.corrPos;
     if (result.corrPos.x < 0 || result.corrPos.y < 0 || result.maxpos.x < 0 || result.maxpos.y < 0)
     {
-        return FDiff2D(-1, -1);
+        return hugin_utils::FDiff2D(-1, -1);
     }
     return result.maxpos;
 }
@@ -2178,17 +2171,17 @@ void CPEditorPanel::FineTuneSelectedPoint(bool left)
 
     unsigned int srcNr = cp.image1Nr;
     unsigned int moveNr = cp.image2Nr;
-    Diff2D srcPnt(roundi(cp.x1), roundi(cp.y1));
-    Diff2D movePnt(roundi(cp.x2), roundi(cp.y2));
+    vigra::Diff2D srcPnt(hugin_utils::roundi(cp.x1), hugin_utils::roundi(cp.y1));
+    vigra::Diff2D movePnt(hugin_utils::roundi(cp.x2), hugin_utils::roundi(cp.y2));
     if (left) {
         srcNr = cp.image2Nr;
         moveNr = cp.image1Nr;
-        srcPnt = Diff2D(roundi(cp.x2), roundi(cp.y2));
-        movePnt = Diff2D(roundi(cp.x1), roundi(cp.y1));
+        srcPnt = vigra::Diff2D(hugin_utils::roundi(cp.x2), hugin_utils::roundi(cp.y2));
+        movePnt = vigra::Diff2D(hugin_utils::roundi(cp.x1), hugin_utils::roundi(cp.y1));
     }
 
-    FDiff2D movedSrcPnt;
-    FDiff2D result = LocalFineTunePoint(srcNr, srcPnt, movedSrcPnt, moveNr, movePnt);
+    hugin_utils::FDiff2D movedSrcPnt;
+    hugin_utils::FDiff2D result = LocalFineTunePoint(srcNr, srcPnt, movedSrcPnt, moveNr, movePnt);
 
     if (result.x < 0 || result.y < 0)
     {
@@ -2227,13 +2220,13 @@ void CPEditorPanel::FineTuneNewPoint(bool left)
         return;
     }
 
-    FDiff2D leftP = m_leftImg->getNewPoint();
-    FDiff2D rightP = m_rightImg->getNewPoint();
+    hugin_utils::FDiff2D leftP = m_leftImg->getNewPoint();
+    hugin_utils::FDiff2D rightP = m_rightImg->getNewPoint();
 
     unsigned int srcNr = m_leftImageNr;
-    Diff2D srcPnt(leftP.toDiff2D());
+    vigra::Diff2D srcPnt(leftP.toDiff2D());
     unsigned int moveNr = m_rightImageNr;
-    Diff2D movePnt(rightP.toDiff2D());
+    vigra::Diff2D movePnt(rightP.toDiff2D());
     if (left) {
         srcNr = m_rightImageNr;
         srcPnt = rightP.toDiff2D();
@@ -2241,8 +2234,8 @@ void CPEditorPanel::FineTuneNewPoint(bool left)
         movePnt = leftP.toDiff2D();
     }
 
-    FDiff2D movedSrcPnt;
-    FDiff2D result = LocalFineTunePoint(srcNr, srcPnt, movedSrcPnt, moveNr, movePnt);
+    hugin_utils::FDiff2D movedSrcPnt;
+    hugin_utils::FDiff2D result = LocalFineTunePoint(srcNr, srcPnt, movedSrcPnt, moveNr, movePnt);
 
     if (result.x < 0 || result.y < 0)
     {
@@ -2263,7 +2256,7 @@ void CPEditorPanel::FineTuneNewPoint(bool left)
     }
 }
 
-FDiff2D CPEditorPanel::EstimatePoint(const FDiff2D & p, bool left)
+hugin_utils::FDiff2D CPEditorPanel::EstimatePoint(const hugin_utils::FDiff2D & p, bool left)
 {
     size_t nrNormalCp = 0;
     for (HuginBase::CPointVector::const_iterator it = currentPoints.begin(); it != currentPoints.end(); ++it)
@@ -2276,18 +2269,18 @@ FDiff2D CPEditorPanel::EstimatePoint(const FDiff2D & p, bool left)
     if (nrNormalCp==0)
     {
         DEBUG_WARN("Cannot estimate position without at least one point");
-        return FDiff2D(0,0);
+        return hugin_utils::FDiff2D(0, 0);
     }
 
     // get copy of SrcPanoImage and reset position
-    SrcPanoImage leftImg = m_pano->getSrcImage(left ? m_leftImageNr : m_rightImageNr);
+    HuginBase::SrcPanoImage leftImg = m_pano->getSrcImage(left ? m_leftImageNr : m_rightImageNr);
     leftImg.setYaw(0);
     leftImg.setPitch(0);
     leftImg.setRoll(0);
     leftImg.setX(0);
     leftImg.setY(0);
     leftImg.setZ(0);
-    SrcPanoImage rightImg = m_pano->getSrcImage(left ? m_rightImageNr : m_leftImageNr);
+    HuginBase::SrcPanoImage rightImg = m_pano->getSrcImage(left ? m_rightImageNr : m_leftImageNr);
     rightImg.setYaw(0);
     rightImg.setPitch(0);
     rightImg.setRoll(0);
@@ -2295,7 +2288,7 @@ FDiff2D CPEditorPanel::EstimatePoint(const FDiff2D & p, bool left)
     rightImg.setY(0);
     rightImg.setZ(0);
     // generate a temporary pano
-    Panorama optPano;
+    HuginBase::Panorama optPano;
     optPano.addImage(leftImg);
     optPano.addImage(rightImg);
     // construct OptimizeVector
@@ -2332,7 +2325,7 @@ FDiff2D CPEditorPanel::EstimatePoint(const FDiff2D & p, bool left)
     transformBackward.createInvTransform(optPano.getImage(0), optPano.getOptions());
     HuginBase::PTools::Transform transformForward;
     transformForward.createTransform(optPano.getImage(1), optPano.getOptions());
-    FDiff2D t;
+    hugin_utils::FDiff2D t;
     if (transformBackward.transformImgCoord(t, p))
     {
         if (transformForward.transformImgCoord(t, t))
@@ -2347,7 +2340,7 @@ FDiff2D CPEditorPanel::EstimatePoint(const FDiff2D & p, bool left)
         };
     };
     wxBell();
-    return FDiff2D(0, 0);
+    return hugin_utils::FDiff2D(0, 0);
 }
 
 void CPEditorPanel::OnColumnWidthChange( wxListEvent & e )

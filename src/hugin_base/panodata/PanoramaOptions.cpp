@@ -59,10 +59,6 @@
 
 namespace HuginBase {
 
-using namespace hugin_utils;
-using namespace vigra;
-
-
 const std::string & PanoramaOptions::getFormatName(FileFormat f)
 {
     assert((int)f <= (int)FILEFORMAT_NULL);
@@ -262,8 +258,8 @@ void PanoramaOptions::setWidth(unsigned int w, bool keepView)
         m_roi = vigra::Rect2D(m_size);
     } else {
         // for now, do a simple proportional scaling
-        m_roi.setUpperLeft(vigra::Point2D(roundi(scale*m_roi.left()), m_roi.top()));
-        m_roi.setLowerRight(vigra::Point2D(roundi(scale*m_roi.right()), m_roi.bottom()));
+        m_roi.setUpperLeft(vigra::Point2D(hugin_utils::roundi(scale*m_roi.left()), m_roi.top()));
+        m_roi.setLowerRight(vigra::Point2D(hugin_utils::roundi(scale*m_roi.right()), m_roi.bottom()));
         // ensure ROI is inside the panorama
         m_roi &= vigra::Rect2D(m_size);
     }
@@ -273,10 +269,10 @@ void PanoramaOptions::setWidth(unsigned int w, bool keepView)
         if (nocrop) {
             m_roi = vigra::Rect2D(m_size);
         } else {
-            m_roi.setUpperLeft(vigra::Point2D(m_roi.left(), roundi(scale*m_roi.top())));
-            m_roi.setLowerRight(vigra::Point2D(m_roi.right(), roundi(scale*m_roi.bottom())));
+            m_roi.setUpperLeft(vigra::Point2D(m_roi.left(), hugin_utils::roundi(scale*m_roi.top())));
+            m_roi.setLowerRight(vigra::Point2D(m_roi.right(), hugin_utils::roundi(scale*m_roi.bottom())));
             // ensure ROI is inside the panorama
-            m_roi &= Rect2D(m_size);
+            m_roi &= vigra::Rect2D(m_size);
         }
         if (fovCalcSupported(m_projectionFormat)) {
             if (getVFOV() > getMaxVFOV()) {
@@ -350,13 +346,13 @@ void PanoramaOptions::setVFOV(double VFOV)
     src.setSize(vigra::Size2D(360,180));
     transf.createInvTransform(src, *this);
 
-    FDiff2D pmiddle;
+    hugin_utils::FDiff2D pmiddle;
 
     if (VFOV>180 && getMaxVFOV() > 180) {
         // we have crossed the pole
-        transf.transform(pmiddle, FDiff2D(180, 180-VFOV/2 - 0.01));
+        transf.transform(pmiddle, hugin_utils::FDiff2D(180, 180 - VFOV / 2 - 0.01));
     } else {
-        transf.transform(pmiddle, FDiff2D(0, VFOV/2));
+        transf.transform(pmiddle, hugin_utils::FDiff2D(0, VFOV / 2));
     }
     // try to keep the same ROI
     vigra::Size2D oldSize = m_size;
@@ -386,9 +382,9 @@ double PanoramaOptions::getVFOV() const
     src.setSize(vigra::Size2D(360,180));
     transf.createTransform(src, *this);
 
-    FDiff2D pmiddle;
-    FDiff2D pcorner;
-    transf.transform(pmiddle, FDiff2D(0, m_size.y/2.0));
+    hugin_utils::FDiff2D pmiddle;
+    hugin_utils::FDiff2D pcorner;
+    transf.transform(pmiddle, hugin_utils::FDiff2D(0, m_size.y / 2.0));
 //    transf.transform(pcorner, FDiff2D(m_size.x/2.0, m_size.y/2.0));
     double VFOV;
     if (pmiddle.x > 90 ||pmiddle.y < -90) {

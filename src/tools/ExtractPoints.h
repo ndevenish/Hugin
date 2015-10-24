@@ -36,12 +36,6 @@
 #include <vigra_ext/impexalpha.hxx>
 #include <algorithms/point_sampler/PointSampler.h>
 
-using namespace std;
-using namespace vigra;
-using namespace vigra_ext;
-using namespace AppBase;
-using namespace HuginBase;
-
 template<class ImageType>
 std::vector<ImageType *> loadImagesPyr(std::vector<std::string> files, int pyrLevel, int verbose)
 {
@@ -87,7 +81,7 @@ std::vector<ImageType *> loadImagesPyr(std::vector<std::string> files, int pyrLe
                 if (verbose > 0) {
                     buf << tImg->size().x << "x" << tImg->size().y << "  " << std::flush;
                 }
-                reduceToNextLevel(*tImg, *tImg2);
+                vigra_ext::reduceToNextLevel(*tImg, *tImg2);
                 swap = tImg;
                 tImg = tImg2;
                 tImg2 = swap;
@@ -112,7 +106,7 @@ std::vector<ImageType *> loadImagesPyr(std::vector<std::string> files, int pyrLe
 
 
 // needs 2.0 progress steps
-void loadImgsAndExtractPoints(Panorama pano, int nPoints, int pyrLevel, bool randomPoints, AppBase::ProgressDisplay& progress, std::vector<vigra_ext::PointPairRGB> & points, int verbose)
+void loadImgsAndExtractPoints(HuginBase::Panorama pano, int nPoints, int pyrLevel, bool randomPoints, AppBase::ProgressDisplay& progress, std::vector<vigra_ext::PointPairRGB> & points, int verbose)
 {
     // extract file names
     std::vector<std::string> files;
@@ -126,8 +120,8 @@ void loadImgsAndExtractPoints(Panorama pano, int nPoints, int pyrLevel, bool ran
     
     progress.setMessage("Sampling points");
     if(randomPoints)
-        points = RandomPointSampler(pano, &progress, images, nPoints).execute().getResultPoints();
+        points = HuginBase::RandomPointSampler(pano, &progress, images, nPoints).execute().getResultPoints();
     else
-        points = AllPointSampler(pano, &progress, images, nPoints).execute().getResultPoints();
+        points = HuginBase::AllPointSampler(pano, &progress, images, nPoints).execute().getResultPoints();
     progress.taskFinished();
 }

@@ -58,12 +58,6 @@
 
 #include <panodata/StandardImageVariableGroups.h>
 
-using namespace HuginBase;
-using namespace hugin_utils;
-using namespace vigra;
-using namespace vigra_ext;
-using namespace std;
-
 BEGIN_EVENT_TABLE(ImagesPanel, wxPanel)
     EVT_TREE_SEL_CHANGED(XRCID("images_tree_ctrl"), ImagesPanel::OnSelectionChanged )
     EVT_CHOICE     ( XRCID("images_lens_type"), ImagesPanel::OnLensTypeChanged)
@@ -164,7 +158,7 @@ bool ImagesPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, co
     return true;
 }
 
-void ImagesPanel::Init(Panorama * panorama)
+void ImagesPanel::Init(HuginBase::Panorama * panorama)
 {
     m_pano = panorama;
     m_images_tree->Init(m_pano);
@@ -268,7 +262,7 @@ void ImagesPanel::panoramaImagesChanged(HuginBase::Panorama &pano, const HuginBa
     DEBUG_TRACE("");
 
     // update text field if selected
-    const UIntSet & selected = m_images_tree->GetSelectedImages();
+    const HuginBase::UIntSet & selected = m_images_tree->GetSelectedImages();
     DEBUG_DEBUG("nr of sel Images: " << selected.size());
     if (pano.getNrOfImages() == 0)
     {
@@ -291,7 +285,7 @@ void ImagesPanel::panoramaImagesChanged(HuginBase::Panorama &pano, const HuginBa
 /** run control point detector on selected images, and add control points */
 void ImagesPanel::CPGenerate(wxCommandEvent & e)
 {
-    UIntSet selImg = m_images_tree->GetSelectedImages();
+    HuginBase::UIntSet selImg = m_images_tree->GetSelectedImages();
     //if only one image is selected, run detector on all images, except for linefind
     wxString progName = cpdetector_config.settings[m_CPDetectorChoice->GetSelection()].GetProg().Lower();
     if ((selImg.size() == 0) || (selImg.size() == 1 && progName.Find(wxT("linefind")) == wxNOT_FOUND))
@@ -358,7 +352,7 @@ const wxString ImagesPanel::GetSelectedCPGenerator()
 
 void ImagesPanel::OnSelectionChanged(wxTreeEvent & e)
 {
-    const UIntSet & sel = m_images_tree->GetSelectedImages();
+    const HuginBase::UIntSet & sel = m_images_tree->GetSelectedImages();
     DEBUG_DEBUG("selected Images: " << sel.size());
     if (sel.size() == 0)
     {
@@ -369,20 +363,20 @@ void ImagesPanel::OnSelectionChanged(wxTreeEvent & e)
     {
         // enable edit
         EnableImageCtrls();
-        const SrcPanoImage& img=m_pano->getImage(*sel.begin());
+        const HuginBase::SrcPanoImage& img = m_pano->getImage(*sel.begin());
         bool identical_projection=true;
-        SrcPanoImage::Projection proj=img.getProjection();
-        double focallength=SrcPanoImage::calcFocalLength(img.getProjection(),img.getHFOV(),
+        HuginBase::SrcPanoImage::Projection proj = img.getProjection();
+        double focallength = HuginBase::SrcPanoImage::calcFocalLength(img.getProjection(), img.getHFOV(),
                 img.getCropFactor(),img.getSize());;
         double cropFactor=img.getCropFactor();
-        for(UIntSet::const_iterator it=sel.begin(); it!=sel.end(); ++it)
+        for (HuginBase::UIntSet::const_iterator it = sel.begin(); it != sel.end(); ++it)
         {
-            const SrcPanoImage& img2=m_pano->getImage(*it);
+            const HuginBase::SrcPanoImage& img2 = m_pano->getImage(*it);
             if(proj!=img2.getProjection())
             {
                 identical_projection=false;
             };
-            double focallength2 = SrcPanoImage::calcFocalLength(img2.getProjection(),img2.getHFOV(),
+            double focallength2 = HuginBase::SrcPanoImage::calcFocalLength(img2.getProjection(), img2.getHFOV(),
                 img2.getCropFactor(),img2.getSize());
             if(focallength>0 && fabs(focallength-focallength2)>0.05)
             {
@@ -412,7 +406,7 @@ void ImagesPanel::OnSelectionChanged(wxTreeEvent & e)
         };
         if(cropFactor>0)
         {
-            m_cropfactor->SetValue(doubleTowxString(cropFactor,m_degDigits));
+            m_cropfactor->SetValue(hugin_utils::doubleTowxString(cropFactor,m_degDigits));
         }
         else
         {
@@ -527,11 +521,11 @@ void ImagesPanel::ReloadCPDetectorSettings()
 void ImagesPanel::OnLensTypeChanged (wxCommandEvent & e)
 {
     size_t var = GetSelectedValue(m_lenstype);
-    UIntSet images=m_images_tree->GetSelectedImages();
+    HuginBase::UIntSet images = m_images_tree->GetSelectedImages();
     if(images.size()>0)
     {
-        const SrcPanoImage & img=m_pano->getImage(*(images.begin()));
-        double focal_length = SrcPanoImage::calcFocalLength(img.getProjection(),img.getHFOV(),img.getCropFactor(),img.getSize());
+        const HuginBase::SrcPanoImage & img = m_pano->getImage(*(images.begin()));
+        double focal_length = HuginBase::SrcPanoImage::calcFocalLength(img.getProjection(), img.getHFOV(), img.getCropFactor(), img.getSize());
         std::vector<PanoCommand::PanoCommand*> commands;
         commands.push_back(new PanoCommand::ChangeImageProjectionCmd(*m_pano, images,(HuginBase::SrcPanoImage::Projection) var));
         commands.push_back(new PanoCommand::UpdateFocalLengthCmd(*m_pano, images, focal_length));
@@ -554,7 +548,7 @@ void ImagesPanel::OnFocalLengthChanged(wxCommandEvent & e)
         return;
     };
     double val;
-    if (!str2double(text, val))
+    if (!hugin_utils::str2double(text, val))
     {
         return;
     }
@@ -565,9 +559,9 @@ void ImagesPanel::OnFocalLengthChanged(wxCommandEvent & e)
         return;
     };
     
-    UIntSet images=m_images_tree->GetSelectedImages();
-    const SrcPanoImage& srcImg=m_pano->getImage(*(images.begin()));
-    if(srcImg.getProjection()==SrcPanoImage::FISHEYE_ORTHOGRAPHIC)
+    HuginBase::UIntSet images = m_images_tree->GetSelectedImages();
+    const HuginBase::SrcPanoImage& srcImg = m_pano->getImage(*(images.begin()));
+    if (srcImg.getProjection() == HuginBase::SrcPanoImage::FISHEYE_ORTHOGRAPHIC)
     {
         double hfov=srcImg.calcHFOV(srcImg.getProjection(), val, srcImg.getCropFactor(), srcImg.getSize());
         if(hfov>190)
@@ -605,7 +599,7 @@ void ImagesPanel::OnCropFactorChanged(wxCommandEvent & e)
         return;
     };
     double val;
-    if (!str2double(text, val))
+    if (!hugin_utils::str2double(text, val))
     {
         return;
     }
@@ -616,7 +610,7 @@ void ImagesPanel::OnCropFactorChanged(wxCommandEvent & e)
         return;
     };
 
-    UIntSet images=m_images_tree->GetSelectedImages();
+    HuginBase::UIntSet images = m_images_tree->GetSelectedImages();
     PanoCommand::GlobalCmdHist::getInstance().addCommand(
         new PanoCommand::UpdateCropFactorCmd(*m_pano,images,val)
     );
@@ -630,7 +624,7 @@ void ImagesPanel::OnMinimumOverlapChanged(wxCommandEvent & e)
         return;
     };
     double val;
-    if (!str2double(text, val))
+    if (!hugin_utils::str2double(text, val))
     {
         return;
     }
@@ -664,7 +658,7 @@ void ImagesPanel::OnMaxEvDiffChanged(wxCommandEvent& e)
         return;
     };
     double val;
-    if (!str2double(text, val))
+    if (!hugin_utils::str2double(text, val))
     {
         return;
     }

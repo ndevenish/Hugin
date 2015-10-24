@@ -27,8 +27,6 @@
 
 namespace HuginBase {
 
-using namespace hugin_utils;
-
 ///
 bool CalculateOptimalROI::calcOptimalROI(PanoramaData& panorama)
 {

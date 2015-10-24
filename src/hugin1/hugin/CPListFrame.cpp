@@ -41,10 +41,6 @@
 #include "hugin_base/panotools/PanoToolsUtils.h"
 #include "algorithms/basic/CalculateCPStatistics.h"
 
-using namespace HuginBase;
-using namespace std;
-using namespace hugin_utils;
-
 BEGIN_EVENT_TABLE(CPListCtrl, wxListCtrl)
     EVT_CHAR(CPListCtrl::OnChar)
     EVT_LIST_ITEM_SELECTED(wxID_ANY, CPListCtrl::OnCPListSelectionChanged)
@@ -116,7 +112,7 @@ bool CPListCtrl::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos,
     return true;
 };
 
-void CPListCtrl::Init(Panorama* pano)
+void CPListCtrl::Init(HuginBase::Panorama* pano)
 {
     m_pano = pano;
     m_pano->addObserver(this);
@@ -192,7 +188,7 @@ void CPListCtrl::UpdateInternalCPList()
     {
         m_internalCPList[i].globalIndex = i;
         const HuginBase::ControlPoint& cp = cps[i];
-        string pairId = makePairId(cp.image1Nr, cp.image2Nr);
+        std::string pairId = makePairId(cp.image1Nr, cp.image2Nr);
         std::map<std::string, int>::iterator it = m_localIds.find(pairId);
         if (it != m_localIds.end())
         {
@@ -385,7 +381,7 @@ void CPListCtrl::DeleteSelected()
         return;
     };
 
-    UIntSet selected;
+    HuginBase::UIntSet selected;
     long item = GetFirstSelected();
     long newSelection = -1;
     if (m_internalCPList.size() - nSelected > 0)
@@ -489,7 +485,7 @@ BEGIN_EVENT_TABLE(CPListFrame, wxFrame)
     EVT_BUTTON(XRCID("cp_list_select"), CPListFrame::OnSelectButton)
 END_EVENT_TABLE()
 
-CPListFrame::CPListFrame(wxFrame* parent, Panorama& pano) : m_pano(pano)
+CPListFrame::CPListFrame(wxFrame* parent, HuginBase::Panorama& pano) : m_pano(pano)
 {
     DEBUG_TRACE("");
     bool ok = wxXmlResource::Get()->LoadFrame(this, parent, wxT("cp_list_frame"));
@@ -550,13 +546,13 @@ void CPListFrame::OnSelectButton(wxCommandEvent & e)
     do
     {
         t = wxGetTextFromUser(_("Enter minimum control point error.\nAll points with a higher error will be selected"), _("Select Control Points"),
-            doubleTowxString(threshold, 2));
+            hugin_utils::doubleTowxString(threshold, 2));
         if (t == wxEmptyString) {
             // do not select anything
             return;
         }
     }
-    while (!str2double(t, threshold));
+    while (!hugin_utils::str2double(t, threshold));
 
     m_list->SelectDistanceThreshold(threshold);
 };

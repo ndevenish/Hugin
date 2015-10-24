@@ -54,8 +54,6 @@
 
 namespace HuginBase {
 
-using namespace hugin_utils;
-    
 void SrcPanoImage::resize(const vigra::Size2D & sz)
 {
         // TODO: check if images have the same orientation.
@@ -156,12 +154,12 @@ bool SrcPanoImage::isInside(vigra::Point2D p, bool ignoreMasks) const
                 // outside image
                 return false;
             }
-            FDiff2D cropCenter;
+            hugin_utils::FDiff2D cropCenter;
             cropCenter.x = m_CropRect.getData().left() + m_CropRect.getData().width()/2.0;
             cropCenter.y = m_CropRect.getData().top() + m_CropRect.getData().height()/2.0;
             double radius2 = std::min(m_CropRect.getData().width()/2.0, m_CropRect.getData().height()/2.0);
             radius2 = radius2 * radius2;
-            FDiff2D pf = FDiff2D(p) - cropCenter;
+            hugin_utils::FDiff2D pf = hugin_utils::FDiff2D(p) - cropCenter;
             insideCrop = (radius2 > pf.x*pf.x+pf.y*pf.y );
         }
     }
@@ -187,12 +185,16 @@ bool SrcPanoImage::getCorrectTCA() const
 }
 
 
-FDiff2D SrcPanoImage::getRadialDistortionCenter() const
-{ return FDiff2D(m_Size.getData())/2.0 + m_RadialDistortionCenterShift.getData(); }
+hugin_utils::FDiff2D SrcPanoImage::getRadialDistortionCenter() const
+{
+    return hugin_utils::FDiff2D(m_Size.getData()) / 2.0 + m_RadialDistortionCenterShift.getData();
+}
 
 
-FDiff2D SrcPanoImage::getRadialVigCorrCenter() const
-{ return (FDiff2D(m_Size.getData())-FDiff2D(1,1))/2.0 + m_RadialVigCorrCenterShift.getData(); }
+hugin_utils::FDiff2D SrcPanoImage::getRadialVigCorrCenter() const
+{
+    return (hugin_utils::FDiff2D(m_Size.getData()) - hugin_utils::FDiff2D(1, 1)) / 2.0 + m_RadialVigCorrCenterShift.getData();
+}
 
 void SrcPanoImage::setCropMode(CropMode val)
 {
@@ -735,7 +737,7 @@ double SrcPanoImage::calcHFOV(SrcPanoImage::Projection proj, double fl, double c
     
     // calculate the sensor width and height that fit the ratio
     // the ratio is determined by the size of our image.
-    FDiff2D sensorSize;
+    hugin_utils::FDiff2D sensorSize;
     sensorSize.x = d / sqrt(1 + 1/(r*r));
     sensorSize.y = sensorSize.x / r;
     
@@ -786,7 +788,7 @@ double SrcPanoImage::calcFocalLength(SrcPanoImage::Projection proj, double hfov,
     
     // calculate the sensor width and height that fit the ratio
     // the ratio is determined by the size of our image.
-    FDiff2D sensorSize;
+    hugin_utils::FDiff2D sensorSize;
     sensorSize.x = d / sqrt(1 + 1/(r*r));
     sensorSize.y = sensorSize.x / r;
     

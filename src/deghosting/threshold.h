@@ -25,10 +25,6 @@
 
 #include "deghosting.h"
 
-using std::vector;
-using namespace vigra;
-using namespace deghosting;
-
 const uint16_t ONE_UNMASKED       = 0;
 const uint16_t THRESHOLD_DONTCARE = 1;
 
@@ -42,31 +38,31 @@ const uint16_t THRESHOLD_DONTCARE = 1;
  *              ONE_UNMASKED – if pixel should be black in all images after applying threshold
  *                             leave it in one image (where the pixel value is highest) white, default
  */
-vector<BImagePtr> threshold(const vector<FImagePtr> &inputImages, const double threshold, const uint16_t flags) {
-    vector<BImagePtr> retVal;
+std::vector<deghosting::BImagePtr> threshold(const std::vector<deghosting::FImagePtr> &inputImages, const double threshold, const uint16_t flags) {
+    std::vector<deghosting::BImagePtr> retVal;
     const uint8_t minValue = 0;
     const uint8_t maxValue = 255;
     
     // don't care about masking
     if (flags & THRESHOLD_DONTCARE) {
         for (unsigned int i=0; i < inputImages.size(); ++i) {
-            BImagePtr tmpImg(new BImage(inputImages[i]->size()));
-            transformImage(srcImageRange(*tmpImg), destImage(*tmpImg),
-                            Threshold<FImage::PixelType, BImage::PixelType>(threshold, 255, 0, 255));
+            deghosting::BImagePtr tmpImg(new vigra::BImage(inputImages[i]->size()));
+            vigra::transformImage(vigra::srcImageRange(*tmpImg), vigra::destImage(*tmpImg),
+                            vigra::Threshold<vigra::FImage::PixelType, vigra::BImage::PixelType>(threshold, 255, 0, 255));
             retVal.push_back(tmpImg);
         }
         return retVal;
     }
     
     // arrays with iterators
-    vector<FImage::traverser> siterators(inputImages.size());
-    vector<BImage::traverser> diterators(inputImages.size());
+    std::vector<vigra::FImage::traverser> siterators(inputImages.size());
+    std::vector<vigra::BImage::traverser> diterators(inputImages.size());
     // iterator to the end
-    FImage::traverser send = inputImages[0]->lowerRight();
+    vigra::FImage::traverser send = inputImages[0]->lowerRight();
     // fill iterators and retVal
     for (unsigned int i=0; i < inputImages.size(); ++i) {
         // fill retVal
-        BImagePtr tmpImg(new BImage(inputImages[i]->size()));
+        deghosting::BImagePtr tmpImg(new vigra::BImage(inputImages[i]->size()));
         retVal.push_back(tmpImg);
         // fill iterators
         siterators[i] = inputImages[i]->upperLeft();
@@ -78,8 +74,8 @@ vector<BImagePtr> threshold(const vector<FImagePtr> &inputImages, const double t
     // loop over row
     while (siterators[0].y != send.y) {
         // array with column iterators
-        vector<FImage::traverser> siteratorsX(inputImages.size());
-        vector<BImage::traverser> diteratorsX(inputImages.size());
+        std::vector<vigra::FImage::traverser> siteratorsX(inputImages.size());
+        std::vector<vigra::BImage::traverser> diteratorsX(inputImages.size());
         for (unsigned int i=0; i < inputImages.size(); ++i) {
             siteratorsX[i] = siterators[i];
             diteratorsX[i] = diterators[i];

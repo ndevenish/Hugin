@@ -349,17 +349,17 @@ void Batch::ListBatch()
 {
     if(m_projList.GetCount() == 0)
     {
-        cout << "Batch is empty." << endl;
+        std::cout << "Batch is empty." << std::endl;
     }
     else
     {
-        cout << "List of projects in batch:" << endl <<
-             "[ID] [project path] [output filename] [status]" << endl <<
-             "-------------------------------------" << endl;
+        std::cout << "List of projects in batch:" << std::endl <<
+             "[ID] [project path] [output filename] [status]" << std::endl <<
+             "-------------------------------------" << std::endl;
         for(unsigned int i=0; i<m_projList.GetCount(); i++)
         {
-            cout << m_projList.Item(i).id << "  "	<< (const char*)m_projList.Item(i).path.char_str()  << "  " << (const char*)m_projList.Item(i).prefix.char_str()
-                 << "  " << (const char*)m_projList.Item(i).GetStatusText().char_str() << endl;
+            std::cout << m_projList.Item(i).id << "  "	<< (const char*)m_projList.Item(i).path.char_str()  << "  " << (const char*)m_projList.Item(i).prefix.char_str()
+                 << "  " << (const char*)m_projList.Item(i).GetStatusText().char_str() << std::endl;
         }
     }
 }

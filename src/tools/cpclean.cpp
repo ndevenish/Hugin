@@ -40,34 +40,30 @@
 #include <algorithms/control_points/CleanCP.h>
 #include "panotools/PanoToolsInterface.h"
 
-using namespace std;
-using namespace HuginBase;
-using namespace AppBase;
-
 static void usage(const char* name)
 {
-    cout << name << ": remove wrong control points by statistic method" << endl
-         << "cpclean version " << hugin_utils::GetHuginVersion() << endl
-         << endl
-         << "Usage:  " << name << " [options] input.pto" << endl
-         << endl
-         << "CPClean uses statistical methods to remove wrong control points" << endl << endl
-         << "Step 1 optimises all images pairs, calculates for each pair mean " << endl
-         << "       and standard deviation and removes all control points " << endl
-         << "       with error bigger than mean+n*sigma" << endl
-         << "Step 2 optimises the whole panorama, calculates mean and standard deviation" << endl
-         << "       for all control points and removes all control points with error" << endl
-         << "       bigger than mean+n*sigma" << endl << endl
-         << "  Options:" << endl
-         << "     -o file.pto  Output Hugin PTO file. Default: '<filename>_clean.pto'." << endl
-         << "     -n num   distance factor for checking (default: 2)" << endl
-         << "     -p       do only pairwise optimisation (skip step 2)" << endl
-         << "     -w       do optimise whole panorama (skip step 1)" << endl
-         << "     -s       skip optimisation step when optimisation the whole panorama" << endl
-         << "     -l       also include line control points for calculation and" << endl
-         << "              filtering in step 2" << endl
-         << "     -h       shows help" << endl
-         << endl;
+    std::cout << name << ": remove wrong control points by statistic method" << std::endl
+         << "cpclean version " << hugin_utils::GetHuginVersion() << std::endl
+         << std::endl
+         << "Usage:  " << name << " [options] input.pto" << std::endl
+         << std::endl
+         << "CPClean uses statistical methods to remove wrong control points" << std::endl << std::endl
+         << "Step 1 optimises all images pairs, calculates for each pair mean " << std::endl
+         << "       and standard deviation and removes all control points " << std::endl
+         << "       with error bigger than mean+n*sigma" << std::endl
+         << "Step 2 optimises the whole panorama, calculates mean and standard deviation" << std::endl
+         << "       for all control points and removes all control points with error" << std::endl
+         << "       bigger than mean+n*sigma" << std::endl << std::endl
+         << "  Options:" << std::endl
+         << "     -o file.pto  Output Hugin PTO file. Default: '<filename>_clean.pto'." << std::endl
+         << "     -n num   distance factor for checking (default: 2)" << std::endl
+         << "     -p       do only pairwise optimisation (skip step 2)" << std::endl
+         << "     -w       do optimise whole panorama (skip step 1)" << std::endl
+         << "     -s       skip optimisation step when optimisation the whole panorama" << std::endl
+         << "     -l       also include line control points for calculation and" << std::endl
+         << "              filtering in step 2" << std::endl
+         << "     -h       shows help" << std::endl
+         << std::endl;
 }
 
 // dummy panotools progress functions
@@ -87,7 +83,7 @@ int main(int argc, char* argv[])
     const char* optstring = "o:hn:pwslv";
 
     int c;
-    string output;
+    std::string output;
     bool onlyPair = false;
     bool wholePano = false;
     bool skipOptimisation = false;
@@ -108,12 +104,12 @@ int main(int argc, char* argv[])
                 n = atof(optarg);
                 if(n==0)
                 {
-                    cerr <<"Invalid parameter: " << optarg << " is not valid real number" << endl;
+                    std::cerr <<"Invalid parameter: " << optarg << " is not valid real number" << std::endl;
                     return 1;
                 };
                 if (n<1.0)
                 {
-                    cerr << "Invalid parameter: n must be at least 1" << endl;
+                    std::cerr << "Invalid parameter: n must be at least 1" << std::endl;
                     return 1;
                 };
                 break;
@@ -133,7 +129,7 @@ int main(int argc, char* argv[])
                 verbose = true;
                 break;
             case ':':
-                cerr <<"Option -n requires a number" << endl;
+                std::cerr <<"Option -n requires a number" << std::endl;
                 return 1;
                 break;
             case '?':
@@ -151,38 +147,38 @@ int main(int argc, char* argv[])
 
     if (onlyPair && wholePano)
     {
-        cerr << "Options -p and -w can't used together" << endl;
+        std::cerr << "Options -p and -w can't used together" << std::endl;
         return 1;
     };
 
-    string input=argv[optind];
+    std::string input=argv[optind];
 
-    Panorama pano;
-    ifstream prjfile(input.c_str());
+    HuginBase::Panorama pano;
+    std::ifstream prjfile(input.c_str());
     if (!prjfile.good())
     {
-        cerr << "could not open script : " << input << endl;
+        std::cerr << "could not open script : " << input << std::endl;
         return 1;
     }
     pano.setFilePrefix(hugin_utils::getPathPrefix(input));
-    DocumentData::ReadWriteError err = pano.readData(prjfile);
-    if (err != DocumentData::SUCCESSFUL)
+    AppBase::DocumentData::ReadWriteError err = pano.readData(prjfile);
+    if (err != AppBase::DocumentData::SUCCESSFUL)
     {
-        cerr << "error while parsing panos tool script: " << input << endl;
-        cerr << "DocumentData::ReadWriteError code: " << err << endl;
+        std::cerr << "error while parsing panos tool script: " << input << std::endl;
+        std::cerr << "DocumentData::ReadWriteError code: " << err << std::endl;
         return 1;
     }
 
     size_t nrImg=pano.getNrOfImages();
     if (nrImg < 2)
     {
-        cerr << "Panorama should consist of at least two images" << endl;
+        std::cerr << "Panorama should consist of at least two images" << std::endl;
         return 1;
     }
 
     if (pano.getNrOfCtrlPoints() < 3)
     {
-        cerr << "Panorama should contain at least 3 control point" << endl;
+        std::cerr << "Panorama should contain at least 3 control point" << std::endl;
     };
 
     if (!verbose)
@@ -192,14 +188,14 @@ int main(int argc, char* argv[])
     };
 
     size_t cpremoved1=0;
-    UIntSet CPtoRemove;
+    HuginBase::UIntSet CPtoRemove;
     // step 1 with pairwise optimisation
     if(!wholePano)
     {
         AppBase::DummyProgressDisplay dummy;
         CPtoRemove=getCPoutsideLimit_pair(pano, dummy, n);
         if (CPtoRemove.size()>0)
-            for(UIntSet::reverse_iterator it = CPtoRemove.rbegin(); it != CPtoRemove.rend(); ++it)
+            for (HuginBase::UIntSet::reverse_iterator it = CPtoRemove.rbegin(); it != CPtoRemove.rend(); ++it)
             {
                 pano.removeCtrlPoint(*it);
             }
@@ -211,10 +207,10 @@ int main(int argc, char* argv[])
     if(!onlyPair)
     {
         //check for unconnected images
-        CPGraph graph;
+        HuginBase::CPGraph graph;
         createCPGraph(pano, graph);
-        CPComponents comps;
-        const size_t parts=findCPComponents(graph, comps);
+        HuginBase::CPComponents comps;
+        const size_t parts = HuginBase::findCPComponents(graph, comps);
         if (parts > 1)
         {
             unconnected=true;
@@ -224,44 +220,44 @@ int main(int argc, char* argv[])
             CPtoRemove.clear();
             if(skipOptimisation)
             {
-                std::cout << endl << "Skipping optimisation, current image positions will be used." << endl;
+                std::cout << std::endl << "Skipping optimisation, current image positions will be used." << std::endl;
             };
             CPtoRemove=getCPoutsideLimit(pano, n, skipOptimisation, includeLineCp);
             if (CPtoRemove.size()>0)
-                for(UIntSet::reverse_iterator it = CPtoRemove.rbegin(); it != CPtoRemove.rend(); ++it)
+                for (HuginBase::UIntSet::reverse_iterator it = CPtoRemove.rbegin(); it != CPtoRemove.rend(); ++it)
                 {
                     pano.removeCtrlPoint(*it);
                 }
         };
     };
 
-    cout << endl;
+    std::cout << std::endl;
     if(!wholePano)
     {
-        cout << "Removed " << cpremoved1 << " control points in step 1" << endl;
+        std::cout << "Removed " << cpremoved1 << " control points in step 1" << std::endl;
     }
     if(!onlyPair)
         if(unconnected)
         {
-            cout <<"Skipped step 2 because of unconnected image pairs" << endl;
+            std::cout <<"Skipped step 2 because of unconnected image pairs" << std::endl;
         }
         else
         {
-            cout << "Removed " << CPtoRemove.size() << " control points in step 2" << endl;
+            std::cout << "Removed " << CPtoRemove.size() << " control points in step 2" << std::endl;
         }
 
     //write output
-    OptimizeVector optvec = pano.getOptimizeVector();
-    UIntSet imgs;
+    HuginBase::OptimizeVector optvec = pano.getOptimizeVector();
+    HuginBase::UIntSet imgs;
     fill_set(imgs,0, pano.getNrOfImages()-1);
     // Set output .pto filename if not given
     if (output=="")
     {
         output=input.substr(0,input.length()-4).append("_clean.pto");
     }
-    ofstream of(output.c_str());
+    std::ofstream of(output.c_str());
     pano.printPanoramaScript(of, optvec, pano.getOptions(), imgs, false, hugin_utils::getPathPrefix(input));
 
-    cout << endl << "Written output to " << output << endl;
+    std::cout << std::endl << "Written output to " << output << std::endl;
     return 0;
 }

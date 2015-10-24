@@ -32,23 +32,19 @@
 #endif
 #include <panodata/Panorama.h>
 
-using namespace std;
-using namespace HuginBase;
-using namespace AppBase;
-
 static void usage(const char* name)
 {
-    cout << name << ": apply template" << endl
-         << name << " version " << hugin_utils::GetHuginVersion() << endl
-         << endl
-         << "Usage:  " << name << " [options] input.pto" << endl
-         << endl
-         << "  Options:" << endl
-         << "     -o, --output=file.pto  Output Hugin PTO file." << endl
-         << "                            Default: <filename>_template.pto" << endl
-         << "     --template=template.pto   Apply the given template file" << endl
-         << "     -h, --help             Shows this help" << endl
-         << endl;
+    std::cout << name << ": apply template" << std::endl
+         << name << " version " << hugin_utils::GetHuginVersion() << std::endl
+         << std::endl
+         << "Usage:  " << name << " [options] input.pto" << std::endl
+         << std::endl
+         << "  Options:" << std::endl
+         << "     -o, --output=file.pto  Output Hugin PTO file." << std::endl
+         << "                            Default: <filename>_template.pto" << std::endl
+         << "     --template=template.pto   Apply the given template file" << std::endl
+         << "     -h, --help             Shows this help" << std::endl
+         << std::endl;
 }
 
 int main(int argc, char* argv[])
@@ -70,8 +66,8 @@ int main(int argc, char* argv[])
 
     int c;
     int optionIndex = 0;
-    string output;
-    string templateFile;
+    std::string output;
+    std::string templateFile;
     while ((c = getopt_long (argc, argv, optstring, longOptions,&optionIndex)) != -1)
     {
         switch (c)
@@ -83,7 +79,7 @@ int main(int argc, char* argv[])
                 templateFile = optarg;
                 if(!hugin_utils::FileExists(templateFile))
                 {
-                    cerr << "Error: Template \"" << templateFile << "\" not found." << endl;
+                    std::cerr << "Error: Template \"" << templateFile << "\" not found." << std::endl;
                     return 1;
                 };
                 break;
@@ -91,7 +87,7 @@ int main(int argc, char* argv[])
                 usage(hugin_utils::stripPath(argv[0]).c_str());
                 return 0;
             case ':':
-                cerr <<"Option " << longOptions[optionIndex].name << " requires a parameter" << endl;
+                std::cerr <<"Option " << longOptions[optionIndex].name << " requires a parameter" << std::endl;
                 return 1;
                 break;
             case '?':
@@ -103,66 +99,66 @@ int main(int argc, char* argv[])
 
     if (argc - optind == 0)
     {
-        cout << "Error: No project file given." << endl;
+        std::cout << "Error: No project file given." << std::endl;
         return 1;
     };
     if (argc - optind != 1)
     {
-        cout << "Error: pto_template can only work on one project file at one time" << endl;
+        std::cout << "Error: pto_template can only work on one project file at one time" << std::endl;
         return 1;
     };
     if (templateFile.length()==0)
     {
-        cerr << "Error: No template given." << endl;
+        std::cerr << "Error: No template given." << std::endl;
         return 1;
     };
 
-    string input=argv[optind];
+    std::string input=argv[optind];
     // read panorama
-    Panorama pano;
-    ifstream prjfile(input.c_str());
+    HuginBase::Panorama pano;
+    std::ifstream prjfile(input.c_str());
     if (!prjfile.good())
     {
-        cerr << "Error: could not open script : " << input << endl;
+        std::cerr << "Error: could not open script : " << input << std::endl;
         return 1;
     }
     pano.setFilePrefix(hugin_utils::getPathPrefix(input));
-    DocumentData::ReadWriteError err = pano.readData(prjfile);
-    if (err != DocumentData::SUCCESSFUL)
+    AppBase::DocumentData::ReadWriteError err = pano.readData(prjfile);
+    if (err != AppBase::DocumentData::SUCCESSFUL)
     {
-        cerr << "Error while parsing panos tool script: " << input << endl;
-        cerr << "DocumentData::ReadWriteError code: " << err << endl;
+        std::cerr << "Error while parsing panos tool script: " << input << std::endl;
+        std::cerr << "AppBase::DocumentData::ReadWriteError code: " << err << std::endl;
         return 1;
     }
 
     if(pano.getNrOfImages()==0)
     {
-        cerr << "Error: project file does not contains any image" << endl;
-        cerr << "aborting processing" << endl;
+        std::cerr << "Error: project file does not contains any image" << std::endl;
+        std::cerr << "aborting processing" << std::endl;
         return 1;
     };
 
-    Panorama newPano;
-    ifstream templateStream(templateFile.c_str());
+    HuginBase::Panorama newPano;
+    std::ifstream templateStream(templateFile.c_str());
     if (!templateStream.good())
     {
-        cerr << "Error: could not open template script : " << templateFile << endl;
+        std::cerr << "Error: could not open template script : " << templateFile << std::endl;
         return 1;
     }
     newPano.setFilePrefix(hugin_utils::getPathPrefix(templateFile));
     err = newPano.readData(templateStream);
-    if (err != DocumentData::SUCCESSFUL)
+    if (err != AppBase::DocumentData::SUCCESSFUL)
     {
-        cerr << "Error while parsing template script: " << templateFile << endl;
-        cerr << "DocumentData::ReadWriteError code: " << err << endl;
+        std::cerr << "Error while parsing template script: " << templateFile << std::endl;
+        std::cerr << "AppBase::DocumentData::ReadWriteError code: " << err << std::endl;
         return 1;
     }
 
     if (pano.getNrOfImages() != newPano.getNrOfImages())
     {
-        cerr << "Error: template expects " << newPano.getNrOfImages() << " images," << endl
-             << "       current project contains " << pano.getNrOfImages() << " images" << endl
-             << "       Could not apply template" << endl;
+        std::cerr << "Error: template expects " << newPano.getNrOfImages() << " images," << std::endl
+             << "       current project contains " << pano.getNrOfImages() << " images" << std::endl
+             << "       Could not apply template" << std::endl;
         return false;
     }
 
@@ -170,8 +166,8 @@ int main(int argc, char* argv[])
     for (unsigned int i = 0; i < newPano.getNrOfImages(); i++)
     {
         // check if image size is correct
-        const SrcPanoImage& oldSrcImg = pano.getImage(i);
-        SrcPanoImage newSrcImg = newPano.getSrcImage(i);
+        const HuginBase::SrcPanoImage& oldSrcImg = pano.getImage(i);
+        HuginBase::SrcPanoImage newSrcImg = newPano.getSrcImage(i);
 
         // just keep the file name
         newSrcImg.setFilename(oldSrcImg.getFilename());
@@ -186,16 +182,16 @@ int main(int argc, char* argv[])
     newPano.setCtrlPoints(pano.getCtrlPoints());
 
     //write output
-    UIntSet imgs;
+    HuginBase::UIntSet imgs;
     fill_set(imgs, 0, newPano.getNrOfImages()-1);
     // Set output .pto filename if not given
     if (output=="")
     {
         output=input.substr(0,input.length()-4).append("_template.pto");
     }
-    ofstream of(output.c_str());
+    std::ofstream of(output.c_str());
     newPano.printPanoramaScript(of, newPano.getOptimizeVector(), newPano.getOptions(), imgs, false, hugin_utils::getPathPrefix(input));
 
-    cout << endl << "Written output to " << output << endl;
+    std::cout << std::endl << "Written output to " << output << std::endl;
     return 0;
 }

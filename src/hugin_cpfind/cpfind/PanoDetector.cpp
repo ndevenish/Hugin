@@ -60,16 +60,9 @@
 #include <omp.h>
 #endif
 
-using namespace std;
-using namespace HuginBase;
-using namespace AppBase;
-using namespace HuginBase::Nona;
-using namespace hugin_utils;
-
-
-#define TRACE_IMG(X) {if (_panoDetector.getVerbose() == 1) {TRACE_INFO("i" << _imgData._number << " : " << X << endl);}}
+#define TRACE_IMG(X) {if (_panoDetector.getVerbose() == 1) {TRACE_INFO("i" << _imgData._number << " : " << X << std::endl);}}
 #define TRACE_PAIR(X) {if (_panoDetector.getVerbose() == 1){ TRACE_INFO("i" << _matchData._i1->_number << " <> " \
-                "i" << _matchData._i2->_number << " : " << X << endl);}}
+                "i" << _matchData._i2->_number << " : " << X << std::endl);}}
 
 std::string includeTrailingPathSep(std::string path)
 {
@@ -94,12 +87,12 @@ std::string getKeyfilenameFor(std::string keyfilesPath, std::string filename)
     if(keyfilesPath.empty())
     {
         //if no path for keyfiles is given we are saving into the same directory as image file
-        newfilename=stripExtension(filename);
+        newfilename=hugin_utils::stripExtension(filename);
     }
     else
     {
-        newfilename=includeTrailingPathSep(keyfilesPath);
-        newfilename.append(stripPath(stripExtension(filename)));
+        newfilename = includeTrailingPathSep(keyfilesPath);
+        newfilename.append(hugin_utils::stripPath(hugin_utils::stripExtension(filename)));
     };
     newfilename.append(".key");
     return newfilename;
@@ -112,9 +105,9 @@ PanoDetector::PanoDetector() :
     _sieve2Width(5), _sieve2Height(5), _sieve2Size(1), _test(false), _cores(0), svmModel(NULL),
     _minimumMatches(6), _linearMatchLen(1), _downscale(true), _cache(false), _cleanup(false),
     _keypath(""), _outputFile("default.pto"), _outputGiven(false), _celeste(false), _celesteThreshold(0.5), _celesteRadius(20), 
-    _matchingStrategy(ALLPAIRS), _ransacMode(RANSACOptimizer::AUTO)
+    _matchingStrategy(ALLPAIRS), _ransacMode(HuginBase::RANSACOptimizer::AUTO)
 {
-    _panoramaInfo = new Panorama();
+    _panoramaInfo = new HuginBase::Panorama();
 }
 
 
@@ -142,107 +135,107 @@ bool PanoDetector::checkData()
 
 void PanoDetector::printDetails()
 {
-    cout << "Input file           : " << _inputFile << endl;
+    std::cout << "Input file           : " << _inputFile << std::endl;
     if (_keyPointsIdx.size() != 0)
     {
-        cout << "Output file(s)       : keyfile(s) for images";
+        std::cout << "Output file(s)       : keyfile(s) for images";
         for (unsigned int i = 0; i < _keyPointsIdx.size(); ++i)
         {
-            cout << " " << _keyPointsIdx[i] << endl;
+            std::cout << " " << _keyPointsIdx[i] << std::endl;
         }
     }
     else
     {
         if(_writeAllKeyPoints)
         {
-            cout << "Output file(s)       : keyfiles for all images in project" << endl;
+            std::cout << "Output file(s)       : keyfiles for all images in project" << std::endl;
         }
         else
         {
-            cout << "Output file          : " << _outputFile << endl;
+            std::cout << "Output file          : " << _outputFile << std::endl;
         };
     }
     if(_keypath.size()>0)
     {
-        cout <<     "Path to keyfiles     : " << _keypath << endl;
+        std::cout <<     "Path to keyfiles     : " << _keypath << std::endl;
     };
     if(_cleanup)
     {
-        cout << "Cleanup temporary files." << endl;
+        std::cout << "Cleanup temporary files." << std::endl;
     };
     if(_cache)
     {
-        cout << "Automatically cache keypoints files to disc." << endl;
+        std::cout << "Automatically cache keypoints files to disc." << std::endl;
     };
 #ifdef HAVE_OPENMP
-    cout << "Number of threads  : " << (_cores>0 ? _cores : omp_get_max_threads()) << endl << endl;
+    std::cout << "Number of threads  : " << (_cores>0 ? _cores : omp_get_max_threads()) << std::endl << std::endl;
 #endif
-    cout << "Input image options" << endl;
-    cout << "  Downscale to half-size : " << (_downscale?"yes":"no") << endl;
+    std::cout << "Input image options" << std::endl;
+    std::cout << "  Downscale to half-size : " << (_downscale?"yes":"no") << std::endl;
     if(_celeste)
     {
-        cout << "Celeste options" << endl;
-        cout << "  Threshold : " << _celesteThreshold << endl;
-        cout << "  Radius : " << _celesteRadius << endl;
+        std::cout << "Celeste options" << std::endl;
+        std::cout << "  Threshold : " << _celesteThreshold << std::endl;
+        std::cout << "  Radius : " << _celesteRadius << std::endl;
     }
-    cout << "Sieve 1 Options" << endl;
-    cout << "  Width : " << _sieve1Width << endl;
-    cout << "  Height : " << _sieve1Height << endl;
-    cout << "  Size : " << _sieve1Size << endl;
-    cout << "  ==> Maximum keypoints per image : " << _sieve1Size* _sieve1Height* _sieve1Width << endl;
-    cout << "KDTree Options" << endl;
-    cout << "  Search steps : " << _kdTreeSearchSteps << endl;
-    cout << "  Second match distance : " << _kdTreeSecondDistance << endl;
-    cout << "Matching Options" << endl;
+    std::cout << "Sieve 1 Options" << std::endl;
+    std::cout << "  Width : " << _sieve1Width << std::endl;
+    std::cout << "  Height : " << _sieve1Height << std::endl;
+    std::cout << "  Size : " << _sieve1Size << std::endl;
+    std::cout << "  ==> Maximum keypoints per image : " << _sieve1Size* _sieve1Height* _sieve1Width << std::endl;
+    std::cout << "KDTree Options" << std::endl;
+    std::cout << "  Search steps : " << _kdTreeSearchSteps << std::endl;
+    std::cout << "  Second match distance : " << _kdTreeSecondDistance << std::endl;
+    std::cout << "Matching Options" << std::endl;
     switch(_matchingStrategy)
     {
         case ALLPAIRS:
-            cout << "  Mode : All pairs" << endl;
+            std::cout << "  Mode : All pairs" << std::endl;
             break;
         case LINEAR:
-            cout << "  Mode : Linear match with length of " << _linearMatchLen << " image" << endl;
+            std::cout << "  Mode : Linear match with length of " << _linearMatchLen << " image" << std::endl;
             break;
         case MULTIROW:
-            cout << "  Mode : Multi row" << endl;
+            std::cout << "  Mode : Multi row" << std::endl;
             break;
         case PREALIGNED:
-            cout << "  Mode : Prealigned positions" << endl;
+            std::cout << "  Mode : Prealigned positions" << std::endl;
             break;
     };
-    cout << "  Distance threshold : " << _ransacDistanceThres << endl;
-    cout << "RANSAC Options" << endl;
-    cout << "  Mode : ";
+    std::cout << "  Distance threshold : " << _ransacDistanceThres << std::endl;
+    std::cout << "RANSAC Options" << std::endl;
+    std::cout << "  Mode : ";
     switch (_ransacMode)
     {
-        case RANSACOptimizer::AUTO:
-            cout << "auto" << endl;
+        case HuginBase::RANSACOptimizer::AUTO:
+            std::cout << "auto" << std::endl;
             break;
-        case RANSACOptimizer::HOMOGRAPHY:
-            cout << "homography" << endl;
+        case HuginBase::RANSACOptimizer::HOMOGRAPHY:
+            std::cout << "homography" << std::endl;
             break;
-        case RANSACOptimizer::RPY:
-            cout << "roll, pitch, yaw" << endl;
+        case HuginBase::RANSACOptimizer::RPY:
+            std::cout << "roll, pitch, yaw" << std::endl;
             break;
-        case RANSACOptimizer::RPYV:
-            cout << "roll, pitch, yaw, fov" << endl;
+        case HuginBase::RANSACOptimizer::RPYV:
+            std::cout << "roll, pitch, yaw, fov" << std::endl;
             break;
-        case RANSACOptimizer::RPYVB:
-            cout << "roll, pitch, yaw, fov, distortion" << endl;
+        case HuginBase::RANSACOptimizer::RPYVB:
+            std::cout << "roll, pitch, yaw, fov, distortion" << std::endl;
             break;
     }
-    cout << "  Iterations : " << _ransacIters << endl;
-    cout << "  Distance threshold : " << _ransacDistanceThres << endl;
-    cout << "Minimum matches per image pair: " << _minimumMatches << endl;
-    cout << "Sieve 2 Options" << endl;
-    cout << "  Width : " << _sieve2Width << endl;
-    cout << "  Height : " << _sieve2Height << endl;
-    cout << "  Size : " << _sieve2Size << endl;
-    cout << "  ==> Maximum matches per image pair : " << _sieve2Size* _sieve2Height* _sieve2Width << endl;
+    std::cout << "  Iterations : " << _ransacIters << std::endl;
+    std::cout << "  Distance threshold : " << _ransacDistanceThres << std::endl;
+    std::cout << "Minimum matches per image pair: " << _minimumMatches << std::endl;
+    std::cout << "Sieve 2 Options" << std::endl;
+    std::cout << "  Width : " << _sieve2Width << std::endl;
+    std::cout << "  Height : " << _sieve2Height << std::endl;
+    std::cout << "  Size : " << _sieve2Size << std::endl;
+    std::cout << "  ==> Maximum matches per image pair : " << _sieve2Size* _sieve2Height* _sieve2Width << std::endl;
 }
 
 void PanoDetector::printFilenames()
 {
-    cout << endl << "Project contains the following images:" << endl;
+    std::cout << std::endl << "Project contains the following images:" << std::endl;
     for(unsigned int i=0; i<_panoramaInfo->getNrOfImages(); i++)
     {
         std::string name(_panoramaInfo->getImage(i).getFilename());
@@ -250,7 +243,7 @@ void PanoDetector::printFilenames()
         {
             name=name.substr(_prefix.length(),name.length()-_prefix.length());
         }
-        cout << "Image " << i << endl << "  Imagefile: " << name << endl;
+        std::cout << "Image " << i << std::endl << "  Imagefile: " << name << std::endl;
         bool writeKeyfileForImage=false;
         if(_keyPointsIdx.size()>0)
         {
@@ -266,17 +259,17 @@ void PanoDetector::printFilenames()
             {
                 name=name.substr(_prefix.length(),name.length()-_prefix.length());
             }
-            cout << "  Keyfile  : " << name;
+            std::cout << "  Keyfile  : " << name;
             if(writeKeyfileForImage)
             {
-                cout << " (will be generated)" << endl;
+                std::cout << " (will be generated)" << std::endl;
             }
             else
             {
-                cout << (_filesData[i]._hasakeyfile?" (will be loaded)":" (will be generated)") << endl;
+                std::cout << (_filesData[i]._hasakeyfile?" (will be loaded)":" (will be generated)") << std::endl;
             };
         };
-        cout << "  Remapped : " << (_filesData[i]._needsremap?"yes":"no") << endl;
+        std::cout << "  Remapped : " << (_filesData[i]._needsremap?"yes":"no") << std::endl;
     };
 };
 
@@ -382,17 +375,17 @@ private:
 
 bool PanoDetector::LoadSVMModel()
 {
-    string model_file = ("celeste.model");
-    ifstream test(model_file.c_str());
+    std::string model_file = ("celeste.model");
+    std::ifstream test(model_file.c_str());
     if (!test.good())
     {
-        string install_path_model=hugin_utils::GetDataDir();
+        std::string install_path_model=hugin_utils::GetDataDir();
         install_path_model.append(model_file);
-        ifstream test2(install_path_model.c_str());
+        std::ifstream test2(install_path_model.c_str());
         if (!test2.good())
         {
-            cout << endl << "Couldn't open SVM model file " << model_file << endl;
-            cout << "Also tried " << install_path_model << endl << endl;
+            std::cout << std::endl << "Couldn't open SVM model file " << model_file << std::endl;
+            std::cout << "Also tried " << install_path_model << std::endl << std::endl;
             return false;
         };
         model_file = install_path_model;
@@ -523,7 +516,7 @@ void PanoDetector::run()
     {
         if (_verbose > 0)
         {
-            TRACE_INFO(endl << "--- Analyze Images ---" << endl);
+            TRACE_INFO(std::endl << "--- Analyze Images ---" << std::endl);
         }
         for (unsigned int i = 0; i < _keyPointsIdx.size(); ++i)
         {
@@ -532,7 +525,7 @@ void PanoDetector::run()
     }
     else
     {
-        TRACE_INFO(endl << "--- Analyze Images ---" << endl);
+        TRACE_INFO(std::endl << "--- Analyze Images ---" << std::endl);
         if (getMatchingStrategy() == MULTIROW)
         {
             // when using multirow, don't analyse stacks with linked positions
@@ -586,12 +579,12 @@ void PanoDetector::run()
 
     if(_cache)
     {
-        TRACE_INFO(endl << "--- Cache keyfiles to disc ---" << endl);
+        TRACE_INFO(std::endl << "--- Cache keyfiles to disc ---" << std::endl);
         for (ImgDataIt_t aB = _filesData.begin(); aB != _filesData.end(); ++aB)
         {
             if (!aB->second._hasakeyfile)
             {
-                TRACE_INFO("i" << aB->second._number << " : Caching keypoints..." << endl);
+                TRACE_INFO("i" << aB->second._number << " : Caching keypoints..." << std::endl);
                 writeKeyfile(aB->second);
             };
         };
@@ -651,25 +644,25 @@ void PanoDetector::run()
     if (_keyPointsIdx.size() != 0)
     {
         //Write all keyfiles
-        TRACE_INFO(endl<< "--- Write Keyfiles output ---" << endl << endl);
+        TRACE_INFO(std::endl<< "--- Write Keyfiles output ---" << std::endl << std::endl);
         for (unsigned int i = 0; i < _keyPointsIdx.size(); ++i)
         {
             writeKeyfile(_filesData[_keyPointsIdx[i]]);
         };
         if(_outputGiven)
         {
-            cout << endl << "Warning: You have given the --output switch." << endl
-                 << "This switch is not compatible with the --writekeyfile or --kall switch." << endl
-                 << "If you want to generate the keyfiles and" << endl
-                 << "do the matching in the same run use the --cache switch instead." << endl << endl;
+            std::cout << std::endl << "Warning: You have given the --output switch." << std::endl
+                 << "This switch is not compatible with the --writekeyfile or --kall switch." << std::endl
+                 << "If you want to generate the keyfiles and" << std::endl
+                 << "do the matching in the same run use the --cache switch instead." << std::endl << std::endl;
         };
     }
     else
     {
         /// Write output project
-        TRACE_INFO(endl<< "--- Write Project output ---" << endl);
+        TRACE_INFO(std::endl<< "--- Write Project output ---" << std::endl);
         writeOutput();
-        TRACE_INFO("Written output to " << _outputFile << endl << endl);
+        TRACE_INFO("Written output to " << _outputFile << std::endl << std::endl);
     };
 }
 
@@ -715,7 +708,7 @@ bool PanoDetector::match(std::vector<HuginBase::UIntSet> &checkedPairs)
         }
     }
     // 4. find matches
-    TRACE_INFO(endl<< "--- Find pair-wise matches ---" << endl);
+    TRACE_INFO(std::endl<< "--- Find pair-wise matches ---" << std::endl);
     for (size_t i = 0; i < matchesData.size(); ++i)
     {
         queue.push_back(new MatchDataRunnable(matchesData[i], *this));
@@ -729,7 +722,7 @@ bool PanoDetector::match(std::vector<HuginBase::UIntSet> &checkedPairs)
         for (size_t j = 0; j < aM._matches.size(); ++j)
         {
             const lfeat::PointMatchPtr& aPM = aM._matches[j];
-            _panoramaInfo->addCtrlPoint(ControlPoint(aM._i1->_number, aPM->_img1_x, aPM->_img1_y,
+            _panoramaInfo->addCtrlPoint(HuginBase::ControlPoint(aM._i1->_number, aPM->_img1_x, aPM->_img1_y,
                 aM._i2->_number, aPM->_img2_x, aPM->_img2_y));
         };
     };
@@ -738,10 +731,10 @@ bool PanoDetector::match(std::vector<HuginBase::UIntSet> &checkedPairs)
 
 bool PanoDetector::loadProject()
 {
-    ifstream ptoFile(_inputFile.c_str());
+    std::ifstream ptoFile(_inputFile.c_str());
     if (ptoFile.bad())
     {
-        cerr << "ERROR: could not open file: '" << _inputFile << "'!" << endl;
+        std::cerr << "ERROR: could not open file: '" << _inputFile << "'!" << std::endl;
         return false;
     }
     _prefix=hugin_utils::getPathPrefix(_inputFile);
@@ -763,7 +756,7 @@ bool PanoDetector::loadProject()
     AppBase::DocumentData::ReadWriteError err = _panoramaInfo->readData(ptoFile);
     if (err != AppBase::DocumentData::SUCCESSFUL)
     {
-        cerr << "ERROR: couldn't parse panos tool script: '" << _inputFile << "'!" << endl;
+        std::cerr << "ERROR: couldn't parse panos tool script: '" << _inputFile << "'!" << std::endl;
         return false;
     }
 
@@ -772,18 +765,18 @@ bool PanoDetector::loadProject()
     _panoramaInfoCopy=_panoramaInfo->duplicate();
 
     // Add images found in the project file to _filesData
-    unsigned int nImg = _panoramaInfo->getNrOfImages();
+    const unsigned int nImg = _panoramaInfo->getNrOfImages();
     unsigned int imgWithKeyfile=0;
     for (unsigned int imgNr = 0; imgNr < nImg; ++imgNr)
     {
         // insert the image in the map
-        _filesData.insert(make_pair(imgNr, ImgData()));
+        _filesData.insert(std::make_pair(imgNr, ImgData()));
 
         // get the data
         ImgData& aImgData = _filesData[imgNr];
 
         // get a copy of image info
-        SrcPanoImage img = _panoramaInfoCopy.getSrcImage(imgNr);
+        HuginBase::SrcPanoImage img = _panoramaInfoCopy.getSrcImage(imgNr);
 
         // set the name
         aImgData._name = img.getFilename();
@@ -801,12 +794,12 @@ bool PanoDetector::loadProject()
         // Number pointing to image info in _panoramaInfo
         aImgData._number = imgNr;
 
-        aImgData._needsremap=(img.getHFOV()>=65 && img.getProjection() != SrcPanoImage::FISHEYE_STEREOGRAPHIC);
+        aImgData._needsremap=(img.getHFOV()>=65 && img.getProjection() != HuginBase::SrcPanoImage::FISHEYE_STEREOGRAPHIC);
         // set image detection size
         if(aImgData._needsremap)
         {
-            _filesData[imgNr]._detectWidth = max(img.getSize().width(),img.getSize().height());
-            _filesData[imgNr]._detectHeight = max(img.getSize().width(),img.getSize().height());
+            _filesData[imgNr]._detectWidth = std::max(img.getSize().width(),img.getSize().height());
+            _filesData[imgNr]._detectHeight = std::max(img.getSize().width(),img.getSize().height());
         }
         else
         {
@@ -823,7 +816,7 @@ bool PanoDetector::loadProject()
         // set image remapping options
         if(aImgData._needsremap)
         {
-            aImgData._projOpts.setProjection(PanoramaOptions::STEREOGRAPHIC);
+            aImgData._projOpts.setProjection(HuginBase::PanoramaOptions::STEREOGRAPHIC);
             aImgData._projOpts.setHFOV(250);
             aImgData._projOpts.setVFOV(250);
             aImgData._projOpts.setWidth(250);
@@ -833,7 +826,7 @@ bool PanoDetector::loadProject()
             // The old code did not work with images with images with a FOV
             // approaching 180 degrees
             vigra::Rect2D roi=estimateOutputROI(_panoramaInfoCopy,aImgData._projOpts,imgNr);
-            double scalefactor = max((double)_filesData[imgNr]._detectWidth / roi.width(),
+            double scalefactor = std::max((double)_filesData[imgNr]._detectWidth / roi.width(),
                                      (double)_filesData[imgNr]._detectHeight / roi.height() );
 
             // resize output canvas
@@ -986,7 +979,7 @@ bool PanoDetector::matchMultiRow()
             };
         };
     };
-    TRACE_INFO(endl<< "--- Find matches ---" << endl);
+    TRACE_INFO(std::endl<< "--- Find matches ---" << std::endl);
     for (size_t i = 0; i < matchesData.size(); ++i)
     {
         queue.push_back(new MatchDataRunnable(matchesData[i], *this));
@@ -1000,7 +993,7 @@ bool PanoDetector::matchMultiRow()
         for (size_t j = 0; j < aM._matches.size(); ++j)
         {
             const lfeat::PointMatchPtr& aPM = aM._matches[j];
-            _panoramaInfo->addCtrlPoint(ControlPoint(aM._i1->_number, aPM->_img1_x, aPM->_img1_y,
+            _panoramaInfo->addCtrlPoint(HuginBase::ControlPoint(aM._i1->_number, aPM->_img1_x, aPM->_img1_y,
                 aM._i2->_number, aPM->_img2_x, aPM->_img2_y));
         };
     };
@@ -1008,14 +1001,14 @@ bool PanoDetector::matchMultiRow()
     // step 2: connect all image groups
     queue.clear();
     matchesData.clear();
-    Panorama mediumPano=_panoramaInfo->getSubset(_image_layer);
+    HuginBase::Panorama mediumPano = _panoramaInfo->getSubset(_image_layer);
     HuginBase::CPGraph graph;
     HuginBase::createCPGraph(mediumPano, graph);
     HuginBase::CPComponents comps;
     const size_t n = HuginBase::findCPComponents(graph, comps);
     if(n>1)
     {
-        vector<unsigned int> ImagesGroups;
+        std::vector<unsigned int> ImagesGroups;
         for(size_t i=0; i<n; i++)
         {
             HuginBase::UIntSet::iterator imgIt = _image_layer.begin();
@@ -1055,7 +1048,7 @@ bool PanoDetector::matchMultiRow()
                 checkedImagePairs[img2].insert(img1);
             };
         };
-        TRACE_INFO(endl<< "--- Find matches in images groups ---" << endl);
+        TRACE_INFO(std::endl<< "--- Find matches in images groups ---" << std::endl);
         for (size_t i = 0; i < matchesData.size(); ++i)
         {
             queue.push_back(new MatchDataRunnable(matchesData[i], *this));
@@ -1068,7 +1061,7 @@ bool PanoDetector::matchMultiRow()
             for (size_t j = 0; j < aM._matches.size(); ++j)
             {
                 const lfeat::PointMatchPtr& aPM = aM._matches[j];
-                _panoramaInfo->addCtrlPoint(ControlPoint(aM._i1->_number, aPM->_img1_x, aPM->_img1_y,
+                _panoramaInfo->addCtrlPoint(HuginBase::ControlPoint(aM._i1->_number, aPM->_img1_x, aPM->_img1_y,
                     aM._i2->_number, aPM->_img2_x, aPM->_img2_y));
             };
         };
@@ -1083,7 +1076,7 @@ bool PanoDetector::matchMultiRow()
         if(_image_layer.size()>2)
         {
             //reset translation parameters
-            VariableMapVector varMapVec=optPano.getVariables();
+            HuginBase::VariableMapVector varMapVec = optPano.getVariables();
             for(size_t i=0; i<varMapVec.size(); i++)
             {
                 map_get(varMapVec[i], "TrX").setValue(0);
@@ -1093,8 +1086,8 @@ bool PanoDetector::matchMultiRow()
             optPano.updateVariables(varMapVec);
             //next steps happens only when all images are connected;
             //now optimize panorama
-            PanoramaOptions opts = optPano.getOptions();
-            opts.setProjection(PanoramaOptions::EQUIRECTANGULAR);
+            HuginBase::PanoramaOptions opts = optPano.getOptions();
+            opts.setProjection(HuginBase::PanoramaOptions::EQUIRECTANGULAR);
             opts.optimizeReferenceImage=0;
             // calculate proper scaling, 1:1 resolution.
             // Otherwise optimizer distances are meaningless.
@@ -1108,7 +1101,7 @@ bool PanoDetector::matchMultiRow()
             optPano.setOptions(opts);
 
             //generate optimize vector, optimize only yaw and pitch
-            OptimizeVector optvars;
+            HuginBase::OptimizeVector optvars;
             for (unsigned i=0; i < optPano.getNrOfImages(); i++)
             {
                 std::set<std::string> imgopt;
@@ -1127,11 +1120,11 @@ bool PanoDetector::matchMultiRow()
             optPano.setOptimizeVector(optvars);
 
             // remove vertical and horizontal control points
-            CPVector cps = optPano.getCtrlPoints();
-            CPVector newCP;
-            for (CPVector::const_iterator it = cps.begin(); it != cps.end(); ++it)
+            HuginBase::CPVector cps = optPano.getCtrlPoints();
+            HuginBase::CPVector newCP;
+            for (HuginBase::CPVector::const_iterator it = cps.begin(); it != cps.end(); ++it)
             {
-                if (it->mode == ControlPoint::X_Y)
+                if (it->mode == HuginBase::ControlPoint::X_Y)
                 {
                     newCP.push_back(*it);
                 }
@@ -1171,18 +1164,18 @@ bool PanoDetector::matchMultiRow()
     return true;
 };
 
-bool PanoDetector::matchPrealigned(Panorama* pano, std::vector<HuginBase::UIntSet> &connectedImages, std::vector<size_t> imgMap, bool exactOverlap)
+bool PanoDetector::matchPrealigned(HuginBase::Panorama* pano, std::vector<HuginBase::UIntSet> &connectedImages, std::vector<size_t> imgMap, bool exactOverlap)
 {
     RunnableVector queue;
     MatchData_t matchesData;
-    Panorama tempPano=pano->duplicate();
+    HuginBase::Panorama tempPano = pano->duplicate();
     if(!exactOverlap)
     {
         // increase hfov by 25 % to handle narrow overlaps (or even no overlap) better
-        VariableMapVector varMapVec=tempPano.getVariables();
+        HuginBase::VariableMapVector varMapVec = tempPano.getVariables();
         for(size_t i=0; i<tempPano.getNrOfImages(); i++)
         {
-            Variable hfovVar=map_get(varMapVec[i], "v");
+            HuginBase::Variable hfovVar = map_get(varMapVec[i], "v");
             hfovVar.setValue(std::min(360.0, 1.25 * hfovVar.getValue()));
         };
         tempPano.updateVariables(varMapVec);
@@ -1209,7 +1202,7 @@ bool PanoDetector::matchPrealigned(Panorama* pano, std::vector<HuginBase::UIntSe
         };
     };
 
-    TRACE_INFO(endl<< "--- Find matches for overlapping images ---" << endl);
+    TRACE_INFO(std::endl<< "--- Find matches for overlapping images ---" << std::endl);
     for (size_t i = 0; i < matchesData.size(); ++i)
     {
         queue.push_back(new MatchDataRunnable(matchesData[i], *this));
@@ -1223,7 +1216,7 @@ bool PanoDetector::matchPrealigned(Panorama* pano, std::vector<HuginBase::UIntSe
         for (size_t j = 0; j < aM._matches.size(); ++j)
         {
             const lfeat::PointMatchPtr& aPM = aM._matches[j];
-            _panoramaInfo->addCtrlPoint(ControlPoint(aM._i1->_number, aPM->_img1_x, aPM->_img1_y,
+            _panoramaInfo->addCtrlPoint(HuginBase::ControlPoint(aM._i1->_number, aPM->_img1_x, aPM->_img1_y,
                 aM._i2->_number, aPM->_img2_x, aPM->_img2_y));
         };
     };

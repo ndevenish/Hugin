@@ -40,8 +40,6 @@
 #include <vigra/inspectimage.hxx>
 #endif
 
-using namespace hugin_utils;
-
 /** half size of markers */
 const int polygonPointSize=3;
 /** maximal distance for selection of one point */
@@ -277,7 +275,7 @@ MaskImageCtrl::ClickPos MaskImageCtrl::GetClickPos(vigra::Point2D pos)
 
 void MaskImageCtrl::UpdateCrop(hugin_utils::FDiff2D pos)
 {
-    FDiff2D delta=pos-applyRotInv(invtransform(m_currentPos));
+    hugin_utils::FDiff2D delta=pos-applyRotInv(invtransform(m_currentPos));
     int newLeft, newRight, newTop, newBottom;
     bool needsUpdate=false;
     switch (m_maskEditState)
@@ -351,7 +349,7 @@ void MaskImageCtrl::UpdateCrop(hugin_utils::FDiff2D pos)
             break;
         case CROP_CIRCLE_SCALING:
             {
-                double radius=sqrt(sqr(pos.x-m_dragStartPos.x)+sqr(pos.y-m_dragStartPos.y));
+                double radius=sqrt(hugin_utils::sqr(pos.x-m_dragStartPos.x)+hugin_utils::sqr(pos.y-m_dragStartPos.y));
                 newLeft=m_dragStartPos.x-radius;
                 newRight=m_dragStartPos.x+radius;
                 newTop=m_dragStartPos.y-radius;
@@ -387,7 +385,7 @@ void MaskImageCtrl::OnMouseMove(wxMouseEvent& mouse)
     wxPoint mpos;
     CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
                            &mpos.x, & mpos.y);
-    FDiff2D currentPos=applyRotInv(invtransform(mpos));
+    hugin_utils::FDiff2D currentPos=applyRotInv(invtransform(mpos));
     bool doUpdate = false;
     switch(m_maskEditState)
     {
@@ -408,7 +406,7 @@ void MaskImageCtrl::OnMouseMove(wxMouseEvent& mouse)
             doUpdate=true;
             m_editingMask=m_imageMask[m_activeMask];
             {
-                FDiff2D delta=currentPos-applyRotInv(invtransform(m_dragStartPos));
+                hugin_utils::FDiff2D delta=currentPos-applyRotInv(invtransform(m_dragStartPos));
                 for(HuginBase::UIntSet::const_iterator it=m_selectedPoints.begin();it!=m_selectedPoints.end();++it)
                     m_editingMask.movePointBy(*it,delta);
             };
@@ -492,7 +490,7 @@ void MaskImageCtrl::OnLeftMouseDown(wxMouseEvent& mouse)
     DEBUG_DEBUG("LEFT MOUSE DOWN");
     CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
                            &m_dragStartPos.x, & m_dragStartPos.y);
-    FDiff2D currentPos=applyRotInv(invtransform(m_dragStartPos));
+    hugin_utils::FDiff2D currentPos=applyRotInv(invtransform(m_dragStartPos));
     m_currentPos=m_dragStartPos;
     if(!HasCapture())
         CaptureMouse();
@@ -634,7 +632,7 @@ void MaskImageCtrl::OnLeftMouseUp(wxMouseEvent& mouse)
     wxPoint mpos;
     CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
                            &mpos.x, & mpos.y);
-    FDiff2D currentPos=applyRotInv(invtransform(mpos));
+    hugin_utils::FDiff2D currentPos=applyRotInv(invtransform(mpos));
     bool doUpdate=false;
     switch(m_maskEditState)
     {
@@ -654,8 +652,8 @@ void MaskImageCtrl::OnLeftMouseUp(wxMouseEvent& mouse)
             if(HasCapture())
                 ReleaseMouse();
             {
-                FDiff2D delta=currentPos-applyRotInv(invtransform(m_dragStartPos));
-                if(sqr(delta.x)+sqr(delta.y)>sqr(maxSelectionDistance))
+                hugin_utils::FDiff2D delta=currentPos-applyRotInv(invtransform(m_dragStartPos));
+                if(hugin_utils::sqr(delta.x)+hugin_utils::sqr(delta.y)>hugin_utils::sqr(maxSelectionDistance))
                 {
                     for(HuginBase::UIntSet::const_iterator it=m_selectedPoints.begin();it!=m_selectedPoints.end();++it)
                         m_imageMask[m_activeMask].movePointBy(*it,delta);
@@ -767,7 +765,7 @@ void MaskImageCtrl::OnLeftMouseDblClick(wxMouseEvent &mouse)
     wxPoint mpos;
     CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
                            &mpos.x, & mpos.y);
-    FDiff2D currentPos=applyRotInv(invtransform(mpos));
+    hugin_utils::FDiff2D currentPos=applyRotInv(invtransform(mpos));
     switch(m_maskEditState)
     {
         case NEW_POLYGON_STARTED:
@@ -812,7 +810,7 @@ void MaskImageCtrl::OnRightMouseDown(wxMouseEvent& mouse)
     wxPoint mpos;
     CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
                            &m_dragStartPos.x, & m_dragStartPos.y);
-    FDiff2D currentPos=applyRotInv(invtransform(m_dragStartPos));
+    hugin_utils::FDiff2D currentPos=applyRotInv(invtransform(m_dragStartPos));
     m_currentPos=m_dragStartPos;
     if(!HasCapture())
         CaptureMouse();
@@ -846,7 +844,7 @@ void MaskImageCtrl::OnRightMouseUp(wxMouseEvent& mouse)
     wxPoint mpos;
     CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
                            &mpos.x, & mpos.y);
-    FDiff2D currentPos=applyRotInv(invtransform(mpos));
+    hugin_utils::FDiff2D currentPos=applyRotInv(invtransform(mpos));
     if(HasCapture())
         ReleaseMouse();
     switch(m_maskEditState)
@@ -926,8 +924,8 @@ void MaskImageCtrl::OnRightMouseUp(wxMouseEvent& mouse)
             };
         case POINTS_MOVING:
             {
-                FDiff2D delta=currentPos-applyRotInv(invtransform(m_dragStartPos));
-                if(sqr(delta.x)+sqr(delta.y)>sqr(maxSelectionDistance))
+                hugin_utils::FDiff2D delta=currentPos-applyRotInv(invtransform(m_dragStartPos));
+                if(hugin_utils::sqr(delta.x)+hugin_utils::sqr(delta.y)>hugin_utils::sqr(maxSelectionDistance))
                 {
                     for(HuginBase::UIntSet::const_iterator it=m_selectedPoints.begin();it!=m_selectedPoints.end();++it)
                         m_imageMask[m_activeMask].movePointBy(*it,delta);

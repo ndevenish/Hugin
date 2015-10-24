@@ -44,8 +44,6 @@
 
 namespace HuginBase {
 
-using namespace hugin_utils;
-
 bool PTOptimizer::runAlgorithm()
 {
     PTools::optimize(o_panorama);
@@ -552,7 +550,7 @@ void SmartOptimise::smartOptimize(PanoramaData& optPano)
         // check if this is a 360 deg pano.
         CenterHorizontally(optPano).run();
         //FDiff2D fov = CalculateFOV(optPano).run<CalculateFOV>().getResultFOV();
-            FDiff2D fov = CalculateFOV::calcFOV(optPano);
+            hugin_utils::FDiff2D fov = CalculateFOV::calcFOV(optPano);
         
         if (fov.x >= 150) {
             // optimize HFOV for 150 deg panos

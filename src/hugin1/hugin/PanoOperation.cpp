@@ -41,8 +41,6 @@
 #include <vigra_ext/openmp_vigra.h>
 #include <vigra_ext/cms.h>
 
-using namespace HuginBase;
-
 namespace PanoOperation
 {
 
@@ -245,14 +243,14 @@ time_t ReadExifTime(const char* filename)
 
 struct sortbytime
 {
-    explicit sortbytime(map<string, time_t> & h) : m_time(h) {};
+    explicit sortbytime(std::map<std::string, time_t> & h) : m_time(h) {};
     bool operator()(const std::string & s1, const std::string & s2)
     {
         time_t t1 = m_time[s1];
         time_t t2 = m_time[s2];
         return t1 < t2;
     };
-    map<string, time_t> & m_time;
+    std::map<std::string, time_t> & m_time;
 };
 
 wxString AddImagesSeriesOperation::GetLabel()
@@ -389,9 +387,9 @@ wxString RemoveImageOperation::GetLabel()
 PanoCommand::PanoCommand* RemoveImageOperation::GetInternalCommand(wxWindow* parent, HuginBase::Panorama& pano, HuginBase::UIntSet images)
 {
     //remove images from cache
-    for (UIntSet::iterator it = images.begin(); it != images.end(); ++it)
+    for (HuginBase::UIntSet::iterator it = images.begin(); it != images.end(); ++it)
     {
-        ImageCache::getInstance().removeImage(pano.getImage(*it).getFilename());
+        HuginBase::ImageCache::getInstance().removeImage(pano.getImage(*it).getFilename());
     }
     return new PanoCommand::RemoveImagesCmd(pano, images);
 };
@@ -403,7 +401,7 @@ wxString ChangeAnchorImageOperation::GetLabel()
 
 PanoCommand::PanoCommand* ChangeAnchorImageOperation::GetInternalCommand(wxWindow* parent, HuginBase::Panorama& pano, HuginBase::UIntSet images)
 {
-    PanoramaOptions opt = pano.getOptions();
+    HuginBase::PanoramaOptions opt = pano.getOptions();
     opt.optimizeReferenceImage = *(images.begin());
     return new PanoCommand::SetPanoOptionsCmd(pano,opt);
 };
@@ -415,12 +413,12 @@ wxString ChangeColorAnchorImageOperation::GetLabel()
 
 PanoCommand::PanoCommand* ChangeColorAnchorImageOperation::GetInternalCommand(wxWindow* parent, HuginBase::Panorama& pano, HuginBase::UIntSet images)
 {
-    PanoramaOptions opt = pano.getOptions();
+    HuginBase::PanoramaOptions opt = pano.getOptions();
     opt.colorReferenceImage = *(images.begin());
     // Set the color correction mode so that the anchor image is persisted
     if (opt.colorCorrection == 0)
     {
-        opt.colorCorrection = (PanoramaOptions::ColorCorrection) 1;
+        opt.colorCorrection = (HuginBase::PanoramaOptions::ColorCorrection) 1;
     }
     return new PanoCommand::SetPanoOptionsCmd(pano, opt);
 };
@@ -525,7 +523,7 @@ PanoCommand::PanoCommand* LoadLensOperation::GetInternalCommand(wxWindow* parent
     vigra::Size2D sizeImg0=pano.getImage(*(images.begin())).getSize();
     //check if all images have the same size
     bool differentImageSize=false;
-    for(UIntSet::const_iterator it=images.begin();it!=images.end() && !differentImageSize;++it)
+    for(HuginBase::UIntSet::const_iterator it=images.begin();it!=images.end() && !differentImageSize;++it)
     {
         differentImageSize=(pano.getImage(*it).getSize()!=sizeImg0);
     };
@@ -599,7 +597,7 @@ bool RemoveControlPointsOperation::IsEnabled(HuginBase::Panorama& pano, HuginBas
 
 PanoCommand::PanoCommand* RemoveControlPointsOperation::GetInternalCommand(wxWindow* parent, HuginBase::Panorama& pano, HuginBase::UIntSet images)
 {
-    UIntSet selImages;
+    HuginBase::UIntSet selImages;
     if(images.size()==0)
     {
         fill_set(selImages,0,pano.getNrOfCtrlPoints()-1);
@@ -608,9 +606,9 @@ PanoCommand::PanoCommand* RemoveControlPointsOperation::GetInternalCommand(wxWin
     {
         selImages=images;
     };
-    UIntSet cpsToDelete;
-    const CPVector & cps = pano.getCtrlPoints();
-    for (CPVector::const_iterator it = cps.begin(); it != cps.end(); ++it)
+    HuginBase::UIntSet cpsToDelete;
+    const HuginBase::CPVector & cps = pano.getCtrlPoints();
+    for (HuginBase::CPVector::const_iterator it = cps.begin(); it != cps.end(); ++it)
     {
         if (set_contains(selImages, (*it).image1Nr) && set_contains(selImages, (*it).image2Nr) )
         {
@@ -657,19 +655,19 @@ PanoCommand::PanoCommand* CleanControlPointsOperation::GetInternalCommand(wxWind
     deregisterPTWXDlgFcn();
     ProgressReporterDialog progress(0, _("Cleaning Control points"), _("Checking pairwise"), parent);
 
-    UIntSet removedCPs=getCPoutsideLimit_pair(pano, progress, 2.0);
+    HuginBase::UIntSet removedCPs=getCPoutsideLimit_pair(pano, progress, 2.0);
 
     //create a copy to work with
     //we copy remaining control points to new pano object for running second step
     HuginBase::Panorama newPano=pano.duplicate();
     std::map<size_t,size_t> cpMap;
-    CPVector allCPs=newPano.getCtrlPoints();
-    CPVector firstCleanedCP;
+    HuginBase::CPVector allCPs=newPano.getCtrlPoints();
+    HuginBase::CPVector firstCleanedCP;
     size_t j=0;
     for(size_t i=0;i<allCPs.size();i++)
     {
-        ControlPoint cp=allCPs[i];
-        if(cp.mode==ControlPoint::X_Y && !set_contains(removedCPs,i))
+        HuginBase::ControlPoint cp = allCPs[i];
+        if (cp.mode == HuginBase::ControlPoint::X_Y && !set_contains(removedCPs, i))
         {
             firstCleanedCP.push_back(cp);
             cpMap[j++]=i;
@@ -678,10 +676,10 @@ PanoCommand::PanoCommand* CleanControlPointsOperation::GetInternalCommand(wxWind
     newPano.setCtrlPoints(firstCleanedCP);
 
     //check for unconnected images
-    CPGraph graph;
+    HuginBase::CPGraph graph;
     createCPGraph(newPano, graph);
-    CPComponents comps;
-    const size_t n=findCPComponents(graph, comps);
+    HuginBase::CPComponents comps;
+    const size_t n = HuginBase::findCPComponents(graph, comps);
     if (!progress.updateDisplayValue(_("Checking whole project")))
     {
         return NULL;
@@ -689,10 +687,10 @@ PanoCommand::PanoCommand* CleanControlPointsOperation::GetInternalCommand(wxWind
     if (n <= 1)
     {
         //now run the second step
-        UIntSet removedCP2=getCPoutsideLimit(newPano, 2.0);
+        HuginBase::UIntSet removedCP2=getCPoutsideLimit(newPano, 2.0);
         if(removedCP2.size()>0)
         {
-            for(UIntSet::const_iterator it=removedCP2.begin();it!=removedCP2.end();++it)
+            for(HuginBase::UIntSet::const_iterator it=removedCP2.begin();it!=removedCP2.end();++it)
             {
                 removedCPs.insert(cpMap[*it]);
             };
@@ -738,8 +736,8 @@ PanoCommand::PanoCommand* CelesteOperation::GetInternalCommand(wxWindow* parent,
     int radius=(t)?10:20;
     DEBUG_TRACE("Running Celeste");
 
-    UIntSet cpsToRemove;
-    for (UIntSet::const_iterator it=images.begin(); it!=images.end(); ++it)
+    HuginBase::UIntSet cpsToRemove;
+    for (HuginBase::UIntSet::const_iterator it=images.begin(); it!=images.end(); ++it)
     {
         // Image to analyse
         HuginBase::CPointVector cps=pano.getCtrlPointsVectorForImage(*it);
@@ -751,7 +749,7 @@ PanoCommand::PanoCommand* CelesteOperation::GetInternalCommand(wxWindow* parent,
             };
             continue;
         };
-        ImageCache::EntryPtr img=ImageCache::getInstance().getImage(pano.getImage(*it).getFilename());
+        HuginBase::ImageCache::EntryPtr img = HuginBase::ImageCache::getInstance().getImage(pano.getImage(*it).getFilename());
         vigra::UInt16RGBImage in;
         if(img->image16->width()>0)
         {
@@ -760,7 +758,7 @@ PanoCommand::PanoCommand* CelesteOperation::GetInternalCommand(wxWindow* parent,
         }
         else
         {
-            ImageCache::ImageCacheRGB8Ptr im8=img->get8BitImage();
+            HuginBase::ImageCache::ImageCacheRGB8Ptr im8 = img->get8BitImage();
             in.resize(im8->size());
             vigra::omp::transformImage(srcImageRange(*im8),destImage(in),vigra::functor::Arg1()*vigra::functor::Param(65535/255));
         };
@@ -772,7 +770,7 @@ PanoCommand::PanoCommand* CelesteOperation::GetInternalCommand(wxWindow* parent,
         {
             return NULL;
         };
-        UIntSet cloudCP=celeste::getCelesteControlPoints(model,in,cps,radius,threshold,800);
+        HuginBase::UIntSet cloudCP=celeste::getCelesteControlPoints(model,in,cps,radius,threshold,800);
         in.resize(0,0);
         if (!progress.updateDisplay())
         {
@@ -780,7 +778,7 @@ PanoCommand::PanoCommand* CelesteOperation::GetInternalCommand(wxWindow* parent,
         };
         if(cloudCP.size()>0)
         {
-            for(UIntSet::const_iterator it2=cloudCP.begin();it2!=cloudCP.end(); ++it2)
+            for(HuginBase::UIntSet::const_iterator it2=cloudCP.begin();it2!=cloudCP.end(); ++it2)
             {
                 cpsToRemove.insert(*it2);
             };
@@ -890,11 +888,11 @@ PanoCommand::PanoCommand* ResetOperation::GetInternalCommand(wxWindow* parent, H
         blueBalanceAnchor=1;
     };
 
-    VariableMapVector vars;
-    for(UIntSet::const_iterator it = images.begin(); it != images.end(); ++it)
+    HuginBase::VariableMapVector vars;
+    for(HuginBase::UIntSet::const_iterator it = images.begin(); it != images.end(); ++it)
     {
         unsigned int imgNr = *it;
-        VariableMap ImgVars=pano.getImageVariables(imgNr);
+        HuginBase::VariableMap ImgVars = pano.getImageVariables(imgNr);
         if(m_resetPos)
         {
             map_get(ImgVars,"y").setValue(0);
@@ -914,7 +912,7 @@ PanoCommand::PanoCommand* ResetOperation::GetInternalCommand(wxWindow* parent, H
             map_get(ImgVars,"Tpy").setValue(0);
             map_get(ImgVars,"Tpp").setValue(0);
         };
-        SrcPanoImage srcImg = pano.getSrcImage(imgNr);
+        HuginBase::SrcPanoImage srcImg = pano.getSrcImage(imgNr);
         if(m_resetHFOV)
         {
             double focalLength=srcImg.getExifFocalLength();
@@ -979,8 +977,8 @@ PanoCommand::PanoCommand* ResetOperation::GetInternalCommand(wxWindow* parent, H
                 }
                 double redBal=1;
                 double blueBal=1;
-                const SrcPanoImage& img=pano.getImage(imgNr);
-                const SrcPanoImage& anchor=pano.getImage(pano.getOptions().colorReferenceImage);
+                const HuginBase::SrcPanoImage& img=pano.getImage(imgNr);
+                const HuginBase::SrcPanoImage& anchor=pano.getImage(pano.getOptions().colorReferenceImage);
                 // use EXIF Red/BlueBalance data only if image and anchor image are from the same camera
                 if(img.getExifMake() == anchor.getExifMake() &&
                     img.getExifModel() == anchor.getExifModel())
@@ -1255,7 +1253,7 @@ PanoCommand::PanoCommand* AssignStacksOperation::GetInternalCommand(wxWindow* pa
         // first remove all existing stacks
         for(size_t i=1; i<pano.getNrOfImages(); i++)
         {
-            UIntSet imgs;
+            HuginBase::UIntSet imgs;
             imgs.insert(i);
             commands.push_back(new PanoCommand::NewPartCmd(pano, imgs, HuginBase::StandardImageVariableGroups::getStackVariables()));
         };
@@ -1267,7 +1265,7 @@ PanoCommand::PanoCommand* AssignStacksOperation::GetInternalCommand(wxWindow* pa
         size_t imgNr=0;
         while(imgNr<pano.getNrOfImages())
         {
-            UIntSet imgs;
+            HuginBase::UIntSet imgs;
             for(size_t i=0; i<stackSize && imgNr<pano.getNrOfImages(); i++)
             {
                 imgs.insert(imgNr);
@@ -1281,7 +1279,7 @@ PanoCommand::PanoCommand* AssignStacksOperation::GetInternalCommand(wxWindow* pa
     if (!linkPosition && stackSize > 1)
     {
         // unlink image position
-        UIntSet imgs;
+        HuginBase::UIntSet imgs;
         fill_set(imgs, 0, pano.getNrOfImages() - 1);
         std::set<HuginBase::ImageVariableGroup::ImageVariableEnum> variables;
         variables.insert(HuginBase::ImageVariableGroup::IVE_Yaw);

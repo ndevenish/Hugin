@@ -42,18 +42,10 @@
 
 #include <tiff.h>
 
-using namespace std;
-using namespace vigra;
-using namespace vigra_ext;
-using namespace AppBase;
-using namespace HuginBase;
-
-
-
 static void usage(const char* name)
 {
-    cerr << name << ": Try to determine the radial vignetting" << std::endl
-         << "vig_optimize version " << hugin_utils::GetHuginVersion() << endl
+    std::cerr << name << ": Try to determine the radial vignetting" << std::endl
+         << "vig_optimize version " << hugin_utils::GetHuginVersion() << std::endl
          << std::endl
          << "Usage: " << name  << " [options] -o output.pto input.pto" << std::endl
          << "Valid options are:" << std::endl
@@ -80,10 +72,10 @@ void importROIImage(ImageImportInfo & info, RIMG & img)
 */
 
 
-void loadPointsC(FILE* f, std::vector<PointPairRGB>& vec)
+void loadPointsC(FILE* f, std::vector<vigra_ext::PointPairRGB>& vec)
 {
     double dummy1, dummy2;
-    PointPairRGB point;
+    vigra_ext::PointPairRGB point;
     double i1, i2;
 
     int n=0;
@@ -111,12 +103,12 @@ void loadPointsC(FILE* f, std::vector<PointPairRGB>& vec)
     while (n == 16);
 }
 
-void loadPoints(istream& i, std::vector<PointPairRGB>& vec )
+void loadPoints(std::istream& i, std::vector<vigra_ext::PointPairRGB>& vec )
 {
     while(!i.eof() && i.good())
     {
         double dummy1, dummy2;
-        PointPairRGB point;
+        vigra_ext::PointPairRGB point;
         double i1, i2;
         i >> i1 >> i2
           >> point.p1.x >> point.p1.y
@@ -137,11 +129,11 @@ void loadPoints(istream& i, std::vector<PointPairRGB>& vec )
     }
 }
 
-bool hasphotometricParams(Panorama& pano)
+bool hasphotometricParams(HuginBase::Panorama& pano)
 {
-    OptimizeVector vars=pano.getOptimizeVector();
+    HuginBase::OptimizeVector vars = pano.getOptimizeVector();
 
-    for (OptimizeVector::const_iterator it=vars.begin(); it != vars.end(); ++it)
+    for (HuginBase::OptimizeVector::const_iterator it = vars.begin(); it != vars.end(); ++it)
     {
         for (std::set<std::string>::const_iterator itv = (*it).begin();
                 itv != (*it).end(); ++itv)
@@ -158,7 +150,7 @@ bool hasphotometricParams(Panorama& pano)
 
 int main(int argc, char* argv[])
 {
-    StreamProgressDisplay progressDisplay(std::cout);
+    AppBase::StreamProgressDisplay progressDisplay(std::cout);
 
     // parse arguments
     const char* optstring = "hi:o:p:s:vw:";
@@ -197,7 +189,7 @@ int main(int argc, char* argv[])
                 outputPointsFile = optarg;
                 break;
             default:
-                cerr << "Invalid parameter: " << optarg << std::endl;
+                std::cerr << "Invalid parameter: " << optarg << std::endl;
                 usage(hugin_utils::stripPath(argv[0]).c_str());
                 return 1;
         }
@@ -211,27 +203,27 @@ int main(int argc, char* argv[])
     }
 
     const char* scriptFile = argv[optind];
-    Panorama pano;
-    ifstream prjfile(scriptFile);
+    HuginBase::Panorama pano;
+    std::ifstream prjfile(scriptFile);
     if (!prjfile.good())
     {
-        cerr << "could not open script : " << scriptFile << endl;
+        std::cerr << "could not open script : " << scriptFile << std::endl;
         return 1;
     }
     pano.setFilePrefix(hugin_utils::getPathPrefix(scriptFile));
-    DocumentData::ReadWriteError err = pano.readData(prjfile);
-    if (err != DocumentData::SUCCESSFUL)
+    AppBase::DocumentData::ReadWriteError err = pano.readData(prjfile);
+    if (err != AppBase::DocumentData::SUCCESSFUL)
     {
-        cerr << "error while parsing panos tool script: " << scriptFile << endl;
-        cerr << "DocumentData::ReadWriteError code: " << err << endl;
+        std::cerr << "error while parsing panos tool script: " << scriptFile << std::endl;
+        std::cerr << "AppBase::DocumentData::ReadWriteError code: " << err << std::endl;
         return 1;
     }
 
     // Ensure photometric parameters are selected for optimizaion
     if (!hasphotometricParams(pano))
     {
-        cerr << "ERROR:no photometric parameters were selected for optimization" << endl;
-        cerr << "please update 'v' line in .pto script and try again." << endl;
+        std::cerr << "ERROR:no photometric parameters were selected for optimization" << std::endl;
+        std::cerr << "please update 'v' line in .pto script and try again." << std::endl;
         return 1;
     }
 
@@ -262,7 +254,7 @@ int main(int argc, char* argv[])
         }
         if (verbose)
         {
-            cout << "\rSelected " << points.size() << " points" << std::endl;
+            std::cout << "\rSelected " << points.size() << " points" << std::endl;
         }
         if (points.size() == 0)
         {
@@ -272,8 +264,8 @@ int main(int argc, char* argv[])
 
         if (outputPointsFile.size() > 0)
         {
-            ofstream of(outputPointsFile.c_str());
-            for (std::vector<PointPairRGB>::iterator it = points.begin(); it != points.end(); ++it)
+            std::ofstream of(outputPointsFile.c_str());
+            for (std::vector<vigra_ext::PointPairRGB>::iterator it = points.begin(); it != points.end(); ++it)
             {
                 of << (*it).imgNr1 << " " << (*it).imgNr2 << " "
                    << (*it).p1.x << " " << (*it).p1.y<< " "
@@ -290,13 +282,13 @@ int main(int argc, char* argv[])
 
 
         progressDisplay.setMessage("Vignetting Optimization");
-        PhotometricOptimizer photoopt(pano, &progressDisplay, pano.getOptimizeVector(), points);
+        HuginBase::PhotometricOptimizer photoopt(pano, &progressDisplay, pano.getOptimizeVector(), points);
         photoopt.run();
         //		double error = photoopt.getResultError();
 
         progressDisplay.taskFinished();
 
-        UIntSet allImgs;
+        HuginBase::UIntSet allImgs;
         fill_set(allImgs,0, pano.getNrOfImages()-1);
         // save project
         if (outputFile == "" || outputFile == "-")
@@ -305,14 +297,14 @@ int main(int argc, char* argv[])
         }
         else
         {
-            ofstream of(outputFile.c_str());
+            std::ofstream of(outputFile.c_str());
             pano.printPanoramaScript(of, pano.getOptimizeVector(), pano.getOptions(), allImgs, false, hugin_utils::getPathPrefix(scriptFile));
         }
 
     }
     catch (std::exception& e)
     {
-        cerr << "caught exception: " << e.what() << std::endl;
+        std::cerr << "caught exception: " << e.what() << std::endl;
         return 1;
     }
     return 0;

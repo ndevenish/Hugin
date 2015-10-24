@@ -44,31 +44,28 @@
 #include <libgen.h>         /* dirname */
 #endif
 
-using namespace std;
-using namespace HuginBase;
-
 static void usage(const char* name)
 {
-    cout << name << ": generate project file from images" << endl
-         << name << " version " << hugin_utils::GetHuginVersion() << endl
-         << endl
-         << "Usage:  " << name << " [options] image1 [...]" << endl
-         << endl
-         << "  Options:" << endl
-         << "     -o, --output=file.pto  Output Hugin PTO file." << endl
-         << "     -p, --projection=INT   Projection type (default: 0)" << endl
-         << "     -f, --fov=FLOAT        Horizontal field of view of images (default: 50)" << endl
-         << "     -c, --crop=left,right,top,bottom        Sets the crop of input" << endl
-         << "                            images (especially for fisheye lenses)" << endl
-         << "     -s, --stacklength=INT  Number of images in stack" << endl
-         << "                            (default: automatic detection)" << endl
-         << "     -l, --linkstacks       Link image positions in stacks" << endl
-         << "     --distortion           Try to load distortion information from" << endl
-         << "                            lens database" << endl
-         << "     --vignetting           Try to load vignetting information from" << endl
-         << "                            lens database" << endl
-         << "     -h, --help             Shows this help" << endl
-         << endl;
+    std::cout << name << ": generate project file from images" << std::endl
+         << name << " version " << hugin_utils::GetHuginVersion() << std::endl
+         << std::endl
+         << "Usage:  " << name << " [options] image1 [...]" << std::endl
+         << std::endl
+         << "  Options:" << std::endl
+         << "     -o, --output=file.pto  Output Hugin PTO file." << std::endl
+         << "     -p, --projection=INT   Projection type (default: 0)" << std::endl
+         << "     -f, --fov=FLOAT        Horizontal field of view of images (default: 50)" << std::endl
+         << "     -c, --crop=left,right,top,bottom        Sets the crop of input" << std::endl
+         << "                            images (especially for fisheye lenses)" << std::endl
+         << "     -s, --stacklength=INT  Number of images in stack" << std::endl
+         << "                            (default: automatic detection)" << std::endl
+         << "     -l, --linkstacks       Link image positions in stacks" << std::endl
+         << "     --distortion           Try to load distortion information from" << std::endl
+         << "                            lens database" << std::endl
+         << "     --vignetting           Try to load vignetting information from" << std::endl
+         << "                            lens database" << std::endl
+         << "     -h, --help             Shows this help" << std::endl
+         << std::endl;
 }
 
 int main(int argc, char* argv[])
@@ -93,7 +90,7 @@ int main(int argc, char* argv[])
 
     int c;
     int optionIndex = 0;
-    string output;
+    std::string output;
     int projection=-1;
     float fov=-1;
     int stackLength=0;
@@ -116,12 +113,12 @@ int main(int argc, char* argv[])
                     projection=atoi(optarg);
                     if((projection==0) && (strcmp(optarg,"0")!=0))
                     {
-                        cerr << "Could not parse image number.";
+                        std::cerr << "Could not parse image number.";
                         return 1;
                     };
                     if(projection<0)
                     {
-                        cerr << "Invalid projection number." << endl;
+                        std::cerr << "Invalid projection number." << std::endl;
                         return 1;
                     };
                 };
@@ -130,7 +127,7 @@ int main(int argc, char* argv[])
                 fov=atof(optarg);
                 if(fov<1 || fov>360)
                 {
-                    cerr << "Invalid field of view";
+                    std::cerr << "Invalid field of view";
                     return 1;
                 };
                 break;
@@ -147,13 +144,13 @@ int main(int argc, char* argv[])
                         }
                         else
                         {
-                            cerr << "Invalid crop area" << endl;
+                            std::cerr << "Invalid crop area" << std::endl;
                             return 1;
                         };
                     }
                     else
                     {
-                        cerr << "Could not parse crop values" << endl;
+                        std::cerr << "Could not parse crop values" << std::endl;
                         return 1;
                     };
                 };
@@ -162,7 +159,7 @@ int main(int argc, char* argv[])
                 stackLength=atoi(optarg);
                 if ((stackLength == 0) && (strcmp(optarg, "0") != 0))
                 {
-                    cerr << "Could not parse stack length.";
+                    std::cerr << "Could not parse stack length.";
                     return 1;
                 };
                 break;
@@ -176,7 +173,7 @@ int main(int argc, char* argv[])
                 loadVignetting=true;
                 break;
             case ':':
-                cerr <<"Option " << longOptions[optionIndex].name << " requires a number" << endl;
+                std::cerr <<"Option " << longOptions[optionIndex].name << " requires a number" << std::endl;
                 return 1;
                 break;
             case '?':
@@ -192,16 +189,16 @@ int main(int argc, char* argv[])
         return 1;
     };
 
-    cout << "Generating pto file..." << endl;
-    cout.flush();
+    std::cout << "Generating pto file..." << std::endl;
+    std::cout.flush();
 
-    std::vector<string> filelist;
+    std::vector<std::string> filelist;
     while(optind<argc)
     {
-        string input;
+        std::string input;
 #ifdef _WIN32
         //do globbing
-        input=GetAbsoluteFilename(argv[optind]);
+        input = hugin_utils::GetAbsoluteFilename(argv[optind]);
         char drive[_MAX_DRIVE];
         char dir[_MAX_DIR];
         _splitpath(input.c_str(), drive, dir, NULL, NULL);
@@ -236,7 +233,7 @@ int main(int argc, char* argv[])
         {
             if(vigra::isImage(input.c_str()))
             {
-                filelist.push_back(GetAbsoluteFilename(input));
+                filelist.push_back(hugin_utils::GetAbsoluteFilename(input));
             };
         };
 #endif
@@ -245,26 +242,26 @@ int main(int argc, char* argv[])
 
     if(filelist.size()==0)
     {
-        cerr << "No valid image files given." << endl;
+        std::cerr << "No valid image files given." << std::endl;
         return 1;
     };
 
     //sort filenames
     sort(filelist.begin(),filelist.end(),doj::alphanum_less());
 
-    Panorama pano;
+    HuginBase::Panorama pano;
     for(size_t i=0; i<filelist.size(); i++)
     {
-        SrcPanoImage srcImage;
-        cout << "Reading " << filelist[i] << "..." << endl;
+        HuginBase::SrcPanoImage srcImage;
+        std::cout << "Reading " << filelist[i] << "..." << std::endl;
         srcImage.setFilename(filelist[i]);
         try
         {
             vigra::ImageImportInfo info(filelist[i].c_str());
             if(info.width()==0 || info.height()==0)
             {
-                cerr << "ERROR: Could not decode image " << filelist[i] << endl
-                     << "Skipping this image." << endl << endl;
+                std::cerr << "ERROR: Could not decode image " << filelist[i] << std::endl
+                     << "Skipping this image." << std::endl << std::endl;
                 continue;
             }
             srcImage.setSize(info.size());
@@ -272,9 +269,9 @@ int main(int argc, char* argv[])
             const std::string pixelType=info.getPixelType();
             if (pixelType == "BILEVEL")
             {
-                cerr << "ERROR: Image " << filelist[i] << " is a black/white images." << endl
-                    << "       This is not supported. Convert to grayscale image and try again." << endl
-                    << "       Skipping this image." << endl;
+                std::cerr << "ERROR: Image " << filelist[i] << " is a black/white images." << std::endl
+                    << "       This is not supported. Convert to grayscale image and try again." << std::endl
+                    << "       Skipping this image." << std::endl;
                 continue;
             }
             if((pixelType=="UINT8") || (pixelType=="UINT16") || (pixelType=="INT16"))
@@ -288,9 +285,9 @@ int main(int argc, char* argv[])
         }
         catch(std::exception& e)
         {
-            cerr << "ERROR: caught exception: " << e.what() << endl;
-            cerr << "Could not read image information for file " << filelist[i] << endl;
-            cerr << "Skipping this image." << endl << endl;
+            std::cerr << "ERROR: caught exception: " << e.what() << std::endl;
+            std::cerr << "Could not read image information for file " << filelist[i] << std::endl;
+            std::cerr << "Skipping this image." << std::endl << std::endl;
             continue;
         };
 
@@ -317,8 +314,8 @@ int main(int argc, char* argv[])
             //set plausible default value if they could not read from exif
             if(!fovOk)
             {
-                cout << "\tNo value for field of view found in EXIF data. " << endl
-                     << "\tAssuming a HFOV of 50 degrees. " << endl;
+                std::cout << "\tNo value for field of view found in EXIF data. " << std::endl
+                     << "\tAssuming a HFOV of 50 degrees. " << std::endl;
                 srcImage.setHFOV(50);
                 srcImage.setCropFactor(1.0);
             };
@@ -327,11 +324,11 @@ int main(int argc, char* argv[])
         {
             if(srcImage.isCircularCrop())
             {
-                srcImage.setCropMode(SrcPanoImage::CROP_CIRCLE);
+                srcImage.setCropMode(HuginBase::SrcPanoImage::CROP_CIRCLE);
             }
             else
             {
-                srcImage.setCropMode(SrcPanoImage::CROP_RECTANGLE);
+                srcImage.setCropMode(HuginBase::SrcPanoImage::CROP_RECTANGLE);
             };
             srcImage.setAutoCenterCrop(false);
             srcImage.setCropRect(cropRect);
@@ -340,22 +337,22 @@ int main(int argc, char* argv[])
         {
             if(srcImage.readDistortionFromDB())
             {
-                cout << "\tRead distortion data from lens database." << endl;
+                std::cout << "\tRead distortion data from lens database." << std::endl;
             }
             else
             {
-                cout << "\tNo valid distortion data found in lens database." << endl;
+                std::cout << "\tNo valid distortion data found in lens database." << std::endl;
             };
         };
         if(loadVignetting)
         {
             if(srcImage.readVignettingFromDB())
             {
-                cout << "\tRead vignetting data from lens database." << endl;
+                std::cout << "\tRead vignetting data from lens database." << std::endl;
             }
             else
             {
-                cout << "\tNo valid vignetting data found in lens database." << endl;
+                std::cout << "\tNo valid vignetting data found in lens database." << std::endl;
             };
         };
 
@@ -364,7 +361,7 @@ int main(int argc, char* argv[])
 
     if(pano.getNrOfImages()==0)
     {
-        cerr << "Adding images to project files failed." << endl;
+        std::cerr << "Adding images to project files failed." << std::endl;
         HuginBase::LensDB::LensDB::Clean();
         return 1;
     };
@@ -382,16 +379,16 @@ int main(int argc, char* argv[])
         {
             blueBalanceAnchor=1;
         };
-        StandardImageVariableGroups variable_groups(pano);
-        ImageVariableGroup& lenses = variable_groups.getLenses();
+        HuginBase::StandardImageVariableGroups variable_groups(pano);
+        HuginBase::ImageVariableGroup& lenses = variable_groups.getLenses();
 
         for(size_t i=1; i<pano.getNrOfImages(); i++)
         {
             int image=-1;
-            const SrcPanoImage& srcImg=pano.getImage(i);
+            const HuginBase::SrcPanoImage& srcImg=pano.getImage(i);
             for(size_t j=0; j<i; j++)
             {
-                const SrcPanoImage& compareImg=pano.getImage(j);
+                const HuginBase::SrcPanoImage& compareImg=pano.getImage(j);
                 if(srcImg.getHFOV()==compareImg.getHFOV() &&
                         srcImg.getProjection()==compareImg.getProjection() &&
                         srcImg.getExifModel()==compareImg.getExifModel() &&
@@ -404,7 +401,7 @@ int main(int argc, char* argv[])
             };
             if(image!=-1)
             {
-                SrcPanoImage img=pano.getSrcImage(i);
+                HuginBase::SrcPanoImage img=pano.getSrcImage(i);
                 double ev=img.getExposureValue();
                 lenses.switchParts(i,lenses.getPartNumber(image));
                 lenses.unlinkVariableImage(HuginBase::ImageVariableGroup::IVE_ExposureValue, i);
@@ -416,12 +413,12 @@ int main(int argc, char* argv[])
                 pano.setSrcImage(i, img);
             };
         };
-        cout << endl << "Assigned " << lenses.getNumberOfParts() << " lenses." << endl;
+        std::cout << std::endl << "Assigned " << lenses.getNumberOfParts() << " lenses." << std::endl;
         if(lenses.getNumberOfParts()>1 && stackLength!=1)
         {
-            cout << "Project contains more than one lens, but you requested to assign" << endl
-                 << "stacks. This is not supported. Therefore stacks will not be" << endl
-                 << "assigned." << endl << endl;
+            std::cout << "Project contains more than one lens, but you requested to assign" << std::endl
+                 << "stacks. This is not supported. Therefore stacks will not be" << std::endl
+                 << "assigned." << std::endl << std::endl;
             stackLength=1;
         };
 
@@ -476,8 +473,8 @@ int main(int argc, char* argv[])
     };
 
     //set output exposure value
-    PanoramaOptions opt = pano.getOptions();
-    opt.outputExposureValue = CalculateMeanExposure::calcMeanExposure(pano);
+    HuginBase::PanoramaOptions opt = pano.getOptions();
+    opt.outputExposureValue = HuginBase::CalculateMeanExposure::calcMeanExposure(pano);
     pano.setOptions(opt);
     // set optimizer switches
     pano.setOptimizerSwitch(HuginBase::OPT_PAIR);
@@ -494,14 +491,14 @@ int main(int argc, char* argv[])
         };
         output=output.append(".pto");
     };
-    output=GetAbsoluteFilename(output);
+    output = hugin_utils::GetAbsoluteFilename(output);
     //write output
-    UIntSet imgs;
+    HuginBase::UIntSet imgs;
     fill_set(imgs,0, pano.getNrOfImages()-1);
-    ofstream of(output.c_str());
+    std::ofstream of(output.c_str());
     pano.printPanoramaScript(of, pano.getOptimizeVector(), pano.getOptions(), imgs, false, hugin_utils::getPathPrefix(output));
 
-    cout << endl << "Written output to " << output << endl;
+    std::cout << std::endl << "Written output to " << output << std::endl;
     HuginBase::LensDB::LensDB::Clean();
     return 0;
 }

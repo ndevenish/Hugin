@@ -44,9 +44,6 @@ extern "C"
 #include <pano13/filter.h>
 }
 
-using namespace HuginBase;
-using namespace AppBase;
-
 static void usage(const char* name)
 {
     std::cout << name << ": find vertical lines in images" << std::endl
@@ -170,7 +167,7 @@ vigra::UInt8RGBImage LoadImageAndConvert(vigra::ImageImportInfo& info)
 };
 
 // loads the gray images and finds vertical lines, returns a CPVector with found vertical lines
-HuginBase::CPVector LoadGrayImageAndFindLines(vigra::ImageImportInfo info, Panorama& pano, size_t imgNr, int nrLines)
+HuginBase::CPVector LoadGrayImageAndFindLines(vigra::ImageImportInfo info, HuginBase::Panorama& pano, size_t imgNr, int nrLines)
 {
     vigra::BImage image;
     HuginBase::CPVector lineCp;
@@ -222,7 +219,7 @@ HuginBase::CPVector LoadGrayImageAndFindLines(vigra::ImageImportInfo info, Panor
 };
 
 // loads the color images and finds vertical lines, returns a CPVector with found vertical lines
-HuginBase::CPVector LoadImageAndFindLines(vigra::ImageImportInfo info, Panorama& pano, size_t imgNr, int nrLines)
+HuginBase::CPVector LoadImageAndFindLines(vigra::ImageImportInfo info, HuginBase::Panorama& pano, size_t imgNr, int nrLines)
 {
     vigra::UInt8RGBImage image;
     HuginBase::CPVector lineCp;
@@ -300,7 +297,7 @@ int main(int argc, char* argv[])
         0
     };
 
-    UIntSet cmdlineImages;
+    HuginBase::UIntSet cmdlineImages;
     int c;
     int optionIndex = 0;
     int nrLines = 5;
@@ -354,7 +351,7 @@ int main(int argc, char* argv[])
 
     std::string input=argv[optind];
     // read panorama
-    Panorama pano;
+    HuginBase::Panorama pano;
     std::ifstream prjfile(input.c_str());
     if (!prjfile.good())
     {
@@ -362,8 +359,8 @@ int main(int argc, char* argv[])
         return 1;
     }
     pano.setFilePrefix(hugin_utils::getPathPrefix(input));
-    DocumentData::ReadWriteError err = pano.readData(prjfile);
-    if (err != DocumentData::SUCCESSFUL)
+    AppBase::DocumentData::ReadWriteError err = pano.readData(prjfile);
+    if (err != AppBase::DocumentData::SUCCESSFUL)
     {
         std::cerr << "error while parsing panos tool script: " << input << std::endl;
         std::cerr << "DocumentData::ReadWriteError code: " << err << std::endl;
@@ -408,7 +405,7 @@ int main(int argc, char* argv[])
     else
     {
         //check, if given image numbers are valid
-        for(UIntSet::const_iterator it=cmdlineImages.begin(); it!=cmdlineImages.end(); ++it)
+        for (HuginBase::UIntSet::const_iterator it = cmdlineImages.begin(); it != cmdlineImages.end(); ++it)
         {
             if((*it)>=0 && (*it)<pano.getNrOfImages())
             {
@@ -466,7 +463,7 @@ int main(int argc, char* argv[])
         };
         if(foundLines.size()>0)
         {
-            for(CPVector::const_iterator cpIt=foundLines.begin(); cpIt!=foundLines.end(); ++cpIt)
+            for (HuginBase::CPVector::const_iterator cpIt = foundLines.begin(); cpIt != foundLines.end(); ++cpIt)
             {
                 hugin_omp::ScopedLock sl(lock);
                 pano.addCtrlPoint(*cpIt);
@@ -476,7 +473,7 @@ int main(int argc, char* argv[])
     std::cout << std::endl << "Found " << pano.getNrOfCtrlPoints() - nrCPS << " vertical lines" << std::endl << std::endl;
 
     //write output
-    UIntSet imgs;
+    HuginBase::UIntSet imgs;
     fill_set(imgs,0, pano.getNrOfImages()-1);
     // Set output .pto filename if not given
     if (output=="")

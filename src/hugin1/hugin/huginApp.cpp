@@ -78,8 +78,6 @@ bool checkVersion(wxString v1, wxString v2)
     return doj::alphanum_comp(std::string(v1.mb_str(wxConvLocal)),std::string(v2.mb_str(wxConvLocal))) < 0;
 };
 
-using namespace hugin_utils;
-
 wxString Components2Str(const HuginBase::CPComponents & comp)
 {
     wxString ret;

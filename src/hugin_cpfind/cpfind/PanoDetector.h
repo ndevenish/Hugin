@@ -43,8 +43,6 @@
 #include <algorithms/optimizer/PTOptimizer.h>
 #include <celeste/Celeste.h>
 
-using namespace HuginBase;
-
 class PanoDetector
 {
 public:
@@ -82,12 +80,12 @@ public:
                  to take also narrow overlaps better into account
         @return true, if detection was successful
     */
-    bool matchPrealigned(Panorama* pano, std::vector<HuginBase::UIntSet> &connectedImages, std::vector<size_t> imgMap, bool exactOverlap=true);
+    bool matchPrealigned(HuginBase::Panorama* pano, std::vector<HuginBase::UIntSet> &connectedImages, std::vector<size_t> imgMap, bool exactOverlap=true);
 
 
     // accessors
 
-    inline Panorama* getPanoramaInfo() const
+    inline HuginBase::Panorama* getPanoramaInfo() const
     {
         return _panoramaInfo;
     }
@@ -172,7 +170,7 @@ public:
     {
         _ransacDistanceThres = iDT;
     }
-    inline void setRansacMode(RANSACOptimizer::Mode mode)
+    inline void setRansacMode(HuginBase::RANSACOptimizer::Mode mode)
     {
         _ransacMode = mode;
     }
@@ -188,7 +186,7 @@ public:
     {
         return _ransacDistanceThres;
     }
-    inline RANSACOptimizer::Mode getRansacMode()
+    inline HuginBase::RANSACOptimizer::Mode getRansacMode()
     {
         return _ransacMode;
     }
@@ -335,7 +333,7 @@ private:
     double					_kdTreeSecondDistance;
 
     int						_minimumMatches;
-    RANSACOptimizer::Mode	_ransacMode;
+    HuginBase::RANSACOptimizer::Mode	_ransacMode;
     int						_ransacIters;
     int						_ransacDistanceThres;
 
@@ -365,8 +363,8 @@ private:
     std::string				_inputFile;
 
     // Store panorama information
-    Panorama*			_panoramaInfo;
-    Panorama				_panoramaInfoCopy;
+    HuginBase::Panorama*			_panoramaInfo;
+    HuginBase::Panorama				_panoramaInfoCopy;
 
     /** search for image layer and image stacks for the multirow matching step */
     void buildMultiRowImageSets();
@@ -397,7 +395,7 @@ public:
         vigra::BImage		_distancemap;
 
         bool				_needsremap;
-        PanoramaOptions 	_projOpts;
+        HuginBase::PanoramaOptions 	_projOpts;
 
         bool 					_hasakeyfile;
         std::string _keyfilename;

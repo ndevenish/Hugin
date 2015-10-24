@@ -30,8 +30,6 @@
 
 namespace HuginBase {
 
-using namespace hugin_utils;
-
 CalculateImageOverlap::CalculateImageOverlap(const HuginBase::PanoramaData *pano):m_pano(pano)
 {
     m_nrImg=pano->getNrOfImages();

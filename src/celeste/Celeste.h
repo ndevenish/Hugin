@@ -33,8 +33,6 @@
 #include <vigra_ext/utils.h>
 #include <panodata/Panorama.h>
 
-using namespace std;
-
 namespace celeste
 {
 
@@ -43,7 +41,7 @@ namespace celeste
  *  @param model_file filename of model file to load
  *  @return true, if loading of SVM file was sucessfull
  */
-CELESTEIMPEX bool loadSVMmodel(struct svm_model*& model, string& model_file);
+CELESTEIMPEX bool loadSVMmodel(struct svm_model*& model, std::string& model_file);
 /** frees the resource of model
  *  @param model SVM model struct to freeing 
  */

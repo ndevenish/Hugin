@@ -34,13 +34,9 @@
 
 namespace HuginBase {
     
-    using namespace AppBase;
-    using namespace Nona;
-    
-    
     bool NonaFileOutputStitcher::runStitcher()
     {
-        stitchPanorama(o_panorama,
+        Nona::stitchPanorama(o_panorama,
                        o_panoramaOptions,
                        getProgressDisplay(),
                        o_filename,

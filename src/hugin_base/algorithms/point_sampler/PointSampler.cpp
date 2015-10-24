@@ -90,7 +90,7 @@ void PointSampler::sampleAndExtractPoints(AppBase::ProgressDisplay* progress)
     CalculateFitPanorama fitPano(pano);
     fitPano.run();
     opts.setHFOV(fitPano.getResultHorizontalFOV());
-    opts.setHeight(roundi(fitPano.getResultHeight()));
+    opts.setHeight(hugin_utils::roundi(fitPano.getResultHeight()));
     // set roi to maximal size, so that the whole panorama is used for sampling
     // a more reasonable solution would be to use the maximal
     // used area, but this is currently not support to

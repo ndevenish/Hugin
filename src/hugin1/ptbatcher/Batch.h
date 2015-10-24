@@ -40,8 +40,6 @@
 WX_DEFINE_ARRAY_PTR(RunStitchFrame*,FrameArray);
 #endif
 
-using namespace std;
-
 struct FailedProject
 {
     wxString project;

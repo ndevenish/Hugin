@@ -32,37 +32,33 @@
 #endif
 #include <panodata/Panorama.h>
 
-using namespace std;
-using namespace HuginBase;
-using namespace AppBase;
-
 struct MaskFiles
 {
     size_t imageNr;
-    string maskFile;
+    std::string maskFile;
 };
 
 static void usage(const char* name)
 {
-    cout << name << ": add mask to pto project" << endl
-         << name << " version " << hugin_utils::GetHuginVersion() << endl
-         << endl
-         << "Usage:  " << name << " [options] input.pto" << endl
-         << endl
-         << "  Options:" << endl
-         << "     -o, --output=file.pto  Output Hugin PTO file. Default: <filename>_mask.pto" << endl
-         << "     --mask=filename@imgNr  Read the mask from the file and" << endl
-         << "                            assign the mask to given image" << endl
-         << "     --rotate=CLOCKWISE|90|COUNTERCLOCKWISE|-90" << endl
-         << "                            Rotates the mask clock- or counterclockwise" << endl
-         << "     --process==CLIP|SCALE|PROP_SCALE   Specify how the mask should be modified" << endl
-         << "                            if the mask is create for an image with" << endl
-         << "                            different size." << endl
-         << "                            * CLIP: clipping (Default)" << endl
-         << "                            * SCALE: Scaling width and height individually" << endl
-         << "                            * PROP_SCALE: Proportional scale" << endl
-         << "     -h, --help             Shows this help" << endl
-         << endl;
+    std::cout << name << ": add mask to pto project" << std::endl
+         << name << " version " << hugin_utils::GetHuginVersion() << std::endl
+         << std::endl
+         << "Usage:  " << name << " [options] input.pto" << std::endl
+         << std::endl
+         << "  Options:" << std::endl
+         << "     -o, --output=file.pto  Output Hugin PTO file. Default: <filename>_mask.pto" << std::endl
+         << "     --mask=filename@imgNr  Read the mask from the file and" << std::endl
+         << "                            assign the mask to given image" << std::endl
+         << "     --rotate=CLOCKWISE|90|COUNTERCLOCKWISE|-90" << std::endl
+         << "                            Rotates the mask clock- or counterclockwise" << std::endl
+         << "     --process==CLIP|SCALE|PROP_SCALE   Specify how the mask should be modified" << std::endl
+         << "                            if the mask is create for an image with" << std::endl
+         << "                            different size." << std::endl
+         << "                            * CLIP: clipping (Default)" << std::endl
+         << "                            * SCALE: Scaling width and height individually" << std::endl
+         << "                            * PROP_SCALE: Proportional scale" << std::endl
+         << "     -h, --help             Shows this help" << std::endl
+         << std::endl;
 }
 
 int main(int argc, char* argv[])
@@ -90,7 +86,7 @@ int main(int argc, char* argv[])
     std::vector<MaskFiles> maskFiles;
     size_t rotate=0;
     size_t process=0;
-    string output;
+    std::string output;
     while ((c = getopt_long (argc, argv, optstring, longOptions,&optionIndex)) != -1)
     {
         switch (c)
@@ -105,23 +101,23 @@ int main(int argc, char* argv[])
                     MaskFiles mf;
                     if(found!=std::string::npos)
                     {
-                        string s2=s.substr(found+1, std::string::npos);
+                        std::string s2=s.substr(found+1, std::string::npos);
                         mf.imageNr=atoi(s2.c_str());
                         if(mf.imageNr==0 && s2!="0")
                         {
-                            cerr << "Error: Could not parse image number: \"" << s2 << "\"." << endl;
+                            std::cerr << "Error: Could not parse image number: \"" << s2 << "\"." << std::endl;
                             return 1;
                         };
                     }
                     else
                     {
-                        cerr << "Error: No image number found in \"" << s << "\"." << endl;
+                        std::cerr << "Error: No image number found in \"" << s << "\"." << std::endl;
                         return 1;
                     };
                     mf.maskFile=s.substr(0, found);
                     if(!hugin_utils::FileExists(mf.maskFile))
                     {
-                        cerr << "Error: File \"" << mf.maskFile << "\" does not exists." << endl;
+                        std::cerr << "Error: File \"" << mf.maskFile << "\" does not exists." << std::endl;
                         return 1;
                     };
                     maskFiles.push_back(mf);
@@ -129,7 +125,7 @@ int main(int argc, char* argv[])
                 break;
             case ROTATE_SWITCH:
                 {
-                    string s=optarg;
+                    std::string s=optarg;
                     s=hugin_utils::toupper(s);
                     if(s=="CLOCKWISE" || s=="90")
                     {
@@ -143,7 +139,7 @@ int main(int argc, char* argv[])
                         }
                         else
                         {
-                            cerr << "Error:  Unknown rotate command (" << optarg << ") found." << endl;
+                            std::cerr << "Error:  Unknown rotate command (" << optarg << ") found." << std::endl;
                             return 1;
                         };
                     };
@@ -151,7 +147,7 @@ int main(int argc, char* argv[])
                 break;
             case PROC_SWITCH:
                 {
-                    string s=optarg;
+                    std::string s=optarg;
                     s=hugin_utils::toupper(s);
                     if(s=="CLIP")
                     {
@@ -171,7 +167,7 @@ int main(int argc, char* argv[])
                             }
                             else
                             {
-                                cerr << "Error: Unknown process command (" << optarg << ") found." << endl;
+                                std::cerr << "Error: Unknown process command (" << optarg << ") found." << std::endl;
                                 return 1;
                             };
                         };
@@ -182,7 +178,7 @@ int main(int argc, char* argv[])
                 usage(hugin_utils::stripPath(argv[0]).c_str());
                 return 0;
             case ':':
-                cerr <<"Option " << longOptions[optionIndex].name << " requires a parameter" << endl;
+                std::cerr <<"Option " << longOptions[optionIndex].name << " requires a parameter" << std::endl;
                 return 1;
                 break;
             case '?':
@@ -194,42 +190,42 @@ int main(int argc, char* argv[])
 
     if (argc - optind == 0)
     {
-        cout << "Error: No project file given." << endl << endl;
+        std::cout << "Error: No project file given." << std::endl << std::endl;
         return 1;
     };
     if (argc - optind != 1)
     {
-        cout << "Error: pto_mask can only work on one project file at one time" << endl << endl;
+        std::cout << "Error: pto_mask can only work on one project file at one time" << std::endl << std::endl;
         return 1;
     };
 
     if(maskFiles.size()==0)
     {
-        cerr << "Error: No mask files given." << endl << endl;
+        std::cerr << "Error: No mask files given." << std::endl << std::endl;
         return 1;
     };
 
-    string input=argv[optind];
+    std::string input=argv[optind];
     // read panorama
-    Panorama pano;
-    ifstream prjfile(input.c_str());
+    HuginBase::Panorama pano;
+    std::ifstream prjfile(input.c_str());
     if (!prjfile.good())
     {
-        cerr << "Error: could not open script " << input << endl;
+        std::cerr << "Error: could not open script " << input << std::endl;
         return 1;
     }
     pano.setFilePrefix(hugin_utils::getPathPrefix(input));
-    DocumentData::ReadWriteError err = pano.readData(prjfile);
-    if (err != DocumentData::SUCCESSFUL)
+    AppBase::DocumentData::ReadWriteError err = pano.readData(prjfile);
+    if (err != AppBase::DocumentData::SUCCESSFUL)
     {
-        cerr << "Error while parsing panos tool script: " << input << endl;
-        cerr << "DocumentData::ReadWriteError code: " << err << endl;
+        std::cerr << "Error while parsing panos tool script: " << input << std::endl;
+        std::cerr << "AppBase::DocumentData::ReadWriteError code: " << err << std::endl;
         return 1;
     }
 
     if(pano.getNrOfImages()==0)
     {
-        cerr << "Error: project file does not contains any image" << endl;
+        std::cerr << "Error: project file does not contains any image" << std::endl;
         return 1;
     };
 
@@ -245,7 +241,7 @@ int main(int argc, char* argv[])
             in.close();
             if(maskImageSize.area()==0 || loadedMasks.size()==0)
             {
-                cerr << "Error: Could not parse mask from file \"" << maskFiles[i].maskFile << "\"." << endl;
+                std::cerr << "Error: Could not parse mask from file \"" << maskFiles[i].maskFile << "\"." << std::endl;
                 return 1;
             };
             double maskWidth;
@@ -274,14 +270,14 @@ int main(int argc, char* argv[])
                 {
                     case 0:
                         // clip mask
-                        cout << "Clipping mask" << endl;
+                        std::cout << "Clipping mask" << std::endl;
                         for(unsigned int i=0; i<loadedMasks.size(); i++)
                             loadedMasks[i].clipPolygon(vigra::Rect2D(-0.5*HuginBase::maskOffset, -0.5*HuginBase::maskOffset,
                                                        imageSize.width()+0.5*HuginBase::maskOffset, imageSize.height()+0.5*HuginBase::maskOffset));
                         break;
                     case 1:
                         // scale mask
-                        cout << "Scaling mask" << endl;
+                        std::cout << "Scaling mask" << std::endl;
                         for(unsigned int i=0; i<loadedMasks.size(); i++)
                         {
                             loadedMasks[i].scale((double)imageSize.width()/maskWidth,(double)imageSize.height()/maskHeight);
@@ -289,7 +285,7 @@ int main(int argc, char* argv[])
                         break;
                     case 2:
                         // proportional scale mask
-                        cout << "Propotional scale mask" << endl;
+                        std::cout << "Propotional scale mask" << std::endl;
                         {
                             double factor=std::min((double)imageSize.width()/maskWidth, (double)imageSize.height()/maskHeight);
                             for(unsigned int i=0; i<loadedMasks.size(); i++)
@@ -300,7 +296,7 @@ int main(int argc, char* argv[])
                         break;
                 };
             };
-            MaskPolygonVector masks=pano.getImage(maskFiles[i].imageNr).getMasks();
+            HuginBase::MaskPolygonVector masks = pano.getImage(maskFiles[i].imageNr).getMasks();
             for(size_t j=0; j<loadedMasks.size(); j++)
             {
                 masks.push_back(loadedMasks[j]);
@@ -309,23 +305,23 @@ int main(int argc, char* argv[])
         }
         else
         {
-            cout << "Warning: Invalid image number \"" << maskFiles[i].imageNr << "\"." << endl
-                 << "         Project contains only " << pano.getNrOfImages()+1 << " images." << endl
-                 << "         Ignoring this mask." << endl;
+            std::cout << "Warning: Invalid image number \"" << maskFiles[i].imageNr << "\"." << std::endl
+                 << "         Project contains only " << pano.getNrOfImages()+1 << " images." << std::endl
+                 << "         Ignoring this mask." << std::endl;
         };
     };
 
     //write output
-    UIntSet imgs;
+    HuginBase::UIntSet imgs;
     fill_set(imgs, 0, pano.getNrOfImages()-1);
     // Set output .pto filename if not given
     if (output=="")
     {
         output=input.substr(0,input.length()-4).append("_mask.pto");
     }
-    ofstream of(output.c_str());
+    std::ofstream of(output.c_str());
     pano.printPanoramaScript(of, pano.getOptimizeVector(), pano.getOptions(), imgs, false, hugin_utils::getPathPrefix(input));
 
-    cout << endl << "Written output to " << output << endl;
+    std::cout << std::endl << "Written output to " << output << std::endl;
     return 0;
 }

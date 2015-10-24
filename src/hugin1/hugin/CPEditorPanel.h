@@ -288,7 +288,7 @@ private:
 /** function for fine-tune with remapping to stereographic projection */
 vigra_ext::CorrelationResult PointFineTuneProjectionAware(const HuginBase::SrcPanoImage& templ, const vigra::UInt8RGBImage& templImg,
     vigra::Diff2D templPos, int templSize,
-    const SrcPanoImage& search, const vigra::UInt8RGBImage& searchImg,
+    const HuginBase::SrcPanoImage& search, const vigra::UInt8RGBImage& searchImg,
     vigra::Diff2D searchPos, int sWidth);
 
 /** xrc handler */

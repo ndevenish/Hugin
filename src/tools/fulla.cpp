@@ -47,18 +47,11 @@
 #include <tiffio.h>
 #include <vigra_ext/ImageTransforms.h>
 
-
-using namespace std;
-using namespace vigra;
-//using namespace vigra_ext;
-using namespace hugin_utils;
-using namespace HuginBase;
-
 template <class SrcImgType, class AlphaImgType, class FlatImgType, class DestImgType>
 void correctImage(SrcImgType& srcImg,
                   const AlphaImgType& srcAlpha,
                   const FlatImgType& srcFlat,
-                  SrcPanoImage src,
+                  HuginBase::SrcPanoImage src,
                   vigra_ext::Interpolator interpolator,
                   double maxValue,
                   DestImgType& destImg,
@@ -67,12 +60,12 @@ void correctImage(SrcImgType& srcImg,
                   AppBase::ProgressDisplay* progress);
 
 template <class PIXELTYPE>
-void correctRGB(SrcPanoImage& src, ImageImportInfo& info, const char* outfile,
+void correctRGB(HuginBase::SrcPanoImage& src, vigra::ImageImportInfo& info, const char* outfile,
                 bool crop, const std::string& compression, AppBase::ProgressDisplay* progress);
 
 static void usage(const char* name)
 {
-    cerr << name << ": correct lens distortion, vignetting and chromatic abberation" << std::endl
+    std::cerr << name << ": correct lens distortion, vignetting and chromatic abberation" << std::endl
          << "fulla version " << hugin_utils::GetHuginVersion() << endl
          << std::endl
          << "Usage: " << name  << " [options] inputfile(s) " << std::endl
@@ -156,7 +149,7 @@ int main(int argc, char* argv[])
     int optionIndex = 0;
     opterr = 0;
 
-    vector<double> vec4(4);
+    std::vector<double> vec4(4);
     bool doFlatfield = false;
     bool doVigRadial = false;
     bool doCropBorders = true;
@@ -178,7 +171,7 @@ int main(int argc, char* argv[])
     double shiftY = 0;
     std::string argument;
 
-    SrcPanoImage srcImg;
+    HuginBase::SrcPanoImage srcImg;
     while ((o = getopt_long(argc, argv, optstring, longOptions, &optionIndex)) != -1)
         switch (o)
         {
@@ -301,13 +294,13 @@ int main(int argc, char* argv[])
                     usage(hugin_utils::stripPath(argv[0]).c_str());
                     return 1;
                 }
-                srcImg.setRadialDistortionCenterShift(FDiff2D(shiftX, shiftY));
+                srcImg.setRadialDistortionCenterShift(hugin_utils::FDiff2D(shiftX, shiftY));
                 break;
             case 'v':
                 verbose++;
                 break;
             case LINEAR_RESPONSE:
-                srcImg.setResponseType(BaseSrcPanoImage::RESPONSE_LINEAR);
+                srcImg.setResponseType(HuginBase::BaseSrcPanoImage::RESPONSE_LINEAR);
                 break;
             default:
                 abort ();
@@ -320,18 +313,18 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-    SrcPanoImage::VignettingCorrMode vm=SrcPanoImage::VIGCORR_NONE;
+    HuginBase::SrcPanoImage::VignettingCorrMode vm = HuginBase::SrcPanoImage::VIGCORR_NONE;
 
     if (doVigRadial)
     {
-        vm = SrcPanoImage::VIGCORR_RADIAL;
+        vm = HuginBase::SrcPanoImage::VIGCORR_RADIAL;
     }
     if (doFlatfield)
     {
-        vm = SrcPanoImage::VIGCORR_FLATFIELD;
+        vm = HuginBase::SrcPanoImage::VIGCORR_FLATFIELD;
     }
 
-    vm = (SrcPanoImage::VignettingCorrMode) (vm | SrcPanoImage::VIGCORR_DIV);
+    vm = (HuginBase::SrcPanoImage::VignettingCorrMode) (vm | HuginBase::SrcPanoImage::VIGCORR_DIV);
     srcImg.setVigCorrMode(vm);
 
     unsigned nFiles = argc - optind;
@@ -343,21 +336,21 @@ int main(int argc, char* argv[])
     }
 
     // get input images.
-    vector<string> inFiles;
-    vector<string> outFiles;
+    std::vector<std::string> inFiles;
+    std::vector<std::string> outFiles;
     if (nFiles == 1)
     {
         if (outputFile.length() !=0)
         {
-            inFiles.push_back(string(argv[optind]));
+            inFiles.push_back(std::string(argv[optind]));
             outFiles.push_back(outputFile);
         }
         else
         {
-            string name = string(argv[optind]);
+            std::string name(argv[optind]);
             inFiles.push_back(name);
-            string basen = stripExtension(name);
-            outFiles.push_back(basen.append(batchPostfix.append(".").append(getExtension(name))));
+            std::string basen = hugin_utils::stripExtension(name);
+            outFiles.push_back(basen.append(batchPostfix.append(".").append(hugin_utils::getExtension(name))));
         }
     }
     else
@@ -371,15 +364,15 @@ int main(int argc, char* argv[])
         }
         for (int i = optind; i < argc; i++)
         {
-            string name = string(argv[i]);
+            std::string name(argv[i]);
             inFiles.push_back(name);
             if (withExtension)
             {
-                outFiles.push_back(stripExtension(name) + batchPostfix);
+                outFiles.push_back(hugin_utils::stripExtension(name) + batchPostfix);
             }
             else
             {
-                outFiles.push_back(stripExtension(name) + batchPostfix + "." + getExtension(name));
+                outFiles.push_back(hugin_utils::stripExtension(name) + batchPostfix + "." + hugin_utils::getExtension(name));
             };
         }
     }
@@ -403,7 +396,7 @@ int main(int argc, char* argv[])
     AppBase::ProgressDisplay* pdisp;
     if (verbose > 0)
     {
-        pdisp = new AppBase::StreamProgressDisplay(cout);
+        pdisp = new AppBase::StreamProgressDisplay(std::cout);
     }
     else
     {
@@ -413,14 +406,14 @@ int main(int argc, char* argv[])
     HuginBase::LensDB::LensDB& lensDB = HuginBase::LensDB::LensDB::GetSingleton();
     try
     {
-        vector<string>::iterator outIt = outFiles.begin();
-        for (vector<string>::iterator inIt = inFiles.begin(); inIt != inFiles.end() ; ++inIt, ++outIt)
+        std::vector<std::string>::iterator outIt = outFiles.begin();
+        for (std::vector<std::string>::iterator inIt = inFiles.begin(); inIt != inFiles.end() ; ++inIt, ++outIt)
         {
             if (verbose > 0)
             {
-                cerr << "Correcting " << *inIt << " -> " << *outIt << endl;
+                std::cerr << "Correcting " << *inIt << " -> " << *outIt << endl;
             }
-            SrcPanoImage currentImg(srcImg);
+            HuginBase::SrcPanoImage currentImg(srcImg);
             currentImg.setFilename(*inIt);
 
             // load the input image
@@ -534,27 +527,27 @@ int main(int argc, char* argv[])
                 // TODO: add more cases
                 if (strcmp(pixelType, "UINT8") == 0)
                 {
-                    correctRGB<RGBValue<UInt8> >(currentImg, info, outIt->c_str(), doCropBorders, compression, pdisp);
+                    correctRGB<vigra::RGBValue<vigra::UInt8> >(currentImg, info, outIt->c_str(), doCropBorders, compression, pdisp);
                 }
                 else if (strcmp(pixelType, "UINT16") == 0)
                 {
-                    correctRGB<RGBValue<UInt16> >(currentImg, info, outIt->c_str(), doCropBorders, compression, pdisp);
+                    correctRGB<vigra::RGBValue<vigra::UInt16> >(currentImg, info, outIt->c_str(), doCropBorders, compression, pdisp);
                 }
                 else if (strcmp(pixelType, "INT16") == 0)
                 {
-                    correctRGB<RGBValue<Int16> >(currentImg, info, outIt->c_str(), doCropBorders, compression, pdisp);
+                    correctRGB<vigra::RGBValue<vigra::Int16> >(currentImg, info, outIt->c_str(), doCropBorders, compression, pdisp);
                 }
                 else if (strcmp(pixelType, "UINT32") == 0)
                 {
-                    correctRGB<RGBValue<UInt32> >(currentImg, info, outIt->c_str(), doCropBorders, compression, pdisp);
+                    correctRGB<vigra::RGBValue<vigra::UInt32> >(currentImg, info, outIt->c_str(), doCropBorders, compression, pdisp);
                 }
                 else if (strcmp(pixelType, "FLOAT") == 0)
                 {
-                    correctRGB<RGBValue<float> >(currentImg, info, outIt->c_str(), doCropBorders, compression, pdisp);
+                    correctRGB<vigra::RGBValue<float> >(currentImg, info, outIt->c_str(), doCropBorders, compression, pdisp);
                 }
                 else if (strcmp(pixelType, "DOUBLE") == 0)
                 {
-                    correctRGB<RGBValue<double> >(currentImg, info, outIt->c_str(), doCropBorders, compression, pdisp);
+                    correctRGB<vigra::RGBValue<double> >(currentImg, info, outIt->c_str(), doCropBorders, compression, pdisp);
                 }
             }
             else
@@ -569,7 +562,7 @@ int main(int argc, char* argv[])
     }
     catch (std::exception& e)
     {
-        cerr << "caught exception: " << e.what() << std::endl;
+        std::cerr << "caught exception: " << e.what() << std::endl;
         delete pdisp;
         HuginBase::LensDB::LensDB::Clean();
         return 1;
@@ -600,7 +593,7 @@ template <class SrcImgType, class AlphaImgType, class FlatImgType, class DestImg
 void correctImage(SrcImgType& srcImg,
                   const AlphaImgType& srcAlpha,
                   const FlatImgType& srcFlat,
-                  SrcPanoImage src,
+                  HuginBase::SrcPanoImage src,
                   vigra_ext::Interpolator interpolator,
                   double maxValue,
                   DestImgType& destImg,
@@ -614,14 +607,14 @@ void correctImage(SrcImgType& srcImg,
     // prepare some information required by multiple types of vignetting correction
     progress->setMessage("correcting image");
 
-    vigra::Diff2D shiftXY(- roundi(src.getRadialDistortionCenterShift().x),
-                          - roundi(src.getRadialDistortionCenterShift().y));
+    vigra::Diff2D shiftXY(- hugin_utils::roundi(src.getRadialDistortionCenterShift().x),
+                          - hugin_utils::roundi(src.getRadialDistortionCenterShift().y));
 
-    if( (src.getVigCorrMode() & SrcPanoImage::VIGCORR_FLATFIELD)
-            || (src.getVigCorrMode() & SrcPanoImage::VIGCORR_RADIAL) )
+    if ((src.getVigCorrMode() & HuginBase::SrcPanoImage::VIGCORR_FLATFIELD)
+        || (src.getVigCorrMode() & HuginBase::SrcPanoImage::VIGCORR_RADIAL))
     {
-        Photometric::InvResponseTransform<SrcPixelType,SrcPixelType> invResp(src);
-        if (src.getResponseType() == BaseSrcPanoImage::RESPONSE_EMOR)
+        HuginBase::Photometric::InvResponseTransform<SrcPixelType, SrcPixelType> invResp(src);
+        if (src.getResponseType() == HuginBase::BaseSrcPanoImage::RESPONSE_EMOR)
         {
             std::vector<double> outLut;
             vigra_ext::EMoR::createEMoRLUT(src.getEMoRParams(), outLut);
@@ -635,23 +628,23 @@ void correctImage(SrcImgType& srcImg,
         };
 
         invResp.enforceMonotonicity();
-        if (src.getVigCorrMode() & SrcPanoImage::VIGCORR_FLATFIELD)
+        if (src.getVigCorrMode() & HuginBase::SrcPanoImage::VIGCORR_FLATFIELD)
         {
             invResp.setFlatfield(&srcFlat);
         }
         NullTransform transform;
         // dummy alpha channel
-        BImage alpha(destImg.size());
+        vigra::BImage alpha(destImg.size());
         vigra_ext::transformImage(srcImageRange(srcImg), destImageRange(srcImg), destImage(alpha), vigra::Diff2D(0, 0), transform, invResp, false, vigra_ext::INTERP_SPLINE_16, progress);
     }
 
     // radial distortion correction
     if (doCrop)
     {
-        double scaleFactor=Nona::estScaleFactorForFullFrame(src);
+        double scaleFactor = HuginBase::Nona::estScaleFactorForFullFrame(src);
         DEBUG_DEBUG("Black border correction scale factor: " << scaleFactor);
         double sf=scaleFactor;
-        vector<double> radGreen = src.getRadialDistortion();
+        std::vector<double> radGreen = src.getRadialDistortion();
         for (int i=0; i < 4; i++)
         {
             radGreen[3-i] *=sf;
@@ -671,20 +664,20 @@ void correctImage(SrcImgType& srcImg,
                 << "b: " << radBlue[0] << " " << radBlue[1] << " " << radBlue[2] << " " << radBlue[3] << endl);
         */
         // remap individual channels
-        Nona::SpaceTransform transfr;
+        HuginBase::Nona::SpaceTransform transfr;
         transfr.InitRadialCorrect(src, 0);
         AlphaImgType redAlpha(destAlpha.size());
         if (transfr.isIdentity())
         {
-            vigra::copyImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), RedAccessor<SrcPixelType>()),
-                             destIter(destImg.upperLeft(), RedAccessor<DestPixelType>()));
+            vigra::copyImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), vigra::RedAccessor<SrcPixelType>()),
+                             destIter(destImg.upperLeft(), vigra::RedAccessor<DestPixelType>()));
             vigra::copyImage(srcImageRange(srcAlpha), destImage(redAlpha));
         }
         else
         {
-            vigra_ext::transformImageAlpha(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), RedAccessor<SrcPixelType>()),
+            vigra_ext::transformImageAlpha(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), vigra::RedAccessor<SrcPixelType>()),
                                       srcImage(srcAlpha),
-                                      destIterRange(destImg.upperLeft(), destImg.lowerRight(), RedAccessor<DestPixelType>()),
+                                      destIterRange(destImg.upperLeft(), destImg.lowerRight(), vigra::RedAccessor<DestPixelType>()),
                                       destImage(redAlpha),
                                       shiftXY,
                                       transfr,
@@ -694,20 +687,20 @@ void correctImage(SrcImgType& srcImg,
                                       progress);
         }
 
-        Nona::SpaceTransform transfg;
+        HuginBase::Nona::SpaceTransform transfg;
         transfg.InitRadialCorrect(src, 1);
         AlphaImgType greenAlpha(destAlpha.size());
         if (transfg.isIdentity())
         {
-            vigra::copyImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), GreenAccessor<SrcPixelType>()),
-                             destIter(destImg.upperLeft(), GreenAccessor<DestPixelType>()));
+            vigra::copyImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), vigra::GreenAccessor<SrcPixelType>()),
+                             destIter(destImg.upperLeft(), vigra::GreenAccessor<DestPixelType>()));
             vigra::copyImage(srcImageRange(srcAlpha), destImage(greenAlpha));
         }
         else
         {
-            transformImageAlpha(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), GreenAccessor<SrcPixelType>()),
+            transformImageAlpha(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), vigra::GreenAccessor<SrcPixelType>()),
                            srcImage(srcAlpha),
-                           destIterRange(destImg.upperLeft(), destImg.lowerRight(), GreenAccessor<DestPixelType>()),
+                           destIterRange(destImg.upperLeft(), destImg.lowerRight(), vigra::GreenAccessor<DestPixelType>()),
                            destImage(greenAlpha),
                            shiftXY,
                            transfg,
@@ -717,21 +710,21 @@ void correctImage(SrcImgType& srcImg,
                            progress);
         }
 
-        Nona::SpaceTransform transfb;
+        HuginBase::Nona::SpaceTransform transfb;
         transfb.InitRadialCorrect(src, 2);
         AlphaImgType blueAlpha(destAlpha.size());
         if (transfb.isIdentity())
         {
-            vigra::copyImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), BlueAccessor<SrcPixelType>()),
-                             destIter(destImg.upperLeft(), BlueAccessor<DestPixelType>()));
+            vigra::copyImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), vigra::BlueAccessor<SrcPixelType>()),
+                             destIter(destImg.upperLeft(), vigra::BlueAccessor<DestPixelType>()));
             vigra::copyImage(srcImageRange(srcAlpha), destImage(blueAlpha));
 
         }
         else
         {
-            transformImageAlpha(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), BlueAccessor<SrcPixelType>()),
+            transformImageAlpha(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), vigra::BlueAccessor<SrcPixelType>()),
                            srcImage(srcAlpha),
-                           destIterRange(destImg.upperLeft(), destImg.lowerRight(), BlueAccessor<DestPixelType>()),
+                           destIterRange(destImg.upperLeft(), destImg.lowerRight(), vigra::BlueAccessor<DestPixelType>()),
                            destImage(blueAlpha),
                            shiftXY,
                            transfb,
@@ -746,9 +739,9 @@ void correctImage(SrcImgType& srcImg,
     else
     {
         // remap with the same coefficient.
-        Nona::SpaceTransform transf;
+        HuginBase::Nona::SpaceTransform transf;
         transf.InitRadialCorrect(src, 1);
-        vector <double> radCoeff = src.getRadialDistortion();
+        std::vector <double> radCoeff = src.getRadialDistortion();
         if (transf.isIdentity() ||
                 (radCoeff[0] == 0.0 && radCoeff[1] == 0.0 && radCoeff[2] == 0.0 && radCoeff[3] == 1.0))
         {
@@ -775,31 +768,31 @@ void correctImage(SrcImgType& srcImg,
 
 //void correctRGB(SrcImageInfo & src, ImageImportInfo & info, const char * outfile)
 template <class PIXELTYPE>
-void correctRGB(SrcPanoImage& src, ImageImportInfo& info, const char* outfile,
+void correctRGB(HuginBase::SrcPanoImage& src, vigra::ImageImportInfo& info, const char* outfile,
                 bool crop, const std::string& compression, AppBase::ProgressDisplay* progress)
 {
-    vigra::BasicImage<RGBValue<double> > srcImg(info.size());
+    vigra::BasicImage<vigra::RGBValue<double> > srcImg(info.size());
     vigra::BasicImage<PIXELTYPE> output(info.size());
     vigra::BImage alpha(info.size(), 255);
     vigra::BImage outputAlpha(output.size());
     if (info.numBands() == 3)
     {
-        importImage(info, destImage(srcImg));
+        vigra::importImage(info, destImage(srcImg));
     }
     else
     {
         importImageAlpha(info, destImage(srcImg), destImage(alpha));
     };
-    FImage flatfield;
-    if (src.getVigCorrMode() & SrcPanoImage::VIGCORR_FLATFIELD)
+    vigra::FImage flatfield;
+    if (src.getVigCorrMode() & HuginBase::SrcPanoImage::VIGCORR_FLATFIELD)
     {
-        ImageImportInfo finfo(src.getFlatfieldFilename().c_str());
+        vigra::ImageImportInfo finfo(src.getFlatfieldFilename().c_str());
         flatfield.resize(finfo.size());
-        importImage(finfo, destImage(flatfield));
+        vigra::importImage(finfo, destImage(flatfield));
     }
     correctImage(srcImg, alpha, flatfield, src, vigra_ext::INTERP_SPLINE_16, vigra_ext::getMaxValForPixelType(info.getPixelType()),
         output, outputAlpha, crop, progress);
-    ImageExportInfo outInfo(outfile);
+    vigra::ImageExportInfo outInfo(outfile);
     outInfo.setICCProfile(info.getICCProfile());
     outInfo.setPixelType(info.getPixelType());
     if (compression.size() > 0)
@@ -811,7 +804,7 @@ void correctRGB(SrcPanoImage& src, ImageImportInfo& info, const char* outfile,
     {
         // image format supports alpha channel
         std::cout << "Saving " << outInfo.getFileName() << std::endl;
-        exportImageAlpha(srcImageRange(output), srcImage(outputAlpha), outInfo);
+        vigra::exportImageAlpha(srcImageRange(output), srcImage(outputAlpha), outInfo);
     }
     else
     {

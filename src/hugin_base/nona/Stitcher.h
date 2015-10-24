@@ -972,8 +972,6 @@ public:
                     std::pair<AlphaIter, AlphaAccessor> alpha,
                     const vigra::Rect2D & panoROI)
     {
-        using namespace vigra_ext;
-    
         DEBUG_DEBUG("pano roi: " << panoROI << " img roi: " << img.boundingBox());
 	    typedef typename AlphaIter::value_type AlphaValue;
 
@@ -986,13 +984,13 @@ public:
         // blend only the intersection (which is inside the pano..)
         vigra::Rect2D overlap = fullPano & img.boundingBox();
 
-        vigra::copyImageIf(applyRect(overlap, vigra_ext::srcImageRange(img)),
-                           applyRect(overlap, vigra_ext::srcMask(img)),
-                           applyRect(overlap, std::make_pair(pano.first, pano.third)));
+        vigra::copyImageIf(vigra_ext::applyRect(overlap, vigra_ext::srcImageRange(img)),
+                           vigra_ext::applyRect(overlap, vigra_ext::srcMask(img)),
+                           vigra_ext::applyRect(overlap, std::make_pair(pano.first, pano.third)));
         // copy mask
-        vigra::copyImageIf(applyRect(overlap, srcMaskRange(img)),
-                           applyRect(overlap, srcMask(img)),
-                           applyRect(overlap, alpha));
+        vigra::copyImageIf(vigra_ext::applyRect(overlap, srcMaskRange(img)),
+                           vigra_ext::applyRect(overlap, srcMask(img)),
+                           vigra_ext::applyRect(overlap, alpha));
     }
 };
 
@@ -1004,11 +1002,6 @@ static void stitchPanoIntern(const PanoramaData & pano,
                              UIntSet imgs,
                              const AdvancedOptions& advOptions)
 {
-    using namespace vigra_ext;
-    
-    //    typedef
-    //        vigra::NumericTraits<typename OutputImageType::Accessor::value_type> DestTraits;
-
     FileRemapper<ImageType, AlphaType> m;
     // determine stitching output
     switch (opts.outputFormat) {
@@ -1019,7 +1012,7 @@ static void stitchPanoIntern(const PanoramaData & pano,
         case PanoramaOptions::EXR:
         {
             if (opts.outputMode == PanoramaOptions::OUTPUT_HDR) {
-                ReduceToHDRFunctor<typename ImageType::value_type> hdrmerge;
+                vigra_ext::ReduceToHDRFunctor<typename ImageType::value_type> hdrmerge;
                 ReduceStitcher<ImageType, AlphaType> stitcher(pano, progress);
                 stitcher.stitch(opts, imgs, basename, m, hdrmerge);
             } else {

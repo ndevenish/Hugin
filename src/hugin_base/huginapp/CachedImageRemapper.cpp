@@ -33,10 +33,6 @@
 
 namespace HuginBase {
 
-using namespace vigra;
-
-
-
 SmallRemappedImageCache::~SmallRemappedImageCache()
 {
     invalidate();
@@ -73,7 +69,7 @@ SmallRemappedImageCache::getRemapped(const PanoramaData& pano,
 
     ImageCache::getInstance().softFlush();
 
-    typedef  BasicImageView<RGBValue<unsigned char> > BRGBImageView;
+    typedef  vigra::BasicImageView<vigra::RGBValue<unsigned char> > BRGBImageView;
 
 //    typedef NumericTraits<PixelType>::RealPromote RPixelType;
 
@@ -87,7 +83,7 @@ SmallRemappedImageCache::getRemapped(const PanoramaData& pano,
     if ( (e->image8->width() == 0) && (e->image16->width() == 0) && (e->imageFloat->width() == 0) ) {
         throw std::runtime_error("could not retrieve small source image for preview generation");
     }
-    Size2D srcImgSize;
+    vigra::Size2D srcImgSize;
     if (e->image8->width() > 0)
         srcImgSize = e->image8->size();
     else if (e->image16->width() > 0)
@@ -101,9 +97,9 @@ SmallRemappedImageCache::getRemapped(const PanoramaData& pano,
     // adjust distortion parameters for small preview image
     srcPanoImg.resize(srcImgSize);
 
-    FImage srcFlat;
+    vigra::FImage srcFlat;
     // use complete image, by supplying an empty mask image
-    BImage srcMask;
+    vigra::BImage srcMask;
 
     if (img.getVigCorrMode() & SrcPanoImage::VIGCORR_FLATFIELD) {
         ImageCache::EntryPtr e = ImageCache::getInstance().getSmallImage(img.getFlatfieldFilename().c_str());
@@ -112,19 +108,19 @@ SmallRemappedImageCache::getRemapped(const PanoramaData& pano,
         }
         if (e->image8->width()) {
             srcFlat.resize(e->image8->size());
-            copyImage(srcImageRange(*(e->image8),
-                                    RGBToGrayAccessor<RGBValue<UInt8> >()),
-                      destImage(srcFlat));
+            vigra::copyImage(srcImageRange(*(e->image8),
+                vigra::RGBToGrayAccessor<vigra::RGBValue<vigra::UInt8> >()),
+                vigra::destImage(srcFlat));
         } else if (e->image16->width()) {
             srcFlat.resize(e->image16->size());
-            copyImage(srcImageRange(*(e->image16),
-                                           RGBToGrayAccessor<RGBValue<vigra::UInt16> >()),
-                             destImage(srcFlat));
+            vigra::copyImage(srcImageRange(*(e->image16),
+                vigra::RGBToGrayAccessor<vigra::RGBValue<vigra::UInt16> >()),
+                vigra::destImage(srcFlat));
         } else {
             srcFlat.resize(e->imageFloat->size());
-            copyImage(srcImageRange(*(e->imageFloat),
-                                    RGBToGrayAccessor<RGBValue<float> >()),
-                      destImage(srcFlat));
+            vigra::copyImage(srcImageRange(*(e->imageFloat),
+                vigra::RGBToGrayAccessor<vigra::RGBValue<float> >()),
+                vigra::destImage(srcFlat));
         }
     }
     progress->setMessage("remapping");

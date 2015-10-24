@@ -26,12 +26,6 @@
 
 #include "SpaceTransform.h"
 
-
-using namespace std;
-using namespace vigra;
-using namespace hugin_utils;
-
-
 namespace HuginBase {
 namespace Nona {
         
@@ -967,7 +961,7 @@ double estScaleFactorForFullFrame(const SrcPanoImage & src)
 }
 
 
-double estRadialScaleCrop(const vector<double> &coeff, int width, int height)
+double estRadialScaleCrop(const std::vector<double> &coeff, int width, int height)
 {
     double r_test[4];
     double p, r;
@@ -1049,11 +1043,11 @@ double estRadialScaleCrop(const vector<double> &coeff, int width, int height)
 
 
 /** Create a transform stack for radial distortion correction only */
-void SpaceTransform::InitRadialCorrect(const Size2D & sz, const vector<double> & radDist, 
-                                 const FDiff2D & centerShift)
+void SpaceTransform::InitRadialCorrect(const vigra::Size2D & sz, const std::vector<double> & radDist, 
+                                 const hugin_utils::FDiff2D & centerShift)
 {
     double mprad[6];
-
+    
 //    double  imwidth = src.getSize().x;
 //    double  imheight= src.getSize().y;
 
@@ -1203,7 +1197,7 @@ void SpaceTransform::InitRadialCorrect(const SrcPanoImage & src, int channel)
   */
 void SpaceTransform::Init(
     const SrcPanoImage & image,
-    const Diff2D &destSize,
+    const vigra::Diff2D &destSize,
     PanoramaOptions::ProjectionFormat destProj,
     double destHFOV )
 {
@@ -1414,7 +1408,7 @@ void SpaceTransform::Init(
 
 void SpaceTransform::InitInv(
     const SrcPanoImage & image,
-    const Diff2D &destSize,
+    const vigra::Diff2D &destSize,
     PanoramaOptions::ProjectionFormat destProj,
     double destHFOV )
 {
@@ -1696,10 +1690,10 @@ void SpaceTransform::createInvTransform(const vigra::Diff2D & srcSize,
 
 
 //
-bool SpaceTransform::transform(FDiff2D& dest, const FDiff2D & src) const
+bool SpaceTransform::transform(hugin_utils::FDiff2D& dest, const hugin_utils::FDiff2D & src) const
 {
 	double xd = src.x, yd = src.y;
-	vector<fDescription>::const_iterator tI;
+	std::vector<fDescription>::const_iterator tI;
 	
     dest.x = xd;
     dest.y = yd;
@@ -1715,7 +1709,7 @@ bool SpaceTransform::transform(FDiff2D& dest, const FDiff2D & src) const
 //
 bool SpaceTransform::transformImgCoord(double & x_dest, double & y_dest, double x_src, double y_src) const
 {
-	FDiff2D dest, src;
+    hugin_utils::FDiff2D dest, src;
 	src.x = x_src - m_srcTX + 0.5;
 	src.y = y_src - m_srcTY + 0.5;
 	transform( dest, src );

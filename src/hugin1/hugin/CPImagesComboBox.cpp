@@ -99,7 +99,7 @@ void CPImagesComboBox::OnKeyDown(wxKeyEvent & e)
 
 void CPImagesComboBox::SelectNext(int step)
 {
-    int index=min<int>(GetSelection()+step,GetCount()-1);
+    int index=std::min<int>(GetSelection()+step,GetCount()-1);
     if(index!=GetSelection())
     {
         Select(index);
@@ -110,7 +110,7 @@ void CPImagesComboBox::SelectNext(int step)
 
 void CPImagesComboBox::SelectPrev(int step)
 {
-    int index=max<int>(GetSelection()-step,0);
+    int index=std::max<int>(GetSelection()-step,0);
     if(index!=GetSelection())
     {
         Select(index);
@@ -192,9 +192,9 @@ void CPImagesComboBox::OnDrawItem(wxDC& dc,
     if(CPConnection[item]>-1.0)
     {
         wxCoord x;
-        x=rect.width / 5 *(1-min<double>(CPConnection[item],10)/10);
+        x=rect.width / 5 *(1-std::min<double>(CPConnection[item],10)/10);
         //ensure that always a bar is drawn
-        x=max<wxCoord>(5,x);
+        x=std::max<wxCoord>(5,x);
         const wxPen * oldPen = & dc.GetPen();
         const wxBrush * oldBrush= & dc.GetBrush();
         //inner rectangle with color proportional to max cp error (max. 10)
@@ -261,7 +261,7 @@ void CPImagesComboBox::OnDrawItem(wxDC& dc,
     };
 };
 
-void CPImagesComboBox::CalcCPDistance(Panorama * pano)
+void CPImagesComboBox::CalcCPDistance(HuginBase::Panorama * pano)
 {
     CPConnection.clear();
     CPCount.clear();
@@ -274,12 +274,12 @@ void CPImagesComboBox::CalcCPDistance(Panorama * pano)
         const HuginBase::ControlPoint & cp = pano->getCtrlPoint(ptIdx);
         if(cp.image1Nr==refImage)
         {
-            CPConnection[cp.image2Nr]=max<double>(cp.error,CPConnection[cp.image2Nr]);
+            CPConnection[cp.image2Nr]=std::max<double>(cp.error,CPConnection[cp.image2Nr]);
             CPCount[cp.image2Nr]++;
         }
         else if(cp.image2Nr==refImage)
         {
-            CPConnection[cp.image1Nr]=max<double>(cp.error,CPConnection[cp.image1Nr]);
+            CPConnection[cp.image1Nr]=std::max<double>(cp.error,CPConnection[cp.image1Nr]);
             CPCount[cp.image1Nr]++;
         };
     }
