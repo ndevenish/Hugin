@@ -134,9 +134,10 @@ find num control points in each section (default: 5 [5x5 grid])
 
 Try to load distortion information from lens database
 
-=item B<--threads=NUM>
+=item B<--use-given-order>
 
-Use NUM threads
+Use the image order as given on the command line.
+(By default images will be sorted by exposure values.)
 
 =item B<--gpu> 
 
@@ -154,5 +155,5 @@ Display help summary.
 Written by Pablo d'Angelo. Also contains contributions from Douglas Wilkins, Ippei Ukai, Ed Halley, Bruno Postle, Gerry Patterson and Brent Townshend.  Stereo functionality added by Vladimir Nadvornik.
 
 This man page was written by Cyril Brulebois
-<cyril.brulebois@enst-bretagne.fr> and is licensed under the same
+<cyril.brulebois@enst-bretagne.fr>, updated by Terry Duell, and is licensed under the same
 terms as the hugin package itself.
