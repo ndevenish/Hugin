@@ -518,6 +518,10 @@ bool huginApp::OnInit()
 int huginApp::OnExit()
 {
     DEBUG_TRACE("");
+#ifdef __WXMSW__    
+    delete wxHelpProvider::Set(NULL);
+#endif
+
     return wxApp::OnExit();
 }
 
