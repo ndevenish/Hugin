@@ -1202,13 +1202,12 @@ void MainFrame::DisplayHelp(wxString section)
     {
         // wxWidgets 3.x has a bug, that prevents DisplaySection to work on Win8/10 64 bit
         // see: http://trac.wxwidgets.org/ticket/14888
-        // workaround: using DisplayContents() which works also on these systems
-        // but Help, Keyboard shortcuts and FAQ is still crashing
+        // so using DisplayContents() and our own implementation of HuginCHMHelpController
         GetHelpController().DisplayContents();
     }
     else
     {
-        GetHelpController().DisplaySection(section);
+        GetHelpController().DisplayHelpPage(section);
     };
 #else
     if (section.IsEmpty())
@@ -2207,5 +2206,20 @@ wxString MainFrame::GetCurrentOptimizerString()
 {
     return images_panel->GetCurrentOptimizerString();
 };
+
+#ifdef __WXMSW__
+// workaround for wxWidgets bug 14888
+// see: http://trac.wxwidgets.org/ticket/14888
+// if this is fixed upstreams this workaround can be removed
+void HuginCHMHelpController::DisplayHelpPage(const wxString& name)
+{
+    // instead of passing filename as dwData to HH_DISPLAY_TOPIC
+    // we pass chmFilename::filename to pszfile 
+    wxString command(GetValidFilename());
+    command.Append(wxT("::"));
+    command.Append(name);
+    CallHtmlHelp(GetParentWindow(), command.t_str(), 0 /* =HH_DISPLAY_TOPIC */);
+};
+#endif
 
 MainFrame * MainFrame::m_this = 0;

@@ -56,6 +56,17 @@ class PreviewFrame;
 class GLPreviewFrame;
 class CPListFrame;
 
+#ifdef __WXMSW__
+// workaround for wxWidgets bug 14888
+// see: http://trac.wxwidgets.org/ticket/14888
+// which results in crashes when calling help on Win 8/10 64 bit
+// implement a slightly different version for our needs
+class HuginCHMHelpController :public wxCHMHelpController
+{
+public:
+    void DisplayHelpPage(const wxString& name);
+};
+#endif
 
 /** simple class that forward the drop to the mainframe */
 class PanoDropTarget : public wxFileDropTarget
@@ -165,7 +176,7 @@ public:
     
     GLPreviewFrame * getGLPreview();
 #ifdef __WXMSW__
-    wxCHMHelpController& GetHelpController() { return m_msHtmlHelp; }
+    HuginCHMHelpController& GetHelpController() { return m_msHtmlHelp; }
 #endif
     void SetGuiLevel(GuiLevel newLevel);
     const GuiLevel GetGuiLevel() const { return m_guiLevel; };
@@ -266,7 +277,7 @@ private:
     wxMenu* m_menu_file_advanced;
 
 #ifdef __WXMSW__
-    wxCHMHelpController     m_msHtmlHelp;
+    HuginCHMHelpController     m_msHtmlHelp;
 #endif
 
 #ifdef HUGIN_HSI
