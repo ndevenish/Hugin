@@ -34,26 +34,17 @@ FIND_PATH(TIFF_INCLUDE_DIR tiff.h
 
 include(FindLibraryWithDebug)
 
-IF(WIN32 AND ${HUGIN_SHARED} AND MSVC)
-# on windows the libtiff library contains a static lib libtiff
-# and the import library libtiff_i for dynamic build
-  find_library(TIFF_LIBRARIES
-    NAMES libtiff_i tiff
-    PATHS ${SYSTEM_LIB_DIRS}
-          ${SOURCE_BASE_DIR}/libtiff/lib
-          ${SOURCE_BASE_DIR}/tiff-4.0.6/libtiff
-          ${SOURCE_BASE_DIR}/tiff-4.0.5/libtiff
-          ${SOURCE_BASE_DIR}/tiff-4.0.4/libtiff
-          ${SOURCE_BASE_DIR}/tiff-4.0.3/libtiff
-          ${SOURCE_BASE_DIR}/tiff-4.0.1/libtiff
-          ${SOURCE_BASE_DIR}/tiff-4.0.0beta7/libtiff
-          ${SOURCE_BASE_DIR}/tiff-4.0.0beta6/libtiff
-          ${SOURCE_BASE_DIR}/tiff-4.0.0beta5/libtiff
-  )
+IF(WIN32 AND ("${HUGIN_SHARED}" OR "${BUILD_DLL}") AND MSVC)
+  # on windows the libtiff library contains a static lib libtiff
+  # and the import library libtiff_i for dynamic build
+  set(_LIBTIFF_LIB_NAME libtiff_i tiff)
 ELSE()
-  find_library_with_debug(TIFF_LIBRARIES
+  set(_LIBTIFF_LIB_NAME tiff libtiff wxtiff)
+ENDIF()
+
+find_library_with_debug(TIFF_LIBRARIES
     WIN32_DEBUG_POSTFIX d
-    NAMES tiff libtiff wxtiff
+    NAMES ${_LIBTIFF_LIB_NAME}
     PATHS ${SYSTEM_LIB_DIRS}
           ${SOURCE_BASE_DIR}/libtiff/lib
           ${SOURCE_BASE_DIR}/tiff-4.0.6/libtiff
@@ -67,9 +58,7 @@ ELSE()
           ${SOURCE_BASE_DIR}/tiff-3.8.2/libtiff
           ${SOURCE_BASE_DIR}/tiff-4.0.0alpha/libtiff
           ${wxWidgets_LIB_DIR}
-  )
-ENDIF()
-
+)
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(TIFF DEFAULT_MSG 
