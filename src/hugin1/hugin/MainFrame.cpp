@@ -2119,7 +2119,7 @@ void MainFrame::RunAssistant(wxWindow* mainWin)
             ShowCtrlPointEditor( i1, i2);
             // display message box with 
             wxMessageBox(wxString::Format(_("Warning %d unconnected image groups found:"), n) + Components2Str(comps) + wxT("\n")
-                + _("Please create control points between unconnected images using the Control Points tab.\n\nAfter adding the points, press the \"Align\" button again"),_("Error"), wxOK , mainWin);
+                + _("Please create control points between unconnected images using the Control Points tab in the panorama editor.\n\nAfter adding the points, press the \"Align\" button again"),_("Error"), wxOK , mainWin);
             return;
         };
         wxMessageBox(_("The assistant did not complete successfully. Please check the resulting project file."),
