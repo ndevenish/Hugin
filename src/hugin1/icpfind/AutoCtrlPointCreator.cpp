@@ -28,7 +28,7 @@
 #include "panoinc.h"
 
 #include <fstream>
-#ifdef __GNUC__
+#if defined (__GNUC__) && !defined (__FreeBSD__)
 #include <ext/stdio_filebuf.h>
 #endif
 
