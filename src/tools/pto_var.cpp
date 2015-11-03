@@ -325,33 +325,33 @@ static void usage(const char* name)
          << "                            (without pto_var will start with an" << std::endl
          << "                             empty variables set)" << std::endl
          << "                            Examples:" << std::endl
-         << "           --opt y,p,r        Optimize yaw, pitch and roll of all images" << std::endl
+         << "           --opt=y,p,r        Optimize yaw, pitch and roll of all images" << std::endl
          << "                              (special treatment for anchor image applies)" << std::endl
-         << "           --opt v0,b2        Optimize hfov of image 0 and barrel distortion" << std::endl
+         << "           --opt=v0,b2        Optimize hfov of image 0 and barrel distortion" << std::endl
          << "                              of image 2" << std::endl
-         << "           --opt v,!v0        Optimize field of view for all images except" << std::endl
+         << "           --opt=v,!v0        Optimize field of view for all images except" << std::endl
          << "                              for the first image" << std::endl
-         << "           --opt !a,!b,!c     Don't optimise distortion (works only with" << std::endl
+         << "           --opt=!a,!b,!c     Don't optimise distortion (works only with" << std::endl
          << "                              switch --modify-opt together)" << std::endl
          << std::endl
          << "     --link varlist         Link given variables" << std::endl
          << "                            Example:" << std::endl
-         << "           --link v3          Link hfov of image 3" << std::endl
-         << "           --link a1,b1,c1    Link distortions parameter for image 1" << std::endl
+         << "           --link=v3          Link hfov of image 3" << std::endl
+         << "           --link=a1,b1,c1    Link distortions parameter for image 1" << std::endl
          << std::endl
          << "     --unlink varlist       Unlink given variables" << std::endl
          << "                            Examples:" << std::endl
-         << "           --unlink v5        Unlink hfov for image 5" << std::endl
-         << "           --unlink a2,b2,c2  Unlink distortions parameters for image 2" << std::endl
+         << "           --unlink=v5        Unlink hfov for image 5" << std::endl
+         << "           --unlink=a2,b2,c2  Unlink distortions parameters for image 2" << std::endl
          << std::endl
          << "     --set varlist          Sets variables to new values" << std::endl
          << "                            Examples:" << std::endl
-         << "           --set y0=0,r0=0,p0=0  Resets position of image 0" << std::endl
-         << "           --set Vx4=-10,Vy4=10  Sets vignetting offset for image 4" << std::endl
-         << "           --set v=20            Sets the field of view to 20 for all images" << std::endl
-         << "           --set y=val+20        Increase yaw by 20 deg for all images" << std::endl
-         << "           --set v=val*1.1       Increase fov by 10 % for all images" << std::endl
-         << "           --set y=i*20          Set yaw to 0, 20, 40, ..." << std::endl
+         << "           --set=y0=0,r0=0,p0=0  Resets position of image 0" << std::endl
+         << "           --set=Vx4=-10,Vy4=10  Sets vignetting offset for image 4" << std::endl
+         << "           --set=v=20            Sets the field of view to 20 for all images" << std::endl
+         << "           --set=y=val+20        Increase yaw by 20 deg for all images" << std::endl
+         << "           --set=v=val*1.1       Increase fov by 10 % for all images" << std::endl
+         << "           --set=y=i*20          Set yaw to 0, 20, 40, ..." << std::endl
          << "     --set-from-file filename  Sets variables to new values" << std::endl
          << "                               It reads the varlist from a file" << std::endl
          << std::endl;
