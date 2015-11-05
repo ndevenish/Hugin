@@ -1,6 +1,6 @@
 =head1 NAME
 
-pto_var - change image variables inside Hugin .pto project files
+pto_var: change image variables inside Hugin .pto project files
 
 =head1 SYNOPSIS
 
@@ -12,9 +12,13 @@ B<pto_var> is a command line tool, suitable for inclusion in shell scripts, and 
 Optimisation variables can be set, altered, linked and unlinked,  
 The following image variables are allowed:
 
-  position: y, p, r, TrX, TrY, TrZ
-  lens parameters: v, a, b, c, d, e, g, t
-  photometric parameters: EeV, Er, Eb, Vb, Vc, Vd, Vx, Vy, Ra, Rb, Rc, Rd, Re (Vignetting and response parameter will treated as group.)
+=over
+
+position: y, p, r, TrX, TrY, TrZ
+lens parameters: v, a, b, c, d, e, g, t
+photometric parameters: EeV, Er, Eb, Vb, Vc, Vd, Vx, Vy, Ra, Rb, Rc, Rd, Re (Vignetting and response parameter will treated as group.)
+
+=back
 
 The image numbers start with zero.
 If the number is missing this applies to the variables of all images (In this case a special treatment applies to the position of the anchor image).
@@ -43,37 +47,37 @@ Shows help
    (without pto_var will start with an 
     empty variables set)
    Examples:
-   --opt y,p,r           Optimize yaw, pitch and roll of all images
+   --opt=y,p,r           Optimize yaw, pitch and roll of all images
                          (special treatment for anchor image applies)
-   --opt v0,b2           Optimize hfov of image 0 and barrel distortion
+   --opt=v0,b2           Optimize hfov of image 0 and barrel distortion
                          of image 2
-   --opt v,!v0           Optimize field of view for all images except
+   --opt=v,!v0           Optimize field of view for all images except
                          for the first image
-   --modify-opt --opt !v will not optimize field of view.
-   --opt !a,!b,!c        Don't optimise distortion (works only with
+   --modify-opt --opt=!v will not optimize field of view.
+   --opt=!a,!b,!c        Don't optimise distortion (works only with
                          switch --modify-opt together)
 
 =item B<--link varlist>
 
    Example:
-   --link v3          Link hfov of image 3
-   --link a1,b1,c1    Link distortions parameter for image 1
+   --link=v3          Link hfov of image 3
+   --link=a1,b1,c1    Link distortions parameter for image 1
 
 =item B<--unlink varlist>
 
    Examples:
-   --unlink v5        Unlink hfov for image 5
-   --unlink a2,b2,c2  Unlink distortions parameters for image 2
+   --unlink=v5        Unlink hfov for image 5
+   --unlink=a2,b2,c2  Unlink distortions parameters for image 2
 
 =item B<--set varlist>
 
    Examples:
-   --set y0=0,r0=0,p0=0  Resets position of image 0
-   --set Vx4=-10,Vy4=10  Sets vignetting offset for image 4
-   --set v=20            Sets the field of view to 20 for all images
-   --set y=val+20        Increase yaw by 20 deg for all images
-   --set v=val*1.1       Increase fov by 10 % for all images
-   --set y=i*20          Set yaw to 0, 20, 40, ...
+   --set=y0=0,r0=0,p0=0  Resets position of image 0
+   --set=Vx4=-10,Vy4=10  Sets vignetting offset for image 4
+   --set=v=20            Sets the field of view to 20 for all images
+   --set=y=val+20        Increase yaw by 20 deg for all images
+   --set=v=val*1.1       Increase fov by 10 % for all images
+   --set=y=i*20        Set yaw to 0, 20, 40, ...
 
 
 =item B<--set-from-file filename>
