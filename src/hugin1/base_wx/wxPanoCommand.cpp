@@ -347,7 +347,12 @@ bool wxAddImagesCmd::processPanorama(HuginBase::Panorama& pano)
         if(ok)
         {
             ok = srcImg.applyEXIFValues();
-            srcImg.readProjectionFromDB();
+            if (srcImg.getProjection() != HuginBase::BaseSrcPanoImage::EQUIRECTANGULAR)
+            {
+                // if projection is equirectangular, we loaded info from gpano tags
+                // in this case we don't need to look up the database
+                srcImg.readProjectionFromDB();
+            };
         };
         // save EXIF data for later to prevent double loading of EXIF data
         srcImgExif=srcImg;
