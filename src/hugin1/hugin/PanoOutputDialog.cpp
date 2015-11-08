@@ -172,7 +172,7 @@ void PanoOutputDialog::EnableOutputOptions()
         GetSizer()->Fit(this);
     };
     //single image or normal panorama, enable only normal output
-    if(m_pano.getNrOfImages()==1 || m_stacks.size() >= 0.8 * m_pano.getNrOfImages())
+    if(m_pano.getNrOfImages()==1 || m_stacks.size() >= 0.7 * m_pano.getNrOfImages())
     {
         XRCCTRL(*this, "output_normal", wxCheckBox)->SetValue(true);
         XRCCTRL(*this, "output_normal", wxCheckBox)->Enable(true);
@@ -200,6 +200,8 @@ void PanoOutputDialog::EnableOutputOptions()
         if(m_exposureLayers.size()==1)
         {
             XRCCTRL(*this, "output_normal", wxCheckBox)->SetValue(true);
+            XRCCTRL(*this, "output_normal", wxCheckBox)->Enable(true);
+            XRCCTRL(*this, "output_normal_bitmap", wxStaticBitmap)->Enable(true);
         }
         else
         {
