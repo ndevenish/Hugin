@@ -938,7 +938,17 @@ void PanoPanel::DoCalcOptimalWidth(wxCommandEvent & e)
     if (pano->getActiveImages().size() == 0) return;
 
     HuginBase::PanoramaOptions opt = pano->getOptions();
-    unsigned width = hugin_utils::roundi(HuginBase::CalculateOptimalScale::calcOptimalScale(*pano) * opt.getWidth());
+    double sizeFactor = 1.0;
+#if wxCHECK_VERSION(2,9,4)
+    if (wxGetKeyState(WXK_COMMAND))
+#else
+    if (wxGetKeyState(WXK_CONTROL))
+#endif
+    {
+        wxConfigBase::Get()->Read(wxT("/Assistant/panoDownsizeFactor"), &sizeFactor, HUGIN_ASS_PANO_DOWNSIZE_FACTOR);
+    };
+
+    unsigned width = hugin_utils::roundi(HuginBase::CalculateOptimalScale::calcOptimalScale(*pano) * opt.getWidth() * sizeFactor);
 
     if (width > 0) {
         opt.setWidth( width );
