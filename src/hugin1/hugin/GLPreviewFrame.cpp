@@ -538,7 +538,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, HuginBase::Panorama &pano)
                                 wxSL_VERTICAL | wxSL_AUTOTICKS,
                                 wxDefaultValidator,
                                 _("VFOV"));
-    m_VFOVSlider->SetLineSize(2);
+    m_VFOVSlider->SetLineSize(1);
     m_VFOVSlider->SetPageSize(10);
 #if wxCHECK_VERSION(3,0,0)
     m_VFOVSlider->SetTickFreq(5);
@@ -556,7 +556,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, HuginBase::Panorama &pano)
                                 wxDefaultValidator,
                                 _("HFOV"));
     m_HFOVSlider->SetPageSize(10);
-    m_HFOVSlider->SetLineSize(2);
+    m_HFOVSlider->SetLineSize(1);
 #if wxCHECK_VERSION(3,0,0)
     m_HFOVSlider->SetTickFreq(5);
 #else
