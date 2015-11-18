@@ -357,7 +357,7 @@ bool PanoPanel::StackCheck(HuginBase::Panorama &pano)
 
 void PanoPanel::UpdateDisplay(const HuginBase::PanoramaOptions & opt, const bool hasStacks)
 {
-
+    Freeze();
 //    m_HFOVSpin->SetRange(1,opt.getMaxHFOV());
 //    m_VFOVSpin->SetRange(1,opt.getMaxVFOV());
 
@@ -578,11 +578,11 @@ void PanoPanel::UpdateDisplay(const HuginBase::PanoramaOptions & opt, const bool
 
     m_pano_ctrls->FitInside();
     Layout();
+    Thaw();
 
 #ifdef __WXMSW__
     this->Refresh(false);
 #endif
-
 }
 
 void PanoPanel::ProjectionChanged ( wxCommandEvent & e )
