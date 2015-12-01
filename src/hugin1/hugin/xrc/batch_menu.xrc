@@ -41,6 +41,12 @@
         <help>Clears the batch list</help>
       </object>
       <object class="separator"/>
+      <object class="wxMenuItem" name="menu_tray">
+        <label>&amp;Minimize to tray</label>
+        <checkable>1</checkable>
+        <enabled>0</enabled>
+      </object>
+      <object class="separator"/>
       <object class="wxMenuItem" name="menu_exit">
         <label>&amp;Quit</label>
         <help>Exit program</help>

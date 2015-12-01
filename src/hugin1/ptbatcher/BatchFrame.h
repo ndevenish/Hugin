@@ -72,6 +72,7 @@ public:
     void OnButtonCancel(wxCommandEvent& event);
     void OnButtonChangePrefix(wxCommandEvent& event);
     void OnButtonClear(wxCommandEvent& event);
+    void OnMinimizeTrayMenu(wxCommandEvent& e);
     void OnButtonHelp(wxCommandEvent& event);
     void OnButtonMoveDown(wxCommandEvent& event);
     void OnButtonMoveUp(wxCommandEvent& event);
@@ -194,6 +195,8 @@ private:
     void OnBatchInformation(wxCommandEvent& e);
     /** called if the project box needs to be updated, because projects were added or deleted */
     void OnRefillListBox(wxCommandEvent& e);
+    /** create or destroy the tray icon */
+    void CreateTrayIcon(const bool haveTrayIcon);
 
     DECLARE_EVENT_TABLE()
 };

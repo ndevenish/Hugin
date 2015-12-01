@@ -100,6 +100,7 @@ BEGIN_EVENT_TABLE(BatchFrame, wxFrame)
     EVT_MENU(XRCID("menu_open"),BatchFrame::OnButtonOpenBatch)
     EVT_MENU(XRCID("menu_save"),BatchFrame::OnButtonSaveBatch)
     EVT_MENU(XRCID("menu_clear"),BatchFrame::OnButtonClear)
+    EVT_MENU(XRCID("menu_tray"), BatchFrame::OnMinimizeTrayMenu)
     EVT_MENU(XRCID("menu_exit"),BatchFrame::OnUserExit)
     EVT_MENU(XRCID("menu_help"),BatchFrame::OnButtonHelp)
     EVT_BUTTON(XRCID("button_addcommand"),BatchFrame::OnButtonAddCommand)
@@ -165,33 +166,6 @@ BatchFrame::BatchFrame(wxLocale* locale, wxString xrc)
 #endif
     SetIcon(m_iconNormal);
 
-#if defined __WXMSW__
-    //show tray icon only on windows
-    //because not all window manager on *nix provide a usable tray area
-#if wxCHECK_VERSION(2,9,0)
-    if(wxTaskBarIcon::IsAvailable())
-    {
-        m_tray=new BatchTaskBarIcon();
-        m_tray->SetIcon(m_iconNormal, _("Hugin's Batch processor"));
-    }
-    else
-    {
-        m_tray=NULL;
-    };
-#else
-    m_tray=new BatchTaskBarIcon();
-    if(m_tray->IsOk())
-    {
-        m_tray->SetIcon(m_iconNormal,_("Hugin's Batch processor"));
-    }
-    else
-    {
-        m_tray=NULL;
-    };
-#endif
-#else
-    m_tray=NULL;
-#endif
     m_batch = new Batch(this);
 #if wxCHECK_VERSION(2,9,4)
     if(wxGetKeyState(WXK_COMMAND))
@@ -262,6 +236,27 @@ BatchFrame::BatchFrame(wxLocale* locale, wxString xrc)
     //TO-DO: include a batch or project progress gauge?
     projListBox->Fill(m_batch);
     SetDropTarget(new BatchDropTarget());
+
+    m_tray = NULL;
+#if wxCHECK_VERSION(3,0,0)
+    if (wxTaskBarIcon::IsAvailable())
+    {
+        // minimize to tray is by default disabled
+        // activate only if task bar icon is available
+        GetMenuBar()->Enable(XRCID("menu_tray"), true);
+        bool minTray;
+#if defined __WXMSW__
+        // tray icon by default activated on Windows,
+        // disabled on *nix
+        wxConfigBase::Get()->Read(wxT("/BatchFrame/minimizeTray"), &minTray, true);
+#else
+        wxConfigBase::Get()->Read(wxT("/BatchFrame/minimizeTray"), &minTray, false);
+#endif
+        GetMenuBar()->Check(XRCID("menu_tray"), minTray);
+        CreateTrayIcon(minTray);
+    }
+#endif
+
     UpdateTaskBarProgressBar();
 }
 
@@ -1414,3 +1409,48 @@ void BatchFrame::OnRefillListBox(wxCommandEvent& event)
         };
     };
 };
+
+void BatchFrame::OnMinimizeTrayMenu(wxCommandEvent& event)
+{
+    GetMenuBar()->Check(XRCID("menu_tray"), event.IsChecked());
+    CreateTrayIcon(event.IsChecked());
+    wxConfigBase::Get()->Write(wxT("/BatchFrame/minimizeTray"), event.IsChecked());
+}
+
+void BatchFrame::CreateTrayIcon(const bool haveTrayIcon)
+{
+    if (haveTrayIcon)
+    {
+        // create tray icon only if it not exists
+        if (m_tray)
+        {
+            delete m_tray;
+            m_tray = NULL;
+        }
+        m_tray = new BatchTaskBarIcon();
+        if (m_batch->IsRunning())
+        {
+            m_tray->SetIcon(m_iconRunning, _("Processing Hugin's batch queue"));
+        }
+        else
+        {
+            if (m_batch->IsPaused())
+            {
+                m_tray->SetIcon(m_iconPaused, _("Pausing processing Hugin's batch queue"));
+            }
+            else
+            {
+                m_tray->SetIcon(m_iconNormal, _("Hugin's Batch processor"));
+            }
+        }
+    }
+    else
+    {
+        // destroy tray icon
+        if (m_tray)
+        {
+            delete m_tray;
+            m_tray = NULL;
+        }
+    }
+}
