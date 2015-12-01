@@ -177,6 +177,9 @@ private:
 #endif
     BatchTaskBarIcon* m_tray;
     ProgressStatusBar* m_progStatusBar;
+    wxIcon m_iconNormal;
+    wxIcon m_iconRunning;
+    wxIcon m_iconPaused;
     bool m_startedMinimized;
 
     void OnProcessTerminate(wxProcessEvent& event);

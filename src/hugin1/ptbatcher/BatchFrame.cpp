@@ -155,11 +155,15 @@ BatchFrame::BatchFrame(wxLocale* locale, wxString xrc)
 
     // set the minimize icon
 #ifdef __WXMSW__
-    wxIcon myIcon(m_xrcPrefix + wxT("data/ptbatcher.ico"),wxBITMAP_TYPE_ICO);
+    m_iconNormal = wxIcon(m_xrcPrefix + wxT("data/ptbatcher.ico"), wxBITMAP_TYPE_ICO);
+    m_iconRunning = wxIcon(m_xrcPrefix + wxT("data/ptbatcher_running.ico"), wxBITMAP_TYPE_ICO);
+    m_iconPaused = wxIcon(m_xrcPrefix + wxT("data/ptbatcher_pause.ico"), wxBITMAP_TYPE_ICO);
 #else
-    wxIcon myIcon(m_xrcPrefix + wxT("data/ptbatcher.png"),wxBITMAP_TYPE_PNG);
+    m_iconNormal = wxIcon(m_xrcPrefix + wxT("data/ptbatcher.png"), wxBITMAP_TYPE_PNG);
+    m_iconRunning = wxIcon(m_xrcPrefix + wxT("data/ptbatcher_running.png"), wxBITMAP_TYPE_PNG);
+    m_iconPaused = wxIcon(m_xrcPrefix + wxT("data/ptbatcher_pause.png"), wxBITMAP_TYPE_PNG);
 #endif
-    SetIcon(myIcon);
+    SetIcon(m_iconNormal);
 
 #if defined __WXMSW__
     //show tray icon only on windows
@@ -168,7 +172,7 @@ BatchFrame::BatchFrame(wxLocale* locale, wxString xrc)
     if(wxTaskBarIcon::IsAvailable())
     {
         m_tray=new BatchTaskBarIcon();
-        m_tray->SetIcon(myIcon,_("Hugin's Batch processor"));
+        m_tray->SetIcon(m_iconNormal, _("Hugin's Batch processor"));
     }
     else
     {
@@ -178,7 +182,7 @@ BatchFrame::BatchFrame(wxLocale* locale, wxString xrc)
     m_tray=new BatchTaskBarIcon();
     if(m_tray->IsOk())
     {
-        m_tray->SetIcon(myIcon,_("Hugin's Batch processor"));
+        m_tray->SetIcon(m_iconNormal,_("Hugin's Batch processor"));
     }
     else
     {
@@ -530,6 +534,10 @@ void BatchFrame::OnButtonCancel(wxCommandEvent& event)
     m_cancelled = true;
     m_batch->CancelBatch();
     SetStatusInformation(_("Batch stopped"),true);
+    if (m_tray)
+    {
+        m_tray->SetIcon(m_iconNormal, _("Hugin's Batch processor"));
+    };
 }
 
 void BatchFrame::OnButtonChangePrefix(wxCommandEvent& event)
@@ -757,12 +765,20 @@ void BatchFrame::OnButtonPause(wxCommandEvent& event)
             m_batch->PauseBatch();
             GetToolBar()->ToggleTool(XRCID("tool_pause"),true);
             SetStatusInformation(_("Batch paused"),true);
+            if (m_tray)
+            {
+                m_tray->SetIcon(m_iconPaused, _("Pausing processing Hugin's batch queue"));
+            };
         }
         else
         {
             m_batch->PauseBatch();
             GetToolBar()->ToggleTool(XRCID("tool_pause"),false);
             SetStatusInformation(_("Continuing batch..."),true);
+            if (m_tray)
+            {
+                m_tray->SetIcon(m_iconRunning, _("Processing Hugin's batch queue"));
+            };
         }
     }
     else //if no projects are running, we deactivate the button
@@ -1191,6 +1207,10 @@ void BatchFrame::RunBatch()
     if(!IsRunning())
     {
         SetStatusInformation(_("Starting batch"),true);
+        if (m_tray)
+        {
+            m_tray->SetIcon(m_iconRunning, _("Processing Hugin's batch queue"));
+        };
     }
     m_batch->RunBatch();
 }
@@ -1224,6 +1244,10 @@ void BatchFrame::OnProcessTerminate(wxProcessEvent& event)
     if(m_batch->GetRunningCount()==1)
     {
         GetToolBar()->ToggleTool(XRCID("tool_pause"),false);
+        if (m_tray)
+        {
+            m_tray->SetIcon(m_iconNormal, _("Hugin's Batch processor"));
+        };
     }
     event.Skip();
 }
@@ -1256,7 +1280,11 @@ void BatchFrame::OnBatchFailed(wxCommandEvent& event)
 {
     if(m_batch->GetFailedProjectsCount()>0)
     {
-        FailedProjectsDialog failedProjects_dlg(this,m_batch,m_xrcPrefix);
+        if (m_tray)
+        {
+            m_tray->SetIcon(m_iconNormal, _("Hugin's Batch processor"));
+        };
+        FailedProjectsDialog failedProjects_dlg(this, m_batch, m_xrcPrefix);
         failedProjects_dlg.ShowModal();
     };
 };
@@ -1264,6 +1292,11 @@ void BatchFrame::OnBatchFailed(wxCommandEvent& event)
 void BatchFrame::OnBatchInformation(wxCommandEvent& e)
 {
     SetStatusInformation(e.GetString(),true);
+    if (m_tray && e.GetInt() == 1)
+    {
+        // batch finished, reset icon in task bar
+        m_tray->SetIcon(m_iconNormal, _("Hugin's Batch processor"));
+    };
 };
 
 void BatchFrame::SetStatusInformation(wxString status,bool showBalloon)

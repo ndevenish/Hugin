@@ -529,6 +529,8 @@ void Batch::OnProcessTerminate(wxProcessEvent& event)
                 {
                     wxCommandEvent e(EVT_INFORMATION,wxID_ANY);
                     e.SetString(_("Batch successfully completed."));
+                    // setting int to 1 to indicate we are finished
+                    e.SetInt(1);
                     GetParent()->GetEventHandler()->AddPendingEvent(e);
                 }
                 else
