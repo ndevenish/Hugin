@@ -245,15 +245,10 @@ BatchFrame::BatchFrame(wxLocale* locale, wxString xrc)
         // activate only if task bar icon is available
         GetMenuBar()->Enable(XRCID("menu_tray"), true);
         bool minTray;
-#if defined __WXMSW__
-        // tray icon by default activated on Windows,
-        // disabled on *nix
-        wxConfigBase::Get()->Read(wxT("/BatchFrame/minimizeTray"), &minTray, true);
-#else
+        // tray icon is disabled by default 
         wxConfigBase::Get()->Read(wxT("/BatchFrame/minimizeTray"), &minTray, false);
-#endif
         GetMenuBar()->Check(XRCID("menu_tray"), minTray);
-        CreateTrayIcon(minTray);
+        UpdateTrayIcon(minTray);
     }
 #endif
 
@@ -1412,14 +1407,13 @@ void BatchFrame::OnRefillListBox(wxCommandEvent& event)
 
 void BatchFrame::OnMinimizeTrayMenu(wxCommandEvent& event)
 {
-    GetMenuBar()->Check(XRCID("menu_tray"), event.IsChecked());
-    CreateTrayIcon(event.IsChecked());
+    UpdateTrayIcon(event.IsChecked());
     wxConfigBase::Get()->Write(wxT("/BatchFrame/minimizeTray"), event.IsChecked());
 }
 
-void BatchFrame::CreateTrayIcon(const bool haveTrayIcon)
+void BatchFrame::UpdateTrayIcon(const bool createTrayIcon)
 {
-    if (haveTrayIcon)
+    if (createTrayIcon)
     {
         // create tray icon only if it not exists
         if (m_tray)

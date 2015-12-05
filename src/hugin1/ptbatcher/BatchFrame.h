@@ -196,7 +196,7 @@ private:
     /** called if the project box needs to be updated, because projects were added or deleted */
     void OnRefillListBox(wxCommandEvent& e);
     /** create or destroy the tray icon */
-    void CreateTrayIcon(const bool haveTrayIcon);
+    void UpdateTrayIcon(const bool createTrayIcon);
 
     DECLARE_EVENT_TABLE()
 };
