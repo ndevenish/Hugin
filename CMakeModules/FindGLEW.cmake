@@ -5,18 +5,21 @@
 
 IF(WIN32)
   FIND_PATH(GLEW_INCLUDE_DIR GL/glew.h PATHS ${SOURCE_BASE_DIR}/glew/include)
+  include(FindLibraryWithDebug)
   # for dynamic build, it's glew32.lib and the dll must be copied into hugin's bin folder
   IF(${HUGIN_SHARED})
-  FIND_LIBRARY(GLEW_LIBRARIES 
-    NAMES glew32.lib libglew32.dll.a
-    PATHS
-      ${SOURCE_BASE_DIR}/glew/lib
-  )
+    find_library_with_debug(GLEW_LIBRARIES 
+      WIN32_DEBUG_POSTFIX d
+	  NAMES glew32 libglew32.dll
+	  PATHS
+	    ${SOURCE_BASE_DIR}/glew/lib
+	)
   ELSE(${HUGIN_SHARED})
-  FIND_LIBRARY(GLEW_LIBRARIES 
-    NAMES glew32s.lib libglew32.a
-    PATHS
-      ${SOURCE_BASE_DIR}/glew/lib
+    find_library_with_debug(GLEW_LIBRARIES 
+      WIN32_DEBUG_POSTFIX d
+      NAMES glew32s libglew32
+      PATHS
+        ${SOURCE_BASE_DIR}/glew/lib
   )
   ENDIF(${HUGIN_SHARED})
 ELSE(WIN32)

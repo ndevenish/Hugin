@@ -141,7 +141,7 @@ else (EXIV2_INCLUDE_DIR AND EXIV2_LIBRARIES)
        # since exiv 0.19, xmpsdk needs explicit linked in static build
        find_library_with_debug(XMP_LIBRARIES
           WIN32_DEBUG_POSTFIX d
-          NAMES xmpsdk
+          NAMES xmpsdk xmp
           PATHS 
                 ${SOURCE_BASE_DIR}/exiv2/lib
                 ${SOURCE_BASE_DIR}/exiv2/msvc2012/lib
