@@ -104,7 +104,7 @@ WXIMPEX bool str2double(const wxString& s, double & d);
   // which results in crashes when calling help on Win 8/10 64 bit
   // implement a slightly different version for our needs
 #include "wx/msw/helpchm.h"
-class HuginCHMHelpController :public wxCHMHelpController
+class WXIMPEX HuginCHMHelpController :public wxCHMHelpController
 {
 public:
     void DisplayHelpPage(const wxString& name);
