@@ -34,6 +34,7 @@
 #include "wx/docview.h"
 #ifdef __WXMSW__
 #include "wx/msw/helpchm.h"
+#include "base_wx/wxPlatform.h"
 #endif
 
 #include <appbase/ProgressDisplay.h>
@@ -55,18 +56,6 @@ class PanoPanel;
 class PreviewFrame;
 class GLPreviewFrame;
 class CPListFrame;
-
-#ifdef __WXMSW__
-// workaround for wxWidgets bug 14888
-// see: http://trac.wxwidgets.org/ticket/14888
-// which results in crashes when calling help on Win 8/10 64 bit
-// implement a slightly different version for our needs
-class HuginCHMHelpController :public wxCHMHelpController
-{
-public:
-    void DisplayHelpPage(const wxString& name);
-};
-#endif
 
 /** simple class that forward the drop to the mainframe */
 class PanoDropTarget : public wxFileDropTarget

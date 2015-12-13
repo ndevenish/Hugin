@@ -627,7 +627,7 @@ void BatchFrame::OnButtonHelp(wxCommandEvent& event)
 {
     DEBUG_TRACE("");
 #ifdef __WXMSW__
-    GetHelpController().DisplaySection(wxT("Hugin_Batch_Processor.html"));
+    GetHelpController().DisplayHelpPage(wxT("Hugin_Batch_Processor.html"));
 #else
     if (m_help == 0)
     {

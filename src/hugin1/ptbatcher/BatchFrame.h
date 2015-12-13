@@ -33,6 +33,7 @@
 #include "DirTraverser.h"
 #ifdef __WXMSW__
 #include "wx/msw/helpchm.h"
+#include "base_wx/wxPlatform.h"
 #endif
 #include "BatchTrayIcon.h"
 //#include <wx/app.h>
@@ -152,7 +153,7 @@ public:
 
 #ifdef __WXMSW__
     /** return help controller for open help */
-    wxCHMHelpController& GetHelpController()
+    HuginCHMHelpController& GetHelpController()
     {
         return m_msHtmlHelp;
     }
@@ -172,7 +173,7 @@ private:
     //TO-DO: include a batch or project progress gauge? Test initialization commented out in constructor
     //wxGauge* m_gauge;
 #ifdef __WXMSW__
-    wxCHMHelpController m_msHtmlHelp;
+    HuginCHMHelpController m_msHtmlHelp;
 #else
     wxHtmlHelpController* m_help;
 #endif

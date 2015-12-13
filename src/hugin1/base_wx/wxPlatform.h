@@ -98,4 +98,17 @@ WXIMPEX bool str2double(const wxString& s, double & d);
 
 } // namespace
 
+#ifdef __WXMSW__
+  // workaround for wxWidgets bug 14888
+  // see: http://trac.wxwidgets.org/ticket/14888
+  // which results in crashes when calling help on Win 8/10 64 bit
+  // implement a slightly different version for our needs
+#include "wx/msw/helpchm.h"
+class HuginCHMHelpController :public wxCHMHelpController
+{
+public:
+    void DisplayHelpPage(const wxString& name);
+};
+#endif
+
 #endif // HUGIN_WXPLATFORM_H
