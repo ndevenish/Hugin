@@ -4,40 +4,40 @@
     <object class="wxMenu" name="file_menu">
       <label>&amp;File</label>
       <object class="wxMenuItem" name="menu_add">
-        <label>Add project to stitching queue...</label>
+        <label>Add project to stitching &amp;queue...</label>
         <help>Adds a project to the stitching queue</help>
       </object>
       <object class="wxMenuItem" name="menu_add_assistant">
-        <label>Add project to assistant queue...</label>
+        <label>Add project to &amp;assistant queue...</label>
         <help>Adds a project to the assistant queue</help>
       </object>
       <object class="wxMenuItem" name="menu_remove">
-        <label>Remove project</label>
+        <label>&amp;Remove project</label>
         <help>Removes selected project from the batch list</help>
       </object>
       <object class="wxMenu" name="search_dir_menu">
-        <label>Search directory for...</label>
         <object class="wxMenuItem" name="menu_adddir">
-          <label>Project files</label>
+          <label>&amp;Project files...</label>
           <help>Appends all project files from a directory and subdirectories</help>
         </object>
         <object class="wxMenuItem" name="menu_searchpano">
-          <label>Images</label>
+          <label>&amp;Images...</label>
           <help>Searches in directories for image files suitable for panoramas</help>
         </object>
+        <label>Search &amp;directory for...</label>
         <help>Searches in directories for existing projects or for images</help>
       </object>
       <object class="separator"/>
       <object class="wxMenuItem" name="menu_open">
-        <label>Open batch</label>
+        <label>&amp;Open batch</label>
         <help>Opens a batch file with a list of projects</help>
       </object>
       <object class="wxMenuItem" name="menu_save">
-        <label>Save batch</label>
+        <label>&amp;Save batch</label>
         <help>Saves a batch file with a list of projects</help>
       </object>
       <object class="wxMenuItem" name="menu_clear">
-        <label>Clear batch</label>
+        <label>&amp;Clear batch</label>
         <help>Clears the batch list</help>
       </object>
       <object class="separator"/>
