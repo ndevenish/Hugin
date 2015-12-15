@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2015-12-13 11:58+0100\n"
-"PO-Revision-Date: 2015-11-18 08:06+0000\n"
+"POT-Creation-Date: 2015-12-15 16:28+0100\n"
+"PO-Revision-Date: 2015-12-15 15:42+0000\n"
 "Last-Translator: Kornel Benko <kornel@lyx.org>\n"
 "Language-Team: Slovak <kornel@lyx.org>\n"
+"Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sk\n"
 "X-Generator: Lokalize 1.5\n"
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
 "X-Poedit-Language: Slovak\n"
@@ -4181,7 +4181,7 @@ msgstr "Dávková úloha pozastavená"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:760 hugin1/ptbatcher/BatchFrame.cpp:1433
 msgid "Pausing processing Hugin's batch queue"
-msgstr ""
+msgstr "Prerušenie spracovania dávkového frontu Hugina"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:767
 msgid "Continuing batch..."
@@ -4190,7 +4190,7 @@ msgstr "Dávková úloha pokračuje..."
 #: hugin1/ptbatcher/BatchFrame.cpp:770 hugin1/ptbatcher/BatchFrame.cpp:1202
 #: hugin1/ptbatcher/BatchFrame.cpp:1427
 msgid "Processing Hugin's batch queue"
-msgstr ""
+msgstr "Spracovanie dávkového frontu Hugina"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:785
 msgid ""
@@ -5070,16 +5070,14 @@ msgid "Status report"
 msgstr "Hlásenie o stave"
 
 #: hugin1/hugin/xrc/batch_menu.xrc:7
-#, fuzzy
 msgid "Add project to stitching &queue..."
-msgstr "Pridáva projekt do zoznamu frontu na lepenie..."
+msgstr "Pridáva projekt do frontu na lepenie..."
 
 #: hugin1/hugin/xrc/batch_menu.xrc:8
 msgid "Adds a project to the stitching queue"
 msgstr "Pridáva projekt do frontu na lepenie"
 
 #: hugin1/hugin/xrc/batch_menu.xrc:11
-#, fuzzy
 msgid "Add project to &assistant queue..."
 msgstr "Pridáva projekt do frontu asistenta..."
 
@@ -5088,7 +5086,6 @@ msgid "Adds a project to the assistant queue"
 msgstr "Pridať projekt do frontu asistenta"
 
 #: hugin1/hugin/xrc/batch_menu.xrc:15
-#, fuzzy
 msgid "&Remove project"
 msgstr "Odstrániť projekt"
 
@@ -5097,25 +5094,22 @@ msgid "Removes selected project from the batch list"
 msgstr "Odstrániť vybraný projekt zo zoznamu dávkovej úlohy"
 
 #: hugin1/hugin/xrc/batch_menu.xrc:20
-#, fuzzy
 msgid "&Project files..."
-msgstr "Súbory s projektom"
+msgstr "Súbory projektu..."
 
 #: hugin1/hugin/xrc/batch_menu.xrc:21 hugin1/hugin/xrc/batch_toolbar.xrc:67
 msgid "Appends all project files from a directory and subdirectories"
 msgstr "Pridá všetky súbory projektu z adresára a pod-adresárov"
 
 #: hugin1/hugin/xrc/batch_menu.xrc:24
-#, fuzzy
 msgid "&Images..."
-msgstr "Obrázky"
+msgstr "Obrázky..."
 
 #: hugin1/hugin/xrc/batch_menu.xrc:25
 msgid "Searches in directories for image files suitable for panoramas"
 msgstr "Prehľadáva v adresároch obrázky vhodné pre panorámu"
 
 #: hugin1/hugin/xrc/batch_menu.xrc:27
-#, fuzzy
 msgid "Search &directory for..."
 msgstr "Prehľadať adresár na..."
 
@@ -5124,7 +5118,6 @@ msgid "Searches in directories for existing projects or for images"
 msgstr "Prehľadáva v adresároch existujúce projekty alebo obrázky"
 
 #: hugin1/hugin/xrc/batch_menu.xrc:32
-#, fuzzy
 msgid "&Open batch"
 msgstr "Otvoriť dávkovú úlohu"
 
@@ -5133,16 +5126,14 @@ msgid "Opens a batch file with a list of projects"
 msgstr "Otvorí súbor dávkovej úlohy so zoznamom projektov"
 
 #: hugin1/hugin/xrc/batch_menu.xrc:36
-#, fuzzy
 msgid "&Save batch"
-msgstr "uložiť dávku"
+msgstr "Uložiť dávkovú úlohu"
 
 #: hugin1/hugin/xrc/batch_menu.xrc:37 hugin1/hugin/xrc/batch_toolbar.xrc:22
 msgid "Saves a batch file with a list of projects"
 msgstr "Uloží súbor dávkovej úlohy so zoznamom projektov"
 
 #: hugin1/hugin/xrc/batch_menu.xrc:40
-#, fuzzy
 msgid "&Clear batch"
 msgstr "Vyčistiť dávkovú úlohu"
 
@@ -5152,7 +5143,7 @@ msgstr "Vyčistí zoznam dávkovej úlohy"
 
 #: hugin1/hugin/xrc/batch_menu.xrc:45
 msgid "&Minimize to tray"
-msgstr ""
+msgstr "Minimalizovať do podnosu"
 
 #: hugin1/hugin/xrc/batch_menu.xrc:51 hugin1/hugin/xrc/lenscal_frame.xrc:456
 #: hugin1/hugin/xrc/main_menu.xrc:211 hugin1/hugin/xrc/preview_frame.xrc:1935
