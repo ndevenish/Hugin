@@ -701,7 +701,7 @@ CorrelationResult PointFineTuneRotSearch(const IMAGET & templImg,
     bestRes.maxi = -1;
     double bestAngle = 0;
 
-    AppBase::MultiProgressDisplay dummy;
+    AppBase::DummyProgressDisplay dummy;
     // test the image at rotation angles with 30 deg. steps.
     double step = (stopAngle - startAngle)/(angleSteps-1);
     double phi=startAngle;
@@ -717,7 +717,7 @@ CorrelationResult PointFineTuneRotSearch(const IMAGET & templImg,
                            nf,
                            false,
                            vigra_ext::INTERP_CUBIC,
-                           dummy);
+                           &dummy);
         DEBUG_DEBUG("----- Image rotated");
 
         // force a search in at all points.
