@@ -775,6 +775,7 @@ void BatchFrame::OnButtonPause(wxCommandEvent& event)
     {
         GetToolBar()->ToggleTool(XRCID("tool_pause"),false);
     }
+    UpdateTaskBarProgressBar();
 }
 
 void BatchFrame::OnButtonRemoveComplete(wxCommandEvent& event)
@@ -1332,7 +1333,7 @@ void BatchFrame::UpdateTaskBarProgressBar()
             else
             {
                 taskBarButton->SetProgressRange(100);
-                taskBarButton->SetProgressState(wxTASKBAR_BUTTON_NORMAL);
+                taskBarButton->SetProgressState(m_batch->IsPaused() ? wxTASKBAR_BUTTON_PAUSED : wxTASKBAR_BUTTON_NORMAL);
                 taskBarButton->SetProgressValue(m_progStatusBar->GetProgress());
             };
         };
