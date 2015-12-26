@@ -1146,6 +1146,25 @@ void BatchFrame::OnCheckSaveLog(wxCommandEvent& event)
 
 void BatchFrame::OnClose(wxCloseEvent& event)
 {
+    // check size of batch queue
+    if (m_batch->GetProjectCount() > 500)
+    {
+        wxMessageDialog message(this, _("The batch queue contains many items.\nThis can have negative effects on performance.\nShould the batch queue cleared now?"),
+#ifdef __WXMSW__
+            _("PTBatcherGUI"),
+#else
+            wxT(""),
+#endif
+            wxYES_NO | wxICON_INFORMATION);
+#if wxCHECK_VERSION(3,0,0)
+        message.SetYesNoLabels(_("Clear batch queue now"), _("Keep batch queue"));
+#endif
+        if (message.ShowModal() == wxID_YES)
+        {
+            m_batch->ClearBatch();
+            m_batch->SaveTemp();
+        };
+    };
     //save windows position
     wxConfigBase* config=wxConfigBase::Get();
     if(IsMaximized())
