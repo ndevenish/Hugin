@@ -303,10 +303,36 @@ IF(WIN32)
   ADD_DEFINITIONS(-DPSAPI_VERSION=1)
 ENDIF(WIN32)
 
-IF(USE_CXX11_THREAD)
-  FIND_PACKAGE(Boost 1.47 COMPONENTS filesystem system)
+# check if we have C++17 <filesystem> header
+check_cxx_source_compiles(
+  "
+    #include <filesystem>
+    #include <string>
+    
+    int main()
+    {
+      std::tr2::sys::path filepath;
+      filepath=std::tr2::sys::absolute(filepath);
+      std::string s=filepath.filename().string();
+      return 0;    
+    };
+  "
+  HAVE_STD_FILESYSTEM
+)
+
+IF(HAVE_STD_FILESYSTEM)
+  IF(USE_CXX11_THREAD)
+    # header only needed
+    FIND_PACKAGE(Boost 1.47)
+  ELSE()
+    FIND_PACKAGE(Boost 1.47 COMPONENTS thread date_time iostreams)
+  ENDIF()
 ELSE()
-  FIND_PACKAGE(Boost 1.47 COMPONENTS filesystem system thread date_time iostreams)
+  IF(USE_CXX11_THREAD)
+    FIND_PACKAGE(Boost 1.47 COMPONENTS filesystem system)
+  ELSE()
+    FIND_PACKAGE(Boost 1.47 COMPONENTS filesystem system thread date_time iostreams)
+  ENDIF()
 ENDIF()
 
 IF (NOT Boost_FOUND)

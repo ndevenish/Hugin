@@ -72,4 +72,7 @@
 /* if compiler supports C++11 threads */
 #cmakedefine USE_CXX11_THREAD
 
+/* if we have C++17 <filesystem> header */
+#cmakedefine HAVE_STD_FILESYSTEM
+
 #endif

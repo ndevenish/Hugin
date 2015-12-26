@@ -25,9 +25,15 @@
  *
  */
 
+#include "hugin_config.h"
 #include <iostream>
 #include <string>
 #include <fstream>
+#ifdef HAVE_STD_FILESYSTEM
+#include <filesystem>
+namespace fs = std::tr2::sys;
+#define OVERWRITE_EXISTING std::tr2::sys::copy_options::overwrite_existing
+#else
 #define BOOST_FILESYSTEM_VERSION 3
 #ifdef __GNUC__
   #include "hugin_config.h"
@@ -48,11 +54,12 @@
   #endif
 #endif
 #include <boost/filesystem.hpp>
+namespace fs = boost::filesystem;
+#define OVERWRITE_EXISTING boost::filesystem::copy_option::overwrite_if_exists
+#endif
 #include <getopt.h>
 #include <panodata/Panorama.h>
 #include <hugin_utils/stl_utils.h>
-
-namespace fs=boost::filesystem;
 
 std::string IncludeTrailingDelimiter(std::string path)
 {
@@ -242,7 +249,7 @@ bool PTOCopyMove(bool movingFile, fs::path src, fs::path dest, bool overwriteAll
                 {
                     try
                     {
-                        fs::copy_file(imagesFrom[i], imagesTo[i], fs::copy_option::overwrite_if_exists);
+                        fs::copy_file(imagesFrom[i], imagesTo[i], OVERWRITE_EXISTING);
                     }
                     catch (const fs::filesystem_error& ex)
                     {

@@ -24,6 +24,7 @@
 
 #include "utils.h"
 #include "hugin_version.h"
+#include "hugin_config.h"
 
 #ifdef _WIN32
     #define NOMINMAX
@@ -47,8 +48,14 @@
 #include <hugin_config.h>
 #endif
 #include <algorithm>
+#ifdef HAVE_STD_FILESYSTEM
+#include <filesystem>
+namespace fs = std::tr2::sys;
+#else
 #define BOOST_FILESYSTEM_VERSION 3
 #include <boost/filesystem.hpp>
+namespace fs = boost::filesystem;
+#endif
 #include <lcms2.h>
 
 #ifdef __APPLE__
@@ -425,14 +432,14 @@ std::string GetDataDir()
 
 std::string GetUserAppDataDir()
 {
-    boost::filesystem::path path;
+    fs::path path;
 #ifdef _WIN32
     char fullpath[_MAX_PATH];
     if(SHGetFolderPath(NULL, CSIDL_APPDATA | CSIDL_FLAG_CREATE, NULL, 0, fullpath)!=S_OK)
     {
         return std::string();
     };
-    path = boost::filesystem::path(fullpath);
+    path = fs::path(fullpath);
     path /= "hugin";
 #else
     char *homedir = getenv("HOME");
@@ -449,14 +456,14 @@ std::string GetUserAppDataDir()
     {
         return std::string();
     };
-    path = boost::filesystem::path(homedir);
+    path = fs::path(homedir);
     // we have already a file with name ".hugin" for our wxWidgets settings
     // therefore we use directory ".hugindata" in homedir
     path /= ".hugindata";
 #endif
-    if (!boost::filesystem::exists(path))
+    if (!fs::exists(path))
     {
-        if (!boost::filesystem::create_directories(path))
+        if (!fs::create_directories(path))
         {
             std::cerr << "ERROR: Could not create destination directory: " << path.string() << std::endl
                 << "Maybe you have not sufficent rights to create this directory." << std::endl;

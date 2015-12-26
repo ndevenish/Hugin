@@ -28,8 +28,15 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include "hugin_config.h"
+#ifdef HAVE_STD_FILESYSTEM
+#include <filesystem>
+namespace fs = std::tr2::sys;
+#else
 #define BOOST_FILESYSTEM_VERSION 3
 #include <boost/filesystem.hpp>
+namespace fs = boost::filesystem;
+#endif
 #include <getopt.h>
 #include <panodata/Panorama.h>
 #include <hugin_utils/stl_utils.h>
@@ -37,7 +44,7 @@
 #include <panodata/StandardImageVariableGroups.h>
 #include <hugin_base/panotools/PanoToolsUtils.h>
 
-typedef std::vector<boost::filesystem::path> pathVec;
+typedef std::vector<fs::path> pathVec;
 
 
 template <class iteratorType>
@@ -54,7 +61,7 @@ bool iterateFileSystem(std::string src, pathVec& projectFiles)
             };
         }
     }
-    catch(boost::filesystem::filesystem_error& e)
+    catch(fs::filesystem_error& e)
     {
         std::cout << e.what() << std::endl;
         return false;
@@ -66,15 +73,15 @@ void FindPTOFiles(pathVec& projectFiles, std::string src, bool recursive)
 {
     if(recursive)
     {
-        iterateFileSystem<boost::filesystem::recursive_directory_iterator>(src, projectFiles);
+        iterateFileSystem<fs::recursive_directory_iterator>(src, projectFiles);
     }
     else
     {
-        iterateFileSystem<boost::filesystem::directory_iterator>(src, projectFiles);
+        iterateFileSystem<fs::directory_iterator>(src, projectFiles);
     };
 };
 
-bool CheckProjectFile(boost::filesystem::path filename)
+bool CheckProjectFile(const fs::path filename)
 {
     // open project file
     HuginBase::Panorama pano;
@@ -251,11 +258,11 @@ int main(int argc, char* argv[])
 
     if (!basepath.empty())
     {
-        boost::filesystem::path p(basepath);
-        if (boost::filesystem::exists(p))
+        fs::path p(basepath);
+        if (fs::exists(p))
         {
-            p = boost::filesystem::absolute(p);
-            if (boost::filesystem::is_directory(p))
+            p = fs::absolute(p);
+            if (fs::is_directory(p))
             {
                 pathVec projectFiles;
                 FindPTOFiles(projectFiles, p.string(), recursive);
