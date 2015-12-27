@@ -1918,7 +1918,7 @@
       <help>Save current project to a new file</help>
     </object>
     <object class="wxMenu" name="menu_mru_preview">
-      <label>Most recently used projects</label>
+      <label>Most recently &amp;used projects</label>
       <help>List of most recently used project files</help>
     </object>
     <object class="separator"/>
@@ -1959,7 +1959,7 @@
       <help>Save current project to a new file</help>
     </object>
     <object class="wxMenu" name="menu_mru_preview">
-      <label>Most recently used projects</label>
+      <label>Most recently &amp;used projects</label>
       <help>List of most recently used project files</help>
     </object>
     <object platform="win|unix" class="separator"/>
