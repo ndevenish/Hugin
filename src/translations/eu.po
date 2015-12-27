@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2015-12-13 11:58+0100\n"
+"POT-Creation-Date: 2015-12-27 10:01+0100\n"
 "PO-Revision-Date: 2012-07-18 23:13+0100\n"
 "Last-Translator: Maider Likona Santamarina <pisoni@gisa-elkartea.org>\n"
 "Language-Team: Basque <LL@li.org>\n"
+"Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: eu\n"
 
 #: hugin1/base_wx/AssistantExecutor.cpp:71
 #, fuzzy
@@ -125,9 +125,8 @@ msgstr ""
 #: hugin1/hugin/PanoOperation.cpp:373 hugin1/hugin/PanoPanel.cpp:1580
 #: hugin1/hugin/PanoPanel.cpp:1610 hugin1/hugin/PanoPanel.cpp:1636
 #: hugin1/hugin/PanoPanel.cpp:1671 hugin1/hugin/PanoPanel.cpp:1692
-#: hugin1/hugin/PanoPanel.cpp:1702 hugin1/hugin/xrc/main_frame.xrc:123
-#: hugin1/hugin/xrc/main_frame.xrc:183 hugin1/hugin/xrc/main_frame.xrc:255
-#: hugin1/hugin/xrc/pano_panel.xrc:1078
+#: hugin1/hugin/PanoPanel.cpp:1702 translations/xrc.cpp:342
+#: translations/xrc.cpp:346 translations/xrc.cpp:352 translations/xrc.cpp:655
 msgid "Hugin"
 msgstr "Hugin"
 
@@ -172,21 +171,19 @@ msgstr ""
 msgid "Fisheye Thoby"
 msgstr ""
 
-#: hugin1/base_wx/LensTools.cpp:53 hugin1/hugin/xrc/pano_panel.xrc:818
+#: hugin1/base_wx/LensTools.cpp:53 translations/xrc.cpp:630
 msgid "enblend"
 msgstr ""
 
-#: hugin1/base_wx/LensTools.cpp:54 hugin1/hugin/xrc/pano_panel.xrc:791
+#: hugin1/base_wx/LensTools.cpp:54 translations/xrc.cpp:627
 msgid "builtin"
 msgstr ""
 
-#: hugin1/base_wx/LensTools.cpp:100
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:559
+#: hugin1/base_wx/LensTools.cpp:100 translations/xrc.cpp:219
 msgid "custom (EMoR)"
 msgstr ""
 
-#: hugin1/base_wx/LensTools.cpp:103
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:560
+#: hugin1/base_wx/LensTools.cpp:103 translations/xrc.cpp:220
 msgid "Linear"
 msgstr "Lineala"
 
@@ -229,7 +226,7 @@ msgstr "%s fitxategia existitzen da. Gainidatzi?"
 
 #: hugin1/base_wx/LensTools.cpp:405 hugin1/calibrate_lens/LensCalFrame.cpp:703
 #: hugin1/calibrate_lens/LensCalFrame.cpp:768 hugin1/hugin/MainFrame.cpp:830
-#: hugin1/hugin/xrc/main_tool.xrc:19
+#: translations/xrc.cpp:456
 msgid "Save project"
 msgstr "Proiektua gorde"
 
@@ -262,20 +259,13 @@ msgstr "%ld prozesua pausatzean errorea, 2 kodea"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:548
 #: hugin1/ptbatcher/RunStitchFrame.cpp:43
-#: hugin1/stitch_project/hugin_stitch_project.cpp:111
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:334
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:640
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:711
-#: hugin1/hugin/xrc/images_panel.xrc:553
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:146
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:342
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:497
-#: hugin1/hugin/xrc/pano_panel.xrc:55 hugin1/hugin/xrc/pano_panel.xrc:97
-#: hugin1/hugin/xrc/pano_panel.xrc:139 hugin1/hugin/xrc/pano_panel.xrc:1013
-#: hugin1/hugin/xrc/pano_panel.xrc:1339 hugin1/hugin/xrc/pref_dialog.xrc:1498
-#: hugin1/hugin/xrc/pref_dialog.xrc:1539 hugin1/hugin/xrc/pref_dialog.xrc:1597
-#: hugin1/hugin/xrc/preview_frame.xrc:115
-#: hugin1/hugin/xrc/reset_dialog.xrc:122
+#: hugin1/stitch_project/hugin_stitch_project.cpp:111 translations/xrc.cpp:177
+#: translations/xrc.cpp:225 translations/xrc.cpp:233 translations/xrc.cpp:269
+#: translations/xrc.cpp:313 translations/xrc.cpp:327 translations/xrc.cpp:527
+#: translations/xrc.cpp:560 translations/xrc.cpp:564 translations/xrc.cpp:568
+#: translations/xrc.cpp:651 translations/xrc.cpp:676 translations/xrc.cpp:841
+#: translations/xrc.cpp:845 translations/xrc.cpp:849 translations/xrc.cpp:873
+#: translations/xrc.cpp:1129
 msgid "Cancel"
 msgstr "Ezeztatu"
 
@@ -413,8 +403,8 @@ msgstr "Irteera aurrizkia"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:232
 #: hugin1/base_wx/StitchingExecutor.cpp:236
-#: hugin1/base_wx/StitchingExecutor.cpp:241
-#: hugin1/hugin/xrc/batch_frame.xrc:330 hugin1/hugin/xrc/pano_panel.xrc:809
+#: hugin1/base_wx/StitchingExecutor.cpp:241 translations/xrc.cpp:51
+#: translations/xrc.cpp:629
 msgid "Blender:"
 msgstr ""
 
@@ -478,8 +468,7 @@ msgstr ""
 
 #: hugin1/base_wx/StitchingExecutor.cpp:283
 #: hugin1/base_wx/StitchingExecutor.cpp:289
-#: hugin1/base_wx/StitchingExecutor.cpp:356
-#: hugin1/hugin/xrc/pano_panel.xrc:166
+#: hugin1/base_wx/StitchingExecutor.cpp:356 translations/xrc.cpp:570
 msgid "Projection:"
 msgstr "Proiekzioa:"
 
@@ -496,63 +485,54 @@ msgstr ""
 msgid "false"
 msgstr ""
 
-#: hugin1/base_wx/StitchingExecutor.cpp:296
-#: hugin1/hugin/xrc/pano_panel.xrc:445
+#: hugin1/base_wx/StitchingExecutor.cpp:296 translations/xrc.cpp:590
 msgid "Panorama Outputs:"
 msgstr "Panoramaren Irteera:"
 
 #: hugin1/base_wx/StitchingExecutor.cpp:299
-#: hugin1/base_wx/StitchingExecutor.cpp:320
-#: hugin1/hugin/xrc/pano_panel.xrc:460 hugin1/hugin/xrc/pano_panel.xrc:622
-#: hugin1/hugin/xrc/pano_panel.xrc:1245
+#: hugin1/base_wx/StitchingExecutor.cpp:320 translations/xrc.cpp:591
+#: translations/xrc.cpp:606 translations/xrc.cpp:665
 msgid "Exposure corrected, low dynamic range"
 msgstr "Esposaketa zuzenduta, hein dinamiko txikia"
 
-#: hugin1/base_wx/StitchingExecutor.cpp:303
-#: hugin1/hugin/xrc/pano_panel.xrc:472 hugin1/hugin/xrc/pano_panel.xrc:1260
+#: hugin1/base_wx/StitchingExecutor.cpp:303 translations/xrc.cpp:593
+#: translations/xrc.cpp:667
 msgid "Exposure fused from stacks"
 msgstr ""
 
-#: hugin1/base_wx/StitchingExecutor.cpp:307
-#: hugin1/hugin/xrc/pano_panel.xrc:481 hugin1/hugin/xrc/pano_panel.xrc:1274
+#: hugin1/base_wx/StitchingExecutor.cpp:307 translations/xrc.cpp:595
+#: translations/xrc.cpp:669
 msgid "Exposure fused from any arrangement"
 msgstr ""
 
 #: hugin1/base_wx/StitchingExecutor.cpp:311
 #: hugin1/base_wx/StitchingExecutor.cpp:328
-#: hugin1/base_wx/StitchingExecutor.cpp:341
-#: hugin1/hugin/xrc/pano_panel.xrc:549 hugin1/hugin/xrc/pano_panel.xrc:642
-#: hugin1/hugin/xrc/pano_panel.xrc:1288
+#: hugin1/base_wx/StitchingExecutor.cpp:341 translations/xrc.cpp:600
+#: translations/xrc.cpp:610 translations/xrc.cpp:671
 msgid "High dynamic range"
 msgstr "Hein dinamiko handia"
 
-#: hugin1/base_wx/StitchingExecutor.cpp:317
-#: hugin1/hugin/xrc/pano_panel.xrc:607
+#: hugin1/base_wx/StitchingExecutor.cpp:317 translations/xrc.cpp:605
 msgid "Remapped Images:"
 msgstr "Birkokatutako Irudiak:"
 
-#: hugin1/base_wx/StitchingExecutor.cpp:324
-#: hugin1/hugin/xrc/pano_panel.xrc:633
+#: hugin1/base_wx/StitchingExecutor.cpp:324 translations/xrc.cpp:608
 msgid "No exposure correction, low dynamic range"
 msgstr "Zuzendu gabeko esposaketa, hein dinamiko txikia"
 
-#: hugin1/base_wx/StitchingExecutor.cpp:334
-#: hugin1/hugin/xrc/pano_panel.xrc:652
+#: hugin1/base_wx/StitchingExecutor.cpp:334 translations/xrc.cpp:612
 msgid "Combined stacks:"
 msgstr "Elkartutako instantaneak:"
 
-#: hugin1/base_wx/StitchingExecutor.cpp:337
-#: hugin1/hugin/xrc/pano_panel.xrc:667
+#: hugin1/base_wx/StitchingExecutor.cpp:337 translations/xrc.cpp:613
 msgid "Exposure fused stacks"
 msgstr ""
 
-#: hugin1/base_wx/StitchingExecutor.cpp:347
-#: hugin1/hugin/xrc/pano_panel.xrc:687
+#: hugin1/base_wx/StitchingExecutor.cpp:347 translations/xrc.cpp:617
 msgid "Layers:"
 msgstr "Geruzak:"
 
-#: hugin1/base_wx/StitchingExecutor.cpp:348
-#: hugin1/hugin/xrc/pano_panel.xrc:702
+#: hugin1/base_wx/StitchingExecutor.cpp:348 translations/xrc.cpp:618
 msgid "Blended layers of similar exposure, without exposure correction"
 msgstr ""
 
@@ -687,10 +667,8 @@ msgstr "Kamararen Modeloa:"
 
 #: hugin1/base_wx/huginConfig.cpp:48 hugin1/hugin/ImagesPanel.cpp:694
 #: hugin1/hugin/ImagesTree.cpp:150 hugin1/hugin/ImagesTree.cpp:1180
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:152
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:347
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:8
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:325
+#: translations/xrc.cpp:196 translations/xrc.cpp:209 translations/xrc.cpp:304
+#: translations/xrc.cpp:325
 msgid "Lens"
 msgstr "Lenteak"
 
@@ -783,7 +761,7 @@ msgstr "%srako \"%s\" sarrera ez da baliozko zenbakia\n"
 #: hugin1/hugin/MainFrame.cpp:2126 hugin1/hugin/MaskEditorPanel.cpp:489
 #: hugin1/hugin/PreferencesDialog.cpp:1059
 #: hugin1/ptbatcher/FindPanoDialog.cpp:287
-#: hugin1/ptbatcher/FindPanoDialog.cpp:308 hugin1/hugin/xrc/dlg_warning.xrc:56
+#: hugin1/ptbatcher/FindPanoDialog.cpp:308 translations/xrc.cpp:181
 msgid "Warning"
 msgstr "Abisua"
 
@@ -881,7 +859,7 @@ msgstr ""
 msgid "Should the position of images in each stack be linked?"
 msgstr ""
 
-#: hugin1/base_wx/wxPanoCommand.cpp:530 hugin1/hugin/xrc/main_frame.xrc:215
+#: hugin1/base_wx/wxPanoCommand.cpp:530 translations/xrc.cpp:348
 msgid ""
 "When shooting bracketed image stacks from a sturdy tripod the position of "
 "the images in each stack can be linked to help Hugin to process the "
@@ -890,19 +868,19 @@ msgid ""
 msgstr ""
 
 #: hugin1/base_wx/wxPanoCommand.cpp:533 hugin1/base_wx/wxPanoCommand.cpp:537
-#: hugin1/hugin/xrc/main_frame.xrc:236
+#: translations/xrc.cpp:349
 #, fuzzy
 msgid "Link position"
 msgstr "Proiektua berrabiarazi"
 
 #: hugin1/base_wx/wxPanoCommand.cpp:533 hugin1/base_wx/wxPanoCommand.cpp:537
-#: hugin1/hugin/xrc/main_frame.xrc:242
+#: translations/xrc.cpp:350
 #, fuzzy
 msgid "Don't link position"
 msgstr "Komando lerroko aukerak"
 
 #: hugin1/base_wx/wxPanoCommand.cpp:533 hugin1/base_wx/wxPanoCommand.cpp:550
-#: hugin1/hugin/xrc/main_frame.xrc:247
+#: translations/xrc.cpp:351
 msgid "Don't assign stacks"
 msgstr ""
 
@@ -1102,8 +1080,7 @@ msgstr "Lenteen parametroak fitxategi batean gorde"
 msgid "Saving lens data"
 msgstr "Lenteen datuak kargatu..."
 
-#: hugin1/calibrate_lens/LensCalFrame.cpp:733
-#: hugin1/hugin/xrc/lenscal_frame.xrc:373
+#: hugin1/calibrate_lens/LensCalFrame.cpp:733 translations/xrc.cpp:292
 msgid "Save lens"
 msgstr "Lenteak gorde"
 
@@ -1353,7 +1330,7 @@ msgstr "%d. lerroa"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1459 hugin1/hugin/CPListFrame.cpp:147
 #: hugin1/hugin/GLPreviewFrame.cpp:695 hugin1/hugin/GLPreviewFrame.cpp:3094
-#: hugin1/hugin/PreviewFrame.cpp:244 hugin1/hugin/xrc/cp_editor_panel.xrc:185
+#: hugin1/hugin/PreviewFrame.cpp:244 translations/xrc.cpp:123
 msgid "normal"
 msgstr "normala"
 
@@ -1379,8 +1356,7 @@ msgid "Corner Detection threshold"
 msgstr "Ertzak topatzeko atalasea"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1748 hugin1/hugin/CPEditorPanel.cpp:1752
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:323
-#: hugin1/hugin/xrc/images_panel.xrc:251
+#: translations/xrc.cpp:138 translations/xrc.cpp:253
 msgid "Create control points"
 msgstr "Kontrol puntuak sortu"
 
@@ -1449,8 +1425,7 @@ msgid ""
 "detector on photos tab."
 msgstr ""
 
-#: hugin1/hugin/CPEditorPanel.cpp:2125
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:328
+#: hugin1/hugin/CPEditorPanel.cpp:2125 translations/xrc.cpp:140
 msgid "Celeste"
 msgstr "Celeste"
 
@@ -1463,7 +1438,7 @@ msgstr "Kontrol puntuak hodeietatik kentzen saiatu"
 msgid "Clean cp"
 msgstr "Lotea garbitu"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2135 hugin1/hugin/xrc/pref_dialog.xrc:301
+#: hugin1/hugin/CPEditorPanel.cpp:2135 translations/xrc.cpp:706
 msgid "Remove outlying control points by statistical method"
 msgstr "Metodo estatistikoak erabiliz kanpokaldeko kontrol puntuak borratu"
 
@@ -1549,30 +1524,28 @@ msgstr ""
 msgid "Fast Panorama preview"
 msgstr "Panoramaren aurrebista azkarra"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:376 hugin1/hugin/xrc/preview_frame.xrc:8
-#: hugin1/hugin/xrc/preview_frame.xrc:1461
+#: hugin1/hugin/GLPreviewFrame.cpp:376 translations/xrc.cpp:852
+#: translations/xrc.cpp:1005
 msgid "Center"
 msgstr "Erdialdea"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:377 hugin1/hugin/GLPreviewFrame.cpp:379
-#: hugin1/hugin/xrc/preview_frame.xrc:14
-#: hugin1/hugin/xrc/preview_frame.xrc:1356
-#: hugin1/hugin/xrc/preview_frame.xrc:1473
+#: translations/xrc.cpp:855 translations/xrc.cpp:993 translations/xrc.cpp:1007
 msgid "Fit"
 msgstr "Egokitu"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:378 hugin1/hugin/xrc/preview_frame.xrc:19
-#: hugin1/hugin/xrc/preview_frame.xrc:1485
+#: hugin1/hugin/GLPreviewFrame.cpp:378 translations/xrc.cpp:857
+#: translations/xrc.cpp:1009
 msgid "Straighten"
 msgstr ""
 
 #: hugin1/hugin/GLPreviewFrame.cpp:380 hugin1/hugin/GLPreviewFrame.cpp:2618
 #: hugin1/hugin/GLPreviewFrame.cpp:2648 hugin1/hugin/PanoPanel.cpp:973
-#: hugin1/hugin/xrc/preview_frame.xrc:1660
+#: translations/xrc.cpp:1029
 msgid "Autocrop"
 msgstr "Mozketa automatikoa"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:381 hugin1/hugin/xrc/preview_frame.xrc:1672
+#: hugin1/hugin/GLPreviewFrame.cpp:381 translations/xrc.cpp:1031
 #, fuzzy
 msgid "HDR Autocrop"
 msgstr "Mozketa automatikoa"
@@ -1580,10 +1553,9 @@ msgstr "Mozketa automatikoa"
 #: hugin1/hugin/GLPreviewFrame.cpp:398 hugin1/hugin/GLPreviewFrame.cpp:3144
 #: hugin1/hugin/GLPreviewFrame.cpp:3156 hugin1/hugin/MainFrame.cpp:359
 #: hugin1/hugin/MainFrame.cpp:1967 hugin1/hugin/MainFrame.cpp:1985
-#: hugin1/hugin/xrc/batch_menu.xrc:5 hugin1/hugin/xrc/lenscal_frame.xrc:459
-#: hugin1/hugin/xrc/main_menu.xrc:215 hugin1/hugin/xrc/main_menu.xrc:240
-#: hugin1/hugin/xrc/preview_frame.xrc:1939
-#: hugin1/hugin/xrc/preview_frame.xrc:1969
+#: translations/xrc.cpp:65 translations/xrc.cpp:303 translations/xrc.cpp:439
+#: translations/xrc.cpp:449 translations/xrc.cpp:1096
+#: translations/xrc.cpp:1108
 msgid "&File"
 msgstr "&Fitxategia"
 
@@ -1592,21 +1564,16 @@ msgid "displayed images"
 msgstr "Erakutsitako irudiak"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:432 hugin1/hugin/GLPreviewFrame.cpp:475
-#: hugin1/hugin/xrc/preview_frame.xrc:42
+#: translations/xrc.cpp:865
 msgid "All"
 msgstr "Dena"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:470 hugin1/hugin/GLPreviewFrame.cpp:476
-#: hugin1/hugin/ImagesPanel.cpp:691 hugin1/hugin/xrc/pano_panel.xrc:533
-#: hugin1/hugin/xrc/pano_panel.xrc:590 hugin1/hugin/xrc/pano_panel.xrc:1175
-#: hugin1/hugin/xrc/pano_panel.xrc:1222 hugin1/hugin/xrc/pref_dialog.xrc:769
-#: hugin1/hugin/xrc/preview_frame.xrc:47
-#: hugin1/hugin/xrc/preview_frame.xrc:590
-#: hugin1/hugin/xrc/preview_frame.xrc:668
-#: hugin1/hugin/xrc/preview_frame.xrc:836
-#: hugin1/hugin/xrc/preview_frame.xrc:1434
-#: hugin1/hugin/xrc/preview_frame.xrc:1524
-#: hugin1/hugin/xrc/preview_frame.xrc:1700
+#: hugin1/hugin/ImagesPanel.cpp:691 translations/xrc.cpp:599
+#: translations/xrc.cpp:604 translations/xrc.cpp:661 translations/xrc.cpp:664
+#: translations/xrc.cpp:752 translations/xrc.cpp:867 translations/xrc.cpp:912
+#: translations/xrc.cpp:924 translations/xrc.cpp:943 translations/xrc.cpp:998
+#: translations/xrc.cpp:1013 translations/xrc.cpp:1034
 msgid "None"
 msgstr "Ezer"
 
@@ -1630,9 +1597,8 @@ msgstr "HFOV"
 msgid "drag to change the horizontal field of view"
 msgstr "Ikuspuntu horizontala aldatzeko arrastatu"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:624 hugin1/hugin/xrc/lenscal_frame.xrc:434
-#: hugin1/hugin/xrc/main_tool.xrc:67 hugin1/hugin/xrc/preview_frame.xrc:461
-#: hugin1/hugin/xrc/preview_frame.xrc:1301
+#: hugin1/hugin/GLPreviewFrame.cpp:624 translations/xrc.cpp:299
+#: translations/xrc.cpp:478 translations/xrc.cpp:903 translations/xrc.cpp:988
 msgid "Preview"
 msgstr "Aurrebista"
 
@@ -2054,9 +2020,7 @@ msgid "Number of masks"
 msgstr "Maskara kopurua"
 
 #: hugin1/hugin/ImagesList.cpp:454 hugin1/hugin/ImagesList.cpp:514
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:332
-#: hugin1/hugin/xrc/preview_frame.xrc:934
-#: hugin1/hugin/xrc/preview_frame.xrc:1798
+#: translations/xrc.cpp:513 translations/xrc.cpp:956 translations/xrc.cpp:1047
 msgid "Crop"
 msgstr ""
 
@@ -2533,11 +2497,9 @@ msgstr "Irudi aldagaiak:"
 msgid "Control points"
 msgstr "Kontrol Puntuak"
 
-#: hugin1/hugin/ImagesTree.cpp:1213 hugin1/hugin/xrc/lenscal_frame.xrc:213
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:325
-#: hugin1/hugin/xrc/optimize_panel.xrc:60
-#: hugin1/hugin/xrc/optimize_photo_panel.xrc:60
-#: hugin1/hugin/xrc/reset_dialog.xrc:8
+#: hugin1/hugin/ImagesTree.cpp:1213 translations/xrc.cpp:283
+#: translations/xrc.cpp:512 translations/xrc.cpp:534 translations/xrc.cpp:544
+#: translations/xrc.cpp:1115
 msgid "Reset"
 msgstr "Berrabiarazi"
 
@@ -2557,8 +2519,7 @@ msgstr "&Aholkuak hasteak ikusi"
 msgid "Tip of the Day"
 msgstr "Eguneko aholkua"
 
-#: hugin1/hugin/LocalizedFileTipProvider.cpp:111
-#: hugin1/hugin/xrc/batch_frame.xrc:534
+#: hugin1/hugin/LocalizedFileTipProvider.cpp:111 translations/xrc.cpp:63
 msgid "&Close"
 msgstr "&Itxi"
 
@@ -2580,9 +2541,8 @@ msgstr ""
 "Data/splash.png fitxategia ez da hemen topatu:"
 
 #: hugin1/hugin/MainFrame.cpp:354 hugin1/ptbatcher/BatchFrame.cpp:145
-#: hugin1/hugin/xrc/batch_menu.xrc:56 hugin1/hugin/xrc/main_menu.xrc:130
-#: hugin1/hugin/xrc/main_menu.xrc:132 hugin1/hugin/xrc/preview_frame.xrc:1867
-#: hugin1/hugin/xrc/preview_frame.xrc:1896
+#: translations/xrc.cpp:87 translations/xrc.cpp:404 translations/xrc.cpp:405
+#: translations/xrc.cpp:1067 translations/xrc.cpp:1080
 msgid "&Help"
 msgstr "&Help"
 
@@ -2594,14 +2554,13 @@ msgstr "&Ekintzak"
 msgid "Started"
 msgstr "Hasita"
 
-#: hugin1/hugin/MainFrame.cpp:633 hugin1/hugin/xrc/main_frame.xrc:34
-#: hugin1/hugin/xrc/main_menu.xrc:86
+#: hugin1/hugin/MainFrame.cpp:633 translations/xrc.cpp:333
+#: translations/xrc.cpp:389
 msgid "Optimizer"
 msgstr "Optimizatzailea"
 
 #: hugin1/hugin/MainFrame.cpp:645 hugin1/hugin/MainFrame.cpp:649
-#: hugin1/hugin/xrc/main_frame.xrc:38 hugin1/hugin/xrc/main_menu.xrc:91
-#: hugin1/hugin/xrc/reset_dialog.xrc:46
+#: translations/xrc.cpp:334 translations/xrc.cpp:391 translations/xrc.cpp:1120
 msgid "Exposure"
 msgstr "Esposaketa"
 
@@ -2638,7 +2597,7 @@ msgstr "%s proiektua gordeta"
 #: hugin1/hugin/MainFrame.cpp:1006 hugin1/hugin/MainFrame.cpp:1012
 #: hugin1/hugin/MainFrame.cpp:1970 hugin1/hugin/MainFrame.cpp:1976
 #: hugin1/hugin/MainFrame.cpp:1988 hugin1/hugin/MainFrame.cpp:1993
-#: hugin1/hugin/xrc/main_frame.xrc:4
+#: translations/xrc.cpp:329
 msgid "Hugin - Panorama Stitcher"
 msgstr "Hugin - Panorama Elkartzailea"
 
@@ -3191,7 +3150,7 @@ msgstr "Benetan %lu kontrol puntuak borratu?"
 msgid "Delete Control Points"
 msgstr "Kontrol puntuak borratu"
 
-#: hugin1/hugin/PanoOperation.cpp:645 hugin1/hugin/xrc/cp_editor_panel.xrc:334
+#: hugin1/hugin/PanoOperation.cpp:645 translations/xrc.cpp:142
 msgid "Clean control points"
 msgstr "Kontrol puntuak garbitu"
 
@@ -3270,8 +3229,8 @@ msgid "Quality:"
 msgstr "Kalitatea"
 
 #: hugin1/hugin/PanoOutputDialog.cpp:354 hugin1/hugin/PanoPanel.cpp:510
-#: hugin1/hugin/xrc/pano_panel.xrc:512 hugin1/hugin/xrc/pano_panel.xrc:581
-#: hugin1/hugin/xrc/pano_panel.xrc:1156 hugin1/hugin/xrc/pano_panel.xrc:1214
+#: translations/xrc.cpp:598 translations/xrc.cpp:603 translations/xrc.cpp:660
+#: translations/xrc.cpp:663
 msgid "Compression:"
 msgstr "Konpresioa:"
 
@@ -3562,8 +3521,8 @@ msgid "Select Enfuse"
 msgstr "Enfuse hautatu"
 
 #: hugin1/hugin/PreferencesDialog.cpp:350
-#: hugin1/hugin/PreferencesDialog.cpp:427 hugin1/hugin/xrc/pref_dialog.xrc:950
-#: hugin1/hugin/xrc/pref_dialog.xrc:1009
+#: hugin1/hugin/PreferencesDialog.cpp:427 translations/xrc.cpp:777
+#: translations/xrc.cpp:784
 #, fuzzy
 msgid "Select ExifTool argfile"
 msgstr "Ezkerreko irudian puntua hautatu"
@@ -3625,8 +3584,7 @@ msgstr ""
 msgid "Really reset displayed preferences to default values?"
 msgstr "Benetan aurkeztutako hobespenak defektuzko balioetara berrezarri?"
 
-#: hugin1/hugin/PreferencesDialog.cpp:768
-#: hugin1/hugin/xrc/pref_dialog.xrc:1479
+#: hugin1/hugin/PreferencesDialog.cpp:768 translations/xrc.cpp:839
 msgid "Load Defaults"
 msgstr "Defektuzkoak kargatu"
 
@@ -3708,8 +3666,8 @@ msgstr "Aurreikuspenaren hobespenak"
 msgid "projection (f):"
 msgstr "proiekzioa (f):"
 
-#: hugin1/hugin/PreviewFrame.cpp:239 hugin1/hugin/xrc/preview_frame.xrc:323
-#: hugin1/hugin/xrc/preview_frame.xrc:1163
+#: hugin1/hugin/PreviewFrame.cpp:239 translations/xrc.cpp:892
+#: translations/xrc.cpp:977
 msgid "Blend mode:"
 msgstr "Blend modua:"
 
@@ -3725,8 +3683,8 @@ msgstr "LDR"
 msgid "HDR"
 msgstr "HDR"
 
-#: hugin1/hugin/PreviewFrame.cpp:279 hugin1/hugin/xrc/preview_frame.xrc:341
-#: hugin1/hugin/xrc/preview_frame.xrc:1181
+#: hugin1/hugin/PreviewFrame.cpp:279 translations/xrc.cpp:893
+#: translations/xrc.cpp:978
 msgid "EV:"
 msgstr "EV:"
 
@@ -3781,8 +3739,8 @@ msgstr ""
 msgid "Open Batch Processor"
 msgstr "Loteen Prozesatzailea"
 
-#: hugin1/hugin/huginApp.cpp:337 hugin1/hugin/xrc/main_menu.xrc:194
-#: hugin1/hugin/xrc/main_menu.xrc:220 hugin1/hugin/xrc/preview_frame.xrc:1927
+#: hugin1/hugin/huginApp.cpp:337 translations/xrc.cpp:431
+#: translations/xrc.cpp:441 translations/xrc.cpp:1092
 msgid "Opens PTBatcher, the batch processor for Hugin's project files"
 msgstr ""
 "PTBatcher irekitzen du, Hugin proiektu fitxategiak loteka prozesatzeko tresna"
@@ -3968,10 +3926,10 @@ msgstr ""
 "Ezeztatu nahi duzu?"
 
 #: hugin1/ptbatcher/Batch.cpp:227 hugin1/ptbatcher/BatchFrame.cpp:733
-#: hugin1/ptbatcher/BatchFrame.cpp:787 hugin1/ptbatcher/BatchFrame.cpp:819
-#: hugin1/ptbatcher/BatchFrame.cpp:854 hugin1/ptbatcher/BatchFrame.cpp:883
-#: hugin1/ptbatcher/BatchFrame.cpp:1298 hugin1/ptbatcher/BatchFrame.cpp:1305
-#: hugin1/hugin/xrc/pref_dialog.xrc:842
+#: hugin1/ptbatcher/BatchFrame.cpp:788 hugin1/ptbatcher/BatchFrame.cpp:820
+#: hugin1/ptbatcher/BatchFrame.cpp:855 hugin1/ptbatcher/BatchFrame.cpp:884
+#: hugin1/ptbatcher/BatchFrame.cpp:1154 hugin1/ptbatcher/BatchFrame.cpp:1318
+#: hugin1/ptbatcher/BatchFrame.cpp:1325 translations/xrc.cpp:760
 msgid "PTBatcherGUI"
 msgstr "PTBatcherGUI"
 
@@ -4089,11 +4047,11 @@ msgstr ""
 msgid "Not doing much..."
 msgstr "Ezer gutxi egiten..."
 
-#: hugin1/ptbatcher/BatchFrame.cpp:177 hugin1/hugin/xrc/main_frame.xrc:67
+#: hugin1/ptbatcher/BatchFrame.cpp:177 translations/xrc.cpp:337
 msgid "You have pressed the Command key."
 msgstr ""
 
-#: hugin1/ptbatcher/BatchFrame.cpp:179 hugin1/hugin/xrc/main_frame.xrc:66
+#: hugin1/ptbatcher/BatchFrame.cpp:179 translations/xrc.cpp:336
 msgid "You have pressed the Control key."
 msgstr ""
 
@@ -4159,9 +4117,9 @@ msgstr "%s proiektua asistentearen zerrendan sartu da."
 msgid "Batch stopped"
 msgstr "Lotea geldituta"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:529 hugin1/ptbatcher/BatchFrame.cpp:1239
-#: hugin1/ptbatcher/BatchFrame.cpp:1275 hugin1/ptbatcher/BatchFrame.cpp:1288
-#: hugin1/ptbatcher/BatchFrame.cpp:1437
+#: hugin1/ptbatcher/BatchFrame.cpp:529 hugin1/ptbatcher/BatchFrame.cpp:1259
+#: hugin1/ptbatcher/BatchFrame.cpp:1295 hugin1/ptbatcher/BatchFrame.cpp:1308
+#: hugin1/ptbatcher/BatchFrame.cpp:1457
 msgid "Hugin's Batch processor"
 msgstr "Hugin lote prozesadorea"
 
@@ -4202,7 +4160,7 @@ msgstr "Proiektua hautatu gabe. Ireki Hugin proiekturik gabe?"
 msgid "Batch paused"
 msgstr "Lotea geldituta"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:760 hugin1/ptbatcher/BatchFrame.cpp:1433
+#: hugin1/ptbatcher/BatchFrame.cpp:760 hugin1/ptbatcher/BatchFrame.cpp:1453
 msgid "Pausing processing Hugin's batch queue"
 msgstr ""
 
@@ -4210,12 +4168,12 @@ msgstr ""
 msgid "Continuing batch..."
 msgstr "Lotea jarraitzen..."
 
-#: hugin1/ptbatcher/BatchFrame.cpp:770 hugin1/ptbatcher/BatchFrame.cpp:1202
-#: hugin1/ptbatcher/BatchFrame.cpp:1427
+#: hugin1/ptbatcher/BatchFrame.cpp:770 hugin1/ptbatcher/BatchFrame.cpp:1222
+#: hugin1/ptbatcher/BatchFrame.cpp:1447
 msgid "Processing Hugin's batch queue"
 msgstr ""
 
-#: hugin1/ptbatcher/BatchFrame.cpp:785
+#: hugin1/ptbatcher/BatchFrame.cpp:786
 #, fuzzy
 msgid ""
 "There are failed projects in the list.\n"
@@ -4224,7 +4182,7 @@ msgstr ""
 "Zerrendan errorea eman duten proiektuak daude.\n"
 "Borratu baita ere?"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:817
+#: hugin1/ptbatcher/BatchFrame.cpp:818
 msgid ""
 "Cannot remove project in progress.\n"
 "Do you want to cancel it?"
@@ -4232,16 +4190,16 @@ msgstr ""
 "Martxan dagoen proiektua ezin da borratu.\n"
 "Ezeztatu nahi duzu?"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:831
+#: hugin1/ptbatcher/BatchFrame.cpp:832
 #, fuzzy, c-format
 msgid "Removed project %s"
 msgstr "Proiektua borratuta"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:840
+#: hugin1/ptbatcher/BatchFrame.cpp:841
 msgid "Please select a project to remove"
 msgstr "Borratu nahi duzun proiektua hautatu mesedez"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:852
+#: hugin1/ptbatcher/BatchFrame.cpp:853
 msgid ""
 "Cannot reset project in progress.\n"
 "Do you want to cancel it?"
@@ -4249,16 +4207,16 @@ msgstr ""
 "Martxan dagoen proiektua ezin da berrabiarazi.\n"
 "Ezeztatu nahi duzu?"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:867
+#: hugin1/ptbatcher/BatchFrame.cpp:868
 #, fuzzy, c-format
 msgid "Reset project %s"
 msgstr "Proiektua berrabiarazi "
 
-#: hugin1/ptbatcher/BatchFrame.cpp:872
+#: hugin1/ptbatcher/BatchFrame.cpp:873
 msgid "Please select a project to reset"
 msgstr "Berrabiarazi nahi duzun proiektua hautatu mesedez"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:881
+#: hugin1/ptbatcher/BatchFrame.cpp:882
 msgid ""
 "Cannot reset projects in progress.\n"
 "Do you want to cancel the batch?"
@@ -4266,15 +4224,31 @@ msgstr ""
 "Martxan dauden proiektuak ezin dira berrabiarazi.\n"
 "Lotea ezeztatu nahi duzu?"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:920
+#: hugin1/ptbatcher/BatchFrame.cpp:921
 msgid "Specify batch file to save"
 msgstr "Gorde nahi duzun lote fitxategia ezarri"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:922
+#: hugin1/ptbatcher/BatchFrame.cpp:923
 msgid "Batch file (*.ptb)|*.ptb;|All files (*)|*"
 msgstr "Lote fitxategia (*.ptb)|*.ptb;|Fitxategi guztiak (*)|*"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:1199
+#: hugin1/ptbatcher/BatchFrame.cpp:1152
+msgid ""
+"The batch queue contains many items.\n"
+"This can have negative effects on performance.\n"
+"Should the batch queue cleared now?"
+msgstr ""
+
+#: hugin1/ptbatcher/BatchFrame.cpp:1160
+#, fuzzy
+msgid "Clear batch queue now"
+msgstr "Lotea garbitu"
+
+#: hugin1/ptbatcher/BatchFrame.cpp:1160
+msgid "Keep batch queue"
+msgstr ""
+
+#: hugin1/ptbatcher/BatchFrame.cpp:1219
 msgid "Starting batch"
 msgstr "Lotea hasten"
 
@@ -4282,7 +4256,7 @@ msgstr "Lotea hasten"
 msgid "&Show window"
 msgstr "Leihoa iku&si"
 
-#: hugin1/ptbatcher/BatchTrayIcon.cpp:62 hugin1/hugin/xrc/batch_toolbar.xrc:28
+#: hugin1/ptbatcher/BatchTrayIcon.cpp:62 translations/xrc.cpp:99
 msgid "Start batch"
 msgstr "Lotea hasi"
 
@@ -4290,7 +4264,7 @@ msgstr "Lotea hasi"
 msgid "Continue batch"
 msgstr "Lotea jarraitu"
 
-#: hugin1/ptbatcher/BatchTrayIcon.cpp:70 hugin1/hugin/xrc/batch_toolbar.xrc:41
+#: hugin1/ptbatcher/BatchTrayIcon.cpp:70 translations/xrc.cpp:105
 msgid "Pause batch"
 msgstr "Lotea pausatu"
 
@@ -4370,8 +4344,7 @@ msgstr ""
 msgid "Reading file %s"
 msgstr "%s fitxategia irakurtzen"
 
-#: hugin1/ptbatcher/FindPanoDialog.cpp:482
-#: hugin1/hugin/xrc/batch_frame.xrc:216
+#: hugin1/ptbatcher/FindPanoDialog.cpp:482 translations/xrc.cpp:37
 msgid "Start"
 msgstr "Hasi"
 
@@ -4462,9 +4435,8 @@ msgstr "Azken aldiz aldatuta"
 msgid "Output format"
 msgstr "Irteera formatua"
 
-#: hugin1/ptbatcher/ProjectListBox.cpp:70
-#: hugin1/hugin/xrc/preview_frame.xrc:510
-#: hugin1/hugin/xrc/preview_frame.xrc:1350
+#: hugin1/ptbatcher/ProjectListBox.cpp:70 translations/xrc.cpp:907
+#: translations/xrc.cpp:992
 msgid "Projection"
 msgstr "Proiekzioa"
 
@@ -4481,26 +4453,24 @@ msgstr "%d"
 msgid "Error, cannot convert id"
 msgstr "Errorea, ezin da id-a moldatu"
 
-#: hugin1/ptbatcher/ProjectListBox.cpp:303
-#: hugin1/hugin/xrc/pref_dialog.xrc:263 hugin1/hugin/xrc/preview_frame.xrc:244
-#: hugin1/hugin/xrc/preview_frame.xrc:1084
+#: hugin1/ptbatcher/ProjectListBox.cpp:303 translations/xrc.cpp:700
+#: translations/xrc.cpp:884 translations/xrc.cpp:969
 msgid "Assistant"
 msgstr "Laguntzailea"
 
-#: hugin1/ptbatcher/ProjectListBox.cpp:412 hugin1/hugin/xrc/batch_frame.xrc:38
+#: hugin1/ptbatcher/ProjectListBox.cpp:412 translations/xrc.cpp:13
 msgid "Change prefix"
 msgstr "Aurrizkia aldatu"
 
-#: hugin1/ptbatcher/ProjectListBox.cpp:413 hugin1/hugin/xrc/batch_frame.xrc:44
+#: hugin1/ptbatcher/ProjectListBox.cpp:413 translations/xrc.cpp:14
 msgid "Reset project"
 msgstr "Proiektua berrabiarazi"
 
-#: hugin1/ptbatcher/ProjectListBox.cpp:414 hugin1/hugin/xrc/batch_frame.xrc:56
+#: hugin1/ptbatcher/ProjectListBox.cpp:414 translations/xrc.cpp:16
 msgid "Edit with Hugin"
 msgstr "Huginekin editatu"
 
-#: hugin1/ptbatcher/ProjectListBox.cpp:415
-#: hugin1/hugin/xrc/lenscal_frame.xrc:38
+#: hugin1/ptbatcher/ProjectListBox.cpp:415 translations/xrc.cpp:272
 msgid "Remove"
 msgstr "Borratu"
 
@@ -4548,6 +4518,3047 @@ msgstr ""
 "Emandako fitxategi izenak baliorik gabeko karaktereak dauzka: %s\n"
 "Huginek ezin du lan egin fitxategi izen horrekin. Idatzi mesedez baliozko "
 "fitxategi izen bat."
+
+#: translations/xrc.cpp:1 translations/xrc.cpp:414 translations/xrc.cpp:483
+#: translations/xrc.cpp:1076
+msgid "About Hugin"
+msgstr "Hugini buruz"
+
+#: translations/xrc.cpp:2
+msgid "version"
+msgstr "Bertsioa"
+
+#: translations/xrc.cpp:3 translations/xrc.cpp:484
+msgid "About"
+msgstr "Honi buruz"
+
+#: translations/xrc.cpp:4
+msgid "Authors"
+msgstr "Egileak"
+
+#: translations/xrc.cpp:5
+msgid "Sponsors"
+msgstr "Sponsoreak"
+
+#: translations/xrc.cpp:6
+msgid "Upstream"
+msgstr ""
+
+#: translations/xrc.cpp:7
+msgid "License"
+msgstr "Lizentzia"
+
+#: translations/xrc.cpp:8
+msgid "System"
+msgstr "Sistema"
+
+#: translations/xrc.cpp:9 translations/xrc.cpp:176 translations/xrc.cpp:180
+#: translations/xrc.cpp:224 translations/xrc.cpp:232 translations/xrc.cpp:268
+#: translations/xrc.cpp:312 translations/xrc.cpp:326 translations/xrc.cpp:526
+#: translations/xrc.cpp:559 translations/xrc.cpp:563 translations/xrc.cpp:567
+#: translations/xrc.cpp:650 translations/xrc.cpp:675 translations/xrc.cpp:840
+#: translations/xrc.cpp:872 translations/xrc.cpp:1128
+msgid "OK"
+msgstr "OK"
+
+#: translations/xrc.cpp:10
+msgid "Batch Processor"
+msgstr "Loteen Prozesatzailea"
+
+#: translations/xrc.cpp:11
+msgid "Add application"
+msgstr "Aplikazioa gehitu"
+
+#: translations/xrc.cpp:12
+msgid "Remove complete"
+msgstr "Egindakoak borratu"
+
+#: translations/xrc.cpp:15
+msgid "Reset all"
+msgstr "Berrabiarazi dena"
+
+#: translations/xrc.cpp:17
+msgid "Move project up"
+msgstr "Proiektua gora mugitu"
+
+#: translations/xrc.cpp:18
+msgid "Move project down"
+msgstr "Proiektua behera mugitu"
+
+#: translations/xrc.cpp:19
+msgid "Overwrite always"
+msgstr "Beti berridatzi"
+
+#: translations/xrc.cpp:20
+msgid "Overwrite existing image files without further notice."
+msgstr "Existitzen diren irudi fitxategiak ezer esan gabe berridatzi."
+
+#: translations/xrc.cpp:21
+msgid "Remove finished project"
+msgstr "Bukatutako proiektuak borratu"
+
+#: translations/xrc.cpp:22
+#, fuzzy
+msgid "Automatically remove successfully finished projects from queue."
+msgstr "Bukatutako proiektuak zerrendatik automatikoki borratu."
+
+#: translations/xrc.cpp:23
+msgid "Automatic stitch after assistant"
+msgstr "Laguntzailearen ondoren automatikoki elkartu"
+
+#: translations/xrc.cpp:24
+#, fuzzy
+msgid "Automatically stitch projects after (successfully) running assistant."
+msgstr "Proiektua automatikoki elkartu laguntzailea (ondo) exekutatu ondoren. "
+
+#: translations/xrc.cpp:25
+msgid "When done"
+msgstr ""
+
+#: translations/xrc.cpp:26
+msgid "Verbose output"
+msgstr "Irteera berritsua"
+
+#: translations/xrc.cpp:27
+msgid "Show detailed output in separate window."
+msgstr "Irteera xehatua aparteko leiho batean erakutsi"
+
+#: translations/xrc.cpp:28
+msgid "Always save log"
+msgstr ""
+
+#: translations/xrc.cpp:29
+msgid "Directory:"
+msgstr "Direktorioa:"
+
+#: translations/xrc.cpp:30 translations/xrc.cpp:158 translations/xrc.cpp:163
+#: translations/xrc.cpp:166 translations/xrc.cpp:171 translations/xrc.cpp:776
+#: translations/xrc.cpp:783 translations/xrc.cpp:809 translations/xrc.cpp:815
+msgid "Choose..."
+msgstr "Hautatu..."
+
+#: translations/xrc.cpp:31
+msgid "include sub-directories"
+msgstr "Azpi-direktorioak gehitu"
+
+#: translations/xrc.cpp:32
+msgid "Naming:"
+msgstr "Izendatu:"
+
+#: translations/xrc.cpp:33
+msgid "PanoramaXX.pto"
+msgstr "PanoramaXX.pto"
+
+#: translations/xrc.cpp:34
+msgid "First file - last file.pto"
+msgstr "Lehenengo fitxategia -azken fitxategia.pto"
+
+#: translations/xrc.cpp:35
+msgid "Foldername.pto"
+msgstr "Fitxategizena.pto"
+
+#: translations/xrc.cpp:36
+msgid "Template from preferences"
+msgstr ""
+
+#: translations/xrc.cpp:38
+msgid "Directories"
+msgstr "Direktorioak"
+
+#: translations/xrc.cpp:39
+#, fuzzy
+msgid "Minimum number of images:"
+msgstr "Maskara kopurua"
+
+#: translations/xrc.cpp:40
+msgid "Minimum number of images a panorama should contain."
+msgstr ""
+
+#: translations/xrc.cpp:41
+#, fuzzy
+msgid "Maximum time difference:"
+msgstr "Irudiaren tamaina maximoa:"
+
+#: translations/xrc.cpp:42
+msgid ""
+"Maximal time difference in seconds between two consecutive images belonging "
+"to one panorama."
+msgstr ""
+
+#: translations/xrc.cpp:43
+msgid "Stacks:"
+msgstr ":"
+
+#: translations/xrc.cpp:44
+msgid "Create links"
+msgstr "Estekak sortu"
+
+#: translations/xrc.cpp:45
+msgid "Check if the stacks were shot on a tripod."
+msgstr ""
+
+#: translations/xrc.cpp:46
+#, fuzzy
+msgid "Lens database:"
+msgstr "Lente mota:"
+
+#: translations/xrc.cpp:47
+#, fuzzy
+msgid "Load distortion data"
+msgstr "distortzioa (a):"
+
+#: translations/xrc.cpp:48
+msgid "Tries to load distortion data from lens database if checked."
+msgstr ""
+
+#: translations/xrc.cpp:49
+#, fuzzy
+msgid "Load vignetting data"
+msgstr "Lenteen datuak kargatu..."
+
+#: translations/xrc.cpp:50
+msgid "Tries to load vignetting data from lens database if checked."
+msgstr ""
+
+#: translations/xrc.cpp:52 translations/xrc.cpp:281 translations/xrc.cpp:505
+#: translations/xrc.cpp:622 translations/xrc.cpp:625 translations/xrc.cpp:628
+#: translations/xrc.cpp:631 translations/xrc.cpp:769
+msgid "Options"
+msgstr "Hobespenak"
+
+#: translations/xrc.cpp:53
+msgid "Found panoramas"
+msgstr "Panoramak topatuta"
+
+#: translations/xrc.cpp:54
+#, fuzzy
+msgid "Camera:"
+msgstr "Kamararen Egilea:"
+
+#: translations/xrc.cpp:55 translations/xrc.cpp:305
+msgid "Lens:"
+msgstr "Lenteak:"
+
+#: translations/xrc.cpp:56 translations/xrc.cpp:249 translations/xrc.cpp:266
+#: translations/xrc.cpp:274 translations/xrc.cpp:306 translations/xrc.cpp:319
+#: translations/xrc.cpp:878 translations/xrc.cpp:963
+msgid "Focal length:"
+msgstr "Luzera fokala:"
+
+#: translations/xrc.cpp:57
+#, fuzzy
+msgid "Start date (duration):"
+msgstr "Lote exekuzioa hasi"
+
+#: translations/xrc.cpp:58
+msgid "Send selected panoramas to queue"
+msgstr "Hautatutako panoramak zerrendara bidali"
+
+#: translations/xrc.cpp:59
+msgid "Close"
+msgstr "Itxi"
+
+#: translations/xrc.cpp:60
+msgid "Searching panoramas"
+msgstr "Panoramak bilatzen"
+
+#: translations/xrc.cpp:61
+msgid "Failed projects"
+msgstr "Errorea eman duten proiektuak"
+
+#: translations/xrc.cpp:62 translations/xrc.cpp:674
+msgid "Output"
+msgstr "Irteera"
+
+#: translations/xrc.cpp:64
+msgid "Status report"
+msgstr "Egoera txostena"
+
+#: translations/xrc.cpp:66
+#, fuzzy
+msgid "Add project to stitching &queue..."
+msgstr "Proiektua elkartze zerrendara gehitu..."
+
+#: translations/xrc.cpp:67
+msgid "Adds a project to the stitching queue"
+msgstr "Proiektua elkartze zerrendara bidali"
+
+#: translations/xrc.cpp:68
+#, fuzzy
+msgid "Add project to &assistant queue..."
+msgstr "Proiektua asistentearen zerrendara gehitu..."
+
+#: translations/xrc.cpp:69
+msgid "Adds a project to the assistant queue"
+msgstr "Proiektua laguntzailearen zerrendara bidali"
+
+#: translations/xrc.cpp:70
+#, fuzzy
+msgid "&Remove project"
+msgstr "Proiektua borratu"
+
+#: translations/xrc.cpp:71 translations/xrc.cpp:115
+msgid "Removes selected project from the batch list"
+msgstr "Hautatutako proiektuak lote zerrendatik borratu"
+
+#: translations/xrc.cpp:72
+#, fuzzy
+msgid "&Project files..."
+msgstr "Proiektu fitxategiak"
+
+#: translations/xrc.cpp:73 translations/xrc.cpp:118
+msgid "Appends all project files from a directory and subdirectories"
+msgstr "Direktorio eta azpidirektorioen proiektu fitxategiak gehitu"
+
+#: translations/xrc.cpp:74
+#, fuzzy
+msgid "&Images..."
+msgstr "Irudiak"
+
+#: translations/xrc.cpp:75
+msgid "Searches in directories for image files suitable for panoramas"
+msgstr "Direktorioetan panoramak sortzeko balio duten irudiak bilatu"
+
+#: translations/xrc.cpp:76
+#, fuzzy
+msgid "Search &directory for..."
+msgstr "Direktorioan bilatu..."
+
+#: translations/xrc.cpp:77
+msgid "Searches in directories for existing projects or for images"
+msgstr "Direktorioetan bilatu existitzen diren proiektuak edo irudiak"
+
+#: translations/xrc.cpp:78
+#, fuzzy
+msgid "&Open batch"
+msgstr "Ireki lotea"
+
+#: translations/xrc.cpp:79 translations/xrc.cpp:94
+msgid "Opens a batch file with a list of projects"
+msgstr "Ireki proiektu zerrenda bat daukan lote fitxategia"
+
+#: translations/xrc.cpp:80
+#, fuzzy
+msgid "&Save batch"
+msgstr "Lotea gorde"
+
+#: translations/xrc.cpp:81 translations/xrc.cpp:97
+msgid "Saves a batch file with a list of projects"
+msgstr "Proiektu zerrenda bat duen lote fitxategia gorde"
+
+#: translations/xrc.cpp:82
+#, fuzzy
+msgid "&Clear batch"
+msgstr "Lotea garbitu"
+
+#: translations/xrc.cpp:83 translations/xrc.cpp:91
+msgid "Clears the batch list"
+msgstr "Lote zerrenda garbitu"
+
+#: translations/xrc.cpp:84
+msgid "&Minimize to tray"
+msgstr ""
+
+#: translations/xrc.cpp:85 translations/xrc.cpp:302 translations/xrc.cpp:437
+#: translations/xrc.cpp:1094
+msgid "&Quit"
+msgstr "Itxi (&Q)"
+
+#: translations/xrc.cpp:86 translations/xrc.cpp:438 translations/xrc.cpp:1095
+msgid "Exit program"
+msgstr "Programa itxi"
+
+#: translations/xrc.cpp:88
+msgid "Batch Stitcher help"
+msgstr "Lotekako elkartzailearen laguntza"
+
+#: translations/xrc.cpp:89
+msgid "Open Batch Stitcher help."
+msgstr "Ireki lotekako elkartzailearen laguntza"
+
+#: translations/xrc.cpp:90
+msgid "Clear batch"
+msgstr "Lotea garbitu"
+
+#: translations/xrc.cpp:92
+msgid "clear"
+msgstr "garbitu"
+
+#: translations/xrc.cpp:93
+msgid "Open batch"
+msgstr "Ireki lotea"
+
+#: translations/xrc.cpp:95
+msgid "open"
+msgstr "ireki"
+
+#: translations/xrc.cpp:96
+msgid "Save batch"
+msgstr "Lotea gorde"
+
+#: translations/xrc.cpp:98
+msgid "save"
+msgstr "gorde"
+
+#: translations/xrc.cpp:100
+msgid "Starts batch execution"
+msgstr "Lote exekuzioa hasi"
+
+#: translations/xrc.cpp:101
+msgid "start"
+msgstr "hasi"
+
+#: translations/xrc.cpp:102
+msgid "Skip project(s)"
+msgstr "Proiektua(k) saltatu"
+
+#: translations/xrc.cpp:103
+msgid "Skips execution of currently running project(s)"
+msgstr "Orain exekutatzen ari diren proiektua(k) saltatu"
+
+#: translations/xrc.cpp:104
+msgid "skip"
+msgstr "saltatu"
+
+#: translations/xrc.cpp:106
+msgid "Pauses batch execution"
+msgstr "Lote exekuzioa pausarazi"
+
+#: translations/xrc.cpp:107
+msgid "pause"
+msgstr "pausarazi"
+
+#: translations/xrc.cpp:108
+msgid "Cancel batch"
+msgstr "Lotea ezeztatu"
+
+#: translations/xrc.cpp:109
+msgid "Cancels batch execution"
+msgstr "Lotearen exekuzioa ezeztatu"
+
+#: translations/xrc.cpp:110
+msgid "cancel"
+msgstr "ezeztatu"
+
+#: translations/xrc.cpp:111
+msgid "Add project(s)"
+msgstr "Proiektua(k) gehitu"
+
+#: translations/xrc.cpp:112
+msgid "Appends project file(s) to the batch list"
+msgstr "Proiektu fitxategia(k) lote zerrendara gehitu"
+
+#: translations/xrc.cpp:113
+msgid "add"
+msgstr "gehitu"
+
+#: translations/xrc.cpp:114
+msgid "Remove project"
+msgstr "Proiektua borratu"
+
+#: translations/xrc.cpp:116
+msgid "remove"
+msgstr "borratu"
+
+#: translations/xrc.cpp:117
+msgid "Search directory"
+msgstr "Direktorioan bilatu"
+
+#: translations/xrc.cpp:119
+msgid "adddir"
+msgstr "gehdir"
+
+#: translations/xrc.cpp:120
+msgid "previous image pair"
+msgstr "aurreko irudi bikotea"
+
+#: translations/xrc.cpp:121
+msgid "next image pair"
+msgstr "hurrengo irudi bikotea"
+
+#: translations/xrc.cpp:122
+msgid "mode:"
+msgstr "modua:"
+
+#: translations/xrc.cpp:124
+msgid "vertical line"
+msgstr "lerro bertikala"
+
+#: translations/xrc.cpp:125
+msgid "horizontal line"
+msgstr "lerro horizontala"
+
+#: translations/xrc.cpp:126 translations/xrc.cpp:514
+msgid "Zoom:"
+msgstr "Zoom:"
+
+#: translations/xrc.cpp:127 translations/xrc.cpp:515
+msgid "fit to window"
+msgstr "Leihoaren tamaina hartu"
+
+#: translations/xrc.cpp:128 translations/xrc.cpp:719
+msgid "Fine-tune"
+msgstr ""
+
+#: translations/xrc.cpp:129
+msgid "Tries to optimize the currently active point"
+msgstr "Momentuak gaituta dagoen puntua optimizatzen saiatuko da"
+
+#: translations/xrc.cpp:130
+msgid "auto fine-&tune"
+msgstr ""
+
+#: translations/xrc.cpp:131
+msgid "auto add"
+msgstr "auto gehiketa"
+
+#: translations/xrc.cpp:132
+msgid "immediately add control point when selecting a second point"
+msgstr "bigarren puntua hautatzerakoan kontrol puntua gehitu"
+
+#: translations/xrc.cpp:133
+msgid "auto-estimate"
+msgstr ""
+
+#: translations/xrc.cpp:134
+msgid ""
+"tries to estimate the shift between the images and use it while placing "
+"control points"
+msgstr ""
+
+#: translations/xrc.cpp:135
+msgid "&Delete"
+msgstr "Borratu (&D)"
+
+#: translations/xrc.cpp:136
+msgid "&Add"
+msgstr "Gehitu (&A)"
+
+#: translations/xrc.cpp:137
+msgid "add a new Point"
+msgstr "Gehitu puntu berria"
+
+#: translations/xrc.cpp:139
+#, fuzzy
+msgid "Create control points for current image pair"
+msgstr "Kontrol puntuak sortu"
+
+#: translations/xrc.cpp:141
+#, fuzzy
+msgid "Remove control points in clouds"
+msgstr "Maskaretan dauden kontrol puntuak borratu"
+
+#: translations/xrc.cpp:143
+#, fuzzy
+msgid "Remove worst control points"
+msgstr "%d kontrol puntu borratu dira"
+
+#: translations/xrc.cpp:144 translations/xrc.cpp:332 translations/xrc.cpp:387
+msgid "Control Points"
+msgstr "Kontrol Puntuak"
+
+#: translations/xrc.cpp:145 translations/xrc.cpp:741
+msgid "Delete"
+msgstr "Borratu"
+
+#: translations/xrc.cpp:146
+msgid "Select by Distance"
+msgstr ""
+
+#: translations/xrc.cpp:147
+msgid "Description:"
+msgstr "Deskribapena:"
+
+#: translations/xrc.cpp:148 translations/xrc.cpp:218
+msgid "Type:"
+msgstr "Mota:"
+
+#: translations/xrc.cpp:149
+msgid "Autopano (by A. Jenny)"
+msgstr "Autopano (A. Jennyren egina)"
+
+#: translations/xrc.cpp:150
+msgid "All images at once"
+msgstr "Irudi guztiak batera"
+
+#: translations/xrc.cpp:151
+msgid "Panorama with stacks"
+msgstr ""
+
+#: translations/xrc.cpp:152
+msgid "Multi-row panorama"
+msgstr "Zerrenda anitzeko panorama"
+
+#: translations/xrc.cpp:153
+msgid "Multi-row panorama with stacks"
+msgstr ""
+
+#: translations/xrc.cpp:154
+msgid "Prealigned panorama"
+msgstr "Aurretik zerrendatutako panorama"
+
+#: translations/xrc.cpp:155
+msgid "Detector"
+msgstr ""
+
+#: translations/xrc.cpp:156
+msgid "One step detector"
+msgstr ""
+
+#: translations/xrc.cpp:157 translations/xrc.cpp:170
+msgid "Program:"
+msgstr "Programa:"
+
+#: translations/xrc.cpp:159 translations/xrc.cpp:164 translations/xrc.cpp:167
+#: translations/xrc.cpp:172
+msgid "Arguments:"
+msgstr "Argumentuak:"
+
+#: translations/xrc.cpp:160
+msgid "Cleanup arguments:"
+msgstr "Garbitzeko argumentuak:"
+
+#: translations/xrc.cpp:161
+msgid "Two step detector"
+msgstr ""
+
+#: translations/xrc.cpp:162
+msgid "Feature descriptor:"
+msgstr "Ezaugarrien deskribatzailea:"
+
+#: translations/xrc.cpp:165
+msgid "Feature matcher:"
+msgstr "Ezaugarrien topatzailea:"
+
+#: translations/xrc.cpp:168
+msgid "Detector for stacks"
+msgstr ""
+
+#: translations/xrc.cpp:169
+#, fuzzy
+msgid "Leave empty when no control point detector should run on stacks."
+msgstr "Kontrol puntuen detektorearen ezarpenak gorde"
+
+#: translations/xrc.cpp:173
+msgid "Advanced option"
+msgstr "Aukera aurreratua"
+
+#: translations/xrc.cpp:174
+msgid "This setting has no advanced options."
+msgstr "Hobespen honek ez du aukera aurreraturik."
+
+#: translations/xrc.cpp:175
+#, fuzzy
+msgid ""
+"The following patterns will be substituted before running:\n"
+"%o  -- output project (0.oto will be appended when using Autopano)\n"
+"%p  -- number of control points between each pair\n"
+"%v  -- HFOV of first image\n"
+"%f  -- projection of first image (0-4, as in panotools)\n"
+"%i  -- image files\n"
+"%namefile -- file that contains image filenames\n"
+"%s -- input panotools script\n"
+"%k -- intermediate key file(s)"
+msgstr ""
+"Exekutatu baino lehen patroi hauek aldatuko dira:\n"
+"%o  -- irteera proiektua (0.oto atzizkia erabiliko da Autopano "
+"erabiltzean)%p  -- bikoteen arteko kontrol puntu kopurua\n"
+"%v  -- lehengo irudiaren HFOV\n"
+"%f  -- Lehengo irudiaren proiekzioa (0-4, panotools-en bezala)%i  -- irudi "
+"fitxategiak\n"
+"%n  -- irudi fitxategiak dituen fitxategia\n"
+"%s  -- panotools-en sarrera scripta\n"
+"%k  -- erdiko gako fitxategia(k)"
+
+#: translations/xrc.cpp:178
+msgid "Parameters for Control Point Detectors"
+msgstr "Kontrol puntuen DETECTORearen parametroak"
+
+#: translations/xrc.cpp:179
+#, fuzzy
+msgid "Invalid filenames"
+msgstr "Defektuzko Fitxategi Formatua:"
+
+#: translations/xrc.cpp:182
+msgid "Edit Panorama Tools Script"
+msgstr "Panorama Tresnen Script-a editatu"
+
+#: translations/xrc.cpp:183
+msgid ""
+"This is the script which will be sent to the Panorama Tools engine.  Editing "
+"these lines is an advanced technique."
+msgstr ""
+"Script hau Panorama Tresnen motorrera bidaliko da. Lerro hauek "
+"aldatzeateknika aurreratua da."
+
+#: translations/xrc.cpp:184
+msgid "Continue with these changes"
+msgstr "Aldaketa hauekin jarraitu"
+
+#: translations/xrc.cpp:185
+msgid "Discard changes and cancel"
+msgstr "Aldaketak atzera bota eta ezeztatu"
+
+#: translations/xrc.cpp:186 translations/xrc.cpp:869 translations/xrc.cpp:931
+#: translations/xrc.cpp:1020
+msgid "Yaw:"
+msgstr ""
+
+#: translations/xrc.cpp:187 translations/xrc.cpp:870 translations/xrc.cpp:932
+#: translations/xrc.cpp:1021
+msgid "Pitch:"
+msgstr ""
+
+#: translations/xrc.cpp:188 translations/xrc.cpp:871 translations/xrc.cpp:933
+#: translations/xrc.cpp:1022
+msgid "Roll:"
+msgstr "Biratzea:"
+
+#: translations/xrc.cpp:189
+#, fuzzy
+msgid "Translation parameter"
+msgstr "Estekaren parametroak"
+
+#: translations/xrc.cpp:190 translations/xrc.cpp:934 translations/xrc.cpp:1023
+msgid "X:"
+msgstr "X:"
+
+#: translations/xrc.cpp:191 translations/xrc.cpp:935 translations/xrc.cpp:1024
+msgid "Y:"
+msgstr "Y:"
+
+#: translations/xrc.cpp:192 translations/xrc.cpp:936 translations/xrc.cpp:1025
+msgid "Z:"
+msgstr "Z:"
+
+#: translations/xrc.cpp:193
+msgid "Tpy:"
+msgstr ""
+
+#: translations/xrc.cpp:194
+msgid "Tpp:"
+msgstr ""
+
+#: translations/xrc.cpp:195 translations/xrc.cpp:243
+#, fuzzy
+msgid "Positions"
+msgstr "Irudiaren Posizioa"
+
+#: translations/xrc.cpp:197
+msgid "degrees of view (v):"
+msgstr "ikuspegiaren graduak (v):"
+
+#: translations/xrc.cpp:198 translations/xrc.cpp:284
+msgid "Radial Distortion"
+msgstr "Distortzio erradiala"
+
+#: translations/xrc.cpp:199 translations/xrc.cpp:285
+msgid "distortion (a):"
+msgstr "distortzioa (a):"
+
+#: translations/xrc.cpp:200 translations/xrc.cpp:286
+msgid "barrel (b):"
+msgstr ""
+
+#: translations/xrc.cpp:201 translations/xrc.cpp:287
+msgid "distortion (c):"
+msgstr "distortzioa (c):"
+
+#: translations/xrc.cpp:202 translations/xrc.cpp:215 translations/xrc.cpp:222
+msgid "Show graph >>"
+msgstr ""
+
+#: translations/xrc.cpp:203 translations/xrc.cpp:288
+msgid "Image Center Shift"
+msgstr ""
+
+#: translations/xrc.cpp:204 translations/xrc.cpp:289
+msgid "horizontal (d):"
+msgstr "horizontala (d):"
+
+#: translations/xrc.cpp:205 translations/xrc.cpp:290
+msgid "vertical (e):"
+msgstr "bertikala (e):"
+
+#: translations/xrc.cpp:206
+msgid "Image Shearing"
+msgstr ""
+
+#: translations/xrc.cpp:207
+msgid "horizontal (g):"
+msgstr "horizontala (g):"
+
+#: translations/xrc.cpp:208
+msgid "vertical (t):"
+msgstr "bertikala (t):"
+
+#: translations/xrc.cpp:210
+msgid "Exposure and Color"
+msgstr "Esposaketa eta Kolorea"
+
+#: translations/xrc.cpp:211
+msgid "Exposure (Eev):"
+msgstr "Esposaketa (Eev)"
+
+#: translations/xrc.cpp:212
+msgid "Red multiplier (Er):"
+msgstr "Gorriaren multiplikatzailea (Er):"
+
+#: translations/xrc.cpp:213
+msgid "Blue multiplier (Eb):"
+msgstr "Urdinaren multiplikatzailea (Eb):"
+
+#: translations/xrc.cpp:214 translations/xrc.cpp:1126
+msgid "Vignetting"
+msgstr ""
+
+#: translations/xrc.cpp:216
+msgid "Vignetting Center Shift"
+msgstr ""
+
+#: translations/xrc.cpp:217 translations/xrc.cpp:888 translations/xrc.cpp:973
+msgid "Photometrics"
+msgstr "Fotometrikoa"
+
+#: translations/xrc.cpp:221
+msgid "Parameters:"
+msgstr "Parametroak:"
+
+#: translations/xrc.cpp:223 translations/xrc.cpp:1127
+msgid "Camera Response"
+msgstr "Kamararen Erantzuna"
+
+#: translations/xrc.cpp:226 translations/xrc.cpp:842
+msgid "Help"
+msgstr "Laguntza"
+
+#: translations/xrc.cpp:227
+#, fuzzy
+msgid "Image variables"
+msgstr "Irudi aldagaiak:"
+
+#: translations/xrc.cpp:228
+msgid "Images per stack:"
+msgstr ""
+
+#: translations/xrc.cpp:229
+#, fuzzy
+msgid "Link position of images in each stack"
+msgstr "Pila honetako posizioak estekatu"
+
+#: translations/xrc.cpp:230
+msgid ""
+"Check this option if the images were shot on a tripod.\n"
+"Uncheck this option if the images in each stack need an alignment to each "
+"other."
+msgstr ""
+
+#: translations/xrc.cpp:231
+#, fuzzy
+msgid "Image stack"
+msgstr "Irudiak"
+
+#: translations/xrc.cpp:234
+msgid "Enter image count per stack"
+msgstr ""
+
+#: translations/xrc.cpp:235
+msgid "Group by:"
+msgstr ""
+
+#: translations/xrc.cpp:236
+#, fuzzy
+msgid "Minimum overlap:"
+msgstr "Lerroaren tamaina minimoa:"
+
+#: translations/xrc.cpp:237
+msgid "Minimum overlap for output stack detection"
+msgstr ""
+
+#: translations/xrc.cpp:238
+#, fuzzy
+msgid "Maximum Ev difference:"
+msgstr "ezberdintasuna"
+
+#: translations/xrc.cpp:239
+msgid "Maximum EV difference for detection of output layers"
+msgstr ""
+
+#: translations/xrc.cpp:240
+msgid "Display"
+msgstr ""
+
+#: translations/xrc.cpp:241 translations/xrc.cpp:678
+msgid "General"
+msgstr "Orokorra"
+
+#: translations/xrc.cpp:242
+msgid "EXIF data"
+msgstr ""
+
+#: translations/xrc.cpp:244 translations/xrc.cpp:293 translations/xrc.cpp:1119
+msgid "Lens parameters"
+msgstr "Lenteen parametroak"
+
+#: translations/xrc.cpp:245
+#, fuzzy
+msgid "Photometric parameters"
+msgstr "Lerrokatze fotometrikoa"
+
+#: translations/xrc.cpp:246
+#, fuzzy
+msgid "Lens type"
+msgstr "Lente mota:"
+
+#: translations/xrc.cpp:247
+#, fuzzy
+msgid "Add images..."
+msgstr "Irudiak gehitu"
+
+#: translations/xrc.cpp:248 translations/xrc.cpp:261 translations/xrc.cpp:273
+#: translations/xrc.cpp:877 translations/xrc.cpp:962
+msgid "Lens type:"
+msgstr "Lente mota:"
+
+#: translations/xrc.cpp:250 translations/xrc.cpp:267 translations/xrc.cpp:275
+#: translations/xrc.cpp:879 translations/xrc.cpp:964
+msgid "Focal length multiplier:"
+msgstr "Luzera fokalaren biderkatzailea"
+
+#: translations/xrc.cpp:251
+msgid "Feature Matching"
+msgstr "Ezaugarrien XXX"
+
+#: translations/xrc.cpp:252
+msgid "Settings:"
+msgstr "Hobespenak"
+
+#: translations/xrc.cpp:254
+#, fuzzy
+msgid "Run selected control point detector on the selected images"
+msgstr "Hautatutako irudiak lotzen duten kontrol puntuak borratu"
+
+#: translations/xrc.cpp:255 translations/xrc.cpp:291 translations/xrc.cpp:472
+msgid "Optimize"
+msgstr "Optimizatu"
+
+#: translations/xrc.cpp:256
+#, fuzzy
+msgid "Geometric:"
+msgstr "Geometrikoa"
+
+#: translations/xrc.cpp:257 translations/xrc.cpp:259
+msgid "Calculate"
+msgstr ""
+
+#: translations/xrc.cpp:258
+#, fuzzy
+msgid "Photometric:"
+msgstr "Fotometrikoa"
+
+#: translations/xrc.cpp:260
+msgid "Selected Image"
+msgstr "Hautatutako Irudia"
+
+#: translations/xrc.cpp:262
+msgid "Load lens data..."
+msgstr "Lenteen datuak kargatu..."
+
+#: translations/xrc.cpp:263
+msgid "Enter horizontal field of view (HFOV) or focal length and crop factor:"
+msgstr ""
+"Ikuspegi horizontala (HFOV) edo lente fokala eta mozketa faktorea sartu:"
+
+#: translations/xrc.cpp:264
+msgid "HFOV (v):"
+msgstr "HFOV (v):"
+
+#: translations/xrc.cpp:265 translations/xrc.cpp:733 translations/xrc.cpp:735
+msgid "degrees"
+msgstr "graduak"
+
+#: translations/xrc.cpp:270
+msgid "Camera and Lens data"
+msgstr "Kamara eta Lenteen datuak"
+
+#: translations/xrc.cpp:271 translations/xrc.cpp:469
+msgid "Add"
+msgstr "Gehitu"
+
+#: translations/xrc.cpp:276
+msgid "Images (with straight lines)"
+msgstr "Irudiak (lerro zuzenekin)"
+
+#: translations/xrc.cpp:277
+msgid "Edge detection scale:"
+msgstr "Ertzak topatzeko eskala:"
+
+#: translations/xrc.cpp:278
+msgid "Edge detection threshold:"
+msgstr "Ertzak topatzeko atalasea:"
+
+#: translations/xrc.cpp:279
+msgid "Maximal image size:"
+msgstr "Irudiaren tamaina maximoa:"
+
+#: translations/xrc.cpp:280
+msgid "Minimum line length:"
+msgstr "Lerroaren tamaina minimoa:"
+
+#: translations/xrc.cpp:282
+msgid "Find lines"
+msgstr "Lerroak topatu"
+
+#: translations/xrc.cpp:294
+msgid "Original"
+msgstr "Originala"
+
+#: translations/xrc.cpp:295
+msgid "Edge detection"
+msgstr "Ertzen topaketa"
+
+#: translations/xrc.cpp:296
+msgid "Corrected"
+msgstr "Zuzenduta"
+
+#: translations/xrc.cpp:297
+msgid "Show lines"
+msgstr "Lerroak erakutsi"
+
+#: translations/xrc.cpp:298
+msgid "Refresh"
+msgstr "Freskatu"
+
+#: translations/xrc.cpp:300
+msgid "&Save as project file..."
+msgstr "Proiektu fitxategi bezala gorde (&S)..."
+
+#: translations/xrc.cpp:301
+msgid "Saves the images and lines as pto file for further tuning inside hugin."
+msgstr ""
+"Irudiak eta lerroak pto fitxategi bezala gorde, gero huginen barruan "
+"lantzeko."
+
+#: translations/xrc.cpp:307 translations/xrc.cpp:320
+msgid "Aperture:"
+msgstr "Irekiera:"
+
+#: translations/xrc.cpp:308 translations/xrc.cpp:321
+msgid "Subject distance:"
+msgstr ""
+
+#: translations/xrc.cpp:309
+msgid ""
+"Select which parameters should be loaded\n"
+"from database"
+msgstr ""
+
+#: translations/xrc.cpp:310
+#, fuzzy
+msgid "Load distortion"
+msgstr "Distortzio erradiala"
+
+#: translations/xrc.cpp:311
+msgid "Load vignetting"
+msgstr ""
+
+#: translations/xrc.cpp:314
+#, fuzzy
+msgid "Load lens from database"
+msgstr "Lenteen datuak kargatu..."
+
+#: translations/xrc.cpp:315
+#, fuzzy
+msgid "Camera maker:"
+msgstr "Kamararen Egilea:"
+
+#: translations/xrc.cpp:316
+#, fuzzy
+msgid "Camera model:"
+msgstr "Kamararen Modeloa:"
+
+#: translations/xrc.cpp:317
+#, fuzzy
+msgid "Lens name:"
+msgstr "Lente kopurua"
+
+#: translations/xrc.cpp:318
+#, fuzzy
+msgid "Leave empty for compact cameras."
+msgstr "(hutsik utzi SE-ren defektuzko balioarentzako"
+
+#: translations/xrc.cpp:322
+msgid ""
+"Select which parameters should be saved\n"
+"into database"
+msgstr ""
+
+#: translations/xrc.cpp:323
+#, fuzzy
+msgid "Save distortion"
+msgstr "Distortzio erradiala"
+
+#: translations/xrc.cpp:324
+msgid "Save vignetting"
+msgstr ""
+
+#: translations/xrc.cpp:328
+#, fuzzy
+msgid "Save lens to database"
+msgstr "Lenteen parametro fitxategia gorde"
+
+#: translations/xrc.cpp:330 translations/xrc.cpp:383
+#, fuzzy
+msgid "Photos"
+msgstr "Fotometrikoa"
+
+#: translations/xrc.cpp:331 translations/xrc.cpp:385 translations/xrc.cpp:506
+#, fuzzy
+msgid "Masks"
+msgstr "Maskarak:"
+
+#: translations/xrc.cpp:335 translations/xrc.cpp:393
+msgid "Stitcher"
+msgstr "Elkartzailea"
+
+#: translations/xrc.cpp:338
+#, fuzzy
+msgid "Should the OpenGL powered fast preview window disabled?"
+msgstr "OpenGL-ren aurrebista leihoa ikusi"
+
+#: translations/xrc.cpp:339
+msgid "Don't ask again"
+msgstr ""
+
+#: translations/xrc.cpp:340
+msgid "Yes"
+msgstr ""
+
+#: translations/xrc.cpp:341
+#, fuzzy
+msgid "No"
+msgstr "Ezer"
+
+#: translations/xrc.cpp:343
+msgid ""
+"The project covers a big brightness range, but Hugin could not automatically "
+"detect any stacks.\n"
+"Consider assigning stacks manually in the panorama editor to help Hugin to "
+"process the panorama."
+msgstr ""
+
+#: translations/xrc.cpp:344 translations/xrc.cpp:353 translations/xrc.cpp:653
+#, fuzzy
+msgid "Don't show again"
+msgstr "Ez aldatu"
+
+#: translations/xrc.cpp:345 translations/xrc.cpp:654
+msgid "Ok"
+msgstr ""
+
+#: translations/xrc.cpp:347
+msgid ""
+"Hugin has image stacks detected in the added images and will assign "
+"corresponding stack numbers to the images. Should the position of images in "
+"each stack be linked?"
+msgstr ""
+
+#: translations/xrc.cpp:354 translations/xrc.cpp:471
+msgid "Re-optimize"
+msgstr "Berroptimizatu"
+
+#: translations/xrc.cpp:355
+#, fuzzy
+msgid "Don't optimize now"
+msgstr "Optimizatu orain!"
+
+#: translations/xrc.cpp:356
+msgid "Edit cp tools"
+msgstr ""
+
+#: translations/xrc.cpp:357 translations/xrc.cpp:1048
+msgid "&Undo"
+msgstr "Desegin (&U)"
+
+#: translations/xrc.cpp:358 translations/xrc.cpp:464 translations/xrc.cpp:1049
+msgid "Undo the last action"
+msgstr "Azkenengo ekintza desegin"
+
+#: translations/xrc.cpp:359 translations/xrc.cpp:1050
+msgid "&Redo"
+msgstr "Be&rregin"
+
+#: translations/xrc.cpp:360 translations/xrc.cpp:467 translations/xrc.cpp:1051
+msgid "Redo the last action"
+msgstr "Azkenengo ekintza berregin"
+
+#: translations/xrc.cpp:361
+msgid "&Add Image"
+msgstr "Irudi&a Gehitu"
+
+#: translations/xrc.cpp:362 translations/xrc.cpp:470
+msgid "Add another image to the current project"
+msgstr "Oraingo proiektuari beste irudi bat gehitu"
+
+#: translations/xrc.cpp:363
+#, fuzzy
+msgid "Run a&ssistant"
+msgstr "Laguntzailea exekutatzen"
+
+#: translations/xrc.cpp:364
+#, fuzzy
+msgid "Send to assistant &queue"
+msgstr "Laguntzailearen zerrendara bidali"
+
+#: translations/xrc.cpp:365 translations/xrc.cpp:1052
+msgid "&Optimize"
+msgstr "&Optimizatu"
+
+#: translations/xrc.cpp:366 translations/xrc.cpp:473 translations/xrc.cpp:1053
+msgid "Re-run the optimizer with current settings"
+msgstr "Optimizatzailea oraingo hobespenekin berrexekutatu"
+
+#: translations/xrc.cpp:367
+msgid "Fine-&tune all Points"
+msgstr ""
+
+#: translations/xrc.cpp:368
+msgid ""
+"Runs fine-tune on all control points. Useful for projects created with other "
+"tools, like PTGui or PTAssembler"
+msgstr ""
+
+#: translations/xrc.cpp:369
+msgid "Remove control points in masks"
+msgstr "Maskaretan dauden kontrol puntuak borratu"
+
+#: translations/xrc.cpp:370
+#, fuzzy
+msgid "Removes all control points inside masked areas."
+msgstr "Maskaretan dauden kontrol puntuak borratu"
+
+#: translations/xrc.cpp:371
+msgid "Run &Python script"
+msgstr "&Python scripta exekutatu"
+
+#: translations/xrc.cpp:372
+msgid "Run a python script"
+msgstr "Python script bat exekutatu"
+
+#: translations/xrc.cpp:373 translations/xrc.cpp:1054
+msgid "&Edit"
+msgstr "&Editatu"
+
+#: translations/xrc.cpp:374 translations/xrc.cpp:1062
+msgid "&View"
+msgstr "Ikusi &V"
+
+#: translations/xrc.cpp:375 translations/xrc.cpp:1056
+msgid "Full Screen"
+msgstr "Pantaila Osoa"
+
+#: translations/xrc.cpp:376 translations/xrc.cpp:1057
+#, fuzzy
+msgid "Shows Hugin's main window on full-screen"
+msgstr "Huginen leiho nagusia pantaila osoan ikusi"
+
+#: translations/xrc.cpp:377
+msgid "&Control point table"
+msgstr "Kontrol puntuen taula (&C)"
+
+#: translations/xrc.cpp:378
+msgid "Shows all control point distances"
+msgstr "Kontrol puntuen distantziak ikusi"
+
+#: translations/xrc.cpp:379
+msgid "&Preview window"
+msgstr "aurrebista leihoa (&P)"
+
+#: translations/xrc.cpp:380
+msgid "Show the preview window"
+msgstr "Aurrebista leihoa ikusi"
+
+#: translations/xrc.cpp:381
+msgid "&Fast Preview window"
+msgstr "Aurrebista Azkarraren leihoa (&F)"
+
+#: translations/xrc.cpp:382
+msgid "Show the OpenGL preview window"
+msgstr "OpenGL-ren aurrebista leihoa ikusi"
+
+#: translations/xrc.cpp:384
+#, fuzzy
+msgid "Show the Photos panel"
+msgstr "Maskararen panela ikusi"
+
+#: translations/xrc.cpp:386
+#, fuzzy
+msgid "Show the Masks panel"
+msgstr "Maskararen panela ikusi"
+
+#: translations/xrc.cpp:388
+msgid "Show the Control Points panel"
+msgstr "Kontrol Puntuen panela ikusi"
+
+#: translations/xrc.cpp:390
+msgid "Show the Optimizer panel"
+msgstr "Optimizatzailearen panela ikusi"
+
+#: translations/xrc.cpp:392
+msgid "Show the Exposure panel"
+msgstr "Esposaketaren panela ikusi"
+
+#: translations/xrc.cpp:394
+msgid "Show the Stitcher panel"
+msgstr "Elkartzailearen panela ikusi"
+
+#: translations/xrc.cpp:395 translations/xrc.cpp:1063
+msgid "Simple"
+msgstr ""
+
+#: translations/xrc.cpp:396 translations/xrc.cpp:1064
+#, fuzzy
+msgid "Advanced"
+msgstr "Aukera aurreratua"
+
+#: translations/xrc.cpp:397 translations/xrc.cpp:1065
+msgid "Expert"
+msgstr ""
+
+#: translations/xrc.cpp:398
+#, fuzzy
+msgid "&Interface"
+msgstr "Erabiltzaile Interfazea"
+
+#: translations/xrc.cpp:399
+#, fuzzy
+msgid "&Stitch"
+msgstr "Elkartu!"
+
+#: translations/xrc.cpp:400
+msgid "Stitch with the settings on the pano tabs"
+msgstr ""
+
+#: translations/xrc.cpp:401
+msgid "Stitch user defined output..."
+msgstr ""
+
+#: translations/xrc.cpp:402
+msgid "Stitch with the settings from an user defined output sequence"
+msgstr ""
+
+#: translations/xrc.cpp:403
+#, fuzzy
+msgid "&Output"
+msgstr "Irteera"
+
+#: translations/xrc.cpp:406 translations/xrc.cpp:1068
+msgid "Some information on the different buttons and so on."
+msgstr "Botoi ezberdinen zenbait informazio eta abar"
+
+#: translations/xrc.cpp:407 translations/xrc.cpp:1069
+msgid "&Tip of the day"
+msgstr "Eguneko aholkua (&T)"
+
+#: translations/xrc.cpp:408 translations/xrc.cpp:1070
+msgid "Show one of the tips of the day."
+msgstr "Eguneko aholkuren bat bistaratu."
+
+#: translations/xrc.cpp:409 translations/xrc.cpp:1071
+msgid "&Keyboard Shortcuts"
+msgstr "Te&klatuaren laster-teklak"
+
+#: translations/xrc.cpp:410 translations/xrc.cpp:1072
+msgid "keyboard shortcuts"
+msgstr "teklatuaren laster-teklak"
+
+#: translations/xrc.cpp:411 translations/xrc.cpp:1073
+msgid "&FAQ"
+msgstr "&FAQ"
+
+#: translations/xrc.cpp:412 translations/xrc.cpp:1074
+msgid "Frequently Asked Questions"
+msgstr "Maiz Egindako Galderak"
+
+#: translations/xrc.cpp:413 translations/xrc.cpp:1075
+msgid "&About"
+msgstr "Honi buruz (&A)"
+
+#: translations/xrc.cpp:415 translations/xrc.cpp:1077
+msgid "&Donate"
+msgstr "&Dirua eman"
+
+#: translations/xrc.cpp:416 translations/xrc.cpp:1078
+msgid ""
+"If you like hugin and want to see further improvements, please consider "
+"donating to the hugin project."
+msgstr ""
+"Hugin gustoko baduzu eta hobekuntza gehiago nahi badituzu, mesdez diruaeman "
+"hugin proiektuari."
+
+#: translations/xrc.cpp:417 translations/xrc.cpp:436 translations/xrc.cpp:446
+#: translations/xrc.cpp:1079 translations/xrc.cpp:1093
+#: translations/xrc.cpp:1107
+msgid "&Preferences"
+msgstr "Hobes&penak"
+
+#: translations/xrc.cpp:418 translations/xrc.cpp:1081
+#: translations/xrc.cpp:1097
+msgid "&New"
+msgstr "Berria (&N)"
+
+#: translations/xrc.cpp:419 translations/xrc.cpp:450 translations/xrc.cpp:1082
+#: translations/xrc.cpp:1098
+msgid "New project"
+msgstr "Proiektu berria"
+
+#: translations/xrc.cpp:420 translations/xrc.cpp:1083
+#: translations/xrc.cpp:1099
+msgid "&Open"
+msgstr "Ireki (&O)"
+
+#: translations/xrc.cpp:421 translations/xrc.cpp:453 translations/xrc.cpp:1084
+#: translations/xrc.cpp:1100
+msgid "Open project"
+msgstr "Ireki proiektua"
+
+#: translations/xrc.cpp:422 translations/xrc.cpp:1085
+#: translations/xrc.cpp:1101
+msgid "&Save"
+msgstr "Gorde (&S)"
+
+#: translations/xrc.cpp:423 translations/xrc.cpp:458 translations/xrc.cpp:1086
+#: translations/xrc.cpp:1102
+msgid "Save current project file"
+msgstr "Oraingo proiektu fitxategia gorde"
+
+#: translations/xrc.cpp:424 translations/xrc.cpp:1087
+#: translations/xrc.cpp:1103
+msgid "S&ave as"
+msgstr "Gorde honela (&a)"
+
+#: translations/xrc.cpp:425 translations/xrc.cpp:461 translations/xrc.cpp:1088
+#: translations/xrc.cpp:1104
+msgid "Save current project to a new file"
+msgstr "Oraingo proiektua fitxategi berri batean gorde"
+
+#: translations/xrc.cpp:426
+msgid "&Write PTStitcher script"
+msgstr "PTStitcher script-a idatzi (&W)"
+
+#: translations/xrc.cpp:427
+#, fuzzy
+msgid ""
+"Write current project to a PTStitcher-compatible script file, useful for "
+"batch processing"
+msgstr ""
+"Oraingo proiektua PTStitcher-ekin bateragarria den script fitxategi batean "
+"idatzi,loteka prozesatzeko baliagarria"
+
+#: translations/xrc.cpp:428 translations/xrc.cpp:1089
+#: translations/xrc.cpp:1105
+#, fuzzy
+msgid "Most recently &used projects"
+msgstr "Oraintsu erabilitako proiektuak"
+
+#: translations/xrc.cpp:429 translations/xrc.cpp:1090
+#: translations/xrc.cpp:1106
+msgid "List of most recently used project files"
+msgstr "Oraintsu gehien erabilitako proiektu fitxategiak"
+
+#: translations/xrc.cpp:430 translations/xrc.cpp:440 translations/xrc.cpp:1091
+msgid "&Run Batch Processor"
+msgstr "Lote Prozesatzailea exekutatu (&R)"
+
+#: translations/xrc.cpp:432 translations/xrc.cpp:442
+msgid "&Merge project..."
+msgstr "Proiektua elkartu... (&M)"
+
+#: translations/xrc.cpp:433 translations/xrc.cpp:443
+msgid "Merges an existing project file with the current project."
+msgstr "Oraingo proiektua eta existitzen den proiektu bat elkartzen ditu."
+
+#: translations/xrc.cpp:434 translations/xrc.cpp:444
+msgid "Apply &Template"
+msgstr "&Txantiloia aplikatu"
+
+#: translations/xrc.cpp:435 translations/xrc.cpp:445
+msgid ""
+"Assign the settings of a previously saved project to the current images."
+msgstr "Lehendik gordetako proiektu baten hobespenak oraingo irudiei esleitu."
+
+#: translations/xrc.cpp:447
+#, fuzzy
+msgid "&Close editor"
+msgstr "&Itxi"
+
+#: translations/xrc.cpp:448
+msgid "Closes panorama editor"
+msgstr ""
+
+#: translations/xrc.cpp:451
+msgid "New"
+msgstr "Berria"
+
+#: translations/xrc.cpp:452
+msgid "Start a new project"
+msgstr "Proiektu berria hasi"
+
+#: translations/xrc.cpp:454
+msgid "Open"
+msgstr "Ireki"
+
+#: translations/xrc.cpp:455
+msgid "Open a project file"
+msgstr "Ireki proiektu fitxategia"
+
+#: translations/xrc.cpp:457 translations/xrc.cpp:844 translations/xrc.cpp:848
+msgid "Save"
+msgstr "Gorde"
+
+#: translations/xrc.cpp:459
+msgid "Save project as"
+msgstr "Gorde proiektua honela"
+
+#: translations/xrc.cpp:460
+msgid "Save As"
+msgstr "Gorde Honela"
+
+#: translations/xrc.cpp:462 translations/xrc.cpp:463
+msgid "Undo"
+msgstr "Desegin"
+
+#: translations/xrc.cpp:465 translations/xrc.cpp:466
+msgid "Redo"
+msgstr "Berregin"
+
+#: translations/xrc.cpp:468
+msgid "Add image"
+msgstr "Irudia gehitu"
+
+#: translations/xrc.cpp:474
+msgid "Fast Preview panorama"
+msgstr "Aurrebista Azkarreko panorama"
+
+#: translations/xrc.cpp:475
+msgid "Fast Preview"
+msgstr "Aurrebista azkarra"
+
+#: translations/xrc.cpp:476
+msgid "Show the OpenGL preview image"
+msgstr "OpenGL-ren aurrebista irudia ikusi"
+
+#: translations/xrc.cpp:477 translations/xrc.cpp:902 translations/xrc.cpp:987
+msgid "Preview panorama"
+msgstr "Aurrebistaren panorama"
+
+#: translations/xrc.cpp:479
+msgid "Show the preview image"
+msgstr "Aurrebistako irudia ikusi"
+
+#: translations/xrc.cpp:480 translations/xrc.cpp:890 translations/xrc.cpp:975
+msgid "Show control points"
+msgstr "Kontrol puntuak ikusi"
+
+#: translations/xrc.cpp:481
+msgid "Points"
+msgstr "Puntuak"
+
+#: translations/xrc.cpp:482
+msgid "Show all control points in a single table"
+msgstr "Kontrol puntu guztiak taula bakarrean ikusi"
+
+#: translations/xrc.cpp:485
+msgid "Display credits for the creators of Hugin"
+msgstr "Huginen sortzaileen kredituak bistaratu"
+
+#: translations/xrc.cpp:486
+msgid "Add new mask"
+msgstr "Maskara berria gehitu"
+
+#: translations/xrc.cpp:487
+msgid "Delete mask"
+msgstr "Maskara borratu"
+
+#: translations/xrc.cpp:488
+msgid "Mask type:"
+msgstr "Maskara mota:"
+
+#: translations/xrc.cpp:489
+msgid "Exclude region"
+msgstr "Eskualdea kanpoan utzi"
+
+#: translations/xrc.cpp:490
+msgid "Include region"
+msgstr "Eskualdea gehitu"
+
+#: translations/xrc.cpp:491
+msgid "Exclude region from stack"
+msgstr "Eskualdea pilatik kendu"
+
+#: translations/xrc.cpp:492
+msgid "Include region from stack"
+msgstr "Eskualdea pilara gehitu"
+
+#: translations/xrc.cpp:493
+msgid "Exclude region from all images of this lens"
+msgstr "Eskualdea lente hauen irudi guztietatik kendu"
+
+#: translations/xrc.cpp:494 translations/xrc.cpp:746
+msgid "Export"
+msgstr "Esportatu"
+
+#: translations/xrc.cpp:495 translations/xrc.cpp:745
+msgid "Import"
+msgstr "Inportatu"
+
+#: translations/xrc.cpp:496
+msgid "Copy"
+msgstr "Kopiatu"
+
+#: translations/xrc.cpp:497
+msgid "Paste"
+msgstr "Itsatsi"
+
+#: translations/xrc.cpp:498
+msgid "Import/Export"
+msgstr "Inportatu/Esportatu"
+
+#: translations/xrc.cpp:499
+msgid "Excluded"
+msgstr "Kenduta"
+
+#: translations/xrc.cpp:500
+msgid "Included"
+msgstr "Gehituta"
+
+#: translations/xrc.cpp:501
+msgid "Selected"
+msgstr "Hautatuta"
+
+#: translations/xrc.cpp:502
+msgid "Unselected"
+msgstr "Hautatu gabea"
+
+#: translations/xrc.cpp:503
+msgid "Colour"
+msgstr "Kolorea"
+
+#: translations/xrc.cpp:504
+msgid "Show extent of active masks and crop"
+msgstr "Maskara eta mozketa aktiboen tamaina erakutsi"
+
+#: translations/xrc.cpp:507 translations/xrc.cpp:584
+msgid "Top:"
+msgstr "Goi:"
+
+#: translations/xrc.cpp:508 translations/xrc.cpp:583
+msgid "Left:"
+msgstr "Ezkerra:"
+
+#: translations/xrc.cpp:509 translations/xrc.cpp:585
+msgid "Right:"
+msgstr "Eskubia:"
+
+#: translations/xrc.cpp:510 translations/xrc.cpp:586
+msgid "Bottom:"
+msgstr "Azpi:"
+
+#: translations/xrc.cpp:511
+msgid "Always center Crop on d,e"
+msgstr ""
+
+#: translations/xrc.cpp:516
+msgid "Image size:"
+msgstr "Irudiaren tamaina:"
+
+#: translations/xrc.cpp:517
+msgid "Mask size:"
+msgstr "Maskararen tamaina:"
+
+#: translations/xrc.cpp:518
+msgid "Mask size"
+msgstr "Maskararen tamaina"
+
+#: translations/xrc.cpp:519
+msgid "Don't change"
+msgstr "Ez aldatu"
+
+#: translations/xrc.cpp:520
+msgid "Scale to fit"
+msgstr "Eskalatu tamainara"
+
+#: translations/xrc.cpp:521
+msgid "Scale proportional"
+msgstr "Proportzionalki eskalatu"
+
+#: translations/xrc.cpp:522
+msgid "Rotation"
+msgstr "Biratu"
+
+#: translations/xrc.cpp:523
+msgid "Don't rotate"
+msgstr "Ez biratu"
+
+#: translations/xrc.cpp:524
+msgid "90° clockwise"
+msgstr "90° erlojuaren norantzan"
+
+#: translations/xrc.cpp:525
+msgid "90° counter-clockwise"
+msgstr "90° erlojuaren kontrako norantzan"
+
+#: translations/xrc.cpp:528
+msgid "Loading mask"
+msgstr "Maskara kargatu"
+
+#: translations/xrc.cpp:529
+#, fuzzy
+msgid "Geometric optimizer"
+msgstr "Optimizazio fotometrikoa"
+
+#: translations/xrc.cpp:530
+msgid "Only use control points between image selected in preview window."
+msgstr ""
+"Aurrebista leihoan hautatutako irudien kontrol puntuak bakarrik erabili."
+
+#: translations/xrc.cpp:531
+msgid ""
+"Only use control points between images selected in preview window. Useful to "
+"avoid errors due to badly fitting images, such as the nadir image in most "
+"fisheye panoramas"
+msgstr ""
+"Aurrebista leihoan hautatutako irudien kontrol puntuak bakarrik erabili."
+"Teknika hau erabilgarria da gaizki elkartutako irudiek sor dezaketen "
+"erroreak galarazteko, arrain-begipanorama gehientsuetako nadirra  bezalakoak"
+
+#: translations/xrc.cpp:532 translations/xrc.cpp:542
+msgid "Optimize now!"
+msgstr "Optimizatu orain!"
+
+#: translations/xrc.cpp:533 translations/xrc.cpp:543
+msgid "execute the PTOptimizer engine"
+msgstr "PTOptimizatzaile motorra exekutatu"
+
+#: translations/xrc.cpp:535 translations/xrc.cpp:1116
+msgid "Image Orientation"
+msgstr "Irudi orientazioa"
+
+#: translations/xrc.cpp:536
+msgid "Lens Parameters"
+msgstr "Lentearen Parametroak"
+
+#: translations/xrc.cpp:537
+msgid "edit script before optimizing"
+msgstr "Script-a editatu optimizatu baino lehen"
+
+#: translations/xrc.cpp:538
+msgid "for advanced users"
+msgstr "Erabiltzaile aurreratuentzat bakarrik"
+
+#: translations/xrc.cpp:539
+msgid "Photometric Optimization"
+msgstr "Optimizazio Fotometrikoa"
+
+#: translations/xrc.cpp:540
+msgid "Only use images selected in preview."
+msgstr "Aurreikuspenean hautatutako irudiak bakarrik erabili"
+
+#: translations/xrc.cpp:541
+msgid ""
+"Only consider images selected in preview window. Useful to avoid errors due "
+"to badly fitting images, such as the nadir image in most fisheye panoramas"
+msgstr ""
+"Aurrebista leihoan hautatutako irudien kontrol puntuak bakarrik erabili."
+"Teknika hau erabilgarria da gaizki elkartutako irudiek sor dezaketen "
+"erroreak galarazteko, arrain-begipanorama gehientsuetako nadirra  bezalakoak"
+
+#: translations/xrc.cpp:545
+msgid "Image variables:"
+msgstr "Irudi aldagaiak:"
+
+#: translations/xrc.cpp:546
+msgid "Camera and Lens variables:"
+msgstr "Kamara eta Lenteen aldagaiak:"
+
+#: translations/xrc.cpp:547
+msgid "Interpolator (i):"
+msgstr "Interpolazioa (i):"
+
+#: translations/xrc.cpp:548 translations/xrc.cpp:795
+msgid "Poly3 (Bicubic)"
+msgstr "Poly3 (Bikubikoa)"
+
+#: translations/xrc.cpp:549 translations/xrc.cpp:796
+msgid "Spline 16"
+msgstr "Spline 16"
+
+#: translations/xrc.cpp:550 translations/xrc.cpp:797
+msgid "Spline 36"
+msgstr "Spline 36"
+
+#: translations/xrc.cpp:551 translations/xrc.cpp:798
+msgid "Sinc 256"
+msgstr "Sink 256"
+
+#: translations/xrc.cpp:552 translations/xrc.cpp:799
+msgid "Spline 64"
+msgstr "Spline 64"
+
+#: translations/xrc.cpp:553 translations/xrc.cpp:800
+msgid "Bilinear"
+msgstr "Lerro bikoitza"
+
+#: translations/xrc.cpp:554 translations/xrc.cpp:801
+msgid "Nearest neighbor"
+msgstr "Hurbileko auzokidea"
+
+#: translations/xrc.cpp:555 translations/xrc.cpp:802
+msgid "Sinc 1024"
+msgstr "Sink 1024"
+
+#: translations/xrc.cpp:556 translations/xrc.cpp:803
+msgid "approximation of values between source pixels"
+msgstr "Iturburuko pixelen balioen arteko hurbilketa"
+
+#: translations/xrc.cpp:557
+msgid "Save cropped images"
+msgstr "Moztutako irudiak gorde"
+
+#: translations/xrc.cpp:558
+msgid "Save cropped tiff output. Useful for enblend 2.4 and higher"
+msgstr ""
+"Moztutako irteera tiff-a gorde. Enblend 2.4 edo handiagotarako erabilgarria."
+
+#: translations/xrc.cpp:561
+msgid "Nona Options"
+msgstr "Nona Aukerak"
+
+#: translations/xrc.cpp:562 translations/xrc.cpp:566
+msgid "Command line options"
+msgstr "Komando lerroko aukerak"
+
+#: translations/xrc.cpp:565
+msgid "Blender Options"
+msgstr "Blender Aukerak"
+
+#: translations/xrc.cpp:569
+msgid "Enfuse options"
+msgstr ""
+
+#: translations/xrc.cpp:571
+msgid "Field of View:"
+msgstr "Ikuspegia:"
+
+#: translations/xrc.cpp:572
+msgid "Horizontal:"
+msgstr "Horizontala:"
+
+#: translations/xrc.cpp:573
+msgid "Vertical:"
+msgstr "Bertikala:"
+
+#: translations/xrc.cpp:574
+msgid "Calculate field of view"
+msgstr "Ikuspegia kalkulatu"
+
+#: translations/xrc.cpp:575
+msgid "Calculate Field of View"
+msgstr "Ikuspegia Kalkulatu"
+
+#: translations/xrc.cpp:576
+msgid "Canvas Size:"
+msgstr "Oihalaren Tamaina:"
+
+#: translations/xrc.cpp:577 translations/xrc.cpp:656
+msgid "Width:"
+msgstr "Zabalera:"
+
+#: translations/xrc.cpp:578 translations/xrc.cpp:657
+msgid "Height:"
+msgstr "Altuera:"
+
+#: translations/xrc.cpp:579
+msgid "Calculate Optimal Size"
+msgstr "Tamaina Optimoa Kalkulatu"
+
+#: translations/xrc.cpp:580
+msgid "Calculate optimal size"
+msgstr "Tamaina optimoa kalkulatu"
+
+#: translations/xrc.cpp:581
+msgid ""
+"Calculate optimal image size, such that the resolution in the image center "
+"stays similar"
+msgstr ""
+
+#: translations/xrc.cpp:582
+msgid "Crop:"
+msgstr ""
+
+#: translations/xrc.cpp:587
+msgid "Fit Crop to Images"
+msgstr ""
+
+#: translations/xrc.cpp:588
+msgid "Fit crop to images"
+msgstr "Mozketa irudietara egokitu"
+
+#: translations/xrc.cpp:589
+msgid ""
+"Calculate crop borders such that the final image has the largest area "
+"without excess"
+msgstr ""
+"Mozketa ertzak kalkulatu helburuko irudia azalerarik luzeena izan dezan, "
+"baina pasatu gabe"
+
+#: translations/xrc.cpp:592 translations/xrc.cpp:666 translations/xrc.cpp:668
+msgid ""
+"Blend all images into a seamless panorama, using exposure set in the "
+"Exposure tab"
+msgstr ""
+
+#: translations/xrc.cpp:594
+msgid ""
+"Images will be remapped, stacks exposure fused, then blended into a seamless "
+"panorama"
+msgstr ""
+
+#: translations/xrc.cpp:596 translations/xrc.cpp:670
+msgid ""
+"Images will be remapped, blended into seamless layers, then layers exposure "
+"fused into a panorama"
+msgstr ""
+
+#: translations/xrc.cpp:597 translations/xrc.cpp:602
+msgid "Format:"
+msgstr "Formatua:"
+
+#: translations/xrc.cpp:601 translations/xrc.cpp:672
+msgid ""
+"Images will be remapped in linear color space, stacks merged, then blended "
+"into a seamless High Dynamic Range panorama"
+msgstr ""
+
+#: translations/xrc.cpp:607
+msgid ""
+"Output remapped, exposure corrected images. Useful for manual blending of an "
+"exposure corrected panorama."
+msgstr ""
+
+#: translations/xrc.cpp:609
+msgid ""
+"Output remapped images with unmodified exposure. Useful for manual exposure "
+"fusing."
+msgstr ""
+
+#: translations/xrc.cpp:611
+msgid "Produce remapped, but not merged, linear color space images"
+msgstr ""
+
+#: translations/xrc.cpp:614
+msgid "Output exposure fused stacks from highly overlapping images"
+msgstr ""
+
+#: translations/xrc.cpp:615
+msgid "High dynamic range merged stacks"
+msgstr "Hein dinamiko handia, elkartutako instantaneak"
+
+#: translations/xrc.cpp:616
+msgid ""
+"Output remapped, high dynamic range merged stacks from highly overlapping "
+"images"
+msgstr ""
+
+#: translations/xrc.cpp:619
+msgid ""
+"Output a complete blended panorama for each exposure step. Useful for manual "
+"contrast blending in an image editor."
+msgstr ""
+
+#: translations/xrc.cpp:620
+msgid "Processing:"
+msgstr "Prozesatzen:"
+
+#: translations/xrc.cpp:621
+msgid "Remapper:"
+msgstr "Birkokatzailea:"
+
+#: translations/xrc.cpp:623
+msgid "Image fusion:"
+msgstr "Irudien fusioa:"
+
+#: translations/xrc.cpp:624
+msgid "enfuse"
+msgstr ""
+
+#: translations/xrc.cpp:626
+msgid "HDR merger:"
+msgstr "HDR elkartzailea:"
+
+#: translations/xrc.cpp:632 translations/xrc.cpp:633
+msgid "Stitch!"
+msgstr "Elkartu!"
+
+#: translations/xrc.cpp:634
+msgid "HDR Merge Options"
+msgstr "HDR Elkartzearen Hobespenak"
+
+#: translations/xrc.cpp:635
+msgid "Merge Mode:"
+msgstr "Elkartze Modua:"
+
+#: translations/xrc.cpp:636
+msgid "Average"
+msgstr "Batazbestekoa"
+
+#: translations/xrc.cpp:637
+msgid "Average slow"
+msgstr "Batazbesteko lausoa"
+
+#: translations/xrc.cpp:638
+msgid "Deghosting (Khan)"
+msgstr ""
+
+#: translations/xrc.cpp:639 translations/xrc.cpp:641 translations/xrc.cpp:649
+msgid "Advanced Options"
+msgstr "Aukera aurreratuak"
+
+#: translations/xrc.cpp:640
+msgid "Only consider pixels that are defined in all images (-c)"
+msgstr "Irudi guztietan definituta dauden irudiak kontutan hartu bakarrik (-c)"
+
+#: translations/xrc.cpp:642
+msgid "This merge mode has no further options."
+msgstr "Elkartze modu honek ez du aukera gehiagorik"
+
+#: translations/xrc.cpp:643
+msgid "Options for deghosting"
+msgstr ""
+
+#: translations/xrc.cpp:644
+msgid "Iterations:"
+msgstr "Iterazioak:"
+
+#: translations/xrc.cpp:645
+msgid "Sigma:"
+msgstr "Sigma:"
+
+#: translations/xrc.cpp:646
+msgid "Use gray images for processing (-a f)"
+msgstr "Irudi grisak erabili prozesatzeko (-a f)"
+
+#: translations/xrc.cpp:647
+msgid "Use gamma 2.2 instead of logarithmic (-a g)"
+msgstr "Gamma 2.2 erabili logaritmikoaren ordez (-a g)"
+
+#: translations/xrc.cpp:648
+msgid "Do not scale images (-a m)"
+msgstr "Irudiak ez eskalatu (-a m)"
+
+#: translations/xrc.cpp:652
+msgid ""
+"The project needs to be saved before it can be sent to\n"
+"the batch processor PTBatcherGUI.\n"
+"You will first be asked for the project file name\n"
+"and then for the prefix for the panorama output.\n"
+"\n"
+"You may need to start the stitching in the batch processor\n"
+" PTBatcherGUI if it doesn't start automatically."
+msgstr ""
+
+#: translations/xrc.cpp:658
+#, fuzzy
+msgid "Size and file format"
+msgstr "Euskarririk gabeko fitxategi formatua"
+
+#: translations/xrc.cpp:659
+#, fuzzy
+msgid "LDR Format:"
+msgstr "Formatua:"
+
+#: translations/xrc.cpp:662
+#, fuzzy
+msgid "HDR Format:"
+msgstr "Formatua:"
+
+#: translations/xrc.cpp:673
+msgid "Keep intermediate images"
+msgstr ""
+
+#: translations/xrc.cpp:677
+#, fuzzy
+msgid "Output parameters"
+msgstr "Azpiko parametroak"
+
+#: translations/xrc.cpp:679
+msgid "Resource Usage"
+msgstr "Errekurtsoen Erabilera"
+
+#: translations/xrc.cpp:680
+msgid "Image cache memory:"
+msgstr "Irudien cache memoria:"
+
+#: translations/xrc.cpp:681
+msgid "Keep fullsize images in memory, until this limit is exceeded"
+msgstr "Tamaina osoko irudiak memorian mantendu, muga gainditu arte"
+
+#: translations/xrc.cpp:682
+msgid "User Interface"
+msgstr "Erabiltzaile Interfazea"
+
+#: translations/xrc.cpp:683
+msgid "Language:"
+msgstr "Hizkuntza:"
+
+#: translations/xrc.cpp:684
+msgid "(requires restarting hugin)"
+msgstr "(hugin berrabiaraztea eskatzen du)"
+
+#: translations/xrc.cpp:685
+msgid "Undo:"
+msgstr "Desegin:"
+
+#: translations/xrc.cpp:686
+msgid "Skip over visibility toggles"
+msgstr ""
+
+#: translations/xrc.cpp:687
+#, fuzzy
+msgid ""
+"May have unforeseen consequences. \n"
+"(EXPERIMENTAL)"
+msgstr "Espero ez diren ondorioak gerta daiteke(EXPERIMENTAL)"
+
+#: translations/xrc.cpp:688
+#, fuzzy
+msgid "Log messages:"
+msgstr "Irudiak kargatzen"
+
+#: translations/xrc.cpp:689
+msgid "Copy log messages to clipboard."
+msgstr ""
+
+#: translations/xrc.cpp:690
+msgid "Show hints about projections"
+msgstr "Proiekzioei buruzko pistak ikusi"
+
+#: translations/xrc.cpp:691
+msgid "The hints are shown only in the fast preview window"
+msgstr "Pistak bakarrik aurrebista azkarraren leihoan ikus daitezke"
+
+#: translations/xrc.cpp:692
+msgid "File Options"
+msgstr "Fitxategi Hobespenak"
+
+#: translations/xrc.cpp:693
+msgid "Temporary dir:"
+msgstr "Behin-behineko dir:"
+
+#: translations/xrc.cpp:694
+msgid "(leave empty for OS default)"
+msgstr "(hutsik utzi SE-ren defektuzko balioarentzako"
+
+#: translations/xrc.cpp:695
+#, fuzzy
+msgid "Default project filename:"
+msgstr "Ireki proiektu fitxategia"
+
+#: translations/xrc.cpp:696
+#, fuzzy
+msgid "Default output prefix:"
+msgstr "Emaitzako aurrizkia definitu"
+
+#: translations/xrc.cpp:697
+#, c-format
+msgid ""
+"The following placeholder are replaced automatically:\n"
+"%firstimage - filename of first image file\n"
+"%lastimage - filename of last image file\n"
+"%#images - number of images\n"
+"%directory  - folder name (based on first image file)\n"
+"%projection - projection name\n"
+"%focallength - focal length\n"
+"%date - date (of first image)\n"
+"%time - time (of first image)\n"
+"%maker - camera maker (of first image)\n"
+"%model - camera model (of first image)\n"
+"%lens - lens (of first image)\n"
+"%projectname - project filename (only for output prefix)"
+msgstr ""
+
+#: translations/xrc.cpp:698
+#, fuzzy
+msgid "Default filenames"
+msgstr "Defektuzko Fitxategi Formatua:"
+
+#: translations/xrc.cpp:699
+#, fuzzy
+msgid "Filenames"
+msgstr "Fitxategia"
+
+#: translations/xrc.cpp:701
+msgid "Image loading"
+msgstr "Irudia kargatzen"
+
+#: translations/xrc.cpp:702
+msgid "Automatically align images after loading"
+msgstr "Kargatu eta gero irudiak automatikoki zerrendatu."
+
+#: translations/xrc.cpp:703
+msgid "Detect vertical lines"
+msgstr "Lerro bertikalak topatu"
+
+#: translations/xrc.cpp:704
+msgid "Detects vertical lines in the images to level the pano"
+msgstr "Irudietan lerro bertikalak topatu panorama lerrokatzeko"
+
+#: translations/xrc.cpp:705
+msgid "Remove cloud-like control points (Celeste)"
+msgstr "Hodei-itxurako kontrol puntuak borratu (Celeste)"
+
+#: translations/xrc.cpp:707
+msgid "Optional assistant steps"
+msgstr "Laguntzailearen aukerazko pausuak"
+
+#: translations/xrc.cpp:708
+msgid "Auto align"
+msgstr "Lerrokatze automatikoa"
+
+#: translations/xrc.cpp:709
+msgid ""
+"Number of Control Points\n"
+"per overlap"
+msgstr ""
+"Gainjartze bakoitzeko\n"
+"kontrol puntu kopurua"
+
+#: translations/xrc.cpp:710
+msgid "Downscale final pano"
+msgstr ""
+
+#: translations/xrc.cpp:711
+msgid "percent of max. width"
+msgstr "zabalera max. portzentaia"
+
+#: translations/xrc.cpp:712
+msgid "Control Points Editor"
+msgstr "Kontrol Puntuen Editorea"
+
+#: translations/xrc.cpp:713
+msgid "HDR and 16 Bit display"
+msgstr "HDR eta 16 Bitetako bistaratzea"
+
+#: translations/xrc.cpp:714
+msgid "Curve"
+msgstr "Kurba"
+
+#: translations/xrc.cpp:715
+msgid "linear"
+msgstr "lineala"
+
+#: translations/xrc.cpp:716
+msgid "logarithmic"
+msgstr "logaritmikoa"
+
+#: translations/xrc.cpp:717
+msgid "gamma 2.2"
+msgstr "gamma 2.2"
+
+#: translations/xrc.cpp:718
+msgid "used for display in GUI"
+msgstr "GUIan bistaratzeko erabilia"
+
+#: translations/xrc.cpp:720
+msgid "Patch width:"
+msgstr "Zabalera partxeatu:"
+
+#: translations/xrc.cpp:721 translations/xrc.cpp:725
+msgid "pixels"
+msgstr "pixel"
+
+#: translations/xrc.cpp:722
+msgid "Search area width:"
+msgstr "Azaleraren zabalera bilatu:"
+
+#: translations/xrc.cpp:723
+msgid "percent of image width"
+msgstr "Irudi zabaleraren portzentaia"
+
+#: translations/xrc.cpp:724
+msgid "Local search area width:"
+msgstr ""
+
+#: translations/xrc.cpp:726
+msgid "Correlation Threshold:"
+msgstr "Korrelazio Atalasea:"
+
+#: translations/xrc.cpp:727
+msgid ""
+"0: no similarity\n"
+"1: maximum similarity"
+msgstr ""
+"0: antzekotasunik ez\n"
+"1: antzekotasun maximoa"
+
+#: translations/xrc.cpp:728
+msgid "Peak Curvature Threshold:"
+msgstr ""
+
+#: translations/xrc.cpp:729
+msgid ""
+"0: no peak\n"
+"0.2: distinctive peak"
+msgstr ""
+
+#: translations/xrc.cpp:730
+msgid "Rotation search"
+msgstr "Biraketaren bilatzailea"
+
+#: translations/xrc.cpp:731
+msgid "Enable rotation search (slower, but more accurate)"
+msgstr "Biraketaren bilatzailea aktibatu (geldoagoa, baina finagoa)"
+
+#: translations/xrc.cpp:732
+msgid "Start angle:"
+msgstr "Hasiera angelua:"
+
+#: translations/xrc.cpp:734
+msgid "Stop angle:"
+msgstr "Bukaera angelua:"
+
+#: translations/xrc.cpp:736
+msgid "Steps:"
+msgstr "Pausuak:"
+
+#: translations/xrc.cpp:737
+msgid "Control Point Detectors"
+msgstr "Kontrol Puntuen Igartzaileak"
+
+#: translations/xrc.cpp:738
+msgid "Control Point Detector Programs"
+msgstr "Kontrol Puntuak Topatzeko Programak"
+
+#: translations/xrc.cpp:739
+msgid "New..."
+msgstr "Berria..."
+
+#: translations/xrc.cpp:740 translations/xrc.cpp:778 translations/xrc.cpp:785
+msgid "Edit..."
+msgstr "Editatu..."
+
+#: translations/xrc.cpp:742
+msgid "Move up"
+msgstr "Mugitu gora"
+
+#: translations/xrc.cpp:743
+msgid "Move down"
+msgstr "Mugitu behera"
+
+#: translations/xrc.cpp:744
+msgid "Set default"
+msgstr "Defektuzkoa bezala ezarri"
+
+#: translations/xrc.cpp:747
+msgid "The assistant is using the default setting."
+msgstr "Laguntzaileak defektuzko hobespenak erabiltzen ari da."
+
+#: translations/xrc.cpp:748
+msgid "Output Format"
+msgstr "Irteera Formatua"
+
+#: translations/xrc.cpp:749
+msgid "Default File Format:"
+msgstr "Defektuzko Fitxategi Formatua:"
+
+#: translations/xrc.cpp:750
+msgid "default output format for final panorama"
+msgstr "Helburuko panoramaren defektuzko formatua"
+
+#: translations/xrc.cpp:751
+msgid "TIFF Compression:"
+msgstr "TIFF Konpresioa:"
+
+#: translations/xrc.cpp:753
+msgid "default TIFF compression"
+msgstr "defektuzko TIFF konpresioa"
+
+#: translations/xrc.cpp:754
+msgid "JPEG Quality:"
+msgstr "JPEG Kalitatea:"
+
+#: translations/xrc.cpp:755
+msgid "default JPEG compression setting"
+msgstr "Defektuzko JPEG konpresio ezarpena"
+
+#: translations/xrc.cpp:756
+#, fuzzy
+msgid "Blender"
+msgstr "Blend modua:"
+
+#: translations/xrc.cpp:757
+#, fuzzy
+msgid "Default blender:"
+msgstr "Defektuzko Fitxategi Formatua:"
+
+#: translations/xrc.cpp:758
+msgid "Default blender which is used for new projects."
+msgstr ""
+
+#: translations/xrc.cpp:759
+msgid "Processor"
+msgstr "Prozesadorea"
+
+#: translations/xrc.cpp:761
+msgid "Hugin&stitch&project"
+msgstr "Hugin&proiektua"
+
+#: translations/xrc.cpp:762
+msgid "The engine that will run the stitch"
+msgstr "Elkarketa exekutatuko duen motorea"
+
+#: translations/xrc.cpp:763
+msgid "Start stitching jobs immediately"
+msgstr "Orain hasi lanak elkartzen"
+
+#: translations/xrc.cpp:764
+msgid ""
+"If selected, the processor will immediately resume processing the jobs "
+"queue.  Otherwise the processor is started in suspended state and the user "
+"has to start the processing manually."
+msgstr ""
+"Hautatuta badago, prozesadorea martxan jarri bezain laster hasiko da "
+"zerrendako lanak egiten.Bestela prozesadorea geldituta bezala jartzen da "
+"martxan eta erabiltzaileaizan behar du prozesua eskuz martxan jartzen duena"
+
+#: translations/xrc.cpp:765
+msgid "Overwrite existing files"
+msgstr "Existitzen diren fitxategiak gainidatzi"
+
+#: translations/xrc.cpp:766
+msgid "WARNING: existing files will be silently overwritten."
+msgstr "KONTUZ: existitzen diren fitxategiak abisatu gabe gainidatziko dira."
+
+#: translations/xrc.cpp:767
+msgid "Verbose Output"
+msgstr "Irteera Berritsua"
+
+#: translations/xrc.cpp:768
+msgid ""
+"Enable to get the details, useful when reporting a bug or just to watch the "
+"project's progress."
+msgstr "Xehetasunak ikusteko aktibatu, proiektuaren "
+
+#: translations/xrc.cpp:770
+msgid "Stitching"
+msgstr "Elkartzen"
+
+#: translations/xrc.cpp:771
+msgid "Copy metadata into final files using ExifTool"
+msgstr "Metadatuak helburu fitxategietara kopiatu ExifTool erabiliz"
+
+#: translations/xrc.cpp:772
+#, fuzzy
+msgid "ExifTool options"
+msgstr "Nona aukerak"
+
+#: translations/xrc.cpp:773
+msgid ""
+"The following argfile will be used to copy tags from the first image to all "
+"intermediate images.\n"
+"Placeholders will not be replaced."
+msgstr ""
+
+#: translations/xrc.cpp:774
+#, fuzzy
+msgid "Intermediate ExifTool argfile:"
+msgstr "Ezkerreko irudian puntua hautatu"
+
+#: translations/xrc.cpp:775 translations/xrc.cpp:782
+#, fuzzy
+msgid "Leave empty for default"
+msgstr "(hutsik utzi SE-ren defektuzko balioarentzako"
+
+#: translations/xrc.cpp:779 translations/xrc.cpp:786
+#, fuzzy
+msgid "Edit selected ExifTool argfile"
+msgstr "Ezkerreko irudian puntua hautatu"
+
+#: translations/xrc.cpp:780
+msgid ""
+"The following argfile will be used to copy tags from the first image to the "
+"final panorama.\n"
+"It is applied additional to the above argfile for the intermediate images.\n"
+"Placeholders in this argfile will replaced before running exiftool."
+msgstr ""
+
+#: translations/xrc.cpp:781
+#, fuzzy
+msgid "Final ExifTool argfile:"
+msgstr "Ezkerreko irudian puntua hautatu"
+
+#: translations/xrc.cpp:787
+msgid "Create Photo Sphere XMP data"
+msgstr ""
+
+#: translations/xrc.cpp:788
+msgid "This will only be done for equirectangular output images."
+msgstr ""
+
+#: translations/xrc.cpp:789
+msgid "Advanced options"
+msgstr "Aukera aurreratuak"
+
+#: translations/xrc.cpp:790
+msgid "Number of threads:"
+msgstr "Hari kopurua:"
+
+#: translations/xrc.cpp:791
+msgid ""
+"Nona and the OpenMP enabled enblend/enfuse can use multiple threads for "
+"processing.\n"
+"Set this number maximal to the number of processors or processor cores "
+"available in your system"
+msgstr ""
+"Nonak eta OpenMP elkartzaile/enfuseak hari asko erabil ditzake "
+"prozesamendurako.\n"
+"Zenbaki hau zure sisteman eskuragarri dauden prozesadore edo nukleotara "
+"egoki ezazu."
+
+#: translations/xrc.cpp:792
+msgid "0 for automatic detection"
+msgstr "0 igartze automatikorako"
+
+#: translations/xrc.cpp:793
+#, fuzzy
+msgid "Stitching (2)"
+msgstr "Elkartzen"
+
+#: translations/xrc.cpp:794
+msgid "Default Interpolator (i):"
+msgstr "Defektuzko Interpolatzailea (i):"
+
+#: translations/xrc.cpp:804
+msgid "Create cropped images by default"
+msgstr "Defektuz moztutako irudiak sortu"
+
+#: translations/xrc.cpp:805
+msgid "Use GPU for remapping (EXPERIMENTAL)"
+msgstr "GPU bermapeatzeko erabili (EXPERIMENTALA)"
+
+#: translations/xrc.cpp:806
+msgid "Use video card GPU to speed up remapping"
+msgstr "Txartel grafikoaren GPU-a erabili birmapeatzea azkartzeko"
+
+#: translations/xrc.cpp:807
+msgid "Use alternative Enblend program"
+msgstr ""
+
+#: translations/xrc.cpp:808
+msgid "Enblend executable:"
+msgstr ""
+
+#: translations/xrc.cpp:810 translations/xrc.cpp:816
+msgid "Default Arguments:"
+msgstr "Defektuzko Parametroak:"
+
+#: translations/xrc.cpp:811 translations/xrc.cpp:817
+msgid ""
+"These are the default arguments for new projects.\n"
+"They can be changed for individual projects in the Stitcher tab.\n"
+"Do not set -w, -o and --compression arguments, they are set by hugin"
+msgstr ""
+"Proiektu berrientzako defektuzko argumentuak dira hauek.\n"
+"Elkartzeko fitxan proiektu konkretuetarako alda daitezke.\n"
+"-w, -o eta --compression parametroak ez dira ezarri behar, huginek egiten "
+"baitu."
+
+#: translations/xrc.cpp:812
+msgid "Enblend"
+msgstr ""
+
+#: translations/xrc.cpp:813
+msgid "Use alternative Enfuse program"
+msgstr ""
+
+#: translations/xrc.cpp:814
+msgid "Enfuse executable:"
+msgstr ""
+
+#: translations/xrc.cpp:818
+msgid "Enfuse"
+msgstr ""
+
+#: translations/xrc.cpp:819
+msgid "Programs"
+msgstr "Programak"
+
+#: translations/xrc.cpp:820
+msgid "Celeste parameters"
+msgstr "Celesteren parametroak"
+
+#: translations/xrc.cpp:821
+msgid "SVM threshold:"
+msgstr "SVM atalasea:"
+
+#: translations/xrc.cpp:822
+msgid ""
+"greater than 0.5: less sensitive\n"
+"less than 0.5: more sensitive"
+msgstr ""
+"0.5 baino handiagoa: sentikortasun txikiagoa\n"
+"0.5 baina txikiagoa: sentikorragoa"
+
+#: translations/xrc.cpp:823
+msgid "Gabor filter size"
+msgstr "Gabor filtro tamaina"
+
+#: translations/xrc.cpp:824
+msgid "small"
+msgstr "txikia"
+
+#: translations/xrc.cpp:825
+msgid "large"
+msgstr "handia"
+
+#: translations/xrc.cpp:826
+msgid ""
+"large is more accurate\n"
+"small can examine control points close to image border"
+msgstr ""
+"Handia zehatzagoa\n"
+"txikiak irudiaren ertzetik hurbil dauden kontrol puntuak azter ditzake"
+
+#: translations/xrc.cpp:827
+msgid ""
+"The vignetting and exposure correction is determined by analysing color "
+"values in the overlapping areas.\n"
+"To speed up the computation, only a random subset of points is used."
+msgstr ""
+"Bineta eta esposaketaren zuzenketa gainezkatzen diren azaleren "
+"koloreakaztertuz ezartzen da.\n"
+"Konputazioa azkartzeko, ausazko puntu batzuk bakarrik erabiltzen dira."
+
+#: translations/xrc.cpp:828
+#, fuzzy
+msgid "Number of points per image: "
+msgstr "Puntu kopurua irudiko"
+
+#: translations/xrc.cpp:829
+#, fuzzy
+msgid "Photometric optimizer"
+msgstr "Optimizazio fotometrikoa"
+
+#: translations/xrc.cpp:830
+#, fuzzy
+msgid "Warnings"
+msgstr "Abisua"
+
+#: translations/xrc.cpp:831
+msgid "Show message about saving project file and output prefix"
+msgstr ""
+
+#: translations/xrc.cpp:832
+msgid "Show warning about big exposure difference when adding images"
+msgstr ""
+
+#: translations/xrc.cpp:833
+msgid "After \"edit cp\" tool"
+msgstr ""
+
+#: translations/xrc.cpp:834
+msgid "Ask user"
+msgstr ""
+
+#: translations/xrc.cpp:835
+#, fuzzy
+msgid "Re-optimize panorama"
+msgstr "Panorama optimizatzen"
+
+#: translations/xrc.cpp:836
+#, fuzzy
+msgid "Don't optimize panorama"
+msgstr "Optimizatu orain!"
+
+#: translations/xrc.cpp:837
+#, fuzzy
+msgid "Edit cp tool (on fast preview window)"
+msgstr "Pistak bakarrik aurrebista azkarraren leihoan ikus daitezke"
+
+#: translations/xrc.cpp:838
+msgid "Misc"
+msgstr ""
+
+#: translations/xrc.cpp:843
+msgid "Preferences - hugin"
+msgstr "Hobespenak - hugin"
+
+#: translations/xrc.cpp:846 translations/xrc.cpp:850
+#, fuzzy
+msgid "Edit ExifTool argfile"
+msgstr "Ezkerreko irudian puntua hautatu"
+
+#: translations/xrc.cpp:847
+msgid ""
+"The following placeholders will replaced before invoking ExifTool:\n"
+"%projection - projection name (in English)\n"
+"%projectionNumber - number of projection\n"
+"%hfov - horizontal field of view of panorama\n"
+"%vfov - vertical field of view of panorama\n"
+"%ev - exposure value of panorama\n"
+"%nrImages - number of active images\n"
+"%nrAllImages - number of all images in project file (include inactive "
+"images)\n"
+"%fullwidth - width of output canvas\n"
+"%fullheight - height of output canvas canvas\n"
+"%width - width of output region\n"
+"%height - height of output region\n"
+"\n"
+"The placeholders are case sensitive."
+msgstr ""
+
+#: translations/xrc.cpp:851 translations/xrc.cpp:919 translations/xrc.cpp:1006
+msgid "Center the preview horizontally"
+msgstr "Aurreikuspena horizontalki erdiratu"
+
+#: translations/xrc.cpp:853
+msgid "Show the whole panorama"
+msgstr "Panorama osoa ikusi"
+
+#: translations/xrc.cpp:854 translations/xrc.cpp:908 translations/xrc.cpp:920
+#: translations/xrc.cpp:994 translations/xrc.cpp:1008
+msgid "Estimate field of view"
+msgstr "Ikuspegia kalkulatu"
+
+#: translations/xrc.cpp:856
+msgid "Automatically straighten a wavy horizon"
+msgstr "Horizonte irregularra automatikoki zuzendu"
+
+#: translations/xrc.cpp:858 translations/xrc.cpp:868
+msgid "Numerical Transform"
+msgstr "Transformazio Numerikoa"
+
+#: translations/xrc.cpp:859
+msgid "Num. Transf."
+msgstr "Trans. Kop."
+
+#: translations/xrc.cpp:860
+msgid "Auto update"
+msgstr "Auto eguneratzea"
+
+#: translations/xrc.cpp:861
+msgid "Auto"
+msgstr "Auto"
+
+#: translations/xrc.cpp:862
+msgid "Update preview"
+msgstr "Aurreikuspena eguneratu"
+
+#: translations/xrc.cpp:863
+msgid "Update"
+msgstr "Eguneratu"
+
+#: translations/xrc.cpp:864
+msgid "Show all images"
+msgstr "Irudi guztiak erakutsi"
+
+#: translations/xrc.cpp:866
+msgid "Show none of the images"
+msgstr "Ez erakutsi irudirik"
+
+#: translations/xrc.cpp:874 translations/xrc.cpp:959
+msgid "1. Load images..."
+msgstr "1. Irudiak kargatu..."
+
+#: translations/xrc.cpp:875 translations/xrc.cpp:960
+msgid "Load a series of images"
+msgstr "Irudi serie bat kargatu"
+
+#: translations/xrc.cpp:876 translations/xrc.cpp:961
+msgid "no images loaded"
+msgstr "Ez da irudirik kargatu"
+
+#: translations/xrc.cpp:880 translations/xrc.cpp:965
+msgid "2. Align..."
+msgstr "2. Lerrokatu..."
+
+#: translations/xrc.cpp:881 translations/xrc.cpp:966
+msgid ""
+"Align all images. Creates control points and optimizes the image positions"
+msgstr ""
+"Irudi guztiak lerrokatu. Kontrol puntuak sortu eta irudien posizioak "
+"optimizatzen ditu"
+
+#: translations/xrc.cpp:882 translations/xrc.cpp:967
+msgid "3. Create panorama..."
+msgstr "3. Panorama sortu..."
+
+#: translations/xrc.cpp:883 translations/xrc.cpp:968
+msgid "Create a high resolution panorama"
+msgstr "Erresoluzio altuko panorama sortu"
+
+#: translations/xrc.cpp:885 translations/xrc.cpp:970
+msgid "Match images to their numbers"
+msgstr "Irudiak bere zenbakiekin lotu"
+
+#: translations/xrc.cpp:886 translations/xrc.cpp:887 translations/xrc.cpp:971
+#: translations/xrc.cpp:972
+msgid "Identify"
+msgstr "Identifikatu"
+
+#: translations/xrc.cpp:889 translations/xrc.cpp:974
+msgid "Use full photometric correction (slow)"
+msgstr "Zuzentzaile fotometriko osoa erabili (geldoa)"
+
+#: translations/xrc.cpp:891 translations/xrc.cpp:976
+msgid ""
+"Show lines between the ends of each control point. The longer the line, the "
+"bigger the error."
+msgstr ""
+"Kontrol puntuen bukaeretan lerroak erakutsi. Geroz eta lerro luzeagoa, "
+"errore handiagoa."
+
+#: translations/xrc.cpp:894 translations/xrc.cpp:979
+msgid ""
+"Sets the exposure value of the panorama to the mean exposure of all images."
+msgstr ""
+
+#: translations/xrc.cpp:895 translations/xrc.cpp:980
+msgid "Correct global white balance by selecting a neutral gray area."
+msgstr "Txuri balantze globala zuzendu azalera gris neutral bat hautatuz."
+
+#: translations/xrc.cpp:896 translations/xrc.cpp:897 translations/xrc.cpp:981
+#: translations/xrc.cpp:982
+msgid "Gray picker"
+msgstr "Gris hautatzailea"
+
+#: translations/xrc.cpp:898 translations/xrc.cpp:983
+#, fuzzy
+msgid "Create or delete control points in selected rectangle."
+msgstr "Borratu kontrol puntuen detektorearen ezarpena"
+
+#: translations/xrc.cpp:899 translations/xrc.cpp:900 translations/xrc.cpp:984
+#: translations/xrc.cpp:985
+#, fuzzy
+msgid "Edit CP"
+msgstr "&Editatu"
+
+#: translations/xrc.cpp:901 translations/xrc.cpp:986
+msgid "Background:"
+msgstr "Atzeko planoa:"
+
+#: translations/xrc.cpp:904 translations/xrc.cpp:989
+msgid "Scale:"
+msgstr "Eskala:"
+
+#: translations/xrc.cpp:905 translations/xrc.cpp:990
+msgid ""
+"* A gray line indicates there are no control points, but the image pair "
+"overlaps.\n"
+"* Green, yellow and red lines indicate good, medium and poor alignment.\n"
+"* Click a line to edit the associated images in the Control Points tab."
+msgstr ""
+"* Lerro gris batek kontrol punturik ez dagoela zehazten du, baina irudi "
+"bikotea gainjartzen da.\n"
+"* Lerro berde, hori eta gorriek lerrokatze ona, erdi-mailakoa edo txarra "
+"zehazten dute.\n"
+" * Lerroan klikatu erlazionatutako irudiak Kontrol Puntuen fitxan ikusteko."
+
+#: translations/xrc.cpp:906 translations/xrc.cpp:991
+msgid "Layout"
+msgstr ""
+
+#: translations/xrc.cpp:909 translations/xrc.cpp:995 translations/xrc.cpp:1118
+msgid "Field of View"
+msgstr "Ikuspegia"
+
+#: translations/xrc.cpp:910 translations/xrc.cpp:996
+msgid "×"
+msgstr "x"
+
+#: translations/xrc.cpp:911 translations/xrc.cpp:923 translations/xrc.cpp:942
+#: translations/xrc.cpp:997 translations/xrc.cpp:1012
+#: translations/xrc.cpp:1033
+msgid "Guides:"
+msgstr "Gidak"
+
+#: translations/xrc.cpp:913 translations/xrc.cpp:925 translations/xrc.cpp:944
+#: translations/xrc.cpp:999 translations/xrc.cpp:1014
+#: translations/xrc.cpp:1035
+msgid "Rule of thirds"
+msgstr "Hirukote erregela"
+
+#: translations/xrc.cpp:914 translations/xrc.cpp:926 translations/xrc.cpp:945
+#: translations/xrc.cpp:1000 translations/xrc.cpp:1015
+#: translations/xrc.cpp:1036
+msgid "Golden ratio"
+msgstr ""
+
+#: translations/xrc.cpp:915 translations/xrc.cpp:927 translations/xrc.cpp:946
+#: translations/xrc.cpp:1001 translations/xrc.cpp:1016
+#: translations/xrc.cpp:1037
+msgid "Diagonal"
+msgstr "Diagonal"
+
+#: translations/xrc.cpp:916 translations/xrc.cpp:928 translations/xrc.cpp:947
+#: translations/xrc.cpp:1002 translations/xrc.cpp:1017
+#: translations/xrc.cpp:1038
+msgid "Diagonal method"
+msgstr "Metodo diagonala"
+
+#: translations/xrc.cpp:917 translations/xrc.cpp:929 translations/xrc.cpp:948
+#: translations/xrc.cpp:1003 translations/xrc.cpp:1018
+#: translations/xrc.cpp:1039
+msgid "Golden triangle (down)"
+msgstr "Urrezko hirukia (behera)"
+
+#: translations/xrc.cpp:918 translations/xrc.cpp:930 translations/xrc.cpp:949
+#: translations/xrc.cpp:1004 translations/xrc.cpp:1019
+#: translations/xrc.cpp:1040
+msgid "Golden triangle (up)"
+msgstr "Urrezko hirukia (gora)"
+
+#: translations/xrc.cpp:921 translations/xrc.cpp:1010
+msgid "Automatically straighten a wavy horizon."
+msgstr "Horizonte irregularra automatikoki zuzendu."
+
+#: translations/xrc.cpp:922 translations/xrc.cpp:1011
+msgid "Drag mode:"
+msgstr "Arrastatze modua:"
+
+#: translations/xrc.cpp:937 translations/xrc.cpp:1026
+msgid "Apply"
+msgstr "Aplikatu"
+
+#: translations/xrc.cpp:938 translations/xrc.cpp:1027
+msgid "Move the panorama or drag images into position"
+msgstr "Panorama mugitu edo irudiak posiziora arrastatu"
+
+#: translations/xrc.cpp:939 translations/xrc.cpp:1028
+msgid "Move/Drag"
+msgstr "Mugitu/Arrastatu"
+
+#: translations/xrc.cpp:940 translations/xrc.cpp:1030
+msgid "Set the crop region to the largest rectangle covered by images"
+msgstr ""
+"Mozketa azalera irudiek betetzen duen errektangelurik luzeenarekin ezarri"
+
+#: translations/xrc.cpp:941 translations/xrc.cpp:1032
+#, fuzzy
+msgid "Set the crop region to the largest rectangle covered by image stacks"
+msgstr ""
+"Mozketa azalera irudiek betetzen duen errektangelurik luzeenarekin ezarri"
+
+#: translations/xrc.cpp:950 translations/xrc.cpp:1041
+msgid "left:"
+msgstr "ezkerra:"
+
+#: translations/xrc.cpp:951 translations/xrc.cpp:1042
+msgid "top:"
+msgstr "goi:"
+
+#: translations/xrc.cpp:952 translations/xrc.cpp:1043
+msgid "right:"
+msgstr "eskubi:"
+
+#: translations/xrc.cpp:953 translations/xrc.cpp:1044
+msgid "bottom:"
+msgstr "behea:"
+
+#: translations/xrc.cpp:954 translations/xrc.cpp:1045
+msgid "Reset crop to maximal possible area"
+msgstr "Mozketa posible den azalerarik maximora berrabiarazi."
+
+#: translations/xrc.cpp:955 translations/xrc.cpp:1046
+msgid "Change the panorama's cropping region"
+msgstr "Panoramaren mozketa azalera aldatu"
+
+#: translations/xrc.cpp:957 translations/xrc.cpp:958
+msgid "Mode:"
+msgstr "Modua:"
+
+#: translations/xrc.cpp:1055
+#, fuzzy
+msgid "Panorama &editor"
+msgstr "Panoramaren aurreikuspena"
+
+#: translations/xrc.cpp:1058
+#, fuzzy
+msgid "&Overview"
+msgstr "Gainbista"
+
+#: translations/xrc.cpp:1059
+#, fuzzy
+msgid "Shows the overview of the panorama sphere."
+msgstr "Panorama osoa ikusi"
+
+#: translations/xrc.cpp:1060
+msgid "Grid"
+msgstr "Sareta"
+
+#: translations/xrc.cpp:1061
+msgid "Shows a grid."
+msgstr ""
+
+#: translations/xrc.cpp:1066
+#, fuzzy
+msgid "Interface"
+msgstr "Erabiltzaile Interfazea"
+
+#: translations/xrc.cpp:1109
+#, fuzzy
+msgid "All images"
+msgstr "Irudiak gehitu"
+
+#: translations/xrc.cpp:1110
+msgid "Image with median exposure of each stack"
+msgstr ""
+
+#: translations/xrc.cpp:1111
+#, fuzzy
+msgid "Brightest image of each stack"
+msgstr "Pila honetako posizioak estekatu"
+
+#: translations/xrc.cpp:1112
+#, fuzzy
+msgid "Darkest image of each stack"
+msgstr "Pila honetako posizioak estekatu"
+
+#: translations/xrc.cpp:1113
+#, fuzzy
+msgid "Keep currently selected images"
+msgstr "hautatutako irudien lenteak aldatu"
+
+#: translations/xrc.cpp:1114
+#, fuzzy
+msgid "Reset selection"
+msgstr "Proiektua berrabiarazi"
+
+#: translations/xrc.cpp:1117
+#, fuzzy
+msgid "Translation parameters"
+msgstr "Estekaren parametroak"
+
+#: translations/xrc.cpp:1121 translations/xrc.cpp:1124
+msgid "to EXIF values"
+msgstr "EXIF balioetara"
+
+#: translations/xrc.cpp:1122
+msgid "to zero (no exposure correction)"
+msgstr "zerora (esposaketa zuzenketarik gabe)"
+
+#: translations/xrc.cpp:1123
+msgid "Color"
+msgstr "Kolorea"
+
+#: translations/xrc.cpp:1125
+#, fuzzy
+msgid "to one (no color correction)"
+msgstr "zerora (esposaketa zuzenketarik gabe)"
+
+#: translations/xrc.cpp:1130
+msgid "Reset values"
+msgstr "Balioak hasieratu"
 
 #: hugin1/hugin/xrc/data/tips.txt:3
 msgid ""
@@ -4809,3200 +7820,9 @@ msgstr ""
 "Distortsio parametro guztien optimizazioa asko gainezkatzen diren "
 "irudiekinbakarrik dauka zentzua, kontrol puntu askorekin eta ondo banatuta"
 
-#: hugin1/hugin/xrc/about.xrc:4 hugin1/hugin/xrc/main_menu.xrc:151
-#: hugin1/hugin/xrc/main_tool.xrc:79 hugin1/hugin/xrc/preview_frame.xrc:1886
-msgid "About Hugin"
-msgstr "Hugini buruz"
-
-#: hugin1/hugin/xrc/about.xrc:23
-msgid "version"
-msgstr "Bertsioa"
-
-#: hugin1/hugin/xrc/about.xrc:58 hugin1/hugin/xrc/main_tool.xrc:80
-msgid "About"
-msgstr "Honi buruz"
-
-#: hugin1/hugin/xrc/about.xrc:79
-msgid "Authors"
-msgstr "Egileak"
-
-#: hugin1/hugin/xrc/about.xrc:100
-msgid "Sponsors"
-msgstr "Sponsoreak"
-
-#: hugin1/hugin/xrc/about.xrc:122
-msgid "Upstream"
-msgstr ""
-
-#: hugin1/hugin/xrc/about.xrc:144
-msgid "License"
-msgstr "Lizentzia"
-
-#: hugin1/hugin/xrc/about.xrc:147
-msgid "System"
-msgstr "Sistema"
-
-#: hugin1/hugin/xrc/about.xrc:188
 #, fuzzy
-msgid "Dedication"
-msgstr "Aplikazioa gehitu"
-
-#: hugin1/hugin/xrc/about.xrc:198 hugin1/hugin/xrc/cpdetector_dialog.xrc:328
-#: hugin1/hugin/xrc/dlg_warning.xrc:46
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:634
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:705
-#: hugin1/hugin/xrc/images_panel.xrc:547
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:140
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:336
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:491
-#: hugin1/hugin/xrc/pano_panel.xrc:49 hugin1/hugin/xrc/pano_panel.xrc:91
-#: hugin1/hugin/xrc/pano_panel.xrc:133 hugin1/hugin/xrc/pano_panel.xrc:1007
-#: hugin1/hugin/xrc/pano_panel.xrc:1333 hugin1/hugin/xrc/pref_dialog.xrc:1492
-#: hugin1/hugin/xrc/preview_frame.xrc:110
-#: hugin1/hugin/xrc/reset_dialog.xrc:116
-msgid "OK"
-msgstr "OK"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:4
-msgid "Batch Processor"
-msgstr "Loteen Prozesatzailea"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:26
-msgid "Add application"
-msgstr "Aplikazioa gehitu"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:32
-msgid "Remove complete"
-msgstr "Egindakoak borratu"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:50
-msgid "Reset all"
-msgstr "Berrabiarazi dena"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:62
-msgid "Move project up"
-msgstr "Proiektua gora mugitu"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:68
-msgid "Move project down"
-msgstr "Proiektua behera mugitu"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:77
-msgid "Overwrite always"
-msgstr "Beti berridatzi"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:78
-msgid "Overwrite existing image files without further notice."
-msgstr "Existitzen diren irudi fitxategiak ezer esan gabe berridatzi."
-
-#: hugin1/hugin/xrc/batch_frame.xrc:84
-msgid "Remove finished project"
-msgstr "Bukatutako proiektuak borratu"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:85
-#, fuzzy
-msgid "Automatically remove successfully finished projects from queue."
-msgstr "Bukatutako proiektuak zerrendatik automatikoki borratu."
-
-#: hugin1/hugin/xrc/batch_frame.xrc:91
-msgid "Automatic stitch after assistant"
-msgstr "Laguntzailearen ondoren automatikoki elkartu"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:92
-#, fuzzy
-msgid "Automatically stitch projects after (successfully) running assistant."
-msgstr "Proiektua automatikoki elkartu laguntzailea (ondo) exekutatu ondoren. "
-
-#: hugin1/hugin/xrc/batch_frame.xrc:100
-msgid "When done"
-msgstr ""
-
-#: hugin1/hugin/xrc/batch_frame.xrc:117
-msgid "Verbose output"
-msgstr "Irteera berritsua"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:118
-msgid "Show detailed output in separate window."
-msgstr "Irteera xehatua aparteko leiho batean erakutsi"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:124
-msgid "Always save log"
-msgstr ""
-
-#: hugin1/hugin/xrc/batch_frame.xrc:159
-msgid "Directory:"
-msgstr "Direktorioa:"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:171
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:84
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:143
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:182
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:243
-#: hugin1/hugin/xrc/pref_dialog.xrc:949 hugin1/hugin/xrc/pref_dialog.xrc:1008
-#: hugin1/hugin/xrc/pref_dialog.xrc:1191 hugin1/hugin/xrc/pref_dialog.xrc:1270
-msgid "Choose..."
-msgstr "Hautatu..."
-
-#: hugin1/hugin/xrc/batch_frame.xrc:178
-msgid "include sub-directories"
-msgstr "Azpi-direktorioak gehitu"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:185
-msgid "Naming:"
-msgstr "Izendatu:"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:193
-msgid "PanoramaXX.pto"
-msgstr "PanoramaXX.pto"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:194
-msgid "First file - last file.pto"
-msgstr "Lehenengo fitxategia -azken fitxategia.pto"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:195
-msgid "Foldername.pto"
-msgstr "Fitxategizena.pto"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:196
-msgid "Template from preferences"
-msgstr ""
-
-#: hugin1/hugin/xrc/batch_frame.xrc:233
-msgid "Directories"
-msgstr "Direktorioak"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:243
-#, fuzzy
-msgid "Minimum number of images:"
-msgstr "Maskara kopurua"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:254
-msgid "Minimum number of images a panorama should contain."
-msgstr ""
-
-#: hugin1/hugin/xrc/batch_frame.xrc:260
-#, fuzzy
-msgid "Maximum time difference:"
-msgstr "Irudiaren tamaina maximoa:"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:273
-msgid ""
-"Maximal time difference in seconds between two consecutive images belonging "
-"to one panorama."
-msgstr ""
-
-#: hugin1/hugin/xrc/batch_frame.xrc:289
-msgid "Stacks:"
-msgstr ":"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:296
-msgid "Create links"
-msgstr "Estekak sortu"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:297
-msgid "Check if the stacks were shot on a tripod."
-msgstr ""
-
-#: hugin1/hugin/xrc/batch_frame.xrc:304
-#, fuzzy
-msgid "Lens database:"
-msgstr "Lente mota:"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:311
-#, fuzzy
-msgid "Load distortion data"
-msgstr "distortzioa (a):"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:312
-msgid "Tries to load distortion data from lens database if checked."
-msgstr ""
-
-#: hugin1/hugin/xrc/batch_frame.xrc:319
-#, fuzzy
-msgid "Load vignetting data"
-msgstr "Lenteen datuak kargatu..."
-
-#: hugin1/hugin/xrc/batch_frame.xrc:320
-msgid "Tries to load vignetting data from lens database if checked."
-msgstr ""
-
-#: hugin1/hugin/xrc/batch_frame.xrc:350 hugin1/hugin/xrc/lenscal_frame.xrc:200
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:204
-#: hugin1/hugin/xrc/pano_panel.xrc:747 hugin1/hugin/xrc/pano_panel.xrc:774
-#: hugin1/hugin/xrc/pano_panel.xrc:801 hugin1/hugin/xrc/pano_panel.xrc:828
-#: hugin1/hugin/xrc/pref_dialog.xrc:877
-msgid "Options"
-msgstr "Hobespenak"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:358
-msgid "Found panoramas"
-msgstr "Panoramak topatuta"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:376
-#, fuzzy
-msgid "Camera:"
-msgstr "Kamararen Egilea:"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:384 hugin1/hugin/xrc/lensdb_dialogs.xrc:14
-msgid "Lens:"
-msgstr "Lenteak:"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:392 hugin1/hugin/xrc/images_panel.xrc:165
-#: hugin1/hugin/xrc/images_panel.xrc:497 hugin1/hugin/xrc/lenscal_frame.xrc:86
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:31
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:231
-#: hugin1/hugin/xrc/preview_frame.xrc:171
-#: hugin1/hugin/xrc/preview_frame.xrc:1011
-msgid "Focal length:"
-msgstr "Luzera fokala:"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:400
-#, fuzzy
-msgid "Start date (duration):"
-msgstr "Lote exekuzioa hasi"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:437
-msgid "Send selected panoramas to queue"
-msgstr "Hautatutako panoramak zerrendara bidali"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:464
-msgid "Close"
-msgstr "Itxi"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:479
-msgid "Searching panoramas"
-msgstr "Panoramak bilatzen"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:492
-msgid "Failed projects"
-msgstr "Errorea eman duten proiektuak"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:507 hugin1/hugin/xrc/pano_panel.xrc:1323
-msgid "Output"
-msgstr "Irteera"
-
-#: hugin1/hugin/xrc/batch_frame.xrc:543
-msgid "Status report"
-msgstr "Egoera txostena"
-
-#: hugin1/hugin/xrc/batch_menu.xrc:7
-#, fuzzy
-msgid "Add project to stitching &queue..."
-msgstr "Proiektua elkartze zerrendara gehitu..."
-
-#: hugin1/hugin/xrc/batch_menu.xrc:8
-msgid "Adds a project to the stitching queue"
-msgstr "Proiektua elkartze zerrendara bidali"
-
-#: hugin1/hugin/xrc/batch_menu.xrc:11
-#, fuzzy
-msgid "Add project to &assistant queue..."
-msgstr "Proiektua asistentearen zerrendara gehitu..."
-
-#: hugin1/hugin/xrc/batch_menu.xrc:12
-msgid "Adds a project to the assistant queue"
-msgstr "Proiektua laguntzailearen zerrendara bidali"
-
-#: hugin1/hugin/xrc/batch_menu.xrc:15
-#, fuzzy
-msgid "&Remove project"
-msgstr "Proiektua borratu"
-
-#: hugin1/hugin/xrc/batch_menu.xrc:16 hugin1/hugin/xrc/batch_toolbar.xrc:61
-msgid "Removes selected project from the batch list"
-msgstr "Hautatutako proiektuak lote zerrendatik borratu"
-
-#: hugin1/hugin/xrc/batch_menu.xrc:20
-#, fuzzy
-msgid "&Project files..."
-msgstr "Proiektu fitxategiak"
-
-#: hugin1/hugin/xrc/batch_menu.xrc:21 hugin1/hugin/xrc/batch_toolbar.xrc:67
-msgid "Appends all project files from a directory and subdirectories"
-msgstr "Direktorio eta azpidirektorioen proiektu fitxategiak gehitu"
-
-#: hugin1/hugin/xrc/batch_menu.xrc:24
-#, fuzzy
-msgid "&Images..."
-msgstr "Irudiak"
-
-#: hugin1/hugin/xrc/batch_menu.xrc:25
-msgid "Searches in directories for image files suitable for panoramas"
-msgstr "Direktorioetan panoramak sortzeko balio duten irudiak bilatu"
-
-#: hugin1/hugin/xrc/batch_menu.xrc:27
-#, fuzzy
-msgid "Search &directory for..."
-msgstr "Direktorioan bilatu..."
-
-#: hugin1/hugin/xrc/batch_menu.xrc:28
-msgid "Searches in directories for existing projects or for images"
-msgstr "Direktorioetan bilatu existitzen diren proiektuak edo irudiak"
-
-#: hugin1/hugin/xrc/batch_menu.xrc:32
-#, fuzzy
-msgid "&Open batch"
-msgstr "Ireki lotea"
-
-#: hugin1/hugin/xrc/batch_menu.xrc:33 hugin1/hugin/xrc/batch_toolbar.xrc:16
-msgid "Opens a batch file with a list of projects"
-msgstr "Ireki proiektu zerrenda bat daukan lote fitxategia"
-
-#: hugin1/hugin/xrc/batch_menu.xrc:36
-#, fuzzy
-msgid "&Save batch"
-msgstr "Lotea gorde"
-
-#: hugin1/hugin/xrc/batch_menu.xrc:37 hugin1/hugin/xrc/batch_toolbar.xrc:22
-msgid "Saves a batch file with a list of projects"
-msgstr "Proiektu zerrenda bat duen lote fitxategia gorde"
-
-#: hugin1/hugin/xrc/batch_menu.xrc:40
-#, fuzzy
-msgid "&Clear batch"
-msgstr "Lotea garbitu"
-
-#: hugin1/hugin/xrc/batch_menu.xrc:41 hugin1/hugin/xrc/batch_toolbar.xrc:10
-msgid "Clears the batch list"
-msgstr "Lote zerrenda garbitu"
-
-#: hugin1/hugin/xrc/batch_menu.xrc:45
-msgid "&Minimize to tray"
-msgstr ""
-
-#: hugin1/hugin/xrc/batch_menu.xrc:51 hugin1/hugin/xrc/lenscal_frame.xrc:456
-#: hugin1/hugin/xrc/main_menu.xrc:211 hugin1/hugin/xrc/preview_frame.xrc:1935
-msgid "&Quit"
-msgstr "Itxi (&Q)"
-
-#: hugin1/hugin/xrc/batch_menu.xrc:52 hugin1/hugin/xrc/main_menu.xrc:213
-#: hugin1/hugin/xrc/preview_frame.xrc:1937
-msgid "Exit program"
-msgstr "Programa itxi"
-
-#: hugin1/hugin/xrc/batch_menu.xrc:58
-msgid "Batch Stitcher help"
-msgstr "Lotekako elkartzailearen laguntza"
-
-#: hugin1/hugin/xrc/batch_menu.xrc:59
-msgid "Open Batch Stitcher help."
-msgstr "Ireki lotekako elkartzailearen laguntza"
-
-#: hugin1/hugin/xrc/batch_toolbar.xrc:9
-msgid "Clear batch"
-msgstr "Lotea garbitu"
-
-#: hugin1/hugin/xrc/batch_toolbar.xrc:11
-msgid "clear"
-msgstr "garbitu"
-
-#: hugin1/hugin/xrc/batch_toolbar.xrc:15
-msgid "Open batch"
-msgstr "Ireki lotea"
-
-#: hugin1/hugin/xrc/batch_toolbar.xrc:17
-msgid "open"
-msgstr "ireki"
-
-#: hugin1/hugin/xrc/batch_toolbar.xrc:21
-msgid "Save batch"
-msgstr "Lotea gorde"
-
-#: hugin1/hugin/xrc/batch_toolbar.xrc:23
-msgid "save"
-msgstr "gorde"
-
-#: hugin1/hugin/xrc/batch_toolbar.xrc:29
-msgid "Starts batch execution"
-msgstr "Lote exekuzioa hasi"
-
-#: hugin1/hugin/xrc/batch_toolbar.xrc:30
-msgid "start"
-msgstr "hasi"
-
-#: hugin1/hugin/xrc/batch_toolbar.xrc:34
-msgid "Skip project(s)"
-msgstr "Proiektua(k) saltatu"
-
-#: hugin1/hugin/xrc/batch_toolbar.xrc:35
-msgid "Skips execution of currently running project(s)"
-msgstr "Orain exekutatzen ari diren proiektua(k) saltatu"
-
-#: hugin1/hugin/xrc/batch_toolbar.xrc:36
-msgid "skip"
-msgstr "saltatu"
-
-#: hugin1/hugin/xrc/batch_toolbar.xrc:42
-msgid "Pauses batch execution"
-msgstr "Lote exekuzioa pausarazi"
-
-#: hugin1/hugin/xrc/batch_toolbar.xrc:43
-msgid "pause"
-msgstr "pausarazi"
-
-#: hugin1/hugin/xrc/batch_toolbar.xrc:47
-msgid "Cancel batch"
-msgstr "Lotea ezeztatu"
-
-#: hugin1/hugin/xrc/batch_toolbar.xrc:48
-msgid "Cancels batch execution"
-msgstr "Lotearen exekuzioa ezeztatu"
-
-#: hugin1/hugin/xrc/batch_toolbar.xrc:49
-msgid "cancel"
-msgstr "ezeztatu"
-
-#: hugin1/hugin/xrc/batch_toolbar.xrc:54
-msgid "Add project(s)"
-msgstr "Proiektua(k) gehitu"
-
-#: hugin1/hugin/xrc/batch_toolbar.xrc:55
-msgid "Appends project file(s) to the batch list"
-msgstr "Proiektu fitxategia(k) lote zerrendara gehitu"
-
-#: hugin1/hugin/xrc/batch_toolbar.xrc:56
-msgid "add"
-msgstr "gehitu"
-
-#: hugin1/hugin/xrc/batch_toolbar.xrc:60
-msgid "Remove project"
-msgstr "Proiektua borratu"
-
-#: hugin1/hugin/xrc/batch_toolbar.xrc:62
-msgid "remove"
-msgstr "borratu"
-
-#: hugin1/hugin/xrc/batch_toolbar.xrc:66
-msgid "Search directory"
-msgstr "Direktorioan bilatu"
-
-#: hugin1/hugin/xrc/batch_toolbar.xrc:68
-msgid "adddir"
-msgstr "gehdir"
-
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:32
-msgid "previous image pair"
-msgstr "aurreko irudi bikotea"
-
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:64
-msgid "next image pair"
-msgstr "hurrengo irudi bikotea"
-
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:177
-msgid "mode:"
-msgstr "modua:"
-
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:186
-msgid "vertical line"
-msgstr "lerro bertikala"
-
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:187
-msgid "horizontal line"
-msgstr "lerro horizontala"
-
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:210
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:359
-msgid "Zoom:"
-msgstr "Zoom:"
-
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:220
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:368
-msgid "fit to window"
-msgstr "Leihoaren tamaina hartu"
-
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:240
-#: hugin1/hugin/xrc/pref_dialog.xrc:424
-msgid "Fine-tune"
-msgstr ""
-
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:241
-msgid "Tries to optimize the currently active point"
-msgstr "Momentuak gaituta dagoen puntua optimizatzen saiatuko da"
-
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:261
-msgid "auto fine-&tune"
-msgstr ""
-
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:267
-msgid "auto add"
-msgstr "auto gehiketa"
-
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:268
-msgid "immediately add control point when selecting a second point"
-msgstr "bigarren puntua hautatzerakoan kontrol puntua gehitu"
-
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:274
-msgid "auto-estimate"
-msgstr ""
-
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:275
-msgid ""
-"tries to estimate the shift between the images and use it while placing "
-"control points"
-msgstr ""
-
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:288
-msgid "&Delete"
-msgstr "Borratu (&D)"
-
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:295
-msgid "&Add"
-msgstr "Gehitu (&A)"
-
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:296
-msgid "add a new Point"
-msgstr "Gehitu puntu berria"
-
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:324
-#, fuzzy
-msgid "Create control points for current image pair"
-msgstr "Kontrol puntuak sortu"
-
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:329
-#, fuzzy
-msgid "Remove control points in clouds"
-msgstr "Maskaretan dauden kontrol puntuak borratu"
-
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:336
-#, fuzzy
-msgid "Remove worst control points"
-msgstr "%d kontrol puntu borratu dira"
-
-#: hugin1/hugin/xrc/cp_list_frame.xrc:4 hugin1/hugin/xrc/main_frame.xrc:30
-#: hugin1/hugin/xrc/main_menu.xrc:81
-msgid "Control Points"
-msgstr "Kontrol Puntuak"
-
-#: hugin1/hugin/xrc/cp_list_frame.xrc:17 hugin1/hugin/xrc/pref_dialog.xrc:660
-msgid "Delete"
-msgstr "Borratu"
-
-#: hugin1/hugin/xrc/cp_list_frame.xrc:24
-msgid "Select by Distance"
-msgstr ""
-
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:17
-msgid "Description:"
-msgstr "Deskribapena:"
-
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:29
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:547
-msgid "Type:"
-msgstr "Mota:"
-
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:37
-msgid "Autopano (by A. Jenny)"
-msgstr "Autopano (A. Jennyren egina)"
-
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:38
-msgid "All images at once"
-msgstr "Irudi guztiak batera"
-
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:39
-msgid "Panorama with stacks"
-msgstr ""
-
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:40
-msgid "Multi-row panorama"
-msgstr "Zerrenda anitzeko panorama"
-
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:41
-msgid "Multi-row panorama with stacks"
-msgstr ""
-
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:42
-msgid "Prealigned panorama"
-msgstr "Aurretik zerrendatutako panorama"
-
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:55
-msgid "Detector"
-msgstr ""
-
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:62
-msgid "One step detector"
-msgstr ""
-
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:68
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:227
-msgid "Program:"
-msgstr "Programa:"
-
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:94
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:153
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:192
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:253
-msgid "Arguments:"
-msgstr "Argumentuak:"
-
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:107
-msgid "Cleanup arguments:"
-msgstr "Garbitzeko argumentuak:"
-
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:121
-msgid "Two step detector"
-msgstr ""
-
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:127
-msgid "Feature descriptor:"
-msgstr "Ezaugarrien deskribatzailea:"
-
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:166
-msgid "Feature matcher:"
-msgstr "Ezaugarrien topatzailea:"
-
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:213
-msgid "Detector for stacks"
-msgstr ""
-
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:218
-#, fuzzy
-msgid "Leave empty when no control point detector should run on stacks."
-msgstr "Kontrol puntuen detektorearen ezarpenak gorde"
-
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:273
-msgid "Advanced option"
-msgstr "Aukera aurreratua"
-
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:287
-msgid "This setting has no advanced options."
-msgstr "Hobespen honek ez du aukera aurreraturik."
-
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:303
-#, fuzzy
-msgid ""
-"The following patterns will be substituted before running:\n"
-"%o  -- output project (0.oto will be appended when using Autopano)\n"
-"%p  -- number of control points between each pair\n"
-"%v  -- HFOV of first image\n"
-"%f  -- projection of first image (0-4, as in panotools)\n"
-"%i  -- image files\n"
-"%namefile -- file that contains image filenames\n"
-"%s -- input panotools script\n"
-"%k -- intermediate key file(s)"
-msgstr ""
-"Exekutatu baino lehen patroi hauek aldatuko dira:\n"
-"%o  -- irteera proiektua (0.oto atzizkia erabiliko da Autopano erabiltzean)%"
-"p  -- bikoteen arteko kontrol puntu kopurua\n"
-"%v  -- lehengo irudiaren HFOV\n"
-"%f  -- Lehengo irudiaren proiekzioa (0-4, panotools-en bezala)%i  -- irudi "
-"fitxategiak\n"
-"%n  -- irudi fitxategiak dituen fitxategia\n"
-"%s  -- panotools-en sarrera scripta\n"
-"%k  -- erdiko gako fitxategia(k)"
-
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:342
-msgid "Parameters for Control Point Detectors"
-msgstr "Kontrol puntuen DETECTORearen parametroak"
-
-#: hugin1/hugin/xrc/dlg_warning.xrc:35
-#, fuzzy
-msgid "Invalid filenames"
-msgstr "Defektuzko Fitxategi Formatua:"
-
-#: hugin1/hugin/xrc/edit_script_dialog.xrc:4
-msgid "Edit Panorama Tools Script"
-msgstr "Panorama Tresnen Script-a editatu"
-
-#: hugin1/hugin/xrc/edit_script_dialog.xrc:9
-msgid ""
-"This is the script which will be sent to the Panorama Tools engine.  Editing "
-"these lines is an advanced technique."
-msgstr ""
-"Script hau Panorama Tresnen motorrera bidaliko da. Lerro hauek "
-"aldatzeateknika aurreratua da."
-
-#: hugin1/hugin/xrc/edit_script_dialog.xrc:27
-msgid "Continue with these changes"
-msgstr "Aldaketa hauekin jarraitu"
-
-#: hugin1/hugin/xrc/edit_script_dialog.xrc:32
-msgid "Discard changes and cancel"
-msgstr "Aldaketak atzera bota eta ezeztatu"
-
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:15
-#: hugin1/hugin/xrc/preview_frame.xrc:62
-#: hugin1/hugin/xrc/preview_frame.xrc:699
-#: hugin1/hugin/xrc/preview_frame.xrc:1555
-msgid "Yaw:"
-msgstr ""
-
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:28
-#: hugin1/hugin/xrc/preview_frame.xrc:76
-#: hugin1/hugin/xrc/preview_frame.xrc:713
-#: hugin1/hugin/xrc/preview_frame.xrc:1569
-msgid "Pitch:"
-msgstr ""
-
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:41
-#: hugin1/hugin/xrc/preview_frame.xrc:90
-#: hugin1/hugin/xrc/preview_frame.xrc:727
-#: hugin1/hugin/xrc/preview_frame.xrc:1583
-msgid "Roll:"
-msgstr "Biratzea:"
-
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:54
-#, fuzzy
-msgid "Translation parameter"
-msgstr "Estekaren parametroak"
-
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:69
-#: hugin1/hugin/xrc/preview_frame.xrc:741
-#: hugin1/hugin/xrc/preview_frame.xrc:1597
-msgid "X:"
-msgstr "X:"
-
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:82
-#: hugin1/hugin/xrc/preview_frame.xrc:755
-#: hugin1/hugin/xrc/preview_frame.xrc:1611
-msgid "Y:"
-msgstr "Y:"
-
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:95
-#: hugin1/hugin/xrc/preview_frame.xrc:769
-#: hugin1/hugin/xrc/preview_frame.xrc:1625
-msgid "Z:"
-msgstr "Z:"
-
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:108
-msgid "Tpy:"
-msgstr ""
-
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:121
-msgid "Tpp:"
-msgstr ""
-
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:142
-#: hugin1/hugin/xrc/images_panel.xrc:92
-#, fuzzy
-msgid "Positions"
-msgstr "Irudiaren Posizioa"
-
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:165
-msgid "degrees of view (v):"
-msgstr "ikuspegiaren graduak (v):"
-
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:179
-#: hugin1/hugin/xrc/lenscal_frame.xrc:235
-msgid "Radial Distortion"
-msgstr "Distortzio erradiala"
-
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:194
-#: hugin1/hugin/xrc/lenscal_frame.xrc:244
-msgid "distortion (a):"
-msgstr "distortzioa (a):"
-
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:208
-#: hugin1/hugin/xrc/lenscal_frame.xrc:264
-msgid "barrel (b):"
-msgstr ""
-
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:222
-#: hugin1/hugin/xrc/lenscal_frame.xrc:284
-msgid "distortion (c):"
-msgstr "distortzioa (c):"
-
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:237
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:436
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:613
-msgid "Show graph >>"
-msgstr ""
-
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:258
-#: hugin1/hugin/xrc/lenscal_frame.xrc:313
-msgid "Image Center Shift"
-msgstr ""
-
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:271
-#: hugin1/hugin/xrc/lenscal_frame.xrc:325
-msgid "horizontal (d):"
-msgstr "horizontala (d):"
-
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:285
-#: hugin1/hugin/xrc/lenscal_frame.xrc:340
-msgid "vertical (e):"
-msgstr "bertikala (e):"
-
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:299
-msgid "Image Shearing"
-msgstr ""
-
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:314
-msgid "horizontal (g):"
-msgstr "horizontala (g):"
-
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:328
-msgid "vertical (t):"
-msgstr "bertikala (t):"
-
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:357
-msgid "Exposure and Color"
-msgstr "Esposaketa eta Kolorea"
-
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:370
-msgid "Exposure (Eev):"
-msgstr "Esposaketa (Eev)"
-
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:382
-msgid "Red multiplier (Er):"
-msgstr "Gorriaren multiplikatzailea (Er):"
-
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:394
-msgid "Blue multiplier (Eb):"
-msgstr "Urdinaren multiplikatzailea (Eb):"
-
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:420
-#: hugin1/hugin/xrc/reset_dialog.xrc:94
-msgid "Vignetting"
-msgstr ""
-
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:489
-msgid "Vignetting Center Shift"
-msgstr ""
-
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:535
-#: hugin1/hugin/xrc/preview_frame.xrc:289
-#: hugin1/hugin/xrc/preview_frame.xrc:1129
-msgid "Photometrics"
-msgstr "Fotometrikoa"
-
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:571
-msgid "Parameters:"
-msgstr "Parametroak:"
-
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:624
-#: hugin1/hugin/xrc/reset_dialog.xrc:102
-msgid "Camera Response"
-msgstr "Kamararen Erantzuna"
-
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:645
-#: hugin1/hugin/xrc/pref_dialog.xrc:1503
-msgid "Help"
-msgstr "Laguntza"
-
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:653
-#, fuzzy
-msgid "Image variables"
-msgstr "Irudi aldagaiak:"
-
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:665
-msgid "Images per stack:"
-msgstr ""
-
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:687
-#, fuzzy
-msgid "Link position of images in each stack"
-msgstr "Pila honetako posizioak estekatu"
-
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:689
-msgid ""
-"Check this option if the images were shot on a tripod.\n"
-"Uncheck this option if the images in each stack need an alignment to each "
-"other."
-msgstr ""
-
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:694
-#, fuzzy
-msgid "Image stack"
-msgstr "Irudiak"
-
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:719
-msgid "Enter image count per stack"
-msgstr ""
-
-#: hugin1/hugin/xrc/images_panel.xrc:30
-msgid "Group by:"
-msgstr ""
-
-#: hugin1/hugin/xrc/images_panel.xrc:42
-#, fuzzy
-msgid "Minimum overlap:"
-msgstr "Lerroaren tamaina minimoa:"
-
-#: hugin1/hugin/xrc/images_panel.xrc:50
-msgid "Minimum overlap for output stack detection"
-msgstr ""
-
-#: hugin1/hugin/xrc/images_panel.xrc:66
-#, fuzzy
-msgid "Maximum Ev difference:"
-msgstr "ezberdintasuna"
-
-#: hugin1/hugin/xrc/images_panel.xrc:74
-msgid "Maximum EV difference for detection of output layers"
-msgstr ""
-
-#: hugin1/hugin/xrc/images_panel.xrc:88
-msgid "Display"
-msgstr ""
-
-#: hugin1/hugin/xrc/images_panel.xrc:90 hugin1/hugin/xrc/pref_dialog.xrc:9
-msgid "General"
-msgstr "Orokorra"
-
-#: hugin1/hugin/xrc/images_panel.xrc:91
-msgid "EXIF data"
-msgstr ""
-
-#: hugin1/hugin/xrc/images_panel.xrc:93 hugin1/hugin/xrc/lenscal_frame.xrc:383
-#: hugin1/hugin/xrc/reset_dialog.xrc:36
-msgid "Lens parameters"
-msgstr "Lenteen parametroak"
-
-#: hugin1/hugin/xrc/images_panel.xrc:94
-#, fuzzy
-msgid "Photometric parameters"
-msgstr "Lerrokatze fotometrikoa"
-
-#: hugin1/hugin/xrc/images_panel.xrc:128
-#, fuzzy
-msgid "Lens type"
-msgstr "Lente mota:"
-
-#: hugin1/hugin/xrc/images_panel.xrc:143
-#, fuzzy
-msgid "Add images..."
-msgstr "Irudiak gehitu"
-
-#: hugin1/hugin/xrc/images_panel.xrc:152 hugin1/hugin/xrc/images_panel.xrc:425
-#: hugin1/hugin/xrc/lenscal_frame.xrc:61
-#: hugin1/hugin/xrc/preview_frame.xrc:158
-#: hugin1/hugin/xrc/preview_frame.xrc:998
-msgid "Lens type:"
-msgstr "Lente mota:"
-
-#: hugin1/hugin/xrc/images_panel.xrc:187 hugin1/hugin/xrc/images_panel.xrc:517
-#: hugin1/hugin/xrc/lenscal_frame.xrc:105
-#: hugin1/hugin/xrc/preview_frame.xrc:191
-#: hugin1/hugin/xrc/preview_frame.xrc:1031
-msgid "Focal length multiplier:"
-msgstr "Luzera fokalaren biderkatzailea"
-
-#: hugin1/hugin/xrc/images_panel.xrc:225
-msgid "Feature Matching"
-msgstr "Ezaugarrien XXX"
-
-#: hugin1/hugin/xrc/images_panel.xrc:240
-msgid "Settings:"
-msgstr "Hobespenak"
-
-#: hugin1/hugin/xrc/images_panel.xrc:252
-#, fuzzy
-msgid "Run selected control point detector on the selected images"
-msgstr "Hautatutako irudiak lotzen duten kontrol puntuak borratu"
-
-#: hugin1/hugin/xrc/images_panel.xrc:276
-#: hugin1/hugin/xrc/lenscal_frame.xrc:366 hugin1/hugin/xrc/main_tool.xrc:52
-msgid "Optimize"
-msgstr "Optimizatu"
-
-#: hugin1/hugin/xrc/images_panel.xrc:291
-#, fuzzy
-msgid "Geometric:"
-msgstr "Geometrikoa"
-
-#: hugin1/hugin/xrc/images_panel.xrc:307 hugin1/hugin/xrc/images_panel.xrc:328
-msgid "Calculate"
-msgstr ""
-
-#: hugin1/hugin/xrc/images_panel.xrc:312
-#, fuzzy
-msgid "Photometric:"
-msgstr "Fotometrikoa"
-
-#: hugin1/hugin/xrc/images_panel.xrc:358
-msgid "Selected Image"
-msgstr "Hautatutako Irudia"
-
-#: hugin1/hugin/xrc/images_panel.xrc:444
-msgid "Load lens data..."
-msgstr "Lenteen datuak kargatu..."
-
-#: hugin1/hugin/xrc/images_panel.xrc:460
-msgid "Enter horizontal field of view (HFOV) or focal length and crop factor:"
-msgstr ""
-"Ikuspegi horizontala (HFOV) edo lente fokala eta mozketa faktorea sartu:"
-
-#: hugin1/hugin/xrc/images_panel.xrc:471
-msgid "HFOV (v):"
-msgstr "HFOV (v):"
-
-#: hugin1/hugin/xrc/images_panel.xrc:482 hugin1/hugin/xrc/pref_dialog.xrc:571
-#: hugin1/hugin/xrc/pref_dialog.xrc:590
-msgid "degrees"
-msgstr "graduak"
-
-#: hugin1/hugin/xrc/images_panel.xrc:561
-msgid "Camera and Lens data"
-msgstr "Kamara eta Lenteen datuak"
-
-#: hugin1/hugin/xrc/lenscal_frame.xrc:31 hugin1/hugin/xrc/main_tool.xrc:46
-msgid "Add"
-msgstr "Gehitu"
-
-#: hugin1/hugin/xrc/lenscal_frame.xrc:127
-msgid "Images (with straight lines)"
-msgstr "Irudiak (lerro zuzenekin)"
-
-#: hugin1/hugin/xrc/lenscal_frame.xrc:140
-msgid "Edge detection scale:"
-msgstr "Ertzak topatzeko eskala:"
-
-#: hugin1/hugin/xrc/lenscal_frame.xrc:154
-msgid "Edge detection threshold:"
-msgstr "Ertzak topatzeko atalasea:"
-
-#: hugin1/hugin/xrc/lenscal_frame.xrc:168
-msgid "Maximal image size:"
-msgstr "Irudiaren tamaina maximoa:"
-
-#: hugin1/hugin/xrc/lenscal_frame.xrc:182
-msgid "Minimum line length:"
-msgstr "Lerroaren tamaina minimoa:"
-
-#: hugin1/hugin/xrc/lenscal_frame.xrc:206
-msgid "Find lines"
-msgstr "Lerroak topatu"
-
-#: hugin1/hugin/xrc/lenscal_frame.xrc:398
-msgid "Original"
-msgstr "Originala"
-
-#: hugin1/hugin/xrc/lenscal_frame.xrc:399
-msgid "Edge detection"
-msgstr "Ertzen topaketa"
-
-#: hugin1/hugin/xrc/lenscal_frame.xrc:400
-msgid "Corrected"
-msgstr "Zuzenduta"
-
-#: hugin1/hugin/xrc/lenscal_frame.xrc:409
-msgid "Show lines"
-msgstr "Lerroak erakutsi"
-
-#: hugin1/hugin/xrc/lenscal_frame.xrc:417
-msgid "Refresh"
-msgstr "Freskatu"
-
-#: hugin1/hugin/xrc/lenscal_frame.xrc:451
-msgid "&Save as project file..."
-msgstr "Proiektu fitxategi bezala gorde (&S)..."
-
-#: hugin1/hugin/xrc/lenscal_frame.xrc:452
-msgid "Saves the images and lines as pto file for further tuning inside hugin."
-msgstr ""
-"Irudiak eta lerroak pto fitxategi bezala gorde, gero huginen barruan "
-"lantzeko."
-
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:55
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:252
-msgid "Aperture:"
-msgstr "Irekiera:"
-
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:71
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:267
-msgid "Subject distance:"
-msgstr ""
-
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:110
-msgid ""
-"Select which parameters should be loaded\n"
-"from database"
-msgstr ""
-
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:117
-#, fuzzy
-msgid "Load distortion"
-msgstr "Distortzio erradiala"
-
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:125
-msgid "Load vignetting"
-msgstr ""
-
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:155
-#, fuzzy
-msgid "Load lens from database"
-msgstr "Lenteen datuak kargatu..."
-
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:170
-#, fuzzy
-msgid "Camera maker:"
-msgstr "Kamararen Egilea:"
-
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:185
-#, fuzzy
-msgid "Camera model:"
-msgstr "Kamararen Modeloa:"
-
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:200
-#, fuzzy
-msgid "Lens name:"
-msgstr "Lente kopurua"
-
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:208
-#, fuzzy
-msgid "Leave empty for compact cameras."
-msgstr "(hutsik utzi SE-ren defektuzko balioarentzako"
-
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:304
-msgid ""
-"Select which parameters should be saved\n"
-"into database"
-msgstr ""
-
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:311
-#, fuzzy
-msgid "Save distortion"
-msgstr "Distortzio erradiala"
-
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:319
-msgid "Save vignetting"
-msgstr ""
-
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:351
-#, fuzzy
-msgid "Save lens to database"
-msgstr "Lenteen parametro fitxategia gorde"
-
-#: hugin1/hugin/xrc/main_frame.xrc:22 hugin1/hugin/xrc/main_menu.xrc:71
-#, fuzzy
-msgid "Photos"
-msgstr "Fotometrikoa"
-
-#: hugin1/hugin/xrc/main_frame.xrc:27 hugin1/hugin/xrc/main_menu.xrc:76
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:213
-#, fuzzy
-msgid "Masks"
-msgstr "Maskarak:"
-
-#: hugin1/hugin/xrc/main_frame.xrc:42 hugin1/hugin/xrc/main_menu.xrc:96
-msgid "Stitcher"
-msgstr "Elkartzailea"
-
-#: hugin1/hugin/xrc/main_frame.xrc:73
-#, fuzzy
-msgid "Should the OpenGL powered fast preview window disabled?"
-msgstr "OpenGL-ren aurrebista leihoa ikusi"
-
-#: hugin1/hugin/xrc/main_frame.xrc:92
-msgid "Don't ask again"
-msgstr ""
-
-#: hugin1/hugin/xrc/main_frame.xrc:106
-msgid "Yes"
-msgstr ""
-
-#: hugin1/hugin/xrc/main_frame.xrc:112
-#, fuzzy
-msgid "No"
-msgstr "Ezer"
-
-#: hugin1/hugin/xrc/main_frame.xrc:141
-msgid ""
-"The project covers a big brightness range, but Hugin could not automatically "
-"detect any stacks.\n"
-"Consider assigning stacks manually in the panorama editor to help Hugin to "
-"process the panorama."
-msgstr ""
-
-#: hugin1/hugin/xrc/main_frame.xrc:157 hugin1/hugin/xrc/main_frame.xrc:303
-#: hugin1/hugin/xrc/pano_panel.xrc:1052
-#, fuzzy
-msgid "Don't show again"
-msgstr "Ez aldatu"
-
-#: hugin1/hugin/xrc/main_frame.xrc:171 hugin1/hugin/xrc/pano_panel.xrc:1066
-msgid "Ok"
-msgstr ""
-
-#: hugin1/hugin/xrc/main_frame.xrc:203
-msgid ""
-"Hugin has image stacks detected in the added images and will assign "
-"corresponding stack numbers to the images. Should the position of images in "
-"each stack be linked?"
-msgstr ""
-
-#: hugin1/hugin/xrc/main_frame.xrc:317 hugin1/hugin/xrc/main_tool.xrc:51
-msgid "Re-optimize"
-msgstr "Berroptimizatu"
-
-#: hugin1/hugin/xrc/main_frame.xrc:323
-#, fuzzy
-msgid "Don't optimize now"
-msgstr "Optimizatu orain!"
-
-#: hugin1/hugin/xrc/main_frame.xrc:335
-msgid "Edit cp tools"
-msgstr ""
-
-#: hugin1/hugin/xrc/main_menu.xrc:7 hugin1/hugin/xrc/preview_frame.xrc:1810
-msgid "&Undo"
-msgstr "Desegin (&U)"
-
-#: hugin1/hugin/xrc/main_menu.xrc:9 hugin1/hugin/xrc/main_tool.xrc:34
-#: hugin1/hugin/xrc/preview_frame.xrc:1812
-msgid "Undo the last action"
-msgstr "Azkenengo ekintza desegin"
-
-#: hugin1/hugin/xrc/main_menu.xrc:12 hugin1/hugin/xrc/preview_frame.xrc:1815
-msgid "&Redo"
-msgstr "Be&rregin"
-
-#: hugin1/hugin/xrc/main_menu.xrc:14 hugin1/hugin/xrc/main_tool.xrc:40
-#: hugin1/hugin/xrc/preview_frame.xrc:1817
-msgid "Redo the last action"
-msgstr "Azkenengo ekintza berregin"
-
-#: hugin1/hugin/xrc/main_menu.xrc:18
-msgid "&Add Image"
-msgstr "Irudi&a Gehitu"
-
-#: hugin1/hugin/xrc/main_menu.xrc:19 hugin1/hugin/xrc/main_tool.xrc:47
-msgid "Add another image to the current project"
-msgstr "Oraingo proiektuari beste irudi bat gehitu"
-
-#: hugin1/hugin/xrc/main_menu.xrc:22
-#, fuzzy
-msgid "Run a&ssistant"
-msgstr "Laguntzailea exekutatzen"
-
-#: hugin1/hugin/xrc/main_menu.xrc:25
-#, fuzzy
-msgid "Send to assistant &queue"
-msgstr "Laguntzailearen zerrendara bidali"
-
-#: hugin1/hugin/xrc/main_menu.xrc:28 hugin1/hugin/xrc/preview_frame.xrc:1821
-msgid "&Optimize"
-msgstr "&Optimizatu"
-
-#: hugin1/hugin/xrc/main_menu.xrc:30 hugin1/hugin/xrc/main_tool.xrc:53
-#: hugin1/hugin/xrc/preview_frame.xrc:1823
-msgid "Re-run the optimizer with current settings"
-msgstr "Optimizatzailea oraingo hobespenekin berrexekutatu"
-
-#: hugin1/hugin/xrc/main_menu.xrc:34
-msgid "Fine-&tune all Points"
-msgstr ""
-
-#: hugin1/hugin/xrc/main_menu.xrc:35
-msgid ""
-"Runs fine-tune on all control points. Useful for projects created with other "
-"tools, like PTGui or PTAssembler"
-msgstr ""
-
-#: hugin1/hugin/xrc/main_menu.xrc:38
-msgid "Remove control points in masks"
-msgstr "Maskaretan dauden kontrol puntuak borratu"
-
-#: hugin1/hugin/xrc/main_menu.xrc:39
-#, fuzzy
-msgid "Removes all control points inside masked areas."
-msgstr "Maskaretan dauden kontrol puntuak borratu"
-
-#: hugin1/hugin/xrc/main_menu.xrc:42
-msgid "Run &Python script"
-msgstr "&Python scripta exekutatu"
-
-#: hugin1/hugin/xrc/main_menu.xrc:43
-msgid "Run a python script"
-msgstr "Python script bat exekutatu"
-
-#: hugin1/hugin/xrc/main_menu.xrc:45 hugin1/hugin/xrc/preview_frame.xrc:1825
-msgid "&Edit"
-msgstr "&Editatu"
-
-#: hugin1/hugin/xrc/main_menu.xrc:48 hugin1/hugin/xrc/preview_frame.xrc:1847
-msgid "&View"
-msgstr "Ikusi &V"
-
-#: hugin1/hugin/xrc/main_menu.xrc:50 hugin1/hugin/xrc/preview_frame.xrc:1832
-msgid "Full Screen"
-msgstr "Pantaila Osoa"
-
-#: hugin1/hugin/xrc/main_menu.xrc:52 hugin1/hugin/xrc/preview_frame.xrc:1835
-#, fuzzy
-msgid "Shows Hugin's main window on full-screen"
-msgstr "Huginen leiho nagusia pantaila osoan ikusi"
-
-#: hugin1/hugin/xrc/main_menu.xrc:55
-msgid "&Control point table"
-msgstr "Kontrol puntuen taula (&C)"
-
-#: hugin1/hugin/xrc/main_menu.xrc:57
-msgid "Shows all control point distances"
-msgstr "Kontrol puntuen distantziak ikusi"
-
-#: hugin1/hugin/xrc/main_menu.xrc:60
-msgid "&Preview window"
-msgstr "aurrebista leihoa (&P)"
-
-#: hugin1/hugin/xrc/main_menu.xrc:62
-msgid "Show the preview window"
-msgstr "Aurrebista leihoa ikusi"
-
-#: hugin1/hugin/xrc/main_menu.xrc:65
-msgid "&Fast Preview window"
-msgstr "Aurrebista Azkarraren leihoa (&F)"
-
-#: hugin1/hugin/xrc/main_menu.xrc:67
-msgid "Show the OpenGL preview window"
-msgstr "OpenGL-ren aurrebista leihoa ikusi"
-
-#: hugin1/hugin/xrc/main_menu.xrc:73
-#, fuzzy
-msgid "Show the Photos panel"
-msgstr "Maskararen panela ikusi"
-
-#: hugin1/hugin/xrc/main_menu.xrc:78
-#, fuzzy
-msgid "Show the Masks panel"
-msgstr "Maskararen panela ikusi"
-
-#: hugin1/hugin/xrc/main_menu.xrc:83
-msgid "Show the Control Points panel"
-msgstr "Kontrol Puntuen panela ikusi"
-
-#: hugin1/hugin/xrc/main_menu.xrc:88
-msgid "Show the Optimizer panel"
-msgstr "Optimizatzailearen panela ikusi"
-
-#: hugin1/hugin/xrc/main_menu.xrc:93
-msgid "Show the Exposure panel"
-msgstr "Esposaketaren panela ikusi"
-
-#: hugin1/hugin/xrc/main_menu.xrc:98
-msgid "Show the Stitcher panel"
-msgstr "Elkartzailearen panela ikusi"
-
-#: hugin1/hugin/xrc/main_menu.xrc:103 hugin1/hugin/xrc/preview_frame.xrc:1851
-msgid "Simple"
-msgstr ""
-
-#: hugin1/hugin/xrc/main_menu.xrc:108 hugin1/hugin/xrc/preview_frame.xrc:1856
-#, fuzzy
-msgid "Advanced"
-msgstr "Aukera aurreratua"
-
-#: hugin1/hugin/xrc/main_menu.xrc:112 hugin1/hugin/xrc/preview_frame.xrc:1860
-msgid "Expert"
-msgstr ""
-
-#: hugin1/hugin/xrc/main_menu.xrc:115
-#, fuzzy
-msgid "&Interface"
-msgstr "Erabiltzaile Interfazea"
-
-#: hugin1/hugin/xrc/main_menu.xrc:119
-#, fuzzy
-msgid "&Stitch"
-msgstr "Elkartu!"
-
-#: hugin1/hugin/xrc/main_menu.xrc:121
-msgid "Stitch with the settings on the pano tabs"
-msgstr ""
-
-#: hugin1/hugin/xrc/main_menu.xrc:124
-msgid "Stitch user defined output..."
-msgstr ""
-
-#: hugin1/hugin/xrc/main_menu.xrc:125
-msgid "Stitch with the settings from an user defined output sequence"
-msgstr ""
-
-#: hugin1/hugin/xrc/main_menu.xrc:127
-#, fuzzy
-msgid "&Output"
-msgstr "Irteera"
-
-#: hugin1/hugin/xrc/main_menu.xrc:134 hugin1/hugin/xrc/preview_frame.xrc:1869
-msgid "Some information on the different buttons and so on."
-msgstr "Botoi ezberdinen zenbait informazio eta abar"
-
-#: hugin1/hugin/xrc/main_menu.xrc:137 hugin1/hugin/xrc/preview_frame.xrc:1872
-msgid "&Tip of the day"
-msgstr "Eguneko aholkua (&T)"
-
-#: hugin1/hugin/xrc/main_menu.xrc:138 hugin1/hugin/xrc/preview_frame.xrc:1873
-msgid "Show one of the tips of the day."
-msgstr "Eguneko aholkuren bat bistaratu."
-
-#: hugin1/hugin/xrc/main_menu.xrc:141 hugin1/hugin/xrc/preview_frame.xrc:1876
-msgid "&Keyboard Shortcuts"
-msgstr "Te&klatuaren laster-teklak"
-
-#: hugin1/hugin/xrc/main_menu.xrc:142 hugin1/hugin/xrc/preview_frame.xrc:1877
-msgid "keyboard shortcuts"
-msgstr "teklatuaren laster-teklak"
-
-#: hugin1/hugin/xrc/main_menu.xrc:145 hugin1/hugin/xrc/preview_frame.xrc:1880
-msgid "&FAQ"
-msgstr "&FAQ"
-
-#: hugin1/hugin/xrc/main_menu.xrc:146 hugin1/hugin/xrc/preview_frame.xrc:1881
-msgid "Frequently Asked Questions"
-msgstr "Maiz Egindako Galderak"
-
-#: hugin1/hugin/xrc/main_menu.xrc:150 hugin1/hugin/xrc/preview_frame.xrc:1885
-msgid "&About"
-msgstr "Honi buruz (&A)"
-
-#: hugin1/hugin/xrc/main_menu.xrc:154 hugin1/hugin/xrc/preview_frame.xrc:1889
-msgid "&Donate"
-msgstr "&Dirua eman"
-
-#: hugin1/hugin/xrc/main_menu.xrc:155 hugin1/hugin/xrc/preview_frame.xrc:1890
-msgid ""
-"If you like hugin and want to see further improvements, please consider "
-"donating to the hugin project."
-msgstr ""
-"Hugin gustoko baduzu eta hobekuntza gehiago nahi badituzu, mesdez diruaeman "
-"hugin proiektuari."
-
-#: hugin1/hugin/xrc/main_menu.xrc:158 hugin1/hugin/xrc/main_menu.xrc:207
-#: hugin1/hugin/xrc/main_menu.xrc:233 hugin1/hugin/xrc/preview_frame.xrc:1893
-#: hugin1/hugin/xrc/preview_frame.xrc:1931
-#: hugin1/hugin/xrc/preview_frame.xrc:1967
-msgid "&Preferences"
-msgstr "Hobes&penak"
-
-#: hugin1/hugin/xrc/main_menu.xrc:165 hugin1/hugin/xrc/preview_frame.xrc:1902
-#: hugin1/hugin/xrc/preview_frame.xrc:1943
-msgid "&New"
-msgstr "Berria (&N)"
-
-#: hugin1/hugin/xrc/main_menu.xrc:167 hugin1/hugin/xrc/main_tool.xrc:7
-#: hugin1/hugin/xrc/preview_frame.xrc:1904
-#: hugin1/hugin/xrc/preview_frame.xrc:1945
-msgid "New project"
-msgstr "Proiektu berria"
-
-#: hugin1/hugin/xrc/main_menu.xrc:170 hugin1/hugin/xrc/preview_frame.xrc:1907
-#: hugin1/hugin/xrc/preview_frame.xrc:1948
-msgid "&Open"
-msgstr "Ireki (&O)"
-
-#: hugin1/hugin/xrc/main_menu.xrc:172 hugin1/hugin/xrc/main_tool.xrc:13
-#: hugin1/hugin/xrc/preview_frame.xrc:1909
-#: hugin1/hugin/xrc/preview_frame.xrc:1950
-msgid "Open project"
-msgstr "Ireki proiektua"
-
-#: hugin1/hugin/xrc/main_menu.xrc:175 hugin1/hugin/xrc/preview_frame.xrc:1912
-#: hugin1/hugin/xrc/preview_frame.xrc:1953
-msgid "&Save"
-msgstr "Gorde (&S)"
-
-#: hugin1/hugin/xrc/main_menu.xrc:177 hugin1/hugin/xrc/main_tool.xrc:21
-#: hugin1/hugin/xrc/preview_frame.xrc:1914
-#: hugin1/hugin/xrc/preview_frame.xrc:1955
-msgid "Save current project file"
-msgstr "Oraingo proiektu fitxategia gorde"
-
-#: hugin1/hugin/xrc/main_menu.xrc:180 hugin1/hugin/xrc/preview_frame.xrc:1917
-#: hugin1/hugin/xrc/preview_frame.xrc:1958
-msgid "S&ave as"
-msgstr "Gorde honela (&a)"
-
-#: hugin1/hugin/xrc/main_menu.xrc:181 hugin1/hugin/xrc/main_tool.xrc:27
-#: hugin1/hugin/xrc/preview_frame.xrc:1918
-#: hugin1/hugin/xrc/preview_frame.xrc:1959
-msgid "Save current project to a new file"
-msgstr "Oraingo proiektua fitxategi berri batean gorde"
-
-#: hugin1/hugin/xrc/main_menu.xrc:184
-msgid "&Write PTStitcher script"
-msgstr "PTStitcher script-a idatzi (&W)"
-
-#: hugin1/hugin/xrc/main_menu.xrc:185
-#, fuzzy
-msgid ""
-"Write current project to a PTStitcher-compatible script file, useful for "
-"batch processing"
-msgstr ""
-"Oraingo proiektua PTStitcher-ekin bateragarria den script fitxategi batean "
-"idatzi,loteka prozesatzeko baliagarria"
-
-#: hugin1/hugin/xrc/main_menu.xrc:188 hugin1/hugin/xrc/preview_frame.xrc:1921
-#: hugin1/hugin/xrc/preview_frame.xrc:1962
-msgid "Most recently used projects"
-msgstr "Oraintsu erabilitako proiektuak"
-
-#: hugin1/hugin/xrc/main_menu.xrc:189 hugin1/hugin/xrc/preview_frame.xrc:1922
-#: hugin1/hugin/xrc/preview_frame.xrc:1963
-msgid "List of most recently used project files"
-msgstr "Oraintsu gehien erabilitako proiektu fitxategiak"
-
-#: hugin1/hugin/xrc/main_menu.xrc:193 hugin1/hugin/xrc/main_menu.xrc:219
-#: hugin1/hugin/xrc/preview_frame.xrc:1926
-msgid "&Run Batch Processor"
-msgstr "Lote Prozesatzailea exekutatu (&R)"
-
-#: hugin1/hugin/xrc/main_menu.xrc:198 hugin1/hugin/xrc/main_menu.xrc:224
-msgid "&Merge project..."
-msgstr "Proiektua elkartu... (&M)"
-
-#: hugin1/hugin/xrc/main_menu.xrc:199 hugin1/hugin/xrc/main_menu.xrc:225
-msgid "Merges an existing project file with the current project."
-msgstr "Oraingo proiektua eta existitzen den proiektu bat elkartzen ditu."
-
-#: hugin1/hugin/xrc/main_menu.xrc:202 hugin1/hugin/xrc/main_menu.xrc:228
-msgid "Apply &Template"
-msgstr "&Txantiloia aplikatu"
-
-#: hugin1/hugin/xrc/main_menu.xrc:203 hugin1/hugin/xrc/main_menu.xrc:229
-msgid ""
-"Assign the settings of a previously saved project to the current images."
-msgstr "Lehendik gordetako proiektu baten hobespenak oraingo irudiei esleitu."
-
-#: hugin1/hugin/xrc/main_menu.xrc:237
-#, fuzzy
-msgid "&Close editor"
-msgstr "&Itxi"
-
-#: hugin1/hugin/xrc/main_menu.xrc:238
-msgid "Closes panorama editor"
-msgstr ""
-
-#: hugin1/hugin/xrc/main_tool.xrc:8
-msgid "New"
-msgstr "Berria"
-
-#: hugin1/hugin/xrc/main_tool.xrc:9
-msgid "Start a new project"
-msgstr "Proiektu berria hasi"
-
-#: hugin1/hugin/xrc/main_tool.xrc:14
-msgid "Open"
-msgstr "Ireki"
-
-#: hugin1/hugin/xrc/main_tool.xrc:15
-msgid "Open a project file"
-msgstr "Ireki proiektu fitxategia"
-
-#: hugin1/hugin/xrc/main_tool.xrc:20 hugin1/hugin/xrc/pref_dialog.xrc:1533
-#: hugin1/hugin/xrc/pref_dialog.xrc:1591
-msgid "Save"
-msgstr "Gorde"
-
-#: hugin1/hugin/xrc/main_tool.xrc:25
-msgid "Save project as"
-msgstr "Gorde proiektua honela"
-
-#: hugin1/hugin/xrc/main_tool.xrc:26
-msgid "Save As"
-msgstr "Gorde Honela"
-
-#: hugin1/hugin/xrc/main_tool.xrc:32 hugin1/hugin/xrc/main_tool.xrc:33
-msgid "Undo"
-msgstr "Desegin"
-
-#: hugin1/hugin/xrc/main_tool.xrc:38 hugin1/hugin/xrc/main_tool.xrc:39
-msgid "Redo"
-msgstr "Berregin"
-
-#: hugin1/hugin/xrc/main_tool.xrc:45
-msgid "Add image"
-msgstr "Irudia gehitu"
-
-#: hugin1/hugin/xrc/main_tool.xrc:60
-msgid "Fast Preview panorama"
-msgstr "Aurrebista Azkarreko panorama"
-
-#: hugin1/hugin/xrc/main_tool.xrc:61
-msgid "Fast Preview"
-msgstr "Aurrebista azkarra"
-
-#: hugin1/hugin/xrc/main_tool.xrc:62
-msgid "Show the OpenGL preview image"
-msgstr "OpenGL-ren aurrebista irudia ikusi"
-
-#: hugin1/hugin/xrc/main_tool.xrc:66 hugin1/hugin/xrc/preview_frame.xrc:459
-#: hugin1/hugin/xrc/preview_frame.xrc:1299
-msgid "Preview panorama"
-msgstr "Aurrebistaren panorama"
-
-#: hugin1/hugin/xrc/main_tool.xrc:68
-msgid "Show the preview image"
-msgstr "Aurrebistako irudia ikusi"
-
-#: hugin1/hugin/xrc/main_tool.xrc:72 hugin1/hugin/xrc/preview_frame.xrc:298
-#: hugin1/hugin/xrc/preview_frame.xrc:1138
-msgid "Show control points"
-msgstr "Kontrol puntuak ikusi"
-
-#: hugin1/hugin/xrc/main_tool.xrc:73
-msgid "Points"
-msgstr "Puntuak"
-
-#: hugin1/hugin/xrc/main_tool.xrc:74
-msgid "Show all control points in a single table"
-msgstr "Kontrol puntu guztiak taula bakarrean ikusi"
-
-#: hugin1/hugin/xrc/main_tool.xrc:81
-msgid "Display credits for the creators of Hugin"
-msgstr "Huginen sortzaileen kredituak bistaratu"
-
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:23
-msgid "Add new mask"
-msgstr "Maskara berria gehitu"
-
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:31
-msgid "Delete mask"
-msgstr "Maskara borratu"
-
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:54
-msgid "Mask type:"
-msgstr "Maskara mota:"
-
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:62
-msgid "Exclude region"
-msgstr "Eskualdea kanpoan utzi"
-
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:63
-msgid "Include region"
-msgstr "Eskualdea gehitu"
-
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:64
-msgid "Exclude region from stack"
-msgstr "Eskualdea pilatik kendu"
-
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:65
-msgid "Include region from stack"
-msgstr "Eskualdea pilara gehitu"
-
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:66
-msgid "Exclude region from all images of this lens"
-msgstr "Eskualdea lente hauen irudi guztietatik kendu"
-
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:88
-#: hugin1/hugin/xrc/pref_dialog.xrc:699
-msgid "Export"
-msgstr "Esportatu"
-
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:95
-#: hugin1/hugin/xrc/pref_dialog.xrc:692
-msgid "Import"
-msgstr "Inportatu"
-
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:103
-msgid "Copy"
-msgstr "Kopiatu"
-
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:110
-msgid "Paste"
-msgstr "Itsatsi"
-
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:123
-msgid "Import/Export"
-msgstr "Inportatu/Esportatu"
-
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:132
-msgid "Excluded"
-msgstr "Kenduta"
-
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:144
-msgid "Included"
-msgstr "Gehituta"
-
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:156
-msgid "Selected"
-msgstr "Hautatuta"
-
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:168
-msgid "Unselected"
-msgstr "Hautatu gabea"
-
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:188
-msgid "Colour"
-msgstr "Kolorea"
-
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:197
-msgid "Show extent of active masks and crop"
-msgstr "Maskara eta mozketa aktiboen tamaina erakutsi"
-
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:226
-#: hugin1/hugin/xrc/pano_panel.xrc:364
-msgid "Top:"
-msgstr "Goi:"
-
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:249
-#: hugin1/hugin/xrc/pano_panel.xrc:346
-msgid "Left:"
-msgstr "Ezkerra:"
-
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:273
-#: hugin1/hugin/xrc/pano_panel.xrc:382
-msgid "Right:"
-msgstr "Eskubia:"
-
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:294
-#: hugin1/hugin/xrc/pano_panel.xrc:399
-msgid "Bottom:"
-msgstr "Azpi:"
-
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:318
-msgid "Always center Crop on d,e"
-msgstr ""
-
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:403
-msgid "Image size:"
-msgstr "Irudiaren tamaina:"
-
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:418
-msgid "Mask size:"
-msgstr "Maskararen tamaina:"
-
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:435
-msgid "Mask size"
-msgstr "Maskararen tamaina"
-
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:437
-msgid "Don't change"
-msgstr "Ez aldatu"
-
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:438
-msgid "Scale to fit"
-msgstr "Eskalatu tamainara"
-
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:439
-msgid "Scale proportional"
-msgstr "Proportzionalki eskalatu"
-
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:449
-msgid "Rotation"
-msgstr "Biratu"
-
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:451
-msgid "Don't rotate"
-msgstr "Ez biratu"
-
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:452
-msgid "90° clockwise"
-msgstr "90° erlojuaren norantzan"
-
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:453
-msgid "90° counter-clockwise"
-msgstr "90° erlojuaren kontrako norantzan"
-
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:505
-msgid "Loading mask"
-msgstr "Maskara kargatu"
-
-#: hugin1/hugin/xrc/optimize_panel.xrc:14
-#, fuzzy
-msgid "Geometric optimizer"
-msgstr "Optimizazio fotometrikoa"
-
-#: hugin1/hugin/xrc/optimize_panel.xrc:39
-msgid "Only use control points between image selected in preview window."
-msgstr ""
-"Aurrebista leihoan hautatutako irudien kontrol puntuak bakarrik erabili."
-
-#: hugin1/hugin/xrc/optimize_panel.xrc:40
-msgid ""
-"Only use control points between images selected in preview window. Useful to "
-"avoid errors due to badly fitting images, such as the nadir image in most "
-"fisheye panoramas"
-msgstr ""
-"Aurrebista leihoan hautatutako irudien kontrol puntuak bakarrik erabili."
-"Teknika hau erabilgarria da gaizki elkartutako irudiek sor dezaketen "
-"erroreak galarazteko, arrain-begipanorama gehientsuetako nadirra  bezalakoak"
-
-#: hugin1/hugin/xrc/optimize_panel.xrc:52
-#: hugin1/hugin/xrc/optimize_photo_panel.xrc:52
-msgid "Optimize now!"
-msgstr "Optimizatu orain!"
-
-#: hugin1/hugin/xrc/optimize_panel.xrc:53
-#: hugin1/hugin/xrc/optimize_photo_panel.xrc:53
-msgid "execute the PTOptimizer engine"
-msgstr "PTOptimizatzaile motorra exekutatu"
-
-#: hugin1/hugin/xrc/optimize_panel.xrc:88 hugin1/hugin/xrc/reset_dialog.xrc:12
-msgid "Image Orientation"
-msgstr "Irudi orientazioa"
-
-#: hugin1/hugin/xrc/optimize_panel.xrc:112
-msgid "Lens Parameters"
-msgstr "Lentearen Parametroak"
-
-#: hugin1/hugin/xrc/optimize_panel.xrc:139
-msgid "edit script before optimizing"
-msgstr "Script-a editatu optimizatu baino lehen"
-
-#: hugin1/hugin/xrc/optimize_panel.xrc:140
-msgid "for advanced users"
-msgstr "Erabiltzaile aurreratuentzat bakarrik"
-
-#: hugin1/hugin/xrc/optimize_photo_panel.xrc:13
-msgid "Photometric Optimization"
-msgstr "Optimizazio Fotometrikoa"
-
-#: hugin1/hugin/xrc/optimize_photo_panel.xrc:38
-msgid "Only use images selected in preview."
-msgstr "Aurreikuspenean hautatutako irudiak bakarrik erabili"
-
-#: hugin1/hugin/xrc/optimize_photo_panel.xrc:39
-msgid ""
-"Only consider images selected in preview window. Useful to avoid errors due "
-"to badly fitting images, such as the nadir image in most fisheye panoramas"
-msgstr ""
-"Aurrebista leihoan hautatutako irudien kontrol puntuak bakarrik erabili."
-"Teknika hau erabilgarria da gaizki elkartutako irudiek sor dezaketen "
-"erroreak galarazteko, arrain-begipanorama gehientsuetako nadirra  bezalakoak"
-
-#: hugin1/hugin/xrc/optimize_photo_panel.xrc:89
-msgid "Image variables:"
-msgstr "Irudi aldagaiak:"
-
-#: hugin1/hugin/xrc/optimize_photo_panel.xrc:112
-msgid "Camera and Lens variables:"
-msgstr "Kamara eta Lenteen aldagaiak:"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:10
-msgid "Interpolator (i):"
-msgstr "Interpolazioa (i):"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:17 hugin1/hugin/xrc/pref_dialog.xrc:1112
-msgid "Poly3 (Bicubic)"
-msgstr "Poly3 (Bikubikoa)"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:18 hugin1/hugin/xrc/pref_dialog.xrc:1113
-msgid "Spline 16"
-msgstr "Spline 16"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:19 hugin1/hugin/xrc/pref_dialog.xrc:1114
-msgid "Spline 36"
-msgstr "Spline 36"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:20 hugin1/hugin/xrc/pref_dialog.xrc:1115
-msgid "Sinc 256"
-msgstr "Sink 256"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:21 hugin1/hugin/xrc/pref_dialog.xrc:1116
-msgid "Spline 64"
-msgstr "Spline 64"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:22 hugin1/hugin/xrc/pref_dialog.xrc:1117
-msgid "Bilinear"
-msgstr "Lerro bikoitza"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:23 hugin1/hugin/xrc/pref_dialog.xrc:1118
-msgid "Nearest neighbor"
-msgstr "Hurbileko auzokidea"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:24 hugin1/hugin/xrc/pref_dialog.xrc:1119
-msgid "Sinc 1024"
-msgstr "Sink 1024"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:27 hugin1/hugin/xrc/pref_dialog.xrc:1122
-msgid "approximation of values between source pixels"
-msgstr "Iturburuko pixelen balioen arteko hurbilketa"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:38
-msgid "Save cropped images"
-msgstr "Moztutako irudiak gorde"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:39
-msgid "Save cropped tiff output. Useful for enblend 2.4 and higher"
-msgstr ""
-"Moztutako irteera tiff-a gorde. Enblend 2.4 edo handiagotarako erabilgarria."
-
-#: hugin1/hugin/xrc/pano_panel.xrc:63
-msgid "Nona Options"
-msgstr "Nona Aukerak"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:72 hugin1/hugin/xrc/pano_panel.xrc:114
-msgid "Command line options"
-msgstr "Komando lerroko aukerak"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:105
-msgid "Blender Options"
-msgstr "Blender Aukerak"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:147
-msgid "Enfuse options"
-msgstr ""
-
-#: hugin1/hugin/xrc/pano_panel.xrc:188
-msgid "Field of View:"
-msgstr "Ikuspegia:"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:203
-msgid "Horizontal:"
-msgstr "Horizontala:"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:217
-msgid "Vertical:"
-msgstr "Bertikala:"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:241
-msgid "Calculate field of view"
-msgstr "Ikuspegia kalkulatu"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:242
-msgid "Calculate Field of View"
-msgstr "Ikuspegia Kalkulatu"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:260
-msgid "Canvas Size:"
-msgstr "Oihalaren Tamaina:"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:273 hugin1/hugin/xrc/pano_panel.xrc:1090
-msgid "Width:"
-msgstr "Zabalera:"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:288 hugin1/hugin/xrc/pano_panel.xrc:1109
-msgid "Height:"
-msgstr "Altuera:"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:313
-msgid "Calculate Optimal Size"
-msgstr "Tamaina Optimoa Kalkulatu"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:314
-msgid "Calculate optimal size"
-msgstr "Tamaina optimoa kalkulatu"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:315
-msgid ""
-"Calculate optimal image size, such that the resolution in the image center "
-"stays similar"
-msgstr ""
-
-#: hugin1/hugin/xrc/pano_panel.xrc:332
-msgid "Crop:"
-msgstr ""
-
-#: hugin1/hugin/xrc/pano_panel.xrc:424
-msgid "Fit Crop to Images"
-msgstr ""
-
-#: hugin1/hugin/xrc/pano_panel.xrc:425
-msgid "Fit crop to images"
-msgstr "Mozketa irudietara egokitu"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:426
-msgid ""
-"Calculate crop borders such that the final image has the largest area "
-"without excess"
-msgstr ""
-"Mozketa ertzak kalkulatu helburuko irudia azalerarik luzeena izan dezan, "
-"baina pasatu gabe"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:461 hugin1/hugin/xrc/pano_panel.xrc:1253
-#: hugin1/hugin/xrc/pano_panel.xrc:1268
-msgid ""
-"Blend all images into a seamless panorama, using exposure set in the "
-"Exposure tab"
-msgstr ""
-
-#: hugin1/hugin/xrc/pano_panel.xrc:473
-msgid ""
-"Images will be remapped, stacks exposure fused, then blended into a seamless "
-"panorama"
-msgstr ""
-
-#: hugin1/hugin/xrc/pano_panel.xrc:482 hugin1/hugin/xrc/pano_panel.xrc:1282
-msgid ""
-"Images will be remapped, blended into seamless layers, then layers exposure "
-"fused into a panorama"
-msgstr ""
-
-#: hugin1/hugin/xrc/pano_panel.xrc:491 hugin1/hugin/xrc/pano_panel.xrc:561
-msgid "Format:"
-msgstr "Formatua:"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:550 hugin1/hugin/xrc/pano_panel.xrc:1296
-msgid ""
-"Images will be remapped in linear color space, stacks merged, then blended "
-"into a seamless High Dynamic Range panorama"
-msgstr ""
-
-#: hugin1/hugin/xrc/pano_panel.xrc:623
-msgid ""
-"Output remapped, exposure corrected images. Useful for manual blending of an "
-"exposure corrected panorama."
-msgstr ""
-
-#: hugin1/hugin/xrc/pano_panel.xrc:634
-msgid ""
-"Output remapped images with unmodified exposure. Useful for manual exposure "
-"fusing."
-msgstr ""
-
-#: hugin1/hugin/xrc/pano_panel.xrc:643
-msgid "Produce remapped, but not merged, linear color space images"
-msgstr ""
-
-#: hugin1/hugin/xrc/pano_panel.xrc:668
-msgid "Output exposure fused stacks from highly overlapping images"
-msgstr ""
-
-#: hugin1/hugin/xrc/pano_panel.xrc:678
-msgid "High dynamic range merged stacks"
-msgstr "Hein dinamiko handia, elkartutako instantaneak"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:679
-msgid ""
-"Output remapped, high dynamic range merged stacks from highly overlapping "
-"images"
-msgstr ""
-
-#: hugin1/hugin/xrc/pano_panel.xrc:703
-msgid ""
-"Output a complete blended panorama for each exposure step. Useful for manual "
-"contrast blending in an image editor."
-msgstr ""
-
-#: hugin1/hugin/xrc/pano_panel.xrc:714
-msgid "Processing:"
-msgstr "Prozesatzen:"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:728
-msgid "Remapper:"
-msgstr "Birkokatzailea:"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:755
-msgid "Image fusion:"
-msgstr "Irudien fusioa:"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:764
-msgid "enfuse"
-msgstr ""
-
-#: hugin1/hugin/xrc/pano_panel.xrc:782
-msgid "HDR merger:"
-msgstr "HDR elkartzailea:"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:855 hugin1/hugin/xrc/pano_panel.xrc:856
-msgid "Stitch!"
-msgstr "Elkartu!"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:866
-msgid "HDR Merge Options"
-msgstr "HDR Elkartzearen Hobespenak"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:874
-msgid "Merge Mode:"
-msgstr "Elkartze Modua:"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:882
-msgid "Average"
-msgstr "Batazbestekoa"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:883
-msgid "Average slow"
-msgstr "Batazbesteko lausoa"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:884
-msgid "Deghosting (Khan)"
-msgstr ""
-
-#: hugin1/hugin/xrc/pano_panel.xrc:896 hugin1/hugin/xrc/pano_panel.xrc:913
-#: hugin1/hugin/xrc/pano_panel.xrc:993
-msgid "Advanced Options"
-msgstr "Aukera aurreratuak"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:900
-msgid "Only consider pixels that are defined in all images (-c)"
-msgstr "Irudi guztietan definituta dauden irudiak kontutan hartu bakarrik (-c)"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:917
-msgid "This merge mode has no further options."
-msgstr "Elkartze modu honek ez du aukera gehiagorik"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:930
-msgid "Options for deghosting"
-msgstr ""
-
-#: hugin1/hugin/xrc/pano_panel.xrc:936
-msgid "Iterations:"
-msgstr "Iterazioak:"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:951
-msgid "Sigma:"
-msgstr "Sigma:"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:974
-msgid "Use gray images for processing (-a f)"
-msgstr "Irudi grisak erabili prozesatzeko (-a f)"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:981
-msgid "Use gamma 2.2 instead of logarithmic (-a g)"
-msgstr "Gamma 2.2 erabili logaritmikoaren ordez (-a g)"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:988
-msgid "Do not scale images (-a m)"
-msgstr "Irudiak ez eskalatu (-a m)"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:1037
-msgid ""
-"The project needs to be saved before it can be sent to\n"
-"the batch processor PTBatcherGUI.\n"
-"You will first be asked for the project file name\n"
-"and then for the prefix for the panorama output.\n"
-"\n"
-"You may need to start the stitching in the batch processor\n"
-" PTBatcherGUI if it doesn't start automatically."
-msgstr ""
-
-#: hugin1/hugin/xrc/pano_panel.xrc:1128
-#, fuzzy
-msgid "Size and file format"
-msgstr "Euskarririk gabeko fitxategi formatua"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:1134
-#, fuzzy
-msgid "LDR Format:"
-msgstr "Formatua:"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:1193
-#, fuzzy
-msgid "HDR Format:"
-msgstr "Formatua:"
-
-#: hugin1/hugin/xrc/pano_panel.xrc:1318
-msgid "Keep intermediate images"
-msgstr ""
-
-#: hugin1/hugin/xrc/pano_panel.xrc:1348
-#, fuzzy
-msgid "Output parameters"
-msgstr "Azpiko parametroak"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:15
-msgid "Resource Usage"
-msgstr "Errekurtsoen Erabilera"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:21
-msgid "Image cache memory:"
-msgstr "Irudien cache memoria:"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:30
-msgid "Keep fullsize images in memory, until this limit is exceeded"
-msgstr "Tamaina osoko irudiak memorian mantendu, muga gainditu arte"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:53
-msgid "User Interface"
-msgstr "Erabiltzaile Interfazea"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:60
-msgid "Language:"
-msgstr "Hizkuntza:"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:74
-msgid "(requires restarting hugin)"
-msgstr "(hugin berrabiaraztea eskatzen du)"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:82
-msgid "Undo:"
-msgstr "Desegin:"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:89
-msgid "Skip over visibility toggles"
-msgstr ""
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:98
-#, fuzzy
-msgid ""
-"May have unforeseen consequences. \n"
-"(EXPERIMENTAL)"
-msgstr "Espero ez diren ondorioak gerta daiteke(EXPERIMENTAL)"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:105
-#, fuzzy
-msgid "Log messages:"
-msgstr "Irudiak kargatzen"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:112
-msgid "Copy log messages to clipboard."
-msgstr ""
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:127
-msgid "Show hints about projections"
-msgstr "Proiekzioei buruzko pistak ikusi"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:130
-msgid "The hints are shown only in the fast preview window"
-msgstr "Pistak bakarrik aurrebista azkarraren leihoan ikus daitezke"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:155
-msgid "File Options"
-msgstr "Fitxategi Hobespenak"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:162
-msgid "Temporary dir:"
-msgstr "Behin-behineko dir:"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:175
-msgid "(leave empty for OS default)"
-msgstr "(hutsik utzi SE-ren defektuzko balioarentzako"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:193
-#, fuzzy
-msgid "Default project filename:"
-msgstr "Ireki proiektu fitxategia"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:211
-#, fuzzy
-msgid "Default output prefix:"
-msgstr "Emaitzako aurrizkia definitu"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:231
-msgid ""
-"The following placeholder are replaced automatically:\n"
-"%firstimage - filename of first image file\n"
-"%lastimage - filename of last image file\n"
-"%#images - number of images\n"
-"%directory  - folder name (based on first image file)\n"
-"%projection - projection name\n"
-"%focallength - focal length\n"
-"%date - date (of first image)\n"
-"%time - time (of first image)\n"
-"%maker - camera maker (of first image)\n"
-"%model - camera model (of first image)\n"
-"%lens - lens (of first image)\n"
-"%projectname - project filename (only for output prefix)"
-msgstr ""
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:252
-#, fuzzy
-msgid "Default filenames"
-msgstr "Defektuzko Fitxategi Formatua:"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:260
-#, fuzzy
-msgid "Filenames"
-msgstr "Fitxategia"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:269
-msgid "Image loading"
-msgstr "Irudia kargatzen"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:273
-msgid "Automatically align images after loading"
-msgstr "Kargatu eta gero irudiak automatikoki zerrendatu."
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:286
-msgid "Detect vertical lines"
-msgstr "Lerro bertikalak topatu"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:287
-msgid "Detects vertical lines in the images to level the pano"
-msgstr "Irudietan lerro bertikalak topatu panorama lerrokatzeko"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:294
-msgid "Remove cloud-like control points (Celeste)"
-msgstr "Hodei-itxurako kontrol puntuak borratu (Celeste)"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:306
-msgid "Optional assistant steps"
-msgstr "Laguntzailearen aukerazko pausuak"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:314
-msgid "Auto align"
-msgstr "Lerrokatze automatikoa"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:322
-msgid ""
-"Number of Control Points\n"
-"per overlap"
-msgstr ""
-"Gainjartze bakoitzeko\n"
-"kontrol puntu kopurua"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:343
-msgid "Downscale final pano"
-msgstr ""
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:359
-msgid "percent of max. width"
-msgstr "zabalera max. portzentaia"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:377
-msgid "Control Points Editor"
-msgstr "Kontrol Puntuen Editorea"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:383
-msgid "HDR and 16 Bit display"
-msgstr "HDR eta 16 Bitetako bistaratzea"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:392
-msgid "Curve"
-msgstr "Kurba"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:400
-msgid "linear"
-msgstr "lineala"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:401
-msgid "logarithmic"
-msgstr "logaritmikoa"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:402
-msgid "gamma 2.2"
-msgstr "gamma 2.2"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:410
-msgid "used for display in GUI"
-msgstr "GUIan bistaratzeko erabilia"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:431
-msgid "Patch width:"
-msgstr "Zabalera partxeatu:"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:445 hugin1/hugin/xrc/pref_dialog.xrc:487
-msgid "pixels"
-msgstr "pixel"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:452
-msgid "Search area width:"
-msgstr "Azaleraren zabalera bilatu:"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:466
-msgid "percent of image width"
-msgstr "Irudi zabaleraren portzentaia"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:473
-msgid "Local search area width:"
-msgstr ""
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:495
-msgid "Correlation Threshold:"
-msgstr "Korrelazio Atalasea:"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:507
-msgid ""
-"0: no similarity\n"
-"1: maximum similarity"
-msgstr ""
-"0: antzekotasunik ez\n"
-"1: antzekotasun maximoa"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:515
-msgid "Peak Curvature Threshold:"
-msgstr ""
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:527
-msgid ""
-"0: no peak\n"
-"0.2: distinctive peak"
-msgstr ""
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:544
-msgid "Rotation search"
-msgstr "Biraketaren bilatzailea"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:548
-msgid "Enable rotation search (slower, but more accurate)"
-msgstr "Biraketaren bilatzailea aktibatu (geldoagoa, baina finagoa)"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:557
-msgid "Start angle:"
-msgstr "Hasiera angelua:"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:578
-msgid "Stop angle:"
-msgstr "Bukaera angelua:"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:597
-msgid "Steps:"
-msgstr "Pausuak:"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:624
-msgid "Control Point Detectors"
-msgstr "Kontrol Puntuen Igartzaileak"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:630
-msgid "Control Point Detector Programs"
-msgstr "Kontrol Puntuak Topatzeko Programak"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:646
-msgid "New..."
-msgstr "Berria..."
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:653 hugin1/hugin/xrc/pref_dialog.xrc:957
-#: hugin1/hugin/xrc/pref_dialog.xrc:1016
-msgid "Edit..."
-msgstr "Editatu..."
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:667
-msgid "Move up"
-msgstr "Mugitu gora"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:674
-msgid "Move down"
-msgstr "Mugitu behera"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:681
-msgid "Set default"
-msgstr "Defektuzkoa bezala ezarri"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:712
-msgid "The assistant is using the default setting."
-msgstr "Laguntzaileak defektuzko hobespenak erabiltzen ari da."
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:734
-msgid "Output Format"
-msgstr "Irteera Formatua"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:741
-msgid "Default File Format:"
-msgstr "Defektuzko Fitxategi Formatua:"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:754
-msgid "default output format for final panorama"
-msgstr "Helburuko panoramaren defektuzko formatua"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:761
-msgid "TIFF Compression:"
-msgstr "TIFF Konpresioa:"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:775
-msgid "default TIFF compression"
-msgstr "defektuzko TIFF konpresioa"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:781
-msgid "JPEG Quality:"
-msgstr "JPEG Kalitatea:"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:792
-msgid "default JPEG compression setting"
-msgstr "Defektuzko JPEG konpresio ezarpena"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:807
-#, fuzzy
-msgid "Blender"
-msgstr "Blend modua:"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:813
-#, fuzzy
-msgid "Default blender:"
-msgstr "Defektuzko Fitxategi Formatua:"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:820
-msgid "Default blender which is used for new projects."
-msgstr ""
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:835
-msgid "Processor"
-msgstr "Prozesadorea"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:843
-msgid "Hugin&stitch&project"
-msgstr "Hugin&proiektua"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:846
-msgid "The engine that will run the stitch"
-msgstr "Elkarketa exekutatuko duen motorea"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:855
-msgid "Start stitching jobs immediately"
-msgstr "Orain hasi lanak elkartzen"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:856
-msgid ""
-"If selected, the processor will immediately resume processing the jobs "
-"queue.  Otherwise the processor is started in suspended state and the user "
-"has to start the processing manually."
-msgstr ""
-"Hautatuta badago, prozesadorea martxan jarri bezain laster hasiko da "
-"zerrendako lanak egiten.Bestela prozesadorea geldituta bezala jartzen da "
-"martxan eta erabiltzaileaizan behar du prozesua eskuz martxan jartzen duena"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:863
-msgid "Overwrite existing files"
-msgstr "Existitzen diren fitxategiak gainidatzi"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:864
-msgid "WARNING: existing files will be silently overwritten."
-msgstr "KONTUZ: existitzen diren fitxategiak abisatu gabe gainidatziko dira."
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:871
-msgid "Verbose Output"
-msgstr "Irteera Berritsua"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:872
-msgid ""
-"Enable to get the details, useful when reporting a bug or just to watch the "
-"project's progress."
-msgstr "Xehetasunak ikusteko aktibatu, proiektuaren "
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:894
-msgid "Stitching"
-msgstr "Elkartzen"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:904
-msgid "Copy metadata into final files using ExifTool"
-msgstr "Metadatuak helburu fitxategietara kopiatu ExifTool erabiliz"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:909
-#, fuzzy
-msgid "ExifTool options"
-msgstr "Nona aukerak"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:919
-msgid ""
-"The following argfile will be used to copy tags from the first image to all "
-"intermediate images.\n"
-"Placeholders will not be replaced."
-msgstr ""
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:935
-#, fuzzy
-msgid "Intermediate ExifTool argfile:"
-msgstr "Ezkerreko irudian puntua hautatu"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:941 hugin1/hugin/xrc/pref_dialog.xrc:1000
-#, fuzzy
-msgid "Leave empty for default"
-msgstr "(hutsik utzi SE-ren defektuzko balioarentzako"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:958 hugin1/hugin/xrc/pref_dialog.xrc:1017
-#, fuzzy
-msgid "Edit selected ExifTool argfile"
-msgstr "Ezkerreko irudian puntua hautatu"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:977
-msgid ""
-"The following argfile will be used to copy tags from the first image to the "
-"final panorama.\n"
-"It is applied additional to the above argfile for the intermediate images.\n"
-"Placeholders in this argfile will replaced before running exiftool."
-msgstr ""
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:994
-#, fuzzy
-msgid "Final ExifTool argfile:"
-msgstr "Ezkerreko irudian puntua hautatu"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1034
-msgid "Create Photo Sphere XMP data"
-msgstr ""
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1035
-msgid "This will only be done for equirectangular output images."
-msgstr ""
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1050
-msgid "Advanced options"
-msgstr "Aukera aurreratuak"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1056
-msgid "Number of threads:"
-msgstr "Hari kopurua:"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1065
-msgid ""
-"Nona and the OpenMP enabled enblend/enfuse can use multiple threads for "
-"processing.\n"
-"Set this number maximal to the number of processors or processor cores "
-"available in your system"
-msgstr ""
-"Nonak eta OpenMP elkartzaile/enfuseak hari asko erabil ditzake "
-"prozesamendurako.\n"
-"Zenbaki hau zure sisteman eskuragarri dauden prozesadore edo nukleotara "
-"egoki ezazu."
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1072
-msgid "0 for automatic detection"
-msgstr "0 igartze automatikorako"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1088
-#, fuzzy
-msgid "Stitching (2)"
-msgstr "Elkartzen"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1104
-msgid "Default Interpolator (i):"
-msgstr "Defektuzko Interpolatzailea (i):"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1134
-msgid "Create cropped images by default"
-msgstr "Defektuz moztutako irudiak sortu"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1141
-msgid "Use GPU for remapping (EXPERIMENTAL)"
-msgstr "GPU bermapeatzeko erabili (EXPERIMENTALA)"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1142
-msgid "Use video card GPU to speed up remapping"
-msgstr "Txartel grafikoaren GPU-a erabili birmapeatzea azkartzeko"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1165
-msgid "Use alternative Enblend program"
-msgstr ""
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1175
-msgid "Enblend executable:"
-msgstr ""
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1200 hugin1/hugin/xrc/pref_dialog.xrc:1279
-msgid "Default Arguments:"
-msgstr "Defektuzko Parametroak:"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1221 hugin1/hugin/xrc/pref_dialog.xrc:1300
-msgid ""
-"These are the default arguments for new projects.\n"
-"They can be changed for individual projects in the Stitcher tab.\n"
-"Do not set -w, -o and --compression arguments, they are set by hugin"
-msgstr ""
-"Proiektu berrientzako defektuzko argumentuak dira hauek.\n"
-"Elkartzeko fitxan proiektu konkretuetarako alda daitezke.\n"
-"-w, -o eta --compression parametroak ez dira ezarri behar, huginek egiten "
-"baitu."
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1230
-msgid "Enblend"
-msgstr ""
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1244
-msgid "Use alternative Enfuse program"
-msgstr ""
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1254
-msgid "Enfuse executable:"
-msgstr ""
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1309
-msgid "Enfuse"
-msgstr ""
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1317
-msgid "Programs"
-msgstr "Programak"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1325
-msgid "Celeste parameters"
-msgstr "Celesteren parametroak"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1332
-msgid "SVM threshold:"
-msgstr "SVM atalasea:"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1344
-msgid ""
-"greater than 0.5: less sensitive\n"
-"less than 0.5: more sensitive"
-msgstr ""
-"0.5 baino handiagoa: sentikortasun txikiagoa\n"
-"0.5 baina txikiagoa: sentikorragoa"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1351
-msgid "Gabor filter size"
-msgstr "Gabor filtro tamaina"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1359
-msgid "small"
-msgstr "txikia"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1360
-msgid "large"
-msgstr "handia"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1368
-msgid ""
-"large is more accurate\n"
-"small can examine control points close to image border"
-msgstr ""
-"Handia zehatzagoa\n"
-"txikiak irudiaren ertzetik hurbil dauden kontrol puntuak azter ditzake"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1386
-msgid ""
-"The vignetting and exposure correction is determined by analysing color "
-"values in the overlapping areas.\n"
-"To speed up the computation, only a random subset of points is used."
-msgstr ""
-"Bineta eta esposaketaren zuzenketa gainezkatzen diren azaleren "
-"koloreakaztertuz ezartzen da.\n"
-"Konputazioa azkartzeko, ausazko puntu batzuk bakarrik erabiltzen dira."
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1395
-#, fuzzy
-msgid "Number of points per image: "
-msgstr "Puntu kopurua irudiko"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1410
-#, fuzzy
-msgid "Photometric optimizer"
-msgstr "Optimizazio fotometrikoa"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1418
-#, fuzzy
-msgid "Warnings"
-msgstr "Abisua"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1422
-msgid "Show message about saving project file and output prefix"
-msgstr ""
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1429
-msgid "Show warning about big exposure difference when adding images"
-msgstr ""
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1442
-msgid "After \"edit cp\" tool"
-msgstr ""
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1450
-msgid "Ask user"
-msgstr ""
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1451
-#, fuzzy
-msgid "Re-optimize panorama"
-msgstr "Panorama optimizatzen"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1452
-#, fuzzy
-msgid "Don't optimize panorama"
-msgstr "Optimizatu orain!"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1458
-#, fuzzy
-msgid "Edit cp tool (on fast preview window)"
-msgstr "Pistak bakarrik aurrebista azkarraren leihoan ikus daitezke"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1466
-msgid "Misc"
-msgstr ""
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1514
-msgid "Preferences - hugin"
-msgstr "Hobespenak - hugin"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1547 hugin1/hugin/xrc/pref_dialog.xrc:1605
-#, fuzzy
-msgid "Edit ExifTool argfile"
-msgstr "Ezkerreko irudian puntua hautatu"
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:1565
-msgid ""
-"The following placeholders will replaced before invoking ExifTool:\n"
-"%projection - projection name (in English)\n"
-"%projectionNumber - number of projection\n"
-"%hfov - horizontal field of view of panorama\n"
-"%vfov - vertical field of view of panorama\n"
-"%ev - exposure value of panorama\n"
-"%nrImages - number of active images\n"
-"%nrAllImages - number of all images in project file (include inactive "
-"images)\n"
-"%fullwidth - width of output canvas\n"
-"%fullheight - height of output canvas canvas\n"
-"%width - width of output region\n"
-"%height - height of output region\n"
-"\n"
-"The placeholders are case sensitive."
-msgstr ""
-
-#: hugin1/hugin/xrc/preview_frame.xrc:7 hugin1/hugin/xrc/preview_frame.xrc:618
-#: hugin1/hugin/xrc/preview_frame.xrc:1466
-msgid "Center the preview horizontally"
-msgstr "Aurreikuspena horizontalki erdiratu"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:12
-msgid "Show the whole panorama"
-msgstr "Panorama osoa ikusi"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:13
-#: hugin1/hugin/xrc/preview_frame.xrc:517
-#: hugin1/hugin/xrc/preview_frame.xrc:626
-#: hugin1/hugin/xrc/preview_frame.xrc:1361
-#: hugin1/hugin/xrc/preview_frame.xrc:1478
-msgid "Estimate field of view"
-msgstr "Ikuspegia kalkulatu"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:18
-msgid "Automatically straighten a wavy horizon"
-msgstr "Horizonte irregularra automatikoki zuzendu"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:23 hugin1/hugin/xrc/preview_frame.xrc:54
-msgid "Numerical Transform"
-msgstr "Transformazio Numerikoa"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:24
-msgid "Num. Transf."
-msgstr "Trans. Kop."
-
-#: hugin1/hugin/xrc/preview_frame.xrc:29
-msgid "Auto update"
-msgstr "Auto eguneratzea"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:30
-msgid "Auto"
-msgstr "Auto"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:35
-msgid "Update preview"
-msgstr "Aurreikuspena eguneratu"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:36
-msgid "Update"
-msgstr "Eguneratu"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:41
-msgid "Show all images"
-msgstr "Irudi guztiak erakutsi"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:46
-msgid "Show none of the images"
-msgstr "Ez erakutsi irudirik"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:137
-#: hugin1/hugin/xrc/preview_frame.xrc:977
-msgid "1. Load images..."
-msgstr "1. Irudiak kargatu..."
-
-#: hugin1/hugin/xrc/preview_frame.xrc:138
-#: hugin1/hugin/xrc/preview_frame.xrc:978
-msgid "Load a series of images"
-msgstr "Irudi serie bat kargatu"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:145
-#: hugin1/hugin/xrc/preview_frame.xrc:985
-msgid "no images loaded"
-msgstr "Ez da irudirik kargatu"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:222
-#: hugin1/hugin/xrc/preview_frame.xrc:1062
-msgid "2. Align..."
-msgstr "2. Lerrokatu..."
-
-#: hugin1/hugin/xrc/preview_frame.xrc:223
-#: hugin1/hugin/xrc/preview_frame.xrc:1063
-msgid ""
-"Align all images. Creates control points and optimizes the image positions"
-msgstr ""
-"Irudi guztiak lerrokatu. Kontrol puntuak sortu eta irudien posizioak "
-"optimizatzen ditu"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:236
-#: hugin1/hugin/xrc/preview_frame.xrc:1076
-msgid "3. Create panorama..."
-msgstr "3. Panorama sortu..."
-
-#: hugin1/hugin/xrc/preview_frame.xrc:237
-#: hugin1/hugin/xrc/preview_frame.xrc:1077
-msgid "Create a high resolution panorama"
-msgstr "Erresoluzio altuko panorama sortu"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:260
-#: hugin1/hugin/xrc/preview_frame.xrc:1100
-msgid "Match images to their numbers"
-msgstr "Irudiak bere zenbakiekin lotu"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:261
-#: hugin1/hugin/xrc/preview_frame.xrc:270
-#: hugin1/hugin/xrc/preview_frame.xrc:1101
-#: hugin1/hugin/xrc/preview_frame.xrc:1110
-msgid "Identify"
-msgstr "Identifikatu"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:291
-#: hugin1/hugin/xrc/preview_frame.xrc:1131
-msgid "Use full photometric correction (slow)"
-msgstr "Zuzentzaile fotometriko osoa erabili (geldoa)"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:299
-#: hugin1/hugin/xrc/preview_frame.xrc:1139
-msgid ""
-"Show lines between the ends of each control point. The longer the line, the "
-"bigger the error."
-msgstr ""
-"Kontrol puntuen bukaeretan lerroak erakutsi. Geroz eta lerro luzeagoa, "
-"errore handiagoa."
-
-#: hugin1/hugin/xrc/preview_frame.xrc:349
-#: hugin1/hugin/xrc/preview_frame.xrc:1189
-msgid ""
-"Sets the exposure value of the panorama to the mean exposure of all images."
-msgstr ""
-
-#: hugin1/hugin/xrc/preview_frame.xrc:377
-#: hugin1/hugin/xrc/preview_frame.xrc:1217
-msgid "Correct global white balance by selecting a neutral gray area."
-msgstr "Txuri balantze globala zuzendu azalera gris neutral bat hautatuz."
-
-#: hugin1/hugin/xrc/preview_frame.xrc:378
-#: hugin1/hugin/xrc/preview_frame.xrc:387
-#: hugin1/hugin/xrc/preview_frame.xrc:1218
-#: hugin1/hugin/xrc/preview_frame.xrc:1227
-msgid "Gray picker"
-msgstr "Gris hautatzailea"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:404
-#: hugin1/hugin/xrc/preview_frame.xrc:1244
-#, fuzzy
-msgid "Create or delete control points in selected rectangle."
-msgstr "Borratu kontrol puntuen detektorearen ezarpena"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:405
-#: hugin1/hugin/xrc/preview_frame.xrc:414
-#: hugin1/hugin/xrc/preview_frame.xrc:1245
-#: hugin1/hugin/xrc/preview_frame.xrc:1254
-#, fuzzy
-msgid "Edit CP"
-msgstr "&Editatu"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:439
-#: hugin1/hugin/xrc/preview_frame.xrc:1279
-msgid "Background:"
-msgstr "Atzeko planoa:"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:470
-#: hugin1/hugin/xrc/preview_frame.xrc:1310
-msgid "Scale:"
-msgstr "Eskala:"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:498
-#: hugin1/hugin/xrc/preview_frame.xrc:1338
-msgid ""
-"* A gray line indicates there are no control points, but the image pair "
-"overlaps.\n"
-"* Green, yellow and red lines indicate good, medium and poor alignment.\n"
-"* Click a line to edit the associated images in the Control Points tab."
-msgstr ""
-"* Lerro gris batek kontrol punturik ez dagoela zehazten du, baina irudi "
-"bikotea gainjartzen da.\n"
-"* Lerro berde, hori eta gorriek lerrokatze ona, erdi-mailakoa edo txarra "
-"zehazten dute.\n"
-" * Lerroan klikatu erlazionatutako irudiak Kontrol Puntuen fitxan ikusteko."
-
-#: hugin1/hugin/xrc/preview_frame.xrc:506
-#: hugin1/hugin/xrc/preview_frame.xrc:1346
-msgid "Layout"
-msgstr ""
-
-#: hugin1/hugin/xrc/preview_frame.xrc:527
-#: hugin1/hugin/xrc/preview_frame.xrc:1371
-#: hugin1/hugin/xrc/reset_dialog.xrc:28
-msgid "Field of View"
-msgstr "Ikuspegia"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:543
-#: hugin1/hugin/xrc/preview_frame.xrc:1387
-msgid "×"
-msgstr "x"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:582
-#: hugin1/hugin/xrc/preview_frame.xrc:661
-#: hugin1/hugin/xrc/preview_frame.xrc:828
-#: hugin1/hugin/xrc/preview_frame.xrc:1426
-#: hugin1/hugin/xrc/preview_frame.xrc:1517
-#: hugin1/hugin/xrc/preview_frame.xrc:1692
-msgid "Guides:"
-msgstr "Gidak"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:591
-#: hugin1/hugin/xrc/preview_frame.xrc:669
-#: hugin1/hugin/xrc/preview_frame.xrc:837
-#: hugin1/hugin/xrc/preview_frame.xrc:1435
-#: hugin1/hugin/xrc/preview_frame.xrc:1525
-#: hugin1/hugin/xrc/preview_frame.xrc:1701
-msgid "Rule of thirds"
-msgstr "Hirukote erregela"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:592
-#: hugin1/hugin/xrc/preview_frame.xrc:670
-#: hugin1/hugin/xrc/preview_frame.xrc:838
-#: hugin1/hugin/xrc/preview_frame.xrc:1436
-#: hugin1/hugin/xrc/preview_frame.xrc:1526
-#: hugin1/hugin/xrc/preview_frame.xrc:1702
-msgid "Golden ratio"
-msgstr ""
-
-#: hugin1/hugin/xrc/preview_frame.xrc:593
-#: hugin1/hugin/xrc/preview_frame.xrc:671
-#: hugin1/hugin/xrc/preview_frame.xrc:839
-#: hugin1/hugin/xrc/preview_frame.xrc:1437
-#: hugin1/hugin/xrc/preview_frame.xrc:1527
-#: hugin1/hugin/xrc/preview_frame.xrc:1703
-msgid "Diagonal"
-msgstr "Diagonal"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:594
-#: hugin1/hugin/xrc/preview_frame.xrc:672
-#: hugin1/hugin/xrc/preview_frame.xrc:840
-#: hugin1/hugin/xrc/preview_frame.xrc:1438
-#: hugin1/hugin/xrc/preview_frame.xrc:1528
-#: hugin1/hugin/xrc/preview_frame.xrc:1704
-msgid "Diagonal method"
-msgstr "Metodo diagonala"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:595
-#: hugin1/hugin/xrc/preview_frame.xrc:673
-#: hugin1/hugin/xrc/preview_frame.xrc:841
-#: hugin1/hugin/xrc/preview_frame.xrc:1439
-#: hugin1/hugin/xrc/preview_frame.xrc:1529
-#: hugin1/hugin/xrc/preview_frame.xrc:1705
-msgid "Golden triangle (down)"
-msgstr "Urrezko hirukia (behera)"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:596
-#: hugin1/hugin/xrc/preview_frame.xrc:674
-#: hugin1/hugin/xrc/preview_frame.xrc:842
-#: hugin1/hugin/xrc/preview_frame.xrc:1440
-#: hugin1/hugin/xrc/preview_frame.xrc:1530
-#: hugin1/hugin/xrc/preview_frame.xrc:1706
-msgid "Golden triangle (up)"
-msgstr "Urrezko hirukia (gora)"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:634
-#: hugin1/hugin/xrc/preview_frame.xrc:1490
-msgid "Automatically straighten a wavy horizon."
-msgstr "Horizonte irregularra automatikoki zuzendu."
-
-#: hugin1/hugin/xrc/preview_frame.xrc:649
-#: hugin1/hugin/xrc/preview_frame.xrc:1505
-msgid "Drag mode:"
-msgstr "Arrastatze modua:"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:783
-#: hugin1/hugin/xrc/preview_frame.xrc:1639
-msgid "Apply"
-msgstr "Aplikatu"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:793
-#: hugin1/hugin/xrc/preview_frame.xrc:1649
-msgid "Move the panorama or drag images into position"
-msgstr "Panorama mugitu edo irudiak posiziora arrastatu"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:795
-#: hugin1/hugin/xrc/preview_frame.xrc:1651
-msgid "Move/Drag"
-msgstr "Mugitu/Arrastatu"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:805
-#: hugin1/hugin/xrc/preview_frame.xrc:1665
-msgid "Set the crop region to the largest rectangle covered by images"
-msgstr ""
-"Mozketa azalera irudiek betetzen duen errektangelurik luzeenarekin ezarri"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:813
-#: hugin1/hugin/xrc/preview_frame.xrc:1677
-#, fuzzy
-msgid "Set the crop region to the largest rectangle covered by image stacks"
-msgstr ""
-"Mozketa azalera irudiek betetzen duen errektangelurik luzeenarekin ezarri"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:864
-#: hugin1/hugin/xrc/preview_frame.xrc:1728
-msgid "left:"
-msgstr "ezkerra:"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:878
-#: hugin1/hugin/xrc/preview_frame.xrc:1742
-msgid "top:"
-msgstr "goi:"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:892
-#: hugin1/hugin/xrc/preview_frame.xrc:1756
-msgid "right:"
-msgstr "eskubi:"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:906
-#: hugin1/hugin/xrc/preview_frame.xrc:1770
-msgid "bottom:"
-msgstr "behea:"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:922
-#: hugin1/hugin/xrc/preview_frame.xrc:1786
-msgid "Reset crop to maximal possible area"
-msgstr "Mozketa posible den azalerarik maximora berrabiarazi."
-
-#: hugin1/hugin/xrc/preview_frame.xrc:932
-#: hugin1/hugin/xrc/preview_frame.xrc:1796
-msgid "Change the panorama's cropping region"
-msgstr "Panoramaren mozketa azalera aldatu"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:948
-#: hugin1/hugin/xrc/preview_frame.xrc:955
-msgid "Mode:"
-msgstr "Modua:"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:1829
-#, fuzzy
-msgid "Panorama &editor"
-msgstr "Panoramaren aurreikuspena"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:1838
-#, fuzzy
-msgid "&Overview"
-msgstr "Gainbista"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:1839
-#, fuzzy
-msgid "Shows the overview of the panorama sphere."
-msgstr "Panorama osoa ikusi"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:1843
-msgid "Grid"
-msgstr "Sareta"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:1844
-msgid "Shows a grid."
-msgstr ""
-
-#: hugin1/hugin/xrc/preview_frame.xrc:1863
-#, fuzzy
-msgid "Interface"
-msgstr "Erabiltzaile Interfazea"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:1973
-#, fuzzy
-msgid "All images"
-msgstr "Irudiak gehitu"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:1978
-msgid "Image with median exposure of each stack"
-msgstr ""
-
-#: hugin1/hugin/xrc/preview_frame.xrc:1982
-#, fuzzy
-msgid "Brightest image of each stack"
-msgstr "Pila honetako posizioak estekatu"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:1986
-#, fuzzy
-msgid "Darkest image of each stack"
-msgstr "Pila honetako posizioak estekatu"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:1991
-#, fuzzy
-msgid "Keep currently selected images"
-msgstr "hautatutako irudien lenteak aldatu"
-
-#: hugin1/hugin/xrc/preview_frame.xrc:1996
-#, fuzzy
-msgid "Reset selection"
-msgstr "Proiektua berrabiarazi"
-
-#: hugin1/hugin/xrc/reset_dialog.xrc:20
-#, fuzzy
-msgid "Translation parameters"
-msgstr "Estekaren parametroak"
-
-#: hugin1/hugin/xrc/reset_dialog.xrc:55 hugin1/hugin/xrc/reset_dialog.xrc:76
-msgid "to EXIF values"
-msgstr "EXIF balioetara"
-
-#: hugin1/hugin/xrc/reset_dialog.xrc:56
-msgid "to zero (no exposure correction)"
-msgstr "zerora (esposaketa zuzenketarik gabe)"
-
-#: hugin1/hugin/xrc/reset_dialog.xrc:67
-msgid "Color"
-msgstr "Kolorea"
-
-#: hugin1/hugin/xrc/reset_dialog.xrc:77
-#, fuzzy
-msgid "to one (no color correction)"
-msgstr "zerora (esposaketa zuzenketarik gabe)"
-
-#: hugin1/hugin/xrc/reset_dialog.xrc:130
-msgid "Reset values"
-msgstr "Balioak hasieratu"
+#~ msgid "Dedication"
+#~ msgstr "Aplikazioa gehitu"
 
 #~ msgid "Removed %d control points"
 #~ msgstr "%d kontrol puntu borratu dira"
