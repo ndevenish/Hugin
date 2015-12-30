@@ -587,10 +587,9 @@ int processImg(const char* filename)
         // load first image
         vigra::ImageImportInfo imgInfo(filename);
         ImageType imgOrig(imgInfo.size());
-        vigra::BImage alpha(imgInfo.size());
-
-        int bands = imgInfo.numBands();
-        int extraBands = imgInfo.numExtraBands();
+        
+        const int bands = imgInfo.numBands();
+        const int extraBands = imgInfo.numExtraBands();
 
         if (!(bands == 3 || (bands == 4 && extraBands == 1)))
         {
@@ -598,7 +597,15 @@ int processImg(const char* filename)
             exit(-1);
         }
 
-        vigra::importImageAlpha(imgInfo, destImage(imgOrig), destImage(alpha));
+        if (bands == 3)
+        {
+            vigra::importImage(imgInfo, vigra::destImage(imgOrig));
+        }
+        else
+        {
+            vigra::BImage alpha(imgInfo.size());
+            vigra::importImageAlpha(imgInfo, destImage(imgOrig), destImage(alpha));
+        };
         HuginBase::Panorama pano;
         // add the first image to the panorama object
         HuginBase::StandardImageVariableGroups variable_groups(pano);
