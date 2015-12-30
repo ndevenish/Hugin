@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2015-12-27 10:01+0100\n"
-"PO-Revision-Date: 2015-12-27 10:05+0100\n"
+"PO-Revision-Date: 2015-12-28 16:47+0100\n"
 "Last-Translator: T. Modes\n"
 "Language-Team: deutsch <de@li.org>\n"
 "Language: de_DE\n"
@@ -1379,7 +1379,7 @@ msgstr "Punkt im linken Bild wählen"
 #: hugin1/hugin/CPEditorPanel.cpp:1950
 #, c-format
 msgid "Create cp (Current setting: %s)"
-msgstr "KP erstellen (aktuelle Einstellung %s)"
+msgstr "KP erstellen (aktuelle Einstellung: %s)"
 
 #: hugin1/hugin/CPEditorPanel.cpp:2001
 msgid ""
@@ -4688,14 +4688,14 @@ msgstr "Minimale Anzahl an Bildern, die ein Panorama enthalten sollte."
 
 #: translations/xrc.cpp:41
 msgid "Maximum time difference:"
-msgstr "Maximale Zeit-Differenz"
+msgstr "Maximale Zeitdifferenz:"
 
 #: translations/xrc.cpp:42
 msgid ""
 "Maximal time difference in seconds between two consecutive images belonging "
 "to one panorama."
 msgstr ""
-"Maximale zeitliche Differenz in Sekunden zwischen zwei aufeinanderfolgenden "
+"Maximale Zeitdifferenz in Sekunden zwischen zwei aufeinanderfolgenden "
 "Bildern, die zu einem Panorama gehören."
 
 #: translations/xrc.cpp:43
