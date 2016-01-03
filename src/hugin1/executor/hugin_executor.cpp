@@ -29,7 +29,6 @@
 
 #include <fstream>
 #include <sstream>
-#include <getopt.h>
 
 #include <wx/app.h>
 #include <wx/cmdline.h>
