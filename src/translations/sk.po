@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the hugin package.
 #
 # Jozef Riha <jose1711@gmail.com>, 2006, 2007, 2008, 2009, 2010, 2011.
-# Kornel Benko <kornel@lyx.org>, 2013, 2014, 2015.
+# Kornel Benko <kornel@lyx.org>, 2013, 2014, 2015, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2015-12-27 10:01+0100\n"
-"PO-Revision-Date: 2015-12-15 15:42+0000\n"
+"POT-Creation-Date: 2016-01-06 11:39+0100\n"
+"PO-Revision-Date: 2016-01-06 11:02+0000\n"
 "Last-Translator: Kornel Benko <kornel@lyx.org>\n"
 "Language-Team: Slovak <kornel@lyx.org>\n"
 "Language: sk\n"
@@ -4038,7 +4038,7 @@ msgstr "Stlačili ste kontrolný kláves."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:182
 msgid "Should the loading of the batch queue be skipped?"
-msgstr "Má byť načítane dávky preskočené?"
+msgstr "Preskočiť nahranie dávkového frontu?"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:206
 msgid "Do nothing"
@@ -4214,15 +4214,17 @@ msgid ""
 "This can have negative effects on performance.\n"
 "Should the batch queue cleared now?"
 msgstr ""
+"Dávkový front obsahuje mnoho členov.\n"
+"To môže mať negatívne efekty na výkonnosť.\n"
+"Vyčistiť teraz dávkový front?"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:1160
-#, fuzzy
 msgid "Clear batch queue now"
-msgstr "Vyčistiť dávkovú úlohu"
+msgstr "Vyčistiť dávkový front"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:1160
 msgid "Keep batch queue"
-msgstr ""
+msgstr "Držať dávkový front"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:1219
 msgid "Starting batch"
@@ -4524,6 +4526,10 @@ msgstr "Licencia"
 #: translations/xrc.cpp:8
 msgid "System"
 msgstr "Systém"
+
+#: hugin1/hugin/xrc/about.xrc:188
+msgid "Dedication"
+msgstr "Venovanie"
 
 #: translations/xrc.cpp:9 translations/xrc.cpp:176 translations/xrc.cpp:180
 #: translations/xrc.cpp:224 translations/xrc.cpp:232 translations/xrc.cpp:268
@@ -5889,9 +5895,8 @@ msgstr ""
 "Uložiť tento projekt do PTStitcher-kompatibilného skriptovacieho súboru, "
 "užitočné pri spracovaní frontov"
 
-#: translations/xrc.cpp:428 translations/xrc.cpp:1089
-#: translations/xrc.cpp:1105
-#, fuzzy
+#: hugin1/hugin/xrc/main_menu.xrc:188 hugin1/hugin/xrc/preview_frame.xrc:1921
+#: hugin1/hugin/xrc/preview_frame.xrc:1962
 msgid "Most recently &used projects"
 msgstr "Naposledy použité projekty"
 
@@ -7793,9 +7798,6 @@ msgstr ""
 "Optimalizácia všetkých parametrov skreslenia \"všetko\" má zmysel iba vtedy, "
 "ak sa obrázky veľmi prekrývajú a použili ste tiež mnoho dobre rozprestrených "
 "kontrolných bodov."
-
-#~ msgid "Dedication"
-#~ msgstr "Venovanie"
 
 #~ msgid "Removed %d control points"
 #~ msgstr "Odstránených %d kontrolných bodov"
