@@ -1948,11 +1948,21 @@ void Panorama::mergePanorama(const Panorama &newPano)
         }
         //now translate cp
         CPVector cps=newPano.getCtrlPoints();
+        const int nextLineCPOffset = getNextCPTypeLineNumber() - 3;
         for(unsigned int i=0;i<cps.size();i++)
         {
-            HuginBase::ControlPoint cp(new_image_nr[cps[i].image1Nr], cps[i].x1, cps[i].y1,
-                new_image_nr[cps[i].image2Nr],cps[i].x2, cps[i].y2, cps[i].mode);
-            addCtrlPoint(cp);
+            // special treatment of line control points
+            if (cps[i].mode > 2)
+            {
+                addCtrlPoint(HuginBase::ControlPoint(new_image_nr[cps[i].image1Nr], cps[i].x1, cps[i].y1,
+                    new_image_nr[cps[i].image2Nr], cps[i].x2, cps[i].y2, cps[i].mode + nextLineCPOffset));
+            }
+            else
+            {
+                // normal, horizontal and vertical cp keep their mode
+                addCtrlPoint(HuginBase::ControlPoint(new_image_nr[cps[i].image1Nr], cps[i].x1, cps[i].y1,
+                    new_image_nr[cps[i].image2Nr], cps[i].x2, cps[i].y2, cps[i].mode));
+            };
         };
         removeDuplicateCtrlPoints();
     };
