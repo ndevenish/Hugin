@@ -48,14 +48,6 @@ void ControlPoint::mirror()
     td = y1; y1 = y2 ; y2 = td;
 }
 
-
-std::string ControlPoint::modeNames[] = { "x_y", "x", "y" };
-
-const std::string& ControlPoint::getModeName(OptimizeMode mode) const
-{
-    return modeNames[mode];
-}
-
 const std::string ControlPoint::getCPString() const
 {
     std::ostringstream s;
@@ -70,13 +62,5 @@ const std::string ControlPoint::getCPString() const
     }
     return s.str();
 };
-
-#if 0
-ControlPoint::ControlPoint(Panorama & pano, const QDomNode & node)
-{
-    setFromXML(node,pano);
-}
-#endif
-    
 
 } // namespace

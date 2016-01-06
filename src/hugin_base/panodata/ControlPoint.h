@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file PanoramaMemento.h
+/** @file ControlPoint.h
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *
@@ -21,8 +21,8 @@
  *
  */
 
-#ifndef _PANORAMAMEMENTO_H
-#define _PANORAMAMEMENTO_H
+#ifndef _CONTROLPOINT_H
+#define _CONTROLPOINT_H
 
 #include <hugin_shared.h>
 
@@ -59,9 +59,6 @@ public:
         { };
 
     ///
-//  ControlPoint(Panorama & pano, const QDomNode & node);
-    
-    ///
     ControlPoint(unsigned int img1, double sX, double sY,
                  unsigned int img2, double dX, double dY,
                  int mode = X_Y)
@@ -76,8 +73,6 @@ public:
    
     
 public:
-    ///
-    const std::string & getModeName(OptimizeMode mode) const;
 
     /** returns string which contains all features of a control point
       * used for detecting duplicate control points
@@ -89,15 +84,6 @@ public:
     /// swap (image1Nr,x1,y1) with (image2Nr,x2,y2)
     void mirror();
 
-    
-public:
-    ///
-//  QDomNode toXML(QDomDocument & doc) const;
-
-    ///
-//  void setFromXML(const QDomNode & elem, Panorama & pano);
-    
-    
 public:    
     // TODO: accessors
     
@@ -107,13 +93,7 @@ public:
     double x2,y2;
     double error;
     int mode;
-
-#ifndef SWIG
-    // dimensionless array not supported by SWIG
-    static std::string modeNames[];
-#endif
 };
-
 
 ///
 typedef std::vector<ControlPoint> CPVector;
@@ -121,6 +101,5 @@ typedef std::vector<ControlPoint> CPVector;
 typedef std::pair<typename CPVector::size_type, ControlPoint> CPoint;
 typedef std::vector<CPoint> CPointVector;
 
-
 } // namespace
-#endif // _PANORAMAMEMENTO_H
+#endif // _CONTROLPOINT_H
