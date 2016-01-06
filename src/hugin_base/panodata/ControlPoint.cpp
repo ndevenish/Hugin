@@ -59,7 +59,7 @@ const std::string& ControlPoint::getModeName(OptimizeMode mode) const
 const std::string ControlPoint::getCPString() const
 {
     std::ostringstream s;
-    s << modeNames[mode];
+    s << mode;
     if(image1Nr<=image2Nr)
     {
         s << " " << image1Nr << ": " << x1 << "," << y1 << "|" << image2Nr << ": " << x2 << "," <<y2;
