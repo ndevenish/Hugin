@@ -1191,7 +1191,7 @@ void CPEditorPanel::panoramaChanged(HuginBase::Panorama &pano)
     {
         m_cpModeChoice->Freeze();
         // remove some items.
-        for (int i = nGui-1; i >=nPano-1; --i) {
+        for (int i = nGui-1; i > nPano-1; --i) {
             m_cpModeChoice->Delete(i);
         }
         if (nPano > 3) {
