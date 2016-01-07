@@ -41,10 +41,10 @@ END_EVENT_TABLE()
 
 bool PTBatcherGUI::OnInit()
 {
-    // Required to access the preferences of hugin
 #if wxUSE_ON_FATAL_EXCEPTION
     wxHandleFatalExceptions();
 #endif
+    // Required to access the preferences of hugin
     SetAppName(wxT("hugin"));
 
 #if defined __WXMSW__
