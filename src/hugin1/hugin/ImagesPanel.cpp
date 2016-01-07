@@ -107,7 +107,12 @@ bool ImagesPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, co
     m_smallImgCtrl = XRCCTRL(*this, "images_selected_image", wxStaticBitmap);
     DEBUG_ASSERT(m_smallImgCtrl);
 
-    m_empty.Create(0,0);
+    // empty bitmap with size (0,0) is not valid for wxStaticBitmap
+    // so we create a bitmap with the background color of the static bitmap control
+    wxImage image(1, 1, true);
+    const wxColour imageBackgroundColor = m_smallImgCtrl->GetBackgroundColour();
+    image.SetRGB(0, 0, imageBackgroundColor.Red(), imageBackgroundColor.Green(), imageBackgroundColor.Blue());
+    m_empty = wxBitmap(image);
     m_smallImgCtrl->SetBitmap(m_empty);
 
     m_lenstype = XRCCTRL(*this, "images_lens_type", wxChoice);
