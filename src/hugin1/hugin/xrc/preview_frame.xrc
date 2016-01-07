@@ -314,24 +314,22 @@
                 </object>
                 <object class="sizeritem">
                   <object class="wxBoxSizer">
-                    <orient>wxHORIZONTAL</orient>
                     <object class="sizeritem">
                       <object class="wxBoxSizer">
-                        <orient>wxHORIZONTAL</orient>
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             <label>Blend mode:</label>
                           </object>
-                          <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                          <border>5</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxChoice" name="blend_mode_choice">
                             <content/>
                           </object>
                         </object>
+                        <orient>wxVERTICAL</orient>
                       </object>
-                      <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                      <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                      <border>3</border>
                     </object>
                     <object class="sizeritem">
                       <object class="wxBoxSizer">
@@ -423,8 +421,10 @@
                       </object>
                       <flag>wxALIGN_CENTRE_VERTICAL</flag>
                     </object>
+                    <orient>wxHORIZONTAL</orient>
                   </object>
-                  <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                  <flag>wxLEFT|wxRIGHT|wxEXPAND</flag>
+                  <border>3</border>
                 </object>
                 <object class="sizeritem">
                   <object class="wxStaticLine">
@@ -581,7 +581,7 @@
                       <object class="wxStaticText">
                         <label>Guides:</label>
                       </object>
-                      <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                      <flag>wxLEFT|wxRIGHT</flag>
                       <border>5</border>
                     </object>
                     <object class="sizeritem">
@@ -597,10 +597,10 @@
                         </content>
                         <selection>0</selection>
                       </object>
-                      <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                      <flag>wxLEFT|wxRIGHT</flag>
                       <border>5</border>
                     </object>
-                    <orient>wxHORIZONTAL</orient>
+                    <orient>wxVERTICAL</orient>
                   </object>
                   <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                   <border>5</border>
@@ -1154,24 +1154,22 @@
                 </object>
                 <object class="sizeritem">
                   <object class="wxBoxSizer">
-                    <orient>wxHORIZONTAL</orient>
                     <object class="sizeritem">
                       <object class="wxBoxSizer">
-                        <orient>wxHORIZONTAL</orient>
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             <label>Blend mode:</label>
                           </object>
-                          <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                          <border>5</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxChoice" name="blend_mode_choice">
                             <content/>
                           </object>
                         </object>
+                        <orient>wxVERTICAL</orient>
                       </object>
-                      <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                      <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                      <border>3</border>
                     </object>
                     <object class="sizeritem">
                       <object class="wxBoxSizer">
@@ -1263,8 +1261,10 @@
                       </object>
                       <flag>wxALIGN_CENTRE_VERTICAL</flag>
                     </object>
+                    <orient>wxHORIZONTAL</orient>
                   </object>
-                  <flag>wxEXPAND</flag>
+                  <flag>wxLEFT|wxRIGHT|wxEXPAND</flag>
+                  <border>5</border>
                 </object>
                 <object class="sizeritem">
                   <object class="wxStaticLine">
@@ -1425,7 +1425,7 @@
                       <object class="wxStaticText">
                         <label>Guides:</label>
                       </object>
-                      <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                      <flag>wxLEFT|wxRIGHT</flag>
                       <border>5</border>
                     </object>
                     <object class="sizeritem">
@@ -1441,10 +1441,10 @@
                         </content>
                         <selection>0</selection>
                       </object>
-                      <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                      <flag>wxLEFT|wxRIGHT</flag>
                       <border>5</border>
                     </object>
-                    <orient>wxHORIZONTAL</orient>
+                    <orient>wxVERTICAL</orient>
                   </object>
                   <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                   <border>5</border>
