@@ -293,7 +293,7 @@ PreviewFrame::PreviewFrame(wxFrame * frame, HuginBase::Panorama &pano)
                                         wxDefaultPosition,wxSize(50,-1), wxTE_PROCESS_ENTER);
     blendModeSizer->Add(m_exposureTextCtrl,
                           0,        // not vertically strechable
-                          wxLEFT | wxTOP | wxBOTTOM  | wxEXPAND | wxALIGN_CENTER_VERTICAL, // draw border all around
+                          wxLEFT | wxTOP | wxBOTTOM  | wxALIGN_CENTER_VERTICAL, // draw border all around
                           5);       // border width
 //    m_incExposureBut = new wxBitmapButton(this, ID_EXPOSURE_INCREASE,
 //                                          wxArtProvider::GetBitmap(wxART_GO_FORWARD));
@@ -330,13 +330,13 @@ PreviewFrame::PreviewFrame(wxFrame * frame, HuginBase::Panorama &pano)
         m_projParamTextCtrl[i]->PushEventHandler(new TextKillFocusHandler(this));
         m_projParamSizer->Add(m_projParamTextCtrl[i],
                         0,        // not vertically strechable
-                        wxALL | wxEXPAND | wxALIGN_CENTER_VERTICAL, // draw border all around
+                        wxALL | wxALIGN_CENTER_VERTICAL, // draw border all around
                         5);       // border width
 
         m_projParamSlider[i] = new wxSlider(this, PROJ_PARAM_SLIDER_ID+i, 0, -90, 90);
         m_projParamSizer->Add(m_projParamSlider[i],
                         1,        // not vertically strechable
-                        wxALL | wxALIGN_CENTER_VERTICAL | wxEXPAND, // draw border all around
+                        wxALL | wxALIGN_CENTER_VERTICAL, // draw border all around
                         5);       // border width
     }
 

@@ -481,7 +481,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, HuginBase::Panorama &pano)
     sizer->Add(select_none,0,wxALIGN_CENTER_VERTICAL | wxRIGHT | wxTOP | wxBOTTOM,5);
     panel->SetSizer(sizer);
     m_ToggleButtonSizer->Add(panel, 0, wxALIGN_CENTER_VERTICAL);
-    m_ToggleButtonSizer->Add(m_ButtonPanel, 1, wxEXPAND | wxALIGN_CENTER_VERTICAL, 0);
+    m_ToggleButtonSizer->Add(m_ButtonPanel, 1, wxALIGN_CENTER_VERTICAL, 0);
 
     m_topsizer->Add(tool_panel, 0, wxEXPAND | wxALL, 2);
     m_topsizer->Add(toggle_panel, 0, wxEXPAND | wxBOTTOM, 5);
@@ -774,7 +774,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, HuginBase::Panorama &pano)
                         5);       // border width
     }
 
-    m_projection_panel->GetSizer()->Add(m_projParamSizer, 1, wxEXPAND | wxALIGN_CENTER_VERTICAL);
+    m_projection_panel->GetSizer()->Add(m_projParamSizer, 1, wxALIGN_CENTER_VERTICAL);
 
     // do not show projection param sizer
     m_projection_panel->GetSizer()->Show(m_projParamSizer, false, true);
