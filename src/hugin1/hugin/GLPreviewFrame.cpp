@@ -754,19 +754,21 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, HuginBase::Panorama &pano)
 
     for (int i=0; i < PANO_PROJECTION_MAX_PARMS; i++) {
 
+        wxBoxSizer* paramBoxSizer = new wxBoxSizer(wxVERTICAL);
         m_projParamNamesLabel[i] = new wxStaticText(m_projection_panel, PROJ_PARAM_NAMES_ID+i, _("param:"));
-        m_projParamSizer->Add(m_projParamNamesLabel[i],
+        paramBoxSizer->Add(m_projParamNamesLabel[i],
                         0,        // not vertically strechable
-                        wxLEFT | wxRIGHT | wxALIGN_CENTER_VERTICAL, // draw border all around
+                        wxLEFT | wxRIGHT, // draw border all around
                         5);       // border width
         m_projParamTextCtrl[i] = new wxTextCtrl(m_projection_panel, PROJ_PARAM_VAL_ID+i, wxT("0"),
                                     wxDefaultPosition, wxSize(35,-1), wxTE_PROCESS_ENTER);
         m_projParamTextCtrl[i]->PushEventHandler(new TextKillFocusHandler(this));
-        m_projParamSizer->Add(m_projParamTextCtrl[i],
+        paramBoxSizer->Add(m_projParamTextCtrl[i],
                         0,        // not vertically strechable
-                        wxLEFT | wxRIGHT | wxALIGN_CENTER_VERTICAL, // draw border all around
+                        wxLEFT | wxRIGHT, // draw border all around
                         5);       // border width
 
+        m_projParamSizer->Add(paramBoxSizer);
         m_projParamSlider[i] = new wxSlider(m_projection_panel, PROJ_PARAM_SLIDER_ID+i, 0, -90, 90);
         m_projParamSizer->Add(m_projParamSlider[i],
                         1,        // not vertically strechable
