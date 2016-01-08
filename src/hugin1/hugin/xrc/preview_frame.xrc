@@ -320,11 +320,11 @@
                           <object class="wxStaticText">
                             <label>Blend mode:</label>
                           </object>
+                          <flag>wxEXPAND</flag>
                         </object>
                         <object class="sizeritem">
-                          <object class="wxChoice" name="blend_mode_choice">
-                            <content/>
-                          </object>
+                          <object class="wxChoice" name="blend_mode_choice"/>
+                          <flag>wxEXPAND</flag>
                         </object>
                         <orient>wxVERTICAL</orient>
                       </object>
@@ -524,7 +524,7 @@
                     <orient>wxHORIZONTAL</orient>
                     <object class="sizeritem">
                       <object class="wxStaticText">
-                        <label>Field of View</label>
+                        <label>Field of View:</label>
                       </object>
                       <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                       <cellpos>0,0</cellpos>
@@ -1160,11 +1160,11 @@
                           <object class="wxStaticText">
                             <label>Blend mode:</label>
                           </object>
+                          <flag>wxEXPAND</flag>
                         </object>
                         <object class="sizeritem">
-                          <object class="wxChoice" name="blend_mode_choice">
-                            <content/>
-                          </object>
+                          <object class="wxChoice" name="blend_mode_choice"/>
+                          <flag>wxEXPAND</flag>
                         </object>
                         <orient>wxVERTICAL</orient>
                       </object>
@@ -1368,7 +1368,7 @@
                     <orient>wxHORIZONTAL</orient>
                     <object class="sizeritem">
                       <object class="wxStaticText">
-                        <label>Field of View</label>
+                        <label>Field of View:</label>
                       </object>
                       <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                       <cellpos>0,0</cellpos>
