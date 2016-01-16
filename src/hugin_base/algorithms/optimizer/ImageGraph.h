@@ -1,11 +1,10 @@
 // -*- c-basic-offset: 4 -*-
 /** @file hugin_base/algorithms/optimizer/ImageGraph.h
  *
- *  @author Pablo d'Angelo <pablo.dangelo@web.de>
+ *  @author Pablo d'Angelo <pablo.dangelo@web.de>, T. Modes
  *
- *  $Id: ImageGraph.h 1763 2006-12-17 21:11:57Z dangelo $
- *
- *  This is free software; you can redistribute it and/or
+ */
+/*  This is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public
  *  License as published by the Free Software Foundation; either
  *  version 2 of the License, or (at your option) any later version.
@@ -26,71 +25,51 @@
 
 #include <hugin_shared.h>
 
-#ifdef MAC_OS_X
-// In the case boost got error with macro "check()", uncomment following two lines.
-#include <AssertMacros.h>
-#undef check
-// Ref. http://lists.boost.org/boost-users/2004/05/6723.php
-#endif
-#include <boost/graph/graph_traits.hpp>
-#include <boost/graph/adjacency_list.hpp>
-#include <boost/graph/properties.hpp>
-
 #include <panodata/PanoramaData.h>
 
-
-namespace HuginBase
+namespace HuginGraph
 {
 
-/** graph of images, connected with control points.
- *
- *  verticies: images, links: controlpoints
- *
- */
-typedef boost::adjacency_list<boost::vecS, boost::vecS,
-                              boost::undirectedS,
-                              boost::property<boost::vertex_color_t, boost::default_color_type> > CPGraph;
+/** abstract base functor for breadth first search in ImageGraph */
+class IMPEX BreadthFirstSearchVisitor
+{
+public:
+    virtual void Visit(const size_t vertex, const HuginBase::UIntSet& visitedNeighbors, const HuginBase::UIntSet& unvisitedNeighbors) = 0;
+};
 
-/** components in a control point graph */
-typedef std::vector< std::set<unsigned> > CPComponents;
+/** class to work with images graphs created from a HuginBase::Panorama class
+*  it creates a graph based on control points and linked images positions
+*  and provides function to work with it */
+class IMPEX ImageGraph
+{
+public:
+    /** stores adjacency list for graph */
+    typedef std::vector<HuginBase::UIntSet> GraphList;
+    /** stores the components of the graph */
+    typedef std::vector<HuginBase::UIntSet> Components;
+    /** constructor, build internal representation of graph */
+    ImageGraph(const HuginBase::PanoramaData& pano, bool ignoreLinkedPosition = false);
+    /** find all connected components
+    *  @returns number of components
+    *  if you want to know, if all images are connected
+    *  use IsConnected() instead */
+    Components GetComponents();
+    /** check if all images are connected
+    *  @returns true, if all images are connected, otherwise false
+    *  it uses an optimized depth first search and breaks out if a
+    *  a second components is found. If you need all components
+    *  use GetComponents() instead */
+    bool IsConnected();
+    /** visit all images via a breadth first search algorithm
+    *  for each visited images, the functor visitor is called with
+    *  HuginBase::UIntSet which contains all neighbors in the graph
+    *  @param forceAllComponents if true all images are visited, if false only the images
+    *  connected with startImg are visited */
+    void VisitAllImages(const size_t startImg, bool forceAllComponents, BreadthFirstSearchVisitor* visitor);
+private:
+    GraphList m_graph;
+}; // class ImageGraph
 
+} // namespace HuginGraph
 
-/** create a control point graph structure, with links representing one or
- *  more control points
- *
- */
-IMPEX void createCPGraph(const PanoramaData& pano, CPGraph & graph);
-
-IMPEX size_t findCPComponents(const CPGraph & graph, 
-                     CPComponents & comp);
-
-
-//------------------------------------------------------------------------------
-
-///
-typedef boost::property<boost::edge_weight_t, float> OverlapEdgeProperty;
-
-/** A graph that contains all image as nodes (vertexes), overlaps are
- *  given by edges.
- *
- *  vertex property (color): indicates if the image has been stitched
- *  into the panorama
- *
- *  edge property (float): amount of overlap
- */
-typedef boost::adjacency_list<boost::vecS, boost::vecS,
-                              boost::undirectedS,
-                              boost::property<boost::vertex_color_t, boost::default_color_type>,
-                              OverlapEdgeProperty> OverlapGraph;
-
-
-/** create a graph with all overlaps, and a suitable blend order.
- *
- *
- */
-void createOverlapGraph(const PanoramaData& pano, OverlapGraph & graph);
-
-
-} // namespace
-
-#endif // _H
+#endif // _PANODATA_IMAGEGRAPH_H

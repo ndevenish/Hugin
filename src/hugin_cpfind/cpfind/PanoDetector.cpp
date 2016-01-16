@@ -1002,10 +1002,9 @@ bool PanoDetector::matchMultiRow()
     queue.clear();
     matchesData.clear();
     HuginBase::Panorama mediumPano = _panoramaInfo->getSubset(_image_layer);
-    HuginBase::CPGraph graph;
-    HuginBase::createCPGraph(mediumPano, graph);
-    HuginBase::CPComponents comps;
-    const size_t n = HuginBase::findCPComponents(graph, comps);
+    HuginGraph::ImageGraph graph(mediumPano);
+    const HuginGraph::ImageGraph::Components comps = graph.GetComponents();
+    const size_t n = comps.size();
     if(n>1)
     {
         std::vector<unsigned int> ImagesGroups;
@@ -1070,8 +1069,8 @@ bool PanoDetector::matchMultiRow()
     queue.clear();
     matchesData.clear();
     HuginBase::Panorama optPano=_panoramaInfo->getSubset(_image_layer);
-    HuginBase::createCPGraph(optPano, graph);
-    if(HuginBase::findCPComponents(graph, comps)==1)
+    HuginGraph::ImageGraph graph2(optPano);
+    if(graph2.IsConnected())
     {
         if(_image_layer.size()>2)
         {

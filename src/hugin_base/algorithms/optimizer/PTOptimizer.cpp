@@ -313,6 +313,51 @@ bool RANSACOptimizer::runAlgorithm()
     return true; // let's hope so.
 }
     
+class AutoOptimiseVisitor :public HuginGraph::BreadthFirstSearchVisitor
+{
+public:
+    explicit AutoOptimiseVisitor(PanoramaData* pano, const std::set<std::string>& optvec)
+        : m_opt(optvec), m_pano(pano)
+    {};
+    void Visit(const size_t vertex, const HuginBase::UIntSet& visitedNeighbors, const HuginBase::UIntSet& unvisitedNeighbors)
+    {
+        UIntSet imgs(visitedNeighbors);
+        imgs.insert(vertex);
+
+        if (imgs.size() > 1)
+        {
+            // get pano with neighbouring images.
+            PanoramaData* localPano = m_pano->getNewSubset(imgs); // don't forget to delete
+
+            // find number of current image in subset
+            unsigned currImg = 0;
+            unsigned cnt = 0;
+            for (UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); ++it)
+            {
+                if (vertex == *it)
+                {
+                    currImg = cnt;
+                }
+                cnt++;
+            }
+
+            OptimizeVector optvec(imgs.size());
+            optvec[currImg] = m_opt;
+            localPano->setOptimizeVector(optvec);
+
+            if (imgs.size() > 1)
+            {
+                PTools::optimize(*localPano);
+                m_pano->updateVariables(vertex, localPano->getImageVariables(currImg));
+            }
+
+            delete localPano;
+        };
+    };
+private:
+    const std::set<std::string>& m_opt;
+    PanoramaData* m_pano;
+};
 
 void AutoOptimise::autoOptimise(PanoramaData& pano, bool optRoll)
 {
@@ -321,19 +366,6 @@ void AutoOptimise::autoOptimise(PanoramaData& pano, bool optRoll)
     // don't forget to delete at end
     PanoramaData* optPano = pano.getUnlinkedSubset(imageGroups);
 
-    // DGSW FIXME - Unreferenced
-    //	unsigned nImg = unsigned(pano.getNrOfImages());
-    // build a graph over all overlapping images
-    CPGraph graph;
-    createCPGraph(*optPano,graph);
-    
-#if DEBUG
-    {
-        std::ofstream gfile("cp_graph.dot");
-        // output doxygen graph
-        boost::write_graphviz(gfile, graph);
-    }
-#endif
     std::set<std::string> optvars;
     if(optRoll)
     {
@@ -342,17 +374,11 @@ void AutoOptimise::autoOptimise(PanoramaData& pano, bool optRoll)
     optvars.insert("p");
     optvars.insert("y");
     
-    unsigned int startImg = optPano->getOptions().optimizeReferenceImage;
-    
     // start a breadth first traversal of the graph, and optimize
     // the links found (every vertex just once.)
-    
-    OptimiseVisitor optVisitor(*optPano, optvars);
-    
-    boost::queue<boost::graph_traits<CPGraph>::vertex_descriptor> qu;
-    boost::breadth_first_search(graph, startImg,
-                                color_map(get(boost::vertex_color, graph)).
-                                visitor(optVisitor));
+    HuginGraph::ImageGraph graph(*optPano);
+    AutoOptimiseVisitor visitor(optPano, optvars);
+    graph.VisitAllImages(optPano->getOptions().optimizeReferenceImage, true, &visitor);
 
     // now translate to found positions to initial pano
     for (size_t i = 0; i < optPano->getNrOfImages(); ++i)
@@ -360,28 +386,6 @@ void AutoOptimise::autoOptimise(PanoramaData& pano, bool optRoll)
         pano.updateVariables(*imageGroups[i].begin(), optPano->getImageVariables(i));
     };
     delete optPano;
-    /*
-#ifdef DEBUG
-     // print optimized script to cout
-     DEBUG_DEBUG("after local optim:");
-     VariableMapVector vars = optVisitor.getVariables();
-     for (unsigned v=0; v < pano.getNrOfImages(); v++) {
-         printVariableMap(std::cerr, vars[v]);
-         std::cerr << std::endl;
-     }
-#endif
-     
-     // apply variables to input panorama
-     pano.updateVariables(optVisitor.getVariables());
-     
-#ifdef DEBUG
-     UIntSet allImg;
-     fill_set(allImg,0, pano.getNrOfImages()-1);
-     // print optimized script to cout
-     DEBUG_DEBUG("after updateVariables():");
-     pano.printPanoramaScript(std::cerr, pano.getOptimizeVector(), pano.getOptions(), allImg, false);
-#endif
-     */
 }
 
 

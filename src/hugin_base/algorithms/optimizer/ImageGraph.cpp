@@ -4,7 +4,7 @@
  *
  *  @brief implementation of ImageGraph Class
  *
- *  @author Pablo d'Angelo <pablo.dangelo@web.de>
+ *  @author Pablo d'Angelo <pablo.dangelo@web.de>, T. Modes
  *
  *  $Id: ImageGraph.cpp 1763 2006-12-17 21:11:57Z dangelo $
  *
@@ -24,172 +24,164 @@
  *
  */
 
-#include <boost/graph/connected_components.hpp>
-
 #include "ImageGraph.h"
+#include <queue>
 
-
-namespace HuginBase {
-
-    
-
-void createCPGraph(const PanoramaData & pano, CPGraph & graph)
+namespace HuginGraph
 {
-    typedef boost::property_map<CPGraph, boost::vertex_index_t>::type CPGraphIndexMap;
-    
-    // clear old graph
-    graph.clear();
-
-    // add all verticies to the graph
-    size_t nImg = pano.getNrOfImages();
-    for (size_t i = 0; i < nImg; i++) {
-        add_vertex(graph);
-    }
-
-    // insert all control points into the graph
-    const CPVector & cps = pano.getCtrlPoints();
-    for (CPVector::const_iterator it = cps.begin(); it != cps.end(); ++it) {
-        // probably very inefficient
-        boost::graph_traits<CPGraph>::adjacency_iterator ai;
-        boost::graph_traits<CPGraph>::adjacency_iterator ai_end;
-
-        CPGraphIndexMap index = get(boost::vertex_index, graph);
-        bool found=false;
-        for (boost::tuples::tie(ai, ai_end) = adjacent_vertices(it->image1Nr, graph);
-             ai != ai_end; ++ai)
-        {
-            if (index[*ai] == it->image2Nr) found = true;
-        }
-        if (!found) {
-            add_edge(it->image1Nr, it->image2Nr,graph);
-        }
-    }
-    
-    // Also connect images with linked yaw, pitch, and roll.
-    // probably very inefficient
-    for (size_t i = 0; i < nImg; i++)
+/* build adjacency list for all images in pano */
+ImageGraph::ImageGraph(const HuginBase::PanoramaData& pano, bool ignoreLinkedPosition)
+{
+    if (pano.getNrOfImages() > 0)
     {
-        const SrcPanoImage & img_i = pano.getImage(i);
-        for (size_t j = i + 1; j < nImg; j++)
+        m_graph.resize(pano.getNrOfImages());
+        if (!ignoreLinkedPosition)
         {
-            const SrcPanoImage & img_j = pano.getImage(j);
-            if (img_i.YawisLinkedWith(img_j) &&
-                img_i.PitchisLinkedWith(img_j) &&
-                img_i.RollisLinkedWith(img_j))
+            // handle all linked positions
+            for (size_t i = 0; i < pano.getNrOfImages(); ++i)
             {
-                // Shared position, therefore should be connected.
-                boost::graph_traits<CPGraph>::adjacency_iterator ai;
-                boost::graph_traits<CPGraph>::adjacency_iterator ai_end;
-
-                CPGraphIndexMap index = get(boost::vertex_index, graph);
-                bool found=false;
-                for (boost::tuples::tie(ai, ai_end) = adjacent_vertices(i, graph);
-                     ai != ai_end; ++ai)
+                const HuginBase::SrcPanoImage& image = pano.getImage(i);
+                if (image.YawisLinked())
                 {
-                    if (index[*ai] == j) found = true;
-                }
-                if (!found) {
-                    add_edge(i, j, graph);
-                }
+                    for (size_t j = i + 1; j < pano.getNrOfImages(); ++j)
+                    {
+                        if (image.YawisLinkedWith(pano.getImage(j)))
+                        {
+                            m_graph[i].insert(j);
+                            m_graph[j].insert(i);
+                        };
+                    };
+                };
+            };
+        };
+        // and now all control points
+        const HuginBase::CPVector& cps = pano.getCtrlPoints();
+        for (size_t i = 0; i < cps.size(); ++i)
+        {
+            if (cps[i].mode == HuginBase::ControlPoint::X_Y && cps[i].image1Nr != cps[i].image2Nr)
+            {
+                m_graph[cps[i].image1Nr].insert(cps[i].image2Nr);
+                m_graph[cps[i].image2Nr].insert(cps[i].image1Nr);
             }
         }
-    }
-}
-
-size_t findCPComponents(const CPGraph & graph, 
-                     CPComponents & comp)
-{
-    std::vector<unsigned> component(num_vertices(graph));
-    size_t num = boost::connected_components(graph, &component[0]);
-
-    // collect components
-    comp.clear();
-    std::set<unsigned> empty;
-    comp.push_back(empty);
-    for (unsigned i=0; i < component.size(); i++) {
-        if (comp.size() < component[i]+1) {
-            comp.push_back(empty);
-        }
-        comp[component[i]].insert(i);
-    }
-    return num;
-}
-
-
-//typedef boost::property_map<OverlapGraph, boost::vertex_index_t>::type OverlayGraphIndexMap;
-
-/** count pixels that are > 0 in both images */
-struct OverlapSizeCounter
-{
-    OverlapSizeCounter()
-	: count(0)
-    { }
-
-    template<typename PIXEL>
-    void operator()(PIXEL const & img1, PIXEL const & img2)
-    {
-	if (img1 > 0 && img2 > 0) {
-	    count++;
-	}
-    }
-
-    int getCount()
-    {
-	return count;
-    }
-
-    int count;
+    };
 };
 
-/* not needed so far, probably still buggy
-
-void PanoCommand::createOverlapGraph(const Panorama & pano, OverlapGraph & graph)
+template<typename VALUETYPE>
+void DepthFirstSearch(const ImageGraph::GraphList& graph, std::vector<VALUETYPE>& marks, const size_t vertex, const VALUETYPE setType, const VALUETYPE unvisitedType)
 {
-    // clear old graph
-    graph.clear();
+    marks[vertex] = setType;
+    for (HuginBase::UIntSet::const_iterator it = graph[vertex].begin(); it != graph[vertex].end(); ++it)
+    {
+        if (marks[*it] == unvisitedType)
+        {
+            DepthFirstSearch(graph, marks, *it, setType, unvisitedType);
+        };
+    };
+};
 
-    // add all verticies to the graph
-    unsigned int nImg = pano.getNrOfImages();
-    for (unsigned int i = 0; i < nImg; i++) {
-        add_vertex(graph);
+ImageGraph::Components ImageGraph::GetComponents()
+{
+    ImageGraph::Components comp;
+    if (m_graph.empty())
+    {
+        return comp;
+    };
+    // and now the depth first search algorithm
+    std::vector<size_t> marks(m_graph.size(), 0);
+    size_t counter = 0;
+    for (size_t i = 0; i < m_graph.size(); ++i)
+    {
+        if (marks[i] == 0)
+        {
+            counter++;
+            DepthFirstSearch<size_t>(m_graph, marks, i, counter, 0);
+        };
+    };
+    // now create the connected components as vector<UIntSet>
+    comp.resize(counter);
+    for (size_t imgNr = 0; imgNr < marks.size(); ++imgNr)
+    {
+        comp[marks[imgNr] - 1].insert(imgNr);
     }
+    return comp;
+};
 
-    PanoramaOptions opts = pano.getOptions();
-    // small area, for alpha mask overlap analysis.
-    opts.width = 500;
-    // find intersecting regions, on a small version of the panorama.
-    std::vector< PanoCommand::RemappedPanoImage<vigra::BRGBImage, vigra::BImage> > rimg(nImg, PanoCommand::RemappedPanoImage<vigra::BRGBImage, vigra::BImage>(pano) );
-
-    for (unsigned int imgNr = 0; imgNr < nImg ; imgNr++) {
-	// calculate alpha channel
-	rimg[imgNr].setPanoImage(imgNr, opts);
-	rimg[imgNr].calcAlpha();
-    }
-
-    ROI<Diff2D> overlap;
-    // intersect ROI's & masks of all images
-    for (unsigned int i1 = 0; i1 < nImg ; i1++) {
-	for (unsigned int i2 = i1; i2 < nImg ; i2++) {
-	    if ( rimg[i1].getROI().intersect(rimg[i2].getROI(), overlap))
-	    {
-		OverlapSizeCounter counter;
-		inspectTwoImages(overlap.apply(rimg[i1].getAlpha(),
-					       rimg[i1].getROI()),
-				 overlap.apply(make_pair(rimg[i2].getAlpha().first, rimg[i2].getAlpha().third),
-					       rimg[i2].getROI()),
-				 counter);
-		if (counter.getCount() > 0) {
-		    OverlapGraph::Edge e = add_edge(i1, i2, graph);
-		    // todo: save number of overlapping pixels.
-		    property_map<OverlapGraph, edge_weight_t>::type w
-			= get(edge_weight, g);
-		    put(w, e, counter.getCount());
-		}
-	    }
+bool ImageGraph::IsConnected()
+{
+    if (m_graph.empty())
+    {
+        return false;
+    };
+    // and now the depth first search algorithm
+    std::vector<bool> visited(m_graph.size(), false);
+    DepthFirstSearch(m_graph, visited, 0, true, false);
+    for (std::vector<bool>::const_iterator it = visited.begin(); it != visited.end(); ++it)
+    {
+        if (!(*it))
+        {
+            return false;
         }
     }
+    return true;
+};
+
+void BreadthFirstSearchVisit(const ImageGraph::GraphList& graph,
+    std::queue<size_t>& queue, std::vector<bool>& visited, BreadthFirstSearchVisitor* visitor)
+{
+    while (!queue.empty())
+    {
+        const size_t vertex = queue.front();
+        queue.pop();
+        if (!visited[vertex])
+        {
+            visited[vertex] = true;
+            HuginBase::UIntSet visitedNeighbors;
+            HuginBase::UIntSet unvisitedNeighbors;
+            for (HuginBase::UIntSet::const_iterator it = graph[vertex].begin(); it != graph[vertex].end(); ++it)
+            {
+                if (visited[*it])
+                {
+                    visitedNeighbors.insert(*it);
+                }
+                else
+                {
+                    unvisitedNeighbors.insert(*it);
+                    queue.push(*it);
+                };
+            };
+            visitor->Visit(vertex, visitedNeighbors, unvisitedNeighbors);
+        };
+    };
 }
 
-*/
+void ImageGraph::VisitAllImages(const size_t startImg, bool forceAllComponents, BreadthFirstSearchVisitor* visitor)
+{
+    if (m_graph.empty())
+    {
+        return;
+    }
+    // range checking, just in case
+    const size_t realStartImg = (startImg >= m_graph.size()) ? 0 : startImg;
+    std::vector<bool> visited(m_graph.size(), false);
+    std::queue<size_t> queue;
+    // go down the graph starting from the startImg
+    queue.push(realStartImg);
+    BreadthFirstSearchVisit(m_graph, queue, visited, visitor);
+    if (forceAllComponents)
+    {
+        // if the graph contains several components
+        // we have not yet visited all images, so
+        // restart the breadth first algorithm from the new component start
+        for (size_t i = 0; i < m_graph.size(); ++i)
+        {
+            if (!visited[i])
+            {
+                queue.push(i);
+                BreadthFirstSearchVisit(m_graph, queue, visited, visitor);
+            };
+        };
+    };
+};
 
-} //namespace
+}  // namespace HuginGraph

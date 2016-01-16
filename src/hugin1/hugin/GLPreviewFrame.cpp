@@ -1110,13 +1110,11 @@ void GLPreviewFrame::panoramaChanged(HuginBase::Panorama &pano)
         if (m_pano.getNrOfCtrlPoints() > 0)
         {
             // find components..
-            HuginBase::CPGraph graph;
-            HuginBase::createCPGraph(m_pano, graph);
-            HuginBase::CPComponents comps;
-            const size_t n= HuginBase::findCPComponents(graph, comps);
-            if (n > 1)
+            HuginGraph::ImageGraph graph(m_pano);
+            const HuginGraph::ImageGraph::Components comps = graph.GetComponents();
+            if (comps.size() > 1)
             {
-                alignMsg += wxString::Format(_("%lu unconnected image groups found: %s\n"), static_cast<unsigned long int>(n), Components2Str(comps).c_str());
+                alignMsg += wxString::Format(_("%lu unconnected image groups found: %s\n"), static_cast<unsigned long int>(comps.size()), Components2Str(comps).c_str());
                 alignMsg += _("Please use the Control Points tab to connect all images with control points.\n");
             }
             else

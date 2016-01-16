@@ -901,10 +901,9 @@ HuginBase::CPVector AutoPanoSiftMultiRow::automatch(CPDetectorSetting &setting, 
     for (HuginBase::CPVector::const_iterator it = cps.begin(); it != cps.end(); ++it)
         optPano.addCtrlPoint(*it);
 
-    HuginBase::CPGraph graph;
-    HuginBase::createCPGraph(optPano, graph);
-    HuginBase::CPComponents comps;
-    size_t n = HuginBase::findCPComponents(graph, comps);
+    HuginGraph::ImageGraph graph(optPano);
+    const HuginGraph::ImageGraph::Components comps=graph.GetComponents();
+    size_t n = comps.size();
     if(n>1)
     {
         HuginBase::UIntSet ImagesGroups;
@@ -927,8 +926,8 @@ HuginBase::CPVector AutoPanoSiftMultiRow::automatch(CPDetectorSetting &setting, 
             Cleanup(setting, pano, imgs, keyFiles, parent);
             return cps;
         };
-        HuginBase::createCPGraph(optPano,graph);
-        n=HuginBase::findCPComponents(graph, comps);
+        HuginGraph::ImageGraph graph2(optPano);
+        n = graph2.IsConnected() ? 1 : 2;
     };
     if(n==1 && setting.GetOption())
     {

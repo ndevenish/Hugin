@@ -58,10 +58,8 @@ namespace HuginQueue
         {
             //we check, if all images are connected
             //if not, we run also icpfind
-            HuginBase::CPGraph graph;
-            createCPGraph(pano, graph);
-            HuginBase::CPComponents comps;
-            runicp = HuginBase::findCPComponents(graph, comps) > 1;
+            HuginGraph::ImageGraph graph(pano);
+            runicp = !graph.IsConnected();
         };
         //build commandline for icpfind
         if (runicp)

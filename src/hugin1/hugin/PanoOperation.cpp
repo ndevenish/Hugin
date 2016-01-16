@@ -676,15 +676,12 @@ PanoCommand::PanoCommand* CleanControlPointsOperation::GetInternalCommand(wxWind
     newPano.setCtrlPoints(firstCleanedCP);
 
     //check for unconnected images
-    HuginBase::CPGraph graph;
-    createCPGraph(newPano, graph);
-    HuginBase::CPComponents comps;
-    const size_t n = HuginBase::findCPComponents(graph, comps);
+    HuginGraph::ImageGraph graph(newPano);
     if (!progress.updateDisplayValue(_("Checking whole project")))
     {
         return NULL;
     }
-    if (n <= 1)
+    if (graph.IsConnected())
     {
         //now run the second step
         HuginBase::UIntSet removedCP2=getCPoutsideLimit(newPano, 2.0);

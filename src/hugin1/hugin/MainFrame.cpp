@@ -2107,18 +2107,16 @@ void MainFrame::RunAssistant(wxWindow* mainWin)
     if(ret!=0)
     {
         //check for unconnected images
-        HuginBase::CPGraph graph;
-        HuginBase::createCPGraph(pano, graph);
-        HuginBase::CPComponents comps;
-        const size_t n = HuginBase::findCPComponents(graph, comps);
-        if(n > 1)
+        HuginGraph::ImageGraph graph(pano);
+        const HuginGraph::ImageGraph::Components comps = graph.GetComponents();
+        if(comps.size() > 1)
         {
             // switch to images panel.
             unsigned i1 = *(comps[0].rbegin());
             unsigned i2 = *(comps[1].begin());
             ShowCtrlPointEditor( i1, i2);
             // display message box with 
-            wxMessageBox(wxString::Format(_("Warning %d unconnected image groups found:"), n) + Components2Str(comps) + wxT("\n")
+            wxMessageBox(wxString::Format(_("Warning %d unconnected image groups found:"), comps.size()) + Components2Str(comps) + wxT("\n")
                 + _("Please create control points between unconnected images using the Control Points tab in the panorama editor.\n\nAfter adding the points, press the \"Align\" button again"),_("Error"), wxOK , mainWin);
             return;
         };

@@ -184,12 +184,10 @@ int main(int argc, char* argv[])
                       << "\tMaximum           : " << max << std::endl;
         };
     };
-    HuginBase::CPGraph graph;
-    createCPGraph(pano, graph);
-    HuginBase::CPComponents comps;
-    const size_t n = HuginBase::findCPComponents(graph, comps);
+    HuginGraph::ImageGraph graph(pano);
+    const HuginGraph::ImageGraph::Components comps = graph.GetComponents();
     int returnValue=0;
-    if(n==1)
+    if(comps.size()==1)
     {
         std::cout << "All images are connected." << std::endl;
         // return value must be 0, otherwise the assistant does not continue
@@ -198,13 +196,13 @@ int main(int argc, char* argv[])
     else
     {
         std::cout << "Found unconnected images!" << std::endl
-                  << "There are " << n << " image groups." << std::endl;
+                  << "There are " << comps.size() << " image groups." << std::endl;
 
         std::cout << "Image groups: " << std::endl;
         for (size_t i=0; i < comps.size(); i++)
         {
             std::cout << "[";
-            HuginBase::CPComponents::value_type::const_iterator it;
+            HuginGraph::ImageGraph::Components::value_type::const_iterator it;
             size_t c=0;
             for (it = comps[i].begin(); it != comps[i].end(); ++it)
             {
@@ -221,7 +219,7 @@ int main(int argc, char* argv[])
                 std::cout << ", " << std::endl;
             }
         }
-        returnValue=n;
+        returnValue=comps.size();
     };
     std::cout << std::endl;
     if (printLensInfo)

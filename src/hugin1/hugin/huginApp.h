@@ -32,7 +32,7 @@
 #include "hugin/MainFrame.h"
 
 // utility functions
-wxString Components2Str(const HuginBase::CPComponents & comp);
+wxString Components2Str(const HuginGraph::ImageGraph::Components & comp);
 
 /// Store window size and position in configfile/registry
 void StoreFramePosition(wxTopLevelWindow * frame, const wxString & basename);

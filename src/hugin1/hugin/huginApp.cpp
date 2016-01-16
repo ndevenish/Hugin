@@ -78,12 +78,12 @@ bool checkVersion(wxString v1, wxString v2)
     return doj::alphanum_comp(std::string(v1.mb_str(wxConvLocal)),std::string(v2.mb_str(wxConvLocal))) < 0;
 };
 
-wxString Components2Str(const HuginBase::CPComponents & comp)
+wxString Components2Str(const HuginGraph::ImageGraph::Components & comp)
 {
     wxString ret;
     for (unsigned i=0; i < comp.size(); i++) {
         ret = ret + wxT("[");
-        HuginBase::CPComponents::value_type::const_iterator it;
+        HuginGraph::ImageGraph::Components::value_type::const_iterator it;
         size_t c=0;
         for (it = comp[i].begin();
             it != comp[i].end();
