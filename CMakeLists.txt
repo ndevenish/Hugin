@@ -271,6 +271,31 @@ ELSE()
   ENDIF()
 ENDIF()
 
+IF(WIN32)
+  # for Windows Vista support
+  ADD_DEFINITIONS(-DPSAPI_VERSION=1)
+ENDIF(WIN32)
+
+# check if we have C++17 <filesystem> header
+check_cxx_source_compiles(
+  "
+    #include <filesystem>
+    #include <string>
+    
+    int main()
+    {
+      std::tr2::sys::path filepath;
+      filepath=std::tr2::sys::absolute(filepath);
+      std::string s=filepath.filename().string();
+      return 0;    
+    };
+  "
+  HAVE_STD_FILESYSTEM
+)
+
+IF(HAVE_STD_FILESYSTEM AND USE_CXX11_THREAD)
+# in this combination we don't need Boost anymore
+ELSE()
 ##
 ## Boost
 ##
@@ -299,34 +324,10 @@ IF(WIN32)
   IF(NOT BOOST_ROOT)
     SET(BOOST_ROOT ${SOURCE_BASE_DIR}/boost${Boost_root_suffix})
   ENDIF()
-  # for Windows Vista support
-  ADD_DEFINITIONS(-DPSAPI_VERSION=1)
 ENDIF(WIN32)
 
-# check if we have C++17 <filesystem> header
-check_cxx_source_compiles(
-  "
-    #include <filesystem>
-    #include <string>
-    
-    int main()
-    {
-      std::tr2::sys::path filepath;
-      filepath=std::tr2::sys::absolute(filepath);
-      std::string s=filepath.filename().string();
-      return 0;    
-    };
-  "
-  HAVE_STD_FILESYSTEM
-)
-
 IF(HAVE_STD_FILESYSTEM)
-  IF(USE_CXX11_THREAD)
-    # header only needed
-    FIND_PACKAGE(Boost 1.47)
-  ELSE()
-    FIND_PACKAGE(Boost 1.47 COMPONENTS thread date_time iostreams)
-  ENDIF()
+  FIND_PACKAGE(Boost 1.47 COMPONENTS thread date_time iostreams)
 ELSE()
   IF(USE_CXX11_THREAD)
     FIND_PACKAGE(Boost 1.47 COMPONENTS filesystem system)
@@ -345,6 +346,7 @@ ENDIF (NOT Boost_FOUND)
 
 INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS})
 LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
+ENDIF()
 
 # littleCMS 2 now
 FIND_PACKAGE(LCMS2 REQUIRED)

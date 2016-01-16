@@ -115,7 +115,8 @@ Users compiling Hugin from source will need:
           which is slower.
         * C++11 support by the compiler is optional.
           Otherwise the corrosponding Boost libraries are
-          use. Then you will need the following boost libraries:
+          used. Then you will need the header files and
+          the following boost libraries:
               date_time
               iostreams
               thread
@@ -124,10 +125,7 @@ Users compiling Hugin from source will need:
           USE_BOOST to true.
     
     The wxWidgets GUI toolkit version >=2.7.0. 2.9/3.0 is supported.
-    boost >=1.47. The following boost libraries are needed:
-        filesystem
-        system
-        (see also comment to C++11 above)
+    C++17 TS <filesystem> or boost::filesystem (boost >=1.47)
     libtiff the TIFF library with LZW support.
     libpano13 version >=2.9.19
     libjpg the JPEG library
