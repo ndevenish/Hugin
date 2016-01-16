@@ -554,6 +554,7 @@ int main(int argc, char* argv[])
                 UpdateSingleVar(pano, setVars[i], setVars[i].imgNr);
             };
         };
+        Parser::CleanUpParser();
     };
 
     // update optimzer vector
