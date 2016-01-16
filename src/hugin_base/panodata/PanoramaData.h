@@ -106,6 +106,7 @@ public:
     ///
     virtual PanoramaData* getNewCopy() const =0;
     
+    virtual PanoramaData* getUnlinkedSubset(UIntSetVector& imageGroups) const = 0;
     
 // -- Data Access --
     

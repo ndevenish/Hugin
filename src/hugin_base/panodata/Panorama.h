@@ -188,7 +188,12 @@ class IMPEX Panorama : public ManagedPanoramaData, public AppBase::DocumentData
              return new Panorama(this->duplicate());
          }
         
-        
+        /** get a panorama, which does not contain
+        *   images linked with positions, the cps are moved to the first image
+        *   of each linked stacked
+        *  @param imageGroups contains a mapping of the initial images to the new images */
+        PanoramaData* getUnlinkedSubset(UIntSetVector& imageGroups) const;
+
     // -- Data Access --
         
     // = images =    

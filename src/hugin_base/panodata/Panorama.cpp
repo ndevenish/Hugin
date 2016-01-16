@@ -1881,6 +1881,85 @@ Panorama Panorama::getSubset(const UIntSet & imgs) const
     return subset;
 }
 
+int FindStackNumberForImage(const std::vector<UIntSet>& imageGroups, const unsigned int imgNr)
+{
+    for (size_t i = 0; i < imageGroups.size(); ++i)
+    {
+        if (set_contains(imageGroups[i], imgNr))
+        {
+            return i;
+        };
+    };
+    return -1;
+};
+
+PanoramaData* Panorama::getUnlinkedSubset(UIntSetVector& imageGroups) const
+{
+    const CPVector cps = getCtrlPoints();
+    CPVector newCP;
+
+    // remove all connected images, keep only a single image for each connected stack
+    imageGroups.clear();
+    std::vector<bool> visitedImages(getNrOfImages(), false);
+    for (size_t i = 0; i < getNrOfImages(); ++i)
+    {
+        if (visitedImages[i])
+        {
+            continue;
+        };
+        const SrcPanoImage& img1 = getImage(i);
+        UIntSet imgs;
+        imgs.insert(i);
+        visitedImages[i] = true;
+        if (img1.YawisLinked())
+        {
+            for (size_t j = i + 1; j < getNrOfImages(); ++j)
+            {
+                if (img1.YawisLinkedWith(getImage(j)))
+                {
+                    imgs.insert(j);
+                    visitedImages[j] = true;
+                }
+            }
+        };
+        imageGroups.push_back(imgs);
+    };
+    UIntSet singleStackImgs;
+    for (size_t i = 0; i < imageGroups.size(); ++i)
+    {
+        singleStackImgs.insert(*imageGroups[i].begin());
+    };
+    // new generate subpano
+    PanoramaData* subPano = getNewSubset(singleStackImgs);
+    // translate now reference image
+    int newRefImage = FindStackNumberForImage(imageGroups, getOptions().optimizeReferenceImage);
+    if (newRefImage != -1)
+    {
+        PanoramaOptions opts = subPano->getOptions();
+        opts.optimizeReferenceImage = newRefImage;
+        subPano->setOptions(opts);
+    };
+    // remove all vertical and horizontal cp, also remap all cps to new subpano
+    // all cps from removed images will be mapped to first image of corresponding stack
+    for (CPVector::const_iterator it = cps.begin(); it != cps.end(); ++it)
+    {
+        if (it->mode == ControlPoint::X_Y)
+        {
+            ControlPoint cp(*it);
+            int newImg1 = FindStackNumberForImage(imageGroups, cp.image1Nr);
+            int newImg2 = FindStackNumberForImage(imageGroups, cp.image2Nr);
+            if (newImg1 != -1 && newImg2 != -1 && newImg1 != newImg2)
+            {
+                cp.image1Nr = newImg1;
+                cp.image2Nr = newImg2;
+                newCP.push_back(cp);
+            };
+        };
+    };
+    subPano->setCtrlPoints(newCP);
+    return subPano;
+}
+
 void Panorama::mergePanorama(const Panorama &newPano)
 {
     if(newPano.getNrOfImages()>0)
