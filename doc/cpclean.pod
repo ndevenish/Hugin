@@ -22,31 +22,31 @@ bigger than mean+n*sigma.
 
 =over
 
-=item B<-o> output.pto
+=item B<--output|-o> output.pto
 
 Output Hugin PTO file. Default: '<filename>_clean.pto'.
 
-=item B<-n> num
+=item B<--max-distance|-n> num
 
 distance factor for checking (default: 2)
 
-=item B<-p>
+=item B<--pairwise-checking|-p>
 
 do only pairwise optimisation (skip step 2)
 
-=item B<-w>
+=item B<--whole-pano-checking|-w>
 
 do optimise whole panorama (skip step 1)
 
-=item B<-s>
+=item B<--dont-optimize|-s>
 
 skip optimisation step when optimising the whole panorama
 
-=item B<-l>
+=item B<--check-line-cp|-l>
 
 also include line control points for calculation and filtering in step 2
 
-=item B<-h>
+=item B<--help|-h>
 
 shows help
 
