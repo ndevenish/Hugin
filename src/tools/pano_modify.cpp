@@ -214,8 +214,8 @@ int main(int argc, char* argv[])
                 }
                 else
                 {
-                    int hfov, vfov;
-                    int n=sscanf(optarg, "%dx%d", &hfov, &vfov);
+                    double hfov, vfov;
+                    int n=sscanf(optarg, "%lfx%lf", &hfov, &vfov);
                     if(n==1)
                     {
                         if(hfov>0)
