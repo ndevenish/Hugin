@@ -30,40 +30,39 @@
 
 #include <fstream>
 #include <sstream>
-#ifdef _WIN32
 #include <getopt.h>
-#else
-#include <unistd.h>
-#endif
 
 #include <algorithms/optimizer/PTOptimizer.h>
+#include <algorithms/optimizer/ImageGraph.h>
 #include <algorithms/control_points/CleanCP.h>
 #include "panotools/PanoToolsInterface.h"
 
 static void usage(const char* name)
 {
     std::cout << name << ": remove wrong control points by statistic method" << std::endl
-         << "cpclean version " << hugin_utils::GetHuginVersion() << std::endl
-         << std::endl
-         << "Usage:  " << name << " [options] input.pto" << std::endl
-         << std::endl
-         << "CPClean uses statistical methods to remove wrong control points" << std::endl << std::endl
-         << "Step 1 optimises all images pairs, calculates for each pair mean " << std::endl
-         << "       and standard deviation and removes all control points " << std::endl
-         << "       with error bigger than mean+n*sigma" << std::endl
-         << "Step 2 optimises the whole panorama, calculates mean and standard deviation" << std::endl
-         << "       for all control points and removes all control points with error" << std::endl
-         << "       bigger than mean+n*sigma" << std::endl << std::endl
-         << "  Options:" << std::endl
-         << "     -o file.pto  Output Hugin PTO file. Default: '<filename>_clean.pto'." << std::endl
-         << "     -n num   distance factor for checking (default: 2)" << std::endl
-         << "     -p       do only pairwise optimisation (skip step 2)" << std::endl
-         << "     -w       do optimise whole panorama (skip step 1)" << std::endl
-         << "     -s       skip optimisation step when optimisation the whole panorama" << std::endl
-         << "     -l       also include line control points for calculation and" << std::endl
-         << "              filtering in step 2" << std::endl
-         << "     -h       shows help" << std::endl
-         << std::endl;
+        << "cpclean version " << hugin_utils::GetHuginVersion() << std::endl
+        << std::endl
+        << "Usage:  " << name << " [options] input.pto" << std::endl
+        << std::endl
+        << "CPClean uses statistical methods to remove wrong control points" << std::endl << std::endl
+        << "Step 1 optimises all images pairs, calculates for each pair mean " << std::endl
+        << "       and standard deviation and removes all control points " << std::endl
+        << "       with error bigger than mean+n*sigma" << std::endl
+        << "Step 2 optimises the whole panorama, calculates mean and standard deviation" << std::endl
+        << "       for all control points and removes all control points with error" << std::endl
+        << "       bigger than mean+n*sigma" << std::endl << std::endl
+        << "  Options:" << std::endl
+        << "     --output|-o file.pto     Output Hugin PTO file." << std::endl
+        << "                              Default: '<filename>_clean.pto'." << std::endl
+        << "     --max-distance|-n num    distance factor for checking (default: 2)" << std::endl
+        << "     --pairwise-checking|-p   do only pairwise optimisation (skip step 2)" << std::endl
+        << "     --whole-pano-checking|-w do optimise whole panorama (skip step 1)" << std::endl
+        << "     --dont-optimize|-s       skip optimisation step when optimisation the" << std::endl
+        << "                              whole panorama" << std::endl
+        << "     --check-line-cp|-l       also include line control points for calculation" << std::endl
+        << "                              and filtering in step 2" << std::endl
+        << "     --help|-h                 shows help" << std::endl
+        << std::endl;
 }
 
 // dummy panotools progress functions
@@ -81,7 +80,17 @@ int main(int argc, char* argv[])
 {
     // parse arguments
     const char* optstring = "o:hn:pwslv";
-
+    static struct option longOptions[] =
+    {
+        { "output", required_argument, NULL, 'o'},
+        { "max-distance", required_argument, NULL, 'n'},
+        { "pairwise-checking", no_argument, NULL, 'p'},
+        { "whole-pano-checking", no_argument, NULL, 'w'},
+        { "dont-optimize", no_argument, NULL, 's'},
+        { "check-line-cp", no_argument, NULL, 'l' },
+        { "help", no_argument, NULL, 'h' },
+        0
+    };
     int c;
     std::string output;
     bool onlyPair = false;
@@ -90,7 +99,8 @@ int main(int argc, char* argv[])
     bool includeLineCp = false;
     bool verbose = false;
     double n = 2.0;
-    while ((c = getopt (argc, argv, optstring)) != -1)
+    int optionIndex = 0;
+    while ((c = getopt_long(argc, argv, optstring, longOptions, &optionIndex)) != -1)
     {
         switch (c)
         {
@@ -169,7 +179,7 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-    size_t nrImg=pano.getNrOfImages();
+    const size_t nrImg=pano.getNrOfImages();
     if (nrImg < 2)
     {
         std::cerr << "Panorama should consist of at least two images" << std::endl;
@@ -187,7 +197,7 @@ int main(int argc, char* argv[])
         PT_setInfoDlgFcn(ptinfoDlg);
     };
 
-    size_t cpremoved1=0;
+    size_t cpremoved1 = 0;
     HuginBase::UIntSet CPtoRemove;
     // step 1 with pairwise optimisation
     if(!wholePano)
@@ -207,15 +217,9 @@ int main(int argc, char* argv[])
     if(!onlyPair)
     {
         //check for unconnected images
-        HuginBase::CPGraph graph;
-        createCPGraph(pano, graph);
-        HuginBase::CPComponents comps;
-        const size_t parts = HuginBase::findCPComponents(graph, comps);
-        if (parts > 1)
-        {
-            unconnected=true;
-        }
-        else
+        HuginGraph::ImageGraph graph(pano);
+        unconnected = !graph.IsConnected();
+        if (!unconnected)
         {
             CPtoRemove.clear();
             if(skipOptimisation)
