@@ -780,6 +780,20 @@ ELSE()
   SET(CPACK_DEBIAN_PACKAGE_DEPENDS "libpano13(>=2.9.17)")
 ENDIF()
 
+# ignore some directories when creating rpm
+SET(CPACK_RPM_SPEC_MORE_DEFINE "%define ignore \#")
+SET(CPACK_RPM_USER_FILELIST 
+  "%ignore /usr/local"
+  "%ignore /usr/local/bin" 
+  "%ignore /usr/local/lib" 
+  "%ignore /usr/local/share" 
+  "%ignore /usr/local/share/applications" 
+  "%ignore /usr/local/share/man" 
+  "%ignore /usr/local/share/man/man1"
+  "%ignore /usr/lib/python2.7"
+  "%ignore /usr/lib/python2.7/site-packages"
+)
+
 message(STATUS "Current source dir = ${CMAKE_CURRENT_SOURCE_DIR}")
 SET(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA "${CMAKE_CURRENT_SOURCE_DIR}/Debian/postinst"
 				       "${CMAKE_CURRENT_SOURCE_DIR}/Debian/shlibs.local")
