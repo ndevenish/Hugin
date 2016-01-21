@@ -19,7 +19,7 @@ Hugin 2016.0
   (This should prevent the appearing of window when running "nona -g". Linux/Window only)
 * Control point and mask editor retain viewpoint when changing zoom factor.
 * PTBatcherGUI: Minimize to tray is now user configurable.
-* Fixes a bug in photometric optimizer.
+* Fixes a bug in photometric optimizer and merge projects with line control points.
 
 ============================================================================================
 Hugin 2015.0
