@@ -242,7 +242,7 @@ PreviewIdentifyTool::PreviewIdentifyTool(ToolHelper *helper,
                 glTexCoord2f(posX, 1);
                 glVertex2i(0, FONT_TEXTURE_HEIGHT);
                 glEnd();
-                glTranslated(m_glyphWidth[loop], 0, 0);
+                glTranslatef(m_glyphWidth[loop], 0, 0);
                 glEndList();
                 posX += m_glyphWidth[loop] / static_cast<float>(textureWidth);
             }
@@ -516,12 +516,15 @@ void PreviewIdentifyTool::AfterDrawImagesEvent()
             wxString number;
             number << *it;
             int textWidth = 0;
+            unsigned char* listIndex = new unsigned char[number.Length()];
             for (size_t i = 0; i < number.Length(); ++i)
             {
 #if wxCHECK_VERSION(3,0,0)
                 textWidth += m_glyphWidth[number[i].GetValue() - 48];
+                listIndex[i] = number[i].GetValue() - 48;
 #else
                 textWidth += m_glyphWidth[number[i] - 48];
+                listIndex[i] = number[i] - 48;
 #endif
             }
             float scaleFactor = std::min(canvasWidth, canvasHeight) / static_cast<float>(FONT_TEXTURE_HEIGHT) / 10;
@@ -530,10 +533,11 @@ void PreviewIdentifyTool::AfterDrawImagesEvent()
             glTranslatef(imageCenterPano.x, imageCenterPano.y, 0);
             glScalef(scaleFactor, scaleFactor, 1.0);
             glTranslatef(-textWidth / 2, -FONT_TEXTURE_HEIGHT / 2, 0);
-            glListBase(font_list - 48);
-            glCallLists(number.Length(), GL_UNSIGNED_BYTE, number.c_str());
+            glListBase(font_list);
+            glCallLists(number.Length(), GL_UNSIGNED_BYTE, listIndex);
             glMatrixMode(GL_MODELVIEW);
             glPopMatrix();
+            delete[] listIndex;
         };
     }
     // set stuff back how we found it.
