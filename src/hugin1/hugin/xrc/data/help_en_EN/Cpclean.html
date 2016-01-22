@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <title>Cpclean - PanoTools.org Wiki</title>
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
-<meta name="generator" content="MediaWiki 1.23.6" />
+<meta name="generator" content="MediaWiki 1.23.13" />
 
 
 
@@ -56,24 +56,28 @@
 <h3><span class="mw-headline" id="usage">usage</span></h3>
 <p>A typical usage would be:
 </p>
-<pre> cpclean -o output.pto project.pto
+<pre> cpclean --output=output.pto project.pto
 </pre>
 <h3><span class="mw-headline" id="Options">Options</span></h3>
-<p>Vary the threshold with the -n parameter (defaults to 2, i.e. points with a distance error greater than twice the standard deviation are deleted):
+<p>Vary the threshold with the <tt>--max-distance</tt> parameter (defaults to 2, i.e. points with a distance error greater than twice the standard deviation are deleted):
 </p>
-<pre> cpclean -n 1 -o output.pto project.pto
+<pre> cpclean --max-distance=1 --output=output.pto project.pto
 </pre>
 <p>Do only pairwise optimisation (skip step 2):
 </p>
-<pre> cpclean -p -o output.pto project.pto
+<pre> cpclean --pairwise-checking --output=output.pto project.pto
 </pre>
 <p>Do only whole panorama optimisation (skip step 1):
 </p>
-<pre> cpclean -w -o output.pto project.pto
+<pre> cpclean --whole-pano-checking --output=output.pto project.pto
 </pre>
 <p>Use current image positions for calculation of distance errors (skip optimisation of whole panorama):
 </p>
-<pre> cpclean -w -s -o output.pto project.pto
+<pre> cpclean --whole-pano-checking --dont-optimize --output=output.pto project.pto
+</pre>
+<p>By default line control point are ignored by the calculations for step 2. With <tt>--check-line-cp</tt> you can also include these control points into calculation
+</p>
+<pre> cpclean --whole-pano-checking --check-line-cp --output=output.pto project.pto
 </pre>
 <p><b>cpclean</b> is based on ptoclean<a class="external" href="http://wiki.panotools.org/index.php?title=Ptoclean&amp;action=edit&amp;redlink=1">[*]</a>.
 </p>
@@ -81,5 +85,5 @@
 
 
 </div>								<div class="printfooter">
-				Retrieved from "http://wiki.panotools.org/index.php?title=Cpclean&amp;oldid=13505<a class="external" href="http://wiki.panotools.org/index.php?title=Cpclean&amp;oldid=13505">[*]</a>"				</div>
+				Retrieved from "http://wiki.panotools.org/index.php?title=Cpclean&amp;oldid=15800<a class="external" href="http://wiki.panotools.org/index.php?title=Cpclean&amp;oldid=15800">[*]</a>"				</div>
 												</div></div></body></html>
