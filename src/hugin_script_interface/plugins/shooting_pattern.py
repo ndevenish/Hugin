@@ -41,7 +41,7 @@ from __future__ import print_function
 # @name     6-1-1 Shooting Pattern
 # @description apply a shooting pattern (6 around, 1 up 1 down)
 # @sys win nix mac
-# @api-max 2015.1
+# @api-max 2016.1
 # @api-min 2011.1
 
 # the position routine will apply yaw, pitch to an image
