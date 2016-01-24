@@ -344,13 +344,8 @@ public:
             OptimizeVector optvec(imgs.size());
             optvec[currImg] = m_opt;
             localPano->setOptimizeVector(optvec);
-
-            if (imgs.size() > 1)
-            {
-                PTools::optimize(*localPano);
-                m_pano->updateVariables(vertex, localPano->getImageVariables(currImg));
-            }
-
+            PTools::optimize(*localPano);
+            m_pano->updateVariables(vertex, localPano->getImageVariables(currImg));
             delete localPano;
         };
     };
