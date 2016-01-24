@@ -54,7 +54,7 @@ def hpi_dispatch ( plugin_name , *args ) :
             success = -10
 
     # KFJ 2011-06-19 added better exception handling
-    # we catch any exception which may have occured in the plugin:
+    # we catch any exception which may have occurred in the plugin:
     
     except Exception:
 

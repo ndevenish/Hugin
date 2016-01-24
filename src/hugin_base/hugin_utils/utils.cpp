@@ -680,7 +680,7 @@ bool initGPU(int *argcp, char **argv)
     int err = glewInit();
     if (err != GLEW_OK)
     {
-        std::cerr << argv[0] << ": an error occured while setting up the GPU:" << std::endl;
+        std::cerr << argv[0] << ": an error occurred while setting up the GPU:" << std::endl;
         std::cerr << glewGetErrorString(err) << std::endl;
         std::cerr << argv[0] << ": Switching to CPU calculation." << std::endl;
         DestroyContext();

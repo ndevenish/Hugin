@@ -184,7 +184,7 @@ void ImageVariableGroup::switchParts (unsigned int imageNr, unsigned int partNr)
     DEBUG_TRACE("Switching image " << imageNr << " to part " << partNr);
     if (partNr > m_num_parts)
     {
-        DEBUG_ERROR( "Request to switch an image to a nonexistant part." );
+        DEBUG_ERROR( "Request to switch an image to a nonexistent part." );
         return;
     }
     // find an image in this part.

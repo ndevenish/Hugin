@@ -2103,7 +2103,7 @@ void MainFrame::RunAssistant(wxWindow* mainWin)
 
     //delete temporary files
     wxRemoveFile(scriptFileName.GetFullPath());
-    //if return value is non-zero, an error occured in the assistant
+    //if return value is non-zero, an error occurred in the assistant
     if(ret!=0)
     {
         //check for unconnected images

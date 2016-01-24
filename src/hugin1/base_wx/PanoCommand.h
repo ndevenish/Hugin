@@ -47,7 +47,7 @@ namespace PanoCommand
             : PanoCommand(pano), commands(commands) {};
         ~CombinedPanoCommand();
         virtual bool processPanorama(HuginBase::Panorama & pano);
-        virtual std::string getName() const { return "multiple commmands"; };
+        virtual std::string getName() const { return "multiple commands"; };
     private:
         std::vector<PanoCommand*> commands;
     };

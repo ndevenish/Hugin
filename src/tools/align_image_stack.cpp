@@ -854,7 +854,7 @@ int main2(std::vector<std::string> files, Parameters param)
                 std::ofstream script(param.ptoFile.c_str());
                 pano.printPanoramaScript(script, optvars, pano.getOptions(), imgs, false, "");
             }
-            std::cerr << "An error occured during optimization." << std::endl;
+            std::cerr << "An error occurred during optimization." << std::endl;
             std::cerr << "Try adding \"-p debug.pto\" and checking output." << std::endl;
             std::cerr << "Exiting..." << std::endl;
             return 1;

@@ -677,7 +677,7 @@ unsigned char radlum( unsigned char srcPixel, int xc, int yc, void *params )
 
 
 // Get smallest positive (non-zero) root of polynomial with degree deg and
-// (n+1) real coefficients p[i]. Return it, or 1000.0 if none exists or error occured
+// (n+1) real coefficients p[i]. Return it, or 1000.0 if none exists or error occurred
 // Changed to only allow degree 3
 #if 0
 double smallestRoot( double *p )
