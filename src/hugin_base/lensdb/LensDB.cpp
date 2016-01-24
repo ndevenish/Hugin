@@ -205,7 +205,7 @@ public:
         return cropFactor > 0.1;
     };
     // saves the crop factor for the given camera in the database
-    // returns true, if data were successful saved into db, false if errors occured during saving
+    // returns true, if data were successful saved into db, false if errors occurred during saving
     bool SaveCropFactor(const std::string& maker, const std::string& model, const double cropFactor)
     {
         if (m_db == NULL)
@@ -266,7 +266,7 @@ public:
         return projection != -1;
     };
     // saves the projection for the given lens in the database
-    // returns true, if data were successful saved into db, false if errors occured during saving
+    // returns true, if data were successful saved into db, false if errors occurred during saving
     bool SaveLensProjection(const std::string& lens, const int projection)
     {
         if (m_db == NULL)
@@ -325,7 +325,7 @@ public:
         return !hfovData.empty();
     };
     // saves the HFOV data in the database
-    // returns true, if data were successful saved into db, false if errors occured during saving
+    // returns true, if data were successful saved into db, false if errors occurred during saving
     bool SaveHFOV(const std::string& lens, const double focallength, const double HFOV, const int weight = 10)
     {
         if (m_db == NULL)
@@ -383,7 +383,7 @@ public:
         return !cropData.empty();
     };
     // saves the crop for the given lens in the database
-    // returns true, if data were successful saved into db, false if errors occured during saving
+    // returns true, if data were successful saved into db, false if errors occurred during saving
     bool SaveLensCrop(const std::string& lens, const double focal, const int width, const int height, const int left, const int right, const int top, const int bottom)
     {
         if (m_db == NULL)
@@ -479,7 +479,7 @@ public:
         return !distData.empty();
     };
     // saves the distortion data in the database
-    // returns true, if data were successful saved into db, false if errors occured during saving
+    // returns true, if data were successful saved into db, false if errors occurred during saving
     bool SaveDistortion(const std::string& lens, const double focallength, const double a, const double b, const double c, const int weight = 10)
     {
         if (m_db == NULL)
@@ -556,7 +556,7 @@ public:
         return !vigData.empty();
     };
     // saves the vignetting data in the database
-    // returns true, if data were successful saved into db, false if errors occured during saving
+    // returns true, if data were successful saved into db, false if errors occurred during saving
     bool SaveVignetting(const std::string& lens, const double focallength, const double aperture, const double distance, const double Vb, const double Vc, const double Vd, const int weight = 10)
     {
         if (m_db == NULL)
@@ -616,7 +616,7 @@ public:
         return !tcaData.empty();
     };
     // saves the tca data in the database
-    // returns true, if data were successful saved into db, false if errors occured during saving
+    // returns true, if data were successful saved into db, false if errors occurred during saving
     bool SaveTCAData(const std::string& lens, const double focallength, const double ra, const double rb, const double rc, const double rd,
         const double ba, const double bb, const double bc, const double bd, const int weight = 10)
     {
@@ -646,7 +646,7 @@ public:
         return returnValue == SQLITE_DONE;
     };
     // saves the EMoR data in the database
-    // returns true, if data were successful saved into db, false if errors occured during saving
+    // returns true, if data were successful saved into db, false if errors occurred during saving
     bool SaveEMoR(const std::string& maker, const std::string& model, const int iso, const double Ra, const double Rb, const double Rc, const double Rd, const double Re, const int weight = 10)
     {
         if (m_db == NULL)

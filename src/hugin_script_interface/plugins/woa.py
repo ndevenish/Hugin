@@ -1835,7 +1835,7 @@ def entry ( pano ) :
     # This resulted in the 'script returned XXX' popup
     # turining up, usually, hidden behind other windows
     # so now I return 0 and there is only a popup if an
-    # error occured.
+    # error occurred.
     
     # return total_cps_added
     return 0

@@ -70,11 +70,11 @@
     #define DEBUG_NOTICE(msg)
 #endif
 
-// when an error occured, but can be handled by the same function
+// when an error occurred, but can be handled by the same function
 #define DEBUG_WARN(msg) { std::cerr << "WARN: " << DEBUG_HEADER << msg << std::endl; }
-// an error occured, might be handled by a calling function
+// an error occurred, might be handled by a calling function
 #define DEBUG_ERROR(msg) { std::cerr << "ERROR: " << DEBUG_HEADER << msg << std::endl; }
-// a fatal error occured. further program execution is unlikely
+// a fatal error occurred. further program execution is unlikely
 #define DEBUG_FATAL(msg) { std::cerr << "FATAL: " << DEBUG_HEADER << "(): " << msg << std::endl; }
 // C-style assertion
 #define DEBUG_ASSERT(cond) assert(cond)

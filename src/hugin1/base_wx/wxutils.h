@@ -56,11 +56,11 @@
     #undef DEBUG_FATAL
     #undef DEBUG_ASSERT
 
-    // when an error occured, but can be handled by the same function
+    // when an error occurred, but can be handled by the same function
     #define DEBUG_WARN(msg) { std::stringstream o; o << "WARN: " << DEBUG_HEADER << msg; wxLogWarning(wxString(o.str().c_str(), wxConvISO8859_1));}
-    // an error occured, might be handled by a calling function
+    // an error occurred, might be handled by a calling function
     #define DEBUG_ERROR(msg) { std::stringstream o; o << "ERROR: " << DEBUG_HEADER << msg; wxLogError(wxString(o.str().c_str(),wxConvISO8859_1));}
-    // a fatal error occured. further program execution is unlikely
+    // a fatal error occurred. further program execution is unlikely
     #define DEBUG_FATAL(msg) { std::stringstream o; o << "FATAL: " << DEBUG_HEADER << "(): " << msg; wxLogError(wxString(o.str().c_str(),wxConvISO8859_1)); }
     // assertion
     #define DEBUG_ASSERT(cond) \

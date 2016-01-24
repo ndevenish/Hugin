@@ -33,7 +33,7 @@
 namespace HuginQueue
 {
 
-    /** normal command for queue, processing is stopped if an error occured in program */
+    /** normal command for queue, processing is stopped if an error occurred in program */
     class WXIMPEX NormalCommand 
     {
     public:
@@ -48,7 +48,7 @@ namespace HuginQueue
         wxString m_comment;
     };
 
-    /** optional command for queue, processing of queue is always continued, also if an error occured */
+    /** optional command for queue, processing of queue is always continued, also if an error occurred */
     class OptionalCommand : public NormalCommand
     {
     public:
