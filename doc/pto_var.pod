@@ -1,6 +1,6 @@
 =head1 NAME
 
-pto_var: change image variables inside Hugin .pto project files
+pto_var - change image variables inside Hugin .pto project files
 
 =head1 SYNOPSIS
 
