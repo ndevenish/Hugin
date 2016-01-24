@@ -128,7 +128,7 @@ vigra_ext/ReduceOpenEXR.h
 
 IF (${HUGIN_SHARED_LIBS})
   add_library(huginbase SHARED ${HUGIN_BASE_SRC} ${HUGIN_BASE_HEADER})
-  target_link_libraries(huginbase ${Boost_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
+  target_link_libraries(huginbase ${Boost_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT} ${X11_X11_LIB})
   set_target_properties(huginbase PROPERTIES VERSION ${HUGIN_LIB_VERSION})
   IF(WIN32)
     install(TARGETS huginbase RUNTIME DESTINATION ${BINDIR})
