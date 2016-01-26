@@ -162,10 +162,10 @@ void PhotometricOptimizer::photometricError(double *p, double *x, int m, int n, 
     OptimData * dat = static_cast<OptimData*>(data);
     dat->FromX(p);
 #ifdef DEBUG_LOG_VIG
-    ostringstream oss;
+    std::ostringstream oss;
     oss << "vig_log_" << iter;
     iter++;
-    ofstream log(oss.str().c_str());
+    std::ofstream log(oss.str().c_str());
     log << "VIGparams = [";
     for (int i = 0; i < m; i++) {
         log << p[i] << " ";
@@ -348,7 +348,7 @@ void PhotometricOptimizer::optimizePhotometric(PanoramaData & pano, const Optimi
     error = sqrt(error/n);
 
 #ifdef DEBUG
-    printf("Levenberg-Marquardt returned %d in %g iter, reason %g\nSolution: ", ret, info[5], info[6]);
+    printf("Levenberg-Marquardt returned in %g iter, reason %g\nSolution: ", info[5], info[6]);
     for(int i=0; i<m; ++i)
         printf("%.7g ", p[i]);
     printf("\n\nMinimization info:\n");

@@ -187,31 +187,31 @@ void ImageCache::softFlush()
     std::map<std::string, EntryPtr>::iterator imgIt;
     for(imgIt=images.begin(); imgIt != images.end(); ++imgIt) {
 #ifdef DEBUG
-        cout << "Image: " << imgIt->first << std::endl;
-        cout << "CacheEntry: " << imgIt->second.use_count() << "last access: " << imgIt->second->lastAccess;
+        std::cout << "Image: " << imgIt->first << std::endl;
+        std::cout << "CacheEntry: " << imgIt->second.use_count() << "last access: " << imgIt->second->lastAccess;
 #endif
         if (imgIt->second->image8) {
             imgMem += imgIt->second->image8->width() * imgIt->second->image8->height() * 3;
 #ifdef DEBUG
-            cout << " 8bit: " << imgIt->second->image8.use_count();
+            std::cout << " 8bit: " << imgIt->second->image8.use_count();
 #endif
         }
         if (imgIt->second->image16) {
             imgMem += imgIt->second->image16->width() * imgIt->second->image16->height() * 3*2;
 #ifdef DEBUG
-            cout << " 16bit: " << imgIt->second->image8.use_count();
+            std::cout << " 16bit: " << imgIt->second->image8.use_count();
 #endif
         }
         if (imgIt->second->imageFloat) {
             imgMem += imgIt->second->imageFloat->width() * imgIt->second->imageFloat->height() * 3 * 4;
 #ifdef DEBUG
-            cout << " float: " << imgIt->second->imageFloat.use_count() ;
+            std::cout << " float: " << imgIt->second->imageFloat.use_count() ;
 #endif
         }
         if (imgIt->second->mask) {
             imgMem += imgIt->second->mask->width() * imgIt->second->mask->height();
 #ifdef DEBUG
-            cout << " mask: " << imgIt->second->mask.use_count() << std:: endl;
+            std::cout << " mask: " << imgIt->second->mask.use_count() << std::endl;
 #endif
         }
     }
