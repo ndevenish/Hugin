@@ -191,11 +191,10 @@ void remapImage(SrcImgType & srcImg,
 #include <vigra_ext/ImageTransforms.h>
 #include <vigra_ext/ImageTransformsGPU.h>
 
-#ifdef DEBUG
-#define DEBUG_REMAP 1
-#endif
+// #define DEBUG_REMAP 1
 
 #ifdef DEBUG_REMAP
+#include <vigra/impex.hxx> // for vigra::exportImage()
 #ifdef _WIN32
 #define DEBUG_FILE_PREFIX "C:/temp/"
 #else
