@@ -109,7 +109,7 @@ namespace PanoCommand
     {
     public:
         wxAddCtrlPointGridCmd(HuginBase::Panorama & p, unsigned int i1, unsigned int i2, double scale, double threshold)
-            : PanoCommand(p), img1(i1), img2(i2), scale(scale), cornerThreshold(threshold), dx(0), dy(0)
+            : PanoCommand(p), img1(i1), img2(i2), dx(0), dy(0), scale(scale), cornerThreshold(threshold)
         { }
         virtual bool processPanorama(HuginBase::Panorama& pano);
 

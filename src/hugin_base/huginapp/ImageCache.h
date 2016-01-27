@@ -96,8 +96,8 @@ class IMPEX ImageCache
                       ImageCache8Ptr & imgMask,
                       ImageCacheICCProfile & ICCProfile,
                       const std::string & typ)
-                  : image8(img), image16(img16), imageFloat(imgFloat), mask(imgMask), origType(typ), lastAccess(0),
-                    iccProfile(ICCProfile)
+                  : image8(img), image16(img16), imageFloat(imgFloat), mask(imgMask),
+                    iccProfile(ICCProfile), origType(typ), lastAccess(0)
                 { 
                         DEBUG_TRACE("Constructing ImageCache::Entry");
                 };
@@ -161,8 +161,8 @@ class IMPEX ImageCache
     private:
         // ctor. private, nobody execpt us can create an instance.
         ImageCache()
-            : m_progress(NULL), m_accessCounter(0),
-              asyncLoadCompleteSignal(0), upperBound(100*1024*1024l)
+            : asyncLoadCompleteSignal(0), upperBound(100*1024*1024l),
+              m_progress(NULL), m_accessCounter(0)
         {};
         
     public:

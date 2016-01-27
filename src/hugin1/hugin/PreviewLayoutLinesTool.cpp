@@ -81,10 +81,10 @@ public:
 
 PreviewLayoutLinesTool::PreviewLayoutLinesTool(ToolHelper *helper)
     : Tool(helper),
+      m_holdOnNear(false),
       m_updateStatistics(true),
       m_nearestLine(-1),
-      m_useNearestLine(false),
-      m_holdOnNear(false)
+      m_useNearestLine(false)
 {
     helper->GetPanoramaPtr()->addObserver(this);
     // make the textures. We have a circle border and a square one.

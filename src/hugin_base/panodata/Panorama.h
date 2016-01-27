@@ -53,7 +53,7 @@ class IMPEX PanoramaMemento : public PanoramaDataMemento
         
     public:
         PanoramaMemento()
-            : PanoramaDataMemento(), needsOptimization(false), optSwitch(0), optPhotoSwitch(0)
+            : PanoramaDataMemento(), optSwitch(0), optPhotoSwitch(0), needsOptimization(false)
         {};
         
         /// copy ctor.

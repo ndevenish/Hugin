@@ -119,7 +119,7 @@ class PanosphereOverviewOutlinesTool : public OverviewOutlinesTool, public Panos
 {
     public:
 
-        PanosphereOverviewOutlinesTool(PanosphereOverviewToolHelper* helper, GLViewer * preview) : PanosphereOverviewTool(helper), OverviewOutlinesTool(helper, preview) {}
+        PanosphereOverviewOutlinesTool(PanosphereOverviewToolHelper* helper, GLViewer * preview) : OverviewOutlinesTool(helper, preview), PanosphereOverviewTool(helper) {}
 
         void Activate();
         void AfterDrawImagesBackEvent();
@@ -135,7 +135,7 @@ class PlaneOverviewOutlinesTool : public OverviewOutlinesTool, public PlaneOverv
 {
     public:
 
-        PlaneOverviewOutlinesTool(PlaneOverviewToolHelper* helper, GLViewer * preview) : PlaneOverviewTool(helper), OverviewOutlinesTool(helper, preview) {}
+        PlaneOverviewOutlinesTool(PlaneOverviewToolHelper* helper, GLViewer * preview) : OverviewOutlinesTool(helper, preview), PlaneOverviewTool(helper) {}
 
         void Activate();
         void AfterDrawImagesEvent();

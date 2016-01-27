@@ -111,7 +111,7 @@ BEGIN_EVENT_TABLE(PanoPanel, wxPanel)
 END_EVENT_TABLE()
 
 PanoPanel::PanoPanel()
-    : pano(0), updatesDisabled(false), m_guiLevel(GUI_SIMPLE)
+    : pano(0), m_guiLevel(GUI_SIMPLE), updatesDisabled(false)
 {
 
 }

@@ -51,19 +51,19 @@ public:
 
 };
 
-inline KeyPoint::KeyPoint() : _vec(0), _x(0), _y(0), _scale(1), _score(0), _trace(0), _ori(0)
+inline KeyPoint::KeyPoint() : _x(0), _y(0), _scale(1), _score(0), _trace(0), _ori(0), _vec(0)
 {
 
 }
 
 inline KeyPoint::KeyPoint(double x, double y, double s, double score, int trace) :
-    _x(x), _y(y), _scale(s), _score(score), _trace(trace), _vec(0), _ori(0)
+    _x(x), _y(y), _scale(s), _score(score), _trace(trace), _ori(0), _vec(0)
 {
 
 }
 
 inline KeyPoint::KeyPoint(const KeyPoint& k) :
-    _x(k._x), _y(k._y), _scale(k._scale), _score(k._score), _trace(k._trace), _vec(0), _ori(0)
+    _x(k._x), _y(k._y), _scale(k._scale), _score(k._score), _trace(k._trace), _ori(0), _vec(0)
 {
 
 }

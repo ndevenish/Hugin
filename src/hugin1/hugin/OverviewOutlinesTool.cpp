@@ -40,12 +40,12 @@
 const double OverviewOutlinesTool::res=10;
 const double OverviewOutlinesTool::mindist=2;
 
-OverviewOutlinesTool::OverviewOutlinesTool(ToolHelper * helper, GLViewer * viewer) : preview(viewer), thelper(helper),
+OverviewOutlinesTool::OverviewOutlinesTool(ToolHelper * helper, GLViewer * viewer) : thelper(helper),
+    dirty_meshes(true), preview(viewer),
     display_list_number_canvas(glGenLists(1)),
     display_list_number_crop(glGenLists(1)),
     display_list_number_canvas_outline(glGenLists(1)),
-    display_list_number_crop_outline(glGenLists(1)),
-    dirty_meshes(true)
+    display_list_number_crop_outline(glGenLists(1))
 {
     thelper->GetPanoramaPtr()->addObserver(this);
 }

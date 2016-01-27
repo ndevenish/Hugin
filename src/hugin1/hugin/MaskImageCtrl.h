@@ -50,7 +50,7 @@ public:
     /** ctor.
      */
     MaskImageCtrl()
-        : m_scaleFactor(1),m_fitToWindow(false),m_maskEditState(NO_IMAGE)
+        : m_maskEditState(NO_IMAGE), m_scaleFactor(1), m_fitToWindow(false)
         { }
 
     bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL, const wxString& name = wxT("panel"));

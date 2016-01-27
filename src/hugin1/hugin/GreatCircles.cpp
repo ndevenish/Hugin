@@ -65,7 +65,7 @@ void GreatCircles::drawLineFromSpherical(double startLat, double startLong,
     GreatCircleArc(startLat, startLong, endLat, endLong, *m_visualizationState).draw(true, width);
 }
 
-GreatCircleArc::GreatCircleArc() : m_visualizationState(NULL), m_xscale(DBL_MAX)
+GreatCircleArc::GreatCircleArc() : m_xscale(DBL_MAX), m_visualizationState(NULL)
 {
 }
 

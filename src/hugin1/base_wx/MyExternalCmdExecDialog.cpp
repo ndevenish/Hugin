@@ -76,7 +76,7 @@ END_EVENT_TABLE()
 // frame constructor
 MyExecPanel::MyExecPanel(wxWindow * parent)
        : wxPanel(parent),
-       m_timerIdleWakeUp(this), m_queue(NULL), m_checkReturnCode(true), m_queueLength(0)
+       m_timerIdleWakeUp(this), m_queue(NULL), m_queueLength(0), m_checkReturnCode(true)
 {
     m_pidLast = 0;
 

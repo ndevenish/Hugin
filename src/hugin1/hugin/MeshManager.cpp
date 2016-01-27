@@ -128,11 +128,11 @@ MeshManager::MeshInfo::MeshInfo(HuginBase::Panorama * m_pano_in,
     :   display_list_number(glGenLists(1)), // Find a free display list.
         image(*image),
         m_pano(m_pano_in),
+        scale_factor(3.0),
         m_visualization_state(visualization_state_in),
         remap(layout_mode_on_in ? (MeshRemapper *) new LayoutRemapper(m_pano, &(this->image), m_visualization_state)
                                 : (MeshRemapper *) new ChoosyRemapper(m_pano, &(this->image), m_visualization_state)),
-        layout_mode_on(layout_mode_on_in),
-        scale_factor(3.0)
+        layout_mode_on(layout_mode_on_in)
 {
 }
 
@@ -141,11 +141,11 @@ MeshManager::MeshInfo::MeshInfo(const MeshInfo & source)
     :   display_list_number(glGenLists(1)),
     image(source.image),
     m_pano(source.m_pano),
+    scale_factor(3.0),
     m_visualization_state(source.m_visualization_state),
     remap(source.layout_mode_on ? (MeshRemapper *) new LayoutRemapper(source.m_pano, (HuginBase::SrcPanoImage*) &(source.image), source.m_visualization_state)
                                 : (MeshRemapper *) new ChoosyRemapper(source.m_pano, (HuginBase::SrcPanoImage*) &(source.image), source.m_visualization_state)),
-    layout_mode_on(source.layout_mode_on),
-    scale_factor(3.0)
+    layout_mode_on(source.layout_mode_on)
 {
 }
 

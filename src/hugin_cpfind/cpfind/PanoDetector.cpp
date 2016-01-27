@@ -101,11 +101,13 @@ std::string getKeyfilenameFor(std::string keyfilesPath, std::string filename)
 PanoDetector::PanoDetector() :
     _writeAllKeyPoints(false), _verbose(1),
     _sieve1Width(10), _sieve1Height(10), _sieve1Size(100),
-    _kdTreeSearchSteps(200), _kdTreeSecondDistance(0.25), _ransacIters(1000), _ransacDistanceThres(50),
-    _sieve2Width(5), _sieve2Height(5), _sieve2Size(1), _test(false), _cores(0), svmModel(NULL),
-    _minimumMatches(6), _linearMatchLen(1), _downscale(true), _cache(false), _cleanup(false),
-    _keypath(""), _outputFile("default.pto"), _outputGiven(false), _celeste(false), _celesteThreshold(0.5), _celesteRadius(20), 
-    _matchingStrategy(ALLPAIRS), _ransacMode(HuginBase::RANSACOptimizer::AUTO)
+    _kdTreeSearchSteps(200), _kdTreeSecondDistance(0.25),
+    _minimumMatches(6), _ransacMode(HuginBase::RANSACOptimizer::AUTO), _ransacIters(1000), _ransacDistanceThres(50),
+    _sieve2Width(5), _sieve2Height(5), _sieve2Size(1),
+    _matchingStrategy(ALLPAIRS), _linearMatchLen(1),
+    _test(false), _cores(0), _downscale(true), _cache(false), _cleanup(false),
+    _celeste(false), _celesteThreshold(0.5), _celesteRadius(20), 
+    _keypath(""), _outputFile("default.pto"), _outputGiven(false), svmModel(NULL)
 {
     _panoramaInfo = new HuginBase::Panorama();
 }
@@ -285,7 +287,7 @@ class ImgDataRunnable : public Runnable
 {
 public:
     ImgDataRunnable(PanoDetector::ImgData& iImageData, const PanoDetector& iPanoDetector) : Runnable(),
-        _imgData(iImageData), _panoDetector(iPanoDetector) {};
+        _panoDetector(iPanoDetector), _imgData(iImageData) {};
 
     virtual void run()
     {
@@ -311,7 +313,7 @@ class WriteKeyPointsRunnable : public Runnable
 {
 public:
     WriteKeyPointsRunnable(PanoDetector::ImgData& iImageData, const PanoDetector& iPanoDetector) :
-        _imgData(iImageData), _panoDetector(iPanoDetector) {};
+        _panoDetector(iPanoDetector), _imgData(iImageData) {};
 
     virtual void run()
     {
@@ -336,7 +338,7 @@ class LoadKeypointsDataRunnable : public Runnable
 {
 public:
     LoadKeypointsDataRunnable(PanoDetector::ImgData& iImageData, const PanoDetector& iPanoDetector) :
-        _imgData(iImageData), _panoDetector(iPanoDetector) {};
+        _panoDetector(iPanoDetector), _imgData(iImageData) {};
 
     virtual void run()
     {
@@ -355,7 +357,7 @@ class MatchDataRunnable : public Runnable
 {
 public:
     MatchDataRunnable(PanoDetector::MatchData& iMatchData, const PanoDetector& iPanoDetector) :
-        _matchData(iMatchData), _panoDetector(iPanoDetector) {};
+        _panoDetector(iPanoDetector), _matchData(iMatchData) {};
 
     virtual void run()
     {
