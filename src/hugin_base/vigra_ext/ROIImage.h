@@ -467,15 +467,7 @@ void reduceROIImages(std::vector<ROIIMG *> images,
                      vigra::pair<MaskIter, MaskAccessor> destMask,
                      FUNCTOR & reduce)
 {
-    typedef typename DestAccessor::value_type ImgType;
     typedef typename MaskAccessor::value_type MaskType;
-
-    typedef typename
-        vigra::NumericTraits<ImgType> Traits;
-    typedef typename
-        Traits::RealPromote RealImgType;
-
-    typedef typename vigra_ext::LUTTraits<MaskType> MaskLUTTraits;
 
     unsigned int nImg = images.size();
 

@@ -869,8 +869,6 @@ namespace vigra
             const ImageExportInfo& export_info,
             /* isScalar? */ VigraFalseType)
         {
-            typedef typename ImageAccessor::value_type ImageBaseType;
-            typedef typename ImageBaseType::value_type ImageValueType;
             typedef typename AlphaAccessor::value_type AlphaValueType;
 
             VIGRA_UNIQUE_PTR<Encoder> encoder(vigra::encoder(export_info));

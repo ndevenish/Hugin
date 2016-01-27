@@ -768,11 +768,7 @@ public:
                 SingleImageRemapper<ImageType, AlphaType> & remapper,
                 FUNCTOR & reduce)
     {
-        typedef typename
-            vigra::NumericTraits<typename ImageType::value_type> Traits;
-        typedef typename
-            Traits::RealPromote RealImgType;
-        typedef typename ImageType::value_type ImgType;
+        typedef typename vigra::NumericTraits<typename ImageType::value_type> Traits;
         typedef typename AlphaAccessor::value_type MaskType;
 
         Base::stitch(opts, imgSet, "dummy", remapper);
@@ -973,7 +969,6 @@ public:
                     const vigra::Rect2D & panoROI)
     {
         DEBUG_DEBUG("pano roi: " << panoROI << " img roi: " << img.boundingBox());
-	    typedef typename AlphaIter::value_type AlphaValue;
 
 //        DEBUG_DEBUG("no overlap, copying upper area. imgroi " << img.roi());
 //        DEBUG_DEBUG("pano roi: " << panoROI.upperLeft() << " -> " << panoROI.lowerRight());

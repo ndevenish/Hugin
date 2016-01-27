@@ -69,10 +69,6 @@ SmallRemappedImageCache::getRemapped(const PanoramaData& pano,
 
     ImageCache::getInstance().softFlush();
 
-    typedef  vigra::BasicImageView<vigra::RGBValue<unsigned char> > BRGBImageView;
-
-//    typedef NumericTraits<PixelType>::RealPromote RPixelType;
-
     // remap image
     DEBUG_DEBUG("remapping image " << imgNr);
 

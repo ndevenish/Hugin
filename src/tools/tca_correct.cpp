@@ -466,7 +466,6 @@ void createCtrlPoints(HuginBase::Panorama& pano, const ImageType& img, int imgRe
     };
     //////////////////////////////////////////////////
     // find interesting corners using harris corner detector
-    typedef std::vector<std::multimap<double, vigra::Diff2D> > MapVector;
 
     if (g_param.verbose > 0)
     {

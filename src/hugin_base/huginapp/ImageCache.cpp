@@ -385,8 +385,6 @@ void ImageCache::importAndConvertImage(const vigra::ImageImportInfo & info,
                                        vigra::pair<DestIterator, DestAccessor> dest,
                                        const std::string & type)
 {
-    typedef typename DestAccessor::value_type DestPixelType;
-
     if (type == "FLOAT" || type == "DOUBLE" ) {
         // import image as it is
         vigra::importImage(info, dest);
@@ -394,93 +392,11 @@ void ImageCache::importAndConvertImage(const vigra::ImageImportInfo & info,
         vigra::importImage(info, dest);
         // integer image.. scale to 0 .. 1
         double scale = 1.0/vigra_ext::LUTTraits<SrcPixelType>::max();
-//        DestPixelType factor(scale);
-        vigra_ext::Multiply<double> f(scale);
         vigra::transformImage(dest.first, dest.first + vigra::Diff2D(info.width(), info.height()), dest.second,
             dest.first, dest.second,
             vigra::functor::Arg1()*vigra::functor::Param(scale));
     }
 }
-
-#if 0
-
-template <class SrcPixelType,
-          class DestIterator, class DestAccessor>
-void ImageCache::importAndConvertGrayImage(const ImageImportInfo & info,
-                                           vigra::pair<DestIterator, DestAccessor> dest,
-                                           wxString type)
-
-{
-    typedef typename DestAccessor::value_type DestPixelType;
-    typedef typename DestPixelType::value_type DestComponentType;
-    typedef SrcPixelType SrcComponentType;
-
-    // load image into temporary buffer.
-    BasicImage<SrcPixelType> tmp(info.width(), info.height());
-    vigra::importImage(info, destImage(tmp));
-
-    SrcComponentType min,max;
-
-    int range = wxConfigBase::Get()->Read(wxT("/ImageCache/Range"), HUGIN_IMGCACHE_RANGE);
-    if (range == 0) {
-        double t;
-        wxConfigBase::Get()->Read(wxT("/ImageCache/") + type + wxT("/min"), &t, double(GetRange<SrcComponentType>::min()));
-        min = SrcComponentType(t);
-        wxConfigBase::Get()->Read(wxT("/ImageCache/") + type + wxT("/max"), &t, double(GetRange<SrcComponentType>::max()));
-        max = SrcComponentType(t);
-    } else if (range == 1) {
-        vigra::FindMinMax<SrcComponentType> minmax;   // init functor
-        vigra::inspectImage(srcImageRange(tmp),
-                            minmax);
-        min = minmax.min;
-        max = minmax.max;
-    } else{
-        vigra_fail("Unknown image import range mode");
-    }
-
-    int mapping = wxConfigBase::Get()->Read(wxT("/ImageCache/Mapping"), HUGIN_IMGCACHE_MAPPING);
-    applyMapping(srcImageRange(tmp), dest, min, max, mapping);
-}
-
-template <class SrcPixelType,
-          class DestIterator, class DestAccessor>
-void ImageCache::importAndConvertGrayAlphaImage(const ImageImportInfo & info,
-                                                vigra::pair<DestIterator, DestAccessor> dest,
-                                                wxString type)
-{
-    typedef typename DestAccessor::value_type DestPixelType;
-    typedef typename DestPixelType::value_type DestComponentType;
-    typedef SrcPixelType SrcComponentType;
-
-    // load image into temporary buffer.
-    BasicImage<SrcPixelType> tmp(info.width(), info.height());
-    BImage mask(info.width(), info.height());
-    vigra::importImageAlpha(info, destImage(tmp), destImage(mask));
-
-    SrcComponentType min,max;
-
-    int range = wxConfigBase::Get()->Read(wxT("/ImageCache/Range"), HUGIN_IMGCACHE_RANGE);
-    if (range == 0) {
-        double t;
-        wxConfigBase::Get()->Read(wxT("/ImageCache/") + type + wxT("/min"), &t, double(GetRange<SrcComponentType>::min()));
-        min = SrcComponentType(t);
-        wxConfigBase::Get()->Read(wxT("/ImageCache/") + type + wxT("/max"), &t, double(GetRange<SrcComponentType>::max()));
-        max = SrcComponentType(t);
-    } else if (range == 1) {
-        vigra::FindMinMax<SrcComponentType> minmax;   // init functor
-        vigra::inspectImage(srcImageRange(tmp),
-                            minmax);
-        min = minmax.min;
-        max = minmax.max;
-    } else{
-        vigra_fail("Unknown image import range mode");
-    }
-
-    int mapping = wxConfigBase::Get()->Read(wxT("/ImageCache/Mapping"), HUGIN_IMGCACHE_MAPPING);
-    applyMapping(srcImageRange(tmp), dest, min, max, mapping);
-}
-
-#endif
 
 template <class SrcPixelType,
           class DestIterator, class DestAccessor,

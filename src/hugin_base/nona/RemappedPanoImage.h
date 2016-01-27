@@ -771,11 +771,6 @@ void remapImage(SrcImgType & srcImg,
                 RemappedPanoImage<DestImgType, MaskImgType> & remapped,
                 AppBase::ProgressDisplay* progress)
 {
-    typedef typename SrcImgType::value_type SrcPixelType;
-    typedef typename DestImgType::value_type DestPixelType;
-
-    typedef typename vigra::NumericTraits<SrcPixelType>::RealPromote RSrcPixelType;
-
 #ifdef DEBUG_REMAP
     {
         vigra::ImageExportInfo exi( DEBUG_FILE_PREFIX "hugin03_BeforeRemap.tif");

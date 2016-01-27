@@ -81,8 +81,6 @@ void reduceNTimes(Image & in, ImageMask & inMask, Image & out, ImageMask & outMa
 {
     typedef typename Image::value_type vt;
     typedef typename vigra::NumericTraits<vt>::RealPromote SKIPSMType;
-    typedef typename ImageMask::value_type mt;
-//    typedef typename vigra::NumericTraits<mt>::Promote SKIPSMAlphaType;
     typedef double SKIPSMAlphaType;
 
     if (n <= 0) {

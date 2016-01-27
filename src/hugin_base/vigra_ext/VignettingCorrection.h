@@ -437,7 +437,6 @@ void flatfieldVigCorrection(vigra::triple<ImgIter, ImgIter, ImgAccessor> srcImg,
     typedef typename vigra::NumericTraits<PT>::RealPromote RPT;
     typedef typename FFAccessor::value_type FFT;
     typedef typename vigra::NumericTraits<FFT>::RealPromote RFFT;
-    typedef typename DestAccessor::value_type OPT;
 
     typedef PassThroughFunctor<RPT> RnF;
     typedef LinearTransformFunctor<RPT> LTF;
@@ -487,7 +486,6 @@ void radialVigCorrection(vigra::triple<ImgIter, ImgIter, ImgAccessor> srcImg,
 {
     typedef typename ImgAccessor::value_type PT;
     typedef typename vigra::NumericTraits<PT>::RealPromote RPT;
-    typedef typename ImgAccessor::value_type OutPixelType;
 
     typedef PolySqDistFunctor<4> PolyF;
     typedef PassThroughFunctor<RPT> RnF;

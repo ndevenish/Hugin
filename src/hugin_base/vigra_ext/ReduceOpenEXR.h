@@ -53,7 +53,6 @@ template<class Functor>
 void reduceFilesToHDR(std::vector<std::string> input, std::string output,
                       bool onlyCompleteOverlap, Functor & reduce)
 {
-    typedef float MaskType;
     typedef vigra::RGBValue<float> PixelType;
     typedef sharedPtrNamespace::shared_ptr<Imf::RgbaInputFile> InFilePtr;
     typedef sharedPtrNamespace::shared_ptr<vigra_ext::FileRAII> AutoFilePtr;

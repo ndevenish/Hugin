@@ -39,7 +39,6 @@
 template<class ImageType>
 std::vector<ImageType *> loadImagesPyr(std::vector<std::string> files, int pyrLevel, int verbose)
 {
-    typedef typename ImageType::value_type PixelType;
     std::vector<ImageType *> srcImgs(files.size());
 #ifdef _WIN32
     // init vigra codec manager before threaded section
