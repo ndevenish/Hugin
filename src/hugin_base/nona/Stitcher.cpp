@@ -94,9 +94,9 @@ void stitchPanorama(const PanoramaData & pano,
 
 #if 1
     if (opts.outputMode == PanoramaOptions::OUTPUT_HDR) {
-        if (bands == 1 || bands == 2 && extraBands == 1) {
+        if (bands == 1 || (bands == 2 && extraBands == 1)) {
             stitchPanoIntern<vigra::FImage, vigra::BImage>(pano, opts, progress, basename, usedImgs, advOptions);
-        } else if (bands == 3 || bands == 4 && extraBands == 1) {
+        } else if (bands == 3 || (bands == 4 && extraBands == 1)) {
             stitchPanoIntern<vigra::FRGBImage, vigra::BImage>(pano, opts, progress, basename, usedImgs, advOptions);
         } else {
             DEBUG_ERROR("unsupported depth, only images with 1 and 3 channel images are supported");
@@ -104,7 +104,7 @@ void stitchPanorama(const PanoramaData & pano,
         }
     } else {
         // stitch the pano with a suitable image type
-        if (bands == 1 || bands == 2 && extraBands == 1) {
+        if (bands == 1 || (bands == 2 && extraBands == 1)) {
             if (pixelType ==  "UINT8"||
                 pixelType == "INT16" ||
                 pixelType == "UINT16" )
@@ -113,7 +113,7 @@ void stitchPanorama(const PanoramaData & pano,
             } else {
                 stitchPanoGray_32_float(pano, opts, progress, basename, usedImgs, pixelType.c_str(), advOptions);
             }
-        } else if (bands == 3 || bands == 4 && extraBands == 1) {
+        } else if (bands == 3 || (bands == 4 && extraBands == 1)) {
             if (pixelType == "UINT8" ||
                 pixelType == "INT16" ||
                 pixelType == "UINT16" )
@@ -126,9 +126,9 @@ void stitchPanorama(const PanoramaData & pano,
     }
 #else
     // always stitch with float images.
-    if (bands == 1 || bands == 2 && extraBands == 1) {
+    if (bands == 1 || (bands == 2 && extraBands == 1)) {
         stitchPanoIntern<FImage,BImage>(pano, opts, progress, basename, usedImgs);
-    } else if (bands == 3 || bands == 4 && extraBands == 1) {
+    } else if (bands == 3 || (bands == 4 && extraBands == 1)) {
         stitchPanoIntern<FRGBImage,BImage>(pano, opts, progress, basename, usedImgs);
     } else {
         DEBUG_ERROR("unsupported depth, only images with 1 and 3 channel images are supported");

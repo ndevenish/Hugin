@@ -2946,7 +2946,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
         // ordinary variables
         for (const char ** v = PTScriptParsing::ImgInfo::varnames; *v; v++) {
 
-            if (iImgInfo[i].links[*v] == -2 && oImgInfo[i].links[*v] != -2 || iImgInfo[i].links[*v] == -1 && oImgInfo[i].links[*v] >=0) {
+            if ((iImgInfo[i].links[*v] == -2 && oImgInfo[i].links[*v] != -2) || (iImgInfo[i].links[*v] == -1 && oImgInfo[i].links[*v] >=0)) {
                 DEBUG_DEBUG(*v << ": o -> i");
                 iImgInfo[i].vars[*v] = oImgInfo[i].vars[*v];
                 iImgInfo[i].links[*v] = oImgInfo[i].links[*v];

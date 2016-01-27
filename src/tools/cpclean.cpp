@@ -240,15 +240,17 @@ int main(int argc, char* argv[])
     {
         std::cout << "Removed " << cpremoved1 << " control points in step 1" << std::endl;
     }
-    if(!onlyPair)
-        if(unconnected)
+    if (!onlyPair)
+    {
+        if (unconnected)
         {
-            std::cout <<"Skipped step 2 because of unconnected image pairs" << std::endl;
+            std::cout << "Skipped step 2 because of unconnected image pairs" << std::endl;
         }
         else
         {
             std::cout << "Removed " << CPtoRemove.size() << " control points in step 2" << std::endl;
-        }
+        };
+    };
 
     //write output
     HuginBase::OptimizeVector optvec = pano.getOptimizeVector();
