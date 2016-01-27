@@ -110,6 +110,7 @@ void work_on_triplets(const HuginBase::Panorama& pano, bool reverse)
         trafo_set[image].transformImgCoord(xout, yout, xin, yin);
         std::cout << xout << " " << yout << std::endl ;
     }
+    delete [] trafo_set;
 }
 
 int main(int argc, char* argv[])

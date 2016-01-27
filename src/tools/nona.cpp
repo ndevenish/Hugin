@@ -296,16 +296,6 @@ int main(int argc, char* argv[])
     // suppress tiff warnings
     TIFFSetWarningHandler(0);
 
-    AppBase::ProgressDisplay* pdisp = NULL;
-    if(verbose > 0)
-    {
-        pdisp = new AppBase::StreamProgressDisplay(std::cout);
-    }
-    else
-    {
-        pdisp = new AppBase::DummyProgressDisplay;
-    }
-
     HuginBase::Panorama pano;
     std::ifstream prjfile(scriptFile);
     if (prjfile.bad())
@@ -495,6 +485,16 @@ int main(int argc, char* argv[])
 
     try
     {
+        AppBase::ProgressDisplay* pdisp = NULL;
+        if(verbose > 0)
+        {
+            pdisp = new AppBase::StreamProgressDisplay(std::cout);
+        }
+        else
+        {
+            pdisp = new AppBase::DummyProgressDisplay;
+        }
+
         if (useGPU)
         {
             useGPU = hugin_utils::initGPU(&argc, argv);
@@ -543,16 +543,16 @@ int main(int argc, char* argv[])
             hugin_utils::wrapupGPU();
         }
 
+        if(pdisp != NULL)
+        {
+            delete pdisp;
+            pdisp=NULL;
+        }
     }
     catch (std::exception& e)
     {
         std::cerr << "caught exception: " << e.what() << std::endl;
         return 1;
-    }
-
-    if(pdisp != NULL)
-    {
-        delete pdisp;
     }
 
     return 0;

@@ -100,6 +100,7 @@ SmallRemappedImageCache::getRemapped(const PanoramaData& pano,
     if (img.getVigCorrMode() & SrcPanoImage::VIGCORR_FLATFIELD) {
         ImageCache::EntryPtr e = ImageCache::getInstance().getSmallImage(img.getFlatfieldFilename().c_str());
         if (!e) {
+            delete remapped;
             throw std::runtime_error("could not retrieve flatfield image for preview generation");
         }
         if (e->image8->width()) {

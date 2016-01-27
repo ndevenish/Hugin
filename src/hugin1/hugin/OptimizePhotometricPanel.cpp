@@ -267,12 +267,12 @@ void OptimizePhotometricPanel::runOptimizer(const HuginBase::UIntSet & imgs)
         for (size_t i=0; i < optPano.getNrOfImages(); i++)
         {
             ImageCache::EntryPtr e = ImageCache::getInstance().getSmallImage(optPano.getImage(i).getFilename());
-            vigra::FRGBImage * img = new vigra::FRGBImage;
             if (!e)
             {
                 wxMessageBox(_("Error: could not load all images"), _("Error"));
                 return;
             }
+            vigra::FRGBImage * img = new vigra::FRGBImage;
             if (e->image8 && e->image8->width() > 0)
             {
                 vigra_ext::reduceToNextLevel(*(e->image8), *img);
