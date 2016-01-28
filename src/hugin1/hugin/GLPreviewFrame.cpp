@@ -3445,6 +3445,7 @@ void GLPreviewFrame::OnCreateCP(wxCommandEvent & e)
             remapped->remapImage(vigra::srcImageRange(*CachedImg), vigra_ext::INTERP_CUBIC, &progress);
             if (!progress.updateDisplay())
             {
+                delete remapped;
                 return;
             };
             findStruct.image = remapped->m_image;
