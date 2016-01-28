@@ -82,23 +82,41 @@ wxString Components2Str(const HuginGraph::ImageGraph::Components & comp)
 {
     wxString ret;
     for (unsigned i=0; i < comp.size(); i++) {
-        ret = ret + wxT("[");
-        HuginGraph::ImageGraph::Components::value_type::const_iterator it;
-        size_t c=0;
-        for (it = comp[i].begin();
-            it != comp[i].end();
-            ++it) 
+        ret.Append(wxT("["));
+        HuginGraph::ImageGraph::Components::value_type::const_iterator it = comp[i].begin();
+        while (it != comp[i].end())
         {
-            ret = ret + wxString::Format(wxT("%d"), (*it));
-            if (c+1 != comp[i].size()) {
-                ret = ret + wxT(", ");
+            unsigned int imgNr = *it;
+            ret << imgNr;
+            it++;
+            if (it != comp[i].end() && *it == imgNr + 1)
+            {
+                ret.Append(wxT("-"));
+                while (it != comp[i].end() && *it == imgNr + 1)
+                {
+                    ++it;
+                    ++imgNr;
+                };
+                ret << imgNr;
+                if (it != comp[i].end())
+                {
+                    ret.Append(wxT(", "));
+                };
             }
-            c++;
-        }
-        if (i+1 != comp.size())
-            ret = ret + wxT("], ");
-        else
-            ret = ret + wxT("]");
+            else
+            {
+                if (it != comp[i].end())
+                {
+                    ret.Append(wxT(", "));
+                };
+            };
+        };
+
+        ret.Append(wxT("]"));
+        if (i + 1 != comp.size())
+        {
+            ret.Append(wxT(", "));
+        };
     }
     return ret;
 }
