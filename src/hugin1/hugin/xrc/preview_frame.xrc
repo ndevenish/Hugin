@@ -239,6 +239,20 @@
                   <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                   <border>12</border>
                 </object>
+                <object class="sizeritem">
+                  <object class="wxStaticLine">
+                    <size>2,-1</size>
+                  </object>
+                  <flag>wxEXPAND</flag>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticText" name="ass_status_text">
+                    <style>wxALIGN_RIGHT</style>
+                  </object>
+                  <option>1</option>
+                  <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                  <border>3</border>
+                </object>
               </object>
             </object>
             <label>Assistant</label>
@@ -1079,6 +1093,20 @@
                   <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                   <border>12</border>
                 </object>
+                <object class="sizeritem">
+                  <object class="wxStaticLine">
+                    <size>2,-1</size>
+                  </object>
+                  <flag>wxEXPAND</flag>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticText" name="ass_status_text">
+                    <style>wxALIGN_RIGHT</style>
+                  </object>
+                  <option>1</option>
+                  <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                  <border>3</border>
+                </object>
               </object>
             </object>
             <label>Assistant</label>
@@ -1889,7 +1917,7 @@
         <label>&amp;Donate</label>
         <help>If you like hugin and want to see further improvements, please consider donating to the hugin project.</help>
       </object>
-      <object platform="mac" class="wxMenuItem" name="action_show_prefs">
+      <object class="wxMenuItem" name="action_show_prefs" platform="mac">
         <label>&amp;Preferences</label>
         <accel>Ctrl-,</accel>
       </object>
@@ -1926,8 +1954,8 @@
       <label>&amp;Run Batch Processor</label>
       <help>Opens PTBatcher, the batch processor for Hugin's project files</help>
     </object>
-    <object platform="win|unix" class="separator"/>
-    <object platform="win|unix" class="wxMenuItem" name="action_show_prefs">
+    <object class="separator" platform="win|unix"/>
+    <object class="wxMenuItem" name="action_show_prefs" platform="win|unix">
       <label>&amp;Preferences</label>
     </object>
     <object class="separator"/>
@@ -1962,8 +1990,8 @@
       <label>Most recently &amp;used projects</label>
       <help>List of most recently used project files</help>
     </object>
-    <object platform="win|unix" class="separator"/>
-    <object platform="win|unix" class="wxMenuItem" name="action_show_prefs">
+    <object class="separator" platform="win|unix"/>
+    <object class="wxMenuItem" name="action_show_prefs" platform="win|unix">
       <label>&amp;Preferences</label>
     </object>
     <label>&amp;File</label>
