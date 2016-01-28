@@ -1115,7 +1115,6 @@ void GLPreviewFrame::panoramaChanged(HuginBase::Panorama &pano)
             if (comps.size() > 1)
             {
                 alignMsg += wxString::Format(_("%lu unconnected image groups found: %s\n"), static_cast<unsigned long int>(comps.size()), Components2Str(comps).c_str());
-                alignMsg += _("Please use the Control Points tab to connect all images with control points.\n");
             }
             else
             {
@@ -1132,27 +1131,19 @@ void GLPreviewFrame::panoramaChanged(HuginBase::Panorama &pano)
 
                     if (max != 0.0)
                     {
-                        wxString distStr;
-                        if (mean < 3)
-                            distStr = _("Very good fit.");
-                        else if (mean < 5)
-                            distStr = _("Good fit.");
-                        else if (mean < 10)
-                            distStr = _("Bad fit, some control points might be bad, or there are parallax and movement errors");
-                        else
-                            distStr = _("Very bad fit. Check for bad control points, lens parameters, or images with parallax or movement. The optimizer might have failed. Manual intervention required.");
-
-                        alignMsg = alignMsg + wxString::Format(_("Mean error after optimization: %.1f pixel, max: %.1f\n"), mean, max)
-                                + distStr; 
+                        alignMsg = alignMsg + wxString::Format(_("Mean error after optimization: %.1f pixel, max: %.1f\n"), mean, max); 
+                        alignMsg.RemoveLast(1);
                     }
                 }
             }
         }
-        m_GLPreview->SetOverlayText(alignMsg);
+        XRCCTRL(*this, "ass_status_text", wxStaticText)->SetLabel(alignMsg);
+        m_tool_notebook->GetPage(0)->Layout();
+        Refresh();
     }
     else
     {
-        m_GLPreview->SetOverlayText(_("Note: automatic alignment uses default settings from the preferences. If you want to use customized settings, run the CP detection, the geometrical optimization and the photometric optimization from the Photos tab in the panorama editor."));
+        XRCCTRL(*this, "ass_status_text", wxStaticText)->SetLabel(wxT(""));
     };
 
     GetMenuBar()->Enable(XRCID("ID_EDITUNDO"), PanoCommand::GlobalCmdHist::getInstance().canUndo());
@@ -2790,7 +2781,6 @@ void GLPreviewFrame::SetMode(int newMode)
             preview_helper->ActivateTool(preview_guide_tool);
             break;
     };
-    m_GLPreview->SetOverlayVisibility(m_mode==mode_assistant);
     //enable group checkboxes only for drag mode tab
     EnableGroupCheckboxes(m_mode==mode_drag && individualDragging());
     m_GLPreview->Refresh();
