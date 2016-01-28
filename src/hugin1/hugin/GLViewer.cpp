@@ -42,139 +42,6 @@
 #include "GLPreviewFrame.h"
 #include "hugin/huginApp.h"
 
-#if wxCHECK_VERSION(2,9,0)
-#include "wx/textwrapper.h"
-#else
-// in wxWidgets 2.8 the text wrapper functions are in private scope of wxWidgets
-// so we can't use them, used lines from src/common/dlgcmn.cpp
-class wxTextWrapper
-{
-public:
-    wxTextWrapper() { m_eol = false; }
-
-    // win is used for getting the font, text is the text to wrap, width is the
-    // max line width or -1 to disable wrapping
-    void Wrap(wxWindow *win, const wxString& text, int widthMax)
-    {
-        const wxChar *lastSpace = NULL;
-        wxString line;
-
-        const wxChar *lineStart = text.c_str();
-        for ( const wxChar *p = lineStart; ; p++ )
-        {
-            if ( IsStartOfNewLine() )
-            {
-                OnNewLine();
-
-                lastSpace = NULL;
-                line.clear();
-                lineStart = p;
-            }
-
-            if ( *p == _T('\n') || *p == _T('\0') )
-            {
-                DoOutputLine(line);
-
-                if ( *p == _T('\0') )
-                    break;
-            }
-            else // not EOL
-            {
-                if ( *p == _T(' ') )
-                    lastSpace = p;
-
-                line += *p;
-
-                if ( widthMax >= 0 && lastSpace )
-                {
-                    int width;
-                    win->GetTextExtent(line, &width, NULL);
-
-                    if ( width > widthMax )
-                    {
-                        // remove the last word from this line
-                        line.erase(lastSpace - lineStart, p + 1 - lineStart);
-                        DoOutputLine(line);
-
-                        // go back to the last word of this line which we didn't
-                        // output yet
-                        p = lastSpace;
-                    }
-                }
-                //else: no wrapping at all or impossible to wrap
-            }
-        }
-    }
-
-    // we don't need it, but just to avoid compiler warnings
-    virtual ~wxTextWrapper() { }
-
-protected:
-    // line may be empty
-    virtual void OnOutputLine(const wxString& line) = 0;
-
-    // called at the start of every new line (except the very first one)
-    virtual void OnNewLine() { }
-
-private:
-    // call OnOutputLine() and set m_eol to true
-    void DoOutputLine(const wxString& line)
-    {
-        OnOutputLine(line);
-
-        m_eol = true;
-    }
-
-    // this function is a destructive inspector: when it returns true it also
-    // resets the flag to false so calling it again woulnd't return true any
-    // more
-    bool IsStartOfNewLine()
-    {
-        if ( !m_eol )
-            return false;
-
-        m_eol = false;
-
-        return true;
-    }
-
-
-    bool m_eol;
-};
-#endif
-
-// utility function to wrap text to given width, from wxWidgets help
-wxString WrapText(wxWindow *win, const wxString& text, int widthMax)
-{
-    class HardBreakWrapper : public wxTextWrapper
-    {
-    public:
-        HardBreakWrapper(wxWindow *win, const wxString& text, int widthMax)
-        {
-            Wrap(win, text, widthMax);
-        }
-
-        wxString const& GetWrapped() const { return m_wrapped; }
-
-    protected:
-        virtual void OnOutputLine(const wxString& line)
-        {
-            m_wrapped += line;
-        }
-
-        virtual void OnNewLine()
-        {
-            m_wrapped += '\n';
-        }
-
-    private:
-        wxString m_wrapped;
-    };
-
-    HardBreakWrapper wrapper(win, text, widthMax);
-    return wrapper.GetWrapped();
-}
-
 bool GLViewer::initialised_glew=false;
 ViewState * GLViewer::m_view_state = NULL;
 
@@ -223,7 +90,6 @@ GLViewer::GLViewer(
     m_visualization_state = 0;
     
     m_pano = &pano;
-    m_overlay=false;
 
     frame = frame_in;
 
@@ -488,16 +354,6 @@ void GLViewer::Redraw()
     SwapBuffers();
     // tell the view state we did all the updates and redrew.
     m_visualization_state->FinishedDraw();
-    //finally draw the overlay text above all
-    if(m_overlay && !m_overlayText.IsEmpty())
-    {
-        int w, h;
-        GetClientSize(&w, &h);
-        wxClientDC dc(this);
-        PrepareDC(dc);
-        dc.SetBackgroundMode(wxSOLID);
-        dc.DrawLabel(WrapText(this,m_overlayText,w/4),wxRect(0,0,w,h),wxALIGN_RIGHT|wxALIGN_TOP);
-    };
     DEBUG_INFO("Finished Rendering.");
 }
 
@@ -588,13 +444,4 @@ void GLOverview::SetMode(OverviewMode mode)
     }
 }
 
-void GLViewer::SetOverlayText(const wxString text)
-{
-    m_overlayText=text;
-};
-
-void GLViewer::SetOverlayVisibility(const bool isVisible)
-{
-    m_overlay=isVisible;
-};
 
