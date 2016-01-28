@@ -80,11 +80,6 @@ public:
 
     void SetViewerBackground(wxColour col);
 
-    /** sets the text which should overlay the preview */
-    void SetOverlayText(const wxString text);
-    /** switches the overlay on/off */
-    void SetOverlayVisibility(const bool isVisible);
-
 protected:
     void OnEraseBackground(wxEraseEvent& e);
     void MouseMotion(wxMouseEvent& e);
@@ -104,8 +99,6 @@ protected:
 #endif
     HuginBase::Panorama  * m_pano;
 
-    wxString m_overlayText;
-    bool m_overlay;
     virtual void setUp() = 0;
 
     bool started_creation, redrawing;
