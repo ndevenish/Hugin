@@ -186,7 +186,11 @@ namespace vigra_ext
             vigra::omp::copyImage(vigra::srcImageRange(diffByte), vigra::destImage(diffWrapped));
             vigra::omp::copyImage(diffByte.upperLeft(), diffByte.lowerRight(), diffByte.accessor(), diffWrapped.upperLeft() + vigra::Diff2D(oldWidth, 0), diffWrapped.accessor());
             // apply gaussian smoothing with size depending radius
-            vigra::gaussianSmoothing(vigra::srcImageRange(diffWrapped), vigra::destImage(diffWrapped), smoothRadius);
+            // we need a minimum size of window to apply gaussianSmoothing
+            if (diffWrapped.width() > 3 * smoothRadius && diffWrapped.height() > 3 * smoothRadius)
+            {
+                vigra::gaussianSmoothing(vigra::srcImageRange(diffWrapped), vigra::destImage(diffWrapped), smoothRadius);
+            };
             vigra::fastSeededRegionGrowing(vigra::srcImageRange(diffWrapped), vigra::destImage(labelsWrapped, p1), stats, vigra::CompleteGrow, vigra::FourNeighborCode(), 255);
             vigra::omp::copyImage(labelsWrapped.upperLeft() + vigra::Diff2D(oldWidth / 2, 0), labelsWrapped.upperLeft() + vigra::Diff2D(oldWidth, oldHeight), labelsWrapped.accessor(),
                 labels.upperLeft() + vigra::Diff2D(oldWidth / 2, 0), labels.accessor());
@@ -196,7 +200,11 @@ namespace vigra_ext
         else
         {
             // apply gaussian smoothing with size depending radius
-            vigra::gaussianSmoothing(vigra::srcImageRange(diffByte), vigra::destImage(diffByte), smoothRadius);
+            // we need a minimum size of window to apply gaussianSmoothing
+            if (diffByte.width() > 3 * smoothRadius && diffByte.height() > 3 * smoothRadius)
+            {
+                vigra::gaussianSmoothing(vigra::srcImageRange(diffByte), vigra::destImage(diffByte), smoothRadius);
+            };
             vigra::fastSeededRegionGrowing(vigra::srcImageRange(diffByte), vigra::destImage(labels, p1), stats, vigra::CompleteGrow, vigra::FourNeighborCode(), 255);
         };
         vigra::omp::combineTwoImages(vigra::srcImageRange(labels), vigra::srcImage(mask2), vigra::destImage(labels), detail::CombineMasks());
