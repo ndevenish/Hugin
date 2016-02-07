@@ -4129,7 +4129,7 @@ msgstr "批次處理檔案 (*.ptb)|*.ptb;|全部檔案 (*)|*"
 msgid ""
 "The batch queue contains many items.\n"
 "This can have negative effects on performance.\n"
-"Should the batch queue cleared now?"
+"Should the batch queue be cleared now?"
 msgstr ""
 
 #: hugin1/ptbatcher/BatchFrame.cpp:1160
@@ -5761,7 +5761,7 @@ msgid "Stitch user defined output..."
 msgstr "重設使用者定義....."
 
 #: hugin1/hugin/xrc/main_menu.xrc:125
-msgid "Stitch with the settings from an user defined output sequence"
+msgid "Stitch with the settings from a user defined output sequence"
 msgstr ""
 
 #: hugin1/hugin/xrc/main_menu.xrc:127
@@ -7141,7 +7141,7 @@ msgid ""
 "%nrAllImages - number of all images in project file (include inactive "
 "images)\n"
 "%fullwidth - width of output canvas\n"
-"%fullheight - height of output canvas canvas\n"
+"%fullheight - height of output canvas\n"
 "%width - width of output region\n"
 "%height - height of output region\n"
 "\n"

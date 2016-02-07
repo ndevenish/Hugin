@@ -122,7 +122,7 @@
       </object>
       <object class="wxMenuItem" name="action_stitch_userdefined">
         <label>Stitch user defined output...</label>
-        <help>Stitch with the settings from an user defined output sequence</help>
+        <help>Stitch with the settings from a user defined output sequence</help>
       </object>
       <label>&amp;Output</label>
     </object>

@@ -1149,7 +1149,7 @@ void BatchFrame::OnClose(wxCloseEvent& event)
     // check size of batch queue
     if (m_batch->GetProjectCount() > 500)
     {
-        wxMessageDialog message(this, _("The batch queue contains many items.\nThis can have negative effects on performance.\nShould the batch queue cleared now?"),
+        wxMessageDialog message(this, _("The batch queue contains many items.\nThis can have negative effects on performance.\nShould the batch queue be cleared now?"),
 #ifdef __WXMSW__
             _("PTBatcherGUI"),
 #else
