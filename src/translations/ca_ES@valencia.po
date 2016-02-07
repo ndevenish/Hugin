@@ -4243,7 +4243,7 @@ msgstr "Arxiu de lots (*.ptb)|*.ptb|Tots els fitxers (*)|*"
 msgid ""
 "The batch queue contains many items.\n"
 "This can have negative effects on performance.\n"
-"Should the batch queue cleared now?"
+"Should the batch queue be cleared now?"
 msgstr ""
 
 #: hugin1/ptbatcher/BatchFrame.cpp:1160
@@ -5899,7 +5899,7 @@ msgid "Stitch user defined output..."
 msgstr "Reinicialitza l'usuari definit..."
 
 #: hugin1/hugin/xrc/main_menu.xrc:125
-msgid "Stitch with the settings from an user defined output sequence"
+msgid "Stitch with the settings from a user defined output sequence"
 msgstr ""
 
 #: hugin1/hugin/xrc/main_menu.xrc:127
@@ -7321,7 +7321,7 @@ msgid ""
 "%nrAllImages - number of all images in project file (include inactive "
 "images)\n"
 "%fullwidth - width of output canvas\n"
-"%fullheight - height of output canvas canvas\n"
+"%fullheight - height of output canvas\n"
 "%width - width of output region\n"
 "%height - height of output region\n"
 "\n"

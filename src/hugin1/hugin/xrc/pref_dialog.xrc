@@ -1570,7 +1570,7 @@ Do not set -w, -o and --compression arguments, they are set by hugin</label>
 %nrImages - number of active images
 %nrAllImages - number of all images in project file (include inactive images)
 %fullwidth - width of output canvas
-%fullheight - height of output canvas canvas
+%fullheight - height of output canvas
 %width - width of output region
 %height - height of output region
 
