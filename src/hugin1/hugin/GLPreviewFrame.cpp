@@ -429,7 +429,9 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, HuginBase::Panorama &pano)
     wxBitmap bitmap;
     bitmap.LoadFile(huginApp::Get()->GetXRCPath()+wxT("data/preview_show_all.png"),wxBITMAP_TYPE_PNG);
 #if wxCHECK_VERSION(2,9,2)
-    m_selectAllButton=new wxButton(panel,ID_SHOW_ALL,_("All"),wxDefaultPosition,wxDefaultSize,wxBU_EXACTFIT);
+    wxString s(_("All"));
+    s.Append(wxT("\u25be"));
+    m_selectAllButton = new wxButton(panel, ID_SHOW_ALL, s, wxDefaultPosition, wxDefaultSize, wxBU_EXACTFIT);
     m_selectAllButton->SetBitmap(bitmap, wxLEFT);
     m_selectAllButton->SetBitmapMargins(0, 0);
 #else

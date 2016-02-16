@@ -2113,7 +2113,9 @@ void CPEditorPanel::OnCleanCPButton(wxCommandEvent& e)
 void CPEditorPanel::OnActionSelectCreate(wxCommandEvent& e)
 {
     m_cpActionButtonMode = CPTAB_ACTION_CREATE_CP;
-    m_actionButton->SetLabel(_("Create cp"));
+    wxString s(_("Create cp"));
+    s.Append(wxT("\u25be"));
+    m_actionButton->SetLabel(s);
     m_actionButton->SetToolTip(_("Create control points for image pair with currently selected control point detector on photos tab."));
     Layout();
     wxConfig::Get()->Write(wxT("/CPEditorPanel/ActionMode"), static_cast<long>(m_cpActionButtonMode));
@@ -2122,7 +2124,9 @@ void CPEditorPanel::OnActionSelectCreate(wxCommandEvent& e)
 void CPEditorPanel::OnActionSelectCeleste(wxCommandEvent& e)
 {
     m_cpActionButtonMode = CPTAB_ACTION_CELESTE;
-    m_actionButton->SetLabel(_("Celeste"));
+    wxString s(_("Celeste"));
+    s.Append(wxT("\u25be"));
+    m_actionButton->SetLabel(s);
     m_actionButton->SetToolTip(_("Tries to remove control points from clouds"));
     Layout();
     wxConfig::Get()->Write(wxT("/CPEditorPanel/ActionMode"), static_cast<long>(m_cpActionButtonMode));
@@ -2131,7 +2135,9 @@ void CPEditorPanel::OnActionSelectCeleste(wxCommandEvent& e)
 void CPEditorPanel::OnActionSelectCleanCP(wxCommandEvent& e)
 {
     m_cpActionButtonMode = CPTAB_ACTION_CLEAN_CP;
-    m_actionButton->SetLabel(_("Clean cp"));
+    wxString s(_("Clean cp"));
+    s.Append(wxT("\u25be"));
+    m_actionButton->SetLabel(s);
     m_actionButton->SetToolTip(_("Remove outlying control points by statistical method"));
     Layout();
     wxConfig::Get()->Write(wxT("/CPEditorPanel/ActionMode"), static_cast<long>(m_cpActionButtonMode));
