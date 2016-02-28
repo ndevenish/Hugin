@@ -84,7 +84,7 @@ Input=all|stacks|layers
 Program=enblend
 
 # specify which file will be created (required)
-# keep in mind, that you have the specifiy the extension of the final image
+# keep in mind, that you have the specify the extension of the final image
 # the placeholder %prefix% will be replace with the actual prefix
 Result=%prefix%.tif
 

@@ -249,7 +249,7 @@ void TextureManager::CheckUpdate()
 
     // now recalculate the best image sizes
     // The actual texture size is the biggest one possible withouth scaling the
-    // image up in any direction. We only specifiy mipmap levels we can fit in
+    // image up in any direction. We only specify mipmap levels we can fit in
     // a given amount of texture memory, while respecting the image's FOV.
     int texels_used = 0;
     double ideal_texels_used = 0.0;

@@ -104,7 +104,7 @@ static void usage(const char* name)
          << "                   (this will always use TIFF)" << std::endl
          << "      --clip-exposure[=lower cutoff:upper cutoff]" << std::endl
          << "                   mask automatically all dark and bright pixels" << std::endl
-         << "                   optionally you can specifiy the limits for the" << std::endl
+         << "                   optionally you can specify the limits for the" << std::endl
          << "                   lower and upper cutoff (specify in range 0...1," << std::endl
          << "                   relative the full range)" << std::endl
          << std::endl;

@@ -445,7 +445,7 @@ int main(int argc, char* argv[])
                     if (fabs(currentImg.getExifFocalLength()) < 0.1)
                     {
                         std::cerr << "Could not determine focal length." << std::endl
-                            << "Specifiy focal length (--focallength) as parameter." << std::endl;
+                            << "Specify focal length (--focallength) as parameter." << std::endl;
                         continue;
                     };
                 }
