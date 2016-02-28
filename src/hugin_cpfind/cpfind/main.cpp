@@ -75,7 +75,7 @@ void printUsage()
         << "  --sieve2height=<int>   Sieve 2: Number of buckets on height (default: 5)" << std::endl
         << "  --sieve2size=<int>     Sieve 2: Max points per bucket (default: 1)" << std::endl
         << std::endl << "Caching options" << std::endl
-        << "  -c|--cache    Caches automaticall keypoints to external file" << std::endl
+        << "  -c|--cache    Caches keypoints to external file" << std::endl
         << "  --clean       Clean up cached keyfiles" << std::endl
         << "  -p|--keypath=<string>    Store keyfiles in given path" << std::endl
         << "  -k|--writekeyfile=<int>  Write a keyfile for this image number" << std::endl
