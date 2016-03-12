@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: Hugin 2012-0.0\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2016-01-23 09:30+0100\n"
-"PO-Revision-Date: 2015-10-21 09:22+0200\n"
+"PO-Revision-Date: 2016-03-06 17:22+0100\n"
 "Last-Translator: Jean-Luc Coulon (f5ibh) <jean-luc.coulon@wanadoo.fr>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
-"Language: French\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 2.0\n"
+"X-Generator: Poedit 1.8.7\n"
 
 #: hugin1/base_wx/AssistantExecutor.cpp:69
 msgid "Searching for control points..."
@@ -2830,7 +2830,6 @@ msgid "Warning %d unconnected image groups found:"
 msgstr "Attention, %d groupes d'images non connectées ont été trouvés :"
 
 #: hugin1/hugin/MainFrame.cpp:2120
-#, fuzzy
 msgid ""
 "Please create control points between unconnected images using the Control "
 "Points tab in the panorama editor.\n"
@@ -4237,7 +4236,7 @@ msgstr "Traitement par lots en pause"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:760 hugin1/ptbatcher/BatchFrame.cpp:1453
 msgid "Pausing processing Hugin's batch queue"
-msgstr ""
+msgstr "Mettre en pause le traitement par lot"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:767
 msgid "Continuing batch..."
@@ -4246,7 +4245,7 @@ msgstr "Poursuite du traitement par lots..."
 #: hugin1/ptbatcher/BatchFrame.cpp:770 hugin1/ptbatcher/BatchFrame.cpp:1222
 #: hugin1/ptbatcher/BatchFrame.cpp:1447
 msgid "Processing Hugin's batch queue"
-msgstr ""
+msgstr "Exécuter le traitement par lot"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:786
 msgid ""
@@ -4312,15 +4311,17 @@ msgid ""
 "This can have negative effects on performance.\n"
 "Should the batch queue be cleared now?"
 msgstr ""
+"La liste de traitement par lots contient trop d'entrées.\n"
+"Cela peut avoir un effet négatif sur les performances.\n"
+"Faut-il vider cette liste maintenant ?"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:1160
-#, fuzzy
 msgid "Clear batch queue now"
-msgstr "Effacer le lot"
+msgstr "Effacer la liste de traitement par lot"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:1160
 msgid "Keep batch queue"
-msgstr ""
+msgstr "Conserver la liste de traitement par lots"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:1219
 msgid "Starting batch"
@@ -4868,36 +4869,32 @@ msgid "Status report"
 msgstr "Indication d'état"
 
 #: hugin1/hugin/xrc/batch_menu.xrc:7
-#, fuzzy
 msgid "Add project to stitching &queue..."
-msgstr "Ajouter le projet à la file de traitement par lots."
+msgstr "Ajouter le projet à la file de traitement par lots..."
 
 #: hugin1/hugin/xrc/batch_menu.xrc:8
 msgid "Adds a project to the stitching queue"
 msgstr "Ajouter un projet à la file de traitement par lots."
 
 #: hugin1/hugin/xrc/batch_menu.xrc:11
-#, fuzzy
 msgid "Add project to &assistant queue..."
-msgstr "Ajouter le projet à la file d'attente de l'assistant"
+msgstr "Ajouter le projet à la file de traitement de l'assistant..."
 
 #: hugin1/hugin/xrc/batch_menu.xrc:12
 msgid "Adds a project to the assistant queue"
 msgstr "Ajouter un projet à la file d'attente de l'assistant"
 
 #: hugin1/hugin/xrc/batch_menu.xrc:15
-#, fuzzy
 msgid "&Remove project"
-msgstr "Supprimer le projet"
+msgstr "&Supprimer le projet"
 
 #: hugin1/hugin/xrc/batch_menu.xrc:16 hugin1/hugin/xrc/batch_toolbar.xrc:61
 msgid "Removes selected project from the batch list"
 msgstr "Supprimer le projet sélectionné de la liste de traitement par lots"
 
 #: hugin1/hugin/xrc/batch_menu.xrc:20
-#, fuzzy
 msgid "&Project files..."
-msgstr "Fichiers de projets"
+msgstr "&Projets..."
 
 #: hugin1/hugin/xrc/batch_menu.xrc:21 hugin1/hugin/xrc/batch_toolbar.xrc:67
 msgid "Appends all project files from a directory and subdirectories"
@@ -4905,9 +4902,8 @@ msgstr ""
 "Ajouter tous les fichiers de projets du répertoire et de ses sous-répertoires"
 
 #: hugin1/hugin/xrc/batch_menu.xrc:24
-#, fuzzy
 msgid "&Images..."
-msgstr "Images"
+msgstr "&Images..."
 
 #: hugin1/hugin/xrc/batch_menu.xrc:25
 msgid "Searches in directories for image files suitable for panoramas"
@@ -4916,18 +4912,16 @@ msgstr ""
 "utilisés pour des panoramas"
 
 #: hugin1/hugin/xrc/batch_menu.xrc:27
-#, fuzzy
 msgid "Search &directory for..."
-msgstr "Rechercher dans le répertoire..."
+msgstr "Rechercher &dans le répertoire..."
 
 #: hugin1/hugin/xrc/batch_menu.xrc:28
 msgid "Searches in directories for existing projects or for images"
 msgstr "Recherche dans les répertoires de projets existants ou d'images"
 
 #: hugin1/hugin/xrc/batch_menu.xrc:32
-#, fuzzy
 msgid "&Open batch"
-msgstr "Ouvrir le lot"
+msgstr "&Ouvrir le lot"
 
 #: hugin1/hugin/xrc/batch_menu.xrc:33 hugin1/hugin/xrc/batch_toolbar.xrc:16
 msgid "Opens a batch file with a list of projects"
@@ -4935,9 +4929,8 @@ msgstr ""
 "Ouvrir un fichier de traitement par lots contenant une liste de projets"
 
 #: hugin1/hugin/xrc/batch_menu.xrc:36
-#, fuzzy
 msgid "&Save batch"
-msgstr "Enregistrer le lot"
+msgstr "&Enregistrer le lot"
 
 #: hugin1/hugin/xrc/batch_menu.xrc:37 hugin1/hugin/xrc/batch_toolbar.xrc:22
 msgid "Saves a batch file with a list of projects"
@@ -4945,9 +4938,10 @@ msgstr ""
 "Enregistrer un fichier de traitement par lots composé d'une liste de projets"
 
 #: hugin1/hugin/xrc/batch_menu.xrc:40
-#, fuzzy
 msgid "&Clear batch"
-msgstr "Effacer le lot"
+msgstr ""
+"Supprimer le &\n"
+"lot"
 
 #: hugin1/hugin/xrc/batch_menu.xrc:41 hugin1/hugin/xrc/batch_toolbar.xrc:10
 msgid "Clears the batch list"
@@ -4955,7 +4949,7 @@ msgstr "Effacer la liste de traitement par lots"
 
 #: hugin1/hugin/xrc/batch_menu.xrc:45
 msgid "&Minimize to tray"
-msgstr ""
+msgstr "&Réduire dans la barre d'État"
 
 #: hugin1/hugin/xrc/batch_menu.xrc:51 hugin1/hugin/xrc/lenscal_frame.xrc:456
 #: hugin1/hugin/xrc/main_menu.xrc:211 hugin1/hugin/xrc/preview_frame.xrc:1935
@@ -6088,9 +6082,8 @@ msgstr ""
 
 #: hugin1/hugin/xrc/main_menu.xrc:188 hugin1/hugin/xrc/preview_frame.xrc:1921
 #: hugin1/hugin/xrc/preview_frame.xrc:1962
-#, fuzzy
 msgid "Most recently &used projects"
-msgstr "Projets les plus récemment utilisés"
+msgstr "Liste des pro&jets récents"
 
 #: hugin1/hugin/xrc/main_menu.xrc:189 hugin1/hugin/xrc/preview_frame.xrc:1922
 #: hugin1/hugin/xrc/preview_frame.xrc:1963
