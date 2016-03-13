@@ -539,7 +539,7 @@ public:
             Base::m_progress->setMessage("blending", hugin_utils::stripPath(Base::m_pano.getImage(*it).getFilename()));
             // add image to pano and panoalpha, adjusts panoROI as well.
             try {
-                vigra_ext::MergeImages<ImageType, AlphaType>(pano, alpha, remapped->m_image, remapped->m_mask, vigra::Diff2D(remapped->boundingBox().upperLeft()), wrap);
+                vigra_ext::MergeImages<ImageType, AlphaType>(pano, alpha, remapped->m_image, remapped->m_mask, vigra::Diff2D(remapped->boundingBox().upperLeft()), wrap, GetAdvancedOption(advOptions, "hardSeam", true));
                 // update bounding box of the panorama
                 m_panoROI |= remapped->boundingBox();
             } catch (vigra::PreconditionViolation & e) {

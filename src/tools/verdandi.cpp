@@ -120,7 +120,7 @@ void SetCompression(vigra::ImageExportInfo& output, const std::string& compressi
 
 /** loads image one by one and merge with all previouly loaded images, saves the final results */
 template <class ImageType>
-bool LoadAndMergeImages(std::vector<vigra::ImageImportInfo> imageInfos, const std::string& filename, const std::string& compression, const bool wrap)
+bool LoadAndMergeImages(std::vector<vigra::ImageImportInfo> imageInfos, const std::string& filename, const std::string& compression, const bool wrap, const bool hardSeam)
 {
     if (imageInfos.empty())
     {
@@ -150,7 +150,7 @@ bool LoadAndMergeImages(std::vector<vigra::ImageImportInfo> imageInfos, const st
         std::cout << "Loaded " << imageInfos[i].getFileName() << std::endl;
         roi |= vigra::Rect2D(vigra::Point2D(imageInfos[i].getPosition()), imageInfos[i].size());
 
-        vigra_ext::MergeImages(image, mask, image2, mask2, imageInfos[i].getPosition(), wrap);
+        vigra_ext::MergeImages(image, mask, image2, mask2, imageInfos[i].getPosition(), wrap, hardSeam);
     };
     // save output
     {
@@ -178,6 +178,7 @@ static void usage(const char* name)
         << "                            For jpeg output: 0-100" << std::endl
         << "                            For tiff output: PACKBITS, DEFLATE, LZW" << std::endl
         << "     -w, --wrap          Wraparound 360 deg border." << std::endl
+        << "     --seam=hard|blend   Select the blend mode for the seam" << std::endl
         << "     -h, --help          Shows this help" << std::endl
         << std::endl;
 };
@@ -221,11 +222,13 @@ int main(int argc, char* argv[])
     enum
     {
         OPT_COMPRESSION = 1000,
+        OPT_SEAMMODE
     };
     static struct option longOptions[] =
     {
         { "output", required_argument, NULL, 'o' },
         { "compression", required_argument, NULL, OPT_COMPRESSION},
+        { "seam", required_argument, NULL, OPT_SEAMMODE},
         { "wrap", no_argument, NULL, 'w' },
         { "help", no_argument, NULL, 'h' },
         0
@@ -236,6 +239,7 @@ int main(int argc, char* argv[])
     std::string output;
     std::string compression;
     bool wraparound = false;
+    bool hardSeam = true;
     while ((c = getopt_long(argc, argv, optstring, longOptions, &optionIndex)) != -1)
     {
         switch (c)
@@ -249,6 +253,27 @@ int main(int argc, char* argv[])
             break;
         case OPT_COMPRESSION:
             compression = hugin_utils::toupper(optarg);
+            break;
+        case OPT_SEAMMODE:
+            {
+                std::string text(optarg);
+                text = hugin_utils::tolower(text);
+                if (text == "hard")
+                {
+                    hardSeam = true;
+                }
+                else
+                {
+                    if (text == "blend")
+                    {
+                        hardSeam = false;
+                    }
+                    else
+                    {
+                        std::cerr << "String \"" << text << "\" is not a recognized seam blend mode. Ignoring." << std::endl;
+                    };
+                };
+            };
             break;
         case 'w':
             wraparound = true;
@@ -413,31 +438,31 @@ int main(int argc, char* argv[])
         {
             if (pixeltype == "UINT8")
             {
-                success = LoadAndMergeImages<vigra::BRGBImage>(imageInfos, output, compression, wraparound);
+                success = LoadAndMergeImages<vigra::BRGBImage>(imageInfos, output, compression, wraparound, hardSeam);
             }
             else if (pixeltype == "INT16")
             {
-                success = LoadAndMergeImages<vigra::Int16RGBImage>(imageInfos, output, compression, wraparound);
+                success = LoadAndMergeImages<vigra::Int16RGBImage>(imageInfos, output, compression, wraparound, hardSeam);
             }
             else if (pixeltype == "UINT16")
             {
-                success = LoadAndMergeImages<vigra::UInt16RGBImage>(imageInfos, output, compression, wraparound);
+                success = LoadAndMergeImages<vigra::UInt16RGBImage>(imageInfos, output, compression, wraparound, hardSeam);
             }
             else if (pixeltype == "INT32")
             {
-                success = LoadAndMergeImages<vigra::Int32RGBImage>(imageInfos, output, compression, wraparound);
+                success = LoadAndMergeImages<vigra::Int32RGBImage>(imageInfos, output, compression, wraparound, hardSeam);
             }
             else if (pixeltype == "UINT32")
             {
-                success = LoadAndMergeImages<vigra::UInt32RGBImage>(imageInfos, output, compression, wraparound);
+                success = LoadAndMergeImages<vigra::UInt32RGBImage>(imageInfos, output, compression, wraparound, hardSeam);
             }
             else if (pixeltype == "FLOAT")
             {
-                success = LoadAndMergeImages<vigra::FRGBImage>(imageInfos, output, compression, wraparound);
+                success = LoadAndMergeImages<vigra::FRGBImage>(imageInfos, output, compression, wraparound, hardSeam);
             }
             else if (pixeltype == "DOUBLE")
             {
-                success = LoadAndMergeImages<vigra::DRGBImage>(imageInfos, output, compression, wraparound);
+                success = LoadAndMergeImages<vigra::DRGBImage>(imageInfos, output, compression, wraparound, hardSeam);
             }
             else
             {
@@ -449,31 +474,31 @@ int main(int argc, char* argv[])
             //grayscale images
             if (pixeltype == "UINT8")
             {
-                success = LoadAndMergeImages<vigra::BImage>(imageInfos, output, compression, wraparound);
+                success = LoadAndMergeImages<vigra::BImage>(imageInfos, output, compression, wraparound, hardSeam);
             }
             else if (pixeltype == "INT16")
             {
-                success = LoadAndMergeImages<vigra::Int16Image>(imageInfos, output, compression, wraparound);
+                success = LoadAndMergeImages<vigra::Int16Image>(imageInfos, output, compression, wraparound, hardSeam);
             }
             else if (pixeltype == "UINT16")
             {
-                success = LoadAndMergeImages<vigra::UInt16Image>(imageInfos, output, compression, wraparound);
+                success = LoadAndMergeImages<vigra::UInt16Image>(imageInfos, output, compression, wraparound, hardSeam);
             }
             else if (pixeltype == "INT32")
             {
-                success = LoadAndMergeImages<vigra::Int32Image>(imageInfos, output, compression, wraparound);
+                success = LoadAndMergeImages<vigra::Int32Image>(imageInfos, output, compression, wraparound, hardSeam);
             }
             else if (pixeltype == "UINT32")
             {
-                success = LoadAndMergeImages<vigra::UInt32Image>(imageInfos, output, compression, wraparound);
+                success = LoadAndMergeImages<vigra::UInt32Image>(imageInfos, output, compression, wraparound, hardSeam);
             }
             else if (pixeltype == "FLOAT")
             {
-                success = LoadAndMergeImages<vigra::FImage>(imageInfos, output, compression, wraparound);
+                success = LoadAndMergeImages<vigra::FImage>(imageInfos, output, compression, wraparound, hardSeam);
             }
             else if (pixeltype == "DOUBLE")
             {
-                success = LoadAndMergeImages<vigra::DImage>(imageInfos, output, compression, wraparound);
+                success = LoadAndMergeImages<vigra::DImage>(imageInfos, output, compression, wraparound, hardSeam);
             }
             else
             {

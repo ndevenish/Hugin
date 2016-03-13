@@ -107,6 +107,7 @@ static void usage(const char* name)
          << "                   optionally you can specify the limits for the" << std::endl
          << "                   lower and upper cutoff (specify in range 0...1," << std::endl
          << "                   relative the full range)" << std::endl
+         << "      --seam=hard|blend   select the blend mode for the seam" << std::endl
          << std::endl;
 }
 
@@ -140,7 +141,8 @@ int main(int argc, char* argv[])
         SAVEINTERMEDIATEIMAGES,
         INTERMEDIATESUFFIX,
         EXPOSURELAYERS,
-        MASKCLIPEXPOSURE
+        MASKCLIPEXPOSURE,
+        SEAMMODE
     };
     static struct option longOptions[] =
     {
@@ -150,6 +152,7 @@ int main(int argc, char* argv[])
         { "compression", required_argument, NULL, 'z' },
         { "create-exposure-layers", no_argument, NULL, EXPOSURELAYERS },
         { "clip-exposure", optional_argument, NULL, MASKCLIPEXPOSURE },
+        { "seam", required_argument, NULL, SEAMMODE},
         0
     };
     
@@ -257,6 +260,27 @@ int main(int argc, char* argv[])
                         return 1;
                     };
                 }
+                break;
+            case SEAMMODE:
+                {
+                    std::string text(optarg);
+                    text = hugin_utils::tolower(text);
+                    if (text == "hard")
+                    {
+                        HuginBase::Nona::SetAdvancedOption(advOptions, "hardSeam", true);
+                    }
+                    else
+                    {
+                        if (text == "blend")
+                        {
+                            HuginBase::Nona::SetAdvancedOption(advOptions, "hardSeam", false);
+                        }
+                        else
+                        {
+                            std::cerr << "String \"" << text << "\" is not a recognized seam blend mode. Ignoring." << std::endl;
+                        };
+                    };
+                };
                 break;
             case '?':
             case 'h':

@@ -1,6 +1,6 @@
 // -*- c-basic-offset: 4 -*-
 
-/** @file StitchingWatershed.cpp
+/** @file StitchingWatershed.h
  *
  *  @brief stitching images using the watershed algorithm
  *
@@ -27,6 +27,7 @@
  
 #include <vigra/seededregiongrowing.hxx>
 #include <vigra/convolution.hxx>
+#include "vigra_ext/BlendPoisson.h"
 #ifdef HAVE_OPENMP
 #include <omp.h>
 #endif
@@ -82,6 +83,29 @@ namespace vigra_ext
             };
         };
 
+        struct CombineMasksForPoisson
+        {
+            template <class PixelType>
+            PixelType operator()(PixelType const& v1, PixelType const& v2) const
+            {
+                if ((v2 & 2) & v1)
+                {
+                    return 5;
+                }
+                else
+                {
+                    if (v1 > 0)
+                    {
+                        return v2;
+                    }
+                    else
+                    {
+                        return vigra::NumericTraits<PixelType>::zero();
+                    };
+                };
+            };
+        };
+
         template <class ImageType>
         ImageType ResizeImage(const ImageType& image, const vigra::Size2D& newSize)
         {
@@ -92,7 +116,7 @@ namespace vigra_ext
     }; // namespace detail
     
     template <class ImageType, class MaskType>
-    void MergeImages(ImageType& image1, MaskType& mask1, const ImageType& image2, const MaskType& mask2, const vigra::Diff2D offset, const bool wrap)
+    void MergeImages(ImageType& image1, MaskType& mask1, const ImageType& image2, const MaskType& mask2, const vigra::Diff2D offset, const bool wrap, const bool hardSeam)
     {
         const vigra::Point2D offsetPoint(offset);
         const vigra::Rect2D offsetRect(offsetPoint, mask2.size());
@@ -207,11 +231,42 @@ namespace vigra_ext
             };
             vigra::fastSeededRegionGrowing(vigra::srcImageRange(diffByte), vigra::destImage(labels, p1), stats, vigra::CompleteGrow, vigra::FourNeighborCode(), 255);
         };
-        vigra::omp::combineTwoImages(vigra::srcImageRange(labels), vigra::srcImage(mask2), vigra::destImage(labels), detail::CombineMasks());
-        // final merge images with mask created with watershed algorithm
-        vigra::copyImageIf(vigra::srcImageRange(image2), vigra::srcImage(labels), vigra::destImage(image1, offsetPoint));
-        // now merge masks
-        vigra::copyImageIf(vigra::srcImageRange(mask2), vigra::srcImage(mask2), vigra::destImage(mask1, offsetPoint));
+        // now we can merge the images
+        // merging the mask is straightforward
+        vigra::initImageIf(vigra::destImageRange(mask1, offsetRect), vigra::srcImage(mask2), vigra::NumericTraits<typename MaskType::value_type>::max());
+        if (hardSeam)
+        {
+            // the watershed algorithm could also reached area where no informations are available
+            vigra::omp::combineTwoImages(vigra::srcImageRange(labels), vigra::srcImage(mask2), vigra::destImage(labels), detail::CombineMasks());
+            // now we can merge the images
+            vigra::copyImageIf(vigra::srcImageRange(image2), vigra::srcImage(labels), vigra::destImage(image1, offsetPoint));
+        }
+        else
+        {
+            // find all boundaries in new mask
+            // first filter out unused pixel the watershed algorithm has also processed
+            vigra::omp::combineTwoImages(vigra::srcImageRange(mask1, offsetRect), vigra::srcImage(labels), vigra::destImage(labels), detail::CombineMasksForPoisson());
+            // labels has now the following values:
+            // 0: no image here
+            // 1: use information from image 1
+            // 5: use information from image 2
+            // mark edges in labels for solving Poisson equation with different boundary conditions
+            vigra::ImagePyramid<vigra::Int8Image> seams;
+            const int minLength = 8;
+            vigra_ext::poisson::BuildSeamPyramid(labels, seams, minLength);
+            // create gradient map
+            typedef typename vigra::NumericTraits<typename ImageType::PixelType>::RealPromote ImageRealPixelType;
+            vigra::BasicImage<ImageRealPixelType> gradient(image2.size());
+            vigra::BasicImage<ImageRealPixelType> target(image2.size());
+            // build gradient map with special handling of both boundary conditions
+            vigra_ext::poisson::BuildGradientMap(image1, image2, mask2, seams[0], gradient, offsetPoint, doWrap);
+            // we start with the values of the image2 as begin
+            vigra::omp::copyImageIf(vigra::srcImageRange(image2), vigra::srcImage(seams[0], vigra_ext::poisson::MaskGreaterAccessor<vigra::Int8>(2)), vigra::destImage(target));
+            // solve poisson equation
+            vigra_ext::poisson::Multigrid(target, gradient, seams, minLength, 0.01f, 500, doWrap);
+            // copy result back into output
+            vigra::omp::copyImageIf(vigra::srcImageRange(target), vigra::srcImage(seams[0], vigra_ext::poisson::MaskGreaterAccessor<vigra::Int8>(2)), vigra::destImage(image1, offsetPoint));
+        };
     };
 
 }

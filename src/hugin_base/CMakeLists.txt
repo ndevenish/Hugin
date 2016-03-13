@@ -124,6 +124,8 @@ vigra_ext/HDRUtils.h
 vigra_ext/ImageTransforms.h
 vigra_ext/ImageTransformsGPU.h
 vigra_ext/ReduceOpenEXR.h
+vigra_ext/StitchWatershed.h
+vigra_ext/BlendPoisson.h
 )
 
 IF (${HUGIN_SHARED_LIBS})
