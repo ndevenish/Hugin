@@ -354,7 +354,7 @@ void setDestImage(Image & image, vigra::Diff2D size,
         image.format = projd.internalFormat;
     } else {
         image.format = _equirectangular;
-        PrintError("unsupported projection");
+        DEBUG_ERROR("unsupported projection");
     }
     image.formatParamCount = projd.numberOfParameters;
     assert(image.formatParamCount == (int) projParams.size());
