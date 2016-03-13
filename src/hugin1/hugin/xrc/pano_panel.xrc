@@ -1348,4 +1348,51 @@
     <title>Output parameters</title>
     <icon>data/hugin.png</icon>
   </object>
+  <object class="wxDialog" name="verdandi_options_dialog">
+    <object class="wxBoxSizer">
+      <object class="sizeritem">
+        <object class="wxBoxSizer">
+          <object class="sizeritem">
+            <object class="wxStaticText">
+              <label>Seam blend mode:</label>
+            </object>
+            <flag>wxALIGN_CENTRE_VERTICAL</flag>
+            <border>6</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxChoice" name="verdandi_blend_mode_choice">
+              <content>
+                <item>hard seam (faster)</item>
+                <item>blend seam</item>
+              </content>
+            </object>
+            <flag>wxALL</flag>
+            <border>6</border>
+          </object>
+          <orient>wxHORIZONTAL</orient>
+        </object>
+        <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
+        <border>12</border>
+      </object>
+      <orient>wxVERTICAL</orient>
+      <object class="sizeritem">
+        <object class="wxStdDialogButtonSizer">
+          <object class="button">
+            <object class="wxButton" name="wxID_OK">
+              <label>OK</label>
+              <default>1</default>
+            </object>
+          </object>
+          <object class="button">
+            <object class="wxButton" name="wxID_CANCEL">
+              <label>Cancel</label>
+            </object>
+          </object>
+        </object>
+        <flag>wxTOP|wxBOTTOM|wxEXPAND</flag>
+        <border>6</border>
+      </object>
+    </object>
+    <title>Blender Options</title>
+  </object>
 </resource>

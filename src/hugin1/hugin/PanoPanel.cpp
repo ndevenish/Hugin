@@ -471,7 +471,7 @@ void PanoPanel::UpdateDisplay(const HuginBase::PanoramaOptions & opt, const bool
     m_BlenderChoice->Show(m_guiLevel>GUI_SIMPLE);
     // select correct blending mechanism
     SelectListValue(m_BlenderChoice, opt.blendMode);
-    XRCCTRL(*this, "pano_button_blender_opts", wxButton)->Enable(blenderEnabled && opt.blendMode!=HuginBase::PanoramaOptions::INTERNAL_BLEND);
+    XRCCTRL(*this, "pano_button_blender_opts", wxButton)->Enable(blenderEnabled);
     XRCCTRL(*this, "pano_button_blender_opts", wxButton)->Show(m_guiLevel>GUI_SIMPLE);
     XRCCTRL(*this, "pano_text_blender", wxStaticText)->Enable(blenderEnabled);
     XRCCTRL(*this, "pano_text_blender", wxStaticText)->Show(m_guiLevel>GUI_SIMPLE);
@@ -850,9 +850,42 @@ void PanoPanel::OnBlenderOptions(wxCommandEvent & e)
                 new PanoCommand::SetPanoOptionsCmd( *pano, opt )
                 );
         }
-    } else {
-        wxLogError(_(" PTblender options not yet implemented"));
-    }
+    } 
+    else
+    {
+        if (opt.blendMode == HuginBase::PanoramaOptions::INTERNAL_BLEND)
+        {
+            wxDialog dlg;
+            wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("verdandi_options_dialog"));
+            wxChoice * verdandiBlendModeChoice = XRCCTRL(dlg, "verdandi_blend_mode_choice", wxChoice);
+            if (opt.verdandiOptions.find("--seam=blend")!=std::string::npos)
+            {
+                verdandiBlendModeChoice->SetSelection(1);
+            }
+            else
+            {
+                verdandiBlendModeChoice->SetSelection(0);
+            };
+            dlg.CentreOnParent();
+
+            if (dlg.ShowModal() == wxID_OK)
+            {
+                if (verdandiBlendModeChoice->GetSelection() == 1)
+                {
+                    opt.verdandiOptions = "--seam=blend";
+                }
+                else
+                {
+                    opt.verdandiOptions = "";
+                };
+                PanoCommand::GlobalCmdHist::getInstance().addCommand(new PanoCommand::SetPanoOptionsCmd(*pano, opt));
+            };
+        }
+        else
+        {
+            wxLogError(_(" PTblender options not yet implemented"));
+        };
+    };
 }
 
 void PanoPanel::FusionChanged(wxCommandEvent & e)
