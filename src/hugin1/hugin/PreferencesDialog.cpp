@@ -83,6 +83,7 @@ BEGIN_EVENT_TABLE(PreferencesDialog, wxDialog)
     EVT_BUTTON(XRCID("pref_cpdetector_save"), PreferencesDialog::OnCPDetectorSave)
     EVT_CHOICE(XRCID("pref_ldr_output_file_format"), PreferencesDialog::OnFileFormatChanged)
     EVT_CHOICE(XRCID("pref_processor_gui"), PreferencesDialog::OnProcessorChanged)
+    EVT_CHOICE(XRCID("pref_default_blender"), PreferencesDialog::OnBlenderChanged)
     EVT_TEXT(XRCID("prefs_project_filename"), PreferencesDialog::OnUpdateProjectFilename)
     EVT_TEXT(XRCID("prefs_output_filename"), PreferencesDialog::OnUpdateOutputFilename)
 END_EVENT_TABLE()
@@ -676,6 +677,17 @@ void PreferencesDialog::UpdateDisplayData(int panel)
 
         // default blender
         SelectListValue(XRCCTRL(*this, "pref_default_blender", wxChoice), cfg->Read(wxT("/default_blender"), HUGIN_DEFAULT_BLENDER));
+        // default verdandi parameters
+        const wxString defaultVerdandiArgs = cfg->Read(wxT("/VerdandiDefaultArgs"), wxEmptyString);
+        if (defaultVerdandiArgs.Find(wxT("--seam=blend")) != wxNOT_FOUND)
+        {
+            XRCCTRL(*this, "pref_internal_blender_seam", wxChoice)->SetSelection(1);
+        }
+        else
+        {
+            XRCCTRL(*this, "pref_internal_blender_seam", wxChoice)->SetSelection(0);
+        };
+        UpdateBlenderControls();
 
         /////
         /// PROCESSOR
@@ -840,6 +852,7 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent& e)
             cfg->Write(wxT("/output/jpeg_quality"), HUGIN_JPEG_QUALITY);
             // default blender
             cfg->Write(wxT("/default_blender"), static_cast<long>(HUGIN_DEFAULT_BLENDER));
+            cfg->Write(wxT("/VerdandiDefaultArgs"), wxEmptyString);
             // stitching engine
             cfg->Write(wxT("/Processor/gui"), HUGIN_PROCESSOR_GUI);
             cfg->Write(wxT("/Processor/start"), HUGIN_PROCESSOR_START);
@@ -973,6 +986,14 @@ void PreferencesDialog::UpdateConfigData()
     cfg->Write(wxT("/output/jpeg_quality"), MY_G_SPIN_VAL("pref_jpeg_quality"));
 
     cfg->Write(wxT("/default_blender"), static_cast<long>(GetSelectedValue(XRCCTRL(*this, "pref_default_blender", wxChoice))));
+    if (XRCCTRL(*this, "pref_internal_blender_seam", wxChoice)->GetSelection() == 1)
+    {
+        cfg->Write(wxT("/VerdandiDefaultArgs"), wxT("--seam=blend"));
+    }
+    else
+    {
+        cfg->Write(wxT("/VerdandiDefaultArgs"), wxEmptyString);
+    };
 
     /////
     /// PROCESSOR
@@ -1193,6 +1214,20 @@ void PreferencesDialog::UpdateProcessorControls()
             XRCCTRL(*this,"pref_processor_verbose",wxCheckBox)->SetValue(true);
             break;
     };
+};
+
+void PreferencesDialog::OnBlenderChanged(wxCommandEvent & e)
+{
+    UpdateBlenderControls();
+};
+
+void PreferencesDialog::UpdateBlenderControls()
+{
+    const int blender = MY_G_CHOICE_VAL("pref_default_blender");
+    XRCCTRL(*this, "pref_internal_blender_seam_label", wxStaticText)->Show(blender == 1);
+    wxChoice* seamChoice = XRCCTRL(*this, "pref_internal_blender_seam", wxChoice);
+    seamChoice->Show(blender == 1);
+    seamChoice->Enable(blender == 1);
 };
 
 void PreferencesDialog::OnUpdateProjectFilename(wxCommandEvent& e)

@@ -822,6 +822,23 @@ per overlap</label>
                           <flag>wxALL</flag>
                           <border>5</border>
                         </object>
+                        <object class="sizeritem">
+                          <object class="wxStaticText" name="pref_internal_blender_seam_label">
+                            <label>Seam mode:</label>
+                          </object>
+                          <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>5</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxChoice" name="pref_internal_blender_seam">
+                            <content>
+                              <item>hard seam (faster)</item>
+                              <item>blend seam</item>
+                            </content>
+                          </object>
+                          <flag>wxALL</flag>
+                          <border>5</border>
+                        </object>
                         <orient>wxHORIZONTAL</orient>
                       </object>
                       <flag>wxALL</flag>
