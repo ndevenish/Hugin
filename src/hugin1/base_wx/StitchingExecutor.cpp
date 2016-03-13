@@ -506,6 +506,7 @@ namespace HuginQueue
         wxString verdandiArgs;
         if (opts.blendMode == HuginBase::PanoramaOptions::INTERNAL_BLEND)
         {
+            verdandiArgs.Append(WXSTRING(opts.verdandiOptions));
             if ((opts.getHFOV() == 360.0) && (opts.getWidth() == opts.getROI().width()))
             {
                 verdandiArgs.Append(wxT(" -w"));
@@ -582,6 +583,11 @@ namespace HuginQueue
                 {
                     finalNonaArgs.Append(wxT("-g "));
                 }
+                if (!opts.verdandiOptions.empty())
+                {
+                    finalNonaArgs.Append(WXSTRING(opts.verdandiOptions));
+                    finalNonaArgs.Append(wxT(" "));
+                };
                 if (opts.outputImageType == "tif")
                 {
                     finalNonaArgs.Append(wxT("-m TIFF "));
@@ -667,6 +673,11 @@ namespace HuginQueue
             {
                 // directly export exposure layers by nona
                 wxString finalNonaArgs(nonaArgs);
+                if (!opts.verdandiOptions.empty())
+                {
+                    finalNonaArgs.Append(WXSTRING(opts.verdandiOptions));
+                    finalNonaArgs.Append(wxT(" "));
+                };
                 finalNonaArgs.append(wxT("-r ldr --create-exposure-layers --ignore-exposure -o ") + wxEscapeFilename(prefix + wxT("_exposure_")));
                 if (opts.outputLDRExposureRemapped || opts.outputLDRStacks || opts.outputLDRExposureBlended)
                 {

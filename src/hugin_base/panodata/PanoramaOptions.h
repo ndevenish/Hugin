@@ -233,6 +233,7 @@ class IMPEX PanoramaOptions
             enblendOptions = "";
             enfuseOptions  = "";
             hdrmergeOptions = "";
+            verdandiOptions = "";
 
             outputEMoRParams.resize(5,0.0);
             outputExposureValue = 0.0;
@@ -397,6 +398,7 @@ class IMPEX PanoramaOptions
         std::string enblendOptions;
         std::string enfuseOptions;
         std::string hdrmergeOptions;
+        std::string verdandiOptions;
 
         // select the exposure of the output images in LDR mode.
         double outputExposureValue;
