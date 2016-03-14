@@ -776,7 +776,7 @@ wxString PossiblePano::GeneratePanorama(NamingConvention nc, bool createLinks, H
     opts.tiff_saveROI = config->Read(wxT("Nona/CroppedImages"),HUGIN_NONA_CROPPEDIMAGES)!=0;
     opts.hdrMergeMode = HuginBase::PanoramaOptions::HDRMERGE_AVERAGE;
     opts.hdrmergeOptions = HUGIN_HDRMERGE_ARGS;
-    opts.verdandiOptions = config->Read(wxT("/VerdandiDefaultArgs"), wxEmptyString);
+    opts.verdandiOptions = config->Read(wxT("/VerdandiDefaultArgs"), wxEmptyString).mb_str(wxConvLocal);
     pano.setOptions(opts);
     // set optimizer switches
     pano.setOptimizerSwitch(HuginBase::OPT_POSITION);

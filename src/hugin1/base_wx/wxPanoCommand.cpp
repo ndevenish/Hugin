@@ -831,7 +831,7 @@ bool wxNewProjectCmd::processPanorama(HuginBase::Panorama& pano)
     opts.blendMode = static_cast<HuginBase::PanoramaOptions::BlendingMechanism>(config->Read(wxT("/default_blender"), HUGIN_DEFAULT_BLENDER));
     opts.enblendOptions = config->Read(wxT("Enblend/Args"),wxT(HUGIN_ENBLEND_ARGS)).mb_str(wxConvLocal);
     opts.enfuseOptions = config->Read(wxT("Enfuse/Args"),wxT(HUGIN_ENFUSE_ARGS)).mb_str(wxConvLocal);
-    opts.verdandiOptions = config->Read(wxT("/VerdandiDefaultArgs"), wxEmptyString);
+    opts.verdandiOptions = config->Read(wxT("/VerdandiDefaultArgs"), wxEmptyString).mb_str(wxConvLocal);
     opts.interpolator = (vigra_ext::Interpolator)config->Read(wxT("Nona/Interpolator"),HUGIN_NONA_INTERPOLATOR);
     opts.remapUsingGPU = config->Read(wxT("Nona/useGPU"),HUGIN_NONA_USEGPU)!=0;
     opts.tiff_saveROI = config->Read(wxT("Nona/CroppedImages"),HUGIN_NONA_CROPPEDIMAGES)!=0;
