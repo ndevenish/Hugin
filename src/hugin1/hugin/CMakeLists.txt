@@ -35,7 +35,7 @@ PreviewDifferenceTool.cpp PreviewPanoMaskTool.cpp PreviewControlPointTool.cpp
 GreatCircles.cpp AboutDialog.cpp LayoutRemapper.cpp PreviewLayoutLinesTool.cpp PreviewColorPickerTool.cpp PreviewGuideTool.cpp
 MaskEditorPanel.cpp MaskImageCtrl.cpp MaskLoadDialog.cpp HtmlWindow.cpp 
 PanoOperation.cpp treelistctrl.cpp ImagesTree.cpp PanoOutputDialog.cpp
-GuiLevel.cpp ImageVariableDialog.cpp PreviewEditCPTool.cpp)
+GuiLevel.cpp ImageVariableDialog.cpp PreviewEditCPTool.cpp PapywizardImport.cpp)
 
 set(hugin_HEADERS
 huginApp.h ImagesList.h MainFrame.h CPImageCtrl.h CPImagesComboBox.h CPEditorPanel.h CPDetectorDialog.h 
@@ -51,7 +51,7 @@ PreviewDifferenceTool.h PreviewPanoMaskTool.h PreviewControlPointTool.h
 GreatCircles.h AboutDialog.h LayoutRemapper.h PreviewLayoutLinesTool.h PreviewColorPickerTool.h PreviewGuideTool.h
 MaskEditorPanel.h MaskImageCtrl.h MaskLoadDialog.h HtmlWindow.h 
 PanoOperation.h treelistctrl.h ImagesTree.h PanoOutputDialog.h
-GuiLevel.h ImageVariableDialog.h PreviewEditCPTool.h)
+GuiLevel.h ImageVariableDialog.h PreviewEditCPTool.h PapywizardImport.h)
 
 IF(BUILD_HSI)
 LIST(APPEND hugin_SOURCES PluginItems.cpp)

@@ -335,4 +335,85 @@
     <title>Edit cp tools</title>
     <style>wxDEFAULT_DIALOG_STYLE|wxTAB_TRAVERSAL</style>
   </object>
+  <object class="wxDialog" name="papywizard_import_dialog">
+    <object class="wxBoxSizer">
+      <orient>wxVERTICAL</orient>
+      <object class="sizeritem">
+        <object class="wxStaticBoxSizer">
+          <object class="sizeritem">
+            <object class="wxCheckBox" name="papywizard_link_positions">
+              <label>Link positions</label>
+              <checked>1</checked>
+            </object>
+            <flag>wxALL</flag>
+            <border>6</border>
+          </object>
+          <label>Stacks</label>
+          <orient>wxVERTICAL</orient>
+        </object>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>6</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxStaticBoxSizer">
+          <object class="sizeritem">
+            <object class="wxBoxSizer">
+              <object class="sizeritem">
+                <object class="wxCheckBox" name="papywizard_cpfind">
+                  <label>Generate control points, additional cpfind parameters:</label>
+                  <checked>1</checked>
+                </object>
+                <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                <border>6</border>
+              </object>
+              <object class="spacer">
+                <size>6,-1</size>
+              </object>
+              <object class="sizeritem">
+                <object class="wxTextCtrl" name="papywizard_cpfind_parameters"/>
+                <option>1</option>
+                <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                <border>6</border>
+              </object>
+              <orient>wxHORIZONTAL</orient>
+            </object>
+            <flag>wxEXPAND</flag>
+          </object>
+          <object class="sizeritem">
+            <object class="wxCheckBox" name="papywizard_geocpset">
+              <label>Connect orphaned images (with geocpset)</label>
+              <checked>1</checked>
+            </object>
+            <flag>wxALL|wxEXPAND</flag>
+            <border>6</border>
+          </object>
+          <label>Control point generation</label>
+          <orient>wxVERTICAL</orient>
+        </object>
+        <option>1</option>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>6</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxStdDialogButtonSizer">
+          <object class="button">
+            <object class="wxButton" name="wxID_OK">
+              <label>OK</label>
+              <default>1</default>
+            </object>
+          </object>
+          
+          <object class="button">
+            <object class="wxButton" name="wxID_CANCEL">
+              <label>Cancel</label>
+            </object>
+          </object>
+        </object>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>6</border>
+      </object>
+    </object>
+    <title>Import positions from Papywizard XML</title>
+    <style>wxDEFAULT_DIALOG_STYLE|wxCAPTION|wxSTAY_ON_TOP|wxRESIZE_BORDER</style>
+  </object>
 </resource>

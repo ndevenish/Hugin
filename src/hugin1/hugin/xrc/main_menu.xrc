@@ -198,6 +198,10 @@
       <label>&amp;Merge project...</label>
       <help>Merges an existing project file with the current project.</help>
     </object>
+    <object class="wxMenuItem" name="action_import_papywizard">
+      <label>Import settings from Papywizard &amp;XML file...</label>
+      <help>Read shoot settings from a Papywizard XML file</help>
+    </object>
     <object class="wxMenuItem" name="action_apply_template">
       <label>Apply &amp;Template</label>
       <help>Assign the settings of a previously saved project to the current images.</help>

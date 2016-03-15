@@ -57,6 +57,7 @@
 #include "hugin/LocalizedFileTipProvider.h"
 #include "algorithms/control_points/CleanCP.h"
 #include "hugin/PanoOperation.h"
+#include "hugin/PapywizardImport.h"
 
 #include "base_wx/MyProgressDialog.h"
 #include "base_wx/RunStitchPanel.h"
@@ -203,6 +204,7 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_MENU(XRCID("action_save_as_ptstitcher"),  MainFrame::OnSavePTStitcherAs)
     EVT_MENU(XRCID("action_open_batch_processor"),  MainFrame::OnOpenPTBatcher)
     EVT_MENU(XRCID("action_import_project"), MainFrame::OnMergeProject)
+    EVT_MENU(XRCID("action_import_papywizard"), MainFrame::OnReadPapywizard)
     EVT_MENU(XRCID("action_apply_template"),  MainFrame::OnApplyTemplate)
     EVT_MENU(XRCID("action_exit_hugin"),  MainFrame::OnUserQuit)
     EVT_MENU_RANGE(wxID_FILE1, wxID_FILE9, MainFrame::OnMRUFiles)
@@ -1446,6 +1448,20 @@ void MainFrame::OnMergeProject(wxCommandEvent & e)
     }
 }
 
+void MainFrame::OnReadPapywizard(wxCommandEvent & e)
+{
+    wxString currentDir = wxConfigBase::Get()->Read(wxT("/actualPath"), wxT(""));
+    wxFileDialog dlg(wxGetActiveWindow(), _("Open Papywizard xml file"),
+        currentDir, wxT(""), _("Papywizard xml files (*.xml)|*.xml|All files (*)|*"),
+        wxFD_OPEN, wxDefaultPosition);
+    dlg.SetDirectory(currentDir);
+    if (dlg.ShowModal() == wxID_OK)
+    {
+        wxConfigBase::Get()->Write(wxT("/actualPath"), dlg.GetDirectory());
+        Papywizard::ImportPapywizardFile(dlg.GetPath(), pano);
+    };
+};
+
 void MainFrame::OnApplyTemplate(wxCommandEvent & e)
 {
     // get the global config object
@@ -1768,6 +1784,7 @@ void MainFrame::enableTools(bool option)
     theMenuBar->Enable(XRCID("ID_SHOW_PREVIEW_FRAME"), option);
     theMenuBar->Enable(XRCID("action_stitch"), option);
     theMenuBar->Enable(XRCID("action_stitch_userdefined"), option);
+    theMenuBar->Enable(XRCID("action_import_papywizard"), option);
     //theMenuBar->Enable(XRCID("ID_SHOW_GL_PREVIEW_FRAME"), option);
 }
 

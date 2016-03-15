@@ -209,6 +209,7 @@ private:
     void OnFineTuneAll(wxCommandEvent & e);
     void OnRemoveCPinMasks(wxCommandEvent & e);
     void OnMergeProject(wxCommandEvent & e);
+    void OnReadPapywizard(wxCommandEvent & e);
     void OnApplyTemplate(wxCommandEvent & e);
     void OnSendToBatch(wxCommandEvent & e);
     void OnSendToAssistantQueue(wxCommandEvent & e);
