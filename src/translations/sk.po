@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2016-01-23 09:30+0100\n"
-"PO-Revision-Date: 2016-01-06 11:02+0000\n"
+"POT-Creation-Date: 2016-03-14 19:21+0100\n"
+"PO-Revision-Date: 2016-03-14 18:46+0000\n"
 "Last-Translator: Kornel Benko <kornel@lyx.org>\n"
 "Language-Team: Slovak <kornel@lyx.org>\n"
 "Language: sk\n"
@@ -1647,60 +1647,14 @@ msgstr "Obrázky sú prepojené %lu kontrolnými bodmi.\n"
 msgid "%lu unconnected image groups found: %s\n"
 msgstr "bolo nájdených %lu neprepojených skupín obrázkov: %s\n"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1118
-msgid ""
-"Please use the Control Points tab to connect all images with control "
-"points.\n"
-msgstr ""
-"Prosím použite panel Kontrolné body na prepojenie obrázkov kontrolnými "
-"bodmi.\n"
-
 #: hugin1/hugin/GLPreviewFrame.cpp:1124
 msgid "Images or control points have changed, new alignment is needed."
 msgstr "Obrázky alebo kontrolné body sa zmenili, je potrebné nové zarovnanie."
-
-#: hugin1/hugin/GLPreviewFrame.cpp:1137
-msgid "Very good fit."
-msgstr "Veľmi dobré lícovanie."
-
-#: hugin1/hugin/GLPreviewFrame.cpp:1139
-msgid "Good fit."
-msgstr "Dobré lícovanie."
-
-#: hugin1/hugin/GLPreviewFrame.cpp:1141
-msgid ""
-"Bad fit, some control points might be bad, or there are parallax and "
-"movement errors"
-msgstr ""
-"Zlé lícovanie, niektoré kontrolné body môžu byť zlé alebo sa môžu vyskytovať "
-"chyby paralaxy a posunu"
-
-#: hugin1/hugin/GLPreviewFrame.cpp:1143
-msgid ""
-"Very bad fit. Check for bad control points, lens parameters, or images with "
-"parallax or movement. The optimizer might have failed. Manual intervention "
-"required."
-msgstr ""
-"Veľmi zlé lícovanie. Hľadajte zlé kontrolné body, skontrolujte parametre "
-"šošovky alebo obrázky s paralaxou alebo pohybom. Optimalizátor mohol zlyhať. "
-"Je potrebný ručný zásah."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1145
 #, c-format
 msgid "Mean error after optimization: %.1f pixel, max: %.1f\n"
 msgstr "Priemerná chyba po optimalizácii: %.1f pixel, max: %.1f\n"
-
-#: hugin1/hugin/GLPreviewFrame.cpp:1155
-msgid ""
-"Note: automatic alignment uses default settings from the preferences. If you "
-"want to use customized settings, run the CP detection, the geometrical "
-"optimization and the photometric optimization from the Photos tab in the "
-"panorama editor."
-msgstr ""
-"Poznámka: automatické zarovnanie používa východzie nastavenia volieb. Ak "
-"chcete použiť vlastné nastavenia, spusťte detekciu kontrolných bodov, "
-"geometrickú optimalizáciu a fotometrickú optimalizáciu v paneli Fotografie v "
-"editore panorámy."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1574 hugin1/hugin/PreviewFrame.cpp:642
 msgid "Rectilinear"
@@ -4554,6 +4508,10 @@ msgstr "Licencia"
 msgid "System"
 msgstr "Systém"
 
+#: hugin1/hugin/xrc/about.xrc:188
+msgid "Dedication"
+msgstr "Venovanie"
+
 #: hugin1/hugin/xrc/about.xrc:198 hugin1/hugin/xrc/cpdetector_dialog.xrc:328
 #: hugin1/hugin/xrc/dlg_warning.xrc:46
 #: hugin1/hugin/xrc/image_variable_dlg.xrc:634
@@ -6654,6 +6612,18 @@ msgstr "Držať  pomocné  obrázky"
 msgid "Output parameters"
 msgstr "Výstupné parametre"
 
+#: hugin1/hugin/xrc/pano_panel.xrc:1357
+msgid "Seam blend mode:"
+msgstr "Režim spájania ševu:"
+
+#: hugin1/hugin/xrc/pano_panel.xrc:1365 hugin1/hugin/xrc/pref_dialog.xrc:835
+msgid "hard seam (faster)"
+msgstr "tvrdý šev (rýchlejšie)"
+
+#: hugin1/hugin/xrc/pano_panel.xrc:1366 hugin1/hugin/xrc/pref_dialog.xrc:836
+msgid "blend seam"
+msgstr "splývavý šev"
+
 #: hugin1/hugin/xrc/pref_dialog.xrc:15
 msgid "Resource Usage"
 msgstr "Použitie zdrojov"
@@ -6978,6 +6948,10 @@ msgstr "Štandardný miešač:"
 #: hugin1/hugin/xrc/pref_dialog.xrc:820
 msgid "Default blender which is used for new projects."
 msgstr "Štandardný miešač pre nové projekty."
+
+#: hugin1/hugin/xrc/pref_dialog.xrc:827
+msgid "Seam mode:"
+msgstr "Režim spájania:"
 
 #: hugin1/hugin/xrc/pref_dialog.xrc:835
 msgid "Processor"
@@ -7966,8 +7940,45 @@ msgstr ""
 "ak sa obrázky veľmi prekrývajú a použili ste tiež mnoho dobre rozprestrených "
 "kontrolných bodov."
 
-#~ msgid "Dedication"
-#~ msgstr "Venovanie"
+#~ msgid ""
+#~ "Please use the Control Points tab to connect all images with control "
+#~ "points.\n"
+#~ msgstr ""
+#~ "Prosím použite panel Kontrolné body na prepojenie obrázkov kontrolnými "
+#~ "bodmi.\n"
+
+#~ msgid "Very good fit."
+#~ msgstr "Veľmi dobré lícovanie."
+
+#~ msgid "Good fit."
+#~ msgstr "Dobré lícovanie."
+
+#~ msgid ""
+#~ "Bad fit, some control points might be bad, or there are parallax and "
+#~ "movement errors"
+#~ msgstr ""
+#~ "Zlé lícovanie, niektoré kontrolné body môžu byť zlé alebo sa môžu "
+#~ "vyskytovať chyby paralaxy a posunu"
+
+#~ msgid ""
+#~ "Very bad fit. Check for bad control points, lens parameters, or images "
+#~ "with parallax or movement. The optimizer might have failed. Manual "
+#~ "intervention required."
+#~ msgstr ""
+#~ "Veľmi zlé lícovanie. Hľadajte zlé kontrolné body, skontrolujte parametre "
+#~ "šošovky alebo obrázky s paralaxou alebo pohybom. Optimalizátor mohol "
+#~ "zlyhať. Je potrebný ručný zásah."
+
+#~ msgid ""
+#~ "Note: automatic alignment uses default settings from the preferences. If "
+#~ "you want to use customized settings, run the CP detection, the "
+#~ "geometrical optimization and the photometric optimization from the Photos "
+#~ "tab in the panorama editor."
+#~ msgstr ""
+#~ "Poznámka: automatické zarovnanie používa východzie nastavenia volieb. Ak "
+#~ "chcete použiť vlastné nastavenia, spusťte detekciu kontrolných bodov, "
+#~ "geometrickú optimalizáciu a fotometrickú optimalizáciu v paneli "
+#~ "Fotografie v editore panorámy."
 
 #~ msgid "Removed %d control points"
 #~ msgstr "Odstránených %d kontrolných bodov"
