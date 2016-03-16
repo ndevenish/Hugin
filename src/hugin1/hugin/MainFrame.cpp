@@ -1784,7 +1784,7 @@ void MainFrame::enableTools(bool option)
     theMenuBar->Enable(XRCID("ID_SHOW_PREVIEW_FRAME"), option);
     theMenuBar->Enable(XRCID("action_stitch"), option);
     theMenuBar->Enable(XRCID("action_stitch_userdefined"), option);
-    theMenuBar->Enable(XRCID("action_import_papywizard"), option);
+    m_menu_file_advanced->Enable(XRCID("action_import_papywizard"), option);
     //theMenuBar->Enable(XRCID("ID_SHOW_GL_PREVIEW_FRAME"), option);
 }
 
