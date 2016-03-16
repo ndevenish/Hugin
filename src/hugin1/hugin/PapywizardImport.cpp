@@ -59,7 +59,7 @@ public:
 
     std::vector<PapywizardImage> images;
     /** constructor, initialize some values */
-    PapywizardSettings::PapywizardSettings()
+    PapywizardSettings()
     {
         focallength = 0;
         cropfactor = 1;
@@ -97,7 +97,7 @@ bool ParseHeader(wxXmlNode* root, PapywizardSettings& images)
                     wxString number;
                     if (camChild->GetAttribute(wxT("coef"), &number))
                     {
-                        if (!hugin_utils::stringToDouble(number, images.cropfactor))
+                        if (!hugin_utils::stringToDouble(std::string(number.mb_str(wxConvLocal)), images.cropfactor))
                         {
                             return false;
                         };
@@ -136,7 +136,7 @@ bool ParseHeader(wxXmlNode* root, PapywizardSettings& images)
                 if (lensChild->GetName().CmpNoCase(wxT("focal")) == 0)
                 {
                     wxString focallength = lensChild->GetNodeContent().Trim().Trim(false);
-                    if(!hugin_utils::stringToDouble(focallength, images.focallength))
+                    if(!hugin_utils::stringToDouble(std::string(focallength.mb_str(wxConvLocal)), images.focallength))
                     {
                         return false;
                     };
@@ -196,7 +196,7 @@ bool ParseShoot(wxXmlNode* root, PapywizardSettings& images)
                     {
                         return false;
                     };
-                    if (!hugin_utils::stringToDouble(s, image.yaw))
+                    if (!hugin_utils::stringToDouble(std::string(s.mb_str(wxConvLocal)), image.yaw))
                     {
                         return false;
                     };
@@ -204,7 +204,7 @@ bool ParseShoot(wxXmlNode* root, PapywizardSettings& images)
                     {
                         return false;
                     }
-                    if (!hugin_utils::stringToDouble(s, image.pitch))
+                    if (!hugin_utils::stringToDouble(std::string(s.mb_str(wxConvLocal)), image.pitch))
                     {
                         return false;
                     };
@@ -212,7 +212,7 @@ bool ParseShoot(wxXmlNode* root, PapywizardSettings& images)
                     {
                         return false;
                     };
-                    if (!hugin_utils::stringToDouble(s, image.roll))
+                    if (!hugin_utils::stringToDouble(std::string(s.mb_str(wxConvLocal)), image.roll))
                     {
                         return false;
                     };
@@ -285,7 +285,7 @@ public:
         RestoreFramePosition(this, wxT("PapywizardImportDialog"));
     };
     /** destructor, save settings */
-    PapywizardImportDialog::~PapywizardImportDialog()
+    ~PapywizardImportDialog()
     {
         StoreFramePosition(this, wxT("PapywizardImportDialog"));
         if (m_cpfind->IsChecked())
@@ -293,20 +293,20 @@ public:
             wxConfig::Get()->Write(wxT("/PapywizardImportCpfind"), m_cpfindParams->GetValue());
         };
     };
-    void PapywizardImportDialog::EnableStack(const bool hasStacks)
+    void EnableStack(const bool hasStacks)
     {
         m_linkPos->Enable(hasStacks);
         m_linkPos->SetValue(hasStacks);
     };
-    const bool PapywizardImportDialog::LinkStacks() const
+    const bool LinkStacks() const
     {
         return m_linkPos->IsEnabled() && m_linkPos->IsChecked();
     };
-    const bool PapywizardImportDialog::RunCpfind() const
+    const bool RunCpfind() const
     {
         return m_cpfind->IsChecked();
     };
-    const wxString PapywizardImportDialog::GetCPFindParam() const
+    const wxString GetCPFindParam() const
     {
         return m_cpfindParams->GetValue();
     };
@@ -464,7 +464,7 @@ bool ImportPapywizardFile(const wxString& filename, HuginBase::Panorama& pano)
                 wxT("-o ") + quotedProject + wxT(" ") + quotedProject, _("Connecting overlapping images")));
         };
         //execute queue
-        int ret = MyExecuteCommandQueue(commands, wxGetActiveWindow(), _("Searching control points"));
+        MyExecuteCommandQueue(commands, wxGetActiveWindow(), _("Searching control points"));
         //read back panofile
         PanoCommand::GlobalCmdHist::getInstance().addCommand(new PanoCommand::wxLoadPTProjectCmd(pano,
             (const char *)scriptFileName.GetFullPath().mb_str(HUGIN_CONV_FILENAME),
