@@ -140,7 +140,7 @@ void CalculateImageOverlap::calculate(unsigned int steps)
     };
 };
 
-double CalculateImageOverlap::getOverlap(unsigned int i, unsigned int j)
+double CalculateImageOverlap::getOverlap(unsigned int i, unsigned int j) const
 {
     if(i==j)
     {
@@ -152,7 +152,7 @@ double CalculateImageOverlap::getOverlap(unsigned int i, unsigned int j)
     };
 };
 
-UIntSet CalculateImageOverlap::getOverlapForImage(unsigned int i)
+UIntSet CalculateImageOverlap::getOverlapForImage(unsigned int i) const
 {
     UIntSet overlapImgs;
     for(unsigned int j=0;j<m_nrImg;j++)
