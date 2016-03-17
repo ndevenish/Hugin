@@ -311,7 +311,7 @@ void GLViewer::Resized(wxSizeEvent& e)
    
     if (frame->CanResize()) {
         DEBUG_DEBUG("RESIZED_IN");
-#if !wxCHECK_VERSION(3,0,1)
+#if !wxCHECK_VERSION(3,0,0)
         wxGLCanvas::OnSize(e);
 #endif
         if(!IsShown()) return;
