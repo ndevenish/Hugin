@@ -43,8 +43,9 @@ class IMPEX ProgressDisplay
 protected:
     /** constructor */
     explicit ProgressDisplay(int maximum=0) : m_canceled(false), m_maximum(maximum), m_progress(0) {};
-
 public:
+    /* virtual destructor */
+    virtual ~ProgressDisplay() {};
     /** sets the message to given string */
     void setMessage(const std::string& message, const std::string& filename="");
     /** call when a task has finished and the status message should be cleared */

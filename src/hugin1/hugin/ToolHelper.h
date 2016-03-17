@@ -86,7 +86,7 @@ public:
     ToolHelper(HuginBase::Panorama *pano,
                       VisualizationState *visualization_state,
                       GLPreviewFrame * frame);
-    ~ToolHelper();
+    virtual ~ToolHelper();
     // working with tools
     // Activate a tool, the tool will then request notifications it needs.
     // Then return a list of tools that had to be dactivated to comply.

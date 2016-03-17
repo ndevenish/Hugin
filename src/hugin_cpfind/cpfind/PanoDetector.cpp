@@ -280,6 +280,7 @@ class Runnable
 public:
     Runnable() {};
     virtual void run() = 0;
+    virtual ~Runnable() {};
 };
 
 // definition of a runnable class for image data

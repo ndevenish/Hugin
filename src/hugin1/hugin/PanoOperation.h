@@ -39,6 +39,8 @@ namespace PanoOperation
 class PanoOperation
 {
 public:
+    /** virtual destructor, does currently nothing */
+    virtual ~PanoOperation() {};
     /** return true, if operation is enabled with the given image set */
     virtual bool IsEnabled(HuginBase::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel);
     /** returns the appropriate PanoCommand::PanoCommand to be inserted into GlobalCmdHistory, checks if operation is enabled

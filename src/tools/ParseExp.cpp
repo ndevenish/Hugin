@@ -54,6 +54,7 @@ class TokenBase
 {
 public:
     virtual void evaluate(std::stack<double>&) = 0;
+    virtual ~TokenBase() {};
 };
 
 /** single numeric token on rpn queue */
@@ -158,6 +159,7 @@ class OperatorBase
 {
 public:
     OperatorBase(int prec, bool rightAssoc = false) : m_precedence(prec), m_rightAssoc(rightAssoc) {};
+    virtual ~OperatorBase() {};
     const int GetPrecedence() const { return m_precedence; };
     const bool IsRightAssociative() const { return m_rightAssoc; };
     bool ComparePrecedence(const OperatorBase* other)

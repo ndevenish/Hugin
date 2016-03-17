@@ -38,7 +38,7 @@ class MeshManager
 {
 public:
     MeshManager(HuginBase::Panorama *pano, VisualizationState *visualization_state);
-    ~MeshManager();
+    virtual ~MeshManager();
 
     void CheckUpdate();
     
