@@ -182,7 +182,7 @@ void CalculateOptimalROI::AddCheckingRects(std::list<vigra::Rect2D>& testingRect
 /** check if given rect covers the whole pano */
 bool CalculateOptimalROI::CheckRectCoversPano(const vigra::Rect2D& rect)
 {
-    for (size_t i = rect.left(); i<rect.right(); i++)
+    for (int i = rect.left(); i<rect.right(); i++)
     {
         if (imgPixel(i, rect.top()) == 0 || imgPixel(i, rect.bottom() - 1) == 0)
         {
@@ -190,7 +190,7 @@ bool CalculateOptimalROI::CheckRectCoversPano(const vigra::Rect2D& rect)
         }
     }
 
-    for (size_t j = rect.top(); j<rect.bottom(); j++)
+    for (int j = rect.top(); j<rect.bottom(); j++)
     {
         if (imgPixel(rect.left(), j) == 0 || imgPixel(rect.right() - 1, j) == 0)
         {

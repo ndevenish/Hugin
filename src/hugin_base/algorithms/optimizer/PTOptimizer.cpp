@@ -159,7 +159,7 @@ public:
     {
 	// copy points into panorama object
 	CPVector cpoints(points.size());	
-	for (int i=0; i < points.size(); i++) {
+	for (size_t i=0; i < points.size(); i++) {
 	    cpoints[i] = *points[i];
 	}
 

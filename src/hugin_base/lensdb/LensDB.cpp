@@ -1082,9 +1082,9 @@ private:
             return false;
         };
         std::vector<std::string> columns = hugin_utils::SplitString(s.substr(8), ";");
-        size_t indexMaker = -1;
-        size_t indexModel = -1;
-        size_t indexCropfactor = -1;
+        int indexMaker = -1;
+        int indexModel = -1;
+        int indexCropfactor = -1;
         for (size_t i = 0; i < columns.size(); ++i)
         {
             if (columns[i] == "Maker")
@@ -1151,8 +1151,8 @@ private:
             return false;
         };
         std::vector<std::string> columns = hugin_utils::SplitString(s.substr(8), ";");
-        size_t indexLens = -1;
-        size_t indexProjection = -1;
+        int indexLens = -1;
+        int indexProjection = -1;
         for (size_t i = 0; i < columns.size(); ++i)
         {
             if (columns[i] == "Lens")
@@ -1210,10 +1210,10 @@ private:
             return false;
         };
         std::vector<std::string> columns = hugin_utils::SplitString(s.substr(8), ";");
-        size_t indexLens = -1;
-        size_t indexFocallength = -1;
-        size_t indexHFOV = -1;
-        size_t indexWeight = -1;
+        int indexLens = -1;
+        int indexFocallength = -1;
+        int indexHFOV = -1;
+        int indexWeight = -1;
         for (size_t i = 0; i < columns.size(); ++i)
         {
             if (columns[i] == "Lens")
@@ -1294,14 +1294,14 @@ private:
             return false;
         };
         std::vector<std::string> columns = hugin_utils::SplitString(s.substr(8), ";");
-        size_t indexLens = -1;
-        size_t indexFocallength = -1;
-        size_t indexWidth = -1;
-        size_t indexHeight = -1;
-        size_t indexCropLeft = -1;
-        size_t indexCropRight = -1;
-        size_t indexCropTop = -1;
-        size_t indexCropBottom = -1;
+        int indexLens = -1;
+        int indexFocallength = -1;
+        int indexWidth = -1;
+        int indexHeight = -1;
+        int indexCropLeft = -1;
+        int indexCropRight = -1;
+        int indexCropTop = -1;
+        int indexCropBottom = -1;
         for (size_t i = 0; i < columns.size(); ++i)
         {
             if (columns[i] == "Lens")
@@ -1421,12 +1421,12 @@ private:
             return false;
         };
         std::vector<std::string> columns = hugin_utils::SplitString(s.substr(8), ";");
-        size_t indexLens = -1;
-        size_t indexFocallength = -1;
-        size_t indexA = -1;
-        size_t indexB = -1;
-        size_t indexC = -1;
-        size_t indexWeight = -1;
+        int indexLens = -1;
+        int indexFocallength = -1;
+        int indexA = -1;
+        int indexB = -1;
+        int indexC = -1;
+        int indexWeight = -1;
         for (size_t i = 0; i < columns.size(); ++i)
         {
             if (columns[i] == "Lens")
@@ -1526,14 +1526,14 @@ private:
             return false;
         };
         std::vector<std::string> columns = hugin_utils::SplitString(s.substr(8), ";");
-        size_t indexLens = -1;
-        size_t indexFocallength = -1;
-        size_t indexAperture = -1;
-        size_t indexDistance = -1;
-        size_t indexVb = -1;
-        size_t indexVc = -1;
-        size_t indexVd = -1;
-        size_t indexWeight = -1;
+        int indexLens = -1;
+        int indexFocallength = -1;
+        int indexAperture = -1;
+        int indexDistance = -1;
+        int indexVb = -1;
+        int indexVc = -1;
+        int indexVd = -1;
+        int indexWeight = -1;
         for (size_t i = 0; i < columns.size(); ++i)
         {
             if (columns[i] == "Lens")
@@ -1653,17 +1653,17 @@ private:
             return false;
         };
         std::vector<std::string> columns = hugin_utils::SplitString(s.substr(8), ";");
-        size_t indexLens = -1;
-        size_t indexFocallength = -1;
-        size_t indexRa = -1;
-        size_t indexRb = -1;
-        size_t indexRc = -1;
-        size_t indexRd = -1;
-        size_t indexBa = -1;
-        size_t indexBb = -1;
-        size_t indexBc = -1;
-        size_t indexBd = -1;
-        size_t indexWeight = -1;
+        int  indexLens = -1;
+        int indexFocallength = -1;
+        int indexRa = -1;
+        int indexRb = -1;
+        int indexRc = -1;
+        int indexRd = -1;
+        int indexBa = -1;
+        int indexBb = -1;
+        int indexBc = -1;
+        int indexBd = -1;
+        int indexWeight = -1;
         for (size_t i = 0; i < columns.size(); ++i)
         {
             if (columns[i] == "Lens")
@@ -1813,15 +1813,15 @@ private:
             return false;
         };
         std::vector<std::string> columns = hugin_utils::SplitString(s.substr(8), ";");
-        size_t indexMaker = -1;
-        size_t indexModel = -1;
-        size_t indexISO = -1;
-        size_t indexRa = -1;
-        size_t indexRb = -1;
-        size_t indexRc = -1;
-        size_t indexRd = -1;
-        size_t indexRe = -1;
-        size_t indexWeight = -1;
+        int indexMaker = -1;
+        int indexModel = -1;
+        int indexISO = -1;
+        int indexRa = -1;
+        int indexRb = -1;
+        int indexRc = -1;
+        int indexRd = -1;
+        int indexRe = -1;
+        int indexWeight = -1;
         for (size_t i = 0; i < columns.size(); ++i)
         {
             if (columns[i] == "Maker")
