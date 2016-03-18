@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: da\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2016-01-23 09:30+0100\n"
-"PO-Revision-Date: 2016-02-06 22:32+0100\n"
+"PO-Revision-Date: 2016-03-18 23:01+0100\n"
 "Last-Translator: Thomas Pryds <thomas@pryds.eu>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -31,7 +31,7 @@ msgstr "Statistisk oprydning i kontrolpunkter…"
 
 #: hugin1/base_wx/AssistantExecutor.cpp:105
 msgid "Searching for vertical lines..."
-msgstr "Søger efter lodrette linier…"
+msgstr "Søger efter lodrette linjer…"
 
 #: hugin1/base_wx/AssistantExecutor.cpp:111
 msgid "Optimizing..."
@@ -131,7 +131,7 @@ msgstr "Hugin"
 
 #: hugin1/base_wx/LensTools.cpp:38 hugin1/base_wx/LensTools.cpp:81
 msgid "Normal (rectilinear)"
-msgstr "Normal (retliniet)"
+msgstr "Normal (retlinjet)"
 
 #: hugin1/base_wx/LensTools.cpp:39 hugin1/base_wx/LensTools.cpp:82
 msgid "Panoramic (cylindrical)"
@@ -1018,7 +1018,7 @@ msgstr "Tilføj billede: annullér"
 #: hugin1/calibrate_lens/LensCalFrame.cpp:464
 #, c-format
 msgid "%s (%d lines)"
-msgstr "%s (%d linier)"
+msgstr "%s (%d linjer)"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:552
 #: hugin1/calibrate_lens/LensCalFrame.cpp:575
@@ -1038,7 +1038,7 @@ msgstr "Lokaliserer kanter…"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:563
 msgid "Finding lines..."
-msgstr "Finder linier…"
+msgstr "Finder linjer…"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:567
 #: hugin1/calibrate_lens/LensCalFrame.cpp:683
@@ -1051,8 +1051,8 @@ msgid ""
 "Please run \"Find lines\" first. If there are no lines found, change the "
 "parameters."
 msgstr ""
-"Der er ikke fundet nogen linier.\n"
-"Kør venligst \"Find linier\" først. Hvis der ikke blev fundet nogen linier, "
+"Der er ikke fundet nogen linjer.\n"
+"Kør venligst \"Find linjer\" først. Hvis der ikke blev fundet nogen linjer, "
 "ændr da parametrene."
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:667
@@ -1065,9 +1065,9 @@ msgid ""
 "Please run \"Find lines\" and \"Optimize\" before saving the lens data. If "
 "there are no lines found, change the parameters."
 msgstr ""
-"Der er ikke fundet nogen linier.\n"
-"Kør venligst \"Find linier\" og \" Optimér\" før du gemmer objektivdata. "
-"Hvis der ikke blev fundet nogen linier, ændr da parametrene."
+"Der er ikke fundet nogen linjer.\n"
+"Kør venligst \"Find linjer\" og \" Optimér\" før du gemmer objektivdata. "
+"Hvis der ikke blev fundet nogen linjer, ændr da parametrene."
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:731
 msgid "Save lens parameters to ini file"
@@ -1322,13 +1322,13 @@ msgstr ""
 
 #: hugin1/hugin/CPEditorPanel.cpp:1198 hugin1/hugin/CPEditorPanel.cpp:1209
 msgid "Add new Line"
-msgstr "Tilføj ny linie"
+msgstr "Tilføj ny linje"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1204 hugin1/hugin/CPEditorPanel.cpp:1207
 #: hugin1/hugin/CPEditorPanel.cpp:1468 hugin1/hugin/CPListFrame.cpp:156
 #, c-format
 msgid "Line %d"
-msgstr "Linie %d"
+msgstr "Linje %d"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1459 hugin1/hugin/CPListFrame.cpp:147
 #: hugin1/hugin/GLPreviewFrame.cpp:695 hugin1/hugin/GLPreviewFrame.cpp:3094
@@ -1338,11 +1338,11 @@ msgstr "normal"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1462 hugin1/hugin/CPListFrame.cpp:150
 msgid "vert. Line"
-msgstr "lodret linie"
+msgstr "lodret linje"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1465 hugin1/hugin/CPListFrame.cpp:153
 msgid "horiz. Line"
-msgstr "vandret linie"
+msgstr "vandret linje"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1748
 msgid ""
@@ -1703,7 +1703,7 @@ msgstr ""
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1574 hugin1/hugin/PreviewFrame.cpp:642
 msgid "Rectilinear"
-msgstr "Retliniet"
+msgstr "Retlinjet"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1575 hugin1/hugin/PreviewFrame.cpp:643
 msgid "Cylindrical"
@@ -1801,7 +1801,7 @@ msgid ""
 "With a wide field of view, panoramas with rectilinear projection get very "
 "stretched towards the edges.\n"
 msgstr ""
-"Med et bredt synsfelt bliver panoramaer med retliniet projektion meget "
+"Med et bredt synsfelt bliver panoramaer med retlinjet projektion meget "
 "strukket hen imod kanterne.\n"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:2950
@@ -1840,7 +1840,7 @@ msgid ""
 msgstr ""
 "Da synsfeltet ikke er synderligt bredt, kan du prøve at sætte "
 "panoramaprojektion til cylindrisk.\n"
-"Cylindrisk projektion bevarer lodrette linier, modsat ekvirektangulær "
+"Cylindrisk projektion bevarer lodrette linjer, modsat ekvirektangulær "
 "projektion."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:2971
@@ -1871,8 +1871,7 @@ msgid ""
 "Setting the panorama to rectilinear projection would keep the straight lines "
 "straight."
 msgstr ""
-"Ved at sætte panorama til retliniet projektion bevares rette linier som "
-"rette."
+"Ved at sætte panorama til retlinjet projektion holdes rette linjer rette."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:3025
 msgid ""
@@ -2331,7 +2330,7 @@ msgstr "Objektivtype (f)"
 
 #: hugin1/hugin/ImagesTree.cpp:167
 msgid "Lens type (rectilinear, fisheye, equirectangular, ...)"
-msgstr "Objektivtype (retliniet, fiskeøje, ækvirektangulært, …)"
+msgstr "Objektivtype (retlinjet, fiskeøje, ækvirektangulært, …)"
 
 #: hugin1/hugin/ImagesTree.cpp:168
 msgid "Hfov (v)"
@@ -2860,7 +2859,7 @@ msgstr "Indtast venligst et gyldigt tal"
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:90
 msgid "Any variables below which are bold and underlined will be optimized."
 msgstr ""
-"Alle variable herunder, som er fede og underlinieret, vil blive optimeret."
+"Alle variable herunder, som er fede og understreget, vil blive optimeret."
 
 #: hugin1/hugin/OptimizePanel.cpp:98
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:93
@@ -3806,7 +3805,7 @@ msgid ""
 "Please select less images, or place the images in a folder with\n"
 "a shorter pathname"
 msgstr ""
-"Kommandolinie for kontrolpunkt-detektor er for lang.\n"
+"Kommandolinje for kontrolpunkt-detektor er for lang.\n"
 "Dette er en Windows-begrænsning\n"
 "Vælg venligst færre billeder eller placér billederne i en mappe\n"
 "med et kortere stinavn"
@@ -3883,7 +3882,7 @@ msgid ""
 msgstr ""
 "Kunne ikke åbne %s for læsning\n"
 "Dette indikerer, at kaldet til kontrolpunkt-detektoren fejlede,\n"
-"eller at forkerte kommandolinie-parametre er brugt.\n"
+"eller at forkerte kommandolinjeparametre er brugt.\n"
 "\n"
 "Udført kommando: %s"
 
@@ -4090,7 +4089,7 @@ msgstr "Sæt computer i dvale"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:390
 msgid "Please enter the command-line application to execute:"
-msgstr "Indtast venligst kommandolinie-applikationen, som skal køres:"
+msgstr "Indtast venligst kommandolinje-applikationen, som skal køres:"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:390
 msgid "Enter application"
@@ -4990,11 +4989,11 @@ msgstr "metode:"
 
 #: hugin1/hugin/xrc/cp_editor_panel.xrc:186
 msgid "vertical line"
-msgstr "lodret linie"
+msgstr "lodret linje"
 
 #: hugin1/hugin/xrc/cp_editor_panel.xrc:187
 msgid "horizontal line"
-msgstr "vandret linie"
+msgstr "vandret linje"
 
 #: hugin1/hugin/xrc/cp_editor_panel.xrc:210
 #: hugin1/hugin/xrc/mask_editor_panel.xrc:359
@@ -5518,7 +5517,7 @@ msgstr "Tilføj"
 
 #: hugin1/hugin/xrc/lenscal_frame.xrc:127
 msgid "Images (with straight lines)"
-msgstr "Billeder (med rette linier)"
+msgstr "Billeder (med rette linjer)"
 
 #: hugin1/hugin/xrc/lenscal_frame.xrc:140
 msgid "Edge detection scale:"
@@ -5534,11 +5533,11 @@ msgstr "Maksimal billedstørrelse:"
 
 #: hugin1/hugin/xrc/lenscal_frame.xrc:182
 msgid "Minimum line length:"
-msgstr "Minimal linielængde:"
+msgstr "Minimal linjelængde:"
 
 #: hugin1/hugin/xrc/lenscal_frame.xrc:206
 msgid "Find lines"
-msgstr "Find linier"
+msgstr "Find linjer"
 
 #: hugin1/hugin/xrc/lenscal_frame.xrc:398
 msgid "Original"
@@ -5554,7 +5553,7 @@ msgstr "Rettet"
 
 #: hugin1/hugin/xrc/lenscal_frame.xrc:409
 msgid "Show lines"
-msgstr "Vis linier"
+msgstr "Vis linjer"
 
 #: hugin1/hugin/xrc/lenscal_frame.xrc:417
 msgid "Refresh"
@@ -5567,7 +5566,7 @@ msgstr "&Gem som projektfil…"
 #: hugin1/hugin/xrc/lenscal_frame.xrc:452
 msgid "Saves the images and lines as pto file for further tuning inside hugin."
 msgstr ""
-"Gemmer billederne og linierne som en pto-fil for videre justering i Hugin."
+"Gemmer billederne og linjerne som en pto-fil for videre justering i Hugin."
 
 #: hugin1/hugin/xrc/lensdb_dialogs.xrc:55
 #: hugin1/hugin/xrc/lensdb_dialogs.xrc:252
@@ -6376,7 +6375,7 @@ msgstr "Nona-valgmuligheder"
 
 #: hugin1/hugin/xrc/pano_panel.xrc:72 hugin1/hugin/xrc/pano_panel.xrc:114
 msgid "Command line options"
-msgstr "Kommandolinievalgmuligheder"
+msgstr "Kommandolinjevalgmuligheder"
 
 #: hugin1/hugin/xrc/pano_panel.xrc:105
 msgid "Blender Options"
@@ -6783,11 +6782,11 @@ msgstr "Positionér automatisk billeder efter indlæsning"
 
 #: hugin1/hugin/xrc/pref_dialog.xrc:286
 msgid "Detect vertical lines"
-msgstr "Detektér lodrette linier"
+msgstr "Detektér lodrette linjer"
 
 #: hugin1/hugin/xrc/pref_dialog.xrc:287
 msgid "Detects vertical lines in the images to level the pano"
-msgstr "Lokalisér lodrette linier i billederne for at levelere panoramaet"
+msgstr "Lokalisér lodrette linjer i billederne for at levelere panoramaet"
 
 #: hugin1/hugin/xrc/pref_dialog.xrc:294
 msgid "Remove cloud-like control points (Celeste)"
@@ -7417,7 +7416,7 @@ msgid ""
 "Show lines between the ends of each control point. The longer the line, the "
 "bigger the error."
 msgstr ""
-"Vis linier mellem enderne på hvert kontrolpunkt. Jo længere linie, jo større "
+"Vis linjer mellem enderne på hvert kontrolpunkt. Jo længere linje, jo større "
 "fejl."
 
 #: hugin1/hugin/xrc/preview_frame.xrc:347
@@ -7470,11 +7469,11 @@ msgid ""
 "* Green, yellow and red lines indicate good, medium and poor alignment.\n"
 "* Click a line to edit the associated images in the Control Points tab."
 msgstr ""
-"* En grå linie indikerer, at der ikke er nogen kontrolpunkter, men "
+"* En grå linje indikerer, at der ikke er nogen kontrolpunkter, men "
 "billedparret overlapper.\n"
-"* Grønne, gule og røde linier indikerer gode, medium og dårlige "
+"* Grønne, gule og røde linjer indikerer gode, medium og dårlige "
 "positioneringer.\n"
-"* Klik på en linie for at redigere de tilhørende billeder i Kontrolpunkter-"
+"* Klik på en linje for at redigere de tilhørende billeder i Kontrolpunkter-"
 "fanebladet."
 
 #: hugin1/hugin/xrc/preview_frame.xrc:506
