@@ -39,7 +39,8 @@ IMPEX UIntSet getImagesinROI(const PanoramaData& pano, const UIntSet activeImage
 IMPEX UIntSet getImagesinROI(const PanoramaData& pano, const UIntSet activeImages, const vigra::Rect2D panoROI);
 /** returns vector of UIntVector with image numbers of each stack sorted by exposure */
 IMPEX std::vector<HuginBase::UIntVector> getSortedStacks(const HuginBase::Panorama* pano);
-
+/** returns vector of image numbers for blending in approbiate order */
+IMPEX UIntVector getEstimatedBlendingOrder(const PanoramaData & pano, const UIntSet& images, const unsigned int referenceImage);
 }
 
 #endif /* _BASICALGORITHMS_LAYERSTACKS_H */

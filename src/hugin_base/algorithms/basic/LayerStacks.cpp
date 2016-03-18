@@ -26,6 +26,7 @@
 #include <panodata/PanoramaData.h>
 #include <panodata/StandardImageVariableGroups.h>
 #include <algorithms/basic/CalculateOverlap.h>
+#include <algorithms/optimizer/ImageGraph.h>
 #include <algorithms/nona/ComputeImageROI.h>
 
 namespace HuginBase
@@ -172,6 +173,58 @@ std::vector<HuginBase::UIntVector> getSortedStacks(const HuginBase::Panorama* pa
         stacks.push_back(stackImages);
     };
     return stacks;
+};
+
+class GraphVisitor:public HuginGraph::BreadthFirstSearchVisitor
+{
+public:
+    virtual void Visit(const size_t vertex, const HuginBase::UIntSet& visitedNeighbors, const HuginBase::UIntSet& unvisitedNeighbors)
+    {
+        images.push_back(vertex);
+    };
+    UIntVector GetTranslatedImageNumbers(const UIntVector& translatedImgNumbers) const
+    {
+        UIntVector result(images.size(), 0);
+        for (size_t i = 0; i < images.size(); ++i)
+        {
+            result[i] = translatedImgNumbers[images[i]];
+        };
+        return result;
+    };
+private:
+    UIntVector images;
+};
+
+UIntVector getEstimatedBlendingOrder(const PanoramaData & pano, const UIntSet& images, const unsigned int referenceImage)
+{
+    if (images.empty())
+    {
+        return UIntVector();
+    };
+    unsigned int refImage;
+    if (set_contains(images, referenceImage))
+    {
+        refImage = referenceImage;
+    }
+    else
+    {
+        refImage = *images.begin();
+    }
+    // store a vector for translating image numbers later
+    HuginBase::UIntVector subpanoImages;
+    std::copy(images.begin(), images.end(), std::back_inserter(subpanoImages));
+    // create subpano with all active images, don't forget to delete at end
+    HuginBase::PanoramaData* subPano = pano.getNewSubset(images);
+    // calculate overlap
+    CalculateImageOverlap overlap(subPano);
+    overlap.calculate(10);  // we are testing 10*10=100 points
+    // now build ImageGraph and iterate all images
+    HuginGraph::ImageGraph graph(overlap);
+    GraphVisitor graphVisitor;
+    graph.VisitAllImages(refImage, true, &graphVisitor);
+    delete subPano;
+    // translate image numbers to original images
+    return graphVisitor.GetTranslatedImageNumbers(subpanoImages);
 };
 
 }

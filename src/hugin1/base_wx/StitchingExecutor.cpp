@@ -427,6 +427,42 @@ namespace HuginQueue
             return new NormalCommand(command, finalArgs, comment);
 #endif
         }
+
+        /** build quoted filename list for verdandi */
+        wxString GetQuotedFilenamesStringForVerdandi(const wxArrayString& files, const HuginBase::Panorama& pano, const HuginBase::UIntSetVector& stacks, const int referenceImage, const bool hardSeam)
+        {
+            // if output is hard seam we keep the order
+            if (hardSeam)
+            {
+                return GetQuotedFilenamesString(files);
+            };
+            // user wants a blended seam, we need to figure out the correct order
+            int refImage = 0;
+            // first build a subpano which contains only one image per stack of the original pano
+            HuginBase::UIntSet stackImgs;
+            for (size_t i = 0; i < stacks.size(); ++i)
+            {
+                if (set_contains(stacks[i], referenceImage))
+                {
+                    refImage = i;
+                };
+                stackImgs.insert(*(stacks[i].begin()));
+            };
+            // now create the subpano, don't forget to delete at end
+            HuginBase::PanoramaData* subpano = pano.getNewSubset(stackImgs);
+            HuginBase::UIntSet subpanoImgs;
+            fill_set(subpanoImgs, 0, stackImgs.size() - 1);
+            // find the blend order
+            HuginBase::UIntVector blendOrder = HuginBase::getEstimatedBlendingOrder(*subpano, subpanoImgs, refImage);
+            delete subpano;
+            // now build the string in the correct order
+            wxString s;
+            for (size_t i = 0; i < blendOrder.size();++i)
+            {
+                s.Append(wxEscapeFilename(files[blendOrder[i]]) + wxT(" "));
+            };
+            return s;
+        };
     } // namespace detail
 
     CommandQueue* GetStitchingCommandQueue(const HuginBase::Panorama & pano, const wxString& ExePath, const wxString& project, const wxString& prefix, wxString& statusText, wxArrayString& outputFiles, wxArrayString& tempFilesDelete)
@@ -803,7 +839,7 @@ namespace HuginQueue
                         {
                             wxString finalVerdandiArgs(verdandiArgs + finalCompressionArgs);
                             finalVerdandiArgs.Append(wxT(" -o ") + wxEscapeFilename(fusedStacksFilename));
-                            finalVerdandiArgs.Append(wxT(" -- ") + GetQuotedFilenamesString(stackedImages));
+                            finalVerdandiArgs.Append(wxT(" -- ") + detail::GetQuotedFilenamesStringForVerdandi(stackedImages, pano, stacks, opts.colorReferenceImage, opts.verdandiOptions.find("--seam=blend") == std::string::npos));
                             commands->push_back(new NormalCommand(GetInternalProgram(ExePath, wxT("verdandi")),
                                 finalVerdandiArgs, _("Blending all stacks...")));
                         };
@@ -862,7 +898,7 @@ namespace HuginQueue
                             break;
                         case HuginBase::PanoramaOptions::INTERNAL_BLEND:
                             commands->push_back(new NormalCommand(GetInternalProgram(ExePath, wxT("verdandi")),
-                                verdandiArgs + finalBlendArgs + GetQuotedFilenamesString(stackedImages),
+                                verdandiArgs + finalBlendArgs + detail::GetQuotedFilenamesStringForVerdandi(stackedImages, pano, stacks, opts.colorReferenceImage, opts.verdandiOptions.find("--seam=blend") == std::string::npos),
                                 _("Blending HDR stacks...")));
                             break;
                     };

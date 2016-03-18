@@ -53,9 +53,7 @@
 #include <nona/RemappedPanoImage.h>
 #include <nona/ImageRemapper.h>
 #include <nona/StitcherOptions.h>
-
-// calculate distance image for multi file output
-#define STITCHER_CALC_DIST_IMG 0
+#include <algorithms/basic/LayerStacks.h>
 
 // somehow these are still
 #undef DIFFERENCE
@@ -495,7 +493,7 @@ public:
 
     void stitch(const PanoramaOptions & opts, UIntSet & imgSet,
                         const std::string & filename,
-                        ImageType& pano,
+                        ImageType& panoImage,
                         AlphaType& alpha,
                         SingleImageRemapper<ImageType, AlphaType> & remapper,
                         const AdvancedOptions& advOptions)
@@ -504,11 +502,19 @@ public:
 
         Base::m_progress->setMessage("Remapping and stitching");
 
-        int i=0;
         const bool wrap = (opts.getHFOV() == 360.0) && (opts.getWidth()==opts.getROI().width());
         // remap each image and blend into main pano image
-        //for (UIntVector::const_iterator it = images.begin(); it != images.end(); ++it)
-        for (UIntSet::const_iterator it = imgSet.begin(); it != imgSet.end(); ++it)
+        const bool hardSeam = GetAdvancedOption(advOptions, "hardSeam", true);
+        UIntVector images;
+        if(hardSeam)
+        { 
+            std::copy(imgSet.begin(), imgSet.end(), std::back_inserter(images));
+        }
+        else
+        {
+            images = HuginBase::getEstimatedBlendingOrder(Base::m_pano, imgSet, opts.colorReferenceImage);;
+        };
+        for (UIntVector::const_iterator it = images.begin(); it != images.end(); ++it)
         {
             // get a remapped image.
             DEBUG_DEBUG("remapping image: " << *it);
@@ -519,7 +525,7 @@ public:
             };
             RemappedPanoImage<ImageType, AlphaType> *
                 remapped = remapper.getRemapped(Base::m_pano, modOptions, *it,
-                                            Base::m_rois[i], Base::m_progress);
+                    Base::m_rois[std::distance(imgSet.begin(), imgSet.find(*it))], Base::m_progress);
             if(iccProfile.size()==0)
             {
                 iccProfile=remapped->m_ICCProfile;
@@ -539,7 +545,7 @@ public:
             Base::m_progress->setMessage("blending", hugin_utils::stripPath(Base::m_pano.getImage(*it).getFilename()));
             // add image to pano and panoalpha, adjusts panoROI as well.
             try {
-                vigra_ext::MergeImages<ImageType, AlphaType>(pano, alpha, remapped->m_image, remapped->m_mask, vigra::Diff2D(remapped->boundingBox().upperLeft()), wrap, GetAdvancedOption(advOptions, "hardSeam", true));
+                vigra_ext::MergeImages<ImageType, AlphaType>(panoImage, alpha, remapped->m_image, remapped->m_mask, vigra::Diff2D(remapped->boundingBox().upperLeft()), wrap, hardSeam);
                 // update bounding box of the panorama
                 m_panoROI |= remapped->boundingBox();
             } catch (vigra::PreconditionViolation & e) {
@@ -549,7 +555,6 @@ public:
             }
             // free remapped image
             remapper.release(remapped);
-            i++;
         }
         // check if our intermediate image covers whole canvas
         // if not update m_panoROI
