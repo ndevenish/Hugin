@@ -76,7 +76,7 @@ public:
          * using a differrent display list, allowing the first one to be freed.
          */
         MeshInfo(const MeshInfo & source);
-        ~MeshInfo();
+        virtual ~MeshInfo();
         /// Draw the mesh
         void CallList() const;
         /// Recreate the mesh when the image or panorama it represents changes.

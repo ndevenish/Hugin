@@ -38,6 +38,7 @@ namespace HuginQueue
     {
     public:
         NormalCommand(wxString prog, wxString args, wxString comment=wxEmptyString) : m_prog(prog), m_args(args), m_comment(comment) {};
+        virtual ~NormalCommand() {};
         virtual bool Execute(bool dryRun);
         virtual bool CheckReturnCode() const;
         virtual wxString GetCommand() const;
