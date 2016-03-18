@@ -161,11 +161,6 @@ RemappedPanoImage<ImageType, AlphaType>*
     // choose image type...
     const SrcPanoImage & img = pano.getImage(imgNr);
     
-    vigra::Size2D origSrcSize = img.getSize();
-    // DGSW FIXME - Unreferenced
-    //		const PanoCommand::VariableMap & srcVars = pano.getImageVariables(imgNr);
-    //		const Lens & lens = pano.getLens(img.getLensNr());
-    
     vigra::Size2D destSize(opts.getWidth(), opts.getHeight());
     
     m_remapped = new RemappedPanoImage<ImageType, AlphaType>;

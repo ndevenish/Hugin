@@ -202,7 +202,7 @@ std::vector<const T *> Ransac::compute(S &parameters,
     SubSetIndexComparator subSetIndexComparator(numForEstimate);
     std::set<int *, SubSetIndexComparator > chosenSubSets(subSetIndexComparator);
     int *curSubSetIndexes;
-    double outlierPercentage = maximalOutlierPercentage;
+    // double outlierPercentage = maximalOutlierPercentage;
     double numerator = log(1.0-desiredProbabilityForNoOutliers);
     double denominator = log(1- pow((double)(1.0-maximalOutlierPercentage), (double)(numForEstimate)));
     int allTries = choose(numDataObjects,numForEstimate);

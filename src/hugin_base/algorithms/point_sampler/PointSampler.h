@@ -452,8 +452,6 @@ void RandomPointSampler::sampleRandomPanoPoints(const std::vector<Img>& imgs,
     const unsigned nBins = radiusHist.size();
     const unsigned pairsPerBin = nPoints / nBins;
 
-    int allPoints = nPoints;
-
     // create an array of transforms.
     //std::vector<SpaceTransform> transf(imgs.size());
     std::vector<PTools::Transform *> transf(imgs.size());
@@ -597,8 +595,7 @@ void RandomPointSampler::sampleRandomPanoPoints(const std::vector<Img>& imgs,
     for(unsigned i=0; i < imgs.size(); i++) {
         delete transf[i];
     }
-    
-    DEBUG_INFO("Point sampled: " << allPoints-nPoints)
+   
 }
 
 
