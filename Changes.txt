@@ -1,3 +1,9 @@
+Hugin 2016.2
+* Allow reading of image positions from Papywizard XML files.
+* Internal blender and verdandi got the possibility to blend seams as alternative to
+  current hard seam.
+
+============================================================================================
 Hugin 2016.0
 * Added user defined output. The user can define own output sequences to implement
   new use cases, e.g. zero noise output.
