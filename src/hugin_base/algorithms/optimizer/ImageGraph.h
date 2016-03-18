@@ -26,6 +26,7 @@
 #include <hugin_shared.h>
 
 #include <panodata/PanoramaData.h>
+#include <algorithms/basic/CalculateOverlap.h>
 
 namespace HuginGraph
 {
@@ -49,6 +50,8 @@ public:
     typedef std::vector<HuginBase::UIntSet> Components;
     /** constructor, build internal representation of graph */
     ImageGraph(const HuginBase::PanoramaData& pano, bool ignoreLinkedPosition = false);
+    /** constructor, build graph from overlap */
+    ImageGraph(const HuginBase::CalculateImageOverlap& overlap);
     /** find all connected components
     *  @returns number of components
     *  if you want to know, if all images are connected

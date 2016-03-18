@@ -67,6 +67,24 @@ ImageGraph::ImageGraph(const HuginBase::PanoramaData& pano, bool ignoreLinkedPos
     };
 };
 
+ImageGraph::ImageGraph(const HuginBase::CalculateImageOverlap& overlap)
+{
+    const unsigned int nrImages = overlap.getNrOfImages();
+    m_graph.resize(nrImages);
+    // and now all control points
+    for (size_t i = 0; i < nrImages-1; ++i)
+    {
+        for (size_t j = i + 1; j < nrImages; ++j)
+        {
+            if (overlap.getOverlap(i, j)>0.001)
+            {
+                m_graph[i].insert(j);
+                m_graph[j].insert(i);
+            }
+        };
+    };
+};
+
 template<typename VALUETYPE>
 void DepthFirstSearch(const ImageGraph::GraphList& graph, std::vector<VALUETYPE>& marks, const size_t vertex, const VALUETYPE setType, const VALUETYPE unvisitedType)
 {
