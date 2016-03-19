@@ -824,7 +824,7 @@ per overlap</label>
                         </object>
                         <object class="sizeritem">
                           <object class="wxStaticText" name="pref_internal_blender_seam_label">
-                            <label>Seam mode:</label>
+                            <label>Seam blend mode:</label>
                           </object>
                           <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
