@@ -357,6 +357,10 @@ void MaskImageCtrl::UpdateCrop(hugin_utils::FDiff2D pos)
                 needsUpdate=true;
             };
             break;
+        default:
+            // in all other cases the crop is not changed
+            // this should not happen
+            break;
     };
     if(needsUpdate)
     {
@@ -478,6 +482,13 @@ void MaskImageCtrl::OnMouseMove(wxMouseEvent& mouse)
 #endif
             m_editPanel->UpdateCropFromImage();
             break;
+        case NO_IMAGE:
+        case NO_MASK:
+        case NO_SELECTION:
+        case POINTS_SELECTED:
+        case NEW_POLYGON_STARTED:
+            // in all other cases do nothing
+            break;
     };
     if(doUpdate)
         update();
@@ -582,6 +593,9 @@ void MaskImageCtrl::OnLeftMouseDown(wxMouseEvent& mouse)
         case CROP_SHOWING:
             switch(GetClickPos(vigra::Point2D(currentPos.x,currentPos.y)))
             {
+                case CLICK_OUTSIDE:
+                    // clicked outside, do nothing
+                    break;
                 case CLICK_INSIDE:
                     if(!m_cropCentered)
                     {
@@ -620,6 +634,9 @@ void MaskImageCtrl::OnLeftMouseDown(wxMouseEvent& mouse)
 #endif
                 };
             };
+            break;
+        default:
+            // otherwise do nothing
             break;
     };
 };
@@ -762,10 +779,6 @@ void MaskImageCtrl::OnLeftMouseDblClick(wxMouseEvent &mouse)
 {
     if(m_previewOnly)
         return;
-    wxPoint mpos;
-    CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
-                           &mpos.x, & mpos.y);
-    hugin_utils::FDiff2D currentPos=applyRotInv(invtransform(mpos));
     switch(m_maskEditState)
     {
         case NEW_POLYGON_STARTED:
@@ -800,6 +813,9 @@ void MaskImageCtrl::OnLeftMouseDblClick(wxMouseEvent &mouse)
                 MainFrame::Get()->SetStatusText(wxT(""),0);
                 break;
             };
+        default:
+            // the other case do nothing here
+            break;
     };
 };
 
@@ -807,7 +823,6 @@ void MaskImageCtrl::OnRightMouseDown(wxMouseEvent& mouse)
 {
     if(m_previewOnly)
         return;
-    wxPoint mpos;
     CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
                            &m_dragStartPos.x, & m_dragStartPos.y);
     hugin_utils::FDiff2D currentPos=applyRotInv(invtransform(m_dragStartPos));
@@ -815,25 +830,22 @@ void MaskImageCtrl::OnRightMouseDown(wxMouseEvent& mouse)
     if(!HasCapture())
         CaptureMouse();
     SetFocus();
-    switch(m_maskEditState)
+    if(m_maskEditState==NO_SELECTION || m_maskEditState==POINTS_SELECTED)
     {
-        case NO_SELECTION:
-        case POINTS_SELECTED:
-            if(mouse.CmdDown())
+        if(mouse.CmdDown())
+        {
+            m_maskEditState=POINTS_DELETING;
+            DrawSelectionRectangle();
+        }
+        else
+        {
+            if (m_editingMask.isInside(currentPos))
             {
-                m_maskEditState=POINTS_DELETING;
-                DrawSelectionRectangle();
-            }
-            else
-            {
-                if (m_editingMask.isInside(currentPos))
-                {
-                    fill_set(m_selectedPoints,0,m_editingMask.getMaskPolygon().size()-1);
-                    m_maskEditState=POINTS_MOVING;
-                    update();
-                };
+                fill_set(m_selectedPoints,0,m_editingMask.getMaskPolygon().size()-1);
+                m_maskEditState=POINTS_MOVING;
+                update();
             };
-            break;
+        };
     };
 };
 
@@ -939,6 +951,8 @@ void MaskImageCtrl::OnRightMouseUp(wxMouseEvent& mouse)
                 };
                 break;
             };
+        default:
+            break;
     };
 };
 
@@ -950,36 +964,36 @@ void MaskImageCtrl::OnKeyUp(wxKeyEvent &e)
     {
         if(m_activeMask<UINT_MAX)
         {
-            switch(m_maskEditState)
+            if (m_maskEditState == POINTS_SELECTED)
             {
-                case POINTS_SELECTED:
-                    if((m_selectedPoints.size()>0) && (m_editingMask.getMaskPolygon().size()-m_selectedPoints.size()>2))
-                    {
-                        for(HuginBase::UIntSet::const_reverse_iterator it=m_selectedPoints.rbegin();it!=m_selectedPoints.rend();++it)
-                            m_editingMask.removePoint(*it);
-                        m_imageMask[m_activeMask]=m_editingMask;
-                        processed=true;
-                        m_editPanel->UpdateMask();
-                    }
-                    else
-                    {
-                        if(m_editingMask.getMaskPolygon().size()==m_selectedPoints.size())
-                        {
-                            wxCommandEvent dummy;
-                            processed=true;
-                            m_editPanel->OnMaskDelete(dummy);
-                        }
-                        else
-                            wxBell();
-                    };
-                    break;
-                case NO_SELECTION:
+                if ((m_selectedPoints.size()>0) && (m_editingMask.getMaskPolygon().size() - m_selectedPoints.size() > 2))
+                {
+                    for (HuginBase::UIntSet::const_reverse_iterator it = m_selectedPoints.rbegin(); it != m_selectedPoints.rend(); ++it)
+                        m_editingMask.removePoint(*it);
+                    m_imageMask[m_activeMask] = m_editingMask;
+                    processed = true;
+                    m_editPanel->UpdateMask();
+                }
+                else
+                {
+                    if (m_editingMask.getMaskPolygon().size() == m_selectedPoints.size())
                     {
                         wxCommandEvent dummy;
-                        processed=true;
+                        processed = true;
                         m_editPanel->OnMaskDelete(dummy);
-                    };
-                    break;
+                    }
+                    else
+                        wxBell();
+                };
+            }
+            else
+            {
+                if(m_maskEditState==NO_SELECTION)
+                {
+                    wxCommandEvent dummy;
+                    processed=true;
+                    m_editPanel->OnMaskDelete(dummy);
+                };
             };
         };
     };
@@ -997,19 +1011,14 @@ void MaskImageCtrl::OnKillFocus(wxFocusEvent &e)
 {
     if(HasCapture())
         ReleaseMouse();
-    switch(m_maskEditState)
+    if(m_maskEditState==NEW_POLYGON_CREATING || m_maskEditState==NEW_POLYGON_STARTED)
     {
-        case NEW_POLYGON_CREATING:
-        case NEW_POLYGON_STARTED:
-            {
-                wxBell();
-                m_maskEditState=NO_SELECTION;
-                HuginBase::MaskPolygon mask;
-                m_editingMask=mask;
-                m_selectedPoints.clear();
-                update();
-                break;
-            };
+        wxBell();
+        m_maskEditState=NO_SELECTION;
+        HuginBase::MaskPolygon mask;
+        m_editingMask=mask;
+        m_selectedPoints.clear();
+        update();
     };
 };
 
@@ -1168,17 +1177,21 @@ void MaskImageCtrl::OnDraw(wxDC & dc)
                             transform(applyRot(m_cropRect.lowerRight()))));
                         break;
                     case HuginBase::SrcPanoImage::CROP_CIRCLE:
-                        unsigned int nrOfPoints=dc.GetSize().GetWidth()*2;
-                        wxPoint* circlePoints=new wxPoint[nrOfPoints];
-                        vigra::Point2D middle=(m_cropRect.lowerRight()+m_cropRect.upperLeft())/2;
-                        double radius=std::min<int>(m_cropRect.width(),m_cropRect.height())/2;
-                        double interval=2*PI/nrOfPoints;
-                        for(unsigned int i=0;i<nrOfPoints;i++)
                         {
-                            circlePoints[i]=transform(applyRot(hugin_utils::FDiff2D(middle.x+radius*cos(i*interval),middle.y+radius*sin(i*interval))));
-                        };
-                        region.Subtract(wxRegion(nrOfPoints,circlePoints));
-                        delete []circlePoints;
+                            unsigned int nrOfPoints = dc.GetSize().GetWidth() * 2;
+                            wxPoint* circlePoints = new wxPoint[nrOfPoints];
+                            vigra::Point2D middle = (m_cropRect.lowerRight() + m_cropRect.upperLeft()) / 2;
+                            double radius = std::min<int>(m_cropRect.width(), m_cropRect.height()) / 2;
+                            double interval = 2 * PI / nrOfPoints;
+                            for (unsigned int i = 0; i < nrOfPoints; i++)
+                            {
+                                circlePoints[i] = transform(applyRot(hugin_utils::FDiff2D(middle.x + radius*cos(i*interval), middle.y + radius*sin(i*interval))));
+                            };
+                            region.Subtract(wxRegion(nrOfPoints, circlePoints));
+                            delete[]circlePoints;
+                        }
+                        break;
+                    case HuginBase::BaseSrcPanoImage::NO_CROP:
                         break;
                 };
             };

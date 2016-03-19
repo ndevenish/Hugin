@@ -65,7 +65,7 @@ void OverviewOutlinesTool::panoramaChanged(HuginBase::Panorama &pano)
 
 struct Rec {
     Rec(double left, double top, double right, double bottom) : left(left), top(top), right(right), bottom(bottom) {}
-    Rec() {}
+    Rec() : left(0), top(0), right(0), bottom(0) {}
     double left;
     double top;
     double right;
@@ -248,6 +248,9 @@ void OverviewOutlinesTool::DrawRect(double left, double top, double right, doubl
             break;
         case HuginBase::PanoramaOptions::RECTILINEAR:
             image.setProjection(HuginBase::BaseSrcPanoImage::RECTILINEAR);
+            break;
+        default:
+            DEBUG_ERROR("OverviewOutlinesTools: unknown projection")
             break;
     }
     
