@@ -544,67 +544,67 @@ void Batch::OnProcessTerminate(wxProcessEvent& event)
                         GetParent()->GetEventHandler()->AddPendingEvent(e);
                     };
                 };
-                if (atEnd != DO_NOTHING)	//after we are finished we turn off the computer if checked
+                switch (atEnd)
                 {
-                    switch (atEnd)
-                    {
-                        case CLOSE_PTBATCHERGUI:
-                            GetParent()->Close();
-                            break;
-                        case SHUTDOWN:
+                    case DO_NOTHING:
+                        // no action needed
+                        break;
+                    case CLOSE_PTBATCHERGUI:
+                        GetParent()->Close();
+                        break;
+                    case SHUTDOWN:
+                        {
+                            wxProgressDialog progress(_("Initializing shutdown..."), _("Shutting down..."), 49, this,
+                                wxPD_AUTO_HIDE | wxPD_SMOOTH | wxPD_APP_MODAL | wxPD_CAN_ABORT | wxPD_CAN_SKIP);
+                            progress.Fit();
+                            int i = 0;
+                            bool skip = false;
+                            while (progress.Update(i, _("Shutting down..."), &skip))
                             {
-                                wxProgressDialog progress(_("Initializing shutdown..."), _("Shutting down..."), 49, this,
-                                    wxPD_AUTO_HIDE | wxPD_SMOOTH | wxPD_APP_MODAL | wxPD_CAN_ABORT | wxPD_CAN_SKIP);
-                                progress.Fit();
-                                int i = 0;
-                                bool skip = false;
-                                while (progress.Update(i, _("Shutting down..."), &skip))
+                                if (skip || i == 50)
                                 {
-                                    if (skip || i == 50)
-                                    {
-                                        wxShutdown(wxSHUTDOWN_POWEROFF);
-                                    }
-                                    i++;
-    #if defined __WXMSW__
-                                    Sleep(200);
-    #else
-                                    sleep(200);
-    #endif
+                                    wxShutdown(wxSHUTDOWN_POWEROFF);
                                 }
-                                progress.Close();
-                            }
-                            break;
-                        case SUSPEND:
-                        case HIBERNATE:
-#ifdef __WXMSW__
-                            {
-                                wxString progressCaption(_("Prepare to hibernate..."));
-                                wxString progressLabel(_("Initializing hibernating..."));
-                                if (atEnd == SUSPEND)
-                                {
-                                    progressCaption = wxString(_("Prepare to suspend..."));
-                                    progressLabel = wxString(_("Initializing suspend mode..."));
-                                };
-                                wxProgressDialog progress(progressLabel, progressCaption, 49, this,
-                                    wxPD_AUTO_HIDE | wxPD_SMOOTH | wxPD_APP_MODAL | wxPD_CAN_ABORT | wxPD_CAN_SKIP);
-                                progress.Fit();
-                                int i = 0;
-                                bool skip = false;
-                                while (progress.Update(i, progressCaption, &skip))
-                                {
-                                    if (skip || i == 50)
-                                    {
-                                        SetSuspendState(atEnd==HIBERNATE, false, false);
-                                        break;
-                                    }
-                                    i++;
-                                    Sleep(200);
-                                }
-                                progress.Close();
-                            };
+                                i++;
+#if defined __WXMSW__
+                                Sleep(200);
+#else
+                                sleep(200);
 #endif
-                            break;
-                    };
+                            }
+                            progress.Close();
+                        }
+                        break;
+                    case SUSPEND:
+                    case HIBERNATE:
+#ifdef __WXMSW__
+                        {
+                            wxString progressCaption(_("Prepare to hibernate..."));
+                            wxString progressLabel(_("Initializing hibernating..."));
+                            if (atEnd == SUSPEND)
+                            {
+                                progressCaption = wxString(_("Prepare to suspend..."));
+                                progressLabel = wxString(_("Initializing suspend mode..."));
+                            };
+                            wxProgressDialog progress(progressLabel, progressCaption, 49, this,
+                                wxPD_AUTO_HIDE | wxPD_SMOOTH | wxPD_APP_MODAL | wxPD_CAN_ABORT | wxPD_CAN_SKIP);
+                            progress.Fit();
+                            int i = 0;
+                            bool skip = false;
+                            while (progress.Update(i, progressCaption, &skip))
+                            {
+                                if (skip || i == 50)
+                                {
+                                    SetSuspendState(atEnd==HIBERNATE, false, false);
+                                    break;
+                                }
+                                i++;
+                                Sleep(200);
+                            }
+                            progress.Close();
+                        };
+#endif
+                        break;
                 };
             }
             else
