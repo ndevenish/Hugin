@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hugin 2015.0.0\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2016-01-23 09:30+0100\n"
+"POT-Creation-Date: 2016-03-19 08:20+0100\n"
 "PO-Revision-Date: 2016-01-31 17:32+0100\n"
 "Last-Translator: Höss Lajos <pgc1682@freemail.hu>\n"
 "Language-Team: Balló György <ballogy@freestart.hu>\n"
@@ -14,6 +14,7 @@ msgstr ""
 "X-Poedit-Bookmarks: -1,-1,-1,-1,891,-1,-1,-1,-1,-1\n"
 
 #: hugin1/base_wx/AssistantExecutor.cpp:69
+#: hugin1/hugin/PapywizardImport.cpp:460
 msgid "Searching for control points..."
 msgstr "Kontroll pontok keresése..."
 
@@ -38,8 +39,8 @@ msgid "Searching for best crop..."
 msgstr "A legjobb kivágás keresése..."
 
 #: hugin1/base_wx/Executor.cpp:138 hugin1/base_wx/platform.cpp:131
-#: hugin1/hugin/MainFrame.cpp:1491 hugin1/hugin/MainFrame.cpp:2158
-#: hugin1/hugin/PanoPanel.cpp:1232
+#: hugin1/hugin/MainFrame.cpp:1507 hugin1/hugin/MainFrame.cpp:2175
+#: hugin1/hugin/PanoPanel.cpp:1265
 #, c-format
 msgid "External program %s not found in the bundle, reverting to system path"
 msgstr ""
@@ -106,19 +107,20 @@ msgstr ""
 #: hugin1/base_wx/HFOVDialog.cpp:376 hugin1/base_wx/LensTools.cpp:461
 #: hugin1/base_wx/wxPanoCommand.cpp:525 hugin1/hugin/CPEditorPanel.cpp:1134
 #: hugin1/hugin/CPEditorPanel.cpp:1144 hugin1/hugin/CPEditorPanel.cpp:1159
-#: hugin1/hugin/CPEditorPanel.cpp:1172 hugin1/hugin/GLPreviewFrame.cpp:1899
-#: hugin1/hugin/GLPreviewFrame.cpp:1988 hugin1/hugin/GLPreviewFrame.cpp:3027
-#: hugin1/hugin/GLPreviewFrame.cpp:3389 hugin1/hugin/GLPreviewFrame.cpp:3400
-#: hugin1/hugin/GLPreviewFrame.cpp:3411
+#: hugin1/hugin/CPEditorPanel.cpp:1172 hugin1/hugin/GLPreviewFrame.cpp:1892
+#: hugin1/hugin/GLPreviewFrame.cpp:1981 hugin1/hugin/GLPreviewFrame.cpp:3019
+#: hugin1/hugin/GLPreviewFrame.cpp:3381 hugin1/hugin/GLPreviewFrame.cpp:3392
+#: hugin1/hugin/GLPreviewFrame.cpp:3403
 #: hugin1/hugin/ImageVariableDialog.cpp:204 hugin1/hugin/ImagesPanel.cpp:577
 #: hugin1/hugin/ImagesPanel.cpp:640 hugin1/hugin/ImagesPanel.cpp:674
-#: hugin1/hugin/ImagesTree.cpp:1792 hugin1/hugin/MainFrame.cpp:694
-#: hugin1/hugin/MainFrame.cpp:966 hugin1/hugin/OptimizePanel.cpp:170
+#: hugin1/hugin/ImagesTree.cpp:1792 hugin1/hugin/MainFrame.cpp:696
+#: hugin1/hugin/MainFrame.cpp:968 hugin1/hugin/OptimizePanel.cpp:170
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:149
-#: hugin1/hugin/PanoOperation.cpp:373 hugin1/hugin/PanoPanel.cpp:1580
-#: hugin1/hugin/PanoPanel.cpp:1610 hugin1/hugin/PanoPanel.cpp:1636
-#: hugin1/hugin/PanoPanel.cpp:1671 hugin1/hugin/PanoPanel.cpp:1692
-#: hugin1/hugin/PanoPanel.cpp:1702 hugin1/hugin/xrc/main_frame.xrc:123
+#: hugin1/hugin/PanoOperation.cpp:373 hugin1/hugin/PanoPanel.cpp:1613
+#: hugin1/hugin/PanoPanel.cpp:1643 hugin1/hugin/PanoPanel.cpp:1669
+#: hugin1/hugin/PanoPanel.cpp:1704 hugin1/hugin/PanoPanel.cpp:1725
+#: hugin1/hugin/PanoPanel.cpp:1735 hugin1/hugin/PapywizardImport.cpp:343
+#: hugin1/hugin/PapywizardImport.cpp:355 hugin1/hugin/xrc/main_frame.xrc:123
 #: hugin1/hugin/xrc/main_frame.xrc:183 hugin1/hugin/xrc/main_frame.xrc:255
 #: hugin1/hugin/xrc/pano_panel.xrc:1078
 msgid "Hugin"
@@ -141,7 +143,7 @@ msgid "Full frame fisheye"
 msgstr "Teljes keretes halszem"
 
 #: hugin1/base_wx/LensTools.cpp:42 hugin1/base_wx/LensTools.cpp:85
-#: hugin1/base_wx/huginConfig.cpp:41 hugin1/hugin/GLPreviewFrame.cpp:1576
+#: hugin1/base_wx/huginConfig.cpp:41 hugin1/hugin/GLPreviewFrame.cpp:1569
 #: hugin1/hugin/PreviewFrame.cpp:644
 msgid "Equirectangular"
 msgstr "Négyzetes hengerv. /equirect./"
@@ -211,14 +213,14 @@ msgstr "Objektív projektfájlok (*.ini)|*.ini|Minden fájl (*)|*"
 
 #: hugin1/base_wx/LensTools.cpp:404 hugin1/calibrate_lens/LensCalFrame.cpp:702
 #: hugin1/calibrate_lens/LensCalFrame.cpp:767
-#: hugin1/hugin/ImageVariableDialog.cpp:350 hugin1/hugin/MainFrame.cpp:829
+#: hugin1/hugin/ImageVariableDialog.cpp:350 hugin1/hugin/MainFrame.cpp:831
 #: hugin1/hugin/MaskEditorPanel.cpp:452
 #, c-format
 msgid "File %s exists. Overwrite?"
 msgstr "Fájl %s létezik. Felülírjam?"
 
 #: hugin1/base_wx/LensTools.cpp:405 hugin1/calibrate_lens/LensCalFrame.cpp:703
-#: hugin1/calibrate_lens/LensCalFrame.cpp:768 hugin1/hugin/MainFrame.cpp:830
+#: hugin1/calibrate_lens/LensCalFrame.cpp:768 hugin1/hugin/MainFrame.cpp:832
 #: hugin1/hugin/xrc/main_tool.xrc:19
 msgid "Save project"
 msgstr "Projekt mentése"
@@ -262,13 +264,14 @@ msgstr "Hiba a folyamat szüneteltetésekor %ld, kód 2"
 #: hugin1/hugin/xrc/image_variable_dlg.xrc:711
 #: hugin1/hugin/xrc/images_panel.xrc:553
 #: hugin1/hugin/xrc/lensdb_dialogs.xrc:146
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:342
+#: hugin1/hugin/xrc/lensdb_dialogs.xrc:342 hugin1/hugin/xrc/main_frame.xrc:408
 #: hugin1/hugin/xrc/mask_editor_panel.xrc:497
 #: hugin1/hugin/xrc/pano_panel.xrc:55 hugin1/hugin/xrc/pano_panel.xrc:97
 #: hugin1/hugin/xrc/pano_panel.xrc:139 hugin1/hugin/xrc/pano_panel.xrc:1013
-#: hugin1/hugin/xrc/pano_panel.xrc:1339 hugin1/hugin/xrc/pref_dialog.xrc:1498
-#: hugin1/hugin/xrc/pref_dialog.xrc:1539 hugin1/hugin/xrc/pref_dialog.xrc:1597
-#: hugin1/hugin/xrc/preview_frame.xrc:115 hugin1/hugin/xrc/reset_dialog.xrc:122
+#: hugin1/hugin/xrc/pano_panel.xrc:1339 hugin1/hugin/xrc/pano_panel.xrc:1388
+#: hugin1/hugin/xrc/pref_dialog.xrc:1515 hugin1/hugin/xrc/pref_dialog.xrc:1556
+#: hugin1/hugin/xrc/pref_dialog.xrc:1614 hugin1/hugin/xrc/preview_frame.xrc:115
+#: hugin1/hugin/xrc/reset_dialog.xrc:122
 msgid "Cancel"
 msgstr "Mégse"
 
@@ -557,69 +560,69 @@ msgstr "HFOV: %.0f"
 msgid "Exposure value: %.1f"
 msgstr "Expozíció érték: %.1f"
 
-#: hugin1/base_wx/StitchingExecutor.cpp:620
+#: hugin1/base_wx/StitchingExecutor.cpp:662
 msgid "Remapping and blending LDR images..."
 msgstr "LDR képek áttranszformálása és összemosása..."
 
-#: hugin1/base_wx/StitchingExecutor.cpp:631
+#: hugin1/base_wx/StitchingExecutor.cpp:673
 msgid "Remapping LDR images..."
 msgstr "LDR képek áttranszformálása..."
 
-#: hugin1/base_wx/StitchingExecutor.cpp:640
+#: hugin1/base_wx/StitchingExecutor.cpp:682
 msgid "Blending images..."
 msgstr "Képek összemosása..."
 
-#: hugin1/base_wx/StitchingExecutor.cpp:683
+#: hugin1/base_wx/StitchingExecutor.cpp:730
 msgid "Remapping LDR images and blending exposure layers..."
 msgstr "LDR képek áttranszformálása és expozíciós rétegek összemosása..."
 
-#: hugin1/base_wx/StitchingExecutor.cpp:701
+#: hugin1/base_wx/StitchingExecutor.cpp:748
 msgid "Remapping LDR images without exposure correction..."
 msgstr "LDR képek áttranszformálása expozíció korrekció nélkül..."
 
-#: hugin1/base_wx/StitchingExecutor.cpp:722
-#: hugin1/base_wx/StitchingExecutor.cpp:727
+#: hugin1/base_wx/StitchingExecutor.cpp:769
+#: hugin1/base_wx/StitchingExecutor.cpp:774
 #, c-format
 msgid "Blending exposure layer %u..."
 msgstr "%u expozíciós réteg összemosása..."
 
-#: hugin1/base_wx/StitchingExecutor.cpp:747
+#: hugin1/base_wx/StitchingExecutor.cpp:794
 msgid "Fusing all exposure layers..."
 msgstr "Minden expozíciós réteg fuzionálása..."
 
-#: hugin1/base_wx/StitchingExecutor.cpp:768
+#: hugin1/base_wx/StitchingExecutor.cpp:815
 #, c-format
 msgid "Fusing stack number %u..."
 msgstr "%u számú köteg fuzionálása..."
 
-#: hugin1/base_wx/StitchingExecutor.cpp:788
-#: hugin1/base_wx/StitchingExecutor.cpp:797
+#: hugin1/base_wx/StitchingExecutor.cpp:835
+#: hugin1/base_wx/StitchingExecutor.cpp:844
 msgid "Blending all stacks..."
 msgstr "Minden köteg összemosása..."
 
-#: hugin1/base_wx/StitchingExecutor.cpp:814
+#: hugin1/base_wx/StitchingExecutor.cpp:861
 msgid "Remapping HDR images..."
 msgstr "HDR képek áttranszformálása..."
 
-#: hugin1/base_wx/StitchingExecutor.cpp:836
+#: hugin1/base_wx/StitchingExecutor.cpp:883
 #, c-format
 msgid "Merging HDR stack number %u..."
 msgstr "%u számú hdr köteg egyesítése..."
 
-#: hugin1/base_wx/StitchingExecutor.cpp:850
-#: hugin1/base_wx/StitchingExecutor.cpp:855
+#: hugin1/base_wx/StitchingExecutor.cpp:897
+#: hugin1/base_wx/StitchingExecutor.cpp:902
 msgid "Blending HDR stacks..."
 msgstr "Hdr kötegek összemosása..."
 
-#: hugin1/base_wx/StitchingExecutor.cpp:881
-#: hugin1/base_wx/StitchingExecutor.cpp:889
-#: hugin1/base_wx/StitchingExecutor.cpp:905
-#: hugin1/base_wx/StitchingExecutor.cpp:913
+#: hugin1/base_wx/StitchingExecutor.cpp:928
+#: hugin1/base_wx/StitchingExecutor.cpp:936
+#: hugin1/base_wx/StitchingExecutor.cpp:952
+#: hugin1/base_wx/StitchingExecutor.cpp:960
 msgid "Updating metadata..."
 msgstr "Metaadatok frissítése..."
 
-#: hugin1/base_wx/StitchingExecutor.cpp:993
-#: hugin1/base_wx/StitchingExecutor.cpp:997
+#: hugin1/base_wx/StitchingExecutor.cpp:1040
+#: hugin1/base_wx/StitchingExecutor.cpp:1044
 #, c-format
 msgid "Stitching using \"%s\""
 msgstr "Összefűzés \"%s\" felhasználásával"
@@ -660,19 +663,19 @@ msgstr "Ismeretlen vetület"
 #: hugin1/base_wx/platform.cpp:131 hugin1/base_wx/wxLensDB.cpp:631
 #: hugin1/base_wx/wxLensDB.cpp:636 hugin1/base_wx/wxLensDB.cpp:644
 #: hugin1/calibrate_lens/LensCalFrame.cpp:351
-#: hugin1/hugin/CPEditorPanel.cpp:2001 hugin1/hugin/GLViewer.cpp:285
-#: hugin1/hugin/GLViewer.cpp:297 hugin1/hugin/MainFrame.cpp:800
-#: hugin1/hugin/MainFrame.cpp:1443 hugin1/hugin/MainFrame.cpp:1491
-#: hugin1/hugin/MainFrame.cpp:1879 hugin1/hugin/MainFrame.cpp:2071
-#: hugin1/hugin/MainFrame.cpp:2120 hugin1/hugin/MainFrame.cpp:2158
-#: hugin1/hugin/MainFrame.cpp:2170 hugin1/hugin/MainFrame.cpp:2185
-#: hugin1/hugin/MainFrame.cpp:2193
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:273
+#: hugin1/hugin/CPEditorPanel.cpp:2001 hugin1/hugin/GLViewer.cpp:151
+#: hugin1/hugin/GLViewer.cpp:163 hugin1/hugin/MainFrame.cpp:802
+#: hugin1/hugin/MainFrame.cpp:1445 hugin1/hugin/MainFrame.cpp:1507
+#: hugin1/hugin/MainFrame.cpp:1896 hugin1/hugin/MainFrame.cpp:2088
+#: hugin1/hugin/MainFrame.cpp:2137 hugin1/hugin/MainFrame.cpp:2175
+#: hugin1/hugin/MainFrame.cpp:2187 hugin1/hugin/MainFrame.cpp:2202
+#: hugin1/hugin/MainFrame.cpp:2210
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:272
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:310
-#: hugin1/hugin/PanoOperation.cpp:532 hugin1/hugin/PanoPanel.cpp:1017
-#: hugin1/hugin/PanoPanel.cpp:1232 hugin1/hugin/PanoPanel.cpp:1288
-#: hugin1/hugin/PreferencesDialog.cpp:419
-#: hugin1/hugin/PreferencesDialog.cpp:487
+#: hugin1/hugin/PanoOperation.cpp:532 hugin1/hugin/PanoPanel.cpp:1050
+#: hugin1/hugin/PanoPanel.cpp:1265 hugin1/hugin/PanoPanel.cpp:1321
+#: hugin1/hugin/PreferencesDialog.cpp:420
+#: hugin1/hugin/PreferencesDialog.cpp:488
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:223
 #: hugin1/ptbatcher/FindPanoDialog.cpp:331
 #: hugin1/ptbatcher/ProjectListBox.cpp:184
@@ -734,12 +737,12 @@ msgstr "A \"%s\" bemenet nem egy érvényes szám."
 #: hugin1/calibrate_lens/LensCalFrame.cpp:726
 #: hugin1/calibrate_lens/LensCalFrame.cpp:752
 #: hugin1/calibrate_lens/LensCalFrame.cpp:824
-#: hugin1/hugin/CPDetectorDialog.cpp:128 hugin1/hugin/GLPreviewFrame.cpp:1696
-#: hugin1/hugin/GLPreviewFrame.cpp:1703 hugin1/hugin/GLPreviewFrame.cpp:1710
-#: hugin1/hugin/GLPreviewFrame.cpp:1724 hugin1/hugin/GLPreviewFrame.cpp:1731
-#: hugin1/hugin/GLPreviewFrame.cpp:1738 hugin1/hugin/MainFrame.cpp:1660
-#: hugin1/hugin/MainFrame.cpp:2124 hugin1/hugin/MaskEditorPanel.cpp:489
-#: hugin1/hugin/PreferencesDialog.cpp:1059
+#: hugin1/hugin/CPDetectorDialog.cpp:128 hugin1/hugin/GLPreviewFrame.cpp:1689
+#: hugin1/hugin/GLPreviewFrame.cpp:1696 hugin1/hugin/GLPreviewFrame.cpp:1703
+#: hugin1/hugin/GLPreviewFrame.cpp:1717 hugin1/hugin/GLPreviewFrame.cpp:1724
+#: hugin1/hugin/GLPreviewFrame.cpp:1731 hugin1/hugin/MainFrame.cpp:1676
+#: hugin1/hugin/MainFrame.cpp:2141 hugin1/hugin/MaskEditorPanel.cpp:489
+#: hugin1/hugin/PreferencesDialog.cpp:1080
 #: hugin1/ptbatcher/FindPanoDialog.cpp:287
 #: hugin1/ptbatcher/FindPanoDialog.cpp:308 hugin1/hugin/xrc/dlg_warning.xrc:56
 msgid "Warning"
@@ -908,7 +911,7 @@ msgstr ""
 msgid "Image file not found"
 msgstr "Nem található képfájl"
 
-#: hugin1/base_wx/wxPanoCommand.cpp:663 hugin1/base_wx/wxPanoCommand.cpp:854
+#: hugin1/base_wx/wxPanoCommand.cpp:663 hugin1/base_wx/wxPanoCommand.cpp:855
 #: hugin1/calibrate_lens/LensCalFrame.cpp:372 hugin1/hugin/PanoOperation.cpp:91
 msgid "Add images"
 msgstr "Képek hozzáadása"
@@ -928,7 +931,7 @@ msgstr ""
 msgid "Error Detected"
 msgstr "Hibát Észlelt"
 
-#: hugin1/base_wx/wxPanoCommand.cpp:934
+#: hugin1/base_wx/wxPanoCommand.cpp:935
 #, c-format
 msgid ""
 "Error, template expects %d images,\n"
@@ -937,43 +940,43 @@ msgstr ""
 "Hiba, a sablon %d képet vár,\n"
 "az aktuális projekt %d képet tartalmaz\n"
 
-#: hugin1/base_wx/wxPanoCommand.cpp:935 hugin1/base_wx/wxPanoCommand.cpp:960
+#: hugin1/base_wx/wxPanoCommand.cpp:936 hugin1/base_wx/wxPanoCommand.cpp:961
 msgid "Could not apply template"
 msgstr "Nem alkalmazható sablon"
 
-#: hugin1/base_wx/wxPanoCommand.cpp:960
+#: hugin1/base_wx/wxPanoCommand.cpp:961
 msgid "Error loading project file"
 msgstr "Hiba projekt megnyitása közben"
 
-#: hugin1/base_wx/wxPanoCommand.cpp:974
+#: hugin1/base_wx/wxPanoCommand.cpp:975
 msgid "Result"
 msgstr "Eredmény"
 
-#: hugin1/calibrate_lens/LensCalApp.cpp:65 hugin1/hugin/huginApp.cpp:192
-#: hugin1/ptbatcher/PTBatcherGUI.cpp:82
+#: hugin1/calibrate_lens/LensCalApp.cpp:65 hugin1/hugin/huginApp.cpp:207
+#: hugin1/ptbatcher/PTBatcherGUI.cpp:79
 msgid "xrc directory not found in bundle"
 msgstr "xrc könyvtár nincs a csomagban"
 
 #: hugin1/calibrate_lens/LensCalApp.cpp:65
 #: hugin1/calibrate_lens/LensCalApp.cpp:73
 #: hugin1/calibrate_lens/LensCalApp.cpp:84
-#: hugin1/executor/hugin_executor.cpp:82 hugin1/hugin/MainFrame.cpp:1874
-#: hugin1/hugin/huginApp.cpp:192 hugin1/hugin/huginApp.cpp:220
-#: hugin1/hugin/huginApp.cpp:233 hugin1/ptbatcher/PTBatcherGUI.cpp:82
-#: hugin1/ptbatcher/PTBatcherGUI.cpp:93 hugin1/ptbatcher/PTBatcherGUI.cpp:114
+#: hugin1/executor/hugin_executor.cpp:82 hugin1/hugin/MainFrame.cpp:1891
+#: hugin1/hugin/huginApp.cpp:207 hugin1/hugin/huginApp.cpp:235
+#: hugin1/hugin/huginApp.cpp:248 hugin1/ptbatcher/PTBatcherGUI.cpp:79
+#: hugin1/ptbatcher/PTBatcherGUI.cpp:90 hugin1/ptbatcher/PTBatcherGUI.cpp:111
 #: hugin1/stitch_project/hugin_stitch_project.cpp:294
 msgid "Fatal Error"
 msgstr "Súlyos Hiba"
 
 #: hugin1/calibrate_lens/LensCalApp.cpp:73
-#: hugin1/executor/hugin_executor.cpp:82 hugin1/hugin/huginApp.cpp:220
-#: hugin1/ptbatcher/PTBatcherGUI.cpp:93
+#: hugin1/executor/hugin_executor.cpp:82 hugin1/hugin/huginApp.cpp:235
+#: hugin1/ptbatcher/PTBatcherGUI.cpp:90
 #: hugin1/stitch_project/hugin_stitch_project.cpp:294
 msgid "Translations not found in bundle"
 msgstr "Fordítás nincs a csomagban"
 
-#: hugin1/calibrate_lens/LensCalApp.cpp:84 hugin1/hugin/huginApp.cpp:233
-#: hugin1/ptbatcher/PTBatcherGUI.cpp:114
+#: hugin1/calibrate_lens/LensCalApp.cpp:84 hugin1/hugin/huginApp.cpp:248
+#: hugin1/ptbatcher/PTBatcherGUI.cpp:111
 msgid ""
 "xrc directory not found, hugin needs to be properly installed\n"
 "Tried Path:"
@@ -1007,7 +1010,7 @@ msgstr ""
 "képeknek.\n"
 "Kérjük, ellenőrizze újra a képet, ha a megfelelő képeket választotta ki."
 
-#: hugin1/calibrate_lens/LensCalFrame.cpp:446 hugin1/hugin/MainFrame.cpp:1032
+#: hugin1/calibrate_lens/LensCalFrame.cpp:446 hugin1/hugin/MainFrame.cpp:1034
 msgid "Add Image: cancel"
 msgstr "Kép hozzáadása: mégse"
 
@@ -1085,13 +1088,13 @@ msgstr "Objektív adat mentés"
 msgid "Save lens"
 msgstr "Objektívek mentése"
 
-#: hugin1/calibrate_lens/LensCalFrame.cpp:756 hugin1/hugin/MainFrame.cpp:818
+#: hugin1/calibrate_lens/LensCalFrame.cpp:756 hugin1/hugin/MainFrame.cpp:820
 msgid "Save project file"
 msgstr "Projektfájl mentése"
 
-#: hugin1/calibrate_lens/LensCalFrame.cpp:757 hugin1/hugin/MainFrame.cpp:820
-#: hugin1/hugin/MainFrame.cpp:956 hugin1/hugin/MainFrame.cpp:1412
-#: hugin1/hugin/MainFrame.cpp:1457 hugin1/ptbatcher/Batch.cpp:638
+#: hugin1/calibrate_lens/LensCalFrame.cpp:757 hugin1/hugin/MainFrame.cpp:822
+#: hugin1/hugin/MainFrame.cpp:958 hugin1/hugin/MainFrame.cpp:1414
+#: hugin1/hugin/MainFrame.cpp:1473 hugin1/ptbatcher/Batch.cpp:638
 #: hugin1/ptbatcher/BatchFrame.cpp:429 hugin1/ptbatcher/BatchFrame.cpp:457
 #: hugin1/stitch_project/hugin_stitch_project.cpp:379
 msgid "Project files (*.pto)|*.pto|All files (*)|*"
@@ -1327,7 +1330,7 @@ msgid "Line %d"
 msgstr "Vonal %d"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1459 hugin1/hugin/CPListFrame.cpp:147
-#: hugin1/hugin/GLPreviewFrame.cpp:695 hugin1/hugin/GLPreviewFrame.cpp:3094
+#: hugin1/hugin/GLPreviewFrame.cpp:697 hugin1/hugin/GLPreviewFrame.cpp:3086
 #: hugin1/hugin/PreviewFrame.cpp:244 hugin1/hugin/xrc/cp_editor_panel.xrc:185
 msgid "normal"
 msgstr "normál"
@@ -1398,7 +1401,7 @@ msgid "Loading model file"
 msgstr "Modell fájl betöltése"
 
 #: hugin1/hugin/CPEditorPanel.cpp:2068 hugin1/hugin/CPEditorPanel.cpp:2104
-#: hugin1/hugin/MainFrame.cpp:1621 hugin1/hugin/PanoOperation.cpp:703
+#: hugin1/hugin/MainFrame.cpp:1637 hugin1/hugin/PanoOperation.cpp:703
 #: hugin1/hugin/PanoOperation.cpp:795
 #, c-format
 msgid "Removed %lu control points"
@@ -1416,7 +1419,7 @@ msgstr "Tisztítás"
 msgid "Create cp"
 msgstr "Kp létrehozása"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2117
+#: hugin1/hugin/CPEditorPanel.cpp:2119
 msgid ""
 "Create control points for image pair with currently selected control point "
 "detector on photos tab."
@@ -1424,19 +1427,19 @@ msgstr ""
 "Hozzon létre kontroll pontokat a képpárhoz a képek fülön kiválasztott "
 "kontroll pont keresővel."
 
-#: hugin1/hugin/CPEditorPanel.cpp:2125 hugin1/hugin/xrc/cp_editor_panel.xrc:328
+#: hugin1/hugin/CPEditorPanel.cpp:2127 hugin1/hugin/xrc/cp_editor_panel.xrc:328
 msgid "Celeste"
 msgstr "Celeste"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2126
+#: hugin1/hugin/CPEditorPanel.cpp:2130
 msgid "Tries to remove control points from clouds"
 msgstr "Megkísérli eltávolítani a kontroll pontokat a felhőkről"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2134
+#: hugin1/hugin/CPEditorPanel.cpp:2138
 msgid "Clean cp"
 msgstr "kp tisztítása"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2135 hugin1/hugin/xrc/pref_dialog.xrc:301
+#: hugin1/hugin/CPEditorPanel.cpp:2141 hugin1/hugin/xrc/pref_dialog.xrc:301
 msgid "Remove outlying control points by statistical method"
 msgstr "Eltávolítja a kilógó kontroll pontokat statisztikai módszerrel"
 
@@ -1523,44 +1526,44 @@ msgstr ""
 "Húzza a képeket (opció használja a shift-et kényszerítéshez), vagy döntéshez "
 "(roll) jobb-húzás vagy ctrl-húzás."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:323 hugin1/hugin/GLPreviewFrame.cpp:3158
+#: hugin1/hugin/GLPreviewFrame.cpp:323 hugin1/hugin/GLPreviewFrame.cpp:3150
 msgid "Fast Panorama preview"
 msgstr "Gyors Panoráma előnézet"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:376 hugin1/hugin/xrc/preview_frame.xrc:8
-#: hugin1/hugin/xrc/preview_frame.xrc:1461
+#: hugin1/hugin/xrc/preview_frame.xrc:1489
 msgid "Center"
 msgstr "Középre zár"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:377 hugin1/hugin/GLPreviewFrame.cpp:379
 #: hugin1/hugin/xrc/preview_frame.xrc:14
-#: hugin1/hugin/xrc/preview_frame.xrc:1356
-#: hugin1/hugin/xrc/preview_frame.xrc:1473
+#: hugin1/hugin/xrc/preview_frame.xrc:1384
+#: hugin1/hugin/xrc/preview_frame.xrc:1501
 msgid "Fit"
 msgstr "Illesztés"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:378 hugin1/hugin/xrc/preview_frame.xrc:19
-#: hugin1/hugin/xrc/preview_frame.xrc:1485
+#: hugin1/hugin/xrc/preview_frame.xrc:1513
 msgid "Straighten"
 msgstr "Kiegyenesít"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:380 hugin1/hugin/GLPreviewFrame.cpp:2618
-#: hugin1/hugin/GLPreviewFrame.cpp:2648 hugin1/hugin/PanoPanel.cpp:973
-#: hugin1/hugin/xrc/preview_frame.xrc:1660
+#: hugin1/hugin/GLPreviewFrame.cpp:380 hugin1/hugin/GLPreviewFrame.cpp:2611
+#: hugin1/hugin/GLPreviewFrame.cpp:2641 hugin1/hugin/PanoPanel.cpp:1006
+#: hugin1/hugin/xrc/preview_frame.xrc:1688
 msgid "Autocrop"
 msgstr "Automatikus képkivágás"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:381 hugin1/hugin/xrc/preview_frame.xrc:1672
+#: hugin1/hugin/GLPreviewFrame.cpp:381 hugin1/hugin/xrc/preview_frame.xrc:1700
 msgid "HDR Autocrop"
 msgstr "HDR Automatikus képkivágás"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:398 hugin1/hugin/GLPreviewFrame.cpp:3144
-#: hugin1/hugin/GLPreviewFrame.cpp:3156 hugin1/hugin/MainFrame.cpp:359
-#: hugin1/hugin/MainFrame.cpp:1967 hugin1/hugin/MainFrame.cpp:1985
+#: hugin1/hugin/GLPreviewFrame.cpp:398 hugin1/hugin/GLPreviewFrame.cpp:3136
+#: hugin1/hugin/GLPreviewFrame.cpp:3148 hugin1/hugin/MainFrame.cpp:361
+#: hugin1/hugin/MainFrame.cpp:1984 hugin1/hugin/MainFrame.cpp:2002
 #: hugin1/hugin/xrc/batch_menu.xrc:5 hugin1/hugin/xrc/lenscal_frame.xrc:459
-#: hugin1/hugin/xrc/main_menu.xrc:215 hugin1/hugin/xrc/main_menu.xrc:240
-#: hugin1/hugin/xrc/preview_frame.xrc:1939
-#: hugin1/hugin/xrc/preview_frame.xrc:1969
+#: hugin1/hugin/xrc/main_menu.xrc:219 hugin1/hugin/xrc/main_menu.xrc:244
+#: hugin1/hugin/xrc/preview_frame.xrc:1967
+#: hugin1/hugin/xrc/preview_frame.xrc:1997
 msgid "&File"
 msgstr "&Fájl"
 
@@ -1568,177 +1571,130 @@ msgstr "&Fájl"
 msgid "displayed images"
 msgstr "megjelenített képek"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:432 hugin1/hugin/GLPreviewFrame.cpp:475
-#: hugin1/hugin/xrc/preview_frame.xrc:42
+#: hugin1/hugin/GLPreviewFrame.cpp:431 hugin1/hugin/xrc/preview_frame.xrc:42
 msgid "All"
 msgstr "Mindegyik"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:470 hugin1/hugin/GLPreviewFrame.cpp:476
+#: hugin1/hugin/GLPreviewFrame.cpp:472 hugin1/hugin/GLPreviewFrame.cpp:478
 #: hugin1/hugin/ImagesPanel.cpp:696 hugin1/hugin/xrc/pano_panel.xrc:533
 #: hugin1/hugin/xrc/pano_panel.xrc:590 hugin1/hugin/xrc/pano_panel.xrc:1175
 #: hugin1/hugin/xrc/pano_panel.xrc:1222 hugin1/hugin/xrc/pref_dialog.xrc:769
-#: hugin1/hugin/xrc/preview_frame.xrc:47 hugin1/hugin/xrc/preview_frame.xrc:590
-#: hugin1/hugin/xrc/preview_frame.xrc:668
-#: hugin1/hugin/xrc/preview_frame.xrc:836
-#: hugin1/hugin/xrc/preview_frame.xrc:1434
-#: hugin1/hugin/xrc/preview_frame.xrc:1524
-#: hugin1/hugin/xrc/preview_frame.xrc:1700
+#: hugin1/hugin/xrc/preview_frame.xrc:47 hugin1/hugin/xrc/preview_frame.xrc:604
+#: hugin1/hugin/xrc/preview_frame.xrc:682
+#: hugin1/hugin/xrc/preview_frame.xrc:850
+#: hugin1/hugin/xrc/preview_frame.xrc:1462
+#: hugin1/hugin/xrc/preview_frame.xrc:1552
+#: hugin1/hugin/xrc/preview_frame.xrc:1728
 msgid "None"
 msgstr "Egyik sem"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:491
+#: hugin1/hugin/GLPreviewFrame.cpp:493
 msgid "Hide"
 msgstr "Elrejt"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:540 hugin1/hugin/PreviewFrame.cpp:174
+#: hugin1/hugin/GLPreviewFrame.cpp:542 hugin1/hugin/PreviewFrame.cpp:174
 msgid "VFOV"
 msgstr "VFOV"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:548 hugin1/hugin/PreviewFrame.cpp:182
+#: hugin1/hugin/GLPreviewFrame.cpp:550 hugin1/hugin/PreviewFrame.cpp:182
 msgid "drag to change the vertical field of view"
 msgstr "húzza a függőleges látóhatár módosításához"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:557 hugin1/hugin/PreviewFrame.cpp:191
+#: hugin1/hugin/GLPreviewFrame.cpp:559 hugin1/hugin/PreviewFrame.cpp:191
 msgid "HFOV"
 msgstr "HFOV"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:566 hugin1/hugin/PreviewFrame.cpp:200
+#: hugin1/hugin/GLPreviewFrame.cpp:568 hugin1/hugin/PreviewFrame.cpp:200
 msgid "drag to change the horizontal field of view"
 msgstr "húzza a vízszintes látóhatár módosításához"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:624 hugin1/hugin/xrc/lenscal_frame.xrc:434
-#: hugin1/hugin/xrc/main_tool.xrc:67 hugin1/hugin/xrc/preview_frame.xrc:461
-#: hugin1/hugin/xrc/preview_frame.xrc:1301
+#: hugin1/hugin/GLPreviewFrame.cpp:626 hugin1/hugin/xrc/lenscal_frame.xrc:434
+#: hugin1/hugin/xrc/main_tool.xrc:67 hugin1/hugin/xrc/preview_frame.xrc:475
+#: hugin1/hugin/xrc/preview_frame.xrc:1329
 msgid "Preview"
 msgstr "Előnézet"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:637
+#: hugin1/hugin/GLPreviewFrame.cpp:639
 msgid "Overview"
 msgstr "Áttekintés"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:748 hugin1/hugin/PreviewFrame.cpp:314
+#: hugin1/hugin/GLPreviewFrame.cpp:750 hugin1/hugin/PreviewFrame.cpp:314
 msgid "Resets the projection's parameters to their default values."
 msgstr "Visszaállítja a vetületek paramétereit az alapértelmezett értékekre."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:758 hugin1/hugin/PreviewFrame.cpp:323
+#: hugin1/hugin/GLPreviewFrame.cpp:760 hugin1/hugin/PreviewFrame.cpp:323
 msgid "param:"
 msgstr "param:"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1057
+#: hugin1/hugin/GLPreviewFrame.cpp:1059
 msgid "No images loaded."
 msgstr "Nincs betöltött kép."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1092
+#: hugin1/hugin/GLPreviewFrame.cpp:1094
 #, c-format
 msgid "%lu images loaded."
 msgstr "%lu kép betöltve."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1108
+#: hugin1/hugin/GLPreviewFrame.cpp:1110
 #, c-format
 msgid "Images are connected by %lu control points.\n"
 msgstr "A képek összekapcsolva %lu kontroll ponttal.\n"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1117
+#: hugin1/hugin/GLPreviewFrame.cpp:1119
 #, c-format
 msgid "%lu unconnected image groups found: %s\n"
 msgstr "%lu nem csatlakoztatott kép csoportot találtam: %s\n"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1118
-msgid ""
-"Please use the Control Points tab to connect all images with control "
-"points.\n"
-msgstr ""
-"Kérem használja a Kontroll Pontok fület az összes kép összekapcsolásához "
-"kontroll pontokkal.\n"
-
-#: hugin1/hugin/GLPreviewFrame.cpp:1124
+#: hugin1/hugin/GLPreviewFrame.cpp:1125
 msgid "Images or control points have changed, new alignment is needed."
 msgstr "A képek vagy a kontroll pontok megváltoztak, új igazítás szükséges."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1137
-msgid "Very good fit."
-msgstr "Nagyon jó illesztés."
-
-#: hugin1/hugin/GLPreviewFrame.cpp:1139
-msgid "Good fit."
-msgstr "Jó illesztés"
-
-#: hugin1/hugin/GLPreviewFrame.cpp:1141
-msgid ""
-"Bad fit, some control points might be bad, or there are parallax and "
-"movement errors"
-msgstr ""
-"Rossz illesztés, néhány kontroll pont valószínűleg rossz, vagy parallaxis "
-"hibájuk van vagy elmozdultak az objektumok"
-
-#: hugin1/hugin/GLPreviewFrame.cpp:1143
-msgid ""
-"Very bad fit. Check for bad control points, lens parameters, or images with "
-"parallax or movement. The optimizer might have failed. Manual intervention "
-"required."
-msgstr ""
-"Nagyon rossz illesztés, Ellenőrízni kell a rossz kontroll pontokat, az "
-"objektív paramétereit, vagy parallaxis hiba, vagy elmozdultak az objektumok. "
-"Az optimalizálás valószínűleg rossz. Kézi beavatkozás szükséges."
-
-#: hugin1/hugin/GLPreviewFrame.cpp:1145
+#: hugin1/hugin/GLPreviewFrame.cpp:1136
 #, c-format
 msgid "Mean error after optimization: %.1f pixel, max: %.1f\n"
 msgstr "Átlagos hiba az optimalizálás után: %.1f képpont, max: %.1f\n"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1155
-msgid ""
-"Note: automatic alignment uses default settings from the preferences. If you "
-"want to use customized settings, run the CP detection, the geometrical "
-"optimization and the photometric optimization from the Photos tab in the "
-"panorama editor."
-msgstr ""
-"Megjegyzés: Az automatikus igazítás az alapértelmezett opciókat használja a "
-"beállításokból. Ha testre akarja szabni ezeket a beállításokat, futtassa "
-"Kontroll Pont keresőt, a geometriai optimalizálót és a fotometrikus "
-"optimalizációt a Képek fülön a panoráma szerkesztőben. "
-
-#: hugin1/hugin/GLPreviewFrame.cpp:1574 hugin1/hugin/PreviewFrame.cpp:642
+#: hugin1/hugin/GLPreviewFrame.cpp:1567 hugin1/hugin/PreviewFrame.cpp:642
 msgid "Rectilinear"
 msgstr "Egyenes vonalú /rectl./"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1575 hugin1/hugin/PreviewFrame.cpp:643
+#: hugin1/hugin/GLPreviewFrame.cpp:1568 hugin1/hugin/PreviewFrame.cpp:643
 msgid "Cylindrical"
 msgstr "Hengeres /cylindr./"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1696 hugin1/hugin/PreviewFrame.cpp:746
+#: hugin1/hugin/GLPreviewFrame.cpp:1689 hugin1/hugin/PreviewFrame.cpp:746
 msgid "Yaw value must be numeric."
 msgstr "Forgatás (Yaw) értékének számnak kell lennie. "
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1703 hugin1/hugin/PreviewFrame.cpp:752
+#: hugin1/hugin/GLPreviewFrame.cpp:1696 hugin1/hugin/PreviewFrame.cpp:752
 msgid "Pitch value must be numeric."
 msgstr "Bólintás (Pitch) értékének számnak kell lennie."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1710 hugin1/hugin/PreviewFrame.cpp:758
+#: hugin1/hugin/GLPreviewFrame.cpp:1703 hugin1/hugin/PreviewFrame.cpp:758
 msgid "Roll value must be numeric."
 msgstr "Dőlés (Roll) értékének számnak kell lennie."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1724
+#: hugin1/hugin/GLPreviewFrame.cpp:1717
 msgid "X value must be numeric."
 msgstr "Az X értékének számnak kell lennie. "
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1731
+#: hugin1/hugin/GLPreviewFrame.cpp:1724
 msgid "Y value must be numeric."
 msgstr "Az Y értékének számnak kell lennie. "
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1738
+#: hugin1/hugin/GLPreviewFrame.cpp:1731
 msgid "Z value must be numeric."
 msgstr "A Z értékének számnak kell lennie. "
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1757 hugin1/hugin/GLPreviewFrame.cpp:1779
-#: hugin1/hugin/GLPreviewFrame.cpp:2873 hugin1/hugin/GLPreviewFrame.cpp:2904
+#: hugin1/hugin/GLPreviewFrame.cpp:1750 hugin1/hugin/GLPreviewFrame.cpp:1772
+#: hugin1/hugin/GLPreviewFrame.cpp:2865 hugin1/hugin/GLPreviewFrame.cpp:2896
 #: hugin1/hugin/ImageVariableDialog.cpp:222 hugin1/hugin/PanoPanel.cpp:619
 #: hugin1/hugin/PanoPanel.cpp:650 hugin1/hugin/PreviewFrame.cpp:781
 #: hugin1/hugin/PreviewFrame.cpp:796
 msgid "Value must be numeric."
 msgstr "Az értéknek számnak kell lennie."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1897 hugin1/hugin/GLPreviewFrame.cpp:1986
+#: hugin1/hugin/GLPreviewFrame.cpp:1890 hugin1/hugin/GLPreviewFrame.cpp:1979
 msgid ""
 "The mosaic/plane mode works only correct for a remapping plane of yaw=0 and "
 "pitch=0.\n"
@@ -1750,50 +1706,50 @@ msgstr ""
 "De a projekt nem nulla Tpy és Tpp paramétereket tartalmaz.\n"
 "A Tpy és Tpp paramétereket visszaállítja nullára?"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2592 hugin1/hugin/PreviewFrame.cpp:245
+#: hugin1/hugin/GLPreviewFrame.cpp:2585 hugin1/hugin/PreviewFrame.cpp:245
 msgid "difference"
 msgstr "különbség"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2618 hugin1/hugin/GLPreviewFrame.cpp:2648
-#: hugin1/hugin/PanoPanel.cpp:973
+#: hugin1/hugin/GLPreviewFrame.cpp:2611 hugin1/hugin/GLPreviewFrame.cpp:2641
+#: hugin1/hugin/PanoPanel.cpp:1006
 msgid "Calculating optimal crop"
 msgstr "Optimális körbevágás kiszámítása"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2819 hugin1/hugin/PanoPanel.cpp:729
+#: hugin1/hugin/GLPreviewFrame.cpp:2811 hugin1/hugin/PanoPanel.cpp:729
 msgid "Top needs to be an integer bigger than 0"
 msgstr "A felső határnak egy 0 nagyobb egész számnak kell lennie"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2823 hugin1/hugin/PanoPanel.cpp:733
+#: hugin1/hugin/GLPreviewFrame.cpp:2815 hugin1/hugin/PanoPanel.cpp:733
 msgid "left needs to be an integer bigger than 0"
 msgstr "a bal oldalnak egy 0 nagyobb egész számnak kell lennie"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2827 hugin1/hugin/PanoPanel.cpp:737
+#: hugin1/hugin/GLPreviewFrame.cpp:2819 hugin1/hugin/PanoPanel.cpp:737
 msgid "right needs to be an integer bigger than 0"
 msgstr "a jobb oldalnak egy 0 nagyobb egész számnak kell lennie"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2831 hugin1/hugin/PanoPanel.cpp:741
+#: hugin1/hugin/GLPreviewFrame.cpp:2823 hugin1/hugin/PanoPanel.cpp:741
 msgid "bottom needs to be an integer bigger than 0"
 msgstr "az alsó határnak egy 0 nagyobb egész számnak kell lennie"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2837
+#: hugin1/hugin/GLPreviewFrame.cpp:2829
 msgid "left boundary must be smaller than right"
 msgstr "a bal határvonalnak kisebbnek kell lennie, mint a jobbnak"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2843
+#: hugin1/hugin/GLPreviewFrame.cpp:2835
 msgid "top boundary must be smaller than bottom"
 msgstr "a felső határvonalnak kisebbnek kell lennie, mint az alsónak"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2879 hugin1/hugin/PanoPanel.cpp:625
+#: hugin1/hugin/GLPreviewFrame.cpp:2871 hugin1/hugin/PanoPanel.cpp:625
 #, c-format
 msgid "Invalid HFOV value. Maximum HFOV for this projection is %lf."
 msgstr "Érvénytelen HFOV érték. Maximum HFOV ehhez a projekcióhoz %lf."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2910 hugin1/hugin/PanoPanel.cpp:656
+#: hugin1/hugin/GLPreviewFrame.cpp:2902 hugin1/hugin/PanoPanel.cpp:656
 #, c-format
 msgid "Invalid VFOV value. Maximum VFOV for this projection is %lf."
 msgstr "Érvénytelen VFOV érték. Maximum VFOV ehhez a projekcióhoz %lf."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2948
+#: hugin1/hugin/GLPreviewFrame.cpp:2940
 msgid ""
 "With a wide field of view, panoramas with rectilinear projection get very "
 "stretched towards the edges.\n"
@@ -1801,7 +1757,7 @@ msgstr ""
 "Széles látómezőnél, panorámaképek egyenes vonalú (rectilinear) projekcióval "
 "nagyon megnyúlnak a szélek felé.\n"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2950
+#: hugin1/hugin/GLPreviewFrame.cpp:2942
 msgid ""
 "Since the field of view is only very wide in the horizontal direction, try a "
 "cylindrical projection instead."
@@ -1809,17 +1765,17 @@ msgstr ""
 "Mivel a látómező csak vízszintes irányban nagyon széles, próbáljon ki egy "
 "hengeres (cylindrical) projekciót helyette."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2952
+#: hugin1/hugin/GLPreviewFrame.cpp:2944
 msgid "For a very wide panorama, try equirectangular projection instead."
 msgstr ""
 "Nagyon széles panorámához, próbáljon ki a négyzetes hengervetületet "
 "(equirectangular) helyette."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2954
+#: hugin1/hugin/GLPreviewFrame.cpp:2946
 msgid " You could also try Panini projection."
 msgstr " Kipróbálhatja a Panini projekciót is."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2959
+#: hugin1/hugin/GLPreviewFrame.cpp:2951
 msgid ""
 "With a wide vertical field of view, panoramas with cylindrical projection "
 "get very stretched at the top and bottom.\n"
@@ -1831,7 +1787,7 @@ msgstr ""
 "A négyzetes hengervetülettel (equirectangular) ugyanaz a tartalom kevesebb "
 "függőleges helyet használna."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2965
+#: hugin1/hugin/GLPreviewFrame.cpp:2957
 msgid ""
 "Since the vertical field of view is not too wide, you could try setting the "
 "panorama projection to cylindrical.\n"
@@ -1842,7 +1798,7 @@ msgstr ""
 "Hengeres projekció (cylindrical) megőrzi függőleges vonalakat, ellentétben a "
 "négyzetes hengervetülettel (equirectangular)."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2971
+#: hugin1/hugin/GLPreviewFrame.cpp:2963
 msgid ""
 "Stereographic projection is conformal, unlike this Fisheye panorama "
 "projection.\n"
@@ -1854,7 +1810,7 @@ msgstr ""
 "A szögtartó projekció megőrzi szögeket egy pont körül, amit gyakran könnyebb "
 "nézni szemmel."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2976
+#: hugin1/hugin/GLPreviewFrame.cpp:2968
 msgid ""
 "Panoramas with stereographic projection and a very wide field of view "
 "stretch the image around the edges a lot.\n"
@@ -1866,7 +1822,7 @@ msgstr ""
 "A halszem (Fisheye) panoráma projekció betömöríti ezt, így elfér a széles "
 "látószög és még elfogadható a kiterjedése a közepén."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2983
+#: hugin1/hugin/GLPreviewFrame.cpp:2975
 msgid ""
 "Setting the panorama to rectilinear projection would keep the straight lines "
 "straight."
@@ -1874,7 +1830,7 @@ msgstr ""
 "Egyenes vonalú (rectilinear) projekciójú panoráma megtartja az egyenes "
 "vonalakat egyenesen."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:3025
+#: hugin1/hugin/GLPreviewFrame.cpp:3017
 msgid ""
 "You have hidden the infobar, which shows hints about selection of "
 "projection.\n"
@@ -1884,27 +1840,27 @@ msgstr ""
 "esetén.\n"
 "Ha szeretné látni a sávot újra, aktiválja a sávot a beállításoknál újra."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:3095
+#: hugin1/hugin/GLPreviewFrame.cpp:3087
 msgid "normal, individual"
 msgstr "normál, egyéni"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:3098
+#: hugin1/hugin/GLPreviewFrame.cpp:3090
 msgid "mosaic"
 msgstr "mozaik"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:3099
+#: hugin1/hugin/GLPreviewFrame.cpp:3091
 msgid "mosaic, individual"
 msgstr "mozaik, egyéni"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:3119
+#: hugin1/hugin/GLPreviewFrame.cpp:3111
 msgid "Panosphere"
 msgstr "Panoráma gömb"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:3122
+#: hugin1/hugin/GLPreviewFrame.cpp:3114
 msgid "Mosaic plane"
 msgstr "Mozaik sík"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:3336
+#: hugin1/hugin/GLPreviewFrame.cpp:3328
 #, c-format
 msgid ""
 "%lu control points were removed from the panorama.\n"
@@ -1915,12 +1871,12 @@ msgstr ""
 "\n"
 "A panoráma legyen újra optimalizálva? "
 
-#: hugin1/hugin/GLPreviewFrame.cpp:3337 hugin1/hugin/GLPreviewFrame.cpp:3633
+#: hugin1/hugin/GLPreviewFrame.cpp:3329 hugin1/hugin/GLPreviewFrame.cpp:3626
 #, c-format
 msgid "Current selected optimizer strategy is \"%s\"."
 msgstr "\"%s\" a jelenlegi optimalizálási stratégia."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:3387
+#: hugin1/hugin/GLPreviewFrame.cpp:3379
 msgid ""
 "The selected region contains no active image.\n"
 "Please select a region which is covered by at least 2 images."
@@ -1928,7 +1884,7 @@ msgstr ""
 "A kijelölt területben nincs aktív kép.\n"
 "Jelöljön ki olyan területet, amelyet legalább 2 kép fed le."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:3398
+#: hugin1/hugin/GLPreviewFrame.cpp:3390
 msgid ""
 "The selected region is only covered by a single image.\n"
 "Can't create control points for a single image."
@@ -1936,7 +1892,7 @@ msgstr ""
 "A kijelölt terület egyetlen képben van.\n"
 "Nem lehet kontroll pontot létrehozni egyetlen képhez."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:3409
+#: hugin1/hugin/GLPreviewFrame.cpp:3401
 msgid ""
 "The selected rectangle is very big.\n"
 "This function is only intended for smaller areas. Otherwise unwanted side "
@@ -1950,27 +1906,27 @@ msgstr ""
 "\n"
 "Folytatja ennek ellenére?"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:3434
+#: hugin1/hugin/GLPreviewFrame.cpp:3426 hugin1/hugin/PapywizardImport.cpp:467
 msgid "Searching control points"
 msgstr "Kontroll pontok keresése"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:3434
+#: hugin1/hugin/GLPreviewFrame.cpp:3426
 msgid "Processing"
 msgstr "Feldolgozás"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:3441
+#: hugin1/hugin/GLPreviewFrame.cpp:3433
 msgid "Remap image to panorama projection..."
 msgstr "Képek áttranszformálása a panoráma vetületéhez..."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:3486
+#: hugin1/hugin/GLPreviewFrame.cpp:3479
 msgid "Matching interest points..."
 msgstr "Hasonló pontok keresése..."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:3605
+#: hugin1/hugin/GLPreviewFrame.cpp:3598
 msgid "Checking results..."
 msgstr "Eredmények ellenőrzése..."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:3632
+#: hugin1/hugin/GLPreviewFrame.cpp:3625
 #, c-format
 msgid ""
 "%lu control points were added to the panorama.\n"
@@ -1981,7 +1937,7 @@ msgstr ""
 "\n"
 "A panoráma legyen újra optimalizálva? "
 
-#: hugin1/hugin/GLViewer.cpp:285
+#: hugin1/hugin/GLViewer.cpp:151
 msgid ""
 "Error initializing GLEW\n"
 "Fast preview window can not be opened."
@@ -1989,7 +1945,7 @@ msgstr ""
 "GLEW inicializálása hibás\n"
 "Gyors előnézeti ablak nem nyitható meg."
 
-#: hugin1/hugin/GLViewer.cpp:297
+#: hugin1/hugin/GLViewer.cpp:163
 msgid ""
 "Sorry, the fast preview window requires a system which supports OpenGL "
 "version 1.1 with the GL_ARB_multitexture extension.\n"
@@ -2050,8 +2006,8 @@ msgstr "Maszkok száma"
 
 #: hugin1/hugin/ImagesList.cpp:454 hugin1/hugin/ImagesList.cpp:514
 #: hugin1/hugin/xrc/mask_editor_panel.xrc:332
-#: hugin1/hugin/xrc/preview_frame.xrc:934
-#: hugin1/hugin/xrc/preview_frame.xrc:1798
+#: hugin1/hugin/xrc/preview_frame.xrc:948
+#: hugin1/hugin/xrc/preview_frame.xrc:1826
 msgid "Crop"
 msgstr "Vágás"
 
@@ -2086,6 +2042,7 @@ msgid "The maximum Ev difference has to be greater than 0."
 msgstr "A maximális Ev különbségnek 0-nál nagyobbnak kell lennie."
 
 #: hugin1/hugin/ImagesPanel.cpp:704 hugin1/hugin/ImagesTree.cpp:1192
+#: hugin1/hugin/xrc/main_frame.xrc:351
 msgid "Stacks"
 msgstr "Kötegek"
 
@@ -2511,12 +2468,12 @@ msgstr "&Bezárás"
 msgid "Did you know..."
 msgstr "Tudja, hogy..."
 
-#: hugin1/hugin/MainFrame.cpp:326
+#: hugin1/hugin/MainFrame.cpp:328
 #, c-format
 msgid "Version %s"
 msgstr "Verzió %s"
 
-#: hugin1/hugin/MainFrame.cpp:334
+#: hugin1/hugin/MainFrame.cpp:336
 msgid ""
 "Fatal installation error\n"
 "The file data/splash.png was not found at:"
@@ -2524,75 +2481,75 @@ msgstr ""
 "Súlyos üzembehelyezési hiba\n"
 "A data/splash.png fájl nem található itt:"
 
-#: hugin1/hugin/MainFrame.cpp:354 hugin1/ptbatcher/BatchFrame.cpp:145
+#: hugin1/hugin/MainFrame.cpp:356 hugin1/ptbatcher/BatchFrame.cpp:145
 #: hugin1/hugin/xrc/batch_menu.xrc:56 hugin1/hugin/xrc/main_menu.xrc:130
-#: hugin1/hugin/xrc/main_menu.xrc:132 hugin1/hugin/xrc/preview_frame.xrc:1867
-#: hugin1/hugin/xrc/preview_frame.xrc:1896
+#: hugin1/hugin/xrc/main_menu.xrc:132 hugin1/hugin/xrc/preview_frame.xrc:1895
+#: hugin1/hugin/xrc/preview_frame.xrc:1924
 msgid "&Help"
 msgstr "&Súgó"
 
-#: hugin1/hugin/MainFrame.cpp:409
+#: hugin1/hugin/MainFrame.cpp:411
 msgid "&Actions"
 msgstr "&Műveletek"
 
-#: hugin1/hugin/MainFrame.cpp:501
+#: hugin1/hugin/MainFrame.cpp:503
 msgid "Started"
 msgstr "Kezdés"
 
-#: hugin1/hugin/MainFrame.cpp:633 hugin1/hugin/xrc/main_frame.xrc:34
+#: hugin1/hugin/MainFrame.cpp:635 hugin1/hugin/xrc/main_frame.xrc:34
 #: hugin1/hugin/xrc/main_menu.xrc:86
 msgid "Optimizer"
 msgstr "Optimalizáló"
 
-#: hugin1/hugin/MainFrame.cpp:645 hugin1/hugin/MainFrame.cpp:649
+#: hugin1/hugin/MainFrame.cpp:647 hugin1/hugin/MainFrame.cpp:651
 #: hugin1/hugin/xrc/main_frame.xrc:38 hugin1/hugin/xrc/main_menu.xrc:91
 #: hugin1/hugin/xrc/reset_dialog.xrc:46
 msgid "Exposure"
 msgstr "Expozíció"
 
-#: hugin1/hugin/MainFrame.cpp:692
+#: hugin1/hugin/MainFrame.cpp:694
 msgid "Save changes to the panorama before closing?"
 msgstr "Mentse a panoráma változásait bezárás előtt?"
 
-#: hugin1/hugin/MainFrame.cpp:700
+#: hugin1/hugin/MainFrame.cpp:702
 msgid ""
 "If you close without saving, changes since your last save will be discarded"
 msgstr ""
 "Ha bezárja mentés nélkül, az utolsó mentés utáni módosítások el fognak veszni"
 
-#: hugin1/hugin/MainFrame.cpp:703
+#: hugin1/hugin/MainFrame.cpp:705
 msgid "Don't Save"
 msgstr "Ne Mentse"
 
-#: hugin1/hugin/MainFrame.cpp:706
+#: hugin1/hugin/MainFrame.cpp:708
 msgid "Close without saving"
 msgstr "Bezárás mentés nélkül"
 
-#: hugin1/hugin/MainFrame.cpp:738
+#: hugin1/hugin/MainFrame.cpp:740
 msgid "forced close"
 msgstr "erőltetett bezárás"
 
-#: hugin1/hugin/MainFrame.cpp:782
+#: hugin1/hugin/MainFrame.cpp:784
 #, c-format
 msgid "saved project %s"
 msgstr "mentett projekt %s"
 
-#: hugin1/hugin/MainFrame.cpp:787 hugin1/hugin/MainFrame.cpp:793
-#: hugin1/hugin/MainFrame.cpp:904 hugin1/hugin/MainFrame.cpp:910
-#: hugin1/hugin/MainFrame.cpp:1006 hugin1/hugin/MainFrame.cpp:1012
-#: hugin1/hugin/MainFrame.cpp:1970 hugin1/hugin/MainFrame.cpp:1976
-#: hugin1/hugin/MainFrame.cpp:1988 hugin1/hugin/MainFrame.cpp:1993
+#: hugin1/hugin/MainFrame.cpp:789 hugin1/hugin/MainFrame.cpp:795
+#: hugin1/hugin/MainFrame.cpp:906 hugin1/hugin/MainFrame.cpp:912
+#: hugin1/hugin/MainFrame.cpp:1008 hugin1/hugin/MainFrame.cpp:1014
+#: hugin1/hugin/MainFrame.cpp:1987 hugin1/hugin/MainFrame.cpp:1993
+#: hugin1/hugin/MainFrame.cpp:2005 hugin1/hugin/MainFrame.cpp:2010
 #: hugin1/hugin/xrc/main_frame.xrc:4
 msgid "Hugin - Panorama Stitcher"
 msgstr "Hugin - Panorama Összefűző"
 
-#: hugin1/hugin/MainFrame.cpp:789 hugin1/hugin/MainFrame.cpp:906
-#: hugin1/hugin/MainFrame.cpp:1008 hugin1/hugin/MainFrame.cpp:1971
-#: hugin1/hugin/MainFrame.cpp:1977
+#: hugin1/hugin/MainFrame.cpp:791 hugin1/hugin/MainFrame.cpp:908
+#: hugin1/hugin/MainFrame.cpp:1010 hugin1/hugin/MainFrame.cpp:1988
+#: hugin1/hugin/MainFrame.cpp:1994
 msgid "Panorama editor"
 msgstr "Panoráma szerkesztő"
 
-#: hugin1/hugin/MainFrame.cpp:800
+#: hugin1/hugin/MainFrame.cpp:802
 #, c-format
 msgid ""
 "Could not save project file \"%s\".\n"
@@ -2605,31 +2562,31 @@ msgstr ""
 "\n"
 "(Hibakód: %s)"
 
-#: hugin1/hugin/MainFrame.cpp:852
+#: hugin1/hugin/MainFrame.cpp:854
 msgid "Save PTmender script file"
 msgstr " PTmender szkriptfájl mentése"
 
-#: hugin1/hugin/MainFrame.cpp:854
+#: hugin1/hugin/MainFrame.cpp:856
 msgid "PTmender files (*.txt)|*.txt"
 msgstr "PTmender fájlok (*.txt)|*.txt"
 
-#: hugin1/hugin/MainFrame.cpp:880
+#: hugin1/hugin/MainFrame.cpp:882
 msgid "Open project:   "
 msgstr "Projekt megnyitása: "
 
-#: hugin1/hugin/MainFrame.cpp:898
+#: hugin1/hugin/MainFrame.cpp:900
 msgid "Project opened"
 msgstr "Projekt megnyitva"
 
-#: hugin1/hugin/MainFrame.cpp:922
+#: hugin1/hugin/MainFrame.cpp:924
 msgid "Error opening project:   "
 msgstr "Hiba projekt megnyitása közben: "
 
-#: hugin1/hugin/MainFrame.cpp:954 hugin1/hugin/MainFrame.cpp:1410
+#: hugin1/hugin/MainFrame.cpp:956 hugin1/hugin/MainFrame.cpp:1412
 msgid "Open project file"
 msgstr "Projektfájl megnyitása"
 
-#: hugin1/hugin/MainFrame.cpp:964
+#: hugin1/hugin/MainFrame.cpp:966
 #, c-format
 msgid ""
 "File %s is an image file and not a project file.\n"
@@ -2640,32 +2597,42 @@ msgstr ""
 "Ezt a fájlt nem lehet megnyitni a Fájl, Megnyitás-al.\n"
 "Szeretné ezt a képfájlt az aktuális projekthez adni?"
 
-#: hugin1/hugin/MainFrame.cpp:990
+#: hugin1/hugin/MainFrame.cpp:992
 msgid "Open project: cancel"
 msgstr "Projekt megnyitása: mégse"
 
-#: hugin1/hugin/MainFrame.cpp:1249
+#: hugin1/hugin/MainFrame.cpp:1251
 msgid "Can't start system's web browser"
 msgstr "Nem sikerült elindítani a rendszer webböngészőjét"
 
-#: hugin1/hugin/MainFrame.cpp:1443
+#: hugin1/hugin/MainFrame.cpp:1445
 #, c-format
 msgid "Could not read project file %s."
 msgstr "Nem lehet olvasni a projekt fájlt %s."
 
+#: hugin1/hugin/MainFrame.cpp:1454
+#, fuzzy
+msgid "Open Papywizard xml file"
+msgstr "Projektfájl megnyitása"
+
 #: hugin1/hugin/MainFrame.cpp:1455
+#, fuzzy
+msgid "Papywizard xml files (*.xml)|*.xml|All files (*)|*"
+msgstr "Maszk fájlok (*.msk)|*.msk|Minden fájl (*)|*"
+
+#: hugin1/hugin/MainFrame.cpp:1471
 msgid "Choose template project"
 msgstr "Sablon projekt kiválasztás"
 
-#: hugin1/hugin/MainFrame.cpp:1531
+#: hugin1/hugin/MainFrame.cpp:1547
 msgid "Fine-tuning all points"
 msgstr "Minden pont finomhangolása"
 
-#: hugin1/hugin/MainFrame.cpp:1531
+#: hugin1/hugin/MainFrame.cpp:1547
 msgid "Fine-tuning"
 msgstr "Finomhangolás"
 
-#: hugin1/hugin/MainFrame.cpp:1602
+#: hugin1/hugin/MainFrame.cpp:1618
 #, c-format
 msgid ""
 "%d points fine-tuned, %d points not updated due to low correlation\n"
@@ -2695,23 +2662,23 @@ msgstr ""
 "Használja Kontroll Pont listát (F3) hogy megnézze az összes pontot a "
 "jelenlegi projektben\n"
 
-#: hugin1/hugin/MainFrame.cpp:1604
+#: hugin1/hugin/MainFrame.cpp:1620
 msgid "Fine-tune result"
 msgstr "Finomhangolás eredménye"
 
-#: hugin1/hugin/MainFrame.cpp:1622
+#: hugin1/hugin/MainFrame.cpp:1638
 msgid "Removing control points in masks"
 msgstr "Kontroll pontok eltávolítása a maszkról"
 
-#: hugin1/hugin/MainFrame.cpp:1631
+#: hugin1/hugin/MainFrame.cpp:1647
 msgid "Select python script"
 msgstr "Python szkript kiválasztása"
 
-#: hugin1/hugin/MainFrame.cpp:1633
+#: hugin1/hugin/MainFrame.cpp:1649
 msgid "Python script (*.py)|*.py|All files (*.*)|*.*"
 msgstr "Python szkript (*.py)|*.py|Minden fájl (*.*)|*.*"
 
-#: hugin1/hugin/MainFrame.cpp:1847
+#: hugin1/hugin/MainFrame.cpp:1864
 #, c-format
 msgid ""
 "File \"%s\" not found.\n"
@@ -2720,13 +2687,13 @@ msgstr ""
 "Fájl \"%s\" nem található.\n"
 "Talán átnevezték, áthelyezték vagy törölték a fájlt."
 
-#: hugin1/hugin/MainFrame.cpp:1848 hugin1/ptbatcher/Batch.cpp:333
+#: hugin1/hugin/MainFrame.cpp:1865 hugin1/ptbatcher/Batch.cpp:333
 #: hugin1/ptbatcher/Batch.cpp:780 hugin1/ptbatcher/Batch.cpp:796
 #: hugin1/ptbatcher/Batch.cpp:956
 msgid "Error!"
 msgstr "Hiba!"
 
-#: hugin1/hugin/MainFrame.cpp:1874
+#: hugin1/hugin/MainFrame.cpp:1891
 #, c-format
 msgid ""
 "Celeste model expected in %s not found, Hugin needs to be properly installed."
@@ -2734,12 +2701,12 @@ msgstr ""
 "Celeste modell fájl a várt helyen %s nem található, Hugin-nak szükséges a "
 "helyes telepítése."
 
-#: hugin1/hugin/MainFrame.cpp:1879
+#: hugin1/hugin/MainFrame.cpp:1896
 #, c-format
 msgid "Could not load Celeste model file %s"
 msgstr "Nem lehet betölteni a Celeste modell fájlt %s"
 
-#: hugin1/hugin/MainFrame.cpp:2013
+#: hugin1/hugin/MainFrame.cpp:2030
 msgid ""
 "Can't switch to simple interface. The project is using stacks and/or "
 "vignetting center shift.\n"
@@ -2749,7 +2716,7 @@ msgstr ""
 "és/vagy peremsötétedés közép eltolást használ.\n"
 "Ezek a funkciók nem támogatottak az egyszerű felhasználói felületen."
 
-#: hugin1/hugin/MainFrame.cpp:2023
+#: hugin1/hugin/MainFrame.cpp:2040
 msgid ""
 "Can't switch to simple interface. The project is using translation or shear "
 "parameters.\n"
@@ -2759,7 +2726,7 @@ msgstr ""
 "és/vagy nyírás paramétereket használ.\n"
 "Ezek a paraméterek nem támogatottak az egyszerű felhasználói felületen."
 
-#: hugin1/hugin/MainFrame.cpp:2044
+#: hugin1/hugin/MainFrame.cpp:2061
 msgid ""
 "Can't switch to advanced interface. The project is using translation or "
 "shear parameters.\n"
@@ -2769,7 +2736,7 @@ msgstr ""
 "vagy nyírás paramétereket használ.\n"
 "Ezek a paraméterek nem támogatottak a haladó felhasználói felületen."
 
-#: hugin1/hugin/MainFrame.cpp:2071
+#: hugin1/hugin/MainFrame.cpp:2088
 msgid ""
 "At least two images are required.\n"
 "Please add more images."
@@ -2777,16 +2744,16 @@ msgstr ""
 "Legalább két kép szükséges.\n"
 "Adjon hozzá több képet."
 
-#: hugin1/hugin/MainFrame.cpp:2096
+#: hugin1/hugin/MainFrame.cpp:2113
 msgid "Running assistant"
 msgstr "Futtatási segéd"
 
-#: hugin1/hugin/MainFrame.cpp:2119
+#: hugin1/hugin/MainFrame.cpp:2136
 #, c-format
 msgid "Warning %d unconnected image groups found:"
 msgstr "Figyelmeztetés %d nem összekapcsolt képcsoportot találtam: "
 
-#: hugin1/hugin/MainFrame.cpp:2120
+#: hugin1/hugin/MainFrame.cpp:2137
 msgid ""
 "Please create control points between unconnected images using the Control "
 "Points tab in the panorama editor.\n"
@@ -2798,7 +2765,7 @@ msgstr ""
 "\n"
 "A pontok hozzáadása után, ismét nyomja meg az \"Igazítás\" gombot"
 
-#: hugin1/hugin/MainFrame.cpp:2123
+#: hugin1/hugin/MainFrame.cpp:2140
 msgid ""
 "The assistant did not complete successfully. Please check the resulting "
 "project file."
@@ -2806,15 +2773,15 @@ msgstr ""
 "A segéd nem fejeződött be sikeresen. Kérjük, ellenőrizze a létrejövő projekt "
 "fájlt."
 
-#: hugin1/hugin/MainFrame.cpp:2170
+#: hugin1/hugin/MainFrame.cpp:2187
 msgid "Project file not found"
 msgstr "Projekt fájl nem található"
 
-#: hugin1/hugin/MainFrame.cpp:2185
+#: hugin1/hugin/MainFrame.cpp:2202
 msgid "Can't launch PTBatcherGui"
 msgstr "Nem lehet elindítani a PTBatcherGui-t"
 
-#: hugin1/hugin/MainFrame.cpp:2193
+#: hugin1/hugin/MainFrame.cpp:2210
 msgid "Launched incorrect programme"
 msgstr "Nem megfelelő programot indított"
 
@@ -3017,7 +2984,7 @@ msgstr "Fotometrikus igazítás"
 msgid "Loading images"
 msgstr "Képek betöltése"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:273
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:272
 msgid "Error: could not load all images"
 msgstr "Hiba: nem tölthető be az összes kép"
 
@@ -3314,26 +3281,26 @@ msgstr "A felső határvonalnak kisebbnek kell lennie, mint az alsónak."
 msgid " PTmender options not yet implemented"
 msgstr "PTmender beállítások még nincsenek üzembe helyezve"
 
-#: hugin1/hugin/PanoPanel.cpp:854
+#: hugin1/hugin/PanoPanel.cpp:886
 msgid " PTblender options not yet implemented"
 msgstr "PTblender beállítások még nincsenek üzembe helyezve"
 
-#: hugin1/hugin/PanoPanel.cpp:908
+#: hugin1/hugin/PanoPanel.cpp:941
 msgid " Options for this HDRMerge program not yet implemented"
 msgstr " Beállítások ehhez a HDRMerge programhoz még nincsenek üzembe helyezve"
 
-#: hugin1/hugin/PanoPanel.cpp:1017 hugin1/hugin/PanoPanel.cpp:1288
+#: hugin1/hugin/PanoPanel.cpp:1050 hugin1/hugin/PanoPanel.cpp:1321
 msgid "Could not create temporary project file"
 msgstr "Nem sikerült létrehozni az ideiglenes projekt fájlt "
 
-#: hugin1/hugin/PanoPanel.cpp:1062 hugin1/hugin/PanoPanel.cpp:1182
-#: hugin1/hugin/PanoPanel.cpp:1331 hugin1/ptbatcher/Batch.cpp:646
+#: hugin1/hugin/PanoPanel.cpp:1095 hugin1/hugin/PanoPanel.cpp:1215
+#: hugin1/hugin/PanoPanel.cpp:1364 hugin1/ptbatcher/Batch.cpp:646
 #: hugin1/stitch_project/hugin_stitch_project.cpp:403
 msgid "Specify output prefix"
 msgstr "Kimeneti előtag megadása"
 
-#: hugin1/hugin/PanoPanel.cpp:1080 hugin1/hugin/PanoPanel.cpp:1200
-#: hugin1/hugin/PanoPanel.cpp:1349 hugin1/ptbatcher/BatchFrame.cpp:560
+#: hugin1/hugin/PanoPanel.cpp:1113 hugin1/hugin/PanoPanel.cpp:1233
+#: hugin1/hugin/PanoPanel.cpp:1382 hugin1/ptbatcher/BatchFrame.cpp:560
 #: hugin1/stitch_project/hugin_stitch_project.cpp:419
 #, c-format
 msgid ""
@@ -3343,15 +3310,15 @@ msgstr ""
 "Nincs jogosultsága, hogy a \"%s\" könyvtárba írjon.\n"
 "Jelöljön ki másik könyvtárat a végleges kimenethez."
 
-#: hugin1/hugin/PanoPanel.cpp:1265
+#: hugin1/hugin/PanoPanel.cpp:1298
 msgid "Select user defined output"
 msgstr "A felhasználó által megadott kimenet kiválasztása"
 
-#: hugin1/hugin/PanoPanel.cpp:1266
+#: hugin1/hugin/PanoPanel.cpp:1299
 msgid "User defined output|*.executor"
 msgstr "A felhasználó által megadott kimenet| * .végrehajtó"
 
-#: hugin1/hugin/PanoPanel.cpp:1578
+#: hugin1/hugin/PanoPanel.cpp:1611
 #, c-format
 msgid ""
 "The width and height of jpeg images has to be smaller than 65500 pixel. But "
@@ -3366,7 +3333,7 @@ msgstr ""
 "Csökkentse a rajzvászon méretét az összefűzés panelon vagy válassza a TIFF "
 "vagy PNG kimeneti formátumot."
 
-#: hugin1/hugin/PanoPanel.cpp:1592
+#: hugin1/hugin/PanoPanel.cpp:1625
 #, c-format
 msgid ""
 "The panorama you are trying to stitch is %.1f gigapixels.\n"
@@ -3379,7 +3346,7 @@ msgstr ""
 "méretét és fűzze össze az Összefűző fülön. Ilyen nagy méretű panoráma "
 "összefűzése sok időt vesz igénybe, és nagy mennyiségű memóriát használ."
 
-#: hugin1/hugin/PanoPanel.cpp:1599
+#: hugin1/hugin/PanoPanel.cpp:1632
 msgid ""
 "The width or the height of the final panorama exceeds 32700 pixel.\n"
 "Some programs have problems to open or display such big images.\n"
@@ -3393,19 +3360,19 @@ msgstr ""
 "Amennyiben ez túl nagy, csökkentse a panoráma Rajzvászon Méretét vagy a "
 "kivágott területet."
 
-#: hugin1/hugin/PanoPanel.cpp:1608 hugin1/hugin/PanoPanel.cpp:1633
+#: hugin1/hugin/PanoPanel.cpp:1641 hugin1/hugin/PanoPanel.cpp:1666
 msgid "Are you sure you want to stitch such a large panorama?"
 msgstr "Biztos benne, hogy össze szeretne fűzni egy ilyen nagy panorámát?"
 
-#: hugin1/hugin/PanoPanel.cpp:1616 hugin1/hugin/PanoPanel.cpp:1697
+#: hugin1/hugin/PanoPanel.cpp:1649 hugin1/hugin/PanoPanel.cpp:1730
 msgid "Stitch anyway"
 msgstr "Összefűzés mindenképpen"
 
-#: hugin1/hugin/PanoPanel.cpp:1616 hugin1/hugin/PanoPanel.cpp:1697
+#: hugin1/hugin/PanoPanel.cpp:1649 hugin1/hugin/PanoPanel.cpp:1730
 msgid "Let me fix that"
 msgstr "Hadd javítsam ezt"
 
-#: hugin1/hugin/PanoPanel.cpp:1669
+#: hugin1/hugin/PanoPanel.cpp:1702
 msgid ""
 "There are no active images in the output region.\n"
 "Please check your settings, so that at least one image is in the output "
@@ -3415,7 +3382,7 @@ msgstr ""
 "Kérjük, ellenőrizze a beállításokat, hogy legalább egy kép legyen a kimeneti "
 "területen."
 
-#: hugin1/hugin/PanoPanel.cpp:1690 hugin1/hugin/PanoPanel.cpp:1700
+#: hugin1/hugin/PanoPanel.cpp:1723 hugin1/hugin/PanoPanel.cpp:1733
 #, c-format
 msgid ""
 "The folder \"%s\" has only %.1f MiB free. This is not enough for stitching "
@@ -3428,125 +3395,143 @@ msgstr ""
 "kimeneti könyvtárat.\n"
 "Biztos benne, hogy ennek ellenére össze akarja fűzni?"
 
+#: hugin1/hugin/PapywizardImport.cpp:341
+#, fuzzy, c-format
+msgid "Could not parse file %s as Papywizard XML file."
+msgstr "Nem lehet feldolgozni a maszkot %s fájlból."
+
+#: hugin1/hugin/PapywizardImport.cpp:353
+#, c-format
+msgid ""
+"The current project does not match with the Papywizard xml file.\n"
+"The Papywizard file \"%s\" contains %lu images, but the Hugin project "
+"contains %lu images."
+msgstr ""
+
+#: hugin1/hugin/PapywizardImport.cpp:464
+#, fuzzy
+msgid "Connecting overlapping images"
+msgstr "Megpróbálja csatlakoztatni az összes átfedő képeket."
+
 #: hugin1/hugin/PluginItems.cpp:71
 msgid "Miscellaneous"
 msgstr "Vegyes"
 
-#: hugin1/hugin/PreferencesDialog.cpp:120
+#: hugin1/hugin/PreferencesDialog.cpp:121
 msgid "System default"
 msgstr "Rendszer alapértelmezése"
 
-#: hugin1/hugin/PreferencesDialog.cpp:123
+#: hugin1/hugin/PreferencesDialog.cpp:124
 msgid "Basque"
 msgstr "Baszk"
 
-#: hugin1/hugin/PreferencesDialog.cpp:131
+#: hugin1/hugin/PreferencesDialog.cpp:132
 msgid "Catalan"
 msgstr "Katalán"
 
-#: hugin1/hugin/PreferencesDialog.cpp:134
+#: hugin1/hugin/PreferencesDialog.cpp:135
 msgid "Chinese (Simplified)"
 msgstr "Kínai (Egyszerűsített)"
 
-#: hugin1/hugin/PreferencesDialog.cpp:137
+#: hugin1/hugin/PreferencesDialog.cpp:138
 msgid "Chinese (Traditional)"
 msgstr "Kínai (Hagyományos)"
 
-#: hugin1/hugin/PreferencesDialog.cpp:140
+#: hugin1/hugin/PreferencesDialog.cpp:141
 msgid "Czech"
 msgstr "Cseh"
 
-#: hugin1/hugin/PreferencesDialog.cpp:143
+#: hugin1/hugin/PreferencesDialog.cpp:144
 msgid "Danish"
 msgstr "Dán"
 
-#: hugin1/hugin/PreferencesDialog.cpp:146
+#: hugin1/hugin/PreferencesDialog.cpp:147
 msgid "Dutch"
 msgstr "Holland"
 
-#: hugin1/hugin/PreferencesDialog.cpp:149
+#: hugin1/hugin/PreferencesDialog.cpp:150
 msgid "English"
 msgstr "Angol"
 
-#: hugin1/hugin/PreferencesDialog.cpp:152
+#: hugin1/hugin/PreferencesDialog.cpp:153
 msgid "French"
 msgstr "Francia"
 
-#: hugin1/hugin/PreferencesDialog.cpp:155
+#: hugin1/hugin/PreferencesDialog.cpp:156
 msgid "German"
 msgstr "Német"
 
-#: hugin1/hugin/PreferencesDialog.cpp:158
+#: hugin1/hugin/PreferencesDialog.cpp:159
 msgid "Hungarian"
 msgstr "Magyar"
 
-#: hugin1/hugin/PreferencesDialog.cpp:161
+#: hugin1/hugin/PreferencesDialog.cpp:162
 msgid "Italian"
 msgstr "Olasz"
 
-#: hugin1/hugin/PreferencesDialog.cpp:164
+#: hugin1/hugin/PreferencesDialog.cpp:165
 msgid "Japanese"
 msgstr "Japán"
 
-#: hugin1/hugin/PreferencesDialog.cpp:172
+#: hugin1/hugin/PreferencesDialog.cpp:173
 msgid "Polish"
 msgstr "Lengyel"
 
-#: hugin1/hugin/PreferencesDialog.cpp:175
+#: hugin1/hugin/PreferencesDialog.cpp:176
 msgid "Portuguese (Brazilian)"
 msgstr "Portugál (Brazil)"
 
-#: hugin1/hugin/PreferencesDialog.cpp:178
+#: hugin1/hugin/PreferencesDialog.cpp:179
 msgid "Russian"
 msgstr "Orosz"
 
-#: hugin1/hugin/PreferencesDialog.cpp:181
+#: hugin1/hugin/PreferencesDialog.cpp:182
 msgid "Slovak"
 msgstr "Szlovák"
 
-#: hugin1/hugin/PreferencesDialog.cpp:189
+#: hugin1/hugin/PreferencesDialog.cpp:190
 msgid "Spanish"
 msgstr "Spanyol"
 
-#: hugin1/hugin/PreferencesDialog.cpp:192
+#: hugin1/hugin/PreferencesDialog.cpp:193
 msgid "Swedish"
 msgstr "Svéd"
 
-#: hugin1/hugin/PreferencesDialog.cpp:200
+#: hugin1/hugin/PreferencesDialog.cpp:201
 msgid "Finnish"
 msgstr "Finn"
 
-#: hugin1/hugin/PreferencesDialog.cpp:203
+#: hugin1/hugin/PreferencesDialog.cpp:204
 msgid "Valencian (Southern Catalan)"
 msgstr "Valenciai (dél katalán)"
 
-#: hugin1/hugin/PreferencesDialog.cpp:304
+#: hugin1/hugin/PreferencesDialog.cpp:305
 msgid "Select Enblend"
 msgstr "Enblend kiválasztása"
 
-#: hugin1/hugin/PreferencesDialog.cpp:307
-#: hugin1/hugin/PreferencesDialog.cpp:324
+#: hugin1/hugin/PreferencesDialog.cpp:308
+#: hugin1/hugin/PreferencesDialog.cpp:325
 msgid "Executables (*.exe)|*.exe"
 msgstr "Végrehajtható fájlok (*.exe)|*.exe"
 
-#: hugin1/hugin/PreferencesDialog.cpp:321
+#: hugin1/hugin/PreferencesDialog.cpp:322
 msgid "Select Enfuse"
 msgstr "Enfuse kiválasztása"
 
-#: hugin1/hugin/PreferencesDialog.cpp:350
-#: hugin1/hugin/PreferencesDialog.cpp:427 hugin1/hugin/xrc/pref_dialog.xrc:950
-#: hugin1/hugin/xrc/pref_dialog.xrc:1009
+#: hugin1/hugin/PreferencesDialog.cpp:351
+#: hugin1/hugin/PreferencesDialog.cpp:428 hugin1/hugin/xrc/pref_dialog.xrc:967
+#: hugin1/hugin/xrc/pref_dialog.xrc:1026
 msgid "Select ExifTool argfile"
 msgstr "ExifTool arg. fájl kiválasztása"
 
-#: hugin1/hugin/PreferencesDialog.cpp:352
-#: hugin1/hugin/PreferencesDialog.cpp:400
-#: hugin1/hugin/PreferencesDialog.cpp:429
-#: hugin1/hugin/PreferencesDialog.cpp:465
+#: hugin1/hugin/PreferencesDialog.cpp:353
+#: hugin1/hugin/PreferencesDialog.cpp:401
+#: hugin1/hugin/PreferencesDialog.cpp:430
+#: hugin1/hugin/PreferencesDialog.cpp:466
 msgid "ExifTool Argfiles (*.arg)|*.arg|All Files(*)|*"
 msgstr "ExifTool Arg. fájlok (*.arg)|*.arg|Minden Fájl(*)|*"
 
-#: hugin1/hugin/PreferencesDialog.cpp:383
+#: hugin1/hugin/PreferencesDialog.cpp:384
 #, c-format
 msgid ""
 "File %s does not exist.\n"
@@ -3555,14 +3540,14 @@ msgstr ""
 "%s fájl nem létezik.\n"
 "Hozzon létre arg. fájlt az alapértelmezett címkékből?"
 
-#: hugin1/hugin/PreferencesDialog.cpp:384
-#: hugin1/hugin/PreferencesDialog.cpp:394
-#: hugin1/hugin/PreferencesDialog.cpp:446
-#: hugin1/hugin/PreferencesDialog.cpp:459
+#: hugin1/hugin/PreferencesDialog.cpp:385
+#: hugin1/hugin/PreferencesDialog.cpp:395
+#: hugin1/hugin/PreferencesDialog.cpp:447
+#: hugin1/hugin/PreferencesDialog.cpp:460
 msgid "Exiftool argfile"
 msgstr "Exiftool arg. fájl"
 
-#: hugin1/hugin/PreferencesDialog.cpp:393
+#: hugin1/hugin/PreferencesDialog.cpp:394
 msgid ""
 "No file selected.\n"
 "Should an argfile be created with default tags?"
@@ -3570,18 +3555,18 @@ msgstr ""
 "Nincs fájl kiválasztva.\n"
 "Hozzon létre arg. fájlt az alapértelmezett címkékből?"
 
-#: hugin1/hugin/PreferencesDialog.cpp:398
-#: hugin1/hugin/PreferencesDialog.cpp:463
+#: hugin1/hugin/PreferencesDialog.cpp:399
+#: hugin1/hugin/PreferencesDialog.cpp:464
 msgid "Select new ExifTool argfile"
 msgstr "Új ExifTool arg. fájl kiválasztása"
 
-#: hugin1/hugin/PreferencesDialog.cpp:418
-#: hugin1/hugin/PreferencesDialog.cpp:486
+#: hugin1/hugin/PreferencesDialog.cpp:419
+#: hugin1/hugin/PreferencesDialog.cpp:487
 #, c-format
 msgid "Could not save file \"%s\"."
 msgstr "Nem lehet menteni a fájlt \"%s\"."
 
-#: hugin1/hugin/PreferencesDialog.cpp:445
+#: hugin1/hugin/PreferencesDialog.cpp:446
 #, c-format
 msgid ""
 "File %s does not exist.\n"
@@ -3590,7 +3575,7 @@ msgstr ""
 "%s fájl nem létezik.\n"
 "Hozzon létre üres arg. fájlt?"
 
-#: hugin1/hugin/PreferencesDialog.cpp:458
+#: hugin1/hugin/PreferencesDialog.cpp:459
 msgid ""
 "No file selected.\n"
 "Should an empty argfile be created?"
@@ -3598,25 +3583,25 @@ msgstr ""
 "Nincs fájl kiválasztva.\n"
 "Hozzon létre üres arg. fájlt?"
 
-#: hugin1/hugin/PreferencesDialog.cpp:768
+#: hugin1/hugin/PreferencesDialog.cpp:780
 msgid "Really reset displayed preferences to default values?"
 msgstr ""
 "Tényleg visszaállítja a megjelenített beállításokat az alapértelmezett "
 "értékekre?"
 
-#: hugin1/hugin/PreferencesDialog.cpp:768 hugin1/hugin/xrc/pref_dialog.xrc:1479
+#: hugin1/hugin/PreferencesDialog.cpp:780 hugin1/hugin/xrc/pref_dialog.xrc:1496
 msgid "Load Defaults"
 msgstr "Alapértelmezés betöltése"
 
-#: hugin1/hugin/PreferencesDialog.cpp:1039
+#: hugin1/hugin/PreferencesDialog.cpp:1060
 msgid "Please select an entry first"
 msgstr "Kérjük, válasszon egy bejegyzést először"
 
-#: hugin1/hugin/PreferencesDialog.cpp:1039
+#: hugin1/hugin/PreferencesDialog.cpp:1060
 msgid "Select Entry"
 msgstr "Bejegyzés kiválasztása"
 
-#: hugin1/hugin/PreferencesDialog.cpp:1059
+#: hugin1/hugin/PreferencesDialog.cpp:1080
 msgid ""
 "You can't delete the last setting.\n"
 "At least one setting is required."
@@ -3624,26 +3609,26 @@ msgstr ""
 "Nem törölheti az utolsó beállítást.\n"
 "Legalább egy beállítás szükséges."
 
-#: hugin1/hugin/PreferencesDialog.cpp:1063
+#: hugin1/hugin/PreferencesDialog.cpp:1084
 #, c-format
 msgid "Do you really want to remove control point detector setting \"%s\"?"
 msgstr ""
 "Valóban el akarja távolítani a kontroll pont kereső beállítását \"%s\"?"
 
-#: hugin1/hugin/PreferencesDialog.cpp:1064
+#: hugin1/hugin/PreferencesDialog.cpp:1085
 msgid "Delete control point detector setting"
 msgstr "Kontroll pont kereső beállításainak törlése "
 
-#: hugin1/hugin/PreferencesDialog.cpp:1121
+#: hugin1/hugin/PreferencesDialog.cpp:1142
 msgid "Load control point detector settings"
 msgstr "Kontroll pont kereső beállításainak betöltése "
 
-#: hugin1/hugin/PreferencesDialog.cpp:1123
-#: hugin1/hugin/PreferencesDialog.cpp:1138
+#: hugin1/hugin/PreferencesDialog.cpp:1144
+#: hugin1/hugin/PreferencesDialog.cpp:1159
 msgid "Control point detector settings (*.setting)|*.setting"
 msgstr "Kontroll pont kereső beállítások (*.setting)|*.setting"
 
-#: hugin1/hugin/PreferencesDialog.cpp:1136
+#: hugin1/hugin/PreferencesDialog.cpp:1157
 msgid "Save control point detector settings"
 msgstr "Kontroll pont kereső beállításainak mentése"
 
@@ -3687,8 +3672,8 @@ msgstr "Előnézet Beállításai"
 msgid "projection (f):"
 msgstr "vetület (f):"
 
-#: hugin1/hugin/PreviewFrame.cpp:239 hugin1/hugin/xrc/preview_frame.xrc:321
-#: hugin1/hugin/xrc/preview_frame.xrc:1161
+#: hugin1/hugin/PreviewFrame.cpp:239 hugin1/hugin/xrc/preview_frame.xrc:335
+#: hugin1/hugin/xrc/preview_frame.xrc:1189
 msgid "Blend mode:"
 msgstr "Összemosó mód:"
 
@@ -3704,8 +3689,8 @@ msgstr "LDR"
 msgid "HDR"
 msgstr "HDR"
 
-#: hugin1/hugin/PreviewFrame.cpp:279 hugin1/hugin/xrc/preview_frame.xrc:339
-#: hugin1/hugin/xrc/preview_frame.xrc:1179
+#: hugin1/hugin/PreviewFrame.cpp:279 hugin1/hugin/xrc/preview_frame.xrc:353
+#: hugin1/hugin/xrc/preview_frame.xrc:1207
 msgid "EV:"
 msgstr "EV:"
 
@@ -3742,29 +3727,29 @@ msgstr "Kattintson az összeköttetésen a kontroll pontok szerkesztéséhez."
 msgid "Error during Stitching"
 msgstr "Hiba fűzés közben"
 
-#: hugin1/hugin/huginApp.cpp:204
+#: hugin1/hugin/huginApp.cpp:219
 #, c-format
 msgid "Directory '%s' does not exists"
 msgstr "'%s' könyvtár nem létezik"
 
-#: hugin1/hugin/huginApp.cpp:208
+#: hugin1/hugin/huginApp.cpp:223
 msgid "Could not set environment variable PYTHONHOME"
 msgstr "Nem sikerült beállítani a PYTHONHOME környezeti változót "
 
-#: hugin1/hugin/huginApp.cpp:339
+#: hugin1/hugin/huginApp.cpp:354
 msgid "Open Batch Processor"
 msgstr "Kötegelt feldolgozó megnyitása"
 
-#: hugin1/hugin/huginApp.cpp:340 hugin1/hugin/xrc/main_menu.xrc:194
-#: hugin1/hugin/xrc/main_menu.xrc:220 hugin1/hugin/xrc/preview_frame.xrc:1927
+#: hugin1/hugin/huginApp.cpp:355 hugin1/hugin/xrc/main_menu.xrc:194
+#: hugin1/hugin/xrc/main_menu.xrc:224 hugin1/hugin/xrc/preview_frame.xrc:1955
 msgid "Opens PTBatcher, the batch processor for Hugin's project files"
 msgstr "Megnyitja a PTBatcher-t, kötegelt feldolgozó Hugin projekt fájlokhoz"
 
-#: hugin1/hugin/huginApp.cpp:345
+#: hugin1/hugin/huginApp.cpp:360
 msgid "Open Lens calibrate tool"
 msgstr "Objektív kalibrációs eszköz megnyitása"
 
-#: hugin1/hugin/huginApp.cpp:346
+#: hugin1/hugin/huginApp.cpp:361
 msgid "Opens Calibrate_lens_gui, a simple GUI for lens calibration"
 msgstr ""
 "Megnyitja a Calibrate_lens_gui-t, egy egyszerű GUI az objektív "
@@ -3944,7 +3929,7 @@ msgstr ""
 #: hugin1/ptbatcher/BatchFrame.cpp:788 hugin1/ptbatcher/BatchFrame.cpp:820
 #: hugin1/ptbatcher/BatchFrame.cpp:855 hugin1/ptbatcher/BatchFrame.cpp:884
 #: hugin1/ptbatcher/BatchFrame.cpp:1154 hugin1/ptbatcher/BatchFrame.cpp:1318
-#: hugin1/ptbatcher/BatchFrame.cpp:1325 hugin1/hugin/xrc/pref_dialog.xrc:842
+#: hugin1/ptbatcher/BatchFrame.cpp:1325 hugin1/hugin/xrc/pref_dialog.xrc:859
 msgid "PTBatcherGUI"
 msgstr "PTBatcherGUI"
 
@@ -4375,25 +4360,25 @@ msgstr "Nem talált lehetséges panorámát."
 msgid "%d images: %s"
 msgstr "%d képek: %s"
 
-#: hugin1/ptbatcher/FindPanoDialog.cpp:830
+#: hugin1/ptbatcher/FindPanoDialog.cpp:831
 msgid "%M:%S min"
 msgstr "%M:%S perc"
 
-#: hugin1/ptbatcher/FindPanoDialog.cpp:834
+#: hugin1/ptbatcher/FindPanoDialog.cpp:835
 #, c-format
 msgid "%S s"
 msgstr "%S mp"
 
-#: hugin1/ptbatcher/PTBatcherGUI.cpp:162
+#: hugin1/ptbatcher/PTBatcherGUI.cpp:159
 msgid "stitch_project.pto [output prefix]|assistant_project.pto"
 msgstr "összefűzés_projekt.pto [kimenti előtag]|segéd_projekt.pto"
 
-#: hugin1/ptbatcher/PTBatcherGUI.cpp:178
+#: hugin1/ptbatcher/PTBatcherGUI.cpp:175
 #: hugin1/stitch_project/hugin_stitch_project.cpp:340
 msgid "Syntax error in parameters detected, aborting."
 msgstr "Szintaktikai hiba található a paraméterekben, művelet megszakítása."
 
-#: hugin1/ptbatcher/PTBatcherGUI.cpp:206
+#: hugin1/ptbatcher/PTBatcherGUI.cpp:203
 msgid "PTBatcherGUI started"
 msgstr "PTBatcherGUI elindult"
 
@@ -4446,8 +4431,8 @@ msgid "Output format"
 msgstr "Kimeneti formátum"
 
 #: hugin1/ptbatcher/ProjectListBox.cpp:70
-#: hugin1/hugin/xrc/preview_frame.xrc:510
-#: hugin1/hugin/xrc/preview_frame.xrc:1350
+#: hugin1/hugin/xrc/preview_frame.xrc:524
+#: hugin1/hugin/xrc/preview_frame.xrc:1378
 msgid "Projection"
 msgstr "Vetület"
 
@@ -4465,8 +4450,8 @@ msgid "Error, cannot convert id"
 msgstr "Hiba, nem konvertálható azonosító /id/"
 
 #: hugin1/ptbatcher/ProjectListBox.cpp:303 hugin1/hugin/xrc/pref_dialog.xrc:263
-#: hugin1/hugin/xrc/preview_frame.xrc:244
-#: hugin1/hugin/xrc/preview_frame.xrc:1084
+#: hugin1/hugin/xrc/preview_frame.xrc:258
+#: hugin1/hugin/xrc/preview_frame.xrc:1112
 msgid "Assistant"
 msgstr "Segéd"
 
@@ -4535,7 +4520,7 @@ msgstr ""
 "fájlnevet."
 
 #: hugin1/hugin/xrc/about.xrc:4 hugin1/hugin/xrc/main_menu.xrc:151
-#: hugin1/hugin/xrc/main_tool.xrc:79 hugin1/hugin/xrc/preview_frame.xrc:1886
+#: hugin1/hugin/xrc/main_tool.xrc:79 hugin1/hugin/xrc/preview_frame.xrc:1914
 msgid "About Hugin"
 msgstr "Hugin névjegye"
 
@@ -4573,12 +4558,13 @@ msgstr "Rendszer"
 #: hugin1/hugin/xrc/image_variable_dlg.xrc:705
 #: hugin1/hugin/xrc/images_panel.xrc:547
 #: hugin1/hugin/xrc/lensdb_dialogs.xrc:140
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:336
+#: hugin1/hugin/xrc/lensdb_dialogs.xrc:336 hugin1/hugin/xrc/main_frame.xrc:401
 #: hugin1/hugin/xrc/mask_editor_panel.xrc:491
 #: hugin1/hugin/xrc/pano_panel.xrc:49 hugin1/hugin/xrc/pano_panel.xrc:91
 #: hugin1/hugin/xrc/pano_panel.xrc:133 hugin1/hugin/xrc/pano_panel.xrc:1007
-#: hugin1/hugin/xrc/pano_panel.xrc:1333 hugin1/hugin/xrc/pref_dialog.xrc:1492
-#: hugin1/hugin/xrc/preview_frame.xrc:110 hugin1/hugin/xrc/reset_dialog.xrc:116
+#: hugin1/hugin/xrc/pano_panel.xrc:1333 hugin1/hugin/xrc/pano_panel.xrc:1382
+#: hugin1/hugin/xrc/pref_dialog.xrc:1509 hugin1/hugin/xrc/preview_frame.xrc:110
+#: hugin1/hugin/xrc/reset_dialog.xrc:116
 msgid "OK"
 msgstr "OK"
 
@@ -4657,8 +4643,8 @@ msgstr "Könyvtár:"
 #: hugin1/hugin/xrc/cpdetector_dialog.xrc:143
 #: hugin1/hugin/xrc/cpdetector_dialog.xrc:182
 #: hugin1/hugin/xrc/cpdetector_dialog.xrc:243
-#: hugin1/hugin/xrc/pref_dialog.xrc:949 hugin1/hugin/xrc/pref_dialog.xrc:1008
-#: hugin1/hugin/xrc/pref_dialog.xrc:1191 hugin1/hugin/xrc/pref_dialog.xrc:1270
+#: hugin1/hugin/xrc/pref_dialog.xrc:966 hugin1/hugin/xrc/pref_dialog.xrc:1025
+#: hugin1/hugin/xrc/pref_dialog.xrc:1208 hugin1/hugin/xrc/pref_dialog.xrc:1287
 msgid "Choose..."
 msgstr "Választás..."
 
@@ -4750,7 +4736,7 @@ msgstr ""
 #: hugin1/hugin/xrc/mask_editor_panel.xrc:204
 #: hugin1/hugin/xrc/pano_panel.xrc:747 hugin1/hugin/xrc/pano_panel.xrc:774
 #: hugin1/hugin/xrc/pano_panel.xrc:801 hugin1/hugin/xrc/pano_panel.xrc:828
-#: hugin1/hugin/xrc/pref_dialog.xrc:877
+#: hugin1/hugin/xrc/pref_dialog.xrc:894
 msgid "Options"
 msgstr "Beállítások"
 
@@ -4771,7 +4757,7 @@ msgstr "Objektívek:"
 #: hugin1/hugin/xrc/lensdb_dialogs.xrc:31
 #: hugin1/hugin/xrc/lensdb_dialogs.xrc:231
 #: hugin1/hugin/xrc/preview_frame.xrc:171
-#: hugin1/hugin/xrc/preview_frame.xrc:1011
+#: hugin1/hugin/xrc/preview_frame.xrc:1025
 msgid "Focal length:"
 msgstr "Fókusztávolság:"
 
@@ -4881,12 +4867,12 @@ msgid "&Minimize to tray"
 msgstr "Minimalizálás a tál&cára"
 
 #: hugin1/hugin/xrc/batch_menu.xrc:51 hugin1/hugin/xrc/lenscal_frame.xrc:456
-#: hugin1/hugin/xrc/main_menu.xrc:211 hugin1/hugin/xrc/preview_frame.xrc:1935
+#: hugin1/hugin/xrc/main_menu.xrc:215 hugin1/hugin/xrc/preview_frame.xrc:1963
 msgid "&Quit"
 msgstr "&Kilépés"
 
-#: hugin1/hugin/xrc/batch_menu.xrc:52 hugin1/hugin/xrc/main_menu.xrc:213
-#: hugin1/hugin/xrc/preview_frame.xrc:1937
+#: hugin1/hugin/xrc/batch_menu.xrc:52 hugin1/hugin/xrc/main_menu.xrc:217
+#: hugin1/hugin/xrc/preview_frame.xrc:1965
 msgid "Exit program"
 msgstr "Kilépés a programból"
 
@@ -5229,20 +5215,20 @@ msgid "Discard changes and cancel"
 msgstr "Módosítások elvetése és mégse"
 
 #: hugin1/hugin/xrc/image_variable_dlg.xrc:15
-#: hugin1/hugin/xrc/preview_frame.xrc:62 hugin1/hugin/xrc/preview_frame.xrc:699
-#: hugin1/hugin/xrc/preview_frame.xrc:1555
+#: hugin1/hugin/xrc/preview_frame.xrc:62 hugin1/hugin/xrc/preview_frame.xrc:713
+#: hugin1/hugin/xrc/preview_frame.xrc:1583
 msgid "Yaw:"
 msgstr "Forgatás (y):"
 
 #: hugin1/hugin/xrc/image_variable_dlg.xrc:28
-#: hugin1/hugin/xrc/preview_frame.xrc:76 hugin1/hugin/xrc/preview_frame.xrc:713
-#: hugin1/hugin/xrc/preview_frame.xrc:1569
+#: hugin1/hugin/xrc/preview_frame.xrc:76 hugin1/hugin/xrc/preview_frame.xrc:727
+#: hugin1/hugin/xrc/preview_frame.xrc:1597
 msgid "Pitch:"
 msgstr "Bólintás (p):"
 
 #: hugin1/hugin/xrc/image_variable_dlg.xrc:41
-#: hugin1/hugin/xrc/preview_frame.xrc:90 hugin1/hugin/xrc/preview_frame.xrc:727
-#: hugin1/hugin/xrc/preview_frame.xrc:1583
+#: hugin1/hugin/xrc/preview_frame.xrc:90 hugin1/hugin/xrc/preview_frame.xrc:741
+#: hugin1/hugin/xrc/preview_frame.xrc:1611
 msgid "Roll:"
 msgstr "Dőlés (r):"
 
@@ -5251,20 +5237,20 @@ msgid "Translation parameter"
 msgstr "Fordítás paraméter"
 
 #: hugin1/hugin/xrc/image_variable_dlg.xrc:69
-#: hugin1/hugin/xrc/preview_frame.xrc:741
-#: hugin1/hugin/xrc/preview_frame.xrc:1597
+#: hugin1/hugin/xrc/preview_frame.xrc:755
+#: hugin1/hugin/xrc/preview_frame.xrc:1625
 msgid "X:"
 msgstr "X:"
 
 #: hugin1/hugin/xrc/image_variable_dlg.xrc:82
-#: hugin1/hugin/xrc/preview_frame.xrc:755
-#: hugin1/hugin/xrc/preview_frame.xrc:1611
+#: hugin1/hugin/xrc/preview_frame.xrc:769
+#: hugin1/hugin/xrc/preview_frame.xrc:1639
 msgid "Y:"
 msgstr "Y:"
 
 #: hugin1/hugin/xrc/image_variable_dlg.xrc:95
-#: hugin1/hugin/xrc/preview_frame.xrc:769
-#: hugin1/hugin/xrc/preview_frame.xrc:1625
+#: hugin1/hugin/xrc/preview_frame.xrc:783
+#: hugin1/hugin/xrc/preview_frame.xrc:1653
 msgid "Z:"
 msgstr "Z:"
 
@@ -5364,8 +5350,8 @@ msgid "Vignetting Center Shift"
 msgstr "Peremsötétedés Közép Eltolás"
 
 #: hugin1/hugin/xrc/image_variable_dlg.xrc:535
-#: hugin1/hugin/xrc/preview_frame.xrc:289
-#: hugin1/hugin/xrc/preview_frame.xrc:1129
+#: hugin1/hugin/xrc/preview_frame.xrc:303
+#: hugin1/hugin/xrc/preview_frame.xrc:1157
 msgid "Photometrics"
 msgstr "Fotometrikus"
 
@@ -5379,7 +5365,7 @@ msgid "Camera Response"
 msgstr "Kamera Válasz"
 
 #: hugin1/hugin/xrc/image_variable_dlg.xrc:645
-#: hugin1/hugin/xrc/pref_dialog.xrc:1503
+#: hugin1/hugin/xrc/pref_dialog.xrc:1520
 msgid "Help"
 msgstr "Súgó"
 
@@ -5464,14 +5450,14 @@ msgstr "Képek hozzáadása..."
 
 #: hugin1/hugin/xrc/images_panel.xrc:152 hugin1/hugin/xrc/images_panel.xrc:425
 #: hugin1/hugin/xrc/lenscal_frame.xrc:61 hugin1/hugin/xrc/preview_frame.xrc:158
-#: hugin1/hugin/xrc/preview_frame.xrc:998
+#: hugin1/hugin/xrc/preview_frame.xrc:1012
 msgid "Lens type:"
 msgstr "Objektívtípus:"
 
 #: hugin1/hugin/xrc/images_panel.xrc:187 hugin1/hugin/xrc/images_panel.xrc:517
 #: hugin1/hugin/xrc/lenscal_frame.xrc:105
 #: hugin1/hugin/xrc/preview_frame.xrc:191
-#: hugin1/hugin/xrc/preview_frame.xrc:1031
+#: hugin1/hugin/xrc/preview_frame.xrc:1045
 msgid "Focal length multiplier:"
 msgstr "Fókusztávolság szorzó:"
 
@@ -5726,21 +5712,43 @@ msgstr "Ne optimalizáljon most"
 msgid "Edit cp tools"
 msgstr "Kp szerkesztő eszközök"
 
-#: hugin1/hugin/xrc/main_menu.xrc:7 hugin1/hugin/xrc/preview_frame.xrc:1810
+#: hugin1/hugin/xrc/main_frame.xrc:345
+#, fuzzy
+msgid "Link positions"
+msgstr "Pozíciók összeláncolása"
+
+#: hugin1/hugin/xrc/main_frame.xrc:363
+msgid "Generate control points, additional cpfind parameters:"
+msgstr ""
+
+#: hugin1/hugin/xrc/main_frame.xrc:384
+msgid "Connect orphaned images (with geocpset)"
+msgstr ""
+
+#: hugin1/hugin/xrc/main_frame.xrc:390
+#, fuzzy
+msgid "Control point generation"
+msgstr "Kontroll pont kereső opció"
+
+#: hugin1/hugin/xrc/main_frame.xrc:416
+msgid "Import positions from Papywizard XML"
+msgstr ""
+
+#: hugin1/hugin/xrc/main_menu.xrc:7 hugin1/hugin/xrc/preview_frame.xrc:1838
 msgid "&Undo"
 msgstr "&Visszavonás"
 
 #: hugin1/hugin/xrc/main_menu.xrc:9 hugin1/hugin/xrc/main_tool.xrc:34
-#: hugin1/hugin/xrc/preview_frame.xrc:1812
+#: hugin1/hugin/xrc/preview_frame.xrc:1840
 msgid "Undo the last action"
 msgstr "Utolsó tevékenység visszavonása"
 
-#: hugin1/hugin/xrc/main_menu.xrc:12 hugin1/hugin/xrc/preview_frame.xrc:1815
+#: hugin1/hugin/xrc/main_menu.xrc:12 hugin1/hugin/xrc/preview_frame.xrc:1843
 msgid "&Redo"
 msgstr "&Ismét"
 
 #: hugin1/hugin/xrc/main_menu.xrc:14 hugin1/hugin/xrc/main_tool.xrc:40
-#: hugin1/hugin/xrc/preview_frame.xrc:1817
+#: hugin1/hugin/xrc/preview_frame.xrc:1845
 msgid "Redo the last action"
 msgstr "Utolsó tevékenység ismét"
 
@@ -5760,12 +5768,12 @@ msgstr "&Futtatási segéd"
 msgid "Send to assistant &queue"
 msgstr "Küldés a s&egéd várakozási sorba"
 
-#: hugin1/hugin/xrc/main_menu.xrc:28 hugin1/hugin/xrc/preview_frame.xrc:1821
+#: hugin1/hugin/xrc/main_menu.xrc:28 hugin1/hugin/xrc/preview_frame.xrc:1849
 msgid "&Optimize"
 msgstr "&Optimalizál"
 
 #: hugin1/hugin/xrc/main_menu.xrc:30 hugin1/hugin/xrc/main_tool.xrc:53
-#: hugin1/hugin/xrc/preview_frame.xrc:1823
+#: hugin1/hugin/xrc/preview_frame.xrc:1851
 msgid "Re-run the optimizer with current settings"
 msgstr "Optimalizáló újrafuttatása a jelenlegi beállításokkal"
 
@@ -5797,19 +5805,19 @@ msgstr "&Python szkript futtatása"
 msgid "Run a python script"
 msgstr "Python szkript futtatása"
 
-#: hugin1/hugin/xrc/main_menu.xrc:45 hugin1/hugin/xrc/preview_frame.xrc:1825
+#: hugin1/hugin/xrc/main_menu.xrc:45 hugin1/hugin/xrc/preview_frame.xrc:1853
 msgid "&Edit"
 msgstr "S&zerkesztés"
 
-#: hugin1/hugin/xrc/main_menu.xrc:48 hugin1/hugin/xrc/preview_frame.xrc:1847
+#: hugin1/hugin/xrc/main_menu.xrc:48 hugin1/hugin/xrc/preview_frame.xrc:1875
 msgid "&View"
 msgstr "&Nézet"
 
-#: hugin1/hugin/xrc/main_menu.xrc:50 hugin1/hugin/xrc/preview_frame.xrc:1832
+#: hugin1/hugin/xrc/main_menu.xrc:50 hugin1/hugin/xrc/preview_frame.xrc:1860
 msgid "Full Screen"
 msgstr "Teljes Képernyő"
 
-#: hugin1/hugin/xrc/main_menu.xrc:52 hugin1/hugin/xrc/preview_frame.xrc:1835
+#: hugin1/hugin/xrc/main_menu.xrc:52 hugin1/hugin/xrc/preview_frame.xrc:1863
 msgid "Shows Hugin's main window on full-screen"
 msgstr "A Hugin fő ablakának megjelenítése teljes képernyőn"
 
@@ -5861,15 +5869,15 @@ msgstr "Expozíció lap megjelenítése"
 msgid "Show the Stitcher panel"
 msgstr "Összefűző lap megjelenítése"
 
-#: hugin1/hugin/xrc/main_menu.xrc:103 hugin1/hugin/xrc/preview_frame.xrc:1851
+#: hugin1/hugin/xrc/main_menu.xrc:103 hugin1/hugin/xrc/preview_frame.xrc:1879
 msgid "Simple"
 msgstr "Egyszerű"
 
-#: hugin1/hugin/xrc/main_menu.xrc:108 hugin1/hugin/xrc/preview_frame.xrc:1856
+#: hugin1/hugin/xrc/main_menu.xrc:108 hugin1/hugin/xrc/preview_frame.xrc:1884
 msgid "Advanced"
 msgstr "Haladó"
 
-#: hugin1/hugin/xrc/main_menu.xrc:112 hugin1/hugin/xrc/preview_frame.xrc:1860
+#: hugin1/hugin/xrc/main_menu.xrc:112 hugin1/hugin/xrc/preview_frame.xrc:1888
 msgid "Expert"
 msgstr "Szakértő"
 
@@ -5898,43 +5906,43 @@ msgstr ""
 msgid "&Output"
 msgstr "&Kimenet"
 
-#: hugin1/hugin/xrc/main_menu.xrc:134 hugin1/hugin/xrc/preview_frame.xrc:1869
+#: hugin1/hugin/xrc/main_menu.xrc:134 hugin1/hugin/xrc/preview_frame.xrc:1897
 msgid "Some information on the different buttons and so on."
 msgstr "Néhány információ a különböző gombokról és a többi."
 
-#: hugin1/hugin/xrc/main_menu.xrc:137 hugin1/hugin/xrc/preview_frame.xrc:1872
+#: hugin1/hugin/xrc/main_menu.xrc:137 hugin1/hugin/xrc/preview_frame.xrc:1900
 msgid "&Tip of the day"
 msgstr "&A nap tippje"
 
-#: hugin1/hugin/xrc/main_menu.xrc:138 hugin1/hugin/xrc/preview_frame.xrc:1873
+#: hugin1/hugin/xrc/main_menu.xrc:138 hugin1/hugin/xrc/preview_frame.xrc:1901
 msgid "Show one of the tips of the day."
 msgstr "A nap egy tippjének megjelenítése."
 
-#: hugin1/hugin/xrc/main_menu.xrc:141 hugin1/hugin/xrc/preview_frame.xrc:1876
+#: hugin1/hugin/xrc/main_menu.xrc:141 hugin1/hugin/xrc/preview_frame.xrc:1904
 msgid "&Keyboard Shortcuts"
 msgstr "Gyors&billentyűk"
 
-#: hugin1/hugin/xrc/main_menu.xrc:142 hugin1/hugin/xrc/preview_frame.xrc:1877
+#: hugin1/hugin/xrc/main_menu.xrc:142 hugin1/hugin/xrc/preview_frame.xrc:1905
 msgid "keyboard shortcuts"
 msgstr "gyorsbillentyűk"
 
-#: hugin1/hugin/xrc/main_menu.xrc:145 hugin1/hugin/xrc/preview_frame.xrc:1880
+#: hugin1/hugin/xrc/main_menu.xrc:145 hugin1/hugin/xrc/preview_frame.xrc:1908
 msgid "&FAQ"
 msgstr "&GYIK"
 
-#: hugin1/hugin/xrc/main_menu.xrc:146 hugin1/hugin/xrc/preview_frame.xrc:1881
+#: hugin1/hugin/xrc/main_menu.xrc:146 hugin1/hugin/xrc/preview_frame.xrc:1909
 msgid "Frequently Asked Questions"
 msgstr "Gyakran Ismételt Kérdések"
 
-#: hugin1/hugin/xrc/main_menu.xrc:150 hugin1/hugin/xrc/preview_frame.xrc:1885
+#: hugin1/hugin/xrc/main_menu.xrc:150 hugin1/hugin/xrc/preview_frame.xrc:1913
 msgid "&About"
 msgstr "&Névjegy"
 
-#: hugin1/hugin/xrc/main_menu.xrc:154 hugin1/hugin/xrc/preview_frame.xrc:1889
+#: hugin1/hugin/xrc/main_menu.xrc:154 hugin1/hugin/xrc/preview_frame.xrc:1917
 msgid "&Donate"
 msgstr "A&dományoz"
 
-#: hugin1/hugin/xrc/main_menu.xrc:155 hugin1/hugin/xrc/preview_frame.xrc:1890
+#: hugin1/hugin/xrc/main_menu.xrc:155 hugin1/hugin/xrc/preview_frame.xrc:1918
 msgid ""
 "If you like hugin and want to see further improvements, please consider "
 "donating to the hugin project."
@@ -5942,54 +5950,54 @@ msgstr ""
 "Ha kedveli a hugin-t és további újításokat szeretne látni, kérem "
 "megfontoltan adományozzon a hugin projektnek."
 
-#: hugin1/hugin/xrc/main_menu.xrc:158 hugin1/hugin/xrc/main_menu.xrc:207
-#: hugin1/hugin/xrc/main_menu.xrc:233 hugin1/hugin/xrc/preview_frame.xrc:1893
-#: hugin1/hugin/xrc/preview_frame.xrc:1931
-#: hugin1/hugin/xrc/preview_frame.xrc:1967
+#: hugin1/hugin/xrc/main_menu.xrc:158 hugin1/hugin/xrc/main_menu.xrc:211
+#: hugin1/hugin/xrc/main_menu.xrc:237 hugin1/hugin/xrc/preview_frame.xrc:1921
+#: hugin1/hugin/xrc/preview_frame.xrc:1959
+#: hugin1/hugin/xrc/preview_frame.xrc:1995
 msgid "&Preferences"
 msgstr "&Beállítások"
 
-#: hugin1/hugin/xrc/main_menu.xrc:165 hugin1/hugin/xrc/preview_frame.xrc:1902
-#: hugin1/hugin/xrc/preview_frame.xrc:1943
+#: hugin1/hugin/xrc/main_menu.xrc:165 hugin1/hugin/xrc/preview_frame.xrc:1930
+#: hugin1/hugin/xrc/preview_frame.xrc:1971
 msgid "&New"
 msgstr "&Új"
 
 #: hugin1/hugin/xrc/main_menu.xrc:167 hugin1/hugin/xrc/main_tool.xrc:7
-#: hugin1/hugin/xrc/preview_frame.xrc:1904
-#: hugin1/hugin/xrc/preview_frame.xrc:1945
+#: hugin1/hugin/xrc/preview_frame.xrc:1932
+#: hugin1/hugin/xrc/preview_frame.xrc:1973
 msgid "New project"
 msgstr "Új projekt"
 
-#: hugin1/hugin/xrc/main_menu.xrc:170 hugin1/hugin/xrc/preview_frame.xrc:1907
-#: hugin1/hugin/xrc/preview_frame.xrc:1948
+#: hugin1/hugin/xrc/main_menu.xrc:170 hugin1/hugin/xrc/preview_frame.xrc:1935
+#: hugin1/hugin/xrc/preview_frame.xrc:1976
 msgid "&Open"
 msgstr "Meg&nyitás"
 
 #: hugin1/hugin/xrc/main_menu.xrc:172 hugin1/hugin/xrc/main_tool.xrc:13
-#: hugin1/hugin/xrc/preview_frame.xrc:1909
-#: hugin1/hugin/xrc/preview_frame.xrc:1950
+#: hugin1/hugin/xrc/preview_frame.xrc:1937
+#: hugin1/hugin/xrc/preview_frame.xrc:1978
 msgid "Open project"
 msgstr "Projekt megnyitása"
 
-#: hugin1/hugin/xrc/main_menu.xrc:175 hugin1/hugin/xrc/preview_frame.xrc:1912
-#: hugin1/hugin/xrc/preview_frame.xrc:1953
+#: hugin1/hugin/xrc/main_menu.xrc:175 hugin1/hugin/xrc/preview_frame.xrc:1940
+#: hugin1/hugin/xrc/preview_frame.xrc:1981
 msgid "&Save"
 msgstr "&Mentés"
 
 #: hugin1/hugin/xrc/main_menu.xrc:177 hugin1/hugin/xrc/main_tool.xrc:21
-#: hugin1/hugin/xrc/preview_frame.xrc:1914
-#: hugin1/hugin/xrc/preview_frame.xrc:1955
+#: hugin1/hugin/xrc/preview_frame.xrc:1942
+#: hugin1/hugin/xrc/preview_frame.xrc:1983
 msgid "Save current project file"
 msgstr "Jelenlegi projektfájl mentése"
 
-#: hugin1/hugin/xrc/main_menu.xrc:180 hugin1/hugin/xrc/preview_frame.xrc:1917
-#: hugin1/hugin/xrc/preview_frame.xrc:1958
+#: hugin1/hugin/xrc/main_menu.xrc:180 hugin1/hugin/xrc/preview_frame.xrc:1945
+#: hugin1/hugin/xrc/preview_frame.xrc:1986
 msgid "S&ave as"
 msgstr "Menté&s másként"
 
 #: hugin1/hugin/xrc/main_menu.xrc:181 hugin1/hugin/xrc/main_tool.xrc:27
-#: hugin1/hugin/xrc/preview_frame.xrc:1918
-#: hugin1/hugin/xrc/preview_frame.xrc:1959
+#: hugin1/hugin/xrc/preview_frame.xrc:1946
+#: hugin1/hugin/xrc/preview_frame.xrc:1987
 msgid "Save current project to a new file"
 msgstr "Jelenlegi projekt mentése új fájlba"
 
@@ -6005,44 +6013,52 @@ msgstr ""
 "Jelenlegi projekt írása PTStitcher kompatibilis szkriptfájlba, használható "
 "kötegelt feldolgozáshoz"
 
-#: hugin1/hugin/xrc/main_menu.xrc:188 hugin1/hugin/xrc/preview_frame.xrc:1921
-#: hugin1/hugin/xrc/preview_frame.xrc:1962
+#: hugin1/hugin/xrc/main_menu.xrc:188 hugin1/hugin/xrc/preview_frame.xrc:1949
+#: hugin1/hugin/xrc/preview_frame.xrc:1990
 msgid "Most recently &used projects"
 msgstr "A legutóbb &használt projektek"
 
-#: hugin1/hugin/xrc/main_menu.xrc:189 hugin1/hugin/xrc/preview_frame.xrc:1922
-#: hugin1/hugin/xrc/preview_frame.xrc:1963
+#: hugin1/hugin/xrc/main_menu.xrc:189 hugin1/hugin/xrc/preview_frame.xrc:1950
+#: hugin1/hugin/xrc/preview_frame.xrc:1991
 msgid "List of most recently used project files"
 msgstr "A legutóbb használt projekt fájlok listája"
 
-#: hugin1/hugin/xrc/main_menu.xrc:193 hugin1/hugin/xrc/main_menu.xrc:219
-#: hugin1/hugin/xrc/preview_frame.xrc:1926
+#: hugin1/hugin/xrc/main_menu.xrc:193 hugin1/hugin/xrc/main_menu.xrc:223
+#: hugin1/hugin/xrc/preview_frame.xrc:1954
 msgid "&Run Batch Processor"
 msgstr "Kö&tegelt feldolgozó futtatása"
 
-#: hugin1/hugin/xrc/main_menu.xrc:198 hugin1/hugin/xrc/main_menu.xrc:224
+#: hugin1/hugin/xrc/main_menu.xrc:198 hugin1/hugin/xrc/main_menu.xrc:228
 msgid "&Merge project..."
 msgstr "Projekt &egyesítése..."
 
-#: hugin1/hugin/xrc/main_menu.xrc:199 hugin1/hugin/xrc/main_menu.xrc:225
+#: hugin1/hugin/xrc/main_menu.xrc:199 hugin1/hugin/xrc/main_menu.xrc:229
 msgid "Merges an existing project file with the current project."
 msgstr "Egyesít egy létező projekt fájlt a jelenlegi projekttel."
 
-#: hugin1/hugin/xrc/main_menu.xrc:202 hugin1/hugin/xrc/main_menu.xrc:228
+#: hugin1/hugin/xrc/main_menu.xrc:202
+msgid "Import settings from Papywizard &XML file..."
+msgstr ""
+
+#: hugin1/hugin/xrc/main_menu.xrc:203
+msgid "Read shoot settings from a Papywizard XML file"
+msgstr ""
+
+#: hugin1/hugin/xrc/main_menu.xrc:206 hugin1/hugin/xrc/main_menu.xrc:232
 msgid "Apply &Template"
 msgstr "S&ablon Alkalmazása"
 
-#: hugin1/hugin/xrc/main_menu.xrc:203 hugin1/hugin/xrc/main_menu.xrc:229
+#: hugin1/hugin/xrc/main_menu.xrc:207 hugin1/hugin/xrc/main_menu.xrc:233
 msgid ""
 "Assign the settings of a previously saved project to the current images."
 msgstr ""
 "Átadja a beállításokat a korábban mentett projektből az aktuális képekhez."
 
-#: hugin1/hugin/xrc/main_menu.xrc:237
+#: hugin1/hugin/xrc/main_menu.xrc:241
 msgid "&Close editor"
 msgstr "Sze&rkesztő bezárása"
 
-#: hugin1/hugin/xrc/main_menu.xrc:238
+#: hugin1/hugin/xrc/main_menu.xrc:242
 msgid "Closes panorama editor"
 msgstr "Bezárja a panoráma szerkesztőt"
 
@@ -6062,8 +6078,8 @@ msgstr "Megnyitás"
 msgid "Open a project file"
 msgstr "Projektfájl megnyitása"
 
-#: hugin1/hugin/xrc/main_tool.xrc:20 hugin1/hugin/xrc/pref_dialog.xrc:1533
-#: hugin1/hugin/xrc/pref_dialog.xrc:1591
+#: hugin1/hugin/xrc/main_tool.xrc:20 hugin1/hugin/xrc/pref_dialog.xrc:1550
+#: hugin1/hugin/xrc/pref_dialog.xrc:1608
 msgid "Save"
 msgstr "Mentés"
 
@@ -6099,8 +6115,8 @@ msgstr "&Gyors Előnézet"
 msgid "Show the OpenGL preview image"
 msgstr "OpenGL előnézeti kép megjelenítése"
 
-#: hugin1/hugin/xrc/main_tool.xrc:66 hugin1/hugin/xrc/preview_frame.xrc:459
-#: hugin1/hugin/xrc/preview_frame.xrc:1299
+#: hugin1/hugin/xrc/main_tool.xrc:66 hugin1/hugin/xrc/preview_frame.xrc:473
+#: hugin1/hugin/xrc/preview_frame.xrc:1327
 msgid "Preview panorama"
 msgstr "Panoráma előnézete"
 
@@ -6108,8 +6124,8 @@ msgstr "Panoráma előnézete"
 msgid "Show the preview image"
 msgstr "Előnézeti kép megjelenítése"
 
-#: hugin1/hugin/xrc/main_tool.xrc:72 hugin1/hugin/xrc/preview_frame.xrc:298
-#: hugin1/hugin/xrc/preview_frame.xrc:1138
+#: hugin1/hugin/xrc/main_tool.xrc:72 hugin1/hugin/xrc/preview_frame.xrc:312
+#: hugin1/hugin/xrc/preview_frame.xrc:1166
 msgid "Show control points"
 msgstr "Kontroll pontok megjelenítése"
 
@@ -6346,39 +6362,39 @@ msgstr "Kamera és Objektív változók:"
 msgid "Interpolator (i):"
 msgstr "Interpolátor (i):"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:17 hugin1/hugin/xrc/pref_dialog.xrc:1112
+#: hugin1/hugin/xrc/pano_panel.xrc:17 hugin1/hugin/xrc/pref_dialog.xrc:1129
 msgid "Poly3 (Bicubic)"
 msgstr "kettős köbös (Poly3) /Bicubic/"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:18 hugin1/hugin/xrc/pref_dialog.xrc:1113
+#: hugin1/hugin/xrc/pano_panel.xrc:18 hugin1/hugin/xrc/pref_dialog.xrc:1130
 msgid "Spline 16"
 msgstr "Spline 16"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:19 hugin1/hugin/xrc/pref_dialog.xrc:1114
+#: hugin1/hugin/xrc/pano_panel.xrc:19 hugin1/hugin/xrc/pref_dialog.xrc:1131
 msgid "Spline 36"
 msgstr "Spline 36"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:20 hugin1/hugin/xrc/pref_dialog.xrc:1115
+#: hugin1/hugin/xrc/pano_panel.xrc:20 hugin1/hugin/xrc/pref_dialog.xrc:1132
 msgid "Sinc 256"
 msgstr "Sinc 256"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:21 hugin1/hugin/xrc/pref_dialog.xrc:1116
+#: hugin1/hugin/xrc/pano_panel.xrc:21 hugin1/hugin/xrc/pref_dialog.xrc:1133
 msgid "Spline 64"
 msgstr "Spline 64"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:22 hugin1/hugin/xrc/pref_dialog.xrc:1117
+#: hugin1/hugin/xrc/pano_panel.xrc:22 hugin1/hugin/xrc/pref_dialog.xrc:1134
 msgid "Bilinear"
 msgstr "Bilineáris"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:23 hugin1/hugin/xrc/pref_dialog.xrc:1118
+#: hugin1/hugin/xrc/pano_panel.xrc:23 hugin1/hugin/xrc/pref_dialog.xrc:1135
 msgid "Nearest neighbor"
 msgstr "Legközelebbi szomszéd"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:24 hugin1/hugin/xrc/pref_dialog.xrc:1119
+#: hugin1/hugin/xrc/pano_panel.xrc:24 hugin1/hugin/xrc/pref_dialog.xrc:1136
 msgid "Sinc 1024"
 msgstr "Sinc 1024"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:27 hugin1/hugin/xrc/pref_dialog.xrc:1122
+#: hugin1/hugin/xrc/pano_panel.xrc:27 hugin1/hugin/xrc/pref_dialog.xrc:1139
 msgid "approximation of values between source pixels"
 msgstr "közelítő értékek forrás képpontok között"
 
@@ -6398,7 +6414,7 @@ msgstr "Nona Beállítások"
 msgid "Command line options"
 msgstr "Parancssori beállítások"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:105
+#: hugin1/hugin/xrc/pano_panel.xrc:105 hugin1/hugin/xrc/pano_panel.xrc:1396
 msgid "Blender Options"
 msgstr "Összemosó Beállítások"
 
@@ -6406,8 +6422,8 @@ msgstr "Összemosó Beállítások"
 msgid "Enfuse options"
 msgstr "Enfuse beállítások"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:188 hugin1/hugin/xrc/preview_frame.xrc:527
-#: hugin1/hugin/xrc/preview_frame.xrc:1371
+#: hugin1/hugin/xrc/pano_panel.xrc:188 hugin1/hugin/xrc/preview_frame.xrc:541
+#: hugin1/hugin/xrc/preview_frame.xrc:1399
 msgid "Field of View:"
 msgstr "Látóhatár:"
 
@@ -6677,6 +6693,20 @@ msgstr "Megtartja a köztes képeket"
 msgid "Output parameters"
 msgstr "Kimeneti paraméterek"
 
+#: hugin1/hugin/xrc/pano_panel.xrc:1357 hugin1/hugin/xrc/pref_dialog.xrc:827
+#, fuzzy
+msgid "Seam blend mode:"
+msgstr "Összemosó mód:"
+
+#: hugin1/hugin/xrc/pano_panel.xrc:1365 hugin1/hugin/xrc/pref_dialog.xrc:835
+msgid "hard seam (faster)"
+msgstr ""
+
+#: hugin1/hugin/xrc/pano_panel.xrc:1366 hugin1/hugin/xrc/pref_dialog.xrc:836
+#, fuzzy
+msgid "blend seam"
+msgstr "enblend hiba"
+
 #: hugin1/hugin/xrc/pref_dialog.xrc:15
 msgid "Resource Usage"
 msgstr "Erőforrás Használat"
@@ -6943,8 +6973,8 @@ msgstr "Kontroll Pont Kereső Programok"
 msgid "New..."
 msgstr "Új..."
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:653 hugin1/hugin/xrc/pref_dialog.xrc:957
-#: hugin1/hugin/xrc/pref_dialog.xrc:1016
+#: hugin1/hugin/xrc/pref_dialog.xrc:653 hugin1/hugin/xrc/pref_dialog.xrc:974
+#: hugin1/hugin/xrc/pref_dialog.xrc:1033
 msgid "Edit..."
 msgstr "Szerkesztés..."
 
@@ -7004,23 +7034,23 @@ msgstr "Alapértelmezett összemosó:"
 msgid "Default blender which is used for new projects."
 msgstr "Alapértelmezett összemosó új projektekhez."
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:835
+#: hugin1/hugin/xrc/pref_dialog.xrc:852
 msgid "Processor"
 msgstr "Feldolgozó"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:843
+#: hugin1/hugin/xrc/pref_dialog.xrc:860
 msgid "Hugin&stitch&project"
 msgstr "Hugin&összefűző&projekt"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:846
+#: hugin1/hugin/xrc/pref_dialog.xrc:863
 msgid "The engine that will run the stitch"
 msgstr "A motor, ami futtatni fogja az összefűzést"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:855
+#: hugin1/hugin/xrc/pref_dialog.xrc:872
 msgid "Start stitching jobs immediately"
 msgstr "Összefűző munkák azonnali elindítása"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:856
+#: hugin1/hugin/xrc/pref_dialog.xrc:873
 msgid ""
 "If selected, the processor will immediately resume processing the jobs "
 "queue.  Otherwise the processor is started in suspended state and the user "
@@ -7030,19 +7060,19 @@ msgstr ""
 "sorban. Ellenkező esetben a feldolgozó felfüggesztett módban indul el és a "
 "felhasználó indíthatja el a feldolgozás kézzel."
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:863
+#: hugin1/hugin/xrc/pref_dialog.xrc:880
 msgid "Overwrite existing files"
 msgstr "Létező fájlok felülírása"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:864
+#: hugin1/hugin/xrc/pref_dialog.xrc:881
 msgid "WARNING: existing files will be silently overwritten."
 msgstr "FIGYELEM: a meglévő fájlokat csendben felülírja."
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:871
+#: hugin1/hugin/xrc/pref_dialog.xrc:888
 msgid "Verbose Output"
 msgstr "Részletes Kimenet"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:872
+#: hugin1/hugin/xrc/pref_dialog.xrc:889
 msgid ""
 "Enable to get the details, useful when reporting a bug or just to watch the "
 "project's progress."
@@ -7050,19 +7080,19 @@ msgstr ""
 "Engedélyezze, hogy részleteket lásson, hibajelentéshez hasznos, vagy ha csak "
 "ellenőrizni akarja a projekt előrehaladását."
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:894
+#: hugin1/hugin/xrc/pref_dialog.xrc:911
 msgid "Stitching"
 msgstr "Összefűzés"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:904
+#: hugin1/hugin/xrc/pref_dialog.xrc:921
 msgid "Copy metadata into final files using ExifTool"
 msgstr "Metaadatok másolása a végső fájlokba ExifTool használatával"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:909
+#: hugin1/hugin/xrc/pref_dialog.xrc:926
 msgid "ExifTool options"
 msgstr "ExifTool beállítások"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:919
+#: hugin1/hugin/xrc/pref_dialog.xrc:936
 msgid ""
 "The following argfile will be used to copy tags from the first image to all "
 "intermediate images.\n"
@@ -7072,19 +7102,19 @@ msgstr ""
 "átmásolja minden köztes képhez.\n"
 "A mezők nem lesznek cserélve."
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:935
+#: hugin1/hugin/xrc/pref_dialog.xrc:952
 msgid "Intermediate ExifTool argfile:"
 msgstr "Köztes ExifTool arg. fájl:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:941 hugin1/hugin/xrc/pref_dialog.xrc:1000
+#: hugin1/hugin/xrc/pref_dialog.xrc:958 hugin1/hugin/xrc/pref_dialog.xrc:1017
 msgid "Leave empty for default"
 msgstr "üresen hagyva az alapértelmezett"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:958 hugin1/hugin/xrc/pref_dialog.xrc:1017
+#: hugin1/hugin/xrc/pref_dialog.xrc:975 hugin1/hugin/xrc/pref_dialog.xrc:1034
 msgid "Edit selected ExifTool argfile"
 msgstr "Kiválasztott ExifTool arg. fájl szerkesztése"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:977
+#: hugin1/hugin/xrc/pref_dialog.xrc:994
 msgid ""
 "The following argfile will be used to copy tags from the first image to the "
 "final panorama.\n"
@@ -7096,29 +7126,29 @@ msgstr ""
 "Ez a fenti argfájlon felül lesz felhasználva a köztes képekhez.\n"
 "A mezők ebben az argfájlban cserélve lesznek az exiftool futtatása előtt."
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:994
+#: hugin1/hugin/xrc/pref_dialog.xrc:1011
 msgid "Final ExifTool argfile:"
 msgstr "Végső ExifTool arg. fájl:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1034
+#: hugin1/hugin/xrc/pref_dialog.xrc:1051
 msgid "Create Photo Sphere XMP data"
 msgstr "Fotó Gömb XMP adat létrehozása"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1035
+#: hugin1/hugin/xrc/pref_dialog.xrc:1052
 msgid "This will only be done for equirectangular output images."
 msgstr ""
 "Ez csak négyzetes hengervetületű (equirectangular) kimeneti képeknél "
 "lehetséges."
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1050
+#: hugin1/hugin/xrc/pref_dialog.xrc:1067
 msgid "Advanced options"
 msgstr "Speciális beállítás"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1056
+#: hugin1/hugin/xrc/pref_dialog.xrc:1073
 msgid "Number of threads:"
 msgstr "Szálak száma:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1065
+#: hugin1/hugin/xrc/pref_dialog.xrc:1082
 msgid ""
 "Nona and the OpenMP enabled enblend/enfuse can use multiple threads for "
 "processing.\n"
@@ -7129,43 +7159,43 @@ msgstr ""
 "feldolgozáshoz.\n"
 "Állítsa be hány processzor vagy processzor mag elérhető az ön rendszerén"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1072
+#: hugin1/hugin/xrc/pref_dialog.xrc:1089
 msgid "0 for automatic detection"
 msgstr "0 az automatikus felismeréshez"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1088
+#: hugin1/hugin/xrc/pref_dialog.xrc:1105
 msgid "Stitching (2)"
 msgstr "Összefűzés (2)"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1104
+#: hugin1/hugin/xrc/pref_dialog.xrc:1121
 msgid "Default Interpolator (i):"
 msgstr "Alapértelmezett Interpolátor (i):"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1134
+#: hugin1/hugin/xrc/pref_dialog.xrc:1151
 msgid "Create cropped images by default"
 msgstr "Körbevágott képek készítése alapértelmezetten"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1141
+#: hugin1/hugin/xrc/pref_dialog.xrc:1158
 msgid "Use GPU for remapping (EXPERIMENTAL)"
 msgstr "Használja a GPU áttranszformálást (KÍSÉRLETI)"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1142
+#: hugin1/hugin/xrc/pref_dialog.xrc:1159
 msgid "Use video card GPU to speed up remapping"
 msgstr "A videókártya GPU használata, gyorsabb áttranszformálás"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1165
+#: hugin1/hugin/xrc/pref_dialog.xrc:1182
 msgid "Use alternative Enblend program"
 msgstr "Alternatív Enblend program használata"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1175
+#: hugin1/hugin/xrc/pref_dialog.xrc:1192
 msgid "Enblend executable:"
 msgstr "Enblend program:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1200 hugin1/hugin/xrc/pref_dialog.xrc:1279
+#: hugin1/hugin/xrc/pref_dialog.xrc:1217 hugin1/hugin/xrc/pref_dialog.xrc:1296
 msgid "Default Arguments:"
 msgstr "Alapértelmezett paraméterek:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1220 hugin1/hugin/xrc/pref_dialog.xrc:1299
+#: hugin1/hugin/xrc/pref_dialog.xrc:1237 hugin1/hugin/xrc/pref_dialog.xrc:1316
 msgid ""
 "These are the default arguments for new projects.\n"
 "They can be changed for individual projects in the Stitcher tab.\n"
@@ -7176,35 +7206,35 @@ msgstr ""
 "Ne állítsd be a -w, -o és a --compression paramétereket, ezeket a hugin "
 "állítja be"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1230
+#: hugin1/hugin/xrc/pref_dialog.xrc:1247
 msgid "Enblend"
 msgstr "Enblend"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1244
+#: hugin1/hugin/xrc/pref_dialog.xrc:1261
 msgid "Use alternative Enfuse program"
 msgstr "Alternatív Enfuse program használata"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1254
+#: hugin1/hugin/xrc/pref_dialog.xrc:1271
 msgid "Enfuse executable:"
 msgstr "Enfuse program:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1309
+#: hugin1/hugin/xrc/pref_dialog.xrc:1326
 msgid "Enfuse"
 msgstr "Enfuse"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1317
+#: hugin1/hugin/xrc/pref_dialog.xrc:1334
 msgid "Programs"
 msgstr "Programok"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1325
+#: hugin1/hugin/xrc/pref_dialog.xrc:1342
 msgid "Celeste parameters"
 msgstr "Celeste paraméterek"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1332
+#: hugin1/hugin/xrc/pref_dialog.xrc:1349
 msgid "SVM threshold:"
 msgstr "SVM küszöbszint:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1344
+#: hugin1/hugin/xrc/pref_dialog.xrc:1361
 msgid ""
 "greater than 0.5: less sensitive\n"
 "less than 0.5: more sensitive"
@@ -7212,19 +7242,19 @@ msgstr ""
 "nagyobb, mint 0.5: kisebb érzékenység\n"
 "kisebb, mint 0.5: nagyobb érzékenység"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1351
+#: hugin1/hugin/xrc/pref_dialog.xrc:1368
 msgid "Gabor filter size"
 msgstr "Gábor szűrő mérete"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1359
+#: hugin1/hugin/xrc/pref_dialog.xrc:1376
 msgid "small"
 msgstr "kicsi"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1360
+#: hugin1/hugin/xrc/pref_dialog.xrc:1377
 msgid "large"
 msgstr "nagy"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1368
+#: hugin1/hugin/xrc/pref_dialog.xrc:1385
 msgid ""
 "large is more accurate\n"
 "small can examine control points close to image border"
@@ -7232,7 +7262,7 @@ msgstr ""
 "nagy pontosabb\n"
 "kicsi megvizsgálja a kontroll pontokat a kép széléhez közel"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1386
+#: hugin1/hugin/xrc/pref_dialog.xrc:1403
 msgid ""
 "The vignetting and exposure correction is determined by analysing color "
 "values in the overlapping areas.\n"
@@ -7242,59 +7272,59 @@ msgstr ""
 "értékek elemzésével határozódik meg.\n"
 "A számítás gyorsításához, csak véletlen részponthalmazt használ."
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1395
+#: hugin1/hugin/xrc/pref_dialog.xrc:1412
 msgid "Number of points per image: "
 msgstr "Pontok száma képenként:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1410
+#: hugin1/hugin/xrc/pref_dialog.xrc:1427
 msgid "Photometric optimizer"
 msgstr "Fotometrikus optimalizáló"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1418
+#: hugin1/hugin/xrc/pref_dialog.xrc:1435
 msgid "Warnings"
 msgstr "Figyelmeztetések"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1422
+#: hugin1/hugin/xrc/pref_dialog.xrc:1439
 msgid "Show message about saving project file and output prefix"
 msgstr "Értesítsen projekt fájl mentéséről és kimeneti előtagról"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1429
+#: hugin1/hugin/xrc/pref_dialog.xrc:1446
 msgid "Show warning about big exposure difference when adding images"
 msgstr "Figyelmeztessen a nagy expozíciós különbségre képek hozzáadásakor"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1442
+#: hugin1/hugin/xrc/pref_dialog.xrc:1459
 msgid "After \"edit cp\" tool"
 msgstr "\"kp szerkesztés\" eszköz után"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1450
+#: hugin1/hugin/xrc/pref_dialog.xrc:1467
 msgid "Ask user"
 msgstr "Kérdezze a felhasználótól"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1451
+#: hugin1/hugin/xrc/pref_dialog.xrc:1468
 msgid "Re-optimize panorama"
 msgstr "Panoráma újraoptimalizálása "
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1452
+#: hugin1/hugin/xrc/pref_dialog.xrc:1469
 msgid "Don't optimize panorama"
 msgstr "Ne optimalizálja a panorámát"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1458
+#: hugin1/hugin/xrc/pref_dialog.xrc:1475
 msgid "Edit cp tool (on fast preview window)"
 msgstr "Kp szerkesztő eszköz (a gyors előnézeti ablakban)"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1466
+#: hugin1/hugin/xrc/pref_dialog.xrc:1483
 msgid "Misc"
 msgstr "Vegyes"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1514
+#: hugin1/hugin/xrc/pref_dialog.xrc:1531
 msgid "Preferences - hugin"
 msgstr "Beállítások - hugin"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1547 hugin1/hugin/xrc/pref_dialog.xrc:1605
+#: hugin1/hugin/xrc/pref_dialog.xrc:1564 hugin1/hugin/xrc/pref_dialog.xrc:1622
 msgid "Edit ExifTool argfile"
 msgstr "ExifTool arg. fájl szerkesztése"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1564
+#: hugin1/hugin/xrc/pref_dialog.xrc:1581
 msgid ""
 "The following placeholders will replaced before invoking ExifTool:\n"
 "%projection - projection name (in English)\n"
@@ -7327,8 +7357,8 @@ msgstr ""
 "\n"
 "A mezők kis/nagybetű érzékenyek."
 
-#: hugin1/hugin/xrc/preview_frame.xrc:7 hugin1/hugin/xrc/preview_frame.xrc:618
-#: hugin1/hugin/xrc/preview_frame.xrc:1466
+#: hugin1/hugin/xrc/preview_frame.xrc:7 hugin1/hugin/xrc/preview_frame.xrc:632
+#: hugin1/hugin/xrc/preview_frame.xrc:1494
 msgid "Center the preview horizontally"
 msgstr "Előnézet középre igazítása vízszintesen"
 
@@ -7336,10 +7366,10 @@ msgstr "Előnézet középre igazítása vízszintesen"
 msgid "Show the whole panorama"
 msgstr "A teljes panoráma megjelenítése"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:13 hugin1/hugin/xrc/preview_frame.xrc:517
-#: hugin1/hugin/xrc/preview_frame.xrc:626
-#: hugin1/hugin/xrc/preview_frame.xrc:1361
-#: hugin1/hugin/xrc/preview_frame.xrc:1478
+#: hugin1/hugin/xrc/preview_frame.xrc:13 hugin1/hugin/xrc/preview_frame.xrc:531
+#: hugin1/hugin/xrc/preview_frame.xrc:640
+#: hugin1/hugin/xrc/preview_frame.xrc:1389
+#: hugin1/hugin/xrc/preview_frame.xrc:1506
 msgid "Estimate field of view"
 msgstr "Látóhatár kiszámítása"
 
@@ -7380,27 +7410,27 @@ msgid "Show none of the images"
 msgstr "Ne mutassa a képeket"
 
 #: hugin1/hugin/xrc/preview_frame.xrc:137
-#: hugin1/hugin/xrc/preview_frame.xrc:977
+#: hugin1/hugin/xrc/preview_frame.xrc:991
 msgid "1. Load images..."
 msgstr "1. Képek betöltése..."
 
 #: hugin1/hugin/xrc/preview_frame.xrc:138
-#: hugin1/hugin/xrc/preview_frame.xrc:978
+#: hugin1/hugin/xrc/preview_frame.xrc:992
 msgid "Load a series of images"
 msgstr "Képsorozat betöltése"
 
 #: hugin1/hugin/xrc/preview_frame.xrc:145
-#: hugin1/hugin/xrc/preview_frame.xrc:985
+#: hugin1/hugin/xrc/preview_frame.xrc:999
 msgid "no images loaded"
 msgstr "nincs betöltött kép"
 
 #: hugin1/hugin/xrc/preview_frame.xrc:222
-#: hugin1/hugin/xrc/preview_frame.xrc:1062
+#: hugin1/hugin/xrc/preview_frame.xrc:1076
 msgid "2. Align..."
 msgstr "2. Igazítás..."
 
 #: hugin1/hugin/xrc/preview_frame.xrc:223
-#: hugin1/hugin/xrc/preview_frame.xrc:1063
+#: hugin1/hugin/xrc/preview_frame.xrc:1077
 msgid ""
 "Align all images. Creates control points and optimizes the image positions"
 msgstr ""
@@ -7408,34 +7438,34 @@ msgstr ""
 "optimalizálása"
 
 #: hugin1/hugin/xrc/preview_frame.xrc:236
-#: hugin1/hugin/xrc/preview_frame.xrc:1076
+#: hugin1/hugin/xrc/preview_frame.xrc:1090
 msgid "3. Create panorama..."
 msgstr "3. Panoráma létrehozása..."
 
 #: hugin1/hugin/xrc/preview_frame.xrc:237
-#: hugin1/hugin/xrc/preview_frame.xrc:1077
+#: hugin1/hugin/xrc/preview_frame.xrc:1091
 msgid "Create a high resolution panorama"
 msgstr "Nagy felbontású panoráma készítés"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:260
-#: hugin1/hugin/xrc/preview_frame.xrc:1100
+#: hugin1/hugin/xrc/preview_frame.xrc:274
+#: hugin1/hugin/xrc/preview_frame.xrc:1128
 msgid "Match images to their numbers"
 msgstr "A képek összepárosítása a sorszámukkal"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:261
-#: hugin1/hugin/xrc/preview_frame.xrc:270
-#: hugin1/hugin/xrc/preview_frame.xrc:1101
-#: hugin1/hugin/xrc/preview_frame.xrc:1110
+#: hugin1/hugin/xrc/preview_frame.xrc:275
+#: hugin1/hugin/xrc/preview_frame.xrc:284
+#: hugin1/hugin/xrc/preview_frame.xrc:1129
+#: hugin1/hugin/xrc/preview_frame.xrc:1138
 msgid "Identify"
 msgstr "Azonosítás"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:291
-#: hugin1/hugin/xrc/preview_frame.xrc:1131
+#: hugin1/hugin/xrc/preview_frame.xrc:305
+#: hugin1/hugin/xrc/preview_frame.xrc:1159
 msgid "Use full photometric correction (slow)"
 msgstr "Teljes fotometrikus korrekció (lassú)"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:299
-#: hugin1/hugin/xrc/preview_frame.xrc:1139
+#: hugin1/hugin/xrc/preview_frame.xrc:313
+#: hugin1/hugin/xrc/preview_frame.xrc:1167
 msgid ""
 "Show lines between the ends of each control point. The longer the line, the "
 "bigger the error."
@@ -7443,52 +7473,52 @@ msgstr ""
 "Vonalakat rajzol minden egyes kontroll pont végei között. Minél hosszabb a "
 "vonal, annál nagyobb a hiba."
 
-#: hugin1/hugin/xrc/preview_frame.xrc:347
-#: hugin1/hugin/xrc/preview_frame.xrc:1187
+#: hugin1/hugin/xrc/preview_frame.xrc:361
+#: hugin1/hugin/xrc/preview_frame.xrc:1215
 msgid ""
 "Sets the exposure value of the panorama to the mean exposure of all images."
 msgstr ""
 "Beállítja az expozíciós értékét a panorámának, hogy átlagos expozíciója "
 "legyen az összes képnek."
 
-#: hugin1/hugin/xrc/preview_frame.xrc:375
-#: hugin1/hugin/xrc/preview_frame.xrc:1215
+#: hugin1/hugin/xrc/preview_frame.xrc:389
+#: hugin1/hugin/xrc/preview_frame.xrc:1243
 msgid "Correct global white balance by selecting a neutral gray area."
 msgstr ""
 "Globális fehéregyensúly korrigálása egy semleges szürke terület "
 "kiválasztásával."
 
-#: hugin1/hugin/xrc/preview_frame.xrc:376
-#: hugin1/hugin/xrc/preview_frame.xrc:385
-#: hugin1/hugin/xrc/preview_frame.xrc:1216
-#: hugin1/hugin/xrc/preview_frame.xrc:1225
+#: hugin1/hugin/xrc/preview_frame.xrc:390
+#: hugin1/hugin/xrc/preview_frame.xrc:399
+#: hugin1/hugin/xrc/preview_frame.xrc:1244
+#: hugin1/hugin/xrc/preview_frame.xrc:1253
 msgid "Gray picker"
 msgstr "Szürke kijelölő"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:402
-#: hugin1/hugin/xrc/preview_frame.xrc:1242
+#: hugin1/hugin/xrc/preview_frame.xrc:416
+#: hugin1/hugin/xrc/preview_frame.xrc:1270
 msgid "Create or delete control points in selected rectangle."
 msgstr "Kontroll pontok törlése vagy létrehozása a kijelölt téglalapban."
 
-#: hugin1/hugin/xrc/preview_frame.xrc:403
-#: hugin1/hugin/xrc/preview_frame.xrc:412
-#: hugin1/hugin/xrc/preview_frame.xrc:1243
-#: hugin1/hugin/xrc/preview_frame.xrc:1252
+#: hugin1/hugin/xrc/preview_frame.xrc:417
+#: hugin1/hugin/xrc/preview_frame.xrc:426
+#: hugin1/hugin/xrc/preview_frame.xrc:1271
+#: hugin1/hugin/xrc/preview_frame.xrc:1280
 msgid "Edit CP"
 msgstr "KP szerkesztés"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:439
-#: hugin1/hugin/xrc/preview_frame.xrc:1279
+#: hugin1/hugin/xrc/preview_frame.xrc:453
+#: hugin1/hugin/xrc/preview_frame.xrc:1307
 msgid "Background:"
 msgstr "Háttér:"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:470
-#: hugin1/hugin/xrc/preview_frame.xrc:1310
+#: hugin1/hugin/xrc/preview_frame.xrc:484
+#: hugin1/hugin/xrc/preview_frame.xrc:1338
 msgid "Scale:"
 msgstr "Méret:"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:497
-#: hugin1/hugin/xrc/preview_frame.xrc:1337
+#: hugin1/hugin/xrc/preview_frame.xrc:511
+#: hugin1/hugin/xrc/preview_frame.xrc:1365
 msgid ""
 "* A gray line indicates there are no control points, but the image pair "
 "overlaps.\n"
@@ -7502,195 +7532,195 @@ msgstr ""
 "* Kattintson a vonalon a hozzá tartozó képek szerkesztéséhez a Kontroll "
 "Pontok fülön."
 
-#: hugin1/hugin/xrc/preview_frame.xrc:506
-#: hugin1/hugin/xrc/preview_frame.xrc:1346
+#: hugin1/hugin/xrc/preview_frame.xrc:520
+#: hugin1/hugin/xrc/preview_frame.xrc:1374
 msgid "Layout"
 msgstr "Elrendezés"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:543
-#: hugin1/hugin/xrc/preview_frame.xrc:1387
+#: hugin1/hugin/xrc/preview_frame.xrc:557
+#: hugin1/hugin/xrc/preview_frame.xrc:1415
 msgid "×"
 msgstr "×"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:582
-#: hugin1/hugin/xrc/preview_frame.xrc:661
-#: hugin1/hugin/xrc/preview_frame.xrc:828
-#: hugin1/hugin/xrc/preview_frame.xrc:1426
-#: hugin1/hugin/xrc/preview_frame.xrc:1517
-#: hugin1/hugin/xrc/preview_frame.xrc:1692
+#: hugin1/hugin/xrc/preview_frame.xrc:596
+#: hugin1/hugin/xrc/preview_frame.xrc:675
+#: hugin1/hugin/xrc/preview_frame.xrc:842
+#: hugin1/hugin/xrc/preview_frame.xrc:1454
+#: hugin1/hugin/xrc/preview_frame.xrc:1545
+#: hugin1/hugin/xrc/preview_frame.xrc:1720
 msgid "Guides:"
 msgstr "Vezetők:"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:591
-#: hugin1/hugin/xrc/preview_frame.xrc:669
-#: hugin1/hugin/xrc/preview_frame.xrc:837
-#: hugin1/hugin/xrc/preview_frame.xrc:1435
-#: hugin1/hugin/xrc/preview_frame.xrc:1525
-#: hugin1/hugin/xrc/preview_frame.xrc:1701
+#: hugin1/hugin/xrc/preview_frame.xrc:605
+#: hugin1/hugin/xrc/preview_frame.xrc:683
+#: hugin1/hugin/xrc/preview_frame.xrc:851
+#: hugin1/hugin/xrc/preview_frame.xrc:1463
+#: hugin1/hugin/xrc/preview_frame.xrc:1553
+#: hugin1/hugin/xrc/preview_frame.xrc:1729
 msgid "Rule of thirds"
 msgstr "Harmadolás"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:592
-#: hugin1/hugin/xrc/preview_frame.xrc:670
-#: hugin1/hugin/xrc/preview_frame.xrc:838
-#: hugin1/hugin/xrc/preview_frame.xrc:1436
-#: hugin1/hugin/xrc/preview_frame.xrc:1526
-#: hugin1/hugin/xrc/preview_frame.xrc:1702
+#: hugin1/hugin/xrc/preview_frame.xrc:606
+#: hugin1/hugin/xrc/preview_frame.xrc:684
+#: hugin1/hugin/xrc/preview_frame.xrc:852
+#: hugin1/hugin/xrc/preview_frame.xrc:1464
+#: hugin1/hugin/xrc/preview_frame.xrc:1554
+#: hugin1/hugin/xrc/preview_frame.xrc:1730
 msgid "Golden ratio"
 msgstr "Aranymetszés"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:593
-#: hugin1/hugin/xrc/preview_frame.xrc:671
-#: hugin1/hugin/xrc/preview_frame.xrc:839
-#: hugin1/hugin/xrc/preview_frame.xrc:1437
-#: hugin1/hugin/xrc/preview_frame.xrc:1527
-#: hugin1/hugin/xrc/preview_frame.xrc:1703
+#: hugin1/hugin/xrc/preview_frame.xrc:607
+#: hugin1/hugin/xrc/preview_frame.xrc:685
+#: hugin1/hugin/xrc/preview_frame.xrc:853
+#: hugin1/hugin/xrc/preview_frame.xrc:1465
+#: hugin1/hugin/xrc/preview_frame.xrc:1555
+#: hugin1/hugin/xrc/preview_frame.xrc:1731
 msgid "Diagonal"
 msgstr "Átlós"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:594
-#: hugin1/hugin/xrc/preview_frame.xrc:672
-#: hugin1/hugin/xrc/preview_frame.xrc:840
-#: hugin1/hugin/xrc/preview_frame.xrc:1438
-#: hugin1/hugin/xrc/preview_frame.xrc:1528
-#: hugin1/hugin/xrc/preview_frame.xrc:1704
+#: hugin1/hugin/xrc/preview_frame.xrc:608
+#: hugin1/hugin/xrc/preview_frame.xrc:686
+#: hugin1/hugin/xrc/preview_frame.xrc:854
+#: hugin1/hugin/xrc/preview_frame.xrc:1466
+#: hugin1/hugin/xrc/preview_frame.xrc:1556
+#: hugin1/hugin/xrc/preview_frame.xrc:1732
 msgid "Diagonal method"
 msgstr "Átlós módszer"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:595
-#: hugin1/hugin/xrc/preview_frame.xrc:673
-#: hugin1/hugin/xrc/preview_frame.xrc:841
-#: hugin1/hugin/xrc/preview_frame.xrc:1439
-#: hugin1/hugin/xrc/preview_frame.xrc:1529
-#: hugin1/hugin/xrc/preview_frame.xrc:1705
+#: hugin1/hugin/xrc/preview_frame.xrc:609
+#: hugin1/hugin/xrc/preview_frame.xrc:687
+#: hugin1/hugin/xrc/preview_frame.xrc:855
+#: hugin1/hugin/xrc/preview_frame.xrc:1467
+#: hugin1/hugin/xrc/preview_frame.xrc:1557
+#: hugin1/hugin/xrc/preview_frame.xrc:1733
 msgid "Golden triangle (down)"
 msgstr "Arany háromszög (lent)"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:596
-#: hugin1/hugin/xrc/preview_frame.xrc:674
-#: hugin1/hugin/xrc/preview_frame.xrc:842
-#: hugin1/hugin/xrc/preview_frame.xrc:1440
-#: hugin1/hugin/xrc/preview_frame.xrc:1530
-#: hugin1/hugin/xrc/preview_frame.xrc:1706
+#: hugin1/hugin/xrc/preview_frame.xrc:610
+#: hugin1/hugin/xrc/preview_frame.xrc:688
+#: hugin1/hugin/xrc/preview_frame.xrc:856
+#: hugin1/hugin/xrc/preview_frame.xrc:1468
+#: hugin1/hugin/xrc/preview_frame.xrc:1558
+#: hugin1/hugin/xrc/preview_frame.xrc:1734
 msgid "Golden triangle (up)"
 msgstr "Arany háromszög (fent)"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:634
-#: hugin1/hugin/xrc/preview_frame.xrc:1490
+#: hugin1/hugin/xrc/preview_frame.xrc:648
+#: hugin1/hugin/xrc/preview_frame.xrc:1518
 msgid "Automatically straighten a wavy horizon."
 msgstr "Automatikusan kiegyenesíti a hullámzó horizontot."
 
-#: hugin1/hugin/xrc/preview_frame.xrc:649
-#: hugin1/hugin/xrc/preview_frame.xrc:1505
+#: hugin1/hugin/xrc/preview_frame.xrc:663
+#: hugin1/hugin/xrc/preview_frame.xrc:1533
 msgid "Drag mode:"
 msgstr "Húzás mód:"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:783
-#: hugin1/hugin/xrc/preview_frame.xrc:1639
+#: hugin1/hugin/xrc/preview_frame.xrc:797
+#: hugin1/hugin/xrc/preview_frame.xrc:1667
 msgid "Apply"
 msgstr "Alkalmaz"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:793
-#: hugin1/hugin/xrc/preview_frame.xrc:1649
+#: hugin1/hugin/xrc/preview_frame.xrc:807
+#: hugin1/hugin/xrc/preview_frame.xrc:1677
 msgid "Move the panorama or drag images into position"
 msgstr "Helyezze át a panorámát, vagy húzza a képeket pozícióba"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:795
-#: hugin1/hugin/xrc/preview_frame.xrc:1651
+#: hugin1/hugin/xrc/preview_frame.xrc:809
+#: hugin1/hugin/xrc/preview_frame.xrc:1679
 msgid "Move/Drag"
 msgstr "Áthelyezés/Húzás"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:805
-#: hugin1/hugin/xrc/preview_frame.xrc:1665
+#: hugin1/hugin/xrc/preview_frame.xrc:819
+#: hugin1/hugin/xrc/preview_frame.xrc:1693
 msgid "Set the crop region to the largest rectangle covered by images"
 msgstr "Beállítja a képkivágást a legnagyobb téglalapra amit a képek lefednek"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:813
-#: hugin1/hugin/xrc/preview_frame.xrc:1677
+#: hugin1/hugin/xrc/preview_frame.xrc:827
+#: hugin1/hugin/xrc/preview_frame.xrc:1705
 msgid "Set the crop region to the largest rectangle covered by image stacks"
 msgstr ""
 "Beállítja a képkivágást a legnagyobb téglalapra amit a kép kötegek lefednek"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:864
-#: hugin1/hugin/xrc/preview_frame.xrc:1728
+#: hugin1/hugin/xrc/preview_frame.xrc:878
+#: hugin1/hugin/xrc/preview_frame.xrc:1756
 msgid "left:"
 msgstr "bal:"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:878
-#: hugin1/hugin/xrc/preview_frame.xrc:1742
+#: hugin1/hugin/xrc/preview_frame.xrc:892
+#: hugin1/hugin/xrc/preview_frame.xrc:1770
 msgid "top:"
 msgstr "felül:"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:892
-#: hugin1/hugin/xrc/preview_frame.xrc:1756
+#: hugin1/hugin/xrc/preview_frame.xrc:906
+#: hugin1/hugin/xrc/preview_frame.xrc:1784
 msgid "right:"
 msgstr "jobb:"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:906
-#: hugin1/hugin/xrc/preview_frame.xrc:1770
+#: hugin1/hugin/xrc/preview_frame.xrc:920
+#: hugin1/hugin/xrc/preview_frame.xrc:1798
 msgid "bottom:"
 msgstr "alul:"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:922
-#: hugin1/hugin/xrc/preview_frame.xrc:1786
+#: hugin1/hugin/xrc/preview_frame.xrc:936
+#: hugin1/hugin/xrc/preview_frame.xrc:1814
 msgid "Reset crop to maximal possible area"
 msgstr "A körbevágás visszaállítása a legnagyobb lehetséges területre"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:932
-#: hugin1/hugin/xrc/preview_frame.xrc:1796
+#: hugin1/hugin/xrc/preview_frame.xrc:946
+#: hugin1/hugin/xrc/preview_frame.xrc:1824
 msgid "Change the panorama's cropping region"
 msgstr "A panoráma képkivágásának megváltoztatása"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:948
-#: hugin1/hugin/xrc/preview_frame.xrc:955
+#: hugin1/hugin/xrc/preview_frame.xrc:962
+#: hugin1/hugin/xrc/preview_frame.xrc:969
 msgid "Mode:"
 msgstr "Mód:"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:1829
+#: hugin1/hugin/xrc/preview_frame.xrc:1857
 msgid "Panorama &editor"
 msgstr "Panoráma sze&rkesztő"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:1838
+#: hugin1/hugin/xrc/preview_frame.xrc:1866
 msgid "&Overview"
 msgstr "Átte&kintés"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:1839
+#: hugin1/hugin/xrc/preview_frame.xrc:1867
 msgid "Shows the overview of the panorama sphere."
 msgstr "Áttekintő panoráma gömb megjelenítése."
 
-#: hugin1/hugin/xrc/preview_frame.xrc:1843
+#: hugin1/hugin/xrc/preview_frame.xrc:1871
 msgid "Grid"
 msgstr "Rács"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:1844
+#: hugin1/hugin/xrc/preview_frame.xrc:1872
 msgid "Shows a grid."
 msgstr "Rács megjelenítése."
 
-#: hugin1/hugin/xrc/preview_frame.xrc:1863
+#: hugin1/hugin/xrc/preview_frame.xrc:1891
 msgid "Interface"
 msgstr "Felület"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:1973
+#: hugin1/hugin/xrc/preview_frame.xrc:2001
 msgid "All images"
 msgstr "Minden kép"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:1978
+#: hugin1/hugin/xrc/preview_frame.xrc:2006
 msgid "Image with median exposure of each stack"
 msgstr "Kép minden egyes köteg középső expozíciójával"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:1982
+#: hugin1/hugin/xrc/preview_frame.xrc:2010
 msgid "Brightest image of each stack"
 msgstr "Legvilágosabb kép minden egyes kötegben"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:1986
+#: hugin1/hugin/xrc/preview_frame.xrc:2014
 msgid "Darkest image of each stack"
 msgstr "Legsötétebb kép minden egyes kötegben"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:1991
+#: hugin1/hugin/xrc/preview_frame.xrc:2019
 msgid "Keep currently selected images"
 msgstr "Aktuálisan kiválasztott képek megtartása"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:1996
+#: hugin1/hugin/xrc/preview_frame.xrc:2024
 msgid "Reset selection"
 msgstr "Kijelölés visszaállítása"
 
@@ -8000,6 +8030,51 @@ msgstr ""
 "Az összes torzítás tényezőket optimalizálni \"mindent\" csak akkor van "
 "értelme, ha nagy részben átlapoltak a képek és több jól szétszórt kontroll "
 "pont van rajtuk."
+
+#, fuzzy
+#~ msgid "Seam mode:"
+#~ msgstr "Húzás mód:"
+
+#~ msgid ""
+#~ "Please use the Control Points tab to connect all images with control "
+#~ "points.\n"
+#~ msgstr ""
+#~ "Kérem használja a Kontroll Pontok fület az összes kép összekapcsolásához "
+#~ "kontroll pontokkal.\n"
+
+#~ msgid "Very good fit."
+#~ msgstr "Nagyon jó illesztés."
+
+#~ msgid "Good fit."
+#~ msgstr "Jó illesztés"
+
+#~ msgid ""
+#~ "Bad fit, some control points might be bad, or there are parallax and "
+#~ "movement errors"
+#~ msgstr ""
+#~ "Rossz illesztés, néhány kontroll pont valószínűleg rossz, vagy parallaxis "
+#~ "hibájuk van vagy elmozdultak az objektumok"
+
+#~ msgid ""
+#~ "Very bad fit. Check for bad control points, lens parameters, or images "
+#~ "with parallax or movement. The optimizer might have failed. Manual "
+#~ "intervention required."
+#~ msgstr ""
+#~ "Nagyon rossz illesztés, Ellenőrízni kell a rossz kontroll pontokat, az "
+#~ "objektív paramétereit, vagy parallaxis hiba, vagy elmozdultak az "
+#~ "objektumok. Az optimalizálás valószínűleg rossz. Kézi beavatkozás "
+#~ "szükséges."
+
+#~ msgid ""
+#~ "Note: automatic alignment uses default settings from the preferences. If "
+#~ "you want to use customized settings, run the CP detection, the "
+#~ "geometrical optimization and the photometric optimization from the Photos "
+#~ "tab in the panorama editor."
+#~ msgstr ""
+#~ "Megjegyzés: Az automatikus igazítás az alapértelmezett opciókat használja "
+#~ "a beállításokból. Ha testre akarja szabni ezeket a beállításokat, "
+#~ "futtassa Kontroll Pont keresőt, a geometriai optimalizálót és a "
+#~ "fotometrikus optimalizációt a Képek fülön a panoráma szerkesztőben. "
 
 #~ msgid "Dedication"
 #~ msgstr "Felajánlás"
@@ -9277,9 +9352,6 @@ msgstr ""
 #~ "Ez Windows korlát.\n"
 #~ "Válasszon ki kevesebb képet, vagy helyezze a képeket a könyvtárból\n"
 #~ " egy rövidebb útvonalra"
-
-#~ msgid "enblend error"
-#~ msgstr "enblend hiba"
 
 #~ msgid "gamma must be a number"
 #~ msgstr "a gammának egy számnak kell lennie"
