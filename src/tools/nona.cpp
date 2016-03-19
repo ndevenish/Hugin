@@ -502,6 +502,9 @@ int main(int argc, char* argv[])
                 useGPU=false;
                 std::cout << "Nona-GPU does not support this projection. Switch to CPU calculation."<<std::endl;
                 break;
+            default:
+                //fallthrough, to silence compiler warning
+                break;
         };
     };
 

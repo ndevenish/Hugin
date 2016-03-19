@@ -778,6 +778,7 @@ void CPImageCtrl::OnDraw(wxDC & dc)
     case KNOWN_POINT_SELECTED:
         m_points[selectedPointNr].Draw(dc, true);
         break;
+    case SELECT_DELETE_REGION:
     case NO_SELECTION:
     case NO_IMAGE:
         break;
@@ -1148,7 +1149,6 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent& mouse)
     hugin_utils::FDiff2D mpos(unScrolledMousePos.x, unScrolledMousePos.y);
     bool doUpdate = false;
     mpos = applyRotInv(invScale(mpos));
-    wxPoint mpos_ = applyRotInv(invScale(unScrolledMousePos));
     // if mouseclick is out of image, ignore
     if ((mpos.x >= m_realSize.GetWidth() || mpos.y >= m_realSize.GetHeight()) && editState!=SELECT_DELETE_REGION)
     {
@@ -1194,6 +1194,7 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent& mouse)
             m_selectedPoint.UpdateControlPoint(mpos);
             doUpdate = true;
             break;
+        case SELECT_DELETE_REGION:
         case NO_IMAGE:
             break;
         }
@@ -1263,7 +1264,6 @@ void CPImageCtrl::mousePressLMBEvent(wxMouseEvent& mouse)
                            &unScrolledMousePos.x, & unScrolledMousePos.y);
     hugin_utils::FDiff2D mpos(unScrolledMousePos.x, unScrolledMousePos.y);
     mpos = applyRotInv(invScale(mpos));
-    wxPoint mpos_ = applyRotInv(invScale(unScrolledMousePos));
     DEBUG_DEBUG("mousePressEvent, pos:" << mpos.x
                 << ", " << mpos.y);
     // if mouseclick is out of image, ignore
@@ -1365,6 +1365,7 @@ void CPImageCtrl::mouseReleaseLMBEvent(wxMouseEvent& mouse)
             emit(e);
             break;
         }
+        case SELECT_DELETE_REGION:
         case NO_IMAGE:
             break;
 

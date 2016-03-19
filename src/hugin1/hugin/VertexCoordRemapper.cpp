@@ -302,7 +302,9 @@ void VertexCoordRemapper::DiscontinuityFlip(double vertex_c[2])
             if (vertex_c[1] < y_midpoint) vertex_c[1] += y_add_360;
             else vertex_c[1] -= y_add_360;
             break;
-        
+        default:
+            // all other projection, no special handling
+            break;
     }
 }
 
@@ -724,6 +726,9 @@ void VertexCoordRemapper::TestSubdivide(unsigned int node_id)
                 }
                 break;
             case HuginBase::PanoramaOptions::ALBERS_EQUAL_AREA_CONIC:
+                break;
+            default:
+                // all other projections, no special handling
                 break;
         }
         if (noncontinuous)

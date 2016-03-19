@@ -102,6 +102,9 @@ wxString getResponseString(const HuginBase::SrcPanoImage& img)
     case HuginBase::BaseSrcPanoImage::RESPONSE_LINEAR:
         s = _("Linear");
         break;
+    default:
+        s = wxEmptyString;
+        break;
     };
     return s;
 };

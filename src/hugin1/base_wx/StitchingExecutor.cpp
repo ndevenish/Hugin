@@ -238,6 +238,7 @@ namespace HuginQueue
                         };
                         break;
                     case HuginBase::PanoramaOptions::INTERNAL_BLEND:
+                    default:  // switch to internal blender for all other cases, not exposed in GUI
                         output << _("Blender:") << wxT(" ") << _("internal") << wxEndl;
                         break;
                 };
@@ -769,6 +770,7 @@ namespace HuginQueue
                                 wxString::Format(_("Blending exposure layer %u..."), exposureLayer), exposureLayersImgs, tempFilesDelete));
                             break;
                         case HuginBase::PanoramaOptions::INTERNAL_BLEND:
+                        default:  // switch to internal blender for all other cases, not exposed in GUI
                             commands->push_back(new NormalCommand(GetInternalProgram(ExePath, wxT("verdandi")),
                                 verdandiArgs + enLayersCompressionArgs + wxT(" -o ") + wxEscapeFilename(exposureLayerImgName) + wxT(" -- ") + GetQuotedFilenamesString(exposureLayersImgs),
                                 wxString::Format(_("Blending exposure layer %u..."), exposureLayer)));
@@ -836,6 +838,7 @@ namespace HuginQueue
                         };
                         break;
                     case HuginBase::PanoramaOptions::INTERNAL_BLEND:
+                    default:  // switch to internal blender for all other cases, not exposed in GUI
                         {
                             wxString finalVerdandiArgs(verdandiArgs + finalCompressionArgs);
                             finalVerdandiArgs.Append(wxT(" -o ") + wxEscapeFilename(fusedStacksFilename));
@@ -897,6 +900,7 @@ namespace HuginQueue
                                 enblendArgs + finalBlendArgs, _("Blending HDR stacks..."), stackedImages, tempFilesDelete));
                             break;
                         case HuginBase::PanoramaOptions::INTERNAL_BLEND:
+                        default:  // switch to internal blender for all other cases, not exposed in GUI
                             commands->push_back(new NormalCommand(GetInternalProgram(ExePath, wxT("verdandi")),
                                 verdandiArgs + finalBlendArgs + detail::GetQuotedFilenamesStringForVerdandi(stackedImages, pano, stacks, opts.colorReferenceImage, opts.verdandiOptions.find("--seam=blend") == std::string::npos),
                                 _("Blending HDR stacks...")));

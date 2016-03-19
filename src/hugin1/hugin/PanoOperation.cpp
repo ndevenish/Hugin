@@ -1080,10 +1080,6 @@ bool ResetOperation::ShowDialog(wxWindow* parent)
     bool checkPhotometric;
     switch(m_resetMode)
     {
-        case RESET_DIALOG:
-            checkGeometric=true;
-            checkPhotometric=true;
-            break;
         case RESET_DIALOG_LENS:
             reset_dlg.LimitToGeometric();
             checkGeometric=true;
@@ -1093,6 +1089,11 @@ bool ResetOperation::ShowDialog(wxWindow* parent)
             reset_dlg.LimitToPhotometric();
             checkGeometric=false;
             checkPhotometric=true;
+        case RESET_DIALOG:
+        default:
+            checkGeometric=true;
+            checkPhotometric=true;
+            break;
     };
     if(reset_dlg.ShowModal()==wxID_OK)
     {

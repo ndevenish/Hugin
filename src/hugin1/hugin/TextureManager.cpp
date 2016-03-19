@@ -123,18 +123,20 @@ void TextureManager::DrawImage(unsigned int image_number,
             glColor4f(1.0, 1.0, 1.0, 1.0);
             // double the brightness for colour components until it is almost
             // right, however limit it incase it is really bright.
-            bool r, g, b;
+            bool r = (scale[0] > 2.0);
+            bool g = (scale[1] > 2.0);
+            bool b = (scale[2] > 2.0);
             unsigned short int count = 0;
-            while ((   (r = (scale[0] > 2.0))
-                   || (g = (scale[1] > 2.0))
-                   || (b = (scale[2] > 2.0)))
-                   && count < 9)
+            while ((r || g || b) && count < 9)
             {
                 glColor4f(r ? 1.0 : 0.0, g ? 1.0 : 0.0, b ? 1.0 : 0.0, 1.0);
                 glCallList(display_list);
                 if (r) scale[0] /= 2.0;
                 if (g) scale[1] /= 2.0;
                 if (b) scale[2] /= 2.0;
+                r = (scale[0] > 2.0);
+                g = (scale[1] > 2.0);
+                b = (scale[2] > 2.0);
                 count++;
             }
             // now add on anything remaining.

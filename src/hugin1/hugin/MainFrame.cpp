@@ -1791,12 +1791,14 @@ void MainFrame::enableTools(bool option)
 
 void MainFrame::OnSize(wxSizeEvent &e)
 {
+#ifdef DEBUG
     wxSize sz = this->GetSize();
     wxSize csz = this->GetClientSize();
     wxSize vsz = this->GetVirtualSize();
     DEBUG_TRACE(" size:" << sz.x << "," << sz.y <<
                 " client: "<< csz.x << "," << csz.y <<
                 " virtual: "<< vsz.x << "," << vsz.y);
+#endif
 
     Layout();
     e.Skip();

@@ -188,6 +188,8 @@ void PreviewGuideTool::ReallyAfterDrawImagesEvent()
         case DIAGONAL_METHOD:
             DrawDiagonalMethod(roi);
             break;
+        case NONE:
+            break;
     };
     glEnable(GL_TEXTURE_2D);
 }

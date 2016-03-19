@@ -1204,8 +1204,8 @@ void SpaceTransform::Init(
     //int 	i;
     double	a, b;
     Matrix3 mpmt;
-    double  mpdistance, mpscale[2], mpshear[2], mprot[2], mprad[6];
-    // double mpperspect[2];
+    double  mpdistance, mpscale[2], mprot[2], mprad[6];
+    // double mpshear[2], mpperspect[2];
     double  mphorizontal, mpvertical;
 
     double  imhfov  = image.getHFOV();
@@ -1267,8 +1267,8 @@ void SpaceTransform::Init(
         }
     }
     mpscale[1]		= mpscale[0];
-    mpshear[0]		= img / imheight; // TODO : im->cP.shear_x / imheight;
-    mpshear[1]		= imt / imwidth; // TODO : im->cP.shear_y / imwidth;
+    // mpshear[0]		= img / imheight; // TODO : im->cP.shear_x / imheight;
+    // mpshear[1]		= imt / imwidth; // TODO : im->cP.shear_y / imwidth;
     mprot[0]		= mpdistance * PI;								// 180 in screenpoints
     mprot[1]		= -imyaw *  mpdistance * PI / 180.0; 			//    rotation angle in screenpoints
 
@@ -1414,8 +1414,8 @@ void SpaceTransform::InitInv(
 {
     double	a, b;
     Matrix3 mpmt;
-    double  mpdistance, mpscale[2], mpshear[2], mprot[2], mprad[6];
-//    double  mpperspect[2];
+    double  mpdistance, mpscale[2], mprot[2], mprad[6];
+//    double  mpshear[2], mpperspect[2];
     double mphorizontal, mpvertical;
 
     double  imhfov  = image.getHFOV();
@@ -1475,8 +1475,8 @@ void SpaceTransform::InitInv(
             mpscale[0] = ( pnhfov/imhfov ) * ( imwidth/pnwidth );
         }
     }
-    mpshear[0] 	= 0.0f; // TODO -im->cP.shear_x / im->height;
-    mpshear[1] 	= 0.0f; // -im->cP.shear_y / im->width;
+    // mpshear[0] 	= 0.0f; // TODO -im->cP.shear_x / im->height;
+    // mpshear[1] 	= 0.0f; // -im->cP.shear_y / im->width;
 	
     mpscale[0] = 1.0 / mpscale[0];
     mpscale[1] = mpscale[0];

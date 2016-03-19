@@ -644,7 +644,9 @@ void PreviewPanel::mousePressRMBEvent(wxMouseEvent & e)
     double theta = DEG_TO_RAD(yaw);
     double phi = DEG_TO_RAD(90+pitch);
     // convert to cartesian coordinates.
+#ifdef DEBUG
     double x = cos(theta)* sin(phi);
+#endif
     double y = sin(theta)* sin(phi);
     double z = cos(phi);
     DEBUG_DEBUG("theta: " << theta << " phi: " << phi << " x y z:" << x << " " << y << " " << z);

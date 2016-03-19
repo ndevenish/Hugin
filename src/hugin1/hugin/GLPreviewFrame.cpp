@@ -863,7 +863,6 @@ GLPreviewFrame::~GLPreviewFrame()
 {
     DEBUG_TRACE("dtor writing config");
     wxConfigBase * cfg = wxConfigBase::Get();
-    wxSize sz = GetClientSize();
 
     StoreFramePosition(this, wxT("GLPreviewFrame"));
 
@@ -1870,7 +1869,6 @@ void GLPreviewFrame::OnDragChoice(wxCommandEvent & e)
 {
     if (drag_tool)
     {
-        DragTool::DragMode oldDragMode=drag_tool->getDragMode();
         DragTool::DragMode newDragMode=DragTool::drag_mode_normal;
         int index = m_DragModeChoice->GetSelection();
         switch (index) {

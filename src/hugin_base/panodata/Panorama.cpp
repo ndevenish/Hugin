@@ -2336,7 +2336,6 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
     char * p = setlocale(LC_NUMERIC,NULL);
     char * old_locale = strdup(p);
     setlocale(LC_NUMERIC,"C");
-    PTParseState state;
     std::string line;
 
     // vector with the different information lines about images
@@ -2603,7 +2602,6 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
 
             point.mode = t;
             loadedCp.push_back(point);
-            state = P_CP;
             break;
         }
 

@@ -281,50 +281,6 @@ inline float eudist( int dx, int dy )
     return sqrt( x*x + y*y );
 }
 
-// chord and arc using chain code distance
-static double CtoAcc( std::vector<vigra::Point2D> & pts,
-                    int start, int count,
-                    double & C, double & A)
-{
-    int n = (int)pts.size() - start;
-    if( count > n ) count = n;
-    if( count < 3 ) return 1;
-    int xl = pts.at(start).x, yl = pts.at(start).y;
-    int xr = pts.at(start + count - 1).x,
-        yr = pts.at(start + count - 1).y;
-    C = ccdist( xr - xl, yr - yl );
-    A = 0;
-    for(int i = start + 1; i < count; i++ )
-    {
-        xr = pts.at(i).x; yr = pts.at(i).y;
-        A += ccdist( xr - xl, yr - yl );
-        xl = xr; yl = yr;
-    }
-    return C/A;
-}
-
-// chord and arc using Euclidian distance
-static double CtoAeu( std::vector<vigra::Point2D> & pts,
-                    int start, int count,
-                    double & C, double & A)
-{
-    int n = (int)pts.size() - start;
-    if( count > n ) count = n;
-    if( count < 3 ) return 1;
-    int xl = pts.at(start).x, yl = pts.at(start).y;
-    int xr = pts.at(start + count - 1).x,
-        yr = pts.at(start + count - 1).y;
-    C = eudist( xr - xl, yr - yl );
-    A = 0;
-    for(int i = start + 1; i < count; i++ )
-    {
-        xr = pts.at(i).x; yr = pts.at(i).y;
-        A += eudist( xr - xl, yr - yl );
-        xl = xr; yl = yr;
-    }
-    return C/A;
-}
-
 /* 3-point scalar curvature
    positive clockwise
 */
@@ -543,8 +499,8 @@ int linePts2lineList(vigra::BImage & img, int minsize, double flpix, Lines& line
                             int irgt = ip + span - 1;
                             // update span
                             Arc -= ccd[isql];
-                            isql = (++isql)&31;
-                            isqr = (++isqr)&31;
+                            isql = (isql + 1) & 31;
+                            isqr = (isqr + 1) & 31;
                             int x = pts.at( irgt ).x,
                                 y = pts.at( irgt ).y;
                             float d = ccdist( x - xl, y - yl );

@@ -407,7 +407,6 @@ PreviewFrame::~PreviewFrame()
 {
     DEBUG_TRACE("dtor writing config");
     wxConfigBase * config = wxConfigBase::Get();
-    wxSize sz = GetClientSize();
 
     StoreFramePosition(this, wxT("PreviewFrame"));
 

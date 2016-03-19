@@ -371,19 +371,6 @@ void optimize_new(HuginBase::PanoramaData& pano)
         fprintf(stderr, "\n");
     }
 
-    // TODO: setup optimization options with some good defaults.
-    double optimOpts[5];
-
-    optimOpts[0] = 1e-5;   // init mu
-    // stop thresholds
-    optimOpts[1] = 1e-7;   // ||J^T e||_inf
-    optimOpts[2] = 1e-10;   // ||Dp||_2
-    optimOpts[3] = 1e-3;   // ||e||_2
-    // difference mode
-    optimOpts[4] = LM_DIFF_DELTA;
-
-    //    data.huberSigma = 0;
-
     ret = dlevmar_dif(&optGetError, &optVis, &(p[0]), &(x[0]), m, n, nMaxIter, NULL, info, NULL, NULL, &data);  // no jacobian
     // copy to source images (data.m_imgs)
     data.SaveToImgs();

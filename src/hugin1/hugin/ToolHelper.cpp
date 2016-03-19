@@ -364,6 +364,9 @@ void ToolHelper::DoNotNotifyMe(Event event, Tool *tool)
         case IMAGES_UNDER_MOUSE_CHANGE:
             RemoveTool(tool, &images_under_mouse_notified_tools);
             break;
+        case REALLY_DRAW_OVER_IMAGES:
+            RemoveTool(tool, &really_draw_over_notified_tools);
+            break;
     }   
 }
 
