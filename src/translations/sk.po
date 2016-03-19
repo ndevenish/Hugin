@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2016-03-14 19:21+0100\n"
-"PO-Revision-Date: 2016-03-14 18:46+0000\n"
+"POT-Creation-Date: 2016-03-19 01:27+0100\n"
+"PO-Revision-Date: 2016-03-19 01:00+0000\n"
 "Last-Translator: Kornel Benko <kornel@lyx.org>\n"
 "Language-Team: Slovak <kornel@lyx.org>\n"
 "Language: sk\n"
@@ -2610,6 +2610,14 @@ msgstr "Nepodarilo sa spustiť systémový prehliadač webu"
 msgid "Could not read project file %s."
 msgstr "Nepodarilo sa prečítať súbor s projektom %s."
 
+#: hugin1/hugin/MainFrame.cpp:1454
+msgid "Open Papywizard xml file"
+msgstr "Otvoriť Papywizard xml súbor"
+
+#: hugin1/hugin/MainFrame.cpp:1455
+msgid "Papywizard xml files (*.xml)|*.xml|All files (*)|*"
+msgstr "Papywizard xml súbory (*.xml)|*.xml|Všetky súbory (*)|*"
+
 #: hugin1/hugin/MainFrame.cpp:1455
 msgid "Choose template project"
 msgstr "Vyberte šablónu projektu"
@@ -3377,6 +3385,26 @@ msgstr ""
 "Adresár \"%s\" má voľných len %.1f MB. To nie je dosť na lepenie súčasnej "
 "panorámy. Znížte veľkosť výstupu alebo zvoľte iný adresár na výstup.\n"
 "Iste to chcete ešte stále lepiť?"
+
+#: hugin1/hugin/PapywizardImport.cpp:341
+#, c-format
+msgid "Could not parse file %s as Papywizard XML file."
+msgstr "Nepodarilo sa analyzovať súbor %s ako Papywizard-XML-súbor."
+
+#: hugin1/hugin/PapywizardImport.cpp:353
+#, c-format
+msgid ""
+"The current project does not match with the Papywizard xml file.\n"
+"The Papywizard file \"%s\" contains %lu images, but the Hugin project "
+"contains %lu images."
+msgstr ""
+"Aktuálny projekt nezodpovedá súboru Papywizard xml.\n"
+"Papywizard-súbor \"%s\" obsahuje %lu obrázkov, ale Huginov projekt obsahuje "
+"%lu obrázkov."
+
+#: hugin1/hugin/PapywizardImport.cpp:464
+msgid "Connecting overlapping images"
+msgstr "Spájajú sa prekrývajúce obrázky"
 
 #: hugin1/hugin/PluginItems.cpp:71
 msgid "Miscellaneous"
@@ -5664,6 +5692,26 @@ msgstr "Teraz neoptimalizovať"
 msgid "Edit cp tools"
 msgstr "Upraviť nástroje kontrolných bodov"
 
+#: hugin1/hugin/xrc/main_frame.xrc:345
+msgid "Link positions"
+msgstr "Spojiť pozície"
+
+#: hugin1/hugin/xrc/main_frame.xrc:363
+msgid "Generate control points, additional cpfind parameters:"
+msgstr "Generovať kontrolné body, prídavné parametre pre cpfind:"
+
+#: hugin1/hugin/xrc/main_frame.xrc:384
+msgid "Connect orphaned images (with geocpset)"
+msgstr "Spojiť osirelé obrázky (s geocpset)"
+
+#: hugin1/hugin/xrc/main_frame.xrc:390
+msgid "Control point generation"
+msgstr "Generácia kontrolných bodov"
+
+#: hugin1/hugin/xrc/main_frame.xrc:416
+msgid "Import positions from Papywizard XML"
+msgstr "Importovať pozície od Papywizard XML"
+
 #: hugin1/hugin/xrc/main_menu.xrc:7 hugin1/hugin/xrc/preview_frame.xrc:1810
 msgid "&Undo"
 msgstr "S&päť"
@@ -5964,6 +6012,14 @@ msgstr "&Zlúčiť projekt..."
 #: hugin1/hugin/xrc/main_menu.xrc:199 hugin1/hugin/xrc/main_menu.xrc:225
 msgid "Merges an existing project file with the current project."
 msgstr "Zlúči existujúci súbor projektu s aktuálnym projektom."
+
+#: hugin1/hugin/xrc/main_menu.xrc:202
+msgid "Import settings from Papywizard &XML file..."
+msgstr "Importovať nastavenia od Papywizard &XML súboru..."
+
+#: hugin1/hugin/xrc/main_menu.xrc:203
+msgid "Read shoot settings from a Papywizard XML file"
+msgstr "Načítať záberové nastavenia z Papywizard XML súboru"
 
 #: hugin1/hugin/xrc/main_menu.xrc:202 hugin1/hugin/xrc/main_menu.xrc:228
 msgid "Apply &Template"
