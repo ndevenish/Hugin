@@ -762,20 +762,10 @@ namespace HuginQueue
                         const wxString exposureLayerImgName = wxString::Format(wxT("%s_exposure_%04u%s"), prefix.c_str(), exposureLayer, wxT(".tif"));
                         exposureLayersFiles.Add(exposureLayerImgName);
                         outputFiles.Add(exposureLayerImgName);
-                        switch (opts.blendMode)
-                        {
-                        case HuginBase::PanoramaOptions::ENBLEND_BLEND:
-                            commands->push_back(detail::GetEnblendFuseCommand(GetExternalProgram(config, ExePath, wxT("enblend")),
-                                enblendArgs + enLayersCompressionArgs + wxT(" -o ") + wxEscapeFilename(exposureLayerImgName) + wxT(" -- "),
-                                wxString::Format(_("Blending exposure layer %u..."), exposureLayer), exposureLayersImgs, tempFilesDelete));
-                            break;
-                        case HuginBase::PanoramaOptions::INTERNAL_BLEND:
-                        default:  // switch to internal blender for all other cases, not exposed in GUI
-                            commands->push_back(new NormalCommand(GetInternalProgram(ExePath, wxT("verdandi")),
-                                verdandiArgs + enLayersCompressionArgs + wxT(" -o ") + wxEscapeFilename(exposureLayerImgName) + wxT(" -- ") + GetQuotedFilenamesString(exposureLayersImgs),
-                                wxString::Format(_("Blending exposure layer %u..."), exposureLayer)));
-                            break;
-                        }
+                        // variant with internal blender is handled before, so we need only enblend
+                        commands->push_back(detail::GetEnblendFuseCommand(GetExternalProgram(config, ExePath, wxT("enblend")),
+                            enblendArgs + enLayersCompressionArgs + wxT(" -o ") + wxEscapeFilename(exposureLayerImgName) + wxT(" -- "),
+                            wxString::Format(_("Blending exposure layer %u..."), exposureLayer), exposureLayersImgs, tempFilesDelete));
                         if (copyMetadata && opts.outputLDRExposureLayers)
                         {
                             filesForCopyTagsExiftool.Add(exposureLayerImgName);
