@@ -153,10 +153,17 @@ public:
 
 #ifdef __WXMSW__
     /** return help controller for open help */
+#if wxCHECK_VERSION(3,1,1)
+    wxCHMHelpController& GetHelpController()
+    {
+        return m_msHtmlHelp;
+    }
+#else
     HuginCHMHelpController& GetHelpController()
     {
         return m_msHtmlHelp;
     }
+#endif
 #endif
 
     //wxMutex* projListMutex;
@@ -173,7 +180,11 @@ private:
     //TO-DO: include a batch or project progress gauge? Test initialization commented out in constructor
     //wxGauge* m_gauge;
 #ifdef __WXMSW__
+#if wxCHECK_VERSION(3,1,1)
+    wxCHMHelpController m_msHtmlHelp;
+#else
     HuginCHMHelpController m_msHtmlHelp;
+#endif
 #else
     wxHtmlHelpController* m_help;
 #endif

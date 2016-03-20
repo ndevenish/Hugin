@@ -627,7 +627,11 @@ void BatchFrame::OnButtonHelp(wxCommandEvent& event)
 {
     DEBUG_TRACE("");
 #ifdef __WXMSW__
+#if wxCHECK_VERSION(3,1,1)
+    GetHelpController().DisplaySection(wxT("Hugin_Batch_Processor.html"));
+#else
     GetHelpController().DisplayHelpPage(wxT("Hugin_Batch_Processor.html"));
+#endif
 #else
     if (m_help == 0)
     {

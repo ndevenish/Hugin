@@ -98,7 +98,7 @@ WXIMPEX bool str2double(const wxString& s, double & d);
 
 } // namespace
 
-#ifdef __WXMSW__
+#if defined __WXMSW__ && !wxCHECK_VERSION(3,1,1)
   // workaround for wxWidgets bug 14888
   // see: http://trac.wxwidgets.org/ticket/14888
   // which results in crashes when calling help on Win 8/10 64 bit

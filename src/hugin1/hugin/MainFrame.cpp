@@ -1209,7 +1209,11 @@ void MainFrame::DisplayHelp(wxString section)
     }
     else
     {
+#if wxCHECK_VERSION(3,1,1)
+        GetHelpController().DisplaySection(section);
+#else
         GetHelpController().DisplayHelpPage(section);
+#endif
     };
 #else
     if (section.IsEmpty())

@@ -165,7 +165,11 @@ public:
     
     GLPreviewFrame * getGLPreview();
 #ifdef __WXMSW__
+#if wxCHECK_VERSION(3,1,1)
+    wxCHMHelpController& GetHelpController() { return m_msHtmlHelp; }
+#else
     HuginCHMHelpController& GetHelpController() { return m_msHtmlHelp; }
+#endif
 #endif
     void SetGuiLevel(GuiLevel newLevel);
     const GuiLevel GetGuiLevel() const { return m_guiLevel; };
@@ -267,7 +271,11 @@ private:
     wxMenu* m_menu_file_advanced;
 
 #ifdef __WXMSW__
+#if wxCHECK_VERSION(3,1,1)
+    wxCHMHelpController m_msHtmlHelp;
+#else
     HuginCHMHelpController     m_msHtmlHelp;
+#endif
 #endif
 
 #ifdef HUGIN_HSI
