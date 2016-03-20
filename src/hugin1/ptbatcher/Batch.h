@@ -34,6 +34,9 @@
 #include <sys/wait.h>
 #endif
 #include "RunStitchFrame.h"
+#if wxCHECK_VERSION(3,1,0)
+#include <wx/power.h>
+#endif
 
 #ifndef FRAMEARRAY
 #define FRAMEARRAY
@@ -67,6 +70,8 @@ public:
 
     /** Main constructor */
     explicit Batch(wxFrame* parent);
+    /** destructor */
+    ~Batch();
 
     /** Adds an application entry in the batch list */
     void  AddAppToBatch(wxString app);
@@ -178,6 +183,9 @@ private:
 
     //vector, which stores the failed projects and filename of saved logfile
     std::vector<FailedProject> m_failedProjects;
+#if wxCHECK_VERSION(3,1,0)
+    wxPowerResourceBlocker* m_resBlocker;
+#endif
 
     DECLARE_EVENT_TABLE()
 };

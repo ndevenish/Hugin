@@ -50,6 +50,9 @@ Batch::Batch(wxFrame* parent) : wxFrame(parent, wxID_ANY, _T("Batch"))
     //default flag settings
     deleteFiles = false;
     atEnd = DO_NOTHING;
+#if wxCHECK_VERSION(3,1,0)
+    m_resBlocker = NULL;
+#endif
     overwrite = true;
     verbose = false;
     autoremove = false;
@@ -64,6 +67,16 @@ Batch::Batch(wxFrame* parent) : wxFrame(parent, wxID_ANY, _T("Batch"))
     // Required to access the preferences of hugin
     //SetAppName(wxT("hugin"));
 
+}
+
+Batch::~Batch()
+{
+#if wxCHECK_VERSION(3,1,0)
+    if (m_resBlocker != NULL)
+    {
+        delete m_resBlocker;
+    };
+#endif
 }
 
 void Batch::AddAppToBatch(wxString app)
@@ -198,6 +211,13 @@ void Batch::CancelBatch()
     {
         CancelProject(i);
     }
+#if wxCHECK_VERSION(3,1,0)
+    if (m_resBlocker != NULL)
+    {
+        delete m_resBlocker;
+        m_resBlocker = NULL;
+    };
+#endif
     m_running = false;
 }
 void Batch::CancelProject(int index)
@@ -525,6 +545,13 @@ void Batch::OnProcessTerminate(wxProcessEvent& event)
             {
                 SaveTemp();
                 m_running = false;
+#if wxCHECK_VERSION(3,1,0)
+                if (m_resBlocker != NULL)
+                {
+                    delete m_resBlocker;
+                    m_resBlocker = NULL;
+                };
+#endif
                 if(NoErrors())
                 {
                     wxCommandEvent e(EVT_INFORMATION,wxID_ANY);
@@ -811,6 +838,9 @@ void Batch::RunBatch()
         m_failedProjects.clear();
         ((wxFrame*)GetParent())->SetStatusText(_("Running batch..."));
         m_running = true;
+#if wxCHECK_VERSION(3,1,0)
+        m_resBlocker = new wxPowerResourceBlocker(wxPOWER_RESOURCE_SYSTEM, _("PTBatcherGUI is stitching"));
+#endif
         RunNextInBatch();
     }
     else
