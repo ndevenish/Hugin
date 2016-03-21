@@ -4556,7 +4556,7 @@ void wxTreeListMainWindow::OnScroll (wxScrollWinEvent& event) {
     if (m_owner->GetEventHandler()->ProcessEvent(event)) return; // handled (and not skipped) in user code
 
     // TODO
-#if defined(__WXGTK__) && !defined(__WXUNIVERSAL__)
+#if defined(__WXGTK__) && !defined(__WXUNIVERSAL__) && !wxCHECK_VERSION(3,0,0)
     wxScrolledWindow::OnScroll(event);
 #else
     HandleOnScroll( event );
