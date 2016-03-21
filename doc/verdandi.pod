@@ -27,6 +27,8 @@ For tiff output: PACKBITS, DEFLATE, LZW
 
 =item B<-w, --wrap> Wraparound 360 deg border.
 
+=item B<--seam=hard|blend> Select the blend mode for the seam
+
 =item B<-h, --help> Shows this help.
 
 =back
