@@ -9,20 +9,18 @@ Using the CMake build system under Unix
 
 briefly, do the following:
 
-cmake -DCMAKE_INSTALL_PREFIX=/usr/local .
-make
-make install
-
-alternatively, you can also do an out of source build, if
-you don't want to clutter the hugin source tree with object files etc.
-
 $ cd hugin
 $ mkdir mybuild
 $ cd mybuild
-$ cmake -DCMAKE_INSTALL_PREFIX=/usr/local ../
-$ make
-$ make install
 
+for a Debian package use
+$ cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DCPACK_BINARY_DEB:BOOL=ON ../
+or for a rpm package
+$ cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DCPACK_BINARY_RPM:BOOL=ON ../
+
+Build the package
+$ make package
+and install the package with your package manager
 
 Please report any problems to the hugin-ptx group at google:
 http://groups.google.com/group/hugin-ptx
