@@ -22,6 +22,16 @@ Build the package
 $ make package
 and install the package with your package manager
 
+If using Fedora's rpmbuild to build an rpm package, the recommended procedure 
+is similar to the above.
+$ cd hugin
+$ mkdir mybuild
+$ cd mybuild
+$ cmake ..
+$ make package_source
+copy, or move the selected source archive (.bz2 or .gz) from your mybuild dir to your rpmbuild
+SOURCE dir, generate or edit your .spec file, and build your package.
+
 Please report any problems to the hugin-ptx group at google:
 http://groups.google.com/group/hugin-ptx
 
