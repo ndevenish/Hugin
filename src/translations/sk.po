@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2016-03-19 08:20+0100\n"
-"PO-Revision-Date: 2016-03-19 01:00+0000\n"
+"POT-Creation-Date: 2016-03-24 11:36+0100\n"
+"PO-Revision-Date: 2016-03-24 10:40+0000\n"
 "Last-Translator: Kornel Benko <kornel@lyx.org>\n"
 "Language-Team: Slovak <kornel@lyx.org>\n"
 "Language: sk\n"
@@ -4010,6 +4010,10 @@ msgstr "Chyba: Nemôžem vymazať súbor s projektom "
 msgid "Running batch..."
 msgstr "Spúšťam dávkovú úlohu..."
 
+#: hugin1/ptbatcher/Batch.cpp:842
+msgid "PTBatcherGUI is stitching"
+msgstr "PTBatcherGUI lepí"
+
 #: hugin1/ptbatcher/Batch.cpp:818
 msgid "Batch already in progress."
 msgstr "Dávková úloha už prebieha."
@@ -4538,6 +4542,10 @@ msgstr "Licencia"
 #: hugin1/hugin/xrc/about.xrc:147
 msgid "System"
 msgstr "Systém"
+
+#: hugin1/hugin/xrc/about.xrc:188
+msgid "Dedication"
+msgstr "Venovanie"
 
 #: hugin1/hugin/xrc/about.xrc:198 hugin1/hugin/xrc/cpdetector_dialog.xrc:328
 #: hugin1/hugin/xrc/dlg_warning.xrc:46
@@ -7994,9 +8002,6 @@ msgstr ""
 
 #~ msgid "Seam mode:"
 #~ msgstr "Režim spájania:"
-
-#~ msgid "Dedication"
-#~ msgstr "Venovanie"
 
 #~ msgid ""
 #~ "Please use the Control Points tab to connect all images with control "
