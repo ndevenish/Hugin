@@ -20,7 +20,7 @@ http://panotools.sourceforge.net/
 
 Enblend-Enfuse originally by Andrew Mihal http://enblend.sourceforge.net/
 
-VIGRA by Ullrich Koethe: http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/ 
+VIGRA by Ullrich Koethe: http://ukoethe.github.io/vigra/
 
 FFTW by Matteo Frigo and Steven G. Johnson: http://www.fftw.org
 
