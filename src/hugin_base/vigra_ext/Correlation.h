@@ -399,7 +399,7 @@ CorrelationResult subpixelMaxima(vigra::triple<Iterator, Iterator, Accessor> img
 
     double a,b,c;
     FitPolynom(x, x + 2*interpWidth+1, zx, a,b,c);
-    if (hugin_utils::isnan(a) || hugin_utils::isnan(b) || hugin_utils::isnan(c)) {
+    if (std::isnan(a) || std::isnan(b) || std::isnan(c)) {
 	exportImage(img,vigra::ImageExportInfo("test.tif"));
 	DEBUG_ERROR("Bad polynomial fit results");
 	res.maxpos.x=max.x;

@@ -44,37 +44,13 @@
 #define DEG_TO_RAD( x )		( (x) * 2.0 * PI / 360.0 )
 #define RAD_TO_DEG( x )		( (x) * 360.0 / ( 2.0 * PI ) )
 
-
-#ifndef HAVE_LOG2
-
-// #ifdef _MSC_VER
-inline double log2(double x)
-{
-    return log(x)/log(2.0);
-}
-
-// #else
-// FreeBSD downstream patch used to implement it as define
-// check if the 
-// #define log2(x)	(log(x) / log(2))
-
-// #endif
-
-#endif
-
-
 /** namespace for various utils */
 namespace hugin_utils
 {
-
-    inline double round(double x); // do we need this?
-        
     inline double round(double x)
     {
         return floor(x+0.5);
     }
-
-    inline float roundf(float x); // do we need this?
 
     inline float roundf(float x)
     {
@@ -99,15 +75,6 @@ namespace hugin_utils
         return ((x < 0.0) ?
                     ((x < (float)INT_MIN) ? INT_MIN : static_cast<int>(x - 0.5)) :
                     ((x > (float)INT_MAX) ? INT_MAX : static_cast<int>(x + 0.5)));
-    }
-
-    inline int isnan(double x)
-    {
-#ifndef _MSC_VER
-        return std::isnan(x);
-#else
-        return _isnan(x);
-#endif
     }
 
     // a simple point class
@@ -265,9 +232,6 @@ namespace hugin_utils
 
 } // namespace
 
-// backward compatibility
-//typedef hugin_utils::FDiff2D FDiff2D; 
-
 template <class T>
 inline std::ostream & operator<<(std::ostream & o, const hugin_utils::TDiff2D<T> & d)
 {
@@ -285,16 +249,6 @@ inline vigra::Diff2D operator*(const vigra::Diff2D & d, double scale)
     return vigra::Diff2D((int)(ceil(d.x * scale)), 
                          (int)(ceil(d.y * scale)));
 }
-
-#if 0
-/// FIXME - DGSW duplicates function in diff2d.hxx
-/// uses ceil for rounding. -> might extend the image size.
-inline vigra::Size2D operator*(const vigra::Size2D & d, double scale)
-{
-    return vigra::Size2D((int)(ceil(d.x * scale)), 
-                          (int)(ceil(d.y * scale)));
-}
-#endif
 
 /// uses floor for left and top and ceil for right and bottom -> extend image when rounding..
 inline vigra::Rect2D operator*(const vigra::Rect2D & r, double scale)

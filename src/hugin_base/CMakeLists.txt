@@ -25,7 +25,6 @@ appbase/ProgressDisplay.cpp
 huginapp/CachedImageRemapper.cpp
 huginapp/ImageCache.cpp
 hugin_math/eig_jacobi.cpp
-hugin_math/graph.cpp
 hugin_math/Matrix3.cpp
 hugin_math/Vector3.cpp
 hugin_utils/alphanum.cpp
@@ -85,7 +84,6 @@ appbase/ProgressDisplay.h
 huginapp/CachedImageRemapper.h
 huginapp/ImageCache.h
 hugin_math/eig_jacobi.h
-hugin_math/graph.h
 hugin_math/Matrix3.h
 hugin_math/Vector3.h
 hugin_utils/alphanum.h
