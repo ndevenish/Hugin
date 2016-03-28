@@ -23,12 +23,12 @@ IF(WIN32)
             ${SOURCE_BASE_DIR}/libpano13/bin
             DOC "Location of pano13 executables"
             NO_DEFAULT_PATH)
-  FILE(GLOB PANO13_EXECUTABLES ${PANO13_EXE_DIR}/*.exe)
+  FILE(GLOB PANO13_EXECUTABLES ${PANO13_EXE_DIR}/PT*.exe ${PANO13_EXE_DIR}/panoinfo.exe)
   INSTALL(FILES ${PANO13_EXECUTABLES} DESTINATION ${BINDIR})
   IF(${HUGIN_SHARED})
     FIND_FILE(PANO13_DLL 
               NAMES pano13.dll libpano13.dll
-              PATHS ${SOURCE_BASE_DIR}/libpano13/bin
+              PATHS ${SOURCE_BASE_DIR}/libpano13/bin ${SOURCE_BASE_DIR}/Deploy/bin
               NO_SYSTEM_ENVIRONMENT_PATH
               )
     INSTALL(FILES ${PANO13_DLL} DESTINATION ${BINDIR})
@@ -101,10 +101,11 @@ IF(WIN32)
             ${SOURCE_BASE_DIR}/tiff-4.0.1/libtiff
             ${SOURCE_BASE_DIR}/tiff-4.0.0beta7/libtiff 
             ${SOURCE_BASE_DIR}/tiff-4.0.0beta5/libtiff
+            ${SOURCE_BASE_DIR}/Deploy/bin
       NO_SYSTEM_ENVIRONMENT_PATH
     )
     FIND_FILE(JPEG_DLL
-      NAMES jpeg.dll libjpeg.dll
+      NAMES jpeg.dll libjpeg.dll jpeg62.dll
       PATHS 
             ${SOURCE_BASE_DIR}/jpeg-9a/lib 
             ${SOURCE_BASE_DIR}/jpeg-9a/x64/Release
@@ -114,16 +115,17 @@ IF(WIN32)
             ${SOURCE_BASE_DIR}/jpeg-8b/Release 
             ${SOURCE_BASE_DIR}/jpeg-8a/Release 
             ${SOURCE_BASE_DIR}/jpeg-8/Release
+            ${SOURCE_BASE_DIR}/Deploy/bin
       NO_SYSTEM_ENVIRONMENT_PATH
     )
     FIND_FILE(PNG_DLL
       NAMES libpng16.dll libpng15.dll libpng14.dll 
-      PATHS ${SOURCE_BASE_DIR}/libpng/bin ${SOURCE_BASE_DIR}/lpng142/lib ${SOURCE_BASE_DIR}/lpng141/lib ${SOURCE_BASE_DIR}/lpng140/lib
+      PATHS ${SOURCE_BASE_DIR}/libpng/bin ${SOURCE_BASE_DIR}/lpng142/lib ${SOURCE_BASE_DIR}/lpng141/lib ${SOURCE_BASE_DIR}/lpng140/lib ${SOURCE_BASE_DIR}/Deploy/bin
       NO_SYSTEM_ENVIRONMENT_PATH
     )
     FIND_FILE(ZLIB_DLL
       NAMES zlib1.dll zlib.dll libz.dll libzlib.dll
-      PATHS ${SOURCE_BASE_DIR}/zlib ${SOURCE_BASE_DIR}/zlib/bin
+      PATHS ${SOURCE_BASE_DIR}/zlib ${SOURCE_BASE_DIR}/zlib/bin ${SOURCE_BASE_DIR}/Deploy/bin
       NO_SYSTEM_ENVIRONMENT_PATH
     )
     FIND_PATH(OPENEXR_BIN_DIR 
@@ -136,7 +138,7 @@ IF(WIN32)
     FILE(GLOB OPENEXR_DLL ${OPENEXR_BIN_DIR}/*.dll)
     FIND_FILE(VIGRA_DLL
        NAMES vigraimpex.dll
-       PATHS ${SOURCE_BASE_DIR}/vigra/bin
+       PATHS ${SOURCE_BASE_DIR}/vigra/bin ${SOURCE_BASE_DIR}/Deploy/bin
        NO_SYSTEM_ENVIRONMENT_PATH
     )
     IF(NOT HAVE_STD_FILESYSTEM)
@@ -144,18 +146,9 @@ IF(WIN32)
       FILE(GLOB BOOST_FILESYSTEM_DLL ${Boost_LIBRARY_DIRS}/*boost_filesystem*.dll)
       LIST(APPEND BOOST_DLLs ${BOOST_SYSTEM_DLL} ${BOOST_FILESYSTEM_DLL})
     ENDIF()
-    IF(NOT CXX11_THREAD)
-      FILE(GLOB BOOST_THREAD_DLL ${Boost_LIBRARY_DIRS}/*boost_thread*.dll)
-      FILE(GLOB BOOST_DATE_TIME_DLL ${Boost_LIBRARY_DIRS}/*boost_date_time*.dll)
-      FILE(GLOB BOOST_CHRONO_DLL ${Boost_LIBRARY_DIRS}/*boost_chrono*.dll)
-      LIST(APPEND BOOST_DLLs ${BOOST_THREAD_DLL} ${BOOST_DATE_TIME_DLL})
-      IF(NOT "${BOOST_CHRONO_DLL}" MATCHES "-NOTFOUND")
-        LIST(APPEND BOOST_DLLs ${BOOST_CHRONO_DLL})
-      ENDIF()
-    ENDIF()
     FIND_FILE(EXIV2_DLL 
       NAMES exiv2.dll libexiv2.dll
-      PATHS ${SOURCE_BASE_DIR}/exiv2/bin ${SOURCE_BASE_DIR}/exiv2/msvc2012/exiv2lib/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.25/msvc2012/exiv2lib/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.24/msvc2012/exiv2lib/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/bin/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/bin/Win32/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.22/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.21.1/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.20/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.19/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.18.2/msvc/bin/ReleaseDLL
+      PATHS ${SOURCE_BASE_DIR}/exiv2/bin ${SOURCE_BASE_DIR}/exiv2/msvc2012/exiv2lib/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.25/msvc2012/exiv2lib/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.24/msvc2012/exiv2lib/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/bin/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/bin/Win32/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.22/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.21.1/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.20/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.19/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.18.2/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/Deploy/bin
       NO_SYSTEM_ENVIRONMENT_PATH
     )
     FIND_FILE(LIBEXPAT_DLL 
@@ -165,12 +158,12 @@ IF(WIN32)
     )
     FIND_FILE(GLEW_DLL
       NAMES glew32.dll
-      PATHS ${SOURCE_BASE_DIR}/glew/bin
+      PATHS ${SOURCE_BASE_DIR}/glew/bin ${SOURCE_BASE_DIR}/Deploy/bin
       NO_SYSTEM_ENVIRONMENT_PATH
     )
     FIND_FILE(LCMS2_DLL
       NAMES lcms2.dll liblcms2.dll liblcms2-2.dll
-      PATHS ${LCMS2_ROOT_DIR}/bin
+      PATHS ${LCMS2_ROOT_DIR}/bin ${SOURCE_BASE_DIR}/Deploy/bin
       NO_SYSTEM_ENVIRONMENT_PATH
     )
     # hand tuned dll, so that only necesarry dll are install and not all wxWidgets DLL to save space
@@ -202,14 +195,18 @@ IF(WIN32)
     ENDIF()
 
     INSTALL(FILES ${TIFF_DLL} ${JPEG_DLL} ${PNG_DLL} ${ZLIB_DLL} ${OPENEXR_DLL} ${VIGRA_DLL}
-        ${BOOST_DLLs} ${EXIV2_DLL} ${LIBEXPAT_DLL} ${GLEW_DLL} ${LCMS2_DLL}
+        ${BOOST_DLLs} ${EXIV2_DLL} ${GLEW_DLL} ${LCMS2_DLL}
         ${WXWIDGETS_DLL}
         DESTINATION ${BINDIR}
     )
+    IF(LIBEXPAT_DLL)
+      INSTALL(FILES ${LIBEXPAT_DLL}  DESTINATION ${BINDIR})
+    ENDIF()
     
     FIND_FILE(SQLITE3_DLL 
         NAMES sqlite3.dll libsqlite3.dll 
-        PATHS ${SOURCE_BASE_DIR}/sqlite3 NO_SYSTEM_ENVIRONMENT_PATH
+        PATHS ${SOURCE_BASE_DIR}/sqlite3 ${SOURCE_BASE_DIR}/Deploy/bin 
+        NO_SYSTEM_ENVIRONMENT_PATH
     )
     INSTALL(FILES ${SQLITE3_DLL} DESTINATION ${BINDIR})
 
@@ -221,6 +218,7 @@ IF(WIN32)
               ${SOURCE_BASE_DIR}/fftw-3.3.4/fftw-3.3-libs/
               ${SOURCE_BASE_DIR}/fftw-3.3.3/fftw-3.3-libs/x64 
               ${SOURCE_BASE_DIR}/fftw-3.3.3/fftw-3.3-libs/
+              ${SOURCE_BASE_DIR}/Deploy/bin
           NO_SYSTEM_ENVIRONMENT_PATH)
       INSTALL(FILES ${FFTW3_DLL} DESTINATION ${BINDIR})
     ENDIF()

@@ -112,7 +112,7 @@ else (EXIV2_INCLUDE_DIR AND EXIV2_LIBRARIES)
 
        find_library_with_debug(EXIV2EXPAT_LIBRARIES
           WIN32_DEBUG_POSTFIX d
-          NAMES libexpat expat
+          NAMES libexpat expat wxexpat
           PATHS 
             ${SOURCE_BASE_DIR}/expat/lib
             ${SOURCE_BASE_DIR}/exiv2/msvc2012/exiv2lib/x64/ReleaseDLL
@@ -124,6 +124,7 @@ else (EXIV2_INCLUDE_DIR AND EXIV2_LIBRARIES)
             ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/exiv2lib/x64/ReleaseDLL 
             ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/exiv2lib/Win32/ReleaseDLL 
             ${SOURCE_BASE_DIR}/expat-2.0.1/win32/bin/Release
+            ${wxWidgets_LIB_DIR}
        )
      ELSE(${HUGIN_SHARED})
        find_library_with_debug(EXIV2_LIBRARIES
@@ -134,8 +135,8 @@ else (EXIV2_INCLUDE_DIR AND EXIV2_LIBRARIES)
 
        find_library_with_debug(EXIV2EXPAT_LIBRARIES
           WIN32_DEBUG_POSTFIX d
-          NAMES libexpat expat
-          PATHS ${SYSTEM_LIB_DIRS} ${SOURCE_BASE_DIR}/expat/lib ${SOURCE_BASE_DIR}/exiv2/msvc2012/lib ${SOURCE_BASE_DIR}/exiv2/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.25/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.24/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.23/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.22/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.16/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.18/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.18.1/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.18.2/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.19/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.20/msvc/lib
+          NAMES libexpat expat wxexpat
+          PATHS ${SYSTEM_LIB_DIRS} ${SOURCE_BASE_DIR}/expat/lib ${SOURCE_BASE_DIR}/exiv2/msvc2012/lib ${SOURCE_BASE_DIR}/exiv2/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.25/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.24/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.23/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.22/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.16/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.18/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.18.1/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.18.2/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.19/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.20/msvc/lib ${wxWidgets_LIB_DIR}
        )
 
        # since exiv 0.19, xmpsdk needs explicit linked in static build
