@@ -8,7 +8,7 @@ IF(WIN32)
 #  CONFIGURE_FILE(platforms/windows/msi/big_banner.bmp ${CMAKE_CURRENT_BINARY_DIR}/INSTALL/big_banner.bmp COPYONLY)
 
   # install hugin readme, license etc.
-  INSTALL(FILES AUTHORS COPYING 
+  INSTALL(FILES AUTHORS COPYING.txt 
           DESTINATION doc/hugin)
 
   # find the path to enblend and panotools build directories

@@ -1,5 +1,5 @@
 # This file is part of hugin, a GUI for the panorama tools suite
-# Licence details can be found in the file COPYING.
+# Licence details can be found in the file COPYING.txt.
 #
 # Copyright (c) 2013 Kornel Benko, <Kornel.Benko@berlin.de>
 #

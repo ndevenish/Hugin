@@ -98,7 +98,7 @@ AboutDialog::AboutDialog(wxWindow *parent)
 	
 	// License
 	textCtrl = XRCCTRL(*this, "license_txt", wxTextCtrl);
-    strFile = huginApp::Get()->GetXRCPath() + wxT("data/COPYING");
+    strFile = huginApp::Get()->GetXRCPath() + wxT("data/COPYING.txt");
 #ifndef _WIN32
 	textCtrl->SetFont(font);
 #endif

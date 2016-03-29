@@ -19,7 +19,7 @@ configure_file(about.htm.in ${CMAKE_BINARY_DIR}/src/hugin1/hugin/xrc/data/about.
 INSTALL(FILES ${CMAKE_BINARY_DIR}/src/hugin1/hugin/xrc/data/about.htm DESTINATION ${HUGINDATADIR}/xrc/data)
 
 # license text for about dialog
-INSTALL(FILES ${CMAKE_SOURCE_DIR}/COPYING DESTINATION ${HUGINDATADIR}/xrc/data/)
+INSTALL(FILES ${CMAKE_SOURCE_DIR}/COPYING.txt DESTINATION ${HUGINDATADIR}/xrc/data/)
 
 IF (UNIX)
   INSTALL(FILES hugin.png ptbatcher.png DESTINATION ${DATADIR}/pixmaps)
