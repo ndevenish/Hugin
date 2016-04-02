@@ -14,6 +14,7 @@ IF(WIN32)
   # find the path to enblend and panotools build directories
   # and copy required binaries into hugin installation folder
   FIND_PATH(PANO13_EXE_DIR PTmender.exe 
+            ${SOURCE_BASE_DIR}/Deploy/bin
             ${PANO13_INCLUDE_DIR}/pano13/tools
             ${PANO13_INCLUDE_DIR}/pano13/tools/Release
             "${PANO13_INCLUDE_DIR}/pano13/tools/Release CMD/win32"
