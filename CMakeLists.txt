@@ -1,6 +1,6 @@
 
-# require at least cmake 2.8
-cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR )
+# require at least cmake 3.1
+cmake_minimum_required(VERSION 3.1.0 FATAL_ERROR )
 
 # prevent in-tree building
 if("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
@@ -106,9 +106,6 @@ include_directories( ${CMAKE_SOURCE_DIR}/src )
 # this function is not available on some systems, notably FreeBSD and Windows
 include(CheckFunctionExists)
 set(CMAKE_REQUIRED_LIBRARIES -lm)
-check_function_exists(log2 HAVE_LOG2)
-# use messages only for debug - on Windows they are extremely intrusive
-# message("LOG2 ${HAVE_LOG2}")
 check_function_exists(log1p HAVE_LOG1P)
 
 #
@@ -250,29 +247,10 @@ ENDIF(PANO13_FOUND)
 INCLUDE_DIRECTORIES(${PANO_INCLUDE_DIR})
 
 # Check CXX11 compiler
-
-OPTION(USE_BOOST "Set to true to use Boost instead of C++11 features" OFF)
-
-IF(USE_BOOST)
-  UNSET(USE_CXX11_THREAD)
-  UNSET(HAVE_CXX11)
-  MESSAGE(STATUS "Using Boost Thread")
-ELSE()
-  FIND_PACKAGE(CXX11Compiler)
-  IF(CXX11COMPILER_FOUND)
-    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CXX11_FLAG}")
-    SET(HAVE_CXX11 ON)
-  ELSE()
-    UNSET(HAVE_CXX11)
-  ENDIF()
-  IF(CXX11_THREAD)
-    SET(USE_CXX11_THREAD ON)
-    MESSAGE(STATUS "Using C++11 std::thread")
-  ELSE()
-    UNSET(USE_CXX11_THREAD)
-    MESSAGE(STATUS "Using Boost Thread")
-  ENDIF()
-ENDIF()
+SET(CMAKE_CXX_STANDARD 11)
+# necessary threads lib
+SET(THREADS_PREFER_PTHREAD_FLAG ON)
+FIND_PACKAGE(Threads REQUIRED)
 
 IF(WIN32)
   # for Windows Vista support
@@ -280,6 +258,7 @@ IF(WIN32)
 ENDIF(WIN32)
 
 # check if we have C++17 <filesystem> header
+INCLUDE(CheckCXXSourceCompiles)
 check_cxx_source_compiles(
   "
     #include <filesystem>
@@ -296,7 +275,7 @@ check_cxx_source_compiles(
   HAVE_STD_FILESYSTEM
 )
 
-IF(HAVE_STD_FILESYSTEM AND USE_CXX11_THREAD)
+IF(HAVE_STD_FILESYSTEM)
 # in this combination we don't need Boost anymore
 ELSE()
 ##
@@ -329,15 +308,7 @@ IF(WIN32)
   ENDIF()
 ENDIF(WIN32)
 
-IF(HAVE_STD_FILESYSTEM)
-  FIND_PACKAGE(Boost 1.47 COMPONENTS thread date_time iostreams)
-ELSE()
-  IF(USE_CXX11_THREAD)
-    FIND_PACKAGE(Boost 1.47 COMPONENTS filesystem system)
-  ELSE()
-    FIND_PACKAGE(Boost 1.47 COMPONENTS filesystem system thread date_time iostreams)
-  ENDIF()
-ENDIF()
+FIND_PACKAGE(Boost 1.47 COMPONENTS filesystem system)
 
 IF (NOT Boost_FOUND)
   IF(WIN32)

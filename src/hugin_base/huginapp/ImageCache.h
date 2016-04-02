@@ -28,12 +28,8 @@
 #include "hugin_config.h"
 #include <map>
 #include <vector>
-#include "hugin_utils/shared_ptr.h"
-#ifdef HAVE_CXX11
+#include <memory>
 #include <functional>
-#else
-#include <boost/function.hpp>
-#endif
 #include <vigra/stdimage.hxx>
 #include <vigra/imageinfo.hxx>
 #include <hugin_utils/utils.h>
@@ -58,11 +54,11 @@ class IMPEX ImageCache
 
     public:
         /// use reference counted pointers
-        typedef sharedPtrNamespace::shared_ptr<vigra::BRGBImage> ImageCacheRGB8Ptr;
-        typedef sharedPtrNamespace::shared_ptr<vigra::UInt16RGBImage> ImageCacheRGB16Ptr;
-        typedef sharedPtrNamespace::shared_ptr<vigra::FRGBImage> ImageCacheRGBFloatPtr;
-        typedef sharedPtrNamespace::shared_ptr<vigra::BImage> ImageCache8Ptr;
-        typedef sharedPtrNamespace::shared_ptr<vigra::ImageImportInfo::ICCProfile> ImageCacheICCProfile;
+        typedef std::shared_ptr<vigra::BRGBImage> ImageCacheRGB8Ptr;
+        typedef std::shared_ptr<vigra::UInt16RGBImage> ImageCacheRGB16Ptr;
+        typedef std::shared_ptr<vigra::FRGBImage> ImageCacheRGBFloatPtr;
+        typedef std::shared_ptr<vigra::BImage> ImageCache8Ptr;
+        typedef std::shared_ptr<vigra::ImageImportInfo::ICCProfile> ImageCacheICCProfile;
 
         /** information about an image inside the cache */
         struct IMPEX Entry
@@ -113,7 +109,7 @@ class IMPEX ImageCache
         };
 
         /** a shared pointer to the entry */
-        typedef sharedPtrNamespace::shared_ptr<Entry> EntryPtr;
+        typedef std::shared_ptr<Entry> EntryPtr;
         
         /** Request for an image to load
          *  Connect to the ready signal so when the image loads you can respond.
@@ -132,11 +128,7 @@ class IMPEX ImageCache
                  *  The image could be freed after the signal fires, but keeping
                  *  the EntryPtr prevents this.
                  */
-#ifdef HAVE_CXX11
                 std::vector <std::function<void(EntryPtr, std::string, bool)>> ready;
-#else
-                std::vector <boost::function<void(EntryPtr, std::string, bool)> > ready;
-#endif
                 bool getIsSmall() const
                     {return m_isSmall;};
                 const std::string & getFilename() const
@@ -156,7 +148,7 @@ class IMPEX ImageCache
          *
          * It is reference counted, so you can freely copy and delete it.
          */
-        typedef sharedPtrNamespace::shared_ptr<Request> RequestPtr;
+        typedef std::shared_ptr<Request> RequestPtr;
 
     private:
         // ctor. private, nobody execpt us can create an instance.

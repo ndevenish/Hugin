@@ -39,7 +39,7 @@ extern "C"
 {
 #include "pano13/queryfeature.h"
 }
-#if !(defined HAVE_STD_FILESYSTEM && defined HAVE_CXX11)
+#if !(defined HAVE_STD_FILESYSTEM)
 #include "boost/version.hpp"
 #endif
 #include "exiv2/exiv2.hpp"
@@ -188,11 +188,7 @@ void AboutDialog::GetSystemInformation(wxFont *font)
     text=text+wxT("\n")+wxString::Format(_("Path to data: %s"),huginApp::Get()->GetDataPath().c_str());
     HuginBase::LensDB::LensDB& lensDB=HuginBase::LensDB::LensDB::GetSingleton();
     text = text + wxT("\n") + wxString::Format(_("Hugins camera and lens database: %s"), wxString(lensDB.GetDBFilename().c_str(), wxConvLocal).c_str());
-#ifdef USE_CXX11_THREAD
     text = text + wxT("\n") + _("Multi-threading using C++11 std::thread and OpenMP");
-#else
-    text = text + wxT("\n") + _("Multi-threading using boost::thread and OpenMP");
-#endif
     if (huginApp::Get()->HasMonitorProfile())
     {
         text = text + wxT("\n") + wxString::Format(_("Monitor profile: %s"), huginApp::Get()->GetMonitorProfileName().c_str());
@@ -220,7 +216,7 @@ void AboutDialog::GetSystemInformation(wxFont *font)
             text = text + wxT("\nlibpano13: ") + wxString(panoVersion, wxConvLocal);
         };
     }
-#if !(defined HAVE_STD_FILESYSTEM && defined HAVE_CXX11)
+#if !(defined HAVE_STD_FILESYSTEM)
     text=text+wxT("\n")+wxString::Format(wxT("Boost: %i.%i.%i"),BOOST_VERSION / 100000, BOOST_VERSION / 100 % 1000, BOOST_VERSION % 100);
 #endif
     text = text + wxT("\n") + wxT("Exiv2: ") + wxString(Exiv2::version(), wxConvLocal);

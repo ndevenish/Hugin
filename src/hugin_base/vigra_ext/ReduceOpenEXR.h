@@ -54,8 +54,8 @@ void reduceFilesToHDR(std::vector<std::string> input, std::string output,
                       bool onlyCompleteOverlap, Functor & reduce)
 {
     typedef vigra::RGBValue<float> PixelType;
-    typedef sharedPtrNamespace::shared_ptr<Imf::RgbaInputFile> InFilePtr;
-    typedef sharedPtrNamespace::shared_ptr<vigra_ext::FileRAII> AutoFilePtr;
+    typedef std::shared_ptr<Imf::RgbaInputFile> InFilePtr;
+    typedef std::shared_ptr<vigra_ext::FileRAII> AutoFilePtr;
 
     // open all input files.
     std::vector<AutoFilePtr> inputGrayFiles;
@@ -104,8 +104,8 @@ void reduceFilesToHDR(std::vector<std::string> input, std::string output,
     if (nScanlines < 10) nScanlines = 10;
     DEBUG_DEBUG("processing " << nScanlines << " scanlines in one go");
 
-    typedef sharedPtrNamespace::shared_ptr<vigra::ArrayVector<vigra::UInt8> > Array8Ptr;
-    typedef sharedPtrNamespace::shared_ptr<Imf::Array2D<Imf::Rgba> > ArrayPtr;
+    typedef std::shared_ptr<vigra::ArrayVector<vigra::UInt8> > Array8Ptr;
+    typedef std::shared_ptr<Imf::Array2D<Imf::Rgba> > ArrayPtr;
     std::vector<ArrayPtr> inputArrays;
     std::vector<Array8Ptr> inputGrayArrays;
     std::vector<Imf::Rgba *> inputPtr(input.size());

@@ -35,11 +35,7 @@
 #include <vigra/inspectimage.hxx>
 #include <vigra/transformimage.hxx>
 #include <vigra/basicimageview.hxx>
-#ifdef HAVE_CXX11
 #include <functional>  // std::bind 
-#else
-#include <boost/bind.hpp>
-#endif
 
 #include "hugin/config_defaults.h"
 #include "hugin/CPImageCtrl.h"
@@ -925,11 +921,7 @@ void CPImageCtrl::setImage(const std::string & file, ImageRotation imgRot)
             // load the image in the background.
             m_imgRequest = ImageCache::getInstance().requestAsyncImage(imageFilename);
             m_imgRequest->ready.push_back(
-#ifdef HAVE_CXX11
                 std::bind(&CPImageCtrl::OnImageLoaded, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3)
-#else
-                boost::bind(&CPImageCtrl::OnImageLoaded, this, _1, _2, _3)
-#endif
                 );
             // With m_img.get() 0, everything will act as normal except drawing.
         }

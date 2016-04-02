@@ -32,11 +32,7 @@
 
 namespace Parser
 {
-#ifdef HAVE_CXX11
 typedef std::map<std::string, double> ConstantMap;
-#else
-typedef std::map<const char*, double> ConstantMap;
-#endif
 
 bool ParseExpression(const std::string& expression, double& result, const ConstantMap& constants = ConstantMap());
 void CleanUpParser();

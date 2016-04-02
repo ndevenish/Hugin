@@ -31,7 +31,7 @@
 #include <cmath>
 #include <algorithm>
 
-#include "hugin_utils/shared_ptr.h"
+#include <memory>
 
 #include <vigra/error.hxx>
 #include <vigra/functorexpression.hxx>
@@ -56,7 +56,7 @@
 typedef vigra::FRGBImage ImageType;
 
 // smart pointers to the images.
-typedef sharedPtrNamespace::shared_ptr<ImageType> ImagePtr;
+typedef std::shared_ptr<ImageType> ImagePtr;
 
 static int g_verbose = 0;
 

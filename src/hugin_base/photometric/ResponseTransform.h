@@ -27,19 +27,7 @@
 #include <vector>
 #include <functional>
 #include "hugin_config.h"
-#ifdef HAVE_CXX11
 #include <random>
-#define RANDOMGENERATOR std::mt19937
-#else
-#include <boost/version.hpp>
-#if BOOST_VERSION>104700
-#include <boost/random/taus88.hpp>
-#define RANDOMGENERATOR boost::random::taus88
-#else
-#include <boost/random/mersenne_twister.hpp>
-#define RANDOMGENERATOR boost::mt19937
-#endif
-#endif
 
 #include <vigra/stdimage.hxx>
 #include <vigra/numerictraits.hxx>
@@ -247,7 +235,7 @@ class InvResponseTransform : public ResponseTransform<VTIn>
         double m_intScale;
         
     private:
-        RANDOMGENERATOR Twister;
+        std::mt19937 Twister;
 };
 
 
@@ -469,7 +457,7 @@ void InvResponseTransform<VTIn,VTOut>::setOutput(double destExposure, const LUTD
 template <class VTIn, class VTOut>
 double InvResponseTransform<VTIn,VTOut>::dither(const double &v) const
 {
-    RANDOMGENERATOR &mt = const_cast<RANDOMGENERATOR &>(Twister);
+    std::mt19937 &mt = const_cast<std::mt19937 &>(Twister);
     double vFraction = v - floor(v);
     // Only dither values within a certain range of the rounding cutoff point.
     if (vFraction > 0.25 && vFraction <= 0.75) {

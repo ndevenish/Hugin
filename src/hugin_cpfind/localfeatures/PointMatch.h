@@ -21,7 +21,7 @@
 #ifndef __lfeatPointMatch_h
 #define __lfeatPointMatch_h
 
-#include "hugin_utils/shared_ptr.h"
+#include <memory>
 #include <vector>
 
 #include "KeyPoint.h"
@@ -49,7 +49,7 @@ struct PointMatch
 
 };
 
-typedef sharedPtrNamespace::shared_ptr<PointMatch> PointMatchPtr;
+typedef std::shared_ptr<PointMatch> PointMatchPtr;
 typedef std::vector<PointMatchPtr> PointMatchVector_t;
 
 class PointMatchPtrSort

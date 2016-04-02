@@ -35,11 +35,7 @@
 #include "base_wx/wxcms.h"
 #include <vector>
 #include <map>
-#ifdef HAVE_CXX11
 #include <functional>    // std::bind
-#else
-#include <boost/bind.hpp>
-#endif
 
 #include "hugin/ImagesPanel.h"
 #include "base_wx/CommandHistory.h"
@@ -474,11 +470,7 @@ void ImagesPanel::UpdatePreviewImage()
                 m_pano->getImage(m_showImgNr).getFilename());
         // When the image is ready, try this function again.
         thumbnail_request->ready.push_back(
-#ifdef HAVE_CXX11
             std::bind(&ImagesPanel::UpdatePreviewImage, this)
-#else
-            boost::bind(&ImagesPanel::UpdatePreviewImage, this)
-#endif
             );
     } else {
         // forget any request now the image has loaded.

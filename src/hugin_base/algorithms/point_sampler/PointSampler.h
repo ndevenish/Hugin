@@ -31,12 +31,8 @@
 #include <vigra/stdimage.hxx>
 #include <algorithms/PanoramaAlgorithm.h>
 
-#ifdef HAVE_CXX11
 #include <random>
 #include <functional>
-#else
-#include <boost/random.hpp>
-#endif
 #include <vigra_ext/utils.h>
 #include <appbase/ProgressDisplay.h>
 #include <panodata/PanoramaData.h>
@@ -468,26 +464,11 @@ void RandomPointSampler::sampleRandomPanoPoints(const std::vector<Img>& imgs,
     }
     // init random number generator
     const vigra::Rect2D roi = pano.getOptions().getROI();
-#ifdef HAVE_CXX11
     std::mt19937 rng(static_cast<unsigned int>(std::time(0)));
     std::uniform_int_distribution<unsigned int> distribx(roi.left(), roi.right()-1);
     std::uniform_int_distribution<unsigned int> distriby(roi.top(), roi.bottom()-1);
-
     auto randX = std::bind(distribx, std::ref(rng));
     auto randY = std::bind(distriby, std::ref(rng));
-#else
-    boost::mt19937 rng;
-    // start with a different seed every time.
-    rng.seed(static_cast<unsigned int>(std::time(0)));
-    // randomly sample points.
-    boost::uniform_int<> distribx(roi.left(), roi.right()-1);
-    boost::uniform_int<> distriby(roi.top(), roi.bottom()-1);
-
-    boost::variate_generator<boost::mt19937&, boost::uniform_int<> >
-            randX(rng, distribx);             // glues randomness with mapping
-    boost::variate_generator<boost::mt19937&, boost::uniform_int<> >
-            randY(rng, distriby);             // glues randomness with mapping
-#endif
 
     for (unsigned maxTry = nPoints*5; nPoints > 0 && maxTry > 0; maxTry--) {
         unsigned x = randX();

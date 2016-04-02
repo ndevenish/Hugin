@@ -113,16 +113,6 @@ Users compiling Hugin from source will need:
           without OpenMP nona and cpfind (and some other
           algorithm) are running only with one thread, 
           which is slower.
-        * C++11 support by the compiler is optional.
-          Otherwise the corrosponding Boost libraries are
-          used. Then you will need the header files and
-          the following boost libraries:
-              date_time
-              iostreams
-              thread
-          Boost have to be at least version 1.47
-          This behaviour can be forced by setting the CMake variable
-          USE_BOOST to true.
     
     The wxWidgets GUI toolkit version >=2.7.0. 2.9/3.0 is supported.
     C++17 TS <filesystem> or boost::filesystem (boost >=1.47)
@@ -131,7 +121,7 @@ Users compiling Hugin from source will need:
     libjpg the JPEG library
     libpng the PNG library
     libopenexr the OpenEXR library
-    libvigra the VIGRA libray, header files and impex library
+    libvigra the VIGRA libray, header files and impex library (>=1.9)
     Exiv2 Image metadata library
     GLEW the OpenGL Extension Wrangler Library
     gettext
@@ -151,7 +141,7 @@ Users compiling Hugin from source will need:
         Python version >=2.6
         SWIG >=2.0 - If Python >=3.2, SWIG must be >=2.0.4
     Hugin can be compiled with gcc, as well as with MSVC.
-    The build process requires CMake version >=2.8.12
+    The build process requires CMake version >=3.1
 
 
 3.2. At runtime

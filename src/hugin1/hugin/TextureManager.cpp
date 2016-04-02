@@ -37,11 +37,7 @@
 
 #include "vigra/stdimage.hxx"
 #include "vigra/resizeimage.hxx"
-#ifdef HAVE_CXX11
 #include <functional>  // std::bind
-#else
-#include <boost/bind.hpp>
-#endif
 #include "base_wx/wxImageCache.h"
 #include "photometric/ResponseTransform.h"
 #include "panodata/Mask.h"
@@ -421,11 +417,11 @@ void TextureManager::CheckUpdate()
             textures.erase(checkKey);
 
             std::pair<TexturesMap::iterator, bool> ins;
-            ins = textures.insert(std::pair<TextureKey, sharedPtrNamespace::shared_ptr<TextureInfo> >
+            ins = textures.insert(std::pair<TextureKey, std::shared_ptr<TextureInfo> >
                                  (TextureKey(img_p, &photometric_correct),
                 // the key is used to identify the image with (or without)
                 // photometric correction parameters.
-                              sharedPtrNamespace::make_shared<TextureInfo>(view_state, tex_width_p, tex_height_p)
+                              std::make_shared<TextureInfo>(view_state, tex_width_p, tex_height_p)
                             ));
            // create and upload the texture image
            TextureInfo* texinfo = (ins.first)->second.get();
@@ -559,7 +555,7 @@ void TextureManager::LoadingImageFinished(int min, int max,
     if (it != textures.end())
     {
         // new shared pointer to keep class alive
-        sharedPtrNamespace::shared_ptr<TextureInfo> tex(it->second);
+        std::shared_ptr<TextureInfo> tex(it->second);
         tex->DefineLevels(min, max, texture_photometric_correct, dest_img, state);
     };
 };
@@ -731,23 +727,13 @@ void TextureManager::TextureInfo::DefineLevels(int min,
         // this can happen if a new project is opened during the loading cycling
         // so we go about LoadingImageFinished to check if the texture is still needed
         m_imageRequest->ready.push_back(
-#ifdef HAVE_CXX11
             std::bind(&TextureManager::LoadingImageFinished, m_viewState->GetTextureManager(),
                       min, max, photometric_correct, dest_img, src_img)
-#else
-            boost::bind(&TextureManager::LoadingImageFinished, m_viewState->GetTextureManager(),
-                        min, max, photometric_correct, dest_img, src_img)
-#endif
         );
         // After that, redraw the preview.
         m_imageRequest->ready.push_back(
-#ifdef HAVE_CXX11
             std::bind(&GLPreviewFrame::redrawPreview,
                       huginApp::getMainFrame()->getGLPreview())
-#else
-            boost::bind(&GLPreviewFrame::redrawPreview,
-                        huginApp::getMainFrame()->getGLPreview())
-#endif
         );
         
         // make a temporary placeholder image.
@@ -834,8 +820,8 @@ void TextureManager::TextureInfo::DefineLevels(int min,
     // forget the request if we made one before.
     m_imageRequest = ImageCache::RequestPtr();
     DEBUG_INFO("Converting to 8 bits");
-    sharedPtrNamespace::shared_ptr<vigra::BRGBImage> img = entry->get8BitImage();
-    sharedPtrNamespace::shared_ptr<vigra::BImage> mask = entry->mask;
+    std::shared_ptr<vigra::BRGBImage> img = entry->get8BitImage();
+    std::shared_ptr<vigra::BImage> mask = entry->mask;
     // first make the biggest mip level.
     int wo = 1 << (width_p - min), ho = 1 << (height_p - min);
     if (wo < 1) wo = 1; if (ho < 1) ho = 1;

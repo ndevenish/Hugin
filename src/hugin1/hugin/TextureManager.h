@@ -40,7 +40,7 @@
 
 #include <string>
 #include <map>
-#include "hugin_utils/shared_ptr.h"
+#include <memory>
 #include <huginapp/ImageCache.h>
 #include "panodata/Panorama.h"
 
@@ -164,7 +164,7 @@ protected:
     };
     // we map filenames to TexturesInfos, so we can keep track of
     // images' textures when the numbers change.
-    typedef std::map<TextureKey, sharedPtrNamespace::shared_ptr<TextureInfo> > TexturesMap;
+    typedef std::map<TextureKey, std::shared_ptr<TextureInfo> > TexturesMap;
     TexturesMap textures;
     // Our pixel budget for all textures.
     unsigned int GetMaxTotalTexels();

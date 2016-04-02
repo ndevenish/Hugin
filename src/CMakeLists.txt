@@ -1,12 +1,13 @@
 
 # define common sets of libraries, used by different subdirectories
+SET(common_libs huginbase ${PANO_LIBRARIES} huginlevmar ${GLEW_LIBRARIES})
 IF (MSVC)
-  SET(common_libs huginbase hugingetopt ${PANO_LIBRARIES} huginlevmar)
+  SET(common_libs hugingetopt ${common_libs})
   include_directories( ${CMAKE_SOURCE_DIR}/src/foreign/getopt/include )
-ELSE (MSVC)
-  # need to specify boost thread library
-  SET(common_libs huginbase ${Boost_LIBRARIES} ${PANO_LIBRARIES} ${GLEW_LIBRARIES} huginlevmar ${CXX11_THREAD_ADDITIONAL_LIB})
-ENDIF (MSVC)
+ENDIF()
+IF(NOT HAVE_STD_FILESYSTEM)
+  SET(common_libs ${common_libs} ${Boost_LIBRARIES})
+ENDIF ()
 IF(LAPACK_FOUND)
   SET(common_libs ${common_libs} ${LAPACK_LIBRARIES})
 ENDIF()
@@ -17,19 +18,13 @@ ENDIF()
 set(image_libs ${VIGRA_LIBRARIES} ${OPENEXR_LIBRARIES} ${JPEG_LIBRARIES} ${TIFF_LIBRARIES}
     ${PNG_LIBRARIES} ${ZLIB_LIBRARIES} ${EXIV2_LIBRARIES})
 
-SET(common_libs ${common_libs} ${image_libs} ${LCMS2_LIBRARIES})
+SET(common_libs ${common_libs} ${image_libs} ${LCMS2_LIBRARIES} Threads::Threads)
 
 add_subdirectory(celeste)
 add_subdirectory(foreign)
 add_subdirectory(hugin_base)
 add_subdirectory(tools)
 add_subdirectory(deghosting)
-
-# build vips stuff, only if vips was found
-# not ready for the general public yet
-IF(VIPS_FOUND)
-#  add_subdirectory(vips)
-ENDIF(VIPS_FOUND)
 
 # hsi contains the Python interface. This add_ should be conditional,
 # depending on availability of SWIG and Python.
