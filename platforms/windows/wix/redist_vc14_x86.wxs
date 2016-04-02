@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+<Fragment>
+  <DirectoryRef Id="TARGETDIR">
+    <?if $(env.CommonProgramFiles(x86))?>
+      <Merge Id="VCRedist" SourceFile="$(env.CommonProgramFiles(x86))\Merge Modules\Microsoft_VC140_CRT_x86.msm" DiskId="1" Language="0"/>
+      <Merge Id="VCRedistOpenMP" SourceFile="$(env.CommonProgramFiles(x86))\Merge Modules\Microsoft_VC140_OpenMP_x86.msm" DiskId="1" Language="0"/>
+    <?else?>
+      <Merge Id="VCRedist" SourceFile="$(env.CommonProgramFiles)\Merge Modules\Microsoft_VC140_CRT_x86.msm" DiskId="1" Language="0"/>
+      <Merge Id="VCRedistOpenMP" SourceFile="$(env.CommonProgramFiles))\Merge Modules\Microsoft_VC140_OpenMP_x86.msm" DiskId="1" Language="0"/>
+    <?endif?>
+  </DirectoryRef>
+</Fragment>
+</Wix>
+

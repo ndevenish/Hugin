@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
+	<DirectoryRef Id="TARGETDIR">
+	  <Component Id="PTO.filetype" Guid="F63EC0FC-485E-410F-9965-076F7B94DC8C" KeyPath="yes">
+        <ProgId Id="Hugin.ptofile" Description="Hugin pto file" Icon="CM_FP_share.hugin.xrc.data.pto_icon.ico">
+          <Extension Id="pto" ContentType="application/x-ptoptimizer-script">
+            <Verb Id="open" Command="Open" TargetFile="CM_FP_bin.hugin.exe" Argument="&quot;%1&quot;" />
+            <Verb Id="stitch" Command="Stitch" TargetFile="CM_FP_bin.PTBatcherGUI.exe" Argument="&quot;%1&quot;" />
+          </Extension>
+        </ProgId>
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+</Wix>

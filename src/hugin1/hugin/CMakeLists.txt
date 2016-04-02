@@ -147,5 +147,9 @@ ELSE(APPLE)
   ENDIF(UNIX)
 ENDIF(APPLE)
 
+set_property(INSTALL "bin/$<TARGET_FILE_NAME:${PROGNAME}>"
+  PROPERTY CPACK_START_MENU_SHORTCUTS "Hugin - Panorama editor"
+)
+
 add_subdirectory(xrc)
 

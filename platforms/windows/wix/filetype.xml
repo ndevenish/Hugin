@@ -1,0 +1,11 @@
+<CPackWiXPatch>
+  <CPackWiXFragment Id="#PRODUCTFEATURE">
+    <ComponentRef Id="PTO.filetype"/>
+  </CPackWiXFragment>
+  <CPackWiXFragment Id="#PRODUCT">
+    <UIRef Id="WixUI_ErrorProgressText" />
+    <Condition Message="This application is only supported on Windows Vista or higher.">
+      <![CDATA[Installed OR (VersionNT >= 600)]]>
+    </Condition>
+  </CPackWiXFragment>
+</CPackWiXPatch>

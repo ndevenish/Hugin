@@ -16,3 +16,8 @@ IF(UNIX)
     # install further stuff (icons etc.)
     INSTALL(FILES calibrate_lens_gui.desktop DESTINATION ${DATADIR}/applications)
 ENDIF(UNIX)
+
+set_property(INSTALL "bin/$<TARGET_FILE_NAME:calibrate_lens_gui>"
+  PROPERTY CPACK_START_MENU_SHORTCUTS "Lens calibration GUI"
+)
+

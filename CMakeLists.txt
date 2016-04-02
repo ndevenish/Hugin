@@ -656,11 +656,12 @@ ELSE()
   SET(CPACK_PACKAGE_VERSION_PATCH "${V_PATCH}.${CPACK_PACKAGE_VERSION_PATCH}.local")
 ENDIF()
 
-SET(CPACK_PACKAGE_INSTALL_DIRECTORY "CMake ${V_MAJOR}.${V_MINOR}")
 SET(CPACK_SOURCE_PACKAGE_FILE_NAME "hugin-${V_MAJOR}.${V_MINOR}.${V_PATCH}")
-SET(CPACK_SOURCE_GENERATOR "TGZ;TBZ2")
+SET(CPACK_SOURCE_GENERATOR "TBZ2")
 SET(CPACK_PACKAGE_CONTACT "hugin-ptx@googlegroups.com")
-SET(CPACK_SET_DESTDIR "ON")
+IF(NOT WIN32)
+  SET(CPACK_SET_DESTDIR "ON")
+ENDIF()
 SET(CPACK_SOURCE_IGNORE_FILES
 "/_CPack_Packages/"
 "/CMakeCache.txt$"
@@ -780,6 +781,45 @@ SET(CPACK_RPM_USER_FILELIST
 message(STATUS "Current source dir = ${CMAKE_CURRENT_SOURCE_DIR}")
 SET(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA "${CMAKE_CURRENT_SOURCE_DIR}/Debian/postinst"
 				       "${CMAKE_CURRENT_SOURCE_DIR}/Debian/shlibs.local")
+
+IF(MSVC)
+# configure variables for wix toolset generator
+MATH(EXPR VERSION_WIN_MAJOR "${V_MAJOR}/100")
+MATH(EXPR VERSION_WIN_MINOR "${V_MAJOR}%100")
+SET(CPACK_PACKAGE_VERSION_MAJOR "${VERSION_WIN_MAJOR}")
+SET(CPACK_PACKAGE_VERSION_MINOR "${VERSION_WIN_MINOR}")
+SET(CPACK_PACKAGE_VERSION_PATCH "${V_MINOR}")
+SET(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/COPYING.txt")
+SET(CPACK_WIX_UPGRADE_GUID 1B85EFEB-F843-49C6-80D3-A539B035D319)
+# installing to start menu requires at least CMake 3.3
+cmake_minimum_required(VERSION 3.3.0 FATAL_ERROR )
+SET(CPACK_WIX_PROGRAM_MENU_FOLDER Hugin)
+SET(CPACK_WIX_UI_DIALOG "${CMAKE_SOURCE_DIR}/platforms/windows/wix/big_banner.bmp")
+SET(CPACK_WIX_UI_BANNER "${CMAKE_SOURCE_DIR}/platforms/windows/wix/top_banner.bmp")
+SET(CPACK_WIX_PRODUCT_ICON "${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/data/hugin.ico")
+SET(CPACK_PACKAGE_INSTALL_DIRECTORY "Hugin")
+SET(CPACK_PACKAGE_NAME "Hugin")
+SET(CPACK_PACKAGE_VENDOR "Hugin developer team")
+SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Hugin - Panorama photo stitcher")
+IF(MSVC14)
+  IF(CMAKE_CL_64)
+    SET(CPACK_WIX_EXTRA_SOURCES 
+      "${CMAKE_SOURCE_DIR}/platforms/windows/wix/redist_vc14_x64.wxs"
+      "${CMAKE_SOURCE_DIR}/platforms/windows/wix/filetype.wxs"
+    )
+  ELSE()
+    SET(CPACK_WIX_EXTRA_SOURCES
+      "${CMAKE_SOURCE_DIR}/platforms/windows/wix/redist_vc14_x86.wxs"
+      "${CMAKE_SOURCE_DIR}/platforms/windows/wix/filetype.wxs"
+    )
+  ENDIF()
+  SET(CPACK_WIX_PATCH_FILE "${CMAKE_SOURCE_DIR}/platforms/windows/wix/redist.xml")
+ELSE()
+  SET(CPACK_WIX_EXTRA_SOURCES "${CMAKE_SOURCE_DIR}/platforms/windows/wix/filetype.wxs")
+  SET(CPACK_WIX_PATCH_FILE "${CMAKE_SOURCE_DIR}/platforms/windows/wix/filetype.xml")
+ENDIF()
+ENDIF()
+				       
 INCLUDE(CPack)
 
 ##

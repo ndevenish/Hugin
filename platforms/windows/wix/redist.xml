@@ -1,0 +1,15 @@
+<CPackWiXPatch>
+  <CPackWiXFragment Id="#PRODUCTFEATURE">
+    <Feature Id="VCRedist" Title="Visual C++ 2015 Runtime" AllowAdvertise="no" Absent="disallow" Display="hidden" Level="1">
+      <MergeRef Id="VCRedist"/>
+      <MergeRef Id="VCRedistOpenMP"/>
+    </Feature>
+    <ComponentRef Id="PTO.filetype"/>
+  </CPackWiXFragment>
+  <CPackWiXFragment Id="#PRODUCT">
+    <UIRef Id="WixUI_ErrorProgressText" />
+    <Condition Message="This application is only supported on Windows Vista or higher.">
+      <![CDATA[Installed OR (VersionNT >= 600)]]>
+    </Condition>
+  </CPackWiXFragment>
+</CPackWiXPatch>

@@ -55,3 +55,7 @@ ELSE(APPLE)
   ENDIF (UNIX)
 ENDIF(APPLE)
 
+set_property(INSTALL "bin/$<TARGET_FILE_NAME:PTBatcherGUI>"
+  PROPERTY CPACK_START_MENU_SHORTCUTS "PTBatcherGUI - Batch processor"
+)
+
