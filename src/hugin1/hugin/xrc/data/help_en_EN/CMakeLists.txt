@@ -6,22 +6,32 @@ IF(WIN32)
 # directory and run hhc there
 
 FILE(GLOB HELPFILES 
-  RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
   *.htm *.html *.ico *.gif *.JPG *.jpg *.png *.xpm hugin_help_en_EN.hhp help_index_en.hhk help_toc_en.hhc hhc.cmake *.css
 )
 
 SET(HELP_DIR ${CMAKE_BINARY_DIR}/help)
 SET(HELPFILES2)  # empty list
 
+IF(EXISTS "${ENBLEND_DIR}/doc/enblend.html")
+  # when enblend has new documentation, we integate this new doc instead of files from wiki
+  LIST(REMOVE_ITEM HELPFILES "${CMAKE_CURRENT_SOURCE_DIR}/Enblend.html")
+  LIST(REMOVE_ITEM HELPFILES "${CMAKE_CURRENT_SOURCE_DIR}/Enfuse.html")
+  LIST(APPEND HELPFILES "${ENBLEND_DIR}/doc/enblend.html")
+  LIST(APPEND HELPFILES "${ENBLEND_DIR}/doc/enfuse.html")
+  FILE(GLOB ENBLEND_DOC_IMAGES ${ENBLEND_DIR}/doc/*.png)
+  LIST(APPEND HELPFILES ${ENBLEND_DOC_IMAGES})
+ENDIF()
+
 FOREACH(_file ${HELPFILES})
+  get_filename_component(_filename ${_file} NAME)
   ADD_CUSTOM_COMMAND(
-	OUTPUT "${HELP_DIR}/${_file}"
-    COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_SOURCE_DIR}/${_file}" "${HELP_DIR}/${_file}"
+    OUTPUT "${HELP_DIR}/${_filename}"
+    COMMAND ${CMAKE_COMMAND} -E copy "${_file}" "${HELP_DIR}/${_filename}"
     DEPENDS ${_file}
-    COMMENT "Copy ${_file} to ${HELP_DIR}"
+    COMMENT "Copy ${_filename} to ${HELP_DIR}"
   )
-  SET_SOURCE_FILES_PROPERTIES("${HELP_DIR}/${_file}" GENERATED)
-  LIST(APPEND HELPFILES2 "${HELP_DIR}/${_file}")
+  SET_SOURCE_FILES_PROPERTIES("${HELP_DIR}/${_filename}" GENERATED)
+  LIST(APPEND HELPFILES2 "${HELP_DIR}/${_filename}")
 ENDFOREACH()
 
 ADD_CUSTOM_COMMAND(

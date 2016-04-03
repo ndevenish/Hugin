@@ -51,35 +51,10 @@ IF(WIN32)
 
   # install enblend/enfuse files
 
-  FIND_PATH(ENBLEND_DIR bin/enblend.exe enblend.exe
-            PATHS 
-              ${SOURCE_BASE_DIR}/enblend-enfuse-4.2-win64 
-              ${SOURCE_BASE_DIR}/enblend-enfuse-4.2-win32 
-              ${SOURCE_BASE_DIR}/enblend-enfuse-4.1.5-win64 
-              ${SOURCE_BASE_DIR}/enblend-enfuse-4.1.5-win32 
-              ${SOURCE_BASE_DIR}/enblend-enfuse-4.1.4-win64 
-              ${SOURCE_BASE_DIR}/enblend-enfuse-4.1.4-win32 
-              ${SOURCE_BASE_DIR}/enblend-enfuse-4.1.3-win64 
-              ${SOURCE_BASE_DIR}/enblend-enfuse-4.1.3-win32 
-              ${SOURCE_BASE_DIR}/enblend-enfuse-4.1.2-win64 
-              ${SOURCE_BASE_DIR}/enblend-enfuse-4.1.2-win32 
-              ${SOURCE_BASE_DIR}/enblend-enfuse-4.1.1-win64 
-              ${SOURCE_BASE_DIR}/enblend-enfuse-4.1.1-win32 
-              ${SOURCE_BASE_DIR}/enblend-enfuse-4.1.1 
-              ${SOURCE_BASE_DIR}/enblend-enfuse-4.1 
-              ${SOURCE_BASE_DIR}/enblend-enfuse-4.0
-              ${SOURCE_BASE_DIR}/enblend-3.1
-              ${SOURCE_BASE_DIR}/enblend-enfuse-3.2
-              ${SOURCE_BASE_DIR}/enblend.build
-              ${SOURCE_BASE_DIR}/enblend
-            DOC "Location of enblend"
-            NO_DEFAULT_PATH
-            )
   FILE(GLOB ENBLEND_EXECUTABLES ${ENBLEND_DIR}/bin/*.exe ${ENBLEND_DIR}/bin/*.dll ${ENBLEND_DIR}/*.exe)
-  FILE(GLOB ENBLEND_DOC_FILES ${ENBLEND_DIR}/*.*)
+  FILE(GLOB ENBLEND_DOC_FILES ${ENBLEND_DIR}/doc/*.pdf)
   INSTALL(FILES ${ENBLEND_EXECUTABLES} DESTINATION ${BINDIR})
   INSTALL(FILES ${ENBLEND_DOC_FILES} DESTINATION doc/enblend)
-  INSTALL(DIRECTORY ${ENBLEND_DIR}/doc DESTINATION doc/enblend)
 
   # install exiftool
   FIND_PATH(EXIFTOOL_EXE_DIR exiftool.exe

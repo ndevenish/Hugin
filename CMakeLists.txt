@@ -306,6 +306,34 @@ IF(WIN32)
   IF(NOT BOOST_ROOT)
     SET(BOOST_ROOT ${SOURCE_BASE_DIR}/boost${Boost_root_suffix})
   ENDIF()
+  
+  FIND_PATH(ENBLEND_DIR bin/enblend.exe enblend.exe
+    PATHS 
+      ${SOURCE_BASE_DIR}/enblend-enfuse-4.2-win64 
+      ${SOURCE_BASE_DIR}/enblend-enfuse-4.2-win32 
+      ${SOURCE_BASE_DIR}/enblend-enfuse-4.1.5-win64 
+      ${SOURCE_BASE_DIR}/enblend-enfuse-4.1.5-win32 
+      ${SOURCE_BASE_DIR}/enblend-enfuse-4.1.4-win64 
+      ${SOURCE_BASE_DIR}/enblend-enfuse-4.1.4-win32 
+      ${SOURCE_BASE_DIR}/enblend-enfuse-4.1.3-win64 
+      ${SOURCE_BASE_DIR}/enblend-enfuse-4.1.3-win32 
+      ${SOURCE_BASE_DIR}/enblend-enfuse-4.1.2-win64 
+      ${SOURCE_BASE_DIR}/enblend-enfuse-4.1.2-win32 
+      ${SOURCE_BASE_DIR}/enblend-enfuse-4.1.1-win64 
+      ${SOURCE_BASE_DIR}/enblend-enfuse-4.1.1-win32 
+      ${SOURCE_BASE_DIR}/enblend-enfuse-4.1.1 
+      ${SOURCE_BASE_DIR}/enblend-enfuse-4.1 
+      ${SOURCE_BASE_DIR}/enblend-enfuse-4.0
+      ${SOURCE_BASE_DIR}/enblend-3.1
+      ${SOURCE_BASE_DIR}/enblend-enfuse-3.2
+      ${SOURCE_BASE_DIR}/enblend.build
+      ${SOURCE_BASE_DIR}/enblend
+    DOC "Location of enblend"
+    NO_DEFAULT_PATH
+  )
+  IF(NOT ENBLEND_DIR)
+    MESSAGE(FATAL_ERROR "enblend-enfuse files not found.")
+  ENDIF()
 ENDIF(WIN32)
 
 FIND_PACKAGE(Boost 1.47 COMPONENTS filesystem system)
