@@ -152,6 +152,7 @@ private:
 
     // my data
     HuginBase::Panorama * m_pano;
+    HuginBase::ConstStandardImageVariableGroups* m_imageGroups=nullptr;
     // current masks vector
     HuginBase::MaskPolygonVector m_currentMasks;
     HuginBase::MaskPolygon::MaskType m_defaultMaskType;
@@ -170,6 +171,7 @@ private:
     wxTextCtrl * m_top_textctrl;
     wxTextCtrl * m_bottom_textctrl;
     wxCheckBox * m_autocenter_cb;
+    wxCheckBox * m_cropLens;
     HuginBase::SrcPanoImage::CropMode m_cropMode;
     vigra::Rect2D m_cropRect;
     bool m_autoCenterCrop;

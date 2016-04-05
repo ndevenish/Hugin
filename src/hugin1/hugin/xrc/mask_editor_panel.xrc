@@ -217,6 +217,14 @@
                   <object class="wxBoxSizer">
                     <orient>wxVERTICAL</orient>
                     <object class="sizeritem">
+                      <object class="wxCheckBox" name="crop_all_images_lens">
+                        <label>All images of selected lens</label>
+                        <tooltip>Applies all changes to all images with the same lens as the selected image(s).</tooltip>
+                      </object>
+                      <flag>wxALL|wxALIGN_LEFT</flag>
+                      <border>3</border>
+                    </object>
+                    <object class="sizeritem">
                       <object class="wxGridBagSizer">
                         <object class="sizeritem">
                           <object class="wxBoxSizer">

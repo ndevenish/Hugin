@@ -135,25 +135,25 @@ bool MaskEditorPanel::Create(wxWindow* parent, wxWindowID id,
     //load and set colours
     wxColour defaultColour;
     defaultColour.Set(wxT(HUGIN_MASK_COLOUR_POLYGON_NEGATIVE));
-    wxColour colour=wxConfigBase::Get()->Read(wxT("/MaskEditorPanel/ColourPolygonNegative"),defaultColour.GetAsString(wxC2S_HTML_SYNTAX));
+    wxColour colour = config->Read(wxT("/MaskEditorPanel/ColourPolygonNegative"), defaultColour.GetAsString(wxC2S_HTML_SYNTAX));
     XRCCTRL(*this,"mask_editor_colour_polygon_negative",wxColourPickerCtrl)->SetColour(colour);
     m_editImg->SetUserColourPolygonNegative(colour);
     defaultColour.Set(wxT(HUGIN_MASK_COLOUR_POLYGON_POSITIVE));
-    colour=wxConfigBase::Get()->Read(wxT("/MaskEditorPanel/ColourPolygonPositive"),defaultColour.GetAsString(wxC2S_HTML_SYNTAX));
+    colour = config->Read(wxT("/MaskEditorPanel/ColourPolygonPositive"), defaultColour.GetAsString(wxC2S_HTML_SYNTAX));
     XRCCTRL(*this,"mask_editor_colour_polygon_positive",wxColourPickerCtrl)->SetColour(colour);
     m_editImg->SetUserColourPolygonPositive(colour);
     defaultColour.Set(wxT(HUGIN_MASK_COLOUR_POINT_SELECTED));
-    colour=wxConfigBase::Get()->Read(wxT("/MaskEditorPanel/ColourPointSelected"),defaultColour.GetAsString(wxC2S_HTML_SYNTAX));
+    colour = config->Read(wxT("/MaskEditorPanel/ColourPointSelected"), defaultColour.GetAsString(wxC2S_HTML_SYNTAX));
     XRCCTRL(*this,"mask_editor_colour_point_selected",wxColourPickerCtrl)->SetColour(colour);
     m_editImg->SetUserColourPointSelected(colour);
     defaultColour.Set(wxT(HUGIN_MASK_COLOUR_POINT_UNSELECTED));
-    colour=wxConfigBase::Get()->Read(wxT("/MaskEditorPanel/ColourPointUnselected"),defaultColour.GetAsString(wxC2S_HTML_SYNTAX));
+    colour = config->Read(wxT("/MaskEditorPanel/ColourPointUnselected"), defaultColour.GetAsString(wxC2S_HTML_SYNTAX));
     XRCCTRL(*this,"mask_editor_colour_point_unselected",wxColourPickerCtrl)->SetColour(colour);
     m_editImg->SetUserColourPointUnselected(colour);
 
     // other controls
     m_maskType = XRCCTRL(*this, "mask_editor_choice_masktype", wxChoice);
-    m_defaultMaskType=(HuginBase::MaskPolygon::MaskType)wxConfigBase::Get()->Read(wxT("/MaskEditorPanel/DefaultMaskType"), 0l);
+    m_defaultMaskType=(HuginBase::MaskPolygon::MaskType)config->Read(wxT("/MaskEditorPanel/DefaultMaskType"), 0l);
     m_maskType->SetSelection((int)m_defaultMaskType);
     // disable some controls
     m_maskType->Disable();
@@ -169,6 +169,11 @@ bool MaskEditorPanel::Create(wxWindow* parent, wxWindowID id,
     DEBUG_ASSERT(m_left_textctrl);
     m_left_textctrl->PushEventHandler(new TextKillFocusHandler(this));
 
+    m_cropLens = XRCCTRL(*this, "crop_all_images_lens", wxCheckBox);
+    DEBUG_ASSERT(m_cropLens);
+    bool doCropImagesLens;
+    config->Read(wxT("/MaskEditorPanel/CropImagesLens"), &doCropImagesLens, true);
+    m_cropLens->SetValue(doCropImagesLens);
     m_top_textctrl = XRCCTRL(*this,"crop_top_text", wxTextCtrl);
     DEBUG_ASSERT(m_top_textctrl);
     m_top_textctrl->PushEventHandler(new TextKillFocusHandler(this));
@@ -202,6 +207,7 @@ void MaskEditorPanel::Init(HuginBase::Panorama * pano)
 {
     m_pano=pano;
     m_imagesListMask->Init(m_pano);
+    m_imageGroups = new HuginBase::ConstStandardImageVariableGroups(*m_pano);
     // observe the panorama
     m_pano->addObserver(this);
 }
@@ -212,9 +218,16 @@ MaskEditorPanel::~MaskEditorPanel()
     m_right_textctrl->PopEventHandler(true);
     m_top_textctrl->PopEventHandler(true);
     m_bottom_textctrl->PopEventHandler(true);
-    wxConfigBase::Get()->Write(wxT("/MaskEditorPanel/ShowActiveMasks"),XRCCTRL(*this,"mask_editor_show_active_masks",wxCheckBox)->GetValue());
-    wxConfigBase::Get()->Write(wxT("/MaskEditorPanel/DefaultMaskType"),(long)m_defaultMaskType);
+    wxConfigBase* config = wxConfigBase::Get();
+    config->Write(wxT("/MaskEditorPanel/ShowActiveMasks"),XRCCTRL(*this,"mask_editor_show_active_masks",wxCheckBox)->GetValue());
+    config->Write(wxT("/MaskEditorPanel/DefaultMaskType"),(long)m_defaultMaskType);
+    config->Write(wxT("/MaskEditorPanel/CropImagesLens"), m_cropLens->GetValue());
+    
     DEBUG_TRACE("dtor");
+    if (m_imageGroups)
+    {
+        delete m_imageGroups;
+    }
     m_pano->removeObserver(this);
 }
 
@@ -353,6 +366,7 @@ void MaskEditorPanel::panoramaChanged(HuginBase::Panorama &pano)
 void MaskEditorPanel::panoramaImagesChanged(HuginBase::Panorama &pano, const HuginBase::UIntSet &changed)
 {
     unsigned int nrImages = pano.getNrOfImages();
+    m_imageGroups->update();
     ImageCache::getInstance().softFlush();
     if (nrImages==0)
         setImage(UINT_MAX);
@@ -773,17 +787,37 @@ void MaskEditorPanel::UpdateCrop(bool updateFromImgCtrl)
     {
         m_cropRect=m_editImg->getCrop();
     };
-    std::vector<HuginBase::SrcPanoImage> imgs;
-    for (HuginBase::UIntSet::iterator it = m_selectedImages.begin(); it != m_selectedImages.end(); ++it)
+    std::vector<HuginBase::SrcPanoImage> srcImgs;
+    HuginBase::UIntSet imgs;
+    if (m_cropLens->IsChecked())
     {
-        HuginBase::SrcPanoImage img=m_pano->getSrcImage(*it);
+        const HuginBase::UIntSetVector lensImageVector = m_imageGroups->getLenses().getPartsSet();
+        for (auto i : m_selectedImages)
+        {
+            for (auto j : lensImageVector)
+            {
+                if (set_contains(j, i))
+                {
+                    std::copy(j.begin(), j.end(), std::inserter(imgs, imgs.begin()));
+                    break;
+                };
+            };
+        };
+    }
+    else
+    {
+        std::copy(m_selectedImages.begin(), m_selectedImages.end(), std::inserter(imgs, imgs.begin()));
+    }
+    for (auto i:imgs)
+    {
+        HuginBase::SrcPanoImage img=m_pano->getSrcImage(i);
         img.setCropRect(m_cropRect);
         img.setAutoCenterCrop(m_autoCenterCrop);
-        imgs.push_back(img);
+        srcImgs.push_back(img);
     };
 
     PanoCommand::GlobalCmdHist::getInstance().addCommand(
-            new PanoCommand::UpdateSrcImagesCmd(*m_pano, m_selectedImages, imgs)
+            new PanoCommand::UpdateSrcImagesCmd(*m_pano, imgs, srcImgs)
     );
 }
 
