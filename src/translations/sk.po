@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2016-03-24 11:36+0100\n"
-"PO-Revision-Date: 2016-03-24 10:40+0000\n"
+"POT-Creation-Date: 2016-04-08 18:53+0200\n"
+"PO-Revision-Date: 2016-04-08 17:01+0000\n"
 "Last-Translator: Kornel Benko <kornel@lyx.org>\n"
 "Language-Team: Slovak <kornel@lyx.org>\n"
 "Language: sk\n"
@@ -1184,10 +1184,6 @@ msgstr "Huginova databáza pre kamery a šošovky: %s"
 #: hugin1/hugin/AboutDialog.cpp:192
 msgid "Multi-threading using C++11 std::thread and OpenMP"
 msgstr "Viaccestné použitím C++11 std::thread a OpenMP"
-
-#: hugin1/hugin/AboutDialog.cpp:194
-msgid "Multi-threading using boost::thread and OpenMP"
-msgstr "Viaccestné použitím boost::thread a OpenMP"
 
 #: hugin1/hugin/AboutDialog.cpp:198
 #, c-format
@@ -3973,6 +3969,10 @@ msgstr "Príprava na prerušenie..."
 msgid "Initializing suspend mode..."
 msgstr "Inicializácia stavu prerušenia..."
 
+#: hugin1/ptbatcher/Batch.cpp:663
+msgid "Specify project file"
+msgstr "Určite súbor s projektom"
+
 #: hugin1/ptbatcher/Batch.cpp:636
 #: hugin1/stitch_project/hugin_stitch_project.cpp:377
 msgid "Specify project source project file"
@@ -5754,6 +5754,10 @@ msgstr "Spustiť a&sistenta"
 msgid "Send to assistant &queue"
 msgstr "Poslať do frontu asistenta"
 
+#: hugin1/hugin/xrc/main_menu.xrc:28
+msgid "Optimize only active &images"
+msgstr "Optimizuj len aktívne obrázky"
+
 #: hugin1/hugin/xrc/main_menu.xrc:28 hugin1/hugin/xrc/preview_frame.xrc:1849
 msgid "&Optimize"
 msgstr "Op&timalizovať"
@@ -6202,6 +6206,17 @@ msgstr "Farba"
 #: hugin1/hugin/xrc/mask_editor_panel.xrc:197
 msgid "Show extent of active masks and crop"
 msgstr "Zobraz presah aktívnych masiek a orez"
+
+#: hugin1/hugin/xrc/mask_editor_panel.xrc:221
+msgid "All images of selected lens"
+msgstr "Všetky obrázky zvolených šošoviek"
+
+#: hugin1/hugin/xrc/mask_editor_panel.xrc:222
+msgid ""
+"Applies all changes to all images with the same lens as the selected "
+"image(s)."
+msgstr ""
+"Uplatní všetky zmeny na každý orázok so stejnou šošovkou ako vybrané obrázky."
 
 #: hugin1/hugin/xrc/mask_editor_panel.xrc:226
 #: hugin1/hugin/xrc/pano_panel.xrc:364
@@ -7999,6 +8014,9 @@ msgstr ""
 "Optimalizácia všetkých parametrov skreslenia \"všetko\" má zmysel iba vtedy, "
 "ak sa obrázky veľmi prekrývajú a použili ste tiež mnoho dobre rozprestrených "
 "kontrolných bodov."
+
+#~ msgid "Multi-threading using boost::thread and OpenMP"
+#~ msgstr "Viaccestné použitím boost::thread a OpenMP"
 
 #~ msgid "Seam mode:"
 #~ msgstr "Režim spájania:"
