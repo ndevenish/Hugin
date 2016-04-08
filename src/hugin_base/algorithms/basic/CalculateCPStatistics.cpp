@@ -38,10 +38,11 @@ namespace HuginBase {
 void CalculateCPStatisticsError::calcCtrlPntsErrorStats(const PanoramaData& pano,
                                                         double & min, double & max, double & mean,
                                                         double & var,
-                                                        const int& imgNr)
+                                                        const int& imgNr,
+                                                        const bool onlyActive)
 {
     const CPVector& cps = pano.getCtrlPoints();
-    
+    const UIntSet activeImgs(pano.getActiveImages());
     max = 0;
     min = 1000000;
     mean = 0;
@@ -54,6 +55,10 @@ void CalculateCPStatisticsError::calcCtrlPntsErrorStats(const PanoramaData& pano
         {
             continue;
         }
+        if (onlyActive && (!set_contains(activeImgs, it->image1Nr) || !set_contains(activeImgs, it->image2Nr)))
+        {
+            continue;
+        };
         n++;
         double x = (*it).error;
         double delta = x - mean;

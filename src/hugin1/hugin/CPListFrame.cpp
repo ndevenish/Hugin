@@ -168,26 +168,30 @@ wxString CPListCtrl::OnGetItemText(long item, long column) const
 
 void CPListCtrl::panoramaChanged(HuginBase::Panorama &pano)
 {
+    m_onlyActiveImages = MainFrame::Get()->GetOptimizeOnlyActiveImages();
     UpdateInternalCPList();
-    SetItemCount(m_pano->getNrOfCtrlPoints());
+    SetItemCount(m_internalCPList.size());
     Refresh();
 };
 
 void CPListCtrl::UpdateInternalCPList()
 {
     const HuginBase::CPVector& cps = m_pano->getCtrlPoints();
+    const HuginBase::UIntSet activeImgs = m_pano->getActiveImages();
     // Rebuild the global->local CP map on each update as CPs might have been
     // removed.
     m_localIds.clear();
-
-    if (m_internalCPList.size() != cps.size())
-    {
-        m_internalCPList.resize(cps.size());
-    };
+    m_internalCPList.clear();
+    m_internalCPList.reserve(cps.size());
     for (size_t i = 0; i < cps.size(); i++)
     {
-        m_internalCPList[i].globalIndex = i;
         const HuginBase::ControlPoint& cp = cps[i];
+        if (m_onlyActiveImages && (!set_contains(activeImgs, cp.image1Nr) || !set_contains(activeImgs, cp.image2Nr)))
+        {
+            continue;
+        };
+        CPListItem cpListItem;
+        cpListItem.globalIndex = i;
         std::string pairId = makePairId(cp.image1Nr, cp.image2Nr);
         std::map<std::string, int>::iterator it = m_localIds.find(pairId);
         if (it != m_localIds.end())
@@ -198,7 +202,8 @@ void CPListCtrl::UpdateInternalCPList()
         {
             m_localIds[pairId] = 0;
         }
-        m_internalCPList[i].localNumber=m_localIds[pairId];
+        cpListItem.localNumber=m_localIds[pairId];
+        m_internalCPList.push_back(cpListItem);
     };
     SortInternalList(true);
 };

@@ -103,6 +103,9 @@ class IMPEX CalculateCPStatisticsError : public CalculateCPStatistics
         CalculateCPStatisticsError(PanoramaData& panorama, const int& imgNr=-1)
          : CalculateCPStatistics(panorama, imgNr)
         {};
+        CalculateCPStatisticsError(PanoramaData& panorama, const bool onlyActive)
+            :CalculateCPStatistics(panorama, -1), m_onlyActiveImages(onlyActive)
+        {};
         
         ///
         virtual ~CalculateCPStatisticsError() {};
@@ -113,7 +116,8 @@ class IMPEX CalculateCPStatisticsError : public CalculateCPStatistics
         static void calcCtrlPntsErrorStats(const PanoramaData& pano,
                                            double & min, double & max, double & mean,
                                            double & var,
-                                           const int& imgNr=-1);
+                                           const int& imgNr=-1, 
+                                           const bool onlyActive=false);
         
         
     public:
@@ -123,10 +127,11 @@ class IMPEX CalculateCPStatisticsError : public CalculateCPStatistics
             calcCtrlPntsErrorStats(o_panorama, 
                                    o_resultMin, o_resultMax, o_resultMean,
                                    o_resultVar,
-                                   o_imageNumber);
+                                   o_imageNumber, m_onlyActiveImages);
             return true; // let's hope so.
         }
-        
+    private:
+        bool m_onlyActiveImages = false;
 };
 
 

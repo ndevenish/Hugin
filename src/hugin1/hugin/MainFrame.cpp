@@ -232,6 +232,7 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_BUTTON(XRCID("ID_SHOW_GL_PREVIEW_FRAME"), MainFrame::OnToggleGLPreviewFrame)
 
     EVT_MENU(XRCID("action_optimize"),  MainFrame::OnOptimize)
+    EVT_MENU(XRCID("action_optimize_only_active"), MainFrame::OnOnlyActiveImages)
     EVT_BUTTON(XRCID("action_optimize"),  MainFrame::OnOptimize)
     EVT_MENU(XRCID("action_finetune_all_cp"), MainFrame::OnFineTuneAll)
 //    EVT_BUTTON(XRCID("action_finetune_all_cp"), MainFrame::OnFineTuneAll)
@@ -360,6 +361,7 @@ MainFrame::MainFrame(wxWindow* parent, HuginBase::Panorama & pano)
     m_menu_file_advanced=wxXmlResource::Get()->LoadMenu(wxT("file_menu_advanced"));
     mainMenu->Insert(0, m_menu_file_simple, _("&File"));
     SetMenuBar(mainMenu);
+    SetOptimizeOnlyActiveImages(m_optOnlyActiveImages);
 
 #ifdef HUGIN_HSI
     wxMenuBar* menubar=GetMenuBar();
@@ -1387,6 +1389,31 @@ void MainFrame::OnOptimize(wxCommandEvent & e)
     wxCommandEvent dummy;
     opt_panel->OnOptimizeButton(dummy);
 }
+
+void MainFrame::OnOnlyActiveImages(wxCommandEvent &e)
+{
+    m_optOnlyActiveImages = GetMenuBar()->IsChecked(XRCID("action_optimize_only_active"));
+    opt_panel->SetOnlyActiveImages(m_optOnlyActiveImages);
+    // notify all observer so they can update their display
+    pano.changeFinished();
+};
+
+void MainFrame::SetOptimizeOnlyActiveImages(const bool onlyActive)
+{
+    m_optOnlyActiveImages = onlyActive;
+    wxMenuBar* menubar = GetMenuBar();
+    if (menubar)
+    {
+        menubar->Check(XRCID("action_optimize_only_active"), onlyActive);
+        // notify all observer so they can update their display
+        pano.changeFinished();
+    };
+};
+
+const bool MainFrame::GetOptimizeOnlyActiveImages() const
+{
+    return m_optOnlyActiveImages;
+};
 
 void MainFrame::OnPhotometricOptimize(wxCommandEvent & e)
 {

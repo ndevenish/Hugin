@@ -107,6 +107,9 @@ public:
     const wxString & GetXRCPath();
     /** get the path to data directory */
     const wxString & GetDataPath();
+    /** sets the status of the "optimize only active images" menu item */
+    void SetOptimizeOnlyActiveImages(const bool onlyActive);
+    const bool GetOptimizeOnlyActiveImages() const;
 
     /// hack.. kind of a pseudo singleton...
     static MainFrame * Get();
@@ -128,6 +131,7 @@ public:
     // TODO: create a nice generic optimisation & stitching function
     // instead of these gateway functions to the optimizer and pano panels.
     void OnOptimize(wxCommandEvent & e);
+    void OnOnlyActiveImages(wxCommandEvent &e);
     void OnPhotometricOptimize(wxCommandEvent & e);
     void OnDoStitch(wxCommandEvent & e);
     void OnUserDefinedStitch(wxCommandEvent & e);
@@ -269,6 +273,8 @@ private:
     // file menu
     wxMenu* m_menu_file_simple;
     wxMenu* m_menu_file_advanced;
+    // sticky setting, to prevent reading to often
+    bool m_optOnlyActiveImages;
 
 #ifdef __WXMSW__
 #if wxCHECK_VERSION(3,1,1)

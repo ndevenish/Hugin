@@ -52,6 +52,7 @@ BEGIN_EVENT_TABLE(OptimizePanel, wxPanel)
     EVT_CLOSE(OptimizePanel::OnClose)
     EVT_BUTTON(XRCID("optimize_panel_optimize"), OptimizePanel::OnOptimizeButton)
     EVT_BUTTON(XRCID("optimize_panel_reset"), OptimizePanel::OnReset)
+    EVT_CHECKBOX(XRCID("optimizer_panel_only_active_images"), OptimizePanel::OnCheckOnlyActiveImages)
 END_EVENT_TABLE()
 
 
@@ -81,6 +82,7 @@ bool OptimizePanel::Create(wxWindow* parent, wxWindowID id , const wxPoint& pos,
     m_only_active_images_cb = XRCCTRL(*this, "optimizer_panel_only_active_images", wxCheckBox);
     DEBUG_ASSERT(m_only_active_images_cb);
     m_only_active_images_cb->SetValue(wxConfigBase::Get()->Read(wxT("/OptimizePanel/OnlyActiveImages"),1l) != 0);
+    MainFrame::Get()->SetOptimizeOnlyActiveImages(m_only_active_images_cb->GetValue());
 
     m_images_tree_list = XRCCTRL(*this, "optimize_panel_images", ImagesTreeCtrl);
     DEBUG_ASSERT(m_images_tree_list);
@@ -300,7 +302,7 @@ bool OptimizePanel::AskApplyResult(wxWindow* activeWindow, const HuginBase::Pano
     double max;
     double mean;
     double var;
-    HuginBase::CalculateCPStatisticsError::calcCtrlPntsErrorStats(pano, min, max, mean, var);
+    HuginBase::CalculateCPStatisticsError::calcCtrlPntsErrorStats(pano, min, max, mean, var, -1, m_only_active_images_cb->IsChecked());
 
     // check for HFOV lines. if smaller than 1 report a warning;
     // also check for high distortion coefficients.
@@ -369,6 +371,16 @@ void OptimizePanel::OnReset(wxCommandEvent& e)
         PanoCommand::GlobalCmdHist::getInstance().addCommand(cmd);
     };
 
+};
+
+void OptimizePanel::OnCheckOnlyActiveImages(wxCommandEvent &e)
+{
+    MainFrame::Get()->SetOptimizeOnlyActiveImages(m_only_active_images_cb->IsChecked());
+};
+
+void OptimizePanel::SetOnlyActiveImages(const bool onlyActive)
+{
+    m_only_active_images_cb->SetValue(onlyActive);
 };
 
 IMPLEMENT_DYNAMIC_CLASS(OptimizePanel, wxPanel)

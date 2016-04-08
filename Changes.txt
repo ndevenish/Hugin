@@ -2,6 +2,10 @@ Hugin 2016.2
 * Allow reading of image positions from Papywizard XML files.
 * Internal blender and verdandi got the possibility to blend seams as alternative to
   current hard seam.
+* The display of the control point error (after optimizing and in fast preview window)
+  and the control point list window can now limited to take only control points in active
+  images into account (menu Edit>Optimize only active images, connected with the setting
+  on the optimizer tab).
 
 ============================================================================================
 Hugin 2016.0

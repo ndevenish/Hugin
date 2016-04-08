@@ -24,6 +24,12 @@
       <object class="wxMenuItem" name="action_batch_assistant">
         <label>Send to assistant &amp;queue</label>
       </object>
+      <object class="wxMenuItem" name="action_optimize_only_active">
+        <label>Optimize only active &amp;images</label>
+        <help>Only use control points between images selected in preview window. Useful to avoid errors due to badly fitting images, such as the nadir image in most fisheye panoramas</help>
+        <checkable>1</checkable>
+        <checked>1</checked>
+      </object>
       <object class="wxMenuItem" name="action_optimize">
         <label>&amp;Optimize</label>
         <accel>Ctrl-t</accel>

@@ -56,6 +56,10 @@ public:
 
     /** run the optimizer */
     void OnOptimizeButton(wxCommandEvent & e);
+    /** handle "only active images" checkbox */
+    void OnCheckOnlyActiveImages(wxCommandEvent &e);
+    /** for external setting of "only active image" checkbox */
+    void SetOnlyActiveImages(const bool onlyActive);
     void SetGuiLevel(GuiLevel newGuiLevel);
 
 protected:

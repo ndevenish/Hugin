@@ -81,6 +81,7 @@ private:
     // current sorting column
     int m_sortCol;
     bool m_sortAscend;
+    bool m_onlyActiveImages = false;
     std::vector<CPListItem> m_internalCPList;
     std::map<std::string, int> m_localIds;
 
