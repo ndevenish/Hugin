@@ -806,7 +806,7 @@ void MaskEditorPanel::UpdateCrop(bool updateFromImgCtrl)
     }
     else
     {
-        std::copy(m_selectedImages.begin(), m_selectedImages.end(), std::inserter(imgs, imgs.begin()));
+        imgs = m_selectedImages;
     }
     for (auto i:imgs)
     {
