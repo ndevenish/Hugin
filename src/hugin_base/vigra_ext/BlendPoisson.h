@@ -271,7 +271,7 @@ void SimpleConvolveImage4(const Image1& image1, Image2& image2, const double fac
  *    labels has now the following values:
  *     0: no image here
  *     1: use information from image 1
- *     4: use information from image 2
+ *     5: use information from image 2
  *  output: contains the following pixel values
  *     0: no information available
  *     1: at boundary between image 1 and 2: here we use Dirichlet boundary condition
