@@ -36,10 +36,6 @@
 #include <hugin_math/hugin_math.h>
 #include <hugin_utils/utils.h>
 #include <appbase/ProgressDisplay.h>
-#include <hugin_config.h>
-#ifdef HAVE_OPENMP
-#include <omp.h>
-#endif
 
 namespace vigra_ext
 {
