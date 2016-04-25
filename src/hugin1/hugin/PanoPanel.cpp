@@ -1072,7 +1072,7 @@ void PanoPanel::DoStitch()
         DEBUG_ERROR("hugin_stitch_project could not be found in the bundle.");
         return;
     }
-    hugin_stitch_project = wxQuoteFilename(hugin_stitch_project);
+    hugin_stitch_project = hugin_utils::wxQuoteFilename(hugin_stitch_project);
 #elif defined __WXMAC__
     // HuginStitchProject installed in INSTALL_OSX_BUNDLE_DIR
     wxFileName hugin_stitch_project_app(wxT(INSTALL_OSX_BUNDLE_DIR), wxEmptyString);
@@ -1256,7 +1256,7 @@ void PanoPanel::DoSendToBatch()
 			//Found PTBatcherGui inside the (registered) PTBatcherGui bundle. Call it directly.
 			//We need to call the binary from it's own bundle and not from the hugin bundle otherwise we get no menu as OSX assumes that the hugin bundle
 			//will provide the menu
-			cmd = wxQuoteString(cmd); 
+			cmd = hugin_utils::wxQuoteString(cmd); 
             cmd += wxT(" ")+switches+hugin_utils::wxQuoteFilename(projectFile)+wxT(" ")+hugin_utils::wxQuoteFilename(dlg.GetPath());	
 			wxExecute(cmd);
 		}
@@ -1341,7 +1341,7 @@ void PanoPanel::DoUserDefinedStitch()
         DEBUG_ERROR("hugin_stitch_project could not be found in the bundle.");
         return;
     }
-    hugin_stitch_project = wxQuoteFilename(hugin_stitch_project);
+    hugin_stitch_project = hugin_utils::wxQuoteFilename(hugin_stitch_project);
 #elif defined __WXMAC__
     // HuginStitchProject installed in INSTALL_OSX_BUNDLE_DIR
     wxFileName hugin_stitch_project_app(wxT(INSTALL_OSX_BUNDLE_DIR), wxEmptyString);
