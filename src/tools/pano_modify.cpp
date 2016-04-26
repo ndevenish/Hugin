@@ -28,6 +28,7 @@
 
 #include <fstream>
 #include <sstream>
+#include <cmath>
 #include <getopt.h>
 #ifndef _WIN32
 #include <unistd.h>
@@ -743,13 +744,13 @@ int main(int argc, char* argv[])
         pano.setOptions(opt);
     };
     // rotate complete pano
-    if (abs(yaw) + abs(pitch) + abs(roll) > 0.0)
+    if (std::abs(yaw) + std::abs(pitch) + std::abs(roll) > 0.0)
     {
         std::cout << "Rotate panorama (yaw=" << yaw << ", pitch= " << pitch << ", roll=" << roll << ")" << std::endl;
         HuginBase::RotatePanorama(pano, yaw, pitch, roll).run();
     };
     // translate complete pano
-    if(abs(x) + abs(y) + abs(z) > 0.0)
+    if(std::abs(x) + std::abs(y) + std::abs(z) > 0.0)
     {
         std::cout << "Translate panorama (x=" << x << ", y=" << y << ", z=" << z << ")" << std::endl;
         HuginBase::TranslatePanorama(pano, x, y, z).run();
