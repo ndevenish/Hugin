@@ -113,6 +113,7 @@ namespace HuginBase
                 cmsCloseProfile(profile);
             }
             profileName.Clear();
+            profile = NULL;
             detail::GetMonitorProfile(profileName, profile);
             // check if monitor profile could be successful loaded, if not switch back to default sRGB profile
             if (profile == NULL)
