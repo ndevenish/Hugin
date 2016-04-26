@@ -33,6 +33,9 @@
 #else
 #include <wx/intl.h>
 #endif
+#if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
+#include "base_wx/platform.h"
+#endif
 #include "base_wx/wxPlatform.h"
 
 namespace HuginQueue
@@ -135,10 +138,10 @@ namespace HuginQueue
 
         if (fn == wxT(""))
         {
-            std::cerr << wxString::Format(_("External program %s not found in the bundle, reverting to system path"), file.c_str());
+            std::cerr << wxString::Format(_("External program %s not found in the bundle, reverting to system path"), name.c_str());
             return name;
         }
-        return filename;
+        return fn;
 #else
         return bindir + name;
 #endif
@@ -171,7 +174,7 @@ namespace HuginQueue
             }
             else
             {
-                std::cerr << wxString::Format(_("WARNING: External program %s not found in the bundle, reverting to system path"), file.c_str());
+                std::cerr << wxString::Format(_("WARNING: External program %s not found in the bundle, reverting to system path"), name.c_str());
                 return wxT("exiftool");
             };
         };
