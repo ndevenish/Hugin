@@ -148,7 +148,7 @@ public:
     }
 
     /** returns the monitor profile, if no monitor profile was found the sRGB profile is used instead */
-    const cmsHPROFILE& GetMonitorProfile() const
+    const cmsHPROFILE GetMonitorProfile() const
     {
         return m_monitorProfile;
     }
