@@ -68,6 +68,12 @@ protected:
     void OnClose(wxCloseEvent& e);
     /** event to populate information on the right */
     void OnSelectPossiblePano(wxCommandEvent &e);
+    /** event handler for context menu */
+    void OnListItemRightClick(wxListEvent &e);
+    /** event handler to remove selected image from list */
+    void OnRemoveImage(wxCommandEvent &e);
+    /** event handler to split into 2 panos */
+    void OnSplitPanos(wxCommandEvent &e);
 
 private:
     BatchFrame* m_batchframe;
@@ -86,6 +92,7 @@ private:
     wxSpinCtrl* m_sc_minNumberImages;
     wxSpinCtrl* m_sc_maxTimeDiff;
     wxImageList* m_thumbs;
+    wxListCtrl* m_thumbsList;
     wxChoice* m_ch_blender;
 
     std::vector<PossiblePano*> m_panos;
@@ -151,12 +158,19 @@ public:
     wxString GetDuration();
     /** add all images to wxListCtrl */
     void PopulateListCtrl(wxListCtrl* list, wxImageList* thumbs);
+    /** removes the image at given index */
+    void RemoveImage(const unsigned int index);
+    /** split pano into 2 subpanos, index is used as first image of second pano
+      @returns pointer to second subpano */
+    PossiblePano* SplitPano(const unsigned int index);
 
 private:
     /** does some reformating date/time format */
     const wxDateTime GetDateTime(const HuginBase::SrcPanoImage* img);
     /** returns a given filename, which does not already exists */
     bool GetNewProjectFilename(NamingConvention nc,const wxString basePath, wxFileName& projectFile);
+    /** updates the internal date/time representations */
+    void UpdateDateTimes();
 
     std::string m_make;
     std::string m_camera;

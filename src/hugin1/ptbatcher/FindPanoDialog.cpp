@@ -40,12 +40,21 @@
 #include "base_wx/LensTools.h"
 #include "panodata/StandardImageVariableGroups.h"
 
+enum
+{
+    ID_REMOVE_IMAGE = wxID_HIGHEST + 300,
+    ID_SPLIT_PANOS = wxID_HIGHEST + 301
+};
+
 BEGIN_EVENT_TABLE(FindPanoDialog,wxDialog)
     EVT_BUTTON(XRCID("find_pano_close"), FindPanoDialog::OnButtonClose)
     EVT_BUTTON(XRCID("find_pano_select_dir"), FindPanoDialog::OnButtonChoose)
     EVT_BUTTON(XRCID("find_pano_start_stop"), FindPanoDialog::OnButtonStart)
     EVT_BUTTON(XRCID("find_pano_add_queue"), FindPanoDialog::OnButtonSend)
     EVT_LISTBOX(XRCID("find_pano_list"), FindPanoDialog::OnSelectPossiblePano)
+    EVT_LIST_ITEM_RIGHT_CLICK(XRCID("find_pano_selected_thumbslist"), FindPanoDialog::OnListItemRightClick)
+    EVT_MENU(ID_REMOVE_IMAGE, FindPanoDialog::OnRemoveImage)
+    EVT_MENU(ID_SPLIT_PANOS, FindPanoDialog::OnSplitPanos)
     EVT_CLOSE(FindPanoDialog::OnClose)
 END_EVENT_TABLE()
 
@@ -157,12 +166,12 @@ FindPanoDialog::FindPanoDialog(BatchFrame* batchframe, wxString xrcPrefix)
     SelectListValue(m_ch_blender, i);
     m_button_send->Disable();
     m_thumbs = new wxImageList(THUMBSIZE, THUMBSIZE, true, 0);
-    wxListCtrl* thumbs_list = XRCCTRL(*this, "find_pano_selected_thumbslist", wxListCtrl);
-    thumbs_list->SetImageList(m_thumbs, wxIMAGE_LIST_NORMAL);
+    m_thumbsList = XRCCTRL(*this, "find_pano_selected_thumbslist", wxListCtrl);
+    m_thumbsList->SetImageList(m_thumbs, wxIMAGE_LIST_NORMAL);
 #ifdef _WIN32
     // default image spacing is too big, wxWidgets does not provide direct 
     // access to the spacing, so using the direct API function
-    ListView_SetIconSpacing(thumbs_list->GetHandle(), THUMBSIZE + 20, THUMBSIZE + 20);
+    ListView_SetIconSpacing(m_thumbsList->GetHandle(), THUMBSIZE + 20, THUMBSIZE + 20);
 #endif
 };
 
@@ -353,7 +362,7 @@ void FindPanoDialog::OnSelectPossiblePano(wxCommandEvent &e)
         XRCCTRL(*this, "find_pano_selected_lens", wxStaticText)->SetLabel(m_panos[selected]->GetLensName());
         XRCCTRL(*this, "find_pano_selected_focallength", wxStaticText)->SetLabel(m_panos[selected]->GetFocalLength());
         XRCCTRL(*this, "find_pano_selected_date_time", wxStaticText)->SetLabel(m_panos[selected]->GetStartString() + wxT(" (")+ m_panos[selected]->GetDuration() + wxT(")"));
-        m_panos[selected]->PopulateListCtrl(XRCCTRL(*this, "find_pano_selected_thumbslist", wxListCtrl), m_thumbs);
+        m_panos[selected]->PopulateListCtrl(m_thumbsList, m_thumbs);
     }
     else
     {
@@ -361,10 +370,121 @@ void FindPanoDialog::OnSelectPossiblePano(wxCommandEvent &e)
         XRCCTRL(*this, "find_pano_selected_lens", wxStaticText)->SetLabel(wxEmptyString);
         XRCCTRL(*this, "find_pano_selected_focallength", wxStaticText)->SetLabel(wxEmptyString);
         XRCCTRL(*this, "find_pano_selected_date_time", wxStaticText)->SetLabel(wxEmptyString);
-        XRCCTRL(*this, "find_pano_selected_thumbslist", wxListCtrl)->DeleteAllItems();
+        m_thumbsList->DeleteAllItems();
         m_thumbs->RemoveAll();
     };
 };
+
+void FindPanoDialog::OnListItemRightClick(wxListEvent &e)
+{
+    // build menu
+    wxMenu contextMenu;
+    contextMenu.Append(ID_REMOVE_IMAGE, _("Remove image from project"));
+    const int selectedPano = m_list_pano->GetSelection();
+    long imageIndex = -1;
+    imageIndex = m_thumbsList->GetNextItem(imageIndex, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
+    if(imageIndex > 1 && imageIndex <= static_cast<long>(m_panos[selectedPano]->GetImageCount()) - 2)
+    {
+        contextMenu.Append(ID_SPLIT_PANOS, _("Split here into two panoramas"));
+    }
+    // show popup menu
+    PopupMenu(&contextMenu);
+};
+
+void FindPanoDialog::OnRemoveImage(wxCommandEvent &e)
+{
+    const int selectedPano = m_list_pano->GetSelection();
+    if (selectedPano != wxNOT_FOUND)
+    {
+        if (m_panos[selectedPano]->GetImageCount() < 3)
+        {
+            // handle special case if pano contains after removing only 1 image
+            wxMessageDialog message(this, _("Removing the image from the panorama will also remove the panorama from the list, because it contains then only one image. Do you want to remove the panorama?"),
+#ifdef __WXMSW__
+                _("PTBatcherGUI"),
+#else
+                wxT(""),
+#endif
+                wxYES_NO | wxICON_INFORMATION);
+#if wxCHECK_VERSION(3,0,0)
+            message.SetYesNoLabels(_("Remove image and panorama"), _("Keep panorama"));
+#endif
+            if (message.ShowModal() == wxID_YES)
+            {
+                // remove the pano
+                delete m_panos[selectedPano];
+                m_panos.erase(m_panos.begin() + selectedPano);
+                // update the list of possible panos
+                m_list_pano->Delete(selectedPano);
+                // clear the labels
+                wxCommandEvent dummy;
+                OnSelectPossiblePano(dummy);
+            };
+        }
+        else
+        {
+            long imageIndex = -1;
+            imageIndex = m_thumbsList->GetNextItem(imageIndex, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
+            if (imageIndex != wxNOT_FOUND)
+            {
+                // remove image from possible pano
+                m_panos[selectedPano]->RemoveImage(imageIndex);
+                // now remove from the wxListCtrl
+                m_thumbsList->DeleteItem(imageIndex);
+                // update the pano list
+                m_list_pano->SetString(selectedPano, m_panos[selectedPano]->GetItemString(m_start_dir));
+                // update the labels above
+                wxCommandEvent dummy;
+                OnSelectPossiblePano(dummy);
+            };
+        };
+    };
+};
+
+void FindPanoDialog::OnSplitPanos(wxCommandEvent &e)
+{
+    const int selectedPano = m_list_pano->GetSelection();
+    if (selectedPano != wxNOT_FOUND)
+    {
+        long imageIndex = -1;
+        imageIndex = m_thumbsList->GetNextItem(imageIndex, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
+        if (imageIndex != wxNOT_FOUND)
+        {
+            if (imageIndex <= 1 || imageIndex > static_cast<long>(m_panos[selectedPano]->GetImageCount()) - 2)
+            {
+                wxMessageBox(_("The panorama can't be split at this position because one subpanorama would contain only one image."),
+#ifdef __WXMSW__
+                    wxT("PTBatcherGUI"),
+#else
+                    wxEmptyString,
+#endif
+                    wxOK | wxICON_EXCLAMATION);
+            }
+            else
+            {
+                // do split
+                PossiblePano* newSubPano = m_panos[selectedPano]->SplitPano(imageIndex);
+                if (newSubPano->GetImageCount() > 0)
+                {
+                    // insert new pano into internal list
+                    m_panos.insert(m_panos.begin() + selectedPano + 1, newSubPano);
+                    // update pano list
+                    m_list_pano->SetString(selectedPano, m_panos[selectedPano]->GetItemString(m_start_dir));
+                    int newItem = m_list_pano->Insert(m_panos[selectedPano + 1]->GetItemString(m_start_dir), selectedPano + 1);
+                    m_list_pano->Check(newItem, true);
+                    // update display
+                    wxCommandEvent dummy;
+                    OnSelectPossiblePano(dummy);
+                }
+                else
+                {
+                    wxBell();
+                    delete newSubPano;
+                };
+            };
+        };
+    };
+}
 
 int SortWxFilenames(const wxString& s1,const wxString& s2)
 {
@@ -497,7 +617,7 @@ void FindPanoDialog::SearchInDir(wxString dirstring, const bool includeSubdir, c
 
 PossiblePano::~PossiblePano()
 {
-    if(m_images.size()>0)
+    if(!m_images.empty())
     {
         for(ImageSet::reverse_iterator it=m_images.rbegin(); it!=m_images.rend(); ++it)
         {
@@ -912,3 +1032,60 @@ void PossiblePano::PopulateListCtrl(wxListCtrl* list, wxImageList* thumbs)
         list->InsertItem(list->GetItemCount(), fn.GetFullName(), index);
     };
 };
+
+void PossiblePano::RemoveImage(const unsigned int index)
+{
+    // remove image with given index
+    if (index < m_images.size())
+    {
+        ImageSet::iterator item = m_images.begin();
+        std::advance(item, index);
+        delete *item;
+        m_images.erase(item);
+        //update the internal times
+        UpdateDateTimes();
+    };
+}
+
+PossiblePano* PossiblePano::SplitPano(const unsigned int index)
+{
+    PossiblePano* newPano = new PossiblePano();
+    if (index < m_images.size())
+    {
+        // now move all images to right pano
+        ImageSet allImages = m_images;
+        m_images.clear();
+        ImageSet::iterator img = allImages.begin();
+        while (m_images.size() < index && img != allImages.end())
+        {
+            m_images.insert(*img);
+            ++img;
+        };
+        while (img != allImages.end())
+        {
+            newPano->AddSrcPanoImage(*img);
+            ++img;
+        }
+        UpdateDateTimes();
+    };
+    return newPano;
+}
+
+void PossiblePano::UpdateDateTimes()
+{
+    // update internal stored start and end time
+    m_dt_start = GetDateTime(*m_images.begin());
+    m_dt_end = m_dt_start;
+    for (auto& img : m_images)
+    {
+        wxDateTime dt = GetDateTime(img);
+        if (dt.IsEarlierThan(m_dt_start))
+        {
+            m_dt_start = dt;
+        }
+        if (dt.IsLaterThan(m_dt_end))
+        {
+            m_dt_end = dt;
+        };
+    };
+}
