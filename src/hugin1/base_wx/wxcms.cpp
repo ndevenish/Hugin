@@ -35,8 +35,26 @@ namespace HuginBase
     {
         namespace detail
         {
-
-#ifdef __WXGTK__
+#ifdef __WXMSW__
+            // retrieve monitor profile from Windows
+            // TODO: support for multi-monitor setups
+            void GetMonitorProfile(wxString& profileName, cmsHPROFILE& profile)
+            {
+                // look up monitor profile in system
+                HDC hdc = GetDC(NULL);
+                if (hdc)
+                {
+                    wxChar filename[MAX_PATH];
+                    DWORD len;
+                    if (GetICMProfile(hdc, &len, filename))
+                    {
+                        profileName = filename;
+                        profile = cmsOpenProfileFromFile(profileName.c_str(), "r");
+                    };
+                    ReleaseDC(NULL, hdc);
+                };
+            };
+#elif defined __WXGTK__
             cmsHPROFILE GetProfileFromAtom(Display* disp, const char* prop_name)
             {
                 Atom atom = XInternAtom(disp, prop_name, True);
@@ -67,25 +85,11 @@ namespace HuginBase
                 };
                 return NULL;
             }
-#endif
 
+            // retrieve monitor profile from X system
+            // TODO: support for multi-monitor setups
             void GetMonitorProfile(wxString& profileName, cmsHPROFILE& profile)
             {
-#ifdef __WXMSW__
-                // look up monitor profile in system
-                HDC hdc = GetDC(NULL);
-                if (hdc)
-                {
-                    wxChar filename[MAX_PATH];
-                    DWORD len;
-                    if (GetICMProfile(hdc, &len, filename))
-                    {
-                        profileName = filename;
-                        profile = cmsOpenProfileFromFile(profileName.c_str(), "r");
-                    };
-                    ReleaseDC(NULL, hdc);
-                };
-#elif __WXGTK__
                 Display *disp = XOpenDisplay(0);
                 if (disp)
                 {
@@ -102,8 +106,13 @@ namespace HuginBase
                     XSync(disp, False);
                     XCloseDisplay(disp);
                 };
+            };
+#else
+            // general case, does nothing
+            void GetMonitorProfile(wxString& profileName, cmsHPROFILE& profile)
+            {
+            };
 #endif
-            }
         }
 
         void GetMonitorProfile(wxString& profileName, cmsHPROFILE& profile)
