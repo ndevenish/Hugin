@@ -110,7 +110,7 @@ bool checkDestinationDirectory(std::string dir, fs::path& pathTo)
             if(!fs::create_directories(pathTo))
             {
                 std::cerr << "ERROR: Could not create destination directory: " << pathTo.string() << std::endl
-                          << "Maybe you have not sufficent rights to create this directory." << std::endl;
+                          << "Maybe you have not sufficient rights to create this directory." << std::endl;
                 return false;
             };
         };

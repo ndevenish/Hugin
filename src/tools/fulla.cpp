@@ -478,7 +478,7 @@ int main(int argc, char* argv[])
                         if (fabs(currentImg.getExifAperture()) < 0.1)
                         {
                             std::cerr << "Could not determine aperture." << std::endl
-                                << "Specifiy aperture (--aperture) as parameter." << std::endl;
+                                << "Specify aperture (--aperture) as parameter." << std::endl;
                             continue;
                         };
                     }

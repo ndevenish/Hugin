@@ -466,7 +466,7 @@ std::string GetUserAppDataDir()
         if (!fs::create_directories(path))
         {
             std::cerr << "ERROR: Could not create destination directory: " << path.string() << std::endl
-                << "Maybe you have not sufficent rights to create this directory." << std::endl;
+                << "Maybe you have not sufficient rights to create this directory." << std::endl;
             return std::string();
         };
     };
