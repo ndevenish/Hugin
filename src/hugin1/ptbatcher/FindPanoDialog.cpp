@@ -379,8 +379,11 @@ void FindPanoDialog::OnListItemRightClick(wxListEvent &e)
 {
     // build menu
     wxMenu contextMenu;
-    contextMenu.Append(ID_REMOVE_IMAGE, _("Remove image from project"));
     const int selectedPano = m_list_pano->GetSelection();
+    if (m_panos[selectedPano]->GetImageCount() > 2)
+    {
+        contextMenu.Append(ID_REMOVE_IMAGE, _("Remove image from project"));
+    };
     long imageIndex = -1;
     imageIndex = m_thumbsList->GetNextItem(imageIndex, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
     if(imageIndex > 1 && imageIndex <= static_cast<long>(m_panos[selectedPano]->GetImageCount()) - 2)
@@ -388,7 +391,10 @@ void FindPanoDialog::OnListItemRightClick(wxListEvent &e)
         contextMenu.Append(ID_SPLIT_PANOS, _("Split here into two panoramas"));
     }
     // show popup menu
-    PopupMenu(&contextMenu);
+    if (contextMenu.GetMenuItemCount() > 0)
+    {
+        PopupMenu(&contextMenu);
+    };
 };
 
 void FindPanoDialog::OnRemoveImage(wxCommandEvent &e)
@@ -396,32 +402,7 @@ void FindPanoDialog::OnRemoveImage(wxCommandEvent &e)
     const int selectedPano = m_list_pano->GetSelection();
     if (selectedPano != wxNOT_FOUND)
     {
-        if (m_panos[selectedPano]->GetImageCount() < 3)
-        {
-            // handle special case if pano contains after removing only 1 image
-            wxMessageDialog message(this, _("Removing the image from the panorama will also remove the panorama from the list, because it contains then only one image. Do you want to remove the panorama?"),
-#ifdef __WXMSW__
-                _("PTBatcherGUI"),
-#else
-                wxT(""),
-#endif
-                wxYES_NO | wxICON_INFORMATION);
-#if wxCHECK_VERSION(3,0,0)
-            message.SetYesNoLabels(_("Remove image and panorama"), _("Keep panorama"));
-#endif
-            if (message.ShowModal() == wxID_YES)
-            {
-                // remove the pano
-                delete m_panos[selectedPano];
-                m_panos.erase(m_panos.begin() + selectedPano);
-                // update the list of possible panos
-                m_list_pano->Delete(selectedPano);
-                // clear the labels
-                wxCommandEvent dummy;
-                OnSelectPossiblePano(dummy);
-            };
-        }
-        else
+        if (m_panos[selectedPano]->GetImageCount() > 2)
         {
             long imageIndex = -1;
             imageIndex = m_thumbsList->GetNextItem(imageIndex, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
@@ -450,17 +431,7 @@ void FindPanoDialog::OnSplitPanos(wxCommandEvent &e)
         imageIndex = m_thumbsList->GetNextItem(imageIndex, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
         if (imageIndex != wxNOT_FOUND)
         {
-            if (imageIndex <= 1 || imageIndex > static_cast<long>(m_panos[selectedPano]->GetImageCount()) - 2)
-            {
-                wxMessageBox(_("The panorama can't be split at this position because one subpanorama would contain only one image."),
-#ifdef __WXMSW__
-                    wxT("PTBatcherGUI"),
-#else
-                    wxEmptyString,
-#endif
-                    wxOK | wxICON_EXCLAMATION);
-            }
-            else
+            if (imageIndex > 1 && imageIndex <= static_cast<long>(m_panos[selectedPano]->GetImageCount()) - 2)
             {
                 // do split
                 PossiblePano* newSubPano = m_panos[selectedPano]->SplitPano(imageIndex);
