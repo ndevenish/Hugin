@@ -24,9 +24,15 @@
  */
 
 #include "wxcms.h"
+#include "hugin_utils/utils.h"
 #ifdef __WXGTK__
 #include <X11/Xlib.h>
-#include "hugin_utils/utils.h"
+#endif
+#ifdef __WXMAC__
+#include <ApplicationServices/ApplicationServices.h>
+#include <CoreFoundation/CoreFoundation.h>
+#include "wx/osx/core/cfstring.h"
+#include <wx/osx/private.h>
 #endif
 
 namespace HuginBase
@@ -105,6 +111,83 @@ namespace HuginBase
                     }
                     XSync(disp, False);
                     XCloseDisplay(disp);
+                };
+            };
+#elif defined __WXMAC__
+            // retrieve monitor profile for Mac
+            typedef struct {
+                CFUUIDRef dispuuid;
+                CFURLRef url;
+            } ColorsyncIteratorData;
+
+            static bool ColorSyncIterateCallback(CFDictionaryRef dict, void *data)
+            {
+                ColorsyncIteratorData *iterData = (ColorsyncIteratorData *)data;
+                CFStringRef str;
+                CFUUIDRef uuid;
+                CFBooleanRef iscur;
+
+                if (!CFDictionaryGetValueIfPresent(dict, kColorSyncDeviceClass, (const void**)&str))
+                {
+                    DEBUG_INFO("kColorSyncDeviceClass failed");
+                    return true;
+                }
+                if (!CFEqual(str, kColorSyncDisplayDeviceClass))
+                {
+                    return true;
+                }
+                if (!CFDictionaryGetValueIfPresent(dict, kColorSyncDeviceID, (const void**)&uuid))
+                {
+                    DEBUG_INFO("kColorSyncDeviceID failed");
+                    return true;
+                }
+                if (!CFEqual(uuid, iterData->dispuuid))
+                {
+                    return true;
+                }
+                if (!CFDictionaryGetValueIfPresent(dict, kColorSyncDeviceProfileIsCurrent, (const void**)&iscur))
+                {
+                    DEBUG_INFO("kColorSyncDeviceProfileIsCurrent failed");
+                    return true;
+                }
+                if (!CFBooleanGetValue(iscur))
+                {
+                    return true;
+                }
+                if (!CFDictionaryGetValueIfPresent(dict, kColorSyncDeviceProfileURL, (const void**)&(iterData->url)))
+                {
+                    DEBUG_INFO("Could not get current profile URL");
+                    return true;
+                }
+                CFRetain(iterData->url);
+                return false;
+            }
+
+            void GetMonitorProfile(wxString& profileName, cmsHPROFILE& profile)
+            {
+                ColorsyncIteratorData data;
+                data.dispuuid = CGDisplayCreateUUIDFromDisplayID(CGMainDisplayID());
+                if (data.dispuuid == NULL)
+                {
+                    DEBUG_INFO("CGDisplayCreateUUIDFromDisplayID() failed.");
+                    return;
+                }
+                data.url = NULL;
+                ColorSyncIterateDeviceProfiles(ColorSyncIterateCallback, (void *)&data);
+                CFRelease(data.dispuuid);
+
+                CFStringRef urlstr = CFURLCopyFileSystemPath(data.url, kCFURLPOSIXPathStyle);
+                CFRelease(data.url);
+                if (urlstr == NULL)
+                {
+                    DEBUG_INFO("Failed to get URL in CFString");
+                }
+                else
+                {
+                    CFRetain(urlstr);
+                    profileName = wxCFStringRef(urlstr).AsString(wxLocale::GetSystemEncoding());
+                    profile = cmsOpenProfileFromFile(profileName.c_str(), "r");
+                    DEBUG_INFO("Found profile: " << profileName.c_str());
                 };
             };
 #else
