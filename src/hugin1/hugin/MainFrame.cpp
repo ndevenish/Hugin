@@ -567,6 +567,7 @@ MainFrame::MainFrame(wxWindow* parent, HuginBase::Panorama & pano)
 #endif
 #endif
     //reload gui level
+    m_guiLevel=GUI_ADVANCED;
     long guiLevel=config->Read(wxT("/GuiLevel"),(long)0);
     guiLevel = std::max<long>(0, std::min<long>(2, guiLevel));
     if(guiLevel==GUI_SIMPLE && disableOpenGL)

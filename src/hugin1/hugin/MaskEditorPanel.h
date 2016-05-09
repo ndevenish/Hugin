@@ -174,7 +174,7 @@ private:
     wxCheckBox * m_cropLens;
     HuginBase::SrcPanoImage::CropMode m_cropMode;
     vigra::Rect2D m_cropRect;
-    bool m_autoCenterCrop;
+    bool m_autoCenterCrop = true;
     vigra::Point2D m_cropCenter;
 
     DECLARE_EVENT_TABLE();

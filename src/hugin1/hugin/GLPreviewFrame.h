@@ -253,7 +253,7 @@ public:
     
 protected:
 
-    bool GLresize;
+    bool GLresize = true;
 
     void OnClose(wxCloseEvent& e);
 
