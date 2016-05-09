@@ -48,6 +48,9 @@ bool PTBatcherGUI::OnInit()
     SetAppName(wxT("hugin"));
 
 #if defined __WXMSW__
+#if defined _MSC_VER && defined Hugin_shared
+    std::locale::global(std::locale(""));
+#endif
     int localeID = wxConfigBase::Get()->Read(wxT("language"), (long) wxLANGUAGE_DEFAULT);
     m_locale.Init(localeID);
     // initialize help provider

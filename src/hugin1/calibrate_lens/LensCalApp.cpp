@@ -92,6 +92,9 @@ bool LensCalApp::OnInit()
     config->Flush();
 
     // initialize i18n
+#if defined _MSC_VER && defined Hugin_shared
+    std::locale::global(std::locale(""));
+#endif
     int localeID = config->Read(wxT("language"), (long) HUGIN_LANGUAGE);
     DEBUG_TRACE("localeID: " << localeID);
     {

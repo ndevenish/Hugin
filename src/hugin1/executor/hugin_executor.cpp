@@ -92,6 +92,9 @@ class HuginExecutor : public APP
         wxConfigBase::Set(config);
 
         // initialize i18n
+#if defined _MSC_VER && defined Hugin_shared
+        std::locale::global(std::locale(""));
+#endif
         int localeID = config->Read(wxT("language"), (long)HUGIN_LANGUAGE);
         m_locale.Init(localeID);
         // set the name of locale recource to look for
