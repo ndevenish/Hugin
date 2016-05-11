@@ -898,12 +898,14 @@ GLPreviewFrame::~GLPreviewFrame()
         preview_helper->DeactivateTool(identify_tool); delete identify_tool;
         preview_helper->DeactivateTool(difference_tool); delete difference_tool;
         preview_helper->DeactivateTool(pano_mask_tool); delete pano_mask_tool;
+        preview_helper->DeactivateTool(preview_control_point_tool); delete preview_control_point_tool;
     }
     if (panosphere_overview_identify_tool) {
         panosphere_overview_helper->DeactivateTool(overview_drag_tool); delete overview_drag_tool;
         panosphere_overview_helper->DeactivateTool(panosphere_overview_identify_tool); delete panosphere_overview_identify_tool;
         panosphere_overview_helper->DeactivateTool(panosphere_difference_tool); delete panosphere_difference_tool;
         panosphere_overview_helper->DeactivateTool(panosphere_sphere_tool); delete panosphere_sphere_tool;
+        panosphere_overview_helper->DeactivateTool(panosphere_control_point_tool); delete panosphere_control_point_tool;
     }
     if (plane_overview_identify_tool) {
         plane_overview_helper->DeactivateTool(plane_overview_identify_tool); delete plane_overview_identify_tool;
