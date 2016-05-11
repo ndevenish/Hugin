@@ -566,6 +566,7 @@ TextureManager::TextureInfo::TextureInfo(ViewState *new_view_state)
     DEBUG_ASSERT(0);
     m_viewState=new_view_state;
     has_active_masks=false;
+    has_mask=false;
     CreateTexture();
 }
 
@@ -574,6 +575,7 @@ TextureManager::TextureInfo::TextureInfo(ViewState *new_view_state, unsigned int
 {
     m_viewState=new_view_state;
     has_active_masks=false;
+    has_mask=false;
     width_p = width_p_in;
     height_p = height_p_in;
     width = 1 << width_p;

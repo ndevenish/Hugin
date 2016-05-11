@@ -41,6 +41,7 @@ ViewState::ViewState(HuginBase::Panorama *pano, bool supportMultiTexture)
     // we will need to update everything for this panorama.
     dirty_image_sizes = true;
     images_removed = true;
+    dirty_photometrics = true;
     number_of_images = m_pano->getNrOfImages();
     for (unsigned int img = 0; img < number_of_images; img++)
     {
