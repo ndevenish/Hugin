@@ -97,6 +97,7 @@ GLViewer::GLViewer(
     
     started_creation = false;
     redrawing = false;
+    m_toolsInitialized = false;
 
     active = true;
 }
@@ -165,12 +166,27 @@ void GLViewer::SetUpContext()
         }
 
         setUp();
+#ifdef __WXGTK__
+        if(this==frame->getPreview())
+        {
+            frame->getOverview()->setUp();
+        }
+        else
+        {
+            frame->getPreview()->setUp();
+        };
+#endif
     }
 }
 
 void GLPreview::setUp()
 {
     DEBUG_DEBUG("Preview Setup");
+    if (m_toolsInitialized)
+    {
+        return;
+    };
+    m_toolsInitialized = true;
     // we need something to store the state of the view and control updates
     if (!m_view_state) {
         GLint countMultiTexture;
@@ -190,7 +206,12 @@ void GLPreview::setUp()
 
 void GLOverview::setUp()
 {
-DEBUG_DEBUG("Overview Setup");
+    DEBUG_DEBUG("Overview Setup");
+    if (m_toolsInitialized)
+    {
+        return;
+    };
+    m_toolsInitialized = true;
     // we need something to store the state of the view and control updates
     if (!m_view_state) {
         GLint countMultiTexture;

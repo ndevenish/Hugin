@@ -101,7 +101,7 @@ protected:
 
     virtual void setUp() = 0;
 
-    bool started_creation, redrawing;
+    bool started_creation, redrawing, m_toolsInitialized;
     static bool initialised_glew;
     vigra::Diff2D offset;
     GLPreviewFrame *frame;
