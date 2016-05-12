@@ -103,7 +103,7 @@ void inv_radial( double x_dest, double y_dest, double* x_src, double* y_src, con
 	rs	= rd;				
 	f 	= (((params.var3 * rs + params.var2) * rs + params.var1) * rs + params.var0) * rs;
 
-	while( abs(f - rd) > R_EPS && iter++ < MAXITER )
+	while( std::abs(f - rd) > R_EPS && iter++ < MAXITER )
 	{
 		rs = rs - (f - rd) / ((( 4 * params.var3 * rs + 3 * params.var2) * rs  +
 						  2 * params.var1) * rs + params.var0);

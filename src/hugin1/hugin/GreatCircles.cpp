@@ -271,7 +271,7 @@ void GreatCircleArc::LineSegment::doGL(double width, VisualizationState * state,
     //first find out if it is a special case
 
     bool vertical = false;
-    if (abs(vertices[1].x - vertices[0].x) < 0.00001) {
+    if (std::abs(vertices[1].x - vertices[0].x) < 0.00001) {
         xd = d;
         if (vertices[1].y > vertices[0].y) {
             xd *= -1; 
@@ -281,7 +281,7 @@ void GreatCircleArc::LineSegment::doGL(double width, VisualizationState * state,
     }
 
     bool horizontal = false;
-    if(abs(vertices[1].y - vertices[0].y) < 0.00001) {
+    if(std::abs(vertices[1].y - vertices[0].y) < 0.00001) {
         xd = 0;
         yd = d;
         if (vertices[1].x > vertices[0].x) {

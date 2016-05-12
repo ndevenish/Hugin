@@ -382,7 +382,7 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
             HuginBase::ControlPoint cp = ev.getControlPoint();
             cp.image1Nr=m_leftImageNr;
             cp.image2Nr=m_rightImageNr;
-            bool  hor = abs(cp.x1 - cp.x2) > (abs(cp.y1 - cp.y2) * vertBias);
+            bool  hor = std::abs(cp.x1 - cp.x2) > (std::abs(cp.y1 - cp.y2) * vertBias);
             switch (m_leftRot)
             {
                 case CPImageCtrl::ROT0:
@@ -511,7 +511,7 @@ void CPEditorPanel::CreateNewPoint()
             // Most projections will have a bias to creating vertical
             // constraints.
             float vertBias = getVerticalCPBias();
-            bool  hor = abs(p1.x - p2.x) > (abs(p1.y - p2.y) * vertBias);
+            bool  hor = std::abs(p1.x - p2.x) > (std::abs(p1.y - p2.y) * vertBias);
             switch (m_leftRot) {
                 case CPImageCtrl::ROT0:
                 case CPImageCtrl::ROT180:

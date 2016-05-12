@@ -213,7 +213,7 @@ void DisplayedControlPoint::Draw(wxDC& dc, bool selected, bool newPoint)
     if(m_line)
     {
         box.setUpperLeft(vigra::Point2D(hugin_utils::roundi(std::min(m_cp.x1, m_cp.x2)) - l, hugin_utils::roundi(std::min(m_cp.y1, m_cp.y2)) - l));
-        box.setSize(hugin_utils::roundi(abs(m_cp.x1 - m_cp.x2) + 2.0*l), hugin_utils::roundi(abs(m_cp.y1 - m_cp.y2) + 2.0*l));
+        box.setSize(hugin_utils::roundi(std::abs(m_cp.x1 - m_cp.x2) + 2.0*l), hugin_utils::roundi(std::abs(m_cp.y1 - m_cp.y2) + 2.0*l));
     }
     else
     {

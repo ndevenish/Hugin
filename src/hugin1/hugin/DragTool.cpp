@@ -99,8 +99,8 @@ void DragTool::MouseMoveEvent(double x, double y, wxMouseEvent & e)
             shift = e.m_shiftDown;
             if (shift)
             {
-                if (abs(shift_coordinates.x - start_coordinates.x)
-                    < abs(shift_coordinates.y - start_coordinates.y))
+                if (std::abs(shift_coordinates.x - start_coordinates.x)
+                    < std::abs(shift_coordinates.y - start_coordinates.y))
                 {
                     shift_coordinates.x = start_coordinates.x;
                     helper->SetStatusMessage(_("Currently constrained to moving only pitch. Make a larger movement in the opposite direction to constrain to yaw."));

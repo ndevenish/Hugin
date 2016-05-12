@@ -188,7 +188,7 @@ VerticalLine FitLine(SingleLine line)
         s_xy+=(double)line.line[i].x*line.line[i].y/n;
         s_x2+=(double)line.line[i].x*line.line[i].x/n;
     };
-    if(abs(s_x2-s_x*s_x)<0.00001)
+    if(std::abs(s_x2-s_x*s_x)<0.00001)
     {
         //vertical line needs special treatment
         vl.start.x=s_x;
@@ -226,7 +226,7 @@ VerticalLineVector FilterLines(Lines lines,double roll)
                 vigra::Diff2D diff=vl.end-vl.start;
                 if(diff.magnitude()>20)
                 {
-                    if(abs((diff.x*cos(DEG_TO_RAD(roll))+diff.y*sin(DEG_TO_RAD(roll)))/diff.magnitude())<0.1)
+                    if(std::abs((diff.x*cos(DEG_TO_RAD(roll))+diff.y*sin(DEG_TO_RAD(roll)))/diff.magnitude())<0.1)
                     {
                         vertLines.push_back(vl);
                     };
@@ -440,7 +440,7 @@ HuginBase::CPVector _getVerticalLines(const HuginBase::Panorama& pano,const unsi
             if(detectedLines.size()==1)
             {
                 vigra::Diff2D diff((double)detectedLines[0].x2-detectedLines[0].x1,(double)detectedLines[0].y2-detectedLines[0].y1);
-                if(abs((diff.x*cos(DEG_TO_RAD(roll))+diff.y*sin(DEG_TO_RAD(roll)))/diff.magnitude())<0.05)
+                if(std::abs((diff.x*cos(DEG_TO_RAD(roll))+diff.y*sin(DEG_TO_RAD(roll)))/diff.magnitude())<0.05)
                 {
                     HuginBase::ControlPoint cp=detectedLines[0];
                     cp.image1Nr=imgNr;

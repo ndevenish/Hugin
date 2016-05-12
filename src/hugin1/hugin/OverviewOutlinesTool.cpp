@@ -458,7 +458,7 @@ void OverviewOutlinesTool::DrawRect(double left, double top, double right, doubl
                 if (
                         (edge1 > ressq || edge3 > ressq) 
                             && 
-                        abs(top_rec.top - top_rec.bottom) > tmindist
+                        std::abs(top_rec.top - top_rec.bottom) > tmindist
                     ) {
 
                         divide_ver = true;
@@ -466,7 +466,7 @@ void OverviewOutlinesTool::DrawRect(double left, double top, double right, doubl
                 } else if (
                             (edge2 > ressq || edge4 > ressq) 
                                 && 
-                            abs(top_rec.left - top_rec.right) > tmindist
+                            std::abs(top_rec.left - top_rec.right) > tmindist
                         ) {
 
                         divide_hor = true;

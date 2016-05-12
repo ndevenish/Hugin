@@ -58,7 +58,7 @@ namespace vigra_ext
             template <class PixelType>
             double operator()(PixelType const& v1, PixelType const& v2) const
             {
-                return abs(static_cast<double>(v1 - v2));
+                return std::abs(static_cast<double>(v1 - v2));
             };
             template <class PixelType>
             double operator()(vigra::RGBValue<PixelType> const& v1, vigra::RGBValue<PixelType> const& v2) const
