@@ -409,7 +409,7 @@ int linePts2lineList(vigra::BImage & img, int minsize, double flpix, Lines& line
 
     // corner filter parameters
     const int span = 10;
-    const float maxacd = 1.4f;
+    const float maxacd = 2.0f;
 
     if(minsize < span) minsize = span; // else bend filter fails
 
@@ -466,7 +466,7 @@ int linePts2lineList(vigra::BImage & img, int minsize, double flpix, Lines& line
                         int ip = 0, np = (int)pts.size();
 
                         std::vector<vigra::Point2D> tmp;
-                        float ccd[32];    // rolling interpoint chaincode distances
+                        float ccd[32]{};    // rolling interpoint chaincode distances
                         int isql = 0, isqr = 0;    // left & rgt indices to same
                         int xl = pts.at( 0 ).x,
                             yl = pts.at( 0 ).y;
