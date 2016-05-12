@@ -36,6 +36,7 @@
 #include "CircularKeyPointDescriptor.h"
 #include "MathStuff.h"
 #include "WaveFilter.h"
+#include "hugin_math/hugin_math.h"
 
 //#define DEBUG_DESC
 //#define DEBUG_ROT
@@ -157,8 +158,8 @@ void CircularKeyPointDescriptor::makeDescriptor(lfeat::KeyPoint& ioKeyPoint) con
 int CircularKeyPointDescriptor::assignOrientation(lfeat::KeyPoint& ioKeyPoint, double angles[4]) const
 {
     double* hist = _ori_hist + 1;
-    unsigned int aRX = Math::Round(ioKeyPoint._x);
-    unsigned int aRY = Math::Round(ioKeyPoint._y);
+    unsigned int aRX = hugin_utils::roundi(ioKeyPoint._x);
+    unsigned int aRY = hugin_utils::roundi(ioKeyPoint._y);
     int aStep = (int)(ioKeyPoint._scale + 0.8);
 
     WaveFilter aWaveFilter(_ori_sample_scale * ioKeyPoint._scale + 1.5, _image);
@@ -329,9 +330,9 @@ void CircularKeyPointDescriptor::createDescriptor(KeyPoint& ioKeyPoint) const
         double aXSample = aX + xS * ori_cos - yS * ori_sin;
         double aYSample = aY + xS * ori_sin + yS * ori_cos;
         // make integer values from double ones
-        int aIntXSample = Math::Round(aXSample);
-        int aIntYSample = Math::Round(aYSample);
-        int aIntSampleSize = Math::Round(_samples[i].size* aS);
+        int aIntXSample = hugin_utils::roundi(aXSample);
+        int aIntYSample = hugin_utils::roundi(aYSample);
+        int aIntSampleSize = hugin_utils::roundi(_samples[i].size* aS);
         int sampleArea = aIntSampleSize * aIntSampleSize;
 
         if (!aWaveFilter.checkBounds(aIntXSample, aIntYSample, aIntSampleSize))

@@ -31,14 +31,6 @@ struct Math
 {
 
     static bool				SolveLinearSystem33(double* solution, double sq[3][3]);
-    static inline double	Abs(const double iD)
-    {
-        return (iD > 0.0 ? iD : -iD);
-    }
-    static inline int		Round(const double iD)
-    {
-        return (int)(iD + 0.5);
-    }
     static bool				Normalize(double* iVec, int iLen);
 
 

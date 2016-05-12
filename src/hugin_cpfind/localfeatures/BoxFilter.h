@@ -22,6 +22,7 @@
 #define __lfeat_boxfilter_h
 
 #include "MathStuff.h"
+#include "hugin_math/hugin_math.h"
 
 namespace lfeat
 {
@@ -80,7 +81,7 @@ inline BoxFilter::BoxFilter(double iBaseSize, Image& iImage)
     _im_width = iImage.getWidth();
     _im_height = iImage.getHeight();
 
-    _basesize = Math::Round(iBaseSize); // convert to integer
+    _basesize = hugin_utils::roundi(iBaseSize); // convert to integer
 
 
     // precomputed values for det

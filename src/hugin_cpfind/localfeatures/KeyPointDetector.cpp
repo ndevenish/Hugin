@@ -336,7 +336,7 @@ bool KeyPointDetector::fineTuneExtrema(double** * iSH, unsigned int iX, unsigned
     oScore = iSH[aS][aY][aX] + 0.5 * (aDx * aV[0] + aDy * aV[1] + aDs * aV[2]);
 
     // reject too big deviation in last step (unfinished job).
-    if (Math::Abs(aV[0]) > 1.5 || Math::Abs(aV[1]) > 1.5 || Math::Abs(aV[2]) > 1.5)
+    if (std::abs(aV[0]) > 1.5 || std::abs(aV[1]) > 1.5 || std::abs(aV[2]) > 1.5)
     {
         return false;
     }
@@ -372,8 +372,8 @@ bool KeyPointDetector::calcTrace(Image& iImage,
     double iScale,
     int& oTrace)
 {
-    unsigned int aRX = Math::Round(iX);
-    unsigned int aRY = Math::Round(iY);
+    unsigned int aRX = hugin_utils::roundi(iX);
+    unsigned int aRY = hugin_utils::roundi(iY);
 
     BoxFilter aBox(3 * iScale, iImage);
 
