@@ -93,7 +93,7 @@ double** Image::AllocateImage(unsigned int iWidth, unsigned int iHeight)
     // create the lines
     for (unsigned int i = 0; i < iHeight; ++i)
     {
-        aImagePtr[i] = new double[iWidth];
+        aImagePtr[i] = new double[iWidth] {};
     }
 
     return aImagePtr;
