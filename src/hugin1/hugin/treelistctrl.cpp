@@ -2831,6 +2831,11 @@ void wxTreeListMainWindow::DoDeleteItem(wxTreeListItem *item) {
     }
 
     // delete item itself
+    wxTreeItemData* data = GetItemData(item);
+    if (data != NULL)
+    {
+        delete data;
+    };
     SendEvent(wxEVT_COMMAND_TREE_DELETE_ITEM, item);
     delete item;
 }
