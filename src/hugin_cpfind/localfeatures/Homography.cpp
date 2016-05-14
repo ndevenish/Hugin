@@ -78,7 +78,7 @@ void Homography::freeMemory()
     delete[] _Bvec;
     delete[] _Rvec;
     delete[] _Xvec;
-    for(int aRowIter = 0; aRowIter < _nMatches; ++aRowIter)
+    for(int aRowIter = 0; aRowIter < 2 * _nMatches; ++aRowIter)
     {
         delete[] _Amat[aRowIter];
     }

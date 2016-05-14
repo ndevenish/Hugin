@@ -112,6 +112,10 @@ PanoDetector::PanoDetector() :
     _panoramaInfo = new HuginBase::Panorama();
 }
 
+PanoDetector::~PanoDetector()
+{
+    delete _panoramaInfo;
+}
 
 bool PanoDetector::checkData()
 {

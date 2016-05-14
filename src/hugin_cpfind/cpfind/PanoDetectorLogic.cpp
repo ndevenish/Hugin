@@ -452,6 +452,7 @@ bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDet
                             final_img = new vigra::DImage(scaled->size());
                             vigra::copyImage(vigra::srcImageRange(*scaled, vigra::RGBToGrayAccessor<vigra::RGBValue<vigra::UInt8> >()),
                                 vigra::destImage(*final_img));
+                            delete scaled;
                         };
                         break;
                     case vigra::ImageImportInfo::UINT16:
@@ -521,6 +522,7 @@ bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDet
                             // keypoint finder expext 0..255 range
                             vigra::transformImage(vigra::srcImageRange(*scaled, vigra::RGBToGrayAccessor<vigra::RGBValue<vigra::UInt16> >()),
                                 vigra::destImage(*final_img), vigra::functor::Arg1() / vigra::functor::Param(255.0));
+                            delete scaled;
                         };
                         break;
                     default:
@@ -634,6 +636,7 @@ bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDet
                                 vigra::transformImage(vigra::srcImageRange(*scaled, vigra::RGBToGrayAccessor<vigra::RGBValue<double> >()),
                                     vigra::destImage(*final_img), vigra::functor::Arg1() * vigra::functor::Param(255.0));
                             };
+                            delete scaled;
                         };
                         break;
                 };
@@ -940,6 +943,8 @@ bool PanoDetector::FindMatchesInPair(MatchData& ioMatchData, const PanoDetector&
         ioMatchData._matches.push_back(lfeat::PointMatchPtr( new lfeat::PointMatch(aP.first, ioMatchData._i2->_kp[aP.second])));
     }
 
+    delete[] indices.ptr();
+    delete[] dists.ptr();
     TRACE_PAIR("Found " << ioMatchData._matches.size() << " matches.");
     return true;
 }

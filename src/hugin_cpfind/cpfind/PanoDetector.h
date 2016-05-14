@@ -63,6 +63,7 @@ public:
     };
 
     PanoDetector();
+    ~PanoDetector();
 
     bool checkData();
     void printDetails();
@@ -418,6 +419,18 @@ public:
             _hasakeyfile = false;
             _descLength = 0;
             _flann_index = NULL;
+        }
+
+        ~ImgData()
+        {
+            if (_flann_index != NULL)
+            {
+                delete _flann_index;
+            };
+            if (_flann_descriptors.rows + _flann_descriptors.cols > 0)
+            {
+                delete[]_flann_descriptors.ptr();
+            };
         }
     };
 
