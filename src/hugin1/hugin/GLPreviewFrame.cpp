@@ -881,40 +881,39 @@ GLPreviewFrame::~GLPreviewFrame()
     
     // delete all of the tools. When the preview is never used we never get an
     // OpenGL context and therefore don't create the tools.
-    if (color_picker_tool)
-    {
-        preview_helper->DeactivateTool(color_picker_tool);
-        delete color_picker_tool;
-    };
-    if (edit_cp_tool)
-    {
-        preview_helper->DeactivateTool(edit_cp_tool);
-        delete edit_cp_tool;
-    };
     if (crop_tool)
     {
         preview_helper->DeactivateTool(crop_tool); delete crop_tool;
         preview_helper->DeactivateTool(drag_tool); delete drag_tool;
+        preview_helper->DeactivateTool(color_picker_tool); delete color_picker_tool;
+        preview_helper->DeactivateTool(edit_cp_tool); delete edit_cp_tool;
         preview_helper->DeactivateTool(identify_tool); delete identify_tool;
         preview_helper->DeactivateTool(difference_tool); delete difference_tool;
         preview_helper->DeactivateTool(pano_mask_tool); delete pano_mask_tool;
         preview_helper->DeactivateTool(preview_control_point_tool); delete preview_control_point_tool;
+        preview_helper->DeactivateTool(m_preview_layoutLinesTool); delete m_preview_layoutLinesTool;
+        preview_helper->DeactivateTool(preview_projection_grid); delete preview_projection_grid;
+        preview_helper->DeactivateTool(preview_guide_tool); delete preview_guide_tool;
     }
     if (panosphere_overview_identify_tool) {
         panosphere_overview_helper->DeactivateTool(overview_drag_tool); delete overview_drag_tool;
+        panosphere_overview_helper->DeactivateTool(panosphere_overview_camera_tool); delete panosphere_overview_camera_tool;
         panosphere_overview_helper->DeactivateTool(panosphere_overview_identify_tool); delete panosphere_overview_identify_tool;
-        panosphere_overview_helper->DeactivateTool(panosphere_difference_tool); delete panosphere_difference_tool;
         panosphere_overview_helper->DeactivateTool(panosphere_sphere_tool); delete panosphere_sphere_tool;
+        panosphere_overview_helper->DeactivateTool(overview_projection_grid); delete overview_projection_grid;
+        panosphere_overview_helper->DeactivateTool(overview_outlines_tool); delete overview_outlines_tool;
+        panosphere_overview_helper->DeactivateTool(panosphere_difference_tool); delete panosphere_difference_tool;
+        panosphere_overview_helper->DeactivateTool(m_panosphere_layoutLinesTool); delete m_panosphere_layoutLinesTool;
         panosphere_overview_helper->DeactivateTool(panosphere_control_point_tool); delete panosphere_control_point_tool;
     }
     if (plane_overview_identify_tool) {
         plane_overview_helper->DeactivateTool(plane_overview_identify_tool); delete plane_overview_identify_tool;
+        plane_overview_helper->DeactivateTool(plane_overview_camera_tool); delete plane_overview_camera_tool;
         plane_overview_helper->DeactivateTool(plane_difference_tool); delete plane_difference_tool;
+        plane_overview_helper->DeactivateTool(plane_overview_outlines_tool); delete plane_overview_outlines_tool;
+        plane_overview_helper->DeactivateTool(m_plane_layoutLinesTool); delete m_plane_layoutLinesTool;
+        plane_overview_helper->DeactivateTool(plane_control_point_tool); delete plane_control_point_tool;
     }
-    if (preview_guide_tool) {
-        preview_helper->DeactivateTool(preview_guide_tool);
-        delete preview_guide_tool;
-    };
     m_focalLengthText->PopEventHandler(true);
     m_cropFactorText->PopEventHandler(true);
     m_exposureText->PopEventHandler(true);
