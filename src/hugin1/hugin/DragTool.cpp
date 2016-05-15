@@ -40,7 +40,7 @@
 #include "GLPreviewFrame.h"
 
 DragTool::DragTool(ToolHelper *helper)
-    : Tool(helper)
+    : Tool(helper), drag_mode(drag_mode_normal)
 {
 }
 
