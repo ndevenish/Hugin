@@ -235,7 +235,7 @@ class IMPEX PanoramaOptions
             hdrmergeOptions = "";
             verdandiOptions = "";
 
-            outputEMoRParams.resize(5,0.0);
+            outputEMoRParams.resize(5,0.0f);
             outputExposureValue = 0.0;
             outputPixelType = "";
 
