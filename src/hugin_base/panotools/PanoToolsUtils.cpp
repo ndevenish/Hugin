@@ -83,6 +83,7 @@ void calcCtrlPointErrors (PanoramaData& pano)
                 pano.updateCtrlPointErrors( GetAlignInfoCtrlPoints(ainf) );
             }
         }
+        DisposeAlignInfo(&ainf);
         free(script);
         setlocale(LC_ALL,oldlocale);
         free(oldlocale);
