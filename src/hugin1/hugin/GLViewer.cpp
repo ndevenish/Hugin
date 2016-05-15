@@ -44,6 +44,7 @@
 
 bool GLViewer::initialised_glew=false;
 ViewState * GLViewer::m_view_state = NULL;
+size_t GLViewer::m_view_state_observer = 0;
 
 BEGIN_EVENT_TABLE(GLViewer, wxGLCanvas)
     EVT_PAINT (GLViewer::RedrawE)
@@ -111,9 +112,11 @@ GLViewer::~GLViewer()
     {
       delete m_tool_helper;
       delete m_renderer;
+      delete m_visualization_state;
       // because m_view_state is a static member variable we need to check
       // if other class has already deleted it
-      if(m_view_state)
+      --m_view_state_observer;
+      if (m_view_state_observer == 0)
       {
         delete m_view_state;
         m_view_state=NULL;
@@ -188,11 +191,13 @@ void GLPreview::setUp()
     };
     m_toolsInitialized = true;
     // we need something to store the state of the view and control updates
-    if (!m_view_state) {
+    if (!m_view_state)
+    {
         GLint countMultiTexture;
         glGetIntegerv(GL_MAX_TEXTURE_UNITS_ARB,&countMultiTexture);
         m_view_state = new ViewState(m_pano, countMultiTexture>1);
     }
+    ++m_view_state_observer;
     m_visualization_state = new VisualizationState(m_pano, m_view_state, this, RefreshWrapper, this, (PreviewMeshManager*) NULL);
     //Start the tools going:
     PreviewToolHelper *helper = new PreviewToolHelper(m_pano, m_visualization_state, frame);
@@ -204,6 +209,22 @@ void GLPreview::setUp()
                                  m_visualization_state, helper, m_background_color);
 }
 
+GLOverview::~GLOverview()
+{
+    if(m_renderer==plane_m_renderer)
+    {
+        delete panosphere_m_tool_helper;
+        delete panosphere_m_renderer;
+        delete panosphere_m_visualization_state;
+    }
+    else
+    {
+        delete plane_m_tool_helper;
+        delete plane_m_renderer;
+        delete plane_m_visualization_state;
+    };
+}
+
 void GLOverview::setUp()
 {
     DEBUG_DEBUG("Overview Setup");
@@ -213,11 +234,13 @@ void GLOverview::setUp()
     };
     m_toolsInitialized = true;
     // we need something to store the state of the view and control updates
-    if (!m_view_state) {
+    if (!m_view_state)
+    {
         GLint countMultiTexture;
         glGetIntegerv(GL_MAX_TEXTURE_UNITS_ARB,&countMultiTexture);
         m_view_state = new ViewState(m_pano, countMultiTexture>1);
     }
+    ++m_view_state_observer;
 
     panosphere_m_visualization_state = new PanosphereOverviewVisualizationState(m_pano, m_view_state, this, RefreshWrapper, this);
     plane_m_visualization_state = new PlaneOverviewVisualizationState(m_pano, m_view_state, this, RefreshWrapper, this);

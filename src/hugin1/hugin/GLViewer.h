@@ -70,6 +70,7 @@ public:
     
     VisualizationState * m_visualization_state;
     static ViewState * m_view_state;
+    static size_t m_view_state_observer;
 
     void SetActive(bool active) {this->active = active;}
     bool IsActive() {return active;}
@@ -138,6 +139,7 @@ public:
         panosphere_m_renderer = 0;
         plane_m_renderer = 0;
     }
+    ~GLOverview();
 
     void SetPanosphereMode();
     void SetPlaneMode();
