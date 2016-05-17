@@ -330,6 +330,7 @@ MainFrame::MainFrame(wxWindow* parent, HuginBase::Panorama & pano)
             dc.GetTextExtent(version, &tw, &th);
             // place text on bitmap.
             dc.DrawText(version, bitmap.GetWidth() - tw - 3, bitmap.GetHeight() - th - 3);
+            dc.SelectObject(wxNullBitmap);
         }
 
         splash = new HuginSplashScreen(NULL, bitmap);
