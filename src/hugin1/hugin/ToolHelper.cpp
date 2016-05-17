@@ -195,15 +195,18 @@ bool ToolHelper::BeforeDrawImageNumber(unsigned int image)
 {
     if (image_draw_begin_tools.size() > image)
     {
-        if (image_draw_begin_tools[image].size() > 0)
+        if (!image_draw_begin_tools[image].empty())
         {
             bool result = true;
-            std::set<Tool *>::iterator it;
-            for(it = image_draw_begin_tools[image].begin() ; it != image_draw_begin_tools[image].end() ; ++it) {
-                result &= (*it)->BeforeDrawImageEvent(image);
-            }
+            // BeforeDrawImageEvent can change image_draw_begin_tools[image]
+            // so we create a copy before to process all dependent tools, also 
+            // when the set is modified in the BeforeDrawImageEvent function
+            const auto tools = image_draw_begin_tools[image];
+            for (auto tool : tools)
+            {
+                result &= tool->BeforeDrawImageEvent(image);
+            };
             return result;
-//            return image_draw_begin_tools[image]->BeforeDrawImageEvent(image);
         }
     }
     return true;
@@ -213,13 +216,13 @@ void ToolHelper::AfterDrawImageNumber(unsigned int image)
 {
     if (image_draw_end_tools.size() > image)
     {
-        if (image_draw_end_tools[image].size() > 0)
+        if (!image_draw_end_tools[image].empty())
         {
-            std::set<Tool *>::iterator it;
-            for(it = image_draw_end_tools[image].begin() ; it != image_draw_end_tools[image].end() ; ++it) {
-                (*it)->BeforeDrawImageEvent(image);
+            const auto tools = image_draw_end_tools[image];
+            for (auto tool : tools)
+            {
+                tool->BeforeDrawImageEvent(image);
             }
-//            image_draw_end_tools[image]->AfterDrawImageEvent(image);
         }
     }
 }
