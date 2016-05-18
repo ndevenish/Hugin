@@ -135,10 +135,9 @@ namespace HuginQueue
         CFStringRef filename = MacCreateCFStringWithWxString(name);
         wxString fn = MacGetPathToBundledExecutableFile(filename);
         CFRelease(filename);
-
         if (fn == wxT(""))
         {
-            std::cerr << wxString::Format(_("External program %s not found in the bundle, reverting to system path"), name.c_str());
+            std::cerr << wxString::Format(_("External program %s not found in the bundle, reverting to system path"), name.c_str()) << std::endl;
             return name;
         }
         return fn;
@@ -161,10 +160,9 @@ namespace HuginQueue
             }
             else
             {
-                std::cerr << wxString::Format(_("WARNING: External program %s not found as specified in preferences, reverting to bundled version"), fn.c_str());
+                std::cerr << wxString::Format(_("WARNING: External program %s not found as specified in preferences, reverting to bundled version"), fn.c_str()) << std::endl;
             };
         };
-
         if (name == wxT("exiftool"))
         {
             wxString exiftoolDirPath = MacGetPathToBundledResourceFile(CFSTR("ExifTool"));
@@ -174,7 +172,7 @@ namespace HuginQueue
             }
             else
             {
-                std::cerr << wxString::Format(_("WARNING: External program %s not found in the bundle, reverting to system path"), name.c_str());
+                std::cerr << wxString::Format(_("WARNING: External program %s not found in the bundle, reverting to system path"), name.c_str()) << std::endl;
                 return wxT("exiftool");
             };
         };
@@ -182,10 +180,9 @@ namespace HuginQueue
         CFStringRef filename = MacCreateCFStringWithWxString(name);
         wxString fn = MacGetPathToBundledExecutableFile(filename);
         CFRelease(filename);
-
         if (fn == wxT(""))
         {
-            std::cerr << wxString::Format(_("WARNING: External program %s not found in the bundle, reverting to system path"), name.c_str());
+            std::cerr << wxString::Format(_("WARNING: External program %s not found in the bundle, reverting to system path"), name.c_str()) << std::endl;
             return name;
         };
         return fn;
