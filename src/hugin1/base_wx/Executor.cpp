@@ -22,6 +22,7 @@
 */
 
 #include "Executor.h"
+#include "config.h"
 
 #include <iostream>
 #include <wx/utils.h>
