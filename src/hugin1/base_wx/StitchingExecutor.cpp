@@ -90,7 +90,7 @@ namespace HuginQueue
         /** generate the final argfile
             @return full name of generated argfile 
         */
-        wxString GenerateFinalArgfile(const HuginBase::Panorama & pano, const wxConfigBase* config, const HuginBase::UIntSet& images, const double exifToolVersion)
+        wxString GenerateFinalArgfile(const HuginBase::Panorama & pano, const wxString& projectName, const wxConfigBase* config, const HuginBase::UIntSet& images, const double exifToolVersion)
         {
             wxString argfileInput = config->Read(wxT("/output/FinalArgfile"), wxEmptyString);
             const bool generateGPanoTags = (config->Read(wxT("/output/writeGPano"), HUGIN_EXIFTOOL_CREATE_GPANO) == 1l) && (exifToolVersion >= 9.09);
@@ -119,6 +119,8 @@ namespace HuginQueue
             placeholders.insert(std::make_pair(wxT("%fullheight"), wxString::Format(wxT("%u"), opts.getHeight())));
             placeholders.insert(std::make_pair(wxT("%width"), wxString::Format(wxT("%d"), opts.getROI().width())));
             placeholders.insert(std::make_pair(wxT("%height"), wxString::Format(wxT("%d"), opts.getROI().height())));
+            wxFileName projectFilename(projectName);
+            placeholders.insert(std::make_pair(wxT("%projectname"), projectFilename.GetFullName()));
             // now open the final argfile
             wxFileName tempArgfileFinal(wxFileName::CreateTempFileName(GetConfigTempDir(config) + wxT("he")));
             wxFFileOutputStream outputStream(tempArgfileFinal.GetFullPath());
@@ -598,7 +600,7 @@ namespace HuginQueue
             wxFileName argfile(exiftoolArgfile);
             argfile.Normalize();
             exiftoolArgs.Append(wxT(" -@ ") + wxEscapeFilename(argfile.GetFullPath()) + wxT(" "));
-            wxString finalArgfile = detail::GenerateFinalArgfile(pano, config, allActiveImages, exiftoolVersion);
+            wxString finalArgfile = detail::GenerateFinalArgfile(pano, project, config, allActiveImages, exiftoolVersion);
             if (!finalArgfile.IsEmpty())
             {
                 exiftoolArgsFinal.Append(wxT(" -@ ") + wxEscapeFilename(finalArgfile) + wxT(" "));

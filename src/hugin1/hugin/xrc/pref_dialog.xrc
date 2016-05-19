@@ -1590,6 +1590,7 @@ Do not set -w, -o and --compression arguments, they are set by hugin</label>
 %fullheight - height of output canvas
 %width - width of output region
 %height - height of output region
+%projectname - name of the pto project file
 
 The placeholders are case sensitive.</label>
             </object>
