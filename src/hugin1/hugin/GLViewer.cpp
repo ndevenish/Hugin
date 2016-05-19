@@ -211,17 +211,20 @@ void GLPreview::setUp()
 
 GLOverview::~GLOverview()
 {
-    if(m_renderer==plane_m_renderer)
+    if (m_renderer)
     {
-        delete panosphere_m_tool_helper;
-        delete panosphere_m_renderer;
-        delete panosphere_m_visualization_state;
-    }
-    else
-    {
-        delete plane_m_tool_helper;
-        delete plane_m_renderer;
-        delete plane_m_visualization_state;
+        if (m_renderer == plane_m_renderer)
+        {
+            delete panosphere_m_tool_helper;
+            delete panosphere_m_renderer;
+            delete panosphere_m_visualization_state;
+        }
+        else
+        {
+            delete plane_m_tool_helper;
+            delete plane_m_renderer;
+            delete plane_m_visualization_state;
+        };
     };
 }
 
