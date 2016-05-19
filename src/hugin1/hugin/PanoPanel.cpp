@@ -1257,7 +1257,7 @@ void PanoPanel::DoSendToBatch()
 			//We need to call the binary from it's own bundle and not from the hugin bundle otherwise we get no menu as OSX assumes that the hugin bundle
 			//will provide the menu
 			cmd = hugin_utils::wxQuoteString(cmd); 
-            cmd += wxT(" ")+switches+hugin_utils::wxQuoteFilename(projectFile)+wxT(" ")+hugin_utils::wxQuoteFilename(dlg.GetPath());	
+            cmd += wxT(" ") + switches + hugin_utils::wxQuoteFilename(dlg.GetPath()) + wxT(" ") + hugin_utils::wxQuoteFilename(projectFile);
 			wxExecute(cmd);
 		}
 		else

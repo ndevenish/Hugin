@@ -107,8 +107,7 @@ public:
 
 #ifdef __WXMAC__
     /** the wx calls this method when the app gets "Open file" AppleEvent */
-    // see comment in PTBatchGUI.cpp
-    // void MacOpenFile(const wxString& fileName);
+     void MacOpenFile(const wxString& fileName);
 #endif
 
 private:

@@ -325,7 +325,7 @@ bool PTBatcherGUI::OnInit()
         }
     }
 
-#if 0 //ifdef __WXMAC__
+#ifdef __WXMAC__
     // see PTBatcherGUI::MacOpenFile for explanation
     m_macFileNameToOpenOnStart = wxT("");
     wxYield();
@@ -440,13 +440,8 @@ void PTBatcherGUI::OnKeyDown(wxKeyEvent& event)
 
 }
 
-#if 0 //ifdef __WXMAC__
+#ifdef __WXMAC__
 // wx calls this method when the app gets "Open file" AppleEvent
-// this does not work with wxWidgets 2.9.3, Cocoa variant. The project is added twice.
-// From the doc it is recommended to react only on MacOpenFile
-// So we should  to skip to code concerning command line parsing in OnInit, and parse it here
-// But this does not work. MacOpenFile is not called when PTBatcherGUI is already running
-// So for the moment I leave the code in OnInit also for Mac
 void PTBatcherGUI::MacOpenFile(const wxString& fileName)
 {
     if(!m_frame)
