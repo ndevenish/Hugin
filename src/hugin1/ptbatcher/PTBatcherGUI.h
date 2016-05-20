@@ -107,7 +107,7 @@ public:
 
 #ifdef __WXMAC__
     /** the wx calls this method when the app gets "Open files" AppleEvent */
-    void MacOpenFiles(const wxArrayString &fileNames) wxOVERRIDE;
+    void MacOpenFiles(const wxArrayString &fileNames);
 #endif
 
 private:
