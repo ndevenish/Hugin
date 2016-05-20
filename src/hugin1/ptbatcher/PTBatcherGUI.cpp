@@ -442,18 +442,22 @@ void PTBatcherGUI::OnKeyDown(wxKeyEvent& event)
 }
 
 #ifdef __WXMAC__
-// wx calls this method when the app gets "Open file" AppleEvent
-void PTBatcherGUI::MacOpenFile(const wxString& fileName)
+// wx calls this method when the app gets "Open files" AppleEvent
+void PTBatcherGUI::MacOpenFiles(const wxArrayString &fileNames) 
 {
     if(!m_frame)
     {
-        m_macFileNameToOpenOnStart = fileName;
+        //fallback, shouldn't happen
+        m_macFileNameToOpenOnStart = fileNames[0];
     }
     else
     {
-        wxFileName fn(fileName);
-        m_frame->AddToList(fn.GetFullPath());
-    }
+        for (int i = 0; i < fileNames.GetCount(); ++i)
+        {
+            wxFileName fn(fileNames[i]);
+            m_frame->AddToList(fn.GetFullPath());
+        };
+    };
 }
 #endif
 
