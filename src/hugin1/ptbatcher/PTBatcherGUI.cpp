@@ -220,121 +220,122 @@ bool PTBatcherGUI::OnInit()
             return false;
         }
     };
-    //m_frame->SetLocaleAndXRC(&m_locale,m_xrcPrefix);
-    //projectsRunning=0;
-    unsigned int count = 0;
-    if(parser.Found(wxT("a")))
-    {
-        //added assistant files
-        while(parser.GetParamCount()>count)
-        {
-            wxString param = parser.GetParam(count);
-            count++;
-            wxFileName name(param);
-            name.MakeAbsolute();
-            if(name.FileExists())
-            {
-                //only add existing pto files
-                if(name.GetExt().CmpNoCase(wxT("pto"))==0)
-                {
-                    if(IsFirstInstance)
-                    {
-                        m_frame->AddToList(name.GetFullPath(),Project::DETECTING);
-                    }
-                    else
-                    {
-                        conn->Request(wxT("D ")+name.GetFullPath());
-                    };
-                };
-            };
-        };
-    }
-    else
-    {
-        bool projectSpecified = false;
-        //we collect all parameters - all project files <and their output prefixes>
-        while(parser.GetParamCount()>count)
-        {
-            wxString param = parser.GetParam(count);
-            count++;
-            if(!projectSpecified)	//next parameter must be new script file
-            {
-                wxFileName name(param);
-                name.MakeAbsolute();
-                if(IsFirstInstance)
-                {
-                    m_frame->AddToList(name.GetFullPath());
-                }
-                else
-                {
-                    conn->Request(wxT("A ")+name.GetFullPath());
-                }
-                projectSpecified = true;
-            }
-            else	//parameter could be previous project's output prefix
-            {
-                wxFileName fn(param);
-                fn.MakeAbsolute();
-                if(!fn.HasExt())	//if there is no extension we have a prefix
-                {
-                    if(IsFirstInstance)
-                    {
-                        m_frame->ChangePrefix(-1,fn.GetFullPath());
-                    }
-                    else
-                    {
-                        conn->Request(wxT("P ")+fn.GetFullPath());
-                    }
-                    projectSpecified = false;
-                }
-                else
-                {
-                    wxString ext = fn.GetExt();
-                    //we may still have a prefix, but with added image extension
-                    if (ext.CmpNoCase(wxT("jpg")) == 0 || ext.CmpNoCase(wxT("jpeg")) == 0||
-                            ext.CmpNoCase(wxT("tif")) == 0|| ext.CmpNoCase(wxT("tiff")) == 0 ||
-                            ext.CmpNoCase(wxT("png")) == 0 || ext.CmpNoCase(wxT("exr")) == 0 ||
-                            ext.CmpNoCase(wxT("pnm")) == 0 || ext.CmpNoCase(wxT("hdr")) == 0)
-                    {
-                        //extension will be removed before stitch, so there is no need to do it now
-                        if(IsFirstInstance)
-                        {
-                            m_frame->ChangePrefix(-1,fn.GetFullPath());
-                        }
-                        else
-                        {
-                            conn->Request(wxT("P ")+fn.GetFullPath());
-                        }
-                        projectSpecified = false;
-                    }
-                    else //if parameter has a different extension we presume it is a new script file
-                    {
-                        //we add the new project
-                        if(IsFirstInstance)
-                        {
-                            m_frame->AddToList(fn.GetFullPath());
-                        }
-                        else
-                        {
-                            conn->Request(wxT("A ")+fn.GetFullPath());
-                        }
-                        projectSpecified = true;
-                    }
-                } //else of if(!fn.HasExt())
-            }
-        }
-    }
 
 #ifdef __WXMAC__
     // see PTBatcherGUI::MacOpenFile for explanation
     m_macFileNameToOpenOnStart = wxT("");
     wxYield();
-    if(m_macFileNameToOpenOnStart != wxT(""))
+    if(!m_macFileNameToOpenOnStart.IsEmpty())
     {
         wxFileName fn(m_macFileNameToOpenOnStart);
         m_frame->AddToList(fn.GetFullPath());
     }
+    else
 #endif
+    {
+        size_t count = 0;
+        if (parser.Found(wxT("a")))
+        {
+            //added assistant files
+            while (parser.GetParamCount() > count)
+            {
+                wxString param = parser.GetParam(count);
+                count++;
+                wxFileName name(param);
+                name.MakeAbsolute();
+                if (name.FileExists())
+                {
+                    //only add existing pto files
+                    if (name.GetExt().CmpNoCase(wxT("pto")) == 0)
+                    {
+                        if (IsFirstInstance)
+                        {
+                            m_frame->AddToList(name.GetFullPath(), Project::DETECTING);
+                        }
+                        else
+                        {
+                            conn->Request(wxT("D ") + name.GetFullPath());
+                        };
+                    };
+                };
+            };
+        }
+        else
+        {
+            bool projectSpecified = false;
+            //we collect all parameters - all project files <and their output prefixes>
+            while (parser.GetParamCount() > count)
+            {
+                wxString param = parser.GetParam(count);
+                count++;
+                if (!projectSpecified)	//next parameter must be new script file
+                {
+                    wxFileName name(param);
+                    name.MakeAbsolute();
+                    if (IsFirstInstance)
+                    {
+                        m_frame->AddToList(name.GetFullPath());
+                    }
+                    else
+                    {
+                        conn->Request(wxT("A ") + name.GetFullPath());
+                    }
+                    projectSpecified = true;
+                }
+                else	//parameter could be previous project's output prefix
+                {
+                    wxFileName fn(param);
+                    fn.MakeAbsolute();
+                    if (!fn.HasExt())	//if there is no extension we have a prefix
+                    {
+                        if (IsFirstInstance)
+                        {
+                            m_frame->ChangePrefix(-1, fn.GetFullPath());
+                        }
+                        else
+                        {
+                            conn->Request(wxT("P ") + fn.GetFullPath());
+                        }
+                        projectSpecified = false;
+                    }
+                    else
+                    {
+                        wxString ext = fn.GetExt();
+                        //we may still have a prefix, but with added image extension
+                        if (ext.CmpNoCase(wxT("jpg")) == 0 || ext.CmpNoCase(wxT("jpeg")) == 0 ||
+                            ext.CmpNoCase(wxT("tif")) == 0 || ext.CmpNoCase(wxT("tiff")) == 0 ||
+                            ext.CmpNoCase(wxT("png")) == 0 || ext.CmpNoCase(wxT("exr")) == 0 ||
+                            ext.CmpNoCase(wxT("pnm")) == 0 || ext.CmpNoCase(wxT("hdr")) == 0)
+                        {
+                            //extension will be removed before stitch, so there is no need to do it now
+                            if (IsFirstInstance)
+                            {
+                                m_frame->ChangePrefix(-1, fn.GetFullPath());
+                            }
+                            else
+                            {
+                                conn->Request(wxT("P ") + fn.GetFullPath());
+                            }
+                            projectSpecified = false;
+                        }
+                        else //if parameter has a different extension we presume it is a new script file
+                        {
+                            //we add the new project
+                            if (IsFirstInstance)
+                            {
+                                m_frame->AddToList(fn.GetFullPath());
+                            }
+                            else
+                            {
+                                conn->Request(wxT("A ") + fn.GetFullPath());
+                            }
+                            projectSpecified = true;
+                        }
+                    } //else of if(!fn.HasExt())
+                }
+            }
+        }
+    };
 
     if(IsFirstInstance)
     {
