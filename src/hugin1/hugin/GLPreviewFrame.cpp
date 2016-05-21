@@ -1133,8 +1133,7 @@ void GLPreviewFrame::panoramaChanged(HuginBase::Panorama &pano)
 
                     if (max != 0.0)
                     {
-                        alignMsg = alignMsg + wxString::Format(_("Mean error after optimization: %.1f pixel, max: %.1f\n"), mean, max); 
-                        alignMsg.RemoveLast(1);
+                        alignMsg = alignMsg + wxString::Format(_("Mean error after optimization: %.1f pixel, max: %.1f"), mean, max); 
                     }
                 }
             }
@@ -1336,7 +1335,7 @@ void GLPreviewFrame::panoramaImagesChanged(HuginBase::Panorama &pano, const Hugi
                 siz->Add(butcheck, 0, wxALIGN_CENTRE_HORIZONTAL | wxFIXED_MINSIZE, 0);
                 siz->Add(but,0,wxLEFT | wxRIGHT | wxBOTTOM , 5);
 #else
-                siz->Add(but,0,wxALL | wxADJUST_MINSIZE,0);
+                siz->Add(but,0,wxALL ,0);
                 siz->Add(butcheck, 0, wxALL | wxFIXED_MINSIZE, 0);
 #endif
                 // for the identification tool to work, we need to find when the
