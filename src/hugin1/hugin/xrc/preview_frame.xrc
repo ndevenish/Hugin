@@ -247,7 +247,7 @@
                 </object>
                 <object class="sizeritem">
                   <object class="wxStaticText" name="ass_status_text">
-                    <style>wxALIGN_RIGHT</style>
+                    <style>wxALIGN_RIGHT | wxST_NO_AUTORESIZE</style>
                   </object>
                   <option>1</option>
                   <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
@@ -1101,7 +1101,7 @@
                 </object>
                 <object class="sizeritem">
                   <object class="wxStaticText" name="ass_status_text">
-                    <style>wxALIGN_RIGHT</style>
+                    <style>wxALIGN_RIGHT | wxST_NO_AUTORESIZE</style>
                   </object>
                   <option>1</option>
                   <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
