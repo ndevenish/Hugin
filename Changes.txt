@@ -6,6 +6,12 @@ Hugin 2016.2
   and the control point list window can now limited to take only control points in active
   images into account (menu Edit>Optimize only active images, connected with the setting
   on the optimizer tab).
+* Improvements to mask tab in Hugin (edit crop of all images of the same lens at once) and
+  find panorama dialog in PTBatcherGUI (remove images from found panoramas, split found
+  panorama into two).
+* Several improvements for Mac OS.
+* Fixes several issues with fast preview window which could result in random crashes
+  (uninitialized variables, memory leaks).
 
 ============================================================================================
 Hugin 2016.0
