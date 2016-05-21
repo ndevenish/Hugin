@@ -641,6 +641,14 @@ int main2(std::vector<std::string> files, Parameters param)
                 std::cerr << "Could not decode image: " << files[i] << "Unsupported image file format" << std::endl;
                 return 1;
             }
+            if (pano.getImage(0).getSize() != srcImg.getSize())
+            {
+                std::cerr << "Images have different sizes." << std::endl
+                    << files[0] << " has " << pano.getImage(0).getSize() << " pixel, while " << std::endl
+                    << files[i] << " has " << srcImg.getSize() << " pixel." << std::endl
+                    << "This is not supported. Align_image_stack works only with images of the same size." << std::endl;
+                return 1;
+            };
 
             if(param.loadDistortion)
             {
