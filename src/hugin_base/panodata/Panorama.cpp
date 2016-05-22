@@ -507,13 +507,9 @@ void Panorama::printPanoramaScript(std::ostream & o,
                                    bool forPTOptimizer,
                                    const std::string & stripPrefix) const
 {
-#ifdef __unix__
     // set numeric locale to C, for correct number output
-    char * t = setlocale(LC_NUMERIC,NULL);
-    char * old_locale = (char*) malloc(strlen(t)+1);
-    strcpy(old_locale, t);
+    char * old_locale = strdup(setlocale(LC_NUMERIC, NULL));
     setlocale(LC_NUMERIC,"C");
-#endif
 
     if (forPTOptimizer) {
         o << "# PTOptimizer script, written by hugin" << std::endl
@@ -771,11 +767,9 @@ void Panorama::printPanoramaScript(std::ostream & o,
         o << "#hugin_optimizerPhotoMasterSwitch 0" << endl;
     };
 
-#ifdef __unix__
     // reset locale
     setlocale(LC_NUMERIC,old_locale);
     free(old_locale);
-#endif
 }
 
 
@@ -783,13 +777,9 @@ void Panorama::printStitcherScript(std::ostream & o,
                                    const PanoramaOptions & target,
                                    const UIntSet & imgs) const
 {
-#ifdef __unix__
     // set numeric locale to C, for correct number output
-    char * t = setlocale(LC_NUMERIC,NULL);
-    char * old_locale = (char*) malloc(strlen(t)+1);
-    strcpy(old_locale, t);
+    char * old_locale = strdup(setlocale(LC_NUMERIC, NULL));
     setlocale(LC_NUMERIC,"C");
-#endif
 
     o << "# PTStitcher script, written by hugin" << std::endl
       << std::endl;
@@ -829,11 +819,10 @@ void Panorama::printStitcherScript(std::ostream & o,
         o << std::endl;
     }
     o << std::endl;
-#ifdef __unix__
+
     // reset locale
     setlocale(LC_NUMERIC,old_locale);
     free(old_locale);
-#endif
 
 }
 
@@ -841,13 +830,9 @@ void Panorama::parseOptimizerScript(std::istream & i, const UIntSet & imgs,
                                     VariableMapVector & imgVars, CPVector & CPs) const
 {
     DEBUG_TRACE("");
-#ifdef __unix__
     // set numeric locale to C, for correct number output
-    char * t = setlocale(LC_NUMERIC,NULL);
-    char * old_locale = (char*) malloc(strlen(t)+1);
-    strcpy(old_locale, t);
+    char * old_locale = strdup(setlocale(LC_NUMERIC, ""));
     setlocale(LC_NUMERIC,"C");
-#endif
 
     unsigned int ic=0;
     std::map<unsigned int, unsigned int> script2ImgMap;
@@ -977,12 +962,10 @@ void Panorama::parseOptimizerScript(std::istream & i, const UIntSet & imgs,
             break;
         }
     }
-#ifdef __unix__
+
     // reset locale
     setlocale(LC_NUMERIC,old_locale);
     free(old_locale);
-#endif
-
 }
 
 void Panorama::changeFinished(bool keepDirty)
