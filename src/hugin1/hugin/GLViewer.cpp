@@ -386,7 +386,11 @@ void GLViewer::Redraw()
     
     // we should use the window background colour outside the panorama
     // FIXME shouldn't this work on textured backrounds?
+#if defined __WXMAC__ && wxCHECK_VERSION(3,1,0) 
+    wxColour col(128,128,128);
+#else
     wxColour col = wxSystemSettings::GetColour(wxSYS_COLOUR_APPWORKSPACE);
+#endif
     m_renderer->SetBackground(col.Red(), col.Green(), col.Blue());
     if (m_visualization_state->RequireRecalculateViewport())
     {
