@@ -117,10 +117,6 @@ private:
     wxSingleInstanceChecker* m_checker;
     BatchIPCServer* m_server;
 
-#ifdef __WXMAC__
-    wxString m_macFileNameToOpenOnStart;
-#endif
-
     DECLARE_EVENT_TABLE()
 };
 
