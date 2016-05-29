@@ -38,9 +38,9 @@ mkdir -p "$REPOSITORYDIR/lib";
 mkdir -p "$REPOSITORYDIR/include";
 
 GETTEXTVER_M="0"
-GETTEXTVER_FULL="$GETTEXTVER_M.18.1"
+GETTEXTVER_FULL="$GETTEXTVER_M.19.7"
 MAIN_LIB_VER="0"
-FULL_LIB_VER="$MAIN_LIB_VER.18.1"
+FULL_LIB_VER="$MAIN_LIB_VER.19.7"
 ASPRINTFVER_F="0"
 GETTEXTVERPO_F="0"
 LIBINTLVER_F="8"
@@ -188,7 +188,13 @@ do
 		 echo "Moving arch/$ARCHS/$program to $program"
   	 mv "$REPOSITORYDIR/arch/$ARCHS/$program" "$REPOSITORYDIR/$program";
   	 strip "$REPOSITORYDIR/$program";
-  	 continue
+
+     echo "Changing libs in $program"
+     install_name_tool -change "$REPOSITORYDIR/arch/x86_64/lib/libgettextsrc-0.19.7.dylib" "/Users/niklas/development/cmake/hugin/mac/ExternalPrograms/repository/lib/libgettextsrc-0.19.7.dylib" "$REPOSITORYDIR/$program"
+     install_name_tool -change "$REPOSITORYDIR/arch/x86_64/lib/libgettextlib-0.19.7.dylib" "/Users/niklas/development/cmake/hugin/mac/ExternalPrograms/repository/lib/libgettextlib-0.19.7.dylib" "$REPOSITORYDIR/$program"
+     install_name_tool -change "$REPOSITORYDIR/arch/x86_64/lib/libintl.8.dylib" "/Users/niklas/development/cmake/hugin/mac/ExternalPrograms/repository/lib/libintl.8.dylib" "$REPOSITORYDIR/$program"
+
+     continue
 	 else
 		 echo "Program arch/$ARCHS/$program not found. Aborting build";
 		 exit 1;
@@ -211,6 +217,9 @@ do
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$program";
 
  strip "$REPOSITORYDIR/$program";
+
+ $REPOSITORYDIR/$program
+
 
 done
 

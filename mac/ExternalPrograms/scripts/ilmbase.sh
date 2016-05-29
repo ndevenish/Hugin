@@ -53,8 +53,9 @@ sed -e 's/\.\/eLut/\.\/eLut-native/' \
 
 # compile
 
-ILMVER_M="6"
-ILMVER_FULL="$ILMVER_M.0.0"
+ILMVER_M="2_2"
+ILMVER_2="12"
+ILMVER_FULL="$ILMVER_M.$ILMVER_2"
 
 for ARCH in $ARCHS
 do
@@ -101,7 +102,7 @@ do
 
  #hack for apple-gcc 4.2
  if [ ${CC#*-} = 4.2 ] ; then
-   for dir in Half Iex IlmThread Imath
+   for dir in Half Iex IlmThread Imath IexMath
    do
      mv $dir/Makefile $dir/Makefile.bk
      sed 's/-Wno-long-double//g' $dir/Makefile.bk > $dir/Makefile
@@ -110,18 +111,23 @@ do
 
  make clean;
  make $OTHERMAKEARGs all || fail "failed at make step of $ARCH";
- make install || fail "make install step of $ARCH";
+ make install # || fail "make install step of $ARCH";
 
 done
 
+echo "------------------------------------------"
 
 # merge
 
-LIBNAMES="IlmThread Imath Iex Half"
+mv "$REPOSITORYDIR/arch/$ARCHS/lib/libHalf.12.dylib" "$REPOSITORYDIR/arch/$ARCHS/lib/libHalf-$ILMVER_FULL.dylib"
+rm $REPOSITORYDIR/arch/$ARCHS/lib/libHalf.dylib
+ln -s "$REPOSITORYDIR/arch/$ARCHS/lib/libHalf-$ILMVER_FULL.dylib" "$REPOSITORYDIR/arch/$ARCHS/lib/libHalf.dylib"
 
-for liba in $(for libname in $LIBNAMES; do echo "lib/lib$libname.a lib/lib$libname.$ILMVER_FULL.dylib "; done)
+
+LIBNAMES="IlmThread Imath Iex Half IexMath"
+
+for liba in $(for libname in $LIBNAMES; do echo "lib/lib$libname.a lib/lib$libname-$ILMVER_FULL.dylib "; done)
 do
-
  if [ $NUMARCH -eq 1 ] ; then
    if [ -f $REPOSITORYDIR/arch/$ARCHS/$liba ] ; then
 		 echo "Moving arch/$ARCHS/$liba to $liba"
@@ -157,23 +163,23 @@ done
 
 for libname in $LIBNAMES
 do
- if [ -f "$REPOSITORYDIR/lib/lib$libname.$ILMVER_FULL.dylib" ]
+ if [ -f "$REPOSITORYDIR/lib/lib$libname-$ILMVER_FULL.dylib" ]
  then
-  install_name_tool -id "$REPOSITORYDIR/lib/lib$libname.$ILMVER_M.dylib" "$REPOSITORYDIR/lib/lib$libname.$ILMVER_FULL.dylib";
+  install_name_tool -id "$REPOSITORYDIR/lib/lib$libname-$ILMVER_FULL.dylib" "$REPOSITORYDIR/lib/lib$libname-$ILMVER_FULL.dylib";
   
   for ARCH in $ARCHS
   do
    for libname_two in $LIBNAMES
    do
     install_name_tool \
-     -change "$REPOSITORYDIR/arch/$ARCH/lib/lib$libname_two.$ILMVER_M.dylib" \
-        "$REPOSITORYDIR/lib/lib$libname_two.$ILMVER_M.dylib" \
-        "$REPOSITORYDIR/lib/lib$libname.$ILMVER_FULL.dylib";
+     -change "$REPOSITORYDIR/arch/$ARCH/lib/lib$libname_two-$ILMVER_FULL.dylib" \
+        "$REPOSITORYDIR/lib/lib$libname_two-$ILMVER_FULL.dylib" \
+        "$REPOSITORYDIR/lib/lib$libname-$ILMVER_FULL.dylib";
    done
   done
 
-  ln -sfn "lib$libname.$ILMVER_FULL.dylib" "$REPOSITORYDIR/lib/lib$libname.$ILMVER_M.dylib";
-  ln -sfn "lib$libname.$ILMVER_FULL.dylib" "$REPOSITORYDIR/lib/lib$libname.dylib";
+  ln -sfn "lib$libname-$ILMVER_FULL.dylib" "$REPOSITORYDIR/lib/lib$libname-$ILMVER_M.dylib";
+  ln -sfn "lib$libname-$ILMVER_FULL.dylib" "$REPOSITORYDIR/lib/lib$libname.dylib";
  fi
 done
 

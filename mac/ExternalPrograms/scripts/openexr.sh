@@ -21,8 +21,8 @@ fail()
 }
 
 
-EXRVER_M="6"
-EXRVER_FULL="$EXRVER_M.0.0"
+EXRVER_M="2_2"
+EXRVER_FULL="$EXRVER_M.22"
 
 NATIVE_LIBHALF_DIR="$REPOSITORYDIR/lib"
 
@@ -33,7 +33,7 @@ os_dotvsn=${uname_release%%.*}
 os_dotvsn=$(($os_dotvsn - 4))
 os_sdkvsn=10.$os_dotvsn
 
-NATIVE_SDKDIR="/Developer/SDKs/MacOSX$os_sdkvsn.sdk"
+NATIVE_SDKDIR="/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk"
 NATIVE_OSVERSION="10.$os_dotvsn"
 NATIVE_ARCH=$uname_arch
 NATIVE_OPTIMIZE=""
@@ -82,7 +82,7 @@ do
 	-I$REPOSITORYDIR/include/OpenEXR -D_THREAD_SAFE \
 	-I. -I./config  -I$REPOSITORYDIR/include \
 	-I/usr/include -arch $ARCH $ARCHARGs -ftree-vectorize \
-	-mmacosx-version-min=10.5 -O3 -dead_strip  -L"$REPOSITORYDIR/lib" -lHalf \
+	-mmacosx-version-min=10.9 -O3 -dead_strip  -L"$REPOSITORYDIR/lib" -lHalf \
 	-o "./IlmImf/b44ExpLogTable-native" ./IlmImf/b44ExpLogTable.cpp
 
  if [ -f "./IlmImf/b44ExpLogTable-native" ] ; then
@@ -104,7 +104,7 @@ do
 
   # Configure is looking for a specific version of crt1.o based on what the compiler was built for
   # This library isn't in the search path, so copy it to lib
-  crt1obj="lib/crt1.$NATIVE_OSVERSION.o"
+  crt1obj="lib/crt1.10.6.o"
 
  [ -f $REPOSITORYDIR/$crt1obj ] || cp $NATIVE_SDK/usr/$crt1obj $REPOSITORYDIR/$crt1obj ;
  # File exists for 10.5 and 10.6. 10.4 is now fixed
@@ -141,7 +141,7 @@ done
 
 # merge
 
-for liba in lib/libIlmImf.a lib/libIlmImf.$EXRVER_FULL.dylib
+for liba in lib/libIlmImf.a lib/libIlmImf-$EXRVER_FULL.dylib
 do
 
  if [ $NUMARCH -eq 1 ] ; then
@@ -176,10 +176,12 @@ do
 
 done
 
-if [ -f "$REPOSITORYDIR/lib/libIlmImf.$EXRVER_FULL.dylib" ] ; then
-  install_name_tool -id "$REPOSITORYDIR/lib/libIlmImf.$EXRVER_M.dylib" "$REPOSITORYDIR/lib/libIlmImf.$EXRVER_FULL.dylib";
-  ln -sfn "libIlmImf.$EXRVER_FULL.dylib" "$REPOSITORYDIR/lib/libIlmImf.$EXRVER_M.dylib";
-  ln -sfn "libIlmImf.$EXRVER_FULL.dylib" "$REPOSITORYDIR/lib/libIlmImf.dylib";
+echo $REPOSITORYDIR/lib/libIlmImf-$EXRVER_FULL.dylib
+
+if [ -f "$REPOSITORYDIR/lib/libIlmImf-$EXRVER_FULL.dylib" ] ; then
+  install_name_tool -id "$REPOSITORYDIR/lib/libIlmImf-$EXRVER_FULL.dylib" "$REPOSITORYDIR/lib/libIlmImf-$EXRVER_FULL.dylib";
+  ln -sfn "libIlmImf-$EXRVER_FULL.dylib" "$REPOSITORYDIR/lib/libIlmImf-$EXRVER_M.dylib";
+  ln -sfn "libIlmImf-$EXRVER_FULL.dylib" "$REPOSITORYDIR/lib/libIlmImf.dylib";
 fi
 
 #pkgconfig

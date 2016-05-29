@@ -66,7 +66,8 @@ do
    ARCHFLAG="-m64"
  fi
 
- make clean;
+# ./configure --prefix="$REPOSITORYDIR/arch/$ARCH" --sdkdir="$REPOSITORYDIR/arch/$ARCH" --mode="release" \
+  
  env \
   CC=$CC CXX=$CXX \
   CFLAGS="-isysroot $MACSDKDIR $ARCHFLAG $ARCHARGs $OTHERARGs -O3 -dead_strip -I$REPOSITORYDIR/include/glib-2.0 -I$REPOSITORYDIR/include/gio-unix-2.0 \
@@ -77,8 +78,10 @@ do
          -I$REPOSITORYDIR/arch/$ARCH/lib/glib-2.0/include -I$REPOSITORYDIR/arch/$ARCH/lib/gio/include -I$REPOSITORYDIR/include" \
   LDFLAGS="$ARCHFLAG -L$REPOSITORYDIR/lib -L/usr/lib -mmacosx-version-min=$OSVERSION -dead_strip" \
   NEXT_ROOT="$MACSDKDIR" \
-  ./configure --prefix="$REPOSITORYDIR/arch/$ARCH" --sdkdir="$REPOSITORYDIR/arch/$ARCH" --mode="release" \
-  || fail "configure step for $ARCH";
+  cmake -DLENSFUN_INSTALL_PREFIX="$REPOSITORYDIR/arch/$ARCH" -DCMAKE_PREFIX_PATH="$REPOSITORYDIR"\
+  -DCMAKE_BUILD_TYPE=Release -DBUILD_STATIC=OFF -DPKG_CONFIG_USE_CMAKE_PREFIX_PATH=1 \
+  -DBUILD_TESTS=OFF \
+  || fail "cmake step for $ARCH";
 
 
 # Very stupid lensfun doesn't listen very well to CFLAGS/CXXFLAGS etc.. so we have 
@@ -86,12 +89,13 @@ do
  cp config.mak config.mak.org
  sed -e "s+/opt/local/lib+$REPOSITORYDIR/arch/$ARCH/lib+g" -e "s+/opt/local/include+$REPOSITORYDIR/include+g" -e 's+png14+png15+g'  config.mak.org > config.mak
 
-
- make libs || fail "failed at make step of $ARCH";
+ make clean;
+ #make libs instsead of make
+ make || fail "failed at make step of $ARCH";
  make install || fail "make install step of $ARCH";
 
  # somehow lensfun.h is not copied to REPOSITYDIR/include
- cp $REPOSITORYDIR/arch/$ARCH/include/lensfun.h $REPOSITORYDIR/include
+ cp $REPOSITORYDIR/arch/$ARCH/include/lensfun/lensfun.h $REPOSITORYDIR/include
  # and neither is the share folder with the public database
  mkdir -p $REPOSITORYDIR/share
  cp -a $REPOSITORYDIR/arch/$ARCH/share/lensfun  $REPOSITORYDIR/share
@@ -99,14 +103,14 @@ done
 
 # merge lensfun libs
 
-for liba in lib/liblensfun.dylib 
+for liba in lib/liblensfun.dylib lib/liblensfun.0.dylib lib/liblensfun.0.3.1.dylib 
 do
 
  if [ $NUMARCH -eq 1 ] ; then
    if [ -f $REPOSITORYDIR/arch/$ARCHS/$liba ] ; then
 		 echo "Moving arch/$ARCHS/$liba to $liba"
   	 mv "$REPOSITORYDIR/arch/$ARCHS/$liba" "$REPOSITORYDIR/$liba";
-  	 echo "Changing both install_names"
+  	 echo "Changing both install_names for single arch"
   	 install_name_tool -id "$REPOSITORYDIR/$liba" "$REPOSITORYDIR/$liba"
   	 install_name_tool -change "liblensfun.dylib" "$REPOSITORYDIR/$liba" "$REPOSITORYDIR/$liba"
 	   #Power programming: if filename ends in "a" then ...
@@ -132,7 +136,7 @@ do
  done
 
 echo "Changing both install_names"
-#        install_name_tool -id "$REPOSITORYDIR/lib/liblensfun.dylib" "$REPOSITORYDIR/arch/$ARCH/$liba"
+# install_name_tool -id "$REPOSITORYDIR/lib/liblensfun.dylib" "$REPOSITORYDIR/arch/$ARCH/$liba"
 install_name_tool -id "$REPOSITORYDIR/lib/liblensfun.dylib" "$REPOSITORYDIR/lib/liblensfun.dylib"
 install_name_tool -change "liblensfun.dylib" "$REPOSITORYDIR/lib/liblensfun.dylib" "$REPOSITORYDIR/lib/liblensfun.dylib"
 

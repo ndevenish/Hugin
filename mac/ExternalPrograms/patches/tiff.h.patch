@@ -1,0 +1,14 @@
+diff --git a/tiff.h b/tiff.h
+index bc46acd..78753f7 100644
+--- a/tiff.h
++++ b/tiff.h
+@@ -75,7 +75,8 @@ typedef TIFF_INT32_T  int32;
+ typedef TIFF_UINT32_T uint32;
+ 
+ typedef TIFF_INT64_T  int64;
+-typedef TIFF_UINT64_T uint64;
++typedef uint64_t uint64;
++
+ 
+ /*
+  * Some types as promoted in a variable argument list

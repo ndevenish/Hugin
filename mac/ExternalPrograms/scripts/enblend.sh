@@ -115,8 +115,9 @@ do
    LIBS="-lGLEW -framework GLUT -lobjc -framework OpenGL -framework AGL" \
    LDFLAGS="-L$REPOSITORYDIR/lib -L/usr/lib -mmacosx-version-min=$OSVERSION -dead_strip" \
    NEXT_ROOT="$MACSDKDIR" \
-   PKG_CONFIG_PATH="$REPOSITORYDIR/lib/pkgconfig" ;
+   PKG_CONFIG_PATH="$REPOSITORYDIR/lib/pkgconfig";
 
+   OPENEXR_CFLAGS="-I$REPOSITORYDIR/include/OpenEXR" OPENEXR_LIBS="-L$REPOSITORYDIR/lib -lIlmImf"\
    ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
    --enable-image-cache=yes --disable-openmp  --disable-gpu-support \
    --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH --with-apple-opengl-framework \

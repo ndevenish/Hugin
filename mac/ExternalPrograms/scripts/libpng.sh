@@ -35,8 +35,8 @@
 # libpng12.a <- libpng.a
 #PNGVER_M="15"
 #PNGVER_FULL="$PNGVER_M.15"
-PNGVER_M="14"
-PNGVER_FULL="$PNGVER_M.14"
+PNGVER_M="16"
+PNGVER_FULL="$PNGVER_M.16"
 
 # init
 
@@ -115,7 +115,7 @@ sed -e 's/-dynamiclib/-dynamiclib \$\(GCCLDFLAGS\)/g' \
 
   # This libpng.dylib is installed as libpng15.15..dylib, so we have to rename them
   # I assume this will be corrected in 1.5.11 or so
-  mv -v $REPOSITORYDIR/arch/$ARCH/lib/libpng$PNGVER_FULL..dylib $REPOSITORYDIR/arch/$ARCH/lib/libpng$PNGVER_FULL.dylib
+  mv -v $REPOSITORYDIR/arch/$ARCH/lib/libpng$PNGVER_FULL.dylib $REPOSITORYDIR/arch/$ARCH/lib/libpng$PNGVER_FULL.dylib
 done
 
 

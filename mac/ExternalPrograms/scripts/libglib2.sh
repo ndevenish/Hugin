@@ -27,6 +27,10 @@ ORGPATH=$PATH
 VERSION="2.0"
 FULLVERSION="2.0.0"
 
+export LIBFFI_CFLAGS="-I$REPOSITORYDIR/libffi-3.0.13/include"
+export LIBFFI_LIBS="-L$REPOSITORYDIR/lib -lffi"
+export MSGFMT="$REPOSITORYDIR/bin/msgfmt"
+
 let NUMARCH="0"
 
 for i in $ARCHS
@@ -135,6 +139,8 @@ do
  [ ${liba##*.} = a ] && ranlib "$REPOSITORYDIR/$liba";
 
 done
+
+cp -rv "$REPOSITORYDIR/arch/$ARCH/lib/glib-2.0" "$REPOSITORYDIR/lib"
 
 echo "First doing the install name stuff for glib libs"
 # Do the name_change thing as the libs are linked to each other in the arc/$ARCH libs.

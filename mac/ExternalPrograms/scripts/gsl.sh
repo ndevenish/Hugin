@@ -85,10 +85,10 @@ do
   --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
   --enable-shared --enable-static  || fail "configure step for $ARCH";
 
- make clean;
+  make clean;
 
- make $OTHERMAKEARGs || fail "failed at make step of $ARCH";
- make install || fail "make install step of $ARCH";
+  make $OTHERMAKEARGs || fail "failed at make step of $ARCH";
+  make install || fail "make install step of $ARCH";
 done
 
 

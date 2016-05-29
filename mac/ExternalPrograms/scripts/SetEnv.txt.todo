@@ -23,8 +23,8 @@ export \
  ARCHS="x86_64" \
  \
  x64TARGET="x86_64-apple-darwin9" \
- x64OSVERSION="10.5" \
- x64MACSDKDIR="/Developer/SDKs/MacOSX10.6.sdk" \
+ x64OSVERSION="10.9" \
+ x64MACSDKDIR="/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk" \
  x64OPTIMIZE="-march=core2 -mtune=core2 -ftree-vectorize" \
  x64CC="gcc-4.2" \
  x64CXX="g++-4.2" \

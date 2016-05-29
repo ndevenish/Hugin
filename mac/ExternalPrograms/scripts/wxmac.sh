@@ -38,9 +38,9 @@ NATIVE_OSVERSION="10.$os_dotvsn"
 NATIVE_ARCH=$uname_arch
 NATIVE_OPTIMIZE=""
 
-WX_MAJOR_VERSION="2.9"
-WXVERSION="2.9.3"
-WXVER_FULL="$WXVERSION.0.0" 
+WX_MAJOR_VERSION="3.0"
+WXVERSION="3.0.0"
+WXVER_FULL="$WXVERSION.2.0" 
 
 mkdir -p "$REPOSITORYDIR/bin";
 mkdir -p "$REPOSITORYDIR/lib";
@@ -71,6 +71,7 @@ ARCH="x86_64"
    CXX=$x64CXX
  
  ARCHARGs=$(echo $ARCHARGs | sed 's/-ftree-vectorize//')
+
  env \
   CC=$CC CXX=$CXX \
   CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
@@ -118,7 +119,6 @@ cp $NATIVE_SDKDIR/usr/lib/$dylib_name $REPOSITORYDIR/lib/
 
  cd ../;
 
-
 # We will no longer build universal but only 64bit, so merging of libs is not required anymore
 
 
@@ -129,6 +129,7 @@ then
   "$REPOSITORYDIR/lib/libwx_osx_cocoau-$WXVER_FULL.dylib";
  ln -sfn "libwx_osx_cocoau-$WXVER_FULL.dylib" "$REPOSITORYDIR/lib/libwx_osx_cocoau-$WXVERSION.dylib";
 fi
+
 if [ -f "$REPOSITORYDIR/lib/libwx_osx_cocoau_gl-$WXVER_FULL.dylib" ]
 then
  install_name_tool \
@@ -144,6 +145,8 @@ then
  ln -sfn "libwx_osx_cocoau_gl-$WXVER_FULL.dylib" "$REPOSITORYDIR/lib/libwx_osx_cocoau_gl-$WXVERSION.dylib";
 fi
 
+ln -sfn "libwx_osx_cocoau-$WXVER_FULL.dylib"     "$REPOSITORYDIR/lib/libwx_osx_cocoau-$WX_MAJOR_VERSION.dylib"   
+ln -sfn "libwx_osx_cocoau_gl-$WXVER_FULL.dylib" "$REPOSITORYDIR/lib/libwx_osx_cocoau_gl-$WX_MAJOR_VERSION.dylib"   
 
 # Make softlink to include folder
 whereIsSetup=$(find $REPOSITORYDIR/lib/wx -name setup.h -print)

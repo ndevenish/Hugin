@@ -27,7 +27,7 @@
 # -------------------------------
 
 GLEW_MAJOR=1
-GLEW_MINOR=9
+GLEW_MINOR=13
 GLEW_REV=0
 
 fail()

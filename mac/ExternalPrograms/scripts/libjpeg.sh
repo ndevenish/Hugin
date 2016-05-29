@@ -44,7 +44,7 @@ os_dotvsn=${uname_release%%.*}
 os_dotvsn=$(($os_dotvsn - 4))
 os_sdkvsn=10.$os_dotvsn
 
-NATIVE_SDKDIR="/Developer/SDKs/MacOSX$os_sdkvsn.sdk"
+NATIVE_SDKDIR="/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk"
 NATIVE_OSVERSION="10.$os_dotvsn"
 NATIVE_ARCH=$uname_arch
 NATIVE_OPTIMIZE=""
@@ -71,6 +71,9 @@ case $NATIVE_OSVERSION in
 	10.6 )
 		cp /usr/share/libtool/config/config.{guess,sub} ./ 
 		;;
+  10.11 )
+    cp /usr/local/Cellar/libtool/2.4.6/share/libtool/build-aux/config.{guess,sub} ./ 
+    ;;
 	* )
 		echo "Unknown OS version; Add code to support $NATIVE_OSVERSION"; 
 		exit 1 

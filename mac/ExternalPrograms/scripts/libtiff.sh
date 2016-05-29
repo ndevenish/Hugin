@@ -28,7 +28,7 @@ os_dotvsn=${uname_release%%.*}
 os_dotvsn=$(($os_dotvsn - 4))
 os_sdkvsn=10.$os_dotvsn
 
-NATIVE_SDKDIR="/Developer/SDKs/MacOSX$os_sdkvsn.sdk"
+NATIVE_SDK="/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk"
 NATIVE_OSVERSION="10.$os_dotvsn"
 NATIVE_ARCH=$uname_arch
 NATIVE_OPTIMIZE=""
@@ -37,7 +37,7 @@ NATIVE_OPTIMIZE=""
 
 #TIFF_VERSION="5" 
 # Back to tiff 3.94 as tiff 4.0.x gives weird 64bit errors
-TIFF_VERSION="3"
+TIFF_VERSION="5"
 
 let NUMARCH="0"
 
@@ -80,7 +80,7 @@ do
 
  # Configure is looking for a specific version of crt1.o based on what the compiler was built for
  # This library isn't in the search path, so copy it to lib
- crt1obj="lib/crt1.$NATIVE_OSVERSION.o"
+ crt1obj="lib/crt1.10.6.o"
 
  [ -f $REPOSITORYDIR/$crt1obj ] || cp $NATIVE_SDK/usr/$crt1obj $REPOSITORYDIR/$crt1obj ;
  # File exists for 10.5 and 10.6. 
@@ -198,3 +198,7 @@ do
   done
 
 done
+
+cd $REPOSITORYDIR/include
+patch -p1 -N < ../../patches/tiff.h.patch
+

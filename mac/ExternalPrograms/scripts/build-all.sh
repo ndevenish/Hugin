@@ -13,47 +13,38 @@
 # 20121010.0 hvdw update lots of scripts
 # -------------------------------
 
-cd /PATHTOHUGIN/hugin/mac/ExternalPrograms/scripts || exit 1
-cat SetEnv.txt
+DIR="$(cd "$(dirname "$0")" && pwd)"
+cd $DIR || exit 1
 source SetEnv.txt
 pre="<<<<<<<<<<<<<<<<<<<< building"
 pst=">>>>>>>>>>>>>>>>>>>>"
 
+cd $REPOSITORYDIR/
+cd $(ls -d */|head -n 1) # cd into first folder
 # To start this script in the middle, uncomment the next 2 lines and move the "fi" line down as needed
-#if [ -z "this will test will fail" ] ; then
-#fi
-echo "$pre boost $pst"           && cd ../boost_1_46_0 || exit 1       && sh ../scripts/boost.sh
-echo "$pre expat $pst"           && cd ../expat-2.1.0 || exit 1        && sh ../scripts/libexpat.sh;
-echo "$pre libiconv $pst"        && cd ../libiconv-1.14  || exit 1   && sh ../scripts/libiconv.sh;
-echo "$pre gettext $pst"         && cd ../gettext-0.18.1.1  || exit 1      && sh ../scripts/gettext.sh
-echo "$pre libjpeg-8d $pst"      && cd ../jpeg-8d || exit 1            && sh ../scripts/libjpeg.sh;
-echo "$pre libpng $pst"          && cd ../libpng-1.4.11 || exit 1      && sh ../scripts/libpng.sh;
-echo "$pre libtiff $pst"         && cd ../tiff-4.0.3 || exit 1         && sh ../scripts/libtiff.sh;
-echo "$pre wxmac $pst"           && cd ../wxMac-2.9.4 || exit 1       && sh ../scripts/wxmac29.sh;
-echo "$pre ilmbase $pst"         && cd ../ilmbase-1.0.2 || exit 1      && sh ../scripts/ilmbase.sh;
-echo "$pre openexr $pst"         && cd ../openexr-1.7.0 || exit 1      && sh ../scripts/openexr17.sh;
-echo "$pre libpano13 $pst"       && cd ../libpano13-2.9.18 || exit 1   && sh ../scripts/pano13.sh;
-echo "$pre libexiv2 $pst"        && cd ../exiv2-0.23 || exit 1         && sh ../scripts/libexiv2.sh;
-echo "$pre liblcms $pst"         && cd ../lcms-1.19 || exit 1          && sh ../scripts/lcms.sh;
-echo "$pre liblcms-2 $pst"       && cd ../lcms-2.4 || exit 1           && sh ../scripts/lcms2.sh;
-echo "$pre tclap $pst"           && cd ../tclap-1.21 || exit 1         && sh ../scripts/tclap.sh;
-echo "$pre gnu science lib"      && cd ../gsl-1.15 || exit 1           && sh ../scripts/gsl.sh; 
-echo "$pre libxmi $pst"          && cd ../libxmi-1.2 || exit 1         && sh ../scripts/libxmi.sh;
-echo "$pre libglew $pst"         && cd ../glew-1.9.0 || exit 1         && sh ../scripts/libglew.sh;
-echo "$pre libffi $pst"          && cd ../libffi-3.0.11 || exit 1      && sh ../scripts/libffi.sh;
-echo "$pre glib2 $pst"           && cd ../glib-2.32.0 || exit 1        && sh ../scripts/libglib.sh;
-echo "$pre lensfun $pst"         && cd ../lensfun-0.2.6 || exit 1        && sh ../scripts/lensfun.sh;
-echo "$pre make-382 $pst"        && cd ../make-3.82 || exit 1          && sh ../scripts/gnumake.sh;
-echo "$pre multiblend $pst"      && cd ../multiblend || exit 1         && sh ../scripts/multiblend.sh;
-# Correct funky name for the enblend-enfuse-4.0 directory
-if [ ! -d ../enblend-enfuse-4.0 ] && [ -d ../enblend-enfuse-4.0-753b534c819d ] ; then
-	ln -s enblend-enfuse-4.0-753b534c819d ../enblend-enfuse-4.0
+if [ -z "check for zero length string fails" ] ; then echo;
 fi
-echo "$pre enblend-enfuse $pst"  && cd ../enblend-enfuse-4.0 || exit 1 && sh ../scripts/enblend.sh;
+# exit 0
+echo "$pre boost $pst"           && cd ../boost*        || exit 1   && sh ../../scripts/boost.sh    || exit 1
+echo "$pre gettext $pst"         && cd ../gettext*      || exit 1   && sh ../../scripts/gettext.sh  || exit 1
+echo "$pre libffi $pst"          && cd ../libffi*       || exit 1   && sh ../../scripts/libffi.sh   || exit 1
+echo "$pre glib2 $pst"           && cd ../glib*         || exit 1   && sh ../../scripts/libglib2.sh || exit 1
+echo "$pre fftw $pst"            && cd ../fftw*         || exit 1   && sh ../../scripts/fftw.sh     || exit 1
+echo "$pre libglew $pst"         && cd ../glew*         || exit 1   && sh ../../scripts/libglew.sh  || exit 1
+echo "$pre gsl $pst"             && cd ../gsl*          || exit 1   && sh ../../scripts/gsl.sh      || exit 1
+echo "$pre libjpeg-8d $pst"      && cd ../jpeg*         || exit 1   && sh ../../scripts/libjpeg.sh  || exit 1
+echo "$pre libpng $pst"          && cd ../libpng*       || exit 1   && sh ../../scripts/libpng.sh   || exit 1
+echo "$pre libtiff $pst"         && cd ../tiff*         || exit 1   && sh ../../scripts/libtiff.sh  || exit 1
+echo "$pre ilmbase $pst"         && cd ../ilmbase*      || exit 1   && sh ../../scripts/ilmbase.sh  || exit 1
+echo "$pre openexr $pst"         && cd ../openexr*      || exit 1   && sh ../../scripts/openexr.sh	|| exit 1
+echo "$pre libpano13 $pst"       && cd ../libpano13*    || exit 1   && sh ../../scripts/pano13.sh   || exit 1
+echo "$pre libexiv2 $pst"        && cd ../exiv2*        || exit 1   && sh ../../scripts/libexiv2.sh || exit 1
+echo "$pre liblcms-2 $pst"       && cd ../lcms2*        || exit 1   && sh ../../scripts/lcms2.sh    || exit 1
+echo "$pre vigra $pst"           && cd ../vigra*        || exit 1   && sh ../../scripts/vigra.sh    || exit 1
+echo "$pre wxmac $pst"           && cd ../wxWidgets*    || exit 1   && patch -p1 -N < ../../patches/wxmac-webkit.patch; sh ../../scripts/wxmac.sh || exit 1
+echo "$pre enblend-enfuse $pst"  && cd ../enblend-en*   || exit 1   && sh ../../scripts/enblend.sh  || exit 1
+echo "$pre lensfun $pst"         && cd ../lensfun*      || exit 1   && patch -p1 -N < ../../patches/lensfun_glib.patch; sh ../../scripts/lensfun.sh|| exit 1 && sh ../../scripts/lensfun.sh|| exit 1
 
-# Following packages are optional. Uncomment if you are building them
-#echo "$pre autopano-sift-C $pst" && cd ../autopano-sift-C    && sh ../scripts/autopano-sift-C.sh;
-#echo "$pre panomatic $pst"       && cd ../panomatic-0.9.4    && sh ../scripts/panomatic.sh;
 
 cd $REPOSITORYDIR
 

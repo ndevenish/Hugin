@@ -22,7 +22,7 @@ fail()
         exit 1
 }
 
-# libffi-3.0.11
+VERSION_NAME="libffi-3.0.13"
 VERSION="6"
 
 let NUMARCH="0"
@@ -66,10 +66,6 @@ do
    ARCHFLAG="-m64"
  fi
 
-
-
-
-
  env \
   CC=$CC CXX=$CXX \
   CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $ARCHFLAG $OTHERARGs -O3 -dead_strip -fstrict-aliasing" \
@@ -85,6 +81,7 @@ do
  make || fail "failed at make step of $ARCH"
  make $OTHERMAKEARGs install || fail "make install step of $ARCH"
 done
+
 
 
 # merge libffi
@@ -129,3 +126,4 @@ if [ -f "$REPOSITORYDIR/lib/libffi.$VERSION.dylib" ] ; then
  ln -sfn libffi.$VERSION.dylib $REPOSITORYDIR/lib/libffi.dylib;
 fi
 
+cp -vr "$REPOSITORYDIR/arch/$ARCH/lib/$VERSION_NAME" "$REPOSITORYDIR/"

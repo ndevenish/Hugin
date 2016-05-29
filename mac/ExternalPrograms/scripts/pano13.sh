@@ -44,7 +44,11 @@ libpanoVsn=$(grep "AC_INIT" configure.ac|cut -f 2 -d ,|cut -c 7-8)
 case $libpanoVsn in
   "18")
         GENERATED_DYLIB_NAME="libpano13.2.dylib";
-                                GENERATED_DYLIB_INSTALL_NAME="libpano13.dylib";
+        GENERATED_DYLIB_INSTALL_NAME="libpano13.dylib";
+                                ;;
+  "19")
+        GENERATED_DYLIB_NAME="libpano13.3.dylib";
+        GENERATED_DYLIB_INSTALL_NAME="libpano13.dylib";
                                 ;;
      *)
         echo "Unknown libpano version $libpanoVsn. Program aborting."

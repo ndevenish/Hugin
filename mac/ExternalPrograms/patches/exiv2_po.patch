@@ -1,0 +1,25 @@
+diff --git a/Makefile.old b/Makefile
+index 83f5ab8..f34a5ad 100644
+--- a/Makefile.old
++++ b/Makefile
+@@ -34,13 +34,13 @@ MKINSTALLDIRS = $(top_builddir)/./config/mkinstalldirs
+ mkinstalldirs = $(SHELL) $(MKINSTALLDIRS)
+ 
+-GMSGFMT = :
+-MSGFMT = :
+-XGETTEXT = :
+-MSGMERGE = msgmerge
++GMSGFMT = ${prefix}/bin/msgfmt
++MSGFMT = ${prefix}/bin/msgfmt
++XGETTEXT = ${prefix}/bin/xgettext
++MSGMERGE = ${prefix}/bin/xgettext
+ MSGMERGE_UPDATE = : --update
+-MSGINIT = msginit
+-MSGCONV = msgconv
+-MSGFILTER = msgfilter
++MSGINIT = ${prefix}/bin/msginit
++MSGCONV = ${prefix}/bin/msgconv
++MSGFILTER = ${prefix}/bin/msgfilter
+ 
+ POFILES =  bs.po de.po es.po fi.po fr.po gl.po ms.po pl.po pt.po ru.po sk.po sv.po ug.po uk.po vi.po
+ GMOFILES =  bs.gmo de.gmo es.gmo fi.gmo fr.gmo gl.gmo ms.gmo pl.gmo pt.gmo ru.gmo sk.gmo sv.gmo ug.gmo uk.gmo vi.gmo
