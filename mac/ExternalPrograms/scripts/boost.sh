@@ -39,25 +39,25 @@ fail()
 # Uncomment correct version
 BOOST_VER="1_60"
 
-echo "\n## Version set to $BOOST_VER ##\n"
+echo -e "\n## Version set to $BOOST_VER ##\n"
 
 # install headers
 
 mkdir -p "$REPOSITORYDIR/include"
 rm -rf "$REPOSITORYDIR/include/boost";
-echo "\n## First copying all boost includes to $REPOSITORYDIR/include/ ##"
-echo "## This will take some time ##\n"
+echo -e "\n## First copying all boost includes to $REPOSITORYDIR/include/ ##"
+echo -e "## This will take some time ##\n"
 
 cp -R "./boost" "$REPOSITORYDIR/include/";
 
- echo "## First compiling b2 ##\n"
+echo -e "## First compiling b2 ##\n"
 case "$BOOST_VER" in
   1_46)
        cd "./tools/build/v2/engine/src"
        sh "build.sh"
        cd "../../../../../"
        BJAM=$(ls ./tools/build/v2/engine/src/bin.mac*/bjam)
-       echo $BJAM
+       echo -e $BJAM
        ;;
   1_60)
        cd "./tools/build/"
@@ -68,7 +68,7 @@ case "$BOOST_VER" in
 
        B2=$(ls ./tools/build/bin/bin/b2)
        BJAM=$(ls ./tools/build/bin/bin/bjam)
-       echo $BJAM
+       echo -e $BJAM
        ;;
 esac
 echo "b2 command is: $B2"
@@ -92,7 +92,7 @@ mkdir -p "$REPOSITORYDIR/lib";
 # compile boost_thread, filesystem, system, regex, iostreams, date_time and signals
 for ARCH in $ARCHS
 do
- echo "\n## Now building architecture $ARCH ##\n"
+ echo -e  "\n## Now building architecture $ARCH ##\n"
  rm -rf "stage-$ARCH";
  mkdir -p "stage-$ARCH";
 
@@ -219,7 +219,7 @@ fi
 if [ -f "$REPOSITORYDIR/lib/libboost_filesystem-$BOOST_VER.dylib" ]; then
  install_name_tool -id "$REPOSITORYDIR/lib/libboost_filesystem-$BOOST_VER.dylib" "$REPOSITORYDIR/lib/libboost_filesystem-$BOOST_VER.dylib";
  ln -sfn libboost_filesystem-$BOOST_VER.dylib $REPOSITORYDIR/lib/libboost_filesystem.dylib;
- install_name_tool -change "libboost_system.dylib" "@executable_path/../Libraries/libboost_system-$BOOST_VER.dylib" "$REPOSITORYDIR/lib/libboost_filesystem-$BOOST_VER.dylib";
+ install_name_tool -change "libboost_system.dylib" "$REPOSITORYDIR/lib/libboost_system-$BOOST_VER.dylib" "$REPOSITORYDIR/lib/libboost_filesystem-$BOOST_VER.dylib";
 fi
 
 if [ -f "$REPOSITORYDIR/lib/libboost_system-$BOOST_VER.a" ] ; then

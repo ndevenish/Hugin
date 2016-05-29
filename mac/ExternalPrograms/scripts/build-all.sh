@@ -43,8 +43,6 @@ echo "$pre liblcms-2 $pst"       && cd ../lcms2*        || exit 1   && sh ../../
 echo "$pre vigra $pst"           && cd ../vigra*        || exit 1   && sh ../../scripts/vigra.sh    || exit 1
 echo "$pre wxmac $pst"           && cd ../wxWidgets*    || exit 1   && patch -p1 -N < ../../patches/wxmac-webkit.patch; sh ../../scripts/wxmac.sh || exit 1
 echo "$pre enblend-enfuse $pst"  && cd ../enblend-en*   || exit 1   && sh ../../scripts/enblend.sh  || exit 1
-echo "$pre lensfun $pst"         && cd ../lensfun*      || exit 1   && patch -p1 -N < ../../patches/lensfun_glib.patch; sh ../../scripts/lensfun.sh|| exit 1 && sh ../../scripts/lensfun.sh|| exit 1
-
 
 cd $REPOSITORYDIR
 
