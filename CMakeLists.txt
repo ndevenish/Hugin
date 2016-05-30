@@ -11,6 +11,20 @@ if(COMMAND cmake_policy)
   cmake_policy(SET CMP0003 NEW)
 endif(COMMAND cmake_policy)
 
+if(APPLE)
+  set(CMAKE_OSX_SYSROOT macosx10.11)
+  set(CMAKE_OSX_DEPLOYMENT_TARGET "10.9")
+  if (MAC_SELF_CONTAINED_BUNDLE)
+    if(MAC_EXT_PROG)
+      set(CMAKE_LIBRARY_PATH ${CMAKE_SOURCE_DIR}/mac/ExternalPrograms/repository/lib)
+      set(CMAKE_INCLUDE_PATH ${CMAKE_SOURCE_DIR}/mac/ExternalPrograms/repository/include ${CMAKE_SOURCE_DIR}/mac/ExternalPrograms/repository/bin)
+    else()
+      set(CMAKE_LIBRARY_PATH /usr/local/lib)
+      INCLUDE_DIRECTORIES(/usr/local/include /usr/local/include/OpenEXR)
+    endif(MAC_EXT_PROG)
+  endif(MAC_SELF_CONTAINED_BUNDLE)
+endif(APPLE)
+
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMakeModules )
 
 ##
@@ -642,27 +656,51 @@ ELSE (UNIX)
   ENDIF(MSVC)
 ENDIF (UNIX)
 
-IF (APPLE)
-   #
-   if (${MAC_SELF_CONTAINED_BUNDLE})
-      MESSAGE("-- Configuring hugin for fully bundled version. (not yet working)")
-   endif(${MAC_SELF_CONTAINED_BUNDLE})
+IF(APPLE)
+
+  IF(MAC_SELF_CONTAINED_BUNDLE)
+    SET(CMAKE_MACOSX_RPATH FALSE) 
+
+    
+    ADD_CUSTOM_TARGET(
+      MacTools ALL
+      DEPENDS fulla tca_correct vig_optimize hugin_lensdb hugin_executor pano_trafo pto_gen 
+        pto_lensstack pto_mask pto_merge pto_move pto_template pto_var
+    )
+
+    ADD_CUSTOM_COMMAND(
+      TARGET MacTools
+      POST_BUILD
+      COMMAND ${CMAKE_SOURCE_DIR}/mac/PackageCreateToolsLibs.sh
+      ARGS ${CMAKE_CURRENT_BINARY_DIR}/tools_mac
+      fulla tca_correct vig_optimize hugin_lensdb hugin_executor pano_trafo pto_gen 
+        pto_lensstack pto_mask pto_merge pto_move pto_template pto_var)
+    INSTALL( DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/tools_mac
+             DESTINATION Hugin 
+             FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
+             PATTERN .DS_Store EXCLUDE )
+
+  ENDIF(MAC_SELF_CONTAINED_BUNDLE)
+
+  
+  ADD_DEFINITIONS(-D__ASSERT_MACROS_DEFINE_VERSIONS_WITHOUT_UNDERSCORES=0)
+
    
    #This namespace workaround is not needed for CMake >= 2.5.x
    ## Add needed Compiler and Linker flags for OSX
-      IF (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
-      	 SET (CMAKE_C_FLAGS:STRING "\"$CMAKE_C_FLAGS\" -flat_namespace -undefined suppress" )
-	 SET (CMAKE_CXX_FLAGS:STRING "\"$CMAKE_CXX_FLAGS\" -flat_namespace -undefined suppress" )
-	 SET (CMAKE_LDFLAGS:STRING "\"$CMAKE_LD_FLAGS\"" )
-	 SET (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}  -flat_namespace -undefined suppress" )
-	 SET (CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS}  -flat_namespace -undefined suppress" )
-	 SET (CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS}  -flat_namespace -undefined suppress" )
-         SET (CMAKE_INSTALL_NAME_DIR "${CMAKE_INSTALL_PREFIX}/lib" )
-	 IF (${CMAKE_BUILD_TYPE} STREQUAL "Release")
-		SET (CMAKE_C_FLAGS_RELEASE:STRING " $CMAKE_C_FLAGS_RELEASE ")
-		SET (CMAKE_CXX_FLAGS_RELEASE:STRING " $CMAKE_CXX_FLAGS_RELEASE ")
-	 ENDIF (${CMAKE_BUILD_TYPE} STREQUAL "Release")
-      ENDIF (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+  IF (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+      SET (CMAKE_C_FLAGS:STRING "\"$CMAKE_C_FLAGS\" -flat_namespace -undefined suppress" )
+      SET (CMAKE_CXX_FLAGS:STRING "\"$CMAKE_CXX_FLAGS\" -flat_namespace -undefined suppress" )
+      SET (CMAKE_LDFLAGS:STRING "\"$CMAKE_LD_FLAGS\"" )
+      SET (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}  -flat_namespace -undefined suppress" )
+      SET (CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS}  -flat_namespace -undefined suppress" )
+      SET (CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS}  -flat_namespace -undefined suppress" )
+      SET (CMAKE_INSTALL_NAME_DIR "${CMAKE_INSTALL_PREFIX}/lib" )
+    IF (${CMAKE_BUILD_TYPE} STREQUAL "Release")
+      SET (CMAKE_C_FLAGS_RELEASE:STRING " $CMAKE_C_FLAGS_RELEASE ")
+      SET (CMAKE_CXX_FLAGS_RELEASE:STRING " $CMAKE_CXX_FLAGS_RELEASE ")
+    ENDIF (${CMAKE_BUILD_TYPE} STREQUAL "Release")
+  ENDIF (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 ENDIF (APPLE)
 
 
@@ -685,7 +723,11 @@ ELSE()
 ENDIF()
 
 SET(CPACK_SOURCE_PACKAGE_FILE_NAME "hugin-${V_MAJOR}.${V_MINOR}.${V_PATCH}")
-SET(CPACK_SOURCE_GENERATOR "TBZ2")
+if(APPLE)
+  SET(CPACK_SOURCE_GENERATOR "DragNDrop")
+ELSE()
+  SET(CPACK_SOURCE_GENERATOR "TBZ2")
+ENDIF()
 SET(CPACK_PACKAGE_CONTACT "hugin-ptx@googlegroups.com")
 IF(NOT WIN32)
   SET(CPACK_SET_DESTDIR "ON")

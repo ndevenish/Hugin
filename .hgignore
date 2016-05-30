@@ -6,3 +6,4 @@ glob:src/hugin/*
 ^BUILD/
 ^build/
 ^src/translations/messages.mo$
+^mac/ExternalPrograms/repository

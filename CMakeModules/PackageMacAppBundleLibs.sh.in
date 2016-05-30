@@ -1,24 +1,21 @@
 #!/bin/bash
 
-# //TODO: Add Icon File and copy it to the bundle
 # This script attempts to copy needed 3rd party libraries and frameworks into 
 # the application bundle. It will then attempt to set the 'install_name' for 
 # each library so that it references either the PlugIns or Frameworks directory.
-# The Script will change the JPEG, TIFF, and PNG, and Boost libraries. Each of these
-# libraries is assumed to have been built with some sort of rpath already. We are
-# dependant on that fact.
+# The Script will change every library it can find. Each of these libraries 
+# needs to have an absolute install path so we can copy it.
 
-BASE_DIR="@CMAKE_CURRENT_BINARY_DIR@"
+BASE_DIR="$2"
 cd ${BASE_DIR}
 
-dylib=".dylib"
-PLUGINS_DIR_NAME="Lib"
-APPLICATION_APP_BUNDLE="@PROGNAME@.app"
-APPLICATION_BINDIR="${APPLICATION_APP_BUNDLE}/Contents/MacOS"
-APPLICATION_APP_NAME="${APPLICATION_BINDIR}/@PROGNAME@"
-PLUGINS_PATH="${APPLICATION_APP_BUNDLE}/Contents/${PLUGINS_DIR_NAME}"
+APPLICATION_NAME="$1"
+APPLICATION_APP_BUNDLE="${APPLICATION_NAME}.app"
+  APPLICATION_BINDIR="${APPLICATION_APP_BUNDLE}/Contents/MacOS"
+APPLICATION_APP_NAME="${APPLICATION_BINDIR}/${APPLICATION_NAME}"
+   PLUGINS_PATH="${APPLICATION_APP_BUNDLE}/Contents/Libraries"
 FRAMEWORKS_PATH="${APPLICATION_APP_BUNDLE}/Contents/Frameworks"
-RPATH_PLUGIN_PATH="@executable_path/../${PLUGINS_DIR_NAME}"
+RPATH_PLUGIN_PATH="@executable_path/../Libraries"
 RPATH_FRAMEWORK_PATH="@executable_path/../Frameworks"
 
 DEBUG=0
@@ -51,7 +48,7 @@ update_library() {
    then 
      echo "* Installing Library -->$1<-- into ${APPLICATION_APP_BUNDLE} " 
      cp "${lib}" "${BASE_DIR}/${PLUGINS_PATH}" || exit 1
-     #chmod 755 "${BASE_DIR}/${PLUGINS_PATH}/${file}"
+     chmod 755 "${BASE_DIR}/${PLUGINS_PATH}/${file}"
      install_name_tool -id "${RPATH_PLUGIN_PATH}/${file}" "${BASE_DIR}/${PLUGINS_PATH}/${file}"
      install_name_tool -change "${lib}" "${RPATH_PLUGIN_PATH}/${file}" "$2"
      get_libraries "${BASE_DIR}/${PLUGINS_PATH}/${file}"
@@ -68,23 +65,72 @@ add_executable() {
   # -----------------------------------------------------------------------------
   # Copy the executable into the App package 
   # -----------------------------------------------------------------------------
-  echo "* Installing Binary -->$1<-- into ${APPLICATION_APP_BUNDLE} " 
-  cp "$1" "${BASE_DIR}/${APPLICATION_BINDIR}" || exit 1
-  get_libraries "${BASE_DIR}/${APPLICATION_BINDIR}/$(basename $1)"
+  if [ "$1" -nt "${BASE_DIR}/${APPLICATION_BINDIR}/$(basename $1)" ]; then
+    echo "* Installing Binary -->$1<-- into ${APPLICATION_APP_BUNDLE} " 
+    cp "$1" "${BASE_DIR}/${APPLICATION_BINDIR}" || exit 1
+    get_libraries "${BASE_DIR}/${APPLICATION_BINDIR}/$(basename $1)"
+  fi
 }
 
-get_libraries "${BASE_DIR}/${APPLICATION_BINDIR}/@PROGNAME@"
-add_executable "${BASE_DIR}/../../tools/nona"
-add_executable "${BASE_DIR}/../../deghosting/hugin_hdrmerge"
-add_executable "${BASE_DIR}/../stitch_project/hugin_stitch_project"
-add_executable "$(which msgfmt)"
-add_executable "$(which PTroller)"
-add_executable "$(which PTmasker)"
-add_executable "$(which PTtiff2psd)"
-add_executable "$(which enblend)"
-add_executable "$(which enfuse)"
+get_libraries "${BASE_DIR}/${APPLICATION_BINDIR}/${APPLICATION_NAME}"
 
-echo "*-----------------------------------------------------------*"
-echo "* Creating DMG file: @CMAKE_INSTALL_PREFIX@/@PROGNAME@.dmg "
-mkdmg -zlib -s "${BASE_DIR}/${APPLICATION_APP_BUNDLE}" -i "@CMAKE_INSTALL_PREFIX@/@PROGNAME@.dmg"
-echo ""
+BINS=()
+if [ "${APPLICATION_APP_BUNDLE}" == "Hugin.app" ]; then
+
+  # bins compiled by Hugin
+  add_executable "${BASE_DIR}/../../tools/align_image_stack"
+  add_executable "${BASE_DIR}/../../tools/autooptimiser"
+  add_executable "${BASE_DIR}/../../tools/checkpto"
+  add_executable "${BASE_DIR}/../../tools/cpclean"
+  add_executable "${BASE_DIR}/../../tools/linefind"
+  add_executable "${BASE_DIR}/../../tools/geocpset"
+  add_executable "${BASE_DIR}/../../tools/pano_modify"
+  add_executable "${BASE_DIR}/../../hugin1/icpfind/icpfind"
+  add_executable "${BASE_DIR}/../../hugin_cpfind/cpfind/cpfind"
+  add_executable "${BASE_DIR}/../../celeste/celeste_standalone"
+
+  # bins for external use
+  add_executable "${BASE_DIR}/../../tools/fulla" 
+  add_executable "${BASE_DIR}/../../tools/tca_correct" 
+  add_executable "${BASE_DIR}/../../tools/vig_optimize" 
+  add_executable "${BASE_DIR}/../../tools/hugin_lensdb" 
+  add_executable "${BASE_DIR}/../../hugin1/executor/hugin_executor" 
+  add_executable "${BASE_DIR}/../../tools/pano_trafo" 
+  add_executable "${BASE_DIR}/../../tools/pto_gen" 
+  add_executable "${BASE_DIR}/../../tools/pto_lensstack" 
+  add_executable "${BASE_DIR}/../../tools/pto_mask" 
+  add_executable "${BASE_DIR}/../../tools/pto_merge" 
+  add_executable "${BASE_DIR}/../../tools/pto_move" 
+  add_executable "${BASE_DIR}/../../tools/pto_template" 
+  add_executable "${BASE_DIR}/../../tools/pto_var"
+
+elif [ "${APPLICATION_APP_BUNDLE}" == "PTBatcherGUI.app" ] || [ "${APPLICATION_APP_BUNDLE}" == "HuginStitchProject.app" ]; then
+  
+  # bins compiled by Hugin
+  add_executable "${BASE_DIR}/../../tools/align_image_stack"
+  add_executable "${BASE_DIR}/../../tools/nona"
+  add_executable "${BASE_DIR}/../../tools/hugin_hdrmerge"
+  add_executable "${BASE_DIR}/../../tools/verdandi"
+
+  # bins from ExternalProgams
+  BINS+=("enblend")
+  BINS+=("enfuse")
+
+  if [ ! -x "${APPLICATION_APP_BUNDLE}/Contents/Resources/ExifTool/exiftool" ]; then
+    echo "* Installing ExifTool into ${APPLICATION_APP_BUNDLE} " 
+    mkdir "${APPLICATION_APP_BUNDLE}/Contents/Resources/ExifTool"
+    cp -v "@CMAKE_SOURCE_DIR@/mac/ExternalPrograms/repository/"Image-ExifTool-*/exiftool  "${APPLICATION_APP_BUNDLE}/Contents/Resources/ExifTool"
+    cp -r "@CMAKE_SOURCE_DIR@/mac/ExternalPrograms/repository/"Image-ExifTool-*/lib       "${APPLICATION_APP_BUNDLE}/Contents/Resources/ExifTool"
+  fi
+
+fi
+
+for _exe in "${BINS[@]}"; do
+
+  if [ -x ${BASE_DIR}/${APPLICATION_BINDIR}/$(basename ${_exe}) ]; then
+    continue;
+  fi
+
+  add_executable "@CMAKE_SOURCE_DIR@/mac/ExternalPrograms/repository/bin/${_exe}" 
+done
+

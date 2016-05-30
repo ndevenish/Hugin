@@ -12,28 +12,82 @@ IF (WIN32)
   ENDIF(MINGW)
 ELSEIF(APPLE)
   set( PROGNAME PTBatcherGUI )
-  set( MACOSX_BUNDLE_EXTENSION pto)
-  set( MACOSX_BUNDLE_ICON_FILE ../hugin/Hugin.icns )
-  set( MACOSX_BUNDLE_TYPE_ICON_FILE ../hugin/HuginFiles.icns )
-  set( MACOSX_BUNDLE_MIME_TYPE application/x-ptoptimizer-script )
-  set( MACOSX_BUNDLE_TYPE_NAME "Hugin Project" )
+  set( MACOSX_BUNDLE_ICON_FILE PTBatcherGui.icns )
+
+  set( INFO_PLIST ${CMAKE_MODULE_PATH}/HuginBundleInfoPTO.plist.in)
   set( MACOSX_BUNDLE_TYPE_ROLE Viewer )
+  
   set( MACOSX_BUNDLE_VERSION ${V_MAJOR}.${V_MINOR}.${V_PATCH} )
   set( MACOSX_BUNDLE_SHORT_VERSION_STRING ${MACOSX_BUNDLE_VERSION})
   set( MACOSX_BUNDLE_LONG_VERSION_STRING "Version ${MACOSX_BUNDLE_VERSION}" )
-  set( MACOSX_BUNDLE_GUI_IDENTIFIER net.sourceforge.hugin)
+  set( MACOSX_BUNDLE_GUI_IDENTIFIER net.sourceforge.hugin.PTBatcherGUI)
   set( MACOSX_BUNDLE_INFO_STRING "PTBatcherGUI ${MACOSX_BUNDLE_VERSION}" )
   set( MACOSX_BUNDLE_BUNDLE_NAME "PTBatcherGUI" )
   set( MACOSX_BUNDLE_COPYRIGHT "Copyright 2007 Pablo d'Angelo" )
-  set( MACOSX_BUNDLE_SIGNATURE "HgiS" )
+  # set( MACOSX_BUNDLE_SIGNATURE "Hgin" )
   #  set( CMAKE_OSX_ARCHITECTURES ppc;i386 ) #Comment out if not universal binary
 
   IF(MAC_SELF_CONTAINED_BUNDLE)
-    MESSAGE(SEND_ERROR "TODO: add support for building fully featured PTBatcherGUI bundle")
+    FILE(GLOB RAW_TRANSLATION_FILES ${CMAKE_SOURCE_DIR}/src/translations/*.po)
+    LIST(APPEND TRANSLATION_FILES )
+    FOREACH(_file ${RAW_TRANSLATION_FILES})
+      GET_FILENAME_COMPONENT(_file_name ${_file} NAME_WE)
+      LIST(APPEND TRANSLATION_FILES ${CMAKE_BINARY_DIR}/src/translations/${_file_name}.gmo )
+    ENDFOREACH(_file)
+    
+    FILE(GLOB_RECURSE XRC_FILES ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.html 
+                                ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.htm
+                                ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.hhc
+                                ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.hhk 
+                                ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.hhp
+                                ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.xrc
+                                ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.ico
+                                ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.jpg
+                                ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.png
+                                ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.txt
+                                ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.pl )
+
+    set( ICON_FILES "../hugin/${MACOSX_BUNDLE_ICON_FILE}" "../hugin/${MACOSX_BUNDLE_TYPE_ICON_FILE}" )
+    FOREACH(_file ${ICON_FILES})
+      SET_SOURCE_FILES_PROPERTIES( ${_file} PROPERTIES 
+           MACOSX_PACKAGE_LOCATION 
+           "Resources" )
+    ENDFOREACH(_file)
+
+    FOREACH(_file ${TRANSLATION_FILES})
+      GET_FILENAME_COMPONENT(_file_name ${_file} NAME_WE)
+      SET_SOURCE_FILES_PROPERTIES( ${_file} PROPERTIES 
+               MACOSX_PACKAGE_LOCATION "Resources/${_file_name}.lproj/locale" 
+               GENERATED TRUE)
+    ENDFOREACH(_file)
+
+
+    FOREACH(_file ${XRC_FILES})
+          GET_FILENAME_COMPONENT(_file_dir ${_file} PATH)
+      FILE(RELATIVE_PATH _file_dir ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/ ${_file_dir})
+      SET_SOURCE_FILES_PROPERTIES( ${_file} PROPERTIES 
+              MACOSX_PACKAGE_LOCATION 
+              "Resources/${_file_dir}")
+    ENDFOREACH(_file)
+
+    ADD_EXECUTABLE( ${PROGNAME} MACOSX_BUNDLE ${PTBATCHERGUI_SOURCE} ${PTBATCHERGUI_HEADER}
+          ${ICON_FILES} ${TRANSLATION_FILES} ${XRC_FILES} )
+    if(INFO_PLIST)
+      set_target_properties(${PROGNAME} PROPERTIES
+            MACOSX_BUNDLE_INFO_PLIST ${INFO_PLIST})
+    endif(INFO_PLIST)
+
+    ADD_DEPENDENCIES(${PROGNAME} align_image_stack nona hugin_hdrmerge verdandi
+      translations)
+
+
+  else (MAC_SELF_CONTAINED_BUNDLE)
+
+    set( ICON_FILES ${MACOSX_BUNDLE_ICON_FILE} ${MACOSX_BUNDLE_TYPE_ICON_FILE} )
+    ADD_EXECUTABLE( ${PROGNAME} MACOSX_BUNDLE ${PTBATCHERGUI_SOURCE} ${PTBATCHERGUI_HEADER} ${ICON_FILES})
+
   ENDIF(MAC_SELF_CONTAINED_BUNDLE)
      
-  set( ICON_FILES ${MACOSX_BUNDLE_ICON_FILE} ${MACOSX_BUNDLE_TYPE_ICON_FILE} )
-  ADD_EXECUTABLE( PTBatcherGUI MACOSX_BUNDLE ${PTBATCHERGUI_SOURCE} ${PTBATCHERGUI_HEADER} ${ICON_FILES})
 
 ELSE (WIN32)
  add_executable(PTBatcherGUI PTBatcherGUI.cpp ${PTBATCHERGUI_SOURCE} ${PTBATCHERGUI_HEADER})
@@ -46,6 +100,10 @@ IF (APPLE)
   IF (NOT MAC_SELF_CONTAINED_BUNDLE)
     install(TARGETS PTBatcherGUI
             DESTINATION ${INSTALL_OSX_BUNDLE_DIR})
+  ELSE (NOT MAC_SELF_CONTAINED_BUNDLE)
+    INCLUDE (${CMAKE_SOURCE_DIR}/CMakeModules/AppleRELEASEOptions.cmake)
+    install(TARGETS ${PROGNAME}
+            DESTINATION "Hugin")
   ENDIF (NOT MAC_SELF_CONTAINED_BUNDLE)
 ELSE(APPLE)
   install(TARGETS PTBatcherGUI

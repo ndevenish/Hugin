@@ -1,21 +1,21 @@
 # Application name
 IF(APPLE)
   set( PROGNAME Hugin )
-  set( MACOSX_BUNDLE_EXTENSION pto)
   set( MACOSX_BUNDLE_ICON_FILE Hugin.icns )
-  set( MACOSX_BUNDLE_TYPE_ICON_FILE HuginFiles.icns )
-  set( MACOSX_BUNDLE_MIME_TYPE application/x-ptoptimizer-script )
-  set( MACOSX_BUNDLE_TYPE_NAME "Hugin Project" )
+
+  set( INFO_PLIST ${CMAKE_MODULE_PATH}/HuginBundleInfoPTO.plist.in)
   set( MACOSX_BUNDLE_TYPE_ROLE Editor )
-  set( MACOSX_BUNDLE_VERSION ${V_MAJOR}.${V_MINOR}.${V_PATCH} )
-  set( MACOSX_BUNDLE_SHORT_VERSION_STRING ${MACOSX_BUNDLE_VERSION})
-  set( MACOSX_BUNDLE_LONG_VERSION_STRING "Version ${MACOSX_BUNDLE_VERSION}" )
+
   set( MACOSX_BUNDLE_GUI_IDENTIFIER net.sourceforge.hugin)
-  set( MACOSX_BUNDLE_INFO_STRING "Hugin ${MACOSX_BUNDLE_VERSION}" )
+  set( MACOSX_BUNDLE_BUNDLE_VERSION ${V_MAJOR}.${V_MINOR}.${V_PATCH} )
+  set( MACOSX_BUNDLE_SHORT_VERSION_STRING ${MACOSX_BUNDLE_BUNDLE_VERSION})
+  set( MACOSX_BUNDLE_LONG_VERSION_STRING "Version ${MACOSX_BUNDLE_BUNDLE_VERSION}" )
+  set( MACOSX_BUNDLE_INFO_STRING "Hugin ${MACOSX_BUNDLE_BUNDLE_VERSION}" )
   set( MACOSX_BUNDLE_BUNDLE_NAME "Hugin" )
   set( MACOSX_BUNDLE_COPYRIGHT "Copyright 2007 Pablo d'Angelo" )
-  set( MACOSX_BUNDLE_SIGNATURE "Hgin" )
-  #  set( CMAKE_OSX_ARCHITECTURES ppc;i386 ) #Comment out if not universal binary
+  # set( MACOSX_BUNDLE_SIGNATURE "Hgin" )
+  # set( CMAKE_OSX_ARCHITECTURES ppc;i386 ) #Comment out if not universal binary
+
 ELSE(APPLE)
   set( PROGNAME hugin )
 ENDIF(APPLE)
@@ -60,48 +60,60 @@ ENDIF()
 
 IF(APPLE)
   if (MAC_SELF_CONTAINED_BUNDLE)
-    MESSAGE("TODO: MAC_SELF_CONTAINED_BUNDLE currently broken")
-    FILE(GLOB TRANSLATION_FILES ${CMAKE_CURRENT_BINARY_DIR}/po/*.lproj/locale/hugin.mo)
-    FILE(GLOB_RECURSE XRC_FILES ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.html 
-      		    	        ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.htm
-  			        ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.hhc
-			        ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.hhk	
-			        ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.hhp
-			        ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.xrc
-			        ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.ico
-			        ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.jpg
-			        ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.png
-			        ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.txt
-			        ${CMAKE_CURRENT_SOURCE_DIR}/xrc/*.pl)
+    FILE(GLOB RAW_TRANSLATION_FILES ${CMAKE_SOURCE_DIR}/src/translations/*.po)
+    LIST(APPEND TRANSLATION_FILES )
+    FOREACH(_file ${RAW_TRANSLATION_FILES})
+      GET_FILENAME_COMPONENT(_file_name ${_file} NAME_WE)
+      LIST(APPEND TRANSLATION_FILES ${CMAKE_BINARY_DIR}/src/translations/${_file_name}.gmo )
+    ENDFOREACH(_file)
+    
+    FILE(GLOB_RECURSE XRC_FILES ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.html 
+                                ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.htm
+                                ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.hhc
+                                ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.hhk 
+                                ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.hhp
+                                ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.xrc
+                                ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.ico
+                                ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.jpg
+                                ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.png
+                                ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.txt
+                                ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.pl )
 
-    set( ICON_FILES ${MACOSX_BUNDLE_ICON_FILE} ${MACOSX_BUNDLE_TYPE_ICON_FILE} )
-	
-    ADD_EXECUTABLE( ${PROGNAME} MACOSX_BUNDLE ${hugin_SOURCES} 
-  		    ${ICON_FILES} ${TRANSLATION_FILES} ${XRC_FILES} )
+    set( ICON_FILES "../hugin/${MACOSX_BUNDLE_ICON_FILE}" "../hugin/${MACOSX_BUNDLE_TYPE_ICON_FILE}" )
+    FOREACH(_file ${ICON_FILES})
+      SET_SOURCE_FILES_PROPERTIES( ${_file} PROPERTIES 
+           MACOSX_PACKAGE_LOCATION 
+           "Resources" )
+    ENDFOREACH(_file)
+
 
     FOREACH(_file ${TRANSLATION_FILES})
-          GET_FILENAME_COMPONENT(_file_dir ${_file} PATH)
-	  FILE(RELATIVE_PATH _file_dir ${CMAKE_CURRENT_BINARY_DIR}/po ${_file_dir})
-	  SET_SOURCE_FILES_PROPERTIES( ${_file} PROPERTIES 
-				       MACOSX_PACKAGE_LOCATION 
-				       "Resources/${_file_dir}" )
+      GET_FILENAME_COMPONENT(_file_name ${_file} NAME_WE)
+      SET_SOURCE_FILES_PROPERTIES( ${_file} PROPERTIES 
+               MACOSX_PACKAGE_LOCATION "Resources/${_file_name}.lproj/locale" 
+               GENERATED TRUE)
     ENDFOREACH(_file)
 
     FOREACH(_file ${XRC_FILES})
           GET_FILENAME_COMPONENT(_file_dir ${_file} PATH)
-	  FILE(RELATIVE_PATH _file_dir ${CMAKE_CURRENT_SOURCE_DIR} ${_file_dir})
-	  SET_SOURCE_FILES_PROPERTIES( ${_file} PROPERTIES 
-				      MACOSX_PACKAGE_LOCATION 
-				      "Resources/${_file_dir}")
+      FILE(RELATIVE_PATH _file_dir ${CMAKE_CURRENT_SOURCE_DIR} ${_file_dir})
+      SET_SOURCE_FILES_PROPERTIES( ${_file} PROPERTIES 
+              MACOSX_PACKAGE_LOCATION 
+              "Resources/${_file_dir}")
     ENDFOREACH(_file)
 
-    #ADD_CUSTOM_COMMAND( 
-    #  TARGET ${PROGNAME}
-    #  POST_BUILD
-    #  COMMAND ${CMAKE_COMMAND}
-    #  ARGS -Dfile="${CMAKE_CURRENT_BINARY_DIR}/${PROGNAME}.app/Contents/Resources/xrc/cp_editor_panel.xrc" -P ${CMAKE_SOURCE_DIR}/CMakeModules/fix_osx_xrc.cmake
-    #)
+    ADD_EXECUTABLE( ${PROGNAME} MACOSX_BUNDLE ${hugin_SOURCES} 
+                    ${ICON_FILES} ${TRANSLATION_FILES} ${XRC_FILES} )
+    if(INFO_PLIST)
+      set_target_properties(${PROGNAME} PROPERTIES
+            MACOSX_BUNDLE_INFO_PLIST ${INFO_PLIST})
+    endif(INFO_PLIST)
 
+    ADD_DEPENDENCIES(${PROGNAME} align_image_stack autooptimiser checkpto cpclean linefind geocpset pano_modify icpfind cpfind celeste_standalone
+      fulla tca_correct vig_optimize hugin_lensdb hugin_executor pano_trafo pto_gen pto_lensstack pto_mask pto_merge
+      pto_move pto_template pto_var 
+      translations)
+      
   else (MAC_SELF_CONTAINED_BUNDLE)
 
     # bare bones bundle, with only hugin inside, all other ressources outside.
@@ -133,8 +145,9 @@ IF (APPLE)
     install(TARGETS ${PROGNAME}
             DESTINATION ${INSTALL_OSX_BUNDLE_DIR})
   ELSE (NOT MAC_SELF_CONTAINED_BUNDLE)
-    # try to build selfcontained bundle
     INCLUDE (${CMAKE_SOURCE_DIR}/CMakeModules/AppleRELEASEOptions.cmake)
+    install(TARGETS ${PROGNAME}
+            DESTINATION "Hugin")
   ENDIF (NOT MAC_SELF_CONTAINED_BUNDLE)
 ELSE(APPLE)
   install(TARGETS ${PROGNAME}

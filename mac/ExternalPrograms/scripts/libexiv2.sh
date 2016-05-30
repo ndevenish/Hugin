@@ -35,7 +35,7 @@ fail()
 }
 
 
-EXIV2VER="12"
+EXIV2VER="14"
 
 let NUMARCH="0"
 
@@ -104,6 +104,10 @@ do
  #cd xmpsdk/src;
  #make xmpsdk
  #cd ../../;
+
+ cd po
+ patch -p1 < ../../../patches/exiv2_po.patch
+ cd ..
 
  #cd src;
  make $OTHERMAKEARGs || fail "failed at make step of $ARCH";

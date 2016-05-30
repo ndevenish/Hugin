@@ -1,7 +1,7 @@
 
 # --- If we are on OS X copy all the embedded libraries to the app bundle
 IF (APPLE)
-   MESSAGE ( "Building Standalone release" )
+   MESSAGE ( "Building ${PROGNAME} Standalone release" )
 #  IF ( NOT DEP_QT_LIBS )
 #    SET (DEP_QT_LIBS "QtCore QtGui" )
 #
@@ -27,7 +27,6 @@ IF (APPLE)
 #  CONFIGURE_FILE(${CMAKE_PROJECT_DIR}/CMakeModules/PackageQt4ForOSXAppBundle.sh.in
 #                 ${BINDIR}/PackageQt4ForOSXAppBundle.sh @ONLY IMMEDIATE)
 
-  GET_TARGET_PROPERTY(EXE_LOC ${PROGNAME} LOCATION)
 
   ADD_CUSTOM_COMMAND(
     TARGET ${PROGNAME}
@@ -42,7 +41,7 @@ IF (APPLE)
     TARGET  ${PROGNAME}
     POST_BUILD
     COMMAND ${hugin_BINARY_DIR}/${BINDIR}/PackageMacAppBundleLibs.sh
-    ARGS
+    ARGS ${PROGNAME} ${CMAKE_CURRENT_BINARY_DIR}
   )
   
 #  ADD_CUSTOM_COMMAND(
