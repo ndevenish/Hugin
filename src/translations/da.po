@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: da\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2016-05-29 09:14+0200\n"
-"PO-Revision-Date: 2016-03-18 23:01+0100\n"
+"PO-Revision-Date: 2016-06-01 20:12+0200\n"
 "Last-Translator: Thomas Pryds <thomas@pryds.eu>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -812,34 +812,35 @@ msgstr ""
 msgid ""
 "Hugin supports only grayscale or RGB images (without and with alpha channel)."
 msgstr ""
+"Hugin understøtter kun gråskala- eller RGB-billeder (med eller uden "
+"alfakanal)."
 
 #: hugin1/base_wx/wxPanoCommand.cpp:311
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "File \"%s\" is a grayscale image, but other images in project are color "
 "images."
 msgstr ""
-"Fil \"%s\" har icc-profil \"%s\" indlejret, men andre billeder i projektet "
-"har farveprofil \"%s\" indlejret."
+"Fil \"%s\" er et gråskalabillede, men andre billeder i projektet er "
+"farvebilleder."
 
 #: hugin1/base_wx/wxPanoCommand.cpp:315
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "File \"%s\" is a color image, but other images in project are grayscale "
 "images."
 msgstr ""
-"Fil \"%s\" har ingen indlejret icc-profil, men andre billeder i projektet "
-"har profil \"%s\" indlejret."
+"Fil \"%s\" er et farvebillede, men andre billeder i projektet er "
+"gråskalabilleder."
 
 #: hugin1/base_wx/wxPanoCommand.cpp:318
-#, fuzzy
 msgid ""
 "Hugin does not support this mixing. Skipping this image.\n"
 "Convert this image to grayscale or RGB image and try loading again."
 msgstr ""
-"Fil \"%s\" er et sort/hvidt billede.\n"
-"Hugin understøtter ikke denne billedtype. Springer dette billede over.\n"
-"Omdan billede til et gråskalabillede og prøv at indlæse det igen."
+"Hugin understøtter ikke denne blanding. Springer dette billede over.\n"
+"Omdan billede til et gråskalabillede eller et RGB-billede og prøv at indlæse "
+"det igen."
 
 #: hugin1/base_wx/wxPanoCommand.cpp:335
 #, c-format
@@ -1681,9 +1682,9 @@ msgid "Images or control points have changed, new alignment is needed."
 msgstr "Billeder eller kontrolpunkter er ændret; ny positionering nødvendig."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1136
-#, fuzzy, c-format
+#, c-format
 msgid "Mean error after optimization: %.1f pixel, max: %.1f"
-msgstr "Middelværdi for fejl efter optimering: %.1f pixel, max: %.1f\n"
+msgstr "Fejl i middelværdi efter optimering: %.1f pixel, maks.: %.1f"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1566 hugin1/hugin/PreviewFrame.cpp:641
 msgid "Rectilinear"
@@ -2639,14 +2640,12 @@ msgid "Could not read project file %s."
 msgstr "Kunne ikke indlæse projektfil %s."
 
 #: hugin1/hugin/MainFrame.cpp:1487
-#, fuzzy
 msgid "Open Papywizard xml file"
-msgstr "Indlæs en projektfil"
+msgstr "Åbn Papywizard-xml-fil"
 
 #: hugin1/hugin/MainFrame.cpp:1488
-#, fuzzy
 msgid "Papywizard xml files (*.xml)|*.xml|All files (*)|*"
-msgstr "Maskefiler (*.msk)|*.msk|Alle filer (*)|*"
+msgstr "Papywizard-xml-filer (*.xml)|*.xml|Alle filer (*)|*"
 
 #: hugin1/hugin/MainFrame.cpp:1504
 msgid "Choose template project"
@@ -3424,9 +3423,9 @@ msgstr ""
 "Er du sikker på, at du vil sammenføje det?"
 
 #: hugin1/hugin/PapywizardImport.cpp:341
-#, fuzzy, c-format
+#, c-format
 msgid "Could not parse file %s as Papywizard XML file."
-msgstr "Kunne ikke tolke maske fra fil %s."
+msgstr "Kunne ikke tolke filen %s som en Papywizard-XML-fil."
 
 #: hugin1/hugin/PapywizardImport.cpp:353
 #, c-format
@@ -3435,11 +3434,13 @@ msgid ""
 "The Papywizard file \"%s\" contains %lu images, but the Hugin project "
 "contains %lu images."
 msgstr ""
+"Det aktuelle projekt matcher ikke med xml-filen Papywizard.\n"
+"Papywizard-filen \"%s\" indeholder %lu billeder, men Hugin-projektet "
+"indeholder %lu billeder."
 
 #: hugin1/hugin/PapywizardImport.cpp:464
-#, fuzzy
 msgid "Connecting overlapping images"
-msgstr "Prøv at forbinde alle overlappende billeder."
+msgstr "Forbinder overlappende billeder"
 
 #: hugin1/hugin/PluginItems.cpp:71
 msgid "Miscellaneous"
@@ -4004,9 +4005,8 @@ msgid "Initializing suspend mode..."
 msgstr "Initialiserer suspenderingstilstand…"
 
 #: hugin1/ptbatcher/Batch.cpp:663
-#, fuzzy
 msgid "Specify project file"
-msgstr "Gem projektfil"
+msgstr "Angiv projektfil"
 
 #: hugin1/ptbatcher/Batch.cpp:684
 msgid "No output prefix specified"
@@ -4041,9 +4041,8 @@ msgid "Running batch..."
 msgstr "Kører jobliste…"
 
 #: hugin1/ptbatcher/Batch.cpp:842
-#, fuzzy
 msgid "PTBatcherGUI is stitching"
-msgstr "PTBatcherGUI startet"
+msgstr "PTBatcherGUI sammenføjer"
 
 #: hugin1/ptbatcher/Batch.cpp:848
 msgid "Batch already in progress."
@@ -4363,14 +4362,12 @@ msgstr ""
 "fuld."
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:385
-#, fuzzy
 msgid "Remove image from project"
-msgstr "Fjern de valgte billeder fra dette projekt"
+msgstr "Fjern billede fra projekt"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:391
-#, fuzzy
 msgid "Split here into two panoramas"
-msgstr "Gennemsøger panoramaer"
+msgstr "Split her i to panoramaer"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:476
 #, c-format
@@ -5740,26 +5737,24 @@ msgid "Edit cp tools"
 msgstr "Redigér-KP-værktøjer"
 
 #: hugin1/hugin/xrc/main_frame.xrc:345
-#, fuzzy
 msgid "Link positions"
-msgstr "Sammenkæd position"
+msgstr "Sammenkæd positioner"
 
 #: hugin1/hugin/xrc/main_frame.xrc:363
 msgid "Generate control points, additional cpfind parameters:"
-msgstr ""
+msgstr "Generér kontrolpunkter; yderligere cpfind-parametre:"
 
 #: hugin1/hugin/xrc/main_frame.xrc:384
 msgid "Connect orphaned images (with geocpset)"
-msgstr ""
+msgstr "Forbind enlige billeder (med geocpset)"
 
 #: hugin1/hugin/xrc/main_frame.xrc:390
-#, fuzzy
 msgid "Control point generation"
-msgstr "Indstillinger for kontrolpunkt-detektor"
+msgstr "Generering af kontrolpunkter"
 
 #: hugin1/hugin/xrc/main_frame.xrc:416
 msgid "Import positions from Papywizard XML"
-msgstr ""
+msgstr "Importér positioner fra Papywizard XML"
 
 #: hugin1/hugin/xrc/main_menu.xrc:7 hugin1/hugin/xrc/preview_frame.xrc:1838
 msgid "&Undo"
@@ -5796,9 +5791,8 @@ msgid "Send to assistant &queue"
 msgstr "Send til assistent&kø"
 
 #: hugin1/hugin/xrc/main_menu.xrc:28
-#, fuzzy
 msgid "Optimize only active &images"
-msgstr "Antal aktive billeder:"
+msgstr "Optimér kun aktive &billeder"
 
 #: hugin1/hugin/xrc/main_menu.xrc:29 hugin1/hugin/xrc/optimize_panel.xrc:40
 msgid ""
@@ -6079,11 +6073,11 @@ msgstr "Kombinerer et eksisterende projekt med det aktive projekt."
 
 #: hugin1/hugin/xrc/main_menu.xrc:208
 msgid "Import settings from Papywizard &XML file..."
-msgstr ""
+msgstr "Importér indstilinger fra Papywizard &XML-fil…"
 
 #: hugin1/hugin/xrc/main_menu.xrc:209
 msgid "Read shoot settings from a Papywizard XML file"
-msgstr ""
+msgstr "Læs billedindstillinger fra en Papywizard-XML-fil"
 
 #: hugin1/hugin/xrc/main_menu.xrc:212 hugin1/hugin/xrc/main_menu.xrc:238
 msgid "Apply &Template"
@@ -6262,15 +6256,16 @@ msgid "Show extent of active masks and crop"
 msgstr "Vis udstrækning af aktive masker og beskæring"
 
 #: hugin1/hugin/xrc/mask_editor_panel.xrc:221
-#, fuzzy
 msgid "All images of selected lens"
-msgstr "For mange billeder er valgt"
+msgstr "Alle billeder for valgt objektiv"
 
 #: hugin1/hugin/xrc/mask_editor_panel.xrc:222
 msgid ""
 "Applies all changes to all images with the same lens as the selected "
 "image(s)."
 msgstr ""
+"Anvender alle ændringer på alle billeder med samme objektiv som det eller de "
+"valgte billede(r)."
 
 #: hugin1/hugin/xrc/mask_editor_panel.xrc:234
 #: hugin1/hugin/xrc/pano_panel.xrc:364
@@ -6735,17 +6730,16 @@ msgid "Output parameters"
 msgstr "Output-parametre"
 
 #: hugin1/hugin/xrc/pano_panel.xrc:1357 hugin1/hugin/xrc/pref_dialog.xrc:827
-#, fuzzy
 msgid "Seam blend mode:"
-msgstr "Blend-metode:"
+msgstr "Metode for sømsammenføjning:"
 
 #: hugin1/hugin/xrc/pano_panel.xrc:1365 hugin1/hugin/xrc/pref_dialog.xrc:835
 msgid "hard seam (faster)"
-msgstr ""
+msgstr "hård søm (hurtigere)"
 
 #: hugin1/hugin/xrc/pano_panel.xrc:1366 hugin1/hugin/xrc/pref_dialog.xrc:836
 msgid "blend seam"
-msgstr ""
+msgstr "sammenføj søm"
 
 #: hugin1/hugin/xrc/pref_dialog.xrc:15
 msgid "Resource Usage"
@@ -7363,7 +7357,6 @@ msgid "Edit ExifTool argfile"
 msgstr "Redigér ExifTool-argfil"
 
 #: hugin1/hugin/xrc/pref_dialog.xrc:1581
-#, fuzzy
 msgid ""
 "The following placeholders will replaced before invoking ExifTool:\n"
 "%projection - projection name (in English)\n"
@@ -7394,6 +7387,7 @@ msgstr ""
 "%fullheight – højre på output-lærred\n"
 "%width – bredde på output-område\n"
 "%height – højde på output-område\n"
+"%projectname – navn på pto-projektfilen\n"
 "\n"
 "Pladsholderne er versalfølsomme."
 
