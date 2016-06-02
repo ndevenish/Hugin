@@ -1,3 +1,4 @@
+#!/bin/bash
 # ------------------
 #      boost
 # ------------------
@@ -39,25 +40,25 @@ fail()
 # Uncomment correct version
 BOOST_VER="1_60"
 
-echo -e "\n## Version set to $BOOST_VER ##\n"
+echo "\n## Version set to $BOOST_VER ##\n"
 
 # install headers
 
 mkdir -p "$REPOSITORYDIR/include"
 rm -rf "$REPOSITORYDIR/include/boost";
-echo -e "\n## First copying all boost includes to $REPOSITORYDIR/include/ ##"
-echo -e "## This will take some time ##\n"
+echo "\n## First copying all boost includes to $REPOSITORYDIR/include/ ##"
+echo "## This will take some time ##\n"
 
 cp -R "./boost" "$REPOSITORYDIR/include/";
 
-echo -e "## First compiling b2 ##\n"
+echo "## First compiling b2 ##\n"
 case "$BOOST_VER" in
   1_46)
        cd "./tools/build/v2/engine/src"
        sh "build.sh"
        cd "../../../../../"
        BJAM=$(ls ./tools/build/v2/engine/src/bin.mac*/bjam)
-       echo -e $BJAM
+       echo $BJAM
        ;;
   1_60)
        cd "./tools/build/"
@@ -68,7 +69,7 @@ case "$BOOST_VER" in
 
        B2=$(ls ./tools/build/bin/bin/b2)
        BJAM=$(ls ./tools/build/bin/bin/bjam)
-       echo -e $BJAM
+       echo $BJAM
        ;;
 esac
 echo "b2 command is: $B2"
@@ -92,7 +93,7 @@ mkdir -p "$REPOSITORYDIR/lib";
 # compile boost_thread, filesystem, system, regex, iostreams, date_time and signals
 for ARCH in $ARCHS
 do
- echo -e  "\n## Now building architecture $ARCH ##\n"
+ echo "\n## Now building architecture $ARCH ##\n"
  rm -rf "stage-$ARCH";
  mkdir -p "stage-$ARCH";
 
@@ -130,7 +131,7 @@ echo "CXX should now be known: $CXX"
 if [ "$CXX" = "" ] 
 then
   boostTOOLSET="--toolset=darwin"
-  CXX="g++"
+  CXX="clang-omp++"
  else
   echo "using darwin : : $CXX ;" > ./TEMP-userconf.jam
   boostTOOLSET="--user-config=./TEMP-userconf.jam"

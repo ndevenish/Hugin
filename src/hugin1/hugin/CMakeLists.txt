@@ -13,8 +13,6 @@ IF(APPLE)
   set( MACOSX_BUNDLE_INFO_STRING "Hugin ${MACOSX_BUNDLE_BUNDLE_VERSION}" )
   set( MACOSX_BUNDLE_BUNDLE_NAME "Hugin" )
   set( MACOSX_BUNDLE_COPYRIGHT "Copyright 2007 Pablo d'Angelo" )
-  # set( MACOSX_BUNDLE_SIGNATURE "Hgin" )
-  # set( CMAKE_OSX_ARCHITECTURES ppc;i386 ) #Comment out if not universal binary
 
 ELSE(APPLE)
   set( PROGNAME hugin )
@@ -60,13 +58,44 @@ ENDIF()
 
 IF(APPLE)
   if (MAC_SELF_CONTAINED_BUNDLE)
+
+    # Tools
+    set( TOOLS ${CMAKE_BINARY_DIR}/src/tools/align_image_stack ${CMAKE_BINARY_DIR}/src/tools/autooptimiser    ${CMAKE_BINARY_DIR}/src/tools/checkpto   ${CMAKE_BINARY_DIR}/src/celeste/celeste_standalone
+               ${CMAKE_BINARY_DIR}/src/tools/cpclean           ${CMAKE_BINARY_DIR}/src/tools/linefind         ${CMAKE_BINARY_DIR}/src/tools/geocpset 
+               ${CMAKE_BINARY_DIR}/src/tools/pano_modify       ${CMAKE_BINARY_DIR}/src/hugin1/icpfind/icpfind ${CMAKE_BINARY_DIR}/src/hugin_cpfind/cpfind/cpfind 
+               # bins for external use
+               ${CMAKE_BINARY_DIR}/src/tools/fulla         ${CMAKE_BINARY_DIR}/src/tools/tca_correct              ${CMAKE_BINARY_DIR}/src/tools/vig_optimize
+               ${CMAKE_BINARY_DIR}/src/tools/hugin_lensdb  ${CMAKE_BINARY_DIR}/src/hugin1/executor/hugin_executor ${CMAKE_BINARY_DIR}/src/tools/pano_trafo
+               ${CMAKE_BINARY_DIR}/src/tools/pto_gen       ${CMAKE_BINARY_DIR}/src/tools/pto_lensstack            ${CMAKE_BINARY_DIR}/src/tools/pto_mask
+               ${CMAKE_BINARY_DIR}/src/tools/pto_merge     ${CMAKE_BINARY_DIR}/src/tools/pto_move                 ${CMAKE_BINARY_DIR}/src/tools/pto_template
+               ${CMAKE_BINARY_DIR}/src/tools/pto_var  
+    )
+
+    FOREACH(_file ${TOOLS})
+      SET_SOURCE_FILES_PROPERTIES( ${_file} PROPERTIES 
+           MACOSX_PACKAGE_LOCATION 
+           "MacOS" )
+    ENDFOREACH(_file)
+
+
+
+    # Translations
     FILE(GLOB RAW_TRANSLATION_FILES ${CMAKE_SOURCE_DIR}/src/translations/*.po)
     LIST(APPEND TRANSLATION_FILES )
     FOREACH(_file ${RAW_TRANSLATION_FILES})
       GET_FILENAME_COMPONENT(_file_name ${_file} NAME_WE)
       LIST(APPEND TRANSLATION_FILES ${CMAKE_BINARY_DIR}/src/translations/${_file_name}.gmo )
     ENDFOREACH(_file)
-    
+
+    FOREACH(_file ${TRANSLATION_FILES})
+      GET_FILENAME_COMPONENT(_file_name ${_file} NAME_WE)
+      SET_SOURCE_FILES_PROPERTIES( ${_file} PROPERTIES 
+               MACOSX_PACKAGE_LOCATION "Resources/${_file_name}.lproj/locale" 
+               GENERATED TRUE)
+    ENDFOREACH(_file)
+
+
+    # xrc files
     FILE(GLOB_RECURSE XRC_FILES ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.html 
                                 ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.htm
                                 ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.hhc
@@ -78,22 +107,6 @@ IF(APPLE)
                                 ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.png
                                 ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.txt
                                 ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.pl )
-
-    set( ICON_FILES "../hugin/${MACOSX_BUNDLE_ICON_FILE}" "../hugin/${MACOSX_BUNDLE_TYPE_ICON_FILE}" )
-    FOREACH(_file ${ICON_FILES})
-      SET_SOURCE_FILES_PROPERTIES( ${_file} PROPERTIES 
-           MACOSX_PACKAGE_LOCATION 
-           "Resources" )
-    ENDFOREACH(_file)
-
-
-    FOREACH(_file ${TRANSLATION_FILES})
-      GET_FILENAME_COMPONENT(_file_name ${_file} NAME_WE)
-      SET_SOURCE_FILES_PROPERTIES( ${_file} PROPERTIES 
-               MACOSX_PACKAGE_LOCATION "Resources/${_file_name}.lproj/locale" 
-               GENERATED TRUE)
-    ENDFOREACH(_file)
-
     FOREACH(_file ${XRC_FILES})
           GET_FILENAME_COMPONENT(_file_dir ${_file} PATH)
       FILE(RELATIVE_PATH _file_dir ${CMAKE_CURRENT_SOURCE_DIR} ${_file_dir})
@@ -102,8 +115,16 @@ IF(APPLE)
               "Resources/${_file_dir}")
     ENDFOREACH(_file)
 
+    # Icons
+    set( ICON_FILES "../hugin/${MACOSX_BUNDLE_ICON_FILE}" "../hugin/${MACOSX_BUNDLE_TYPE_ICON_FILE}" )
+    FOREACH(_file ${ICON_FILES})
+      SET_SOURCE_FILES_PROPERTIES( ${_file} PROPERTIES 
+           MACOSX_PACKAGE_LOCATION 
+           "Resources" )
+    ENDFOREACH(_file)
+
     ADD_EXECUTABLE( ${PROGNAME} MACOSX_BUNDLE ${hugin_SOURCES} 
-                    ${ICON_FILES} ${TRANSLATION_FILES} ${XRC_FILES} )
+                    ${ICON_FILES} ${TRANSLATION_FILES} ${XRC_FILES} ${TOOLS})
     if(INFO_PLIST)
       set_target_properties(${PROGNAME} PROPERTIES
             MACOSX_BUNDLE_INFO_PLIST ${INFO_PLIST})

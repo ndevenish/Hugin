@@ -190,9 +190,9 @@ do
   	 strip "$REPOSITORYDIR/$program";
 
      echo "Changing libs in $program"
-     install_name_tool -change "$REPOSITORYDIR/arch/x86_64/lib/libgettextsrc-0.19.7.dylib" "/Users/niklas/development/cmake/hugin/mac/ExternalPrograms/repository/lib/libgettextsrc-0.19.7.dylib" "$REPOSITORYDIR/$program"
-     install_name_tool -change "$REPOSITORYDIR/arch/x86_64/lib/libgettextlib-0.19.7.dylib" "/Users/niklas/development/cmake/hugin/mac/ExternalPrograms/repository/lib/libgettextlib-0.19.7.dylib" "$REPOSITORYDIR/$program"
-     install_name_tool -change "$REPOSITORYDIR/arch/x86_64/lib/libintl.8.dylib" "/Users/niklas/development/cmake/hugin/mac/ExternalPrograms/repository/lib/libintl.8.dylib" "$REPOSITORYDIR/$program"
+     install_name_tool -change "$REPOSITORYDIR/arch/x86_64/lib/libgettextsrc-0.19.7.dylib" "$REPOSITORYDIR/lib/libgettextsrc-0.19.7.dylib" "$REPOSITORYDIR/$program"
+     install_name_tool -change "$REPOSITORYDIR/arch/x86_64/lib/libgettextlib-0.19.7.dylib" "$REPOSITORYDIR/lib/libgettextlib-0.19.7.dylib" "$REPOSITORYDIR/$program"
+     install_name_tool -change "$REPOSITORYDIR/arch/x86_64/lib/libintl.8.dylib"            "$REPOSITORYDIR/lib/libintl.8.dylib"            "$REPOSITORYDIR/$program"
 
      continue
 	 else

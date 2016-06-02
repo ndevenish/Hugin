@@ -18,18 +18,15 @@ FRAMEWORKS_PATH="${APPLICATION_APP_BUNDLE}/Contents/Frameworks"
 RPATH_PLUGIN_PATH="@executable_path/../Libraries"
 RPATH_FRAMEWORK_PATH="@executable_path/../Frameworks"
 
-DEBUG=0
 
 echo "*-----------------------------------------------------------*"
 echo "* Copying Support Libraries for ${APPLICATION_APP_BUNDLE}"
 echo "* Located in ${BASE_DIR}"
 
-# Create the PlugIns and Frameworks Directories
 mkdir -p "${PLUGINS_PATH}"
 mkdir -p "${FRAMEWORKS_PATH}"
 
 get_libraries() {
-  #echo "-----------getting libraries for $1"
   LIBRARIES=$(echo $(otool -X -L $1 | grep -v ${RPATH_PLUGIN_PATH} | grep -v \/System\/Library | grep -v \/usr\/lib | sed -e 's/(.*)//' | sort -u))
   if [ -n "$LIBRARIES" ]; then
     for library in $LIBRARIES
@@ -37,7 +34,6 @@ get_libraries() {
       update_library $library $1
     done
   fi
-  #echo "----finished getting libraries for $1"
 }
 
 update_library() {
@@ -72,49 +68,21 @@ add_executable() {
   fi
 }
 
-get_libraries "${BASE_DIR}/${APPLICATION_BINDIR}/${APPLICATION_NAME}"
 
-BINS=()
-if [ "${APPLICATION_APP_BUNDLE}" == "Hugin.app" ]; then
 
-  # bins compiled by Hugin
-  add_executable "${BASE_DIR}/../../tools/align_image_stack"
-  add_executable "${BASE_DIR}/../../tools/autooptimiser"
-  add_executable "${BASE_DIR}/../../tools/checkpto"
-  add_executable "${BASE_DIR}/../../tools/cpclean"
-  add_executable "${BASE_DIR}/../../tools/linefind"
-  add_executable "${BASE_DIR}/../../tools/geocpset"
-  add_executable "${BASE_DIR}/../../tools/pano_modify"
-  add_executable "${BASE_DIR}/../../hugin1/icpfind/icpfind"
-  add_executable "${BASE_DIR}/../../hugin_cpfind/cpfind/cpfind"
-  add_executable "${BASE_DIR}/../../celeste/celeste_standalone"
+# -----------------------------------------------------------------------------
+# Copy libraries for all exetuables in APPLICATION_BINDIR
+# -----------------------------------------------------------------------------
 
-  # bins for external use
-  add_executable "${BASE_DIR}/../../tools/fulla" 
-  add_executable "${BASE_DIR}/../../tools/tca_correct" 
-  add_executable "${BASE_DIR}/../../tools/vig_optimize" 
-  add_executable "${BASE_DIR}/../../tools/hugin_lensdb" 
-  add_executable "${BASE_DIR}/../../hugin1/executor/hugin_executor" 
-  add_executable "${BASE_DIR}/../../tools/pano_trafo" 
-  add_executable "${BASE_DIR}/../../tools/pto_gen" 
-  add_executable "${BASE_DIR}/../../tools/pto_lensstack" 
-  add_executable "${BASE_DIR}/../../tools/pto_mask" 
-  add_executable "${BASE_DIR}/../../tools/pto_merge" 
-  add_executable "${BASE_DIR}/../../tools/pto_move" 
-  add_executable "${BASE_DIR}/../../tools/pto_template" 
-  add_executable "${BASE_DIR}/../../tools/pto_var"
+for _exe in "${BASE_DIR}/${APPLICATION_BINDIR}/*"; do
+  get_libraries $_exe
+done
 
-elif [ "${APPLICATION_APP_BUNDLE}" == "PTBatcherGUI.app" ] || [ "${APPLICATION_APP_BUNDLE}" == "HuginStitchProject.app" ]; then
-  
-  # bins compiled by Hugin
-  add_executable "${BASE_DIR}/../../tools/align_image_stack"
-  add_executable "${BASE_DIR}/../../tools/nona"
-  add_executable "${BASE_DIR}/../../tools/hugin_hdrmerge"
-  add_executable "${BASE_DIR}/../../tools/verdandi"
 
-  # bins from ExternalProgams
-  BINS+=("enblend")
-  BINS+=("enfuse")
+  # -----------------------------------------------------------------------------
+  # Copy ExifTool into the stitchers
+  # -----------------------------------------------------------------------------
+if [ "${APPLICATION_APP_BUNDLE}" == "PTBatcherGUI.app" ] || [ "${APPLICATION_APP_BUNDLE}" == "HuginStitchProject.app" ]; then
 
   if [ ! -x "${APPLICATION_APP_BUNDLE}/Contents/Resources/ExifTool/exiftool" ]; then
     echo "* Installing ExifTool into ${APPLICATION_APP_BUNDLE} " 
@@ -124,13 +92,4 @@ elif [ "${APPLICATION_APP_BUNDLE}" == "PTBatcherGUI.app" ] || [ "${APPLICATION_A
   fi
 
 fi
-
-for _exe in "${BINS[@]}"; do
-
-  if [ -x ${BASE_DIR}/${APPLICATION_BINDIR}/$(basename ${_exe}) ]; then
-    continue;
-  fi
-
-  add_executable "@CMAKE_SOURCE_DIR@/mac/ExternalPrograms/repository/bin/${_exe}" 
-done
 

@@ -15,13 +15,8 @@ if(APPLE)
   set(CMAKE_OSX_SYSROOT macosx10.11)
   set(CMAKE_OSX_DEPLOYMENT_TARGET "10.9")
   if (MAC_SELF_CONTAINED_BUNDLE)
-    if(MAC_EXT_PROG)
       set(CMAKE_LIBRARY_PATH ${CMAKE_SOURCE_DIR}/mac/ExternalPrograms/repository/lib)
       set(CMAKE_INCLUDE_PATH ${CMAKE_SOURCE_DIR}/mac/ExternalPrograms/repository/include ${CMAKE_SOURCE_DIR}/mac/ExternalPrograms/repository/bin)
-    else()
-      set(CMAKE_LIBRARY_PATH /usr/local/lib)
-      INCLUDE_DIRECTORIES(/usr/local/include /usr/local/include/OpenEXR)
-    endif(MAC_EXT_PROG)
   endif(MAC_SELF_CONTAINED_BUNDLE)
 endif(APPLE)
 
@@ -662,13 +657,7 @@ IF(APPLE)
   IF(MAC_SELF_CONTAINED_BUNDLE)
     SET(CMAKE_MACOSX_RPATH FALSE) 
 
-    
-    ADD_CUSTOM_TARGET(
-      MacTools ALL
-      DEPENDS fulla tca_correct vig_optimize hugin_lensdb hugin_executor pano_trafo pto_gen 
-        pto_lensstack pto_mask pto_merge pto_move pto_template pto_var
-    )
-
+    ADD_CUSTOM_TARGET(MacTools ALL)
     ADD_CUSTOM_COMMAND(
       TARGET MacTools
       POST_BUILD
@@ -686,9 +675,8 @@ IF(APPLE)
   
   ADD_DEFINITIONS(-D__ASSERT_MACROS_DEFINE_VERSIONS_WITHOUT_UNDERSCORES=0)
 
-   
-   #This namespace workaround is not needed for CMake >= 2.5.x
-   ## Add needed Compiler and Linker flags for OSX
+  #This namespace workaround is not needed for CMake >= 2.5.x
+  ## Add needed Compiler and Linker flags for OSX
   IF (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
       SET (CMAKE_C_FLAGS:STRING "\"$CMAKE_C_FLAGS\" -flat_namespace -undefined suppress" )
       SET (CMAKE_CXX_FLAGS:STRING "\"$CMAKE_CXX_FLAGS\" -flat_namespace -undefined suppress" )

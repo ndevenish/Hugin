@@ -24,10 +24,23 @@ ELSEIF(APPLE)
   set( MACOSX_BUNDLE_INFO_STRING "PTBatcherGUI ${MACOSX_BUNDLE_VERSION}" )
   set( MACOSX_BUNDLE_BUNDLE_NAME "PTBatcherGUI" )
   set( MACOSX_BUNDLE_COPYRIGHT "Copyright 2007 Pablo d'Angelo" )
-  # set( MACOSX_BUNDLE_SIGNATURE "Hgin" )
-  #  set( CMAKE_OSX_ARCHITECTURES ppc;i386 ) #Comment out if not universal binary
 
   IF(MAC_SELF_CONTAINED_BUNDLE)
+
+    # Tools
+    set( TOOLS ${CMAKE_BINARY_DIR}/src/tools/align_image_stack ${CMAKE_BINARY_DIR}/src/tools/nona
+               ${CMAKE_BINARY_DIR}/src/tools/hugin_hdrmerge ${CMAKE_BINARY_DIR}/src/tools/verdandi
+               ${CMAKE_SOURCE_DIR}/mac/ExternalPrograms/repository/bin/enblend
+               ${CMAKE_SOURCE_DIR}/mac/ExternalPrograms/repository/bin/enfuse 
+    )
+
+    FOREACH(_file ${TOOLS})
+      SET_SOURCE_FILES_PROPERTIES( ${_file} PROPERTIES 
+           MACOSX_PACKAGE_LOCATION 
+           "MacOS" )
+    ENDFOREACH(_file)
+
+    # Translations
     FILE(GLOB RAW_TRANSLATION_FILES ${CMAKE_SOURCE_DIR}/src/translations/*.po)
     LIST(APPEND TRANSLATION_FILES )
     FOREACH(_file ${RAW_TRANSLATION_FILES})
@@ -35,6 +48,15 @@ ELSEIF(APPLE)
       LIST(APPEND TRANSLATION_FILES ${CMAKE_BINARY_DIR}/src/translations/${_file_name}.gmo )
     ENDFOREACH(_file)
     
+    FOREACH(_file ${TRANSLATION_FILES})
+      GET_FILENAME_COMPONENT(_file_name ${_file} NAME_WE)
+      SET_SOURCE_FILES_PROPERTIES( ${_file} PROPERTIES 
+               MACOSX_PACKAGE_LOCATION "Resources/${_file_name}.lproj/locale" 
+               GENERATED TRUE)
+    ENDFOREACH(_file)
+
+
+    # xrc files
     FILE(GLOB_RECURSE XRC_FILES ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.html 
                                 ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.htm
                                 ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.hhc
@@ -47,21 +69,6 @@ ELSEIF(APPLE)
                                 ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.txt
                                 ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.pl )
 
-    set( ICON_FILES "../hugin/${MACOSX_BUNDLE_ICON_FILE}" "../hugin/${MACOSX_BUNDLE_TYPE_ICON_FILE}" )
-    FOREACH(_file ${ICON_FILES})
-      SET_SOURCE_FILES_PROPERTIES( ${_file} PROPERTIES 
-           MACOSX_PACKAGE_LOCATION 
-           "Resources" )
-    ENDFOREACH(_file)
-
-    FOREACH(_file ${TRANSLATION_FILES})
-      GET_FILENAME_COMPONENT(_file_name ${_file} NAME_WE)
-      SET_SOURCE_FILES_PROPERTIES( ${_file} PROPERTIES 
-               MACOSX_PACKAGE_LOCATION "Resources/${_file_name}.lproj/locale" 
-               GENERATED TRUE)
-    ENDFOREACH(_file)
-
-
     FOREACH(_file ${XRC_FILES})
           GET_FILENAME_COMPONENT(_file_dir ${_file} PATH)
       FILE(RELATIVE_PATH _file_dir ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/ ${_file_dir})
@@ -70,8 +77,17 @@ ELSEIF(APPLE)
               "Resources/${_file_dir}")
     ENDFOREACH(_file)
 
+
+    # Icons
+    set( ICON_FILES "../hugin/${MACOSX_BUNDLE_ICON_FILE}" "../hugin/${MACOSX_BUNDLE_TYPE_ICON_FILE}" )
+    FOREACH(_file ${ICON_FILES})
+      SET_SOURCE_FILES_PROPERTIES( ${_file} PROPERTIES 
+           MACOSX_PACKAGE_LOCATION 
+           "Resources" )
+    ENDFOREACH(_file)
+
     ADD_EXECUTABLE( ${PROGNAME} MACOSX_BUNDLE ${PTBATCHERGUI_SOURCE} ${PTBATCHERGUI_HEADER}
-          ${ICON_FILES} ${TRANSLATION_FILES} ${XRC_FILES} )
+          ${ICON_FILES} ${TRANSLATION_FILES} ${XRC_FILES} ${TOOLS})
     if(INFO_PLIST)
       set_target_properties(${PROGNAME} PROPERTIES
             MACOSX_BUNDLE_INFO_PLIST ${INFO_PLIST})

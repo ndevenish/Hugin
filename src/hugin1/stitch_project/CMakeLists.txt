@@ -16,33 +16,30 @@ ELSEIF(APPLE)
   set( MACOSX_BUNDLE_INFO_STRING "HuginStitchProject ${MACOSX_BUNDLE_VERSION}" )
   set( MACOSX_BUNDLE_BUNDLE_NAME "HuginStitchProject" )
   set( MACOSX_BUNDLE_COPYRIGHT "Copyright 2007 Pablo d'Angelo" )
-  # set( MACOSX_BUNDLE_SIGNATURE "Hgin" )
-  #  set( CMAKE_OSX_ARCHITECTURES ppc;i386 ) #Comment out if not universal binary
 
   IF(MAC_SELF_CONTAINED_BUNDLE)
 
+    # Tools
+    set( TOOLS ${CMAKE_BINARY_DIR}/src/tools/align_image_stack ${CMAKE_BINARY_DIR}/src/tools/nona
+               ${CMAKE_BINARY_DIR}/src/tools/hugin_hdrmerge ${CMAKE_BINARY_DIR}/src/tools/verdandi
+               ${CMAKE_SOURCE_DIR}/mac/ExternalPrograms/repository/bin/enblend
+               ${CMAKE_SOURCE_DIR}/mac/ExternalPrograms/repository/bin/enfuse 
+    )
+
+    FOREACH(_file ${TOOLS})
+      SET_SOURCE_FILES_PROPERTIES( ${_file} PROPERTIES 
+           MACOSX_PACKAGE_LOCATION 
+           "MacOS" )
+    ENDFOREACH(_file)
+
+
+    # Translations
     FILE(GLOB RAW_TRANSLATION_FILES ${CMAKE_SOURCE_DIR}/src/translations/*.po)
     LIST(APPEND TRANSLATION_FILES )
     FOREACH(_file ${RAW_TRANSLATION_FILES})
       GET_FILENAME_COMPONENT(_file_name ${_file} NAME_WE)
       LIST(APPEND TRANSLATION_FILES ${CMAKE_BINARY_DIR}/src/translations/${_file_name}.gmo )
     ENDFOREACH(_file)
-
-    set( ICON_FILES "../hugin/${MACOSX_BUNDLE_ICON_FILE}" "../hugin/${MACOSX_BUNDLE_TYPE_ICON_FILE}" )
-    FOREACH(_file ${ICON_FILES})
-      SET_SOURCE_FILES_PROPERTIES( ${_file} PROPERTIES 
-           MACOSX_PACKAGE_LOCATION 
-           "Resources" )
-    ENDFOREACH(_file)
-
-
-    # FOREACH(_file ${TRANSLATION_FILES})
-    #   GET_FILENAME_COMPONENT(_file_dir ${_file} PATH)
-    #   FILE(RELATIVE_PATH _file_dir ${CMAKE_CURRENT_BINARY_DIR}/po ${_file_dir})
-    #   SET_SOURCE_FILES_PROPERTIES( ${_file} PROPERTIES 
-    #            MACOSX_PACKAGE_LOCATION 
-    #            "Resources/${_file_dir}" )
-    # ENDFOREACH(_file)
 
     FOREACH(_file ${TRANSLATION_FILES})
       GET_FILENAME_COMPONENT(_file_name ${_file} NAME_WE)
@@ -51,8 +48,17 @@ ELSEIF(APPLE)
                GENERATED TRUE)
     ENDFOREACH(_file)
 
+    # Icons
+    set( ICON_FILES "../hugin/${MACOSX_BUNDLE_ICON_FILE}" "../hugin/${MACOSX_BUNDLE_TYPE_ICON_FILE}" )
+    FOREACH(_file ${ICON_FILES})
+      SET_SOURCE_FILES_PROPERTIES( ${_file} PROPERTIES 
+           MACOSX_PACKAGE_LOCATION 
+           "Resources" )
+    ENDFOREACH(_file)
+
+
     ADD_EXECUTABLE( ${PROGNAME} MACOSX_BUNDLE hugin_stitch_project.cpp 
-          ${ICON_FILES} ${TRANSLATION_FILES} )
+          ${ICON_FILES} ${TRANSLATION_FILES} ${TOOLS})
     if(INFO_PLIST)
       set_target_properties(${PROGNAME} PROPERTIES
             MACOSX_BUNDLE_INFO_PLIST ${INFO_PLIST})

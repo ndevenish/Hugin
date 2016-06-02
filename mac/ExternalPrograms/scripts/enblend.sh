@@ -107,19 +107,18 @@ do
 # export PATH=/usr/local/texlive/2009/bin/universal-darwin:$PATH
 # To make the change permanent, edit ~/.profile.
 
- export \
-   CC=$CC CXX=$CXX \
+ env \
+   CC=clang-omp CXX=clang-omp++ \
    CFLAGS="-isysroot $MACSDKDIR -I$REPOSITORYDIR/include -I$REPOSITORYDIR/include/OpenEXR -I$REPOSITORYDIR/include/boost $ARCHFLAG $ARCHARGs $OTHERARGs -dead_strip" \
    CXXFLAGS="-isysroot $MACSDKDIR -I$REPOSITORYDIR/include -I$REPOSITORYDIR/include/OpenEXR -I$REPOSITORYDIR/include/boost $ARCHFLAG $ARCHARGs $OTHERARGs -dead_strip" \
    CPPFLAGS="-I$REPOSITORYDIR/include -I$REPOSITORYDIR/include/OpenEXR -I/usr/include" \
    LIBS="-lGLEW -framework GLUT -lobjc -framework OpenGL -framework AGL" \
    LDFLAGS="-L$REPOSITORYDIR/lib -L/usr/lib -mmacosx-version-min=$OSVERSION -dead_strip" \
    NEXT_ROOT="$MACSDKDIR" \
-   PKG_CONFIG_PATH="$REPOSITORYDIR/lib/pkgconfig";
-
+   PKG_CONFIG_PATH="$REPOSITORYDIR/lib/pkgconfig" \
    OPENEXR_CFLAGS="-I$REPOSITORYDIR/include/OpenEXR" OPENEXR_LIBS="-L$REPOSITORYDIR/lib -lIlmImf"\
    ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
-   --enable-image-cache=yes --disable-openmp  --disable-gpu-support \
+   --enable-image-cache=no --enable-openmp=yes  --disable-gpu-support \
    --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH --with-apple-opengl-framework \
    --with-glew $extraConfig --with-openexr || fail "configure step for $ARCH";
  # hack; AC_FUNC_MALLOC sucks!!
