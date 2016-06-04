@@ -174,7 +174,9 @@
                       <cellpos>1,0</cellpos>
                     </object>
                     <object class="sizeritem">
-                      <object class="wxTextCtrl" name="ass_focal_length"/>
+                      <object class="wxTextCtrl" name="ass_focal_length">
+                        <style>wxTE_PROCESS_ENTER</style>
+                      </object>
                       <minsize>60,-1</minsize>
                       <cellpos>1,1</cellpos>
                     </object>
@@ -194,7 +196,9 @@
                       <cellpos>1,3</cellpos>
                     </object>
                     <object class="sizeritem">
-                      <object class="wxTextCtrl" name="ass_crop_factor"/>
+                      <object class="wxTextCtrl" name="ass_crop_factor">
+                        <style>wxTE_PROCESS_ENTER</style>
+                      </object>
                       <minsize>60,-1</minsize>
                       <cellpos>1,4</cellpos>
                     </object>
@@ -1028,7 +1032,9 @@
                       <cellpos>1,0</cellpos>
                     </object>
                     <object class="sizeritem">
-                      <object class="wxTextCtrl" name="ass_focal_length"/>
+                      <object class="wxTextCtrl" name="ass_focal_length">
+                        <style>wxTE_PROCESS_ENTER</style>
+                      </object>
                       <minsize>60,-1</minsize>
                       <cellpos>1,1</cellpos>
                     </object>
@@ -1048,7 +1054,9 @@
                       <cellpos>1,3</cellpos>
                     </object>
                     <object class="sizeritem">
-                      <object class="wxTextCtrl" name="ass_crop_factor"/>
+                      <object class="wxTextCtrl" name="ass_crop_factor">
+                        <style>wxTE_PROCESS_ENTER</style>
+                      </object>
                       <minsize>60,-1</minsize>
                       <cellpos>1,4</cellpos>
                     </object>

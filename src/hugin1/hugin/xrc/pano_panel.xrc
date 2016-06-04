@@ -208,6 +208,7 @@
                   <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
                   <object class="wxTextCtrl" name="pano_text_hfov">
                     <size>40,-1d</size>
+                    <style>wxTE_PROCESS_ENTER</style>
                   </object>
                 </object>
                 <object class="sizeritem">
@@ -224,6 +225,7 @@
                   <border>6</border>
                   <object class="wxTextCtrl" name="pano_text_vfov">
                     <size>40,-1d</size>
+                    <style>wxTE_PROCESS_ENTER</style>
                   </object>
                 </object>
                 <object class="sizeritem">
@@ -523,6 +525,7 @@
                     <object class="sizeritem">
                       <object class="wxTextCtrl" name="pano_output_normal_opts_jpeg_quality">
                         <value>100</value>
+                        <style>wxTE_PROCESS_ENTER</style>
                       </object>
                       <flag>wxALIGN_CENTRE_VERTICAL</flag>
                       <minsize>40,-1d</minsize>
