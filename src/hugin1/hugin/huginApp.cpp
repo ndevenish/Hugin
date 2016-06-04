@@ -227,15 +227,7 @@ bool huginApp::OnInit()
         }
     }
 #endif
-    {
-        wxString thePath = MacGetPathToBundledResourceFile(CFSTR("locale"));
-        if(thePath != wxT(""))
-            locale.AddCatalogLookupPathPrefix(thePath);
-        else {
-            wxMessageBox(_("Translations not found in bundle"), _("Fatal Error"));
-            return false;
-        }
-    }
+    
 	
 #else
     // add the locale directory specified during configure

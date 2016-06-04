@@ -66,13 +66,6 @@ bool LensCalApp::OnInit()
         return false;
     }
     m_xrcPrefix = thePath + wxT("/");
-    thePath = MacGetPathToBundledResourceFile(CFSTR("locale"));
-    if(thePath != wxT(""))
-        locale.AddCatalogLookupPathPrefix(thePath);
-    else {
-        wxMessageBox(_("Translations not found in bundle"), _("Fatal Error"));
-        return false;
-    }
 #else
     // add the locale directory specified during configure
     m_xrcPrefix = wxT(INSTALL_XRC_DIR);

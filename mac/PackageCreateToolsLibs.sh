@@ -1,6 +1,6 @@
+rm -r $1 2> /dev/null
 mkdir -p $1 || exit 1
 cd $1		|| exit 1
-rm *
 
 #ignore first arg
 shift

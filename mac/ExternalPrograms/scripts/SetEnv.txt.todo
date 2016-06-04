@@ -9,7 +9,6 @@ myREPOSITORYDIR="/PATH2HUGIN/mac/ExternalPrograms/repository";
 
 
 # number of jobs that make can use, probably same as the number of CPUs.
-#PROCESSNUM=2
 if [ $(uname -p) = i386 ] || [ $(uname -p) = x86_64 ] ; then
   PROCESSNUM=$(hostinfo | grep "Processors active:" | sed 's/^.*://' | wc -w | sed 's/[^[:digit:]]//g');
 else
@@ -26,13 +25,12 @@ export \
  x64OSVERSION="10.9" \
  x64MACSDKDIR="/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk" \
  x64OPTIMIZE="-march=core2 -mtune=core2 -ftree-vectorize" \
- x64CC="gcc-4.2" \
- x64CXX="g++-4.2" \
+ x64CC="clang" \
+ x64CXX="clang++" \
  \
  OTHERARGs="" \
  OTHERMAKEARGs="--jobs=$PROCESSNUM";
 
-MACOSX_DEPLOYMENT_TARGET=$x64OSVERSION;
 
 # Deprecated:
 export x64ONLYARG="$x64OPTIMIZE -mmacosx-version-min=$x64OSVERSION";

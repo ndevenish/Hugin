@@ -70,19 +70,7 @@ class HuginExecutor : public APP
         exePath.RemoveLastDir();
         m_locale.AddCatalogLookupPathPrefix(exePath.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR) + wxT("share\\locale"));
 #elif defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
-        // initialize paths
-        {
-            wxString thePath = MacGetPathToBundledResourceFile(CFSTR("locale"));
-            if (thePath != wxT(""))
-            {
-                m_locale.AddCatalogLookupPathPrefix(thePath);
-            }
-            else
-            {
-                wxMessageBox(_("Translations not found in bundle"), _("Fatal Error"));
-                return false;
-            }
-        };
+        // nothing to do
 #else
         // add the locale directory specified during configure
         m_locale.AddCatalogLookupPathPrefix(wxT(INSTALL_LOCALE_DIR));

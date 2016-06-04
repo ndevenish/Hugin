@@ -152,3 +152,9 @@ else()
   ADD_TRANSLATIONS("${CMAKE_CURRENT_SOURCE_DIR}/hugin.pot" ${PO_FILES})
 endif()
 
+IF(APPLE)
+  add_custom_command(
+    TARGET translations
+    POST_BUILD
+    COMMAND ${CMAKE_SOURCE_DIR}/mac/CopyTranslations.sh ${CMAKE_CURRENT_BINARY_DIR})
+ENDIF()

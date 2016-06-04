@@ -657,9 +657,27 @@ IF(APPLE)
   IF(MAC_SELF_CONTAINED_BUNDLE)
     SET(CMAKE_MACOSX_RPATH FALSE) 
 
-    ADD_CUSTOM_TARGET(MacTools ALL)
+    CONFIGURE_FILE(${CMAKE_SOURCE_DIR}/CMakeModules/PackageMacAppBundleLibs.sh.in
+             ${hugin_BINARY_DIR}/${BINDIR}/PackageMacAppBundleLibs.sh @ONLY IMMEDIATE)
+
+
+    ADD_CUSTOM_TARGET(Mac ALL)
+    SET(APPS "Hugin;PTBatcherGUI;calibrate_lens_gui;HuginStitchProject")
+    SET(APPS_DIR "${CMAKE_BINARY_DIR}/src/hugin1/hugin;${CMAKE_BINARY_DIR}/src/hugin1/ptbatcher;${CMAKE_BINARY_DIR}/src/hugin1/calibrate_lens;${CMAKE_BINARY_DIR}/src/hugin1/stitch_project" )
+
+    foreach(_var RANGE 0 3)
+      LIST(GET APPS ${_var} _target)
+      LIST(GET APPS_DIR ${_var} _target_dir)
+      ADD_DEPENDENCIES(Mac ${_target})
     ADD_CUSTOM_COMMAND(
-      TARGET MacTools
+        TARGET Mac
+        COMMAND bash ${hugin_BINARY_DIR}/${BINDIR}/PackageMacAppBundleLibs.sh
+        ARGS ${_target} ${_target_dir}
+      )
+    ENDFOREACH(_var)
+
+    ADD_CUSTOM_COMMAND(
+      TARGET Mac
       POST_BUILD
       COMMAND ${CMAKE_SOURCE_DIR}/mac/PackageCreateToolsLibs.sh
       ARGS ${CMAKE_CURRENT_BINARY_DIR}/tools_mac

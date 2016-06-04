@@ -28,25 +28,35 @@ ELSEIF(APPLE)
 
     FOREACH(_file ${TOOLS})
       SET_SOURCE_FILES_PROPERTIES( ${_file} PROPERTIES 
+           MACOSX_PACKAGE_LOCATION "MacOS" 
+           GENERATED TRUE)
+    ENDFOREACH(_file)
+
+
+    FILE(GLOB OTHER ${CMAKE_SOURCE_DIR}/src/hugin1/executor/*.executor)
+    LIST(APPEND OTHER 
+                      ${CMAKE_SOURCE_DIR}/src/celeste/data/celeste.model
+                      ${CMAKE_SOURCE_DIR}/src/hugin1/base_wx/hugin_exiftool_copy.arg)
+
+    FOREACH(_file ${OTHER})
+      SET_SOURCE_FILES_PROPERTIES( ${_file} PROPERTIES 
            MACOSX_PACKAGE_LOCATION 
-           "MacOS" )
+           "Resources/xrc" )
     ENDFOREACH(_file)
 
 
     # Translations
-    FILE(GLOB RAW_TRANSLATION_FILES ${CMAKE_SOURCE_DIR}/src/translations/*.po)
-    LIST(APPEND TRANSLATION_FILES )
-    FOREACH(_file ${RAW_TRANSLATION_FILES})
-      GET_FILENAME_COMPONENT(_file_name ${_file} NAME_WE)
-      LIST(APPEND TRANSLATION_FILES ${CMAKE_BINARY_DIR}/src/translations/${_file_name}.gmo )
-    ENDFOREACH(_file)
+    FILE(GLOB PO_FILES "${CMAKE_SOURCE_DIR}/src/translations/*.po")
+    SET(TRANSLATION_FILES )
+    FOREACH(_file_po ${PO_FILES})
+      GET_FILENAME_COMPONENT(LANG ${_file_po} NAME_WE)
+      SET(_file_out ${CMAKE_BINARY_DIR}/src/translations/mac/${LANG}.lproj/hugin.mo)
+      LIST(APPEND TRANSLATION_FILES ${_file_out} )
+      SET_SOURCE_FILES_PROPERTIES( ${_file_out} PROPERTIES 
+        MACOSX_PACKAGE_LOCATION "Resources/${LANG}.lproj" 
+        GENERATED TRUE)
+    ENDFOREACH(_file_po)
 
-    FOREACH(_file ${TRANSLATION_FILES})
-      GET_FILENAME_COMPONENT(_file_name ${_file} NAME_WE)
-      SET_SOURCE_FILES_PROPERTIES( ${_file} PROPERTIES 
-               MACOSX_PACKAGE_LOCATION "Resources/${_file_name}.lproj/locale" 
-               GENERATED TRUE)
-    ENDFOREACH(_file)
 
     # Icons
     set( ICON_FILES "../hugin/${MACOSX_BUNDLE_ICON_FILE}" "../hugin/${MACOSX_BUNDLE_TYPE_ICON_FILE}" )
@@ -58,7 +68,7 @@ ELSEIF(APPLE)
 
 
     ADD_EXECUTABLE( ${PROGNAME} MACOSX_BUNDLE hugin_stitch_project.cpp 
-          ${ICON_FILES} ${TRANSLATION_FILES} ${TOOLS})
+          ${ICON_FILES} ${TRANSLATION_FILES} ${TOOLS} ${OTHER})
     if(INFO_PLIST)
       set_target_properties(${PROGNAME} PROPERTIES
             MACOSX_BUNDLE_INFO_PLIST ${INFO_PLIST})
@@ -88,7 +98,6 @@ IF (APPLE)
     install(TARGETS ${PROGNAME}
             DESTINATION ${INSTALL_OSX_BUNDLE_DIR})
   ELSE (NOT MAC_SELF_CONTAINED_BUNDLE)
-    INCLUDE (${CMAKE_SOURCE_DIR}/CMakeModules/AppleRELEASEOptions.cmake) 
     install(TARGETS ${PROGNAME}
             DESTINATION "Hugin")
   ENDIF (NOT MAC_SELF_CONTAINED_BUNDLE)

@@ -45,16 +45,10 @@ update_library() {
      echo "* Installing Library -->$1<-- into ${APPLICATION_APP_BUNDLE} " 
      cp "${lib}" "${BASE_DIR}/${PLUGINS_PATH}" || exit 1
      chmod 755 "${BASE_DIR}/${PLUGINS_PATH}/${file}"
-     install_name_tool -id "${RPATH_PLUGIN_PATH}/${file}" "${BASE_DIR}/${PLUGINS_PATH}/${file}"
-     install_name_tool -change "${lib}" "${RPATH_PLUGIN_PATH}/${file}" "$2"
      get_libraries "${BASE_DIR}/${PLUGINS_PATH}/${file}"
-   else
-     # Change internal id of the Library
-     install_name_tool -id "${RPATH_PLUGIN_PATH}/${file}" "${BASE_DIR}/${PLUGINS_PATH}/${file}"
-     # Change the hugin executable to have the proper rpath for the Library
-     #echo "updating $2 to use ${RPATH_PLUGIN_PATH}/${file} for ${lib}"
-     install_name_tool -change "${lib}" "${RPATH_PLUGIN_PATH}/${file}" "$2"
    fi
+     install_name_tool -id "${RPATH_PLUGIN_PATH}/${file}" "${BASE_DIR}/${PLUGINS_PATH}/${file}"
+     install_name_tool -change "${lib}" "${RPATH_PLUGIN_PATH}/${file}" "$2"
 }
 
 add_executable() {
@@ -74,7 +68,7 @@ add_executable() {
 # Copy libraries for all exetuables in APPLICATION_BINDIR
 # -----------------------------------------------------------------------------
 
-for _exe in "${BASE_DIR}/${APPLICATION_BINDIR}/*"; do
+for _exe in ${BASE_DIR}/${APPLICATION_BINDIR}/*; do
   get_libraries $_exe
 done
 
@@ -86,7 +80,7 @@ if [ "${APPLICATION_APP_BUNDLE}" == "PTBatcherGUI.app" ] || [ "${APPLICATION_APP
 
   if [ ! -x "${APPLICATION_APP_BUNDLE}/Contents/Resources/ExifTool/exiftool" ]; then
     echo "* Installing ExifTool into ${APPLICATION_APP_BUNDLE} " 
-    mkdir "${APPLICATION_APP_BUNDLE}/Contents/Resources/ExifTool"
+    mkdir -p "${APPLICATION_APP_BUNDLE}/Contents/Resources/ExifTool"
     cp -v "@CMAKE_SOURCE_DIR@/mac/ExternalPrograms/repository/"Image-ExifTool-*/exiftool  "${APPLICATION_APP_BUNDLE}/Contents/Resources/ExifTool"
     cp -r "@CMAKE_SOURCE_DIR@/mac/ExternalPrograms/repository/"Image-ExifTool-*/lib       "${APPLICATION_APP_BUNDLE}/Contents/Resources/ExifTool"
   fi

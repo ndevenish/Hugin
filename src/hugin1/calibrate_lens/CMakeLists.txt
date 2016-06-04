@@ -22,12 +22,17 @@ ELSEIF(APPLE)
 
   IF(MAC_SELF_CONTAINED_BUNDLE)
     
-    FILE(GLOB RAW_TRANSLATION_FILES ${CMAKE_SOURCE_DIR}/src/translations/*.po)
-    LIST(APPEND TRANSLATION_FILES )
-    FOREACH(_file ${RAW_TRANSLATION_FILES})
-      GET_FILENAME_COMPONENT(_file_name ${_file} NAME_WE)
-      LIST(APPEND TRANSLATION_FILES ${CMAKE_BINARY_DIR}/src/translations/${_file_name}.gmo )
-    ENDFOREACH(_file)
+    FILE(GLOB PO_FILES "${CMAKE_SOURCE_DIR}/src/translations/*.po")
+    SET(TRANSLATION_FILES "")
+    FOREACH(_file_po ${PO_FILES})
+      GET_FILENAME_COMPONENT(LANG ${_file_po} NAME_WE)
+      SET(_file_out ${CMAKE_BINARY_DIR}/src/translations/mac/${LANG}.lproj/hugin.mo)
+      SET(TRANSLATION_FILES "${TRANSLATION_FILES};${_file_out}" )
+      SET_SOURCE_FILES_PROPERTIES( ${_file_out} PROPERTIES 
+        MACOSX_PACKAGE_LOCATION "Resources/${LANG}.lproj/" 
+        GENERATED TRUE)
+    ENDFOREACH(_file_po)
+
 
     FILE(GLOB_RECURSE XRC_FILES ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.html 
                                 ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.htm
@@ -40,21 +45,6 @@ ELSEIF(APPLE)
                                 ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.png
                                 ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.txt
                                 ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.pl )
-
-    # FOREACH(_file ${TRANSLATION_FILES})
-    #   GET_FILENAME_COMPONENT(_file_dir ${_file} PATH)
-    #   FILE(RELATIVE_PATH _file_dir ${CMAKE_CURRENT_BINARY_DIR}/po ${_file_dir})
-    #   SET_SOURCE_FILES_PROPERTIES( ${_file} PROPERTIES 
-    #            MACOSX_PACKAGE_LOCATION 
-    #            "Resources/${_file_dir}" )
-    # ENDFOREACH(_file)
-
-    FOREACH(_file ${TRANSLATION_FILES})
-      GET_FILENAME_COMPONENT(_file_name ${_file} NAME_WE)
-      SET_SOURCE_FILES_PROPERTIES( ${_file} PROPERTIES 
-               MACOSX_PACKAGE_LOCATION "Resources/${_file_name}.lproj/locale" 
-               GENERATED TRUE)
-    ENDFOREACH(_file)
 
     FOREACH(_file ${XRC_FILES})
           GET_FILENAME_COMPONENT(_file_dir ${_file} PATH)
@@ -70,6 +60,8 @@ ELSEIF(APPLE)
       set_target_properties(${PROGNAME} PROPERTIES
             MACOSX_BUNDLE_INFO_PLIST ${INFO_PLIST})
     endif(INFO_PLIST)
+
+    ADD_DEPENDENCIES(${PROGNAME} translations)
 
   ELSE(MAC_SELF_CONTAINED_BUNDLE)
 
@@ -89,7 +81,6 @@ IF (APPLE)
     install(TARGETS calibrate_lens_gui
             DESTINATION ${INSTALL_OSX_BUNDLE_DIR})
   ELSE (NOT MAC_SELF_CONTAINED_BUNDLE)
-    INCLUDE (${CMAKE_SOURCE_DIR}/CMakeModules/AppleRELEASEOptions.cmake)
     install(TARGETS ${PROGNAME}
             DESTINATION "Hugin")
   ENDIF (NOT MAC_SELF_CONTAINED_BUNDLE)

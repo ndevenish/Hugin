@@ -288,18 +288,6 @@ bool stitchApp::OnInit()
     m_locale.AddCatalogLookupPathPrefix(wxT(INSTALL_LOCALE_DIR));
 #endif
 
-#if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
-    {
-        wxString thePath = MacGetPathToBundledResourceFile(CFSTR("locale"));
-        if(thePath != wxT(""))
-            m_locale.AddCatalogLookupPathPrefix(thePath);
-        else {
-            wxMessageBox(_("Translations not found in bundle"), _("Fatal Error"));
-            return false;
-        }
-    }
-#endif
-    
     // set the name of locale recource to look for
     m_locale.AddCatalog(wxT("hugin"));
 
