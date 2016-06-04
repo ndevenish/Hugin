@@ -47,8 +47,8 @@ update_library() {
      chmod 755 "${BASE_DIR}/${PLUGINS_PATH}/${file}"
      get_libraries "${BASE_DIR}/${PLUGINS_PATH}/${file}"
    fi
-     install_name_tool -id "${RPATH_PLUGIN_PATH}/${file}" "${BASE_DIR}/${PLUGINS_PATH}/${file}"
-     install_name_tool -change "${lib}" "${RPATH_PLUGIN_PATH}/${file}" "$2"
+   install_name_tool -id "${RPATH_PLUGIN_PATH}/${file}" "${BASE_DIR}/${PLUGINS_PATH}/${file}"
+   install_name_tool -change "${lib}" "${RPATH_PLUGIN_PATH}/${file}" "$2"
 }
 
 add_executable() {
