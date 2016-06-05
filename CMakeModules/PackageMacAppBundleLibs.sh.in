@@ -27,7 +27,7 @@ mkdir -p "${PLUGINS_PATH}"
 mkdir -p "${FRAMEWORKS_PATH}"
 
 get_libraries() {
-  LIBRARIES=$(echo $(otool -X -L $1 | grep -v ${RPATH_PLUGIN_PATH} | grep -v \/System\/Library | grep -v \/usr\/lib | sed -e 's/(.*)//' | sort -u))
+  local LIBRARIES=$(echo $(otool -X -L $1 | grep -v ${RPATH_PLUGIN_PATH} | grep -v \/System\/Library | grep -v \/usr\/lib | sed -e 's/(.*)//' | sort -u))
   if [ -n "$LIBRARIES" ]; then
     for library in $LIBRARIES
     do
@@ -37,31 +37,19 @@ get_libraries() {
 }
 
 update_library() {
-   lib="$1"
-   path=$(dirname ${lib})
-   file=$(basename ${lib})
-   if [ ! -f "${BASE_DIR}/${PLUGINS_PATH}/${file}" ] 
+   local lib="$1"
+   local lib_file=$(basename ${lib})
+   local bin="$2"
+   if [ ! -f "${BASE_DIR}/${PLUGINS_PATH}/${lib_file}" ] 
    then 
      echo "* Installing Library -->$1<-- into ${APPLICATION_APP_BUNDLE} " 
      cp "${lib}" "${BASE_DIR}/${PLUGINS_PATH}" || exit 1
-     chmod 755 "${BASE_DIR}/${PLUGINS_PATH}/${file}"
-     get_libraries "${BASE_DIR}/${PLUGINS_PATH}/${file}"
+     chmod 755 "${BASE_DIR}/${PLUGINS_PATH}/${lib_file}"
+     get_libraries "${BASE_DIR}/${PLUGINS_PATH}/${lib_file}"
+     install_name_tool -id "${RPATH_PLUGIN_PATH}/${lib_file}" "${BASE_DIR}/${PLUGINS_PATH}/${lib_file}"
    fi
-   install_name_tool -id "${RPATH_PLUGIN_PATH}/${file}" "${BASE_DIR}/${PLUGINS_PATH}/${file}"
-   install_name_tool -change "${lib}" "${RPATH_PLUGIN_PATH}/${file}" "$2"
+   install_name_tool -change "${lib}" "${RPATH_PLUGIN_PATH}/${lib_file}" "${bin}"
 }
-
-add_executable() {
-  # -----------------------------------------------------------------------------
-  # Copy the executable into the App package 
-  # -----------------------------------------------------------------------------
-  if [ "$1" -nt "${BASE_DIR}/${APPLICATION_BINDIR}/$(basename $1)" ]; then
-    echo "* Installing Binary -->$1<-- into ${APPLICATION_APP_BUNDLE} " 
-    cp "$1" "${BASE_DIR}/${APPLICATION_BINDIR}" || exit 1
-    get_libraries "${BASE_DIR}/${APPLICATION_BINDIR}/$(basename $1)"
-  fi
-}
-
 
 
 # -----------------------------------------------------------------------------
