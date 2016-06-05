@@ -42,7 +42,8 @@
                             <label>Minimum overlap:</label>
                             <hidden>1</hidden>
                           </object>
-                          <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                          <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>3</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxTextCtrl" name="images_overlap">
@@ -66,7 +67,8 @@
                             <label>Maximum Ev difference:</label>
                             <hidden>1</hidden>
                           </object>
-                          <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                          <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>3</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxTextCtrl" name="images_maxev">
