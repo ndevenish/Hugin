@@ -662,8 +662,11 @@ IF(APPLE)
 
 
     ADD_CUSTOM_TARGET(Mac ALL)
-    SET(APPS "Hugin;PTBatcherGUI;calibrate_lens_gui;HuginStitchProject")
-    SET(APPS_DIR "${CMAKE_BINARY_DIR}/src/hugin1/hugin;${CMAKE_BINARY_DIR}/src/hugin1/ptbatcher;${CMAKE_BINARY_DIR}/src/hugin1/calibrate_lens;${CMAKE_BINARY_DIR}/src/hugin1/stitch_project" )
+    SET(APPS Hugin PTBatcherGUI calibrate_lens_gui HuginStitchProject)
+    SET(APPS_DIR ${CMAKE_BINARY_DIR}/src/hugin1/hugin
+                 ${CMAKE_BINARY_DIR}/src/hugin1/ptbatcher
+                 ${CMAKE_BINARY_DIR}/src/hugin1/calibrate_lens
+                 ${CMAKE_BINARY_DIR}/src/hugin1/stitch_project )
 
     foreach(_var RANGE 0 3)
       LIST(GET APPS ${_var} _target)
@@ -685,6 +688,7 @@ IF(APPLE)
         pto_lensstack pto_mask pto_merge pto_move pto_template pto_var)
     INSTALL( DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/tools_mac
              DESTINATION Hugin 
+             COMPONENT "tools_mac"
              FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
              PATTERN .DS_Store EXCLUDE )
 
@@ -730,11 +734,7 @@ ELSE()
 ENDIF()
 
 SET(CPACK_SOURCE_PACKAGE_FILE_NAME "hugin-${V_MAJOR}.${V_MINOR}.${V_PATCH}")
-if(APPLE)
-  SET(CPACK_SOURCE_GENERATOR "DragNDrop")
-ELSE()
-  SET(CPACK_SOURCE_GENERATOR "TBZ2")
-ENDIF()
+SET(CPACK_SOURCE_GENERATOR "TBZ2")
 SET(CPACK_PACKAGE_CONTACT "hugin-ptx@googlegroups.com")
 IF(NOT WIN32)
   SET(CPACK_SET_DESTDIR "ON")
@@ -858,6 +858,22 @@ SET(CPACK_RPM_USER_FILELIST
 message(STATUS "Current source dir = ${CMAKE_CURRENT_SOURCE_DIR}")
 SET(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA "${CMAKE_CURRENT_SOURCE_DIR}/Debian/postinst"
 				       "${CMAKE_CURRENT_SOURCE_DIR}/Debian/shlibs.local")
+
+
+IF(APPLE)
+  SET(CPACK_PACKAGE_NAME "Hugin")
+  SET(CPACK_GENERATOR "DragNDrop")
+  SET(CPACK_DMG_FORMAT "UDBZ")
+  SET(CPACK_COMPONENTS_ALL tools_mac Hugin PTBatcherGUI calibrate_lens_gui HuginStitchProject)
+  SET(CPACK_SYSTEM_NAME "Mac")
+  SET(CPACK_PACKAGE_FILE_NAME "Hugin-${V_MAJOR}.${V_MINOR}.${V_PATCH}")
+
+  #has to be 72dpi
+  SET(CPACK_DMG_BACKGROUND_IMAGE "${CMAKE_SOURCE_DIR}/mac/DmgBackground.jpg")
+
+  SET(CPACK_DMG_DS_STORE_SETUP_SCRIPT "${CMAKE_SOURCE_DIR}/mac/DmgScript.scpt")
+
+ENDIF(APPLE)
 
 IF(MSVC)
 # configure variables for wix toolset generator
