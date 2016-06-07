@@ -72,6 +72,7 @@ if(REBUILD_TRANSLATIONS)
     "${CMAKE_SOURCE_DIR}/src/*.c")
 #  list(APPEND _infiles "translations/xrc.cpp")
   list(REMOVE_ITEM _infiles "translations/xrc.cpp")
+  list(REMOVE_ITEM _infiles "translations/en_US.po")
   list(REMOVE_DUPLICATES _infiles)
   list(SORT _infiles)
 
@@ -132,6 +133,7 @@ if(REBUILD_TRANSLATIONS)
 
   #now get the po-files
   file(GLOB pofiles RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/*.po")
+  list(REMOVE_ITEM pofiles "en_US.po")
   set(PO_FILES)
   foreach(_po ${pofiles})
     list(APPEND PO_FILES "${CMAKE_CURRENT_BINARY_DIR}/${_po}")
@@ -142,13 +144,19 @@ if(REBUILD_TRANSLATIONS)
       COMMENT "${MSGMERGE_EXECUTABLE} --verbose -o ${CMAKE_CURRENT_BINARY_DIR}/${_po} ${CMAKE_CURRENT_SOURCE_DIR}/${_po} ${CMAKE_CURRENT_BINARY_DIR}/hugin.pot"
        )
   endforeach()
+  IF(APPLE)
+    list(APPEND PO_FILES "${CMAKE_CURRENT_BINARY_DIR}/en_US.po")
+  ENDIF()
 
   ADD_TRANSLATIONS("${CMAKE_CURRENT_BINARY_DIR}/hugin.pot" ${PO_FILES})
 
 else()
   # simply use all po files and hugin.pot from the source directory
   FILE(GLOB PO_FILES "${CMAKE_CURRENT_SOURCE_DIR}/*.po")
-
+  IF(NOT APPLE)
+    list(REMOVE_ITEM PO_FILES "${CMAKE_CURRENT_SOURCE_DIR}/en_US.po")
+  ENDIF()
+  
   ADD_TRANSLATIONS("${CMAKE_CURRENT_SOURCE_DIR}/hugin.pot" ${PO_FILES})
 endif()
 
