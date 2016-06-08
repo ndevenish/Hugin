@@ -22,18 +22,20 @@ ELSEIF(APPLE)
 
   IF(MAC_SELF_CONTAINED_BUNDLE)
     
+    #translations
     FILE(GLOB PO_FILES "${CMAKE_SOURCE_DIR}/src/translations/*.po")
-    SET(TRANSLATION_FILES "")
+    SET(TRANSLATION_FILES )
     FOREACH(_file_po ${PO_FILES})
       GET_FILENAME_COMPONENT(LANG ${_file_po} NAME_WE)
       SET(_file_out ${CMAKE_BINARY_DIR}/src/translations/mac/${LANG}.lproj/hugin.mo)
-      SET(TRANSLATION_FILES "${TRANSLATION_FILES};${_file_out}" )
+      LIST(APPEND TRANSLATION_FILES ${_file_out} )
       SET_SOURCE_FILES_PROPERTIES( ${_file_out} PROPERTIES 
-        MACOSX_PACKAGE_LOCATION "Resources/${LANG}.lproj/" 
-        GENERATED TRUE)
+              MACOSX_PACKAGE_LOCATION "Resources/${LANG}.lproj" 
+              GENERATED TRUE)
     ENDFOREACH(_file_po)
 
 
+    #xrc files
     FILE(GLOB_RECURSE XRC_FILES ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.html 
                                 ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.htm
                                 ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.hhc
@@ -47,12 +49,15 @@ ELSEIF(APPLE)
                                 ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.pl )
 
     FOREACH(_file ${XRC_FILES})
-          GET_FILENAME_COMPONENT(_file_dir ${_file} PATH)
-      FILE(RELATIVE_PATH _file_dir ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/ ${_file_dir})
+      GET_FILENAME_COMPONENT(_file_dir ${_file} PATH)
+      FILE(RELATIVE_PATH _file_dir ${CMAKE_CURRENT_SOURCE_DIR} ${_file_dir})
+      IF(${_file_dir} MATCHES "xrc/data/help.*")
+        CONTINUE()
+      ENDIF()
       SET_SOURCE_FILES_PROPERTIES( ${_file} PROPERTIES 
-              MACOSX_PACKAGE_LOCATION 
-              "Resources/${_file_dir}")
+              MACOSX_PACKAGE_LOCATION "Resources/${_file_dir}")
     ENDFOREACH(_file)
+    
 
     ADD_EXECUTABLE( ${PROGNAME} MACOSX_BUNDLE ${CALLENSGUI_SOURCE} ${CALLENSGUI_HEADER}
           ${TRANSLATION_FILES} ${XRC_FILES} )

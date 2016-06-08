@@ -33,19 +33,17 @@ ELSEIF(APPLE)
     ENDFOREACH(_file)
 
 
+    #other files
     FILE(GLOB OTHER ${CMAKE_SOURCE_DIR}/src/hugin1/executor/*.executor)
     LIST(APPEND OTHER 
                       ${CMAKE_SOURCE_DIR}/src/celeste/data/celeste.model
                       ${CMAKE_SOURCE_DIR}/src/hugin1/base_wx/hugin_exiftool_copy.arg)
-
     FOREACH(_file ${OTHER})
       SET_SOURCE_FILES_PROPERTIES( ${_file} PROPERTIES 
-           MACOSX_PACKAGE_LOCATION 
-           "Resources/xrc" )
+           MACOSX_PACKAGE_LOCATION "Resources/xrc" )
     ENDFOREACH(_file)
 
-
-    # Translations
+    #translations
     FILE(GLOB PO_FILES "${CMAKE_SOURCE_DIR}/src/translations/*.po")
     SET(TRANSLATION_FILES )
     FOREACH(_file_po ${PO_FILES})
@@ -53,10 +51,9 @@ ELSEIF(APPLE)
       SET(_file_out ${CMAKE_BINARY_DIR}/src/translations/mac/${LANG}.lproj/hugin.mo)
       LIST(APPEND TRANSLATION_FILES ${_file_out} )
       SET_SOURCE_FILES_PROPERTIES( ${_file_out} PROPERTIES 
-        MACOSX_PACKAGE_LOCATION "Resources/${LANG}.lproj" 
-        GENERATED TRUE)
+              MACOSX_PACKAGE_LOCATION "Resources/${LANG}.lproj" 
+              GENERATED TRUE)
     ENDFOREACH(_file_po)
-
 
     # Icons
     set( ICON_FILES "../hugin/${MACOSX_BUNDLE_ICON_FILE}" "../hugin/${MACOSX_BUNDLE_TYPE_ICON_FILE}" )

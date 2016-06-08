@@ -77,18 +77,17 @@ IF(APPLE)
            GENERATED TRUE)
     ENDFOREACH(_file)
 
+    #other files
     FILE(GLOB OTHER ${CMAKE_SOURCE_DIR}/src/hugin1/executor/*.executor)
     LIST(APPEND OTHER 
                       ${CMAKE_SOURCE_DIR}/src/celeste/data/celeste.model
                       ${CMAKE_SOURCE_DIR}/src/hugin1/base_wx/hugin_exiftool_copy.arg)
-
     FOREACH(_file ${OTHER})
       SET_SOURCE_FILES_PROPERTIES( ${_file} PROPERTIES 
-           MACOSX_PACKAGE_LOCATION 
-           "Resources/xrc" )
+           MACOSX_PACKAGE_LOCATION "Resources/xrc" )
     ENDFOREACH(_file)
 
-
+    #translations
     FILE(GLOB PO_FILES "${CMAKE_SOURCE_DIR}/src/translations/*.po")
     SET(TRANSLATION_FILES )
     FOREACH(_file_po ${PO_FILES})
@@ -96,12 +95,12 @@ IF(APPLE)
       SET(_file_out ${CMAKE_BINARY_DIR}/src/translations/mac/${LANG}.lproj/hugin.mo)
       LIST(APPEND TRANSLATION_FILES ${_file_out} )
       SET_SOURCE_FILES_PROPERTIES( ${_file_out} PROPERTIES 
-        MACOSX_PACKAGE_LOCATION "Resources/${LANG}.lproj" 
-               GENERATED TRUE)
+              MACOSX_PACKAGE_LOCATION "Resources/${LANG}.lproj" 
+              GENERATED TRUE)
     ENDFOREACH(_file_po)
 
 
-    # xrc files
+    #xrc files
     FILE(GLOB_RECURSE XRC_FILES ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.html 
                                 ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.htm
                                 ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.hhc
@@ -113,24 +112,59 @@ IF(APPLE)
                                 ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.png
                                 ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.txt
                                 ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/*.pl )
+
     FOREACH(_file ${XRC_FILES})
-          GET_FILENAME_COMPONENT(_file_dir ${_file} PATH)
+      GET_FILENAME_COMPONENT(_file_dir ${_file} PATH)
       FILE(RELATIVE_PATH _file_dir ${CMAKE_CURRENT_SOURCE_DIR} ${_file_dir})
+      IF(${_file_dir} MATCHES "xrc/data/help.*")
+        CONTINUE()
+      ENDIF()
       SET_SOURCE_FILES_PROPERTIES( ${_file} PROPERTIES 
-              MACOSX_PACKAGE_LOCATION 
-              "Resources/${_file_dir}")
+              MACOSX_PACKAGE_LOCATION "Resources/${_file_dir}")
     ENDFOREACH(_file)
+
+
+    SET(XRC_2 ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/data/upstream.txt
+                     ${CMAKE_SOURCE_DIR}/COPYING.txt
+                     ${CMAKE_BINARY_DIR}/src/hugin1/hugin/xrc/data/about.htm )
+    FOREACH(_file ${XRC_2})
+      SET_SOURCE_FILES_PROPERTIES( ${_file} PROPERTIES 
+           MACOSX_PACKAGE_LOCATION "Resources/xrc/data" )
+    ENDFOREACH(_file)
+
+    SET(XRC_FILES ${XRC_FILES} ${XRC_2})
+
 
     # Icons
     set( ICON_FILES "../hugin/${MACOSX_BUNDLE_ICON_FILE}" "../hugin/${MACOSX_BUNDLE_TYPE_ICON_FILE}" )
     FOREACH(_file ${ICON_FILES})
       SET_SOURCE_FILES_PROPERTIES( ${_file} PROPERTIES 
-           MACOSX_PACKAGE_LOCATION 
-           "Resources" )
+           MACOSX_PACKAGE_LOCATION "Resources" )
     ENDFOREACH(_file)
 
+
+    #help files
+    FILE(GLOB HELP_FILES ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/data/help_en_EN/*.css 
+                         ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/data/help_en_EN/*.htm 
+                         ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/data/help_en_EN/*.html 
+                         ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/data/help_en_EN/*.ico 
+                         ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/data/help_en_EN/*.gif 
+                         ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/data/help_en_EN/*.JPG 
+                         ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/data/help_en_EN/*.jpg 
+                         ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/data/help_en_EN/*.png 
+                         ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/data/help_en_EN/*.xpm 
+                         ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/data/help_en_EN/*.hhc 
+                         ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/data/help_en_EN/*.hhk 
+                         ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/data/help_en_EN/*.hhp
+                         ${CMAKE_SOURCE_DIR}/src/hugin1/hugin/xrc/data/help_en_EN/.manual )
+    FOREACH(_file ${HELP_FILES})
+      SET_SOURCE_FILES_PROPERTIES( ${_file} PROPERTIES 
+           MACOSX_PACKAGE_LOCATION "Resources/en_US.lproj/help" )
+    ENDFOREACH(_file)
+
+
     ADD_EXECUTABLE( ${PROGNAME} MACOSX_BUNDLE ${hugin_SOURCES} 
-                    ${ICON_FILES} ${TRANSLATION_FILES} ${XRC_FILES} ${TOOLS} ${OTHER})
+                    ${ICON_FILES} ${TRANSLATION_FILES} ${XRC_FILES} ${HELP_FILES} ${TOOLS} ${OTHER} )
     if(INFO_PLIST)
       set_target_properties(${PROGNAME} PROPERTIES
             MACOSX_BUNDLE_INFO_PLIST ${INFO_PLIST})
