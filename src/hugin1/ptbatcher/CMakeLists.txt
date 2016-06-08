@@ -12,7 +12,7 @@ IF (WIN32)
   ENDIF(MINGW)
 ELSEIF(APPLE)
   set( PROGNAME PTBatcherGUI )
-  set( MACOSX_BUNDLE_ICON_FILE PTBatcherGui.icns )
+  set( MACOSX_BUNDLE_ICON_FILE ../hugin/PTBatcherGui.icns )
 
   set( INFO_PLIST ${CMAKE_MODULE_PATH}/HuginBundleInfoPTO.plist.in)
   set( MACOSX_BUNDLE_TYPE_ROLE Viewer )

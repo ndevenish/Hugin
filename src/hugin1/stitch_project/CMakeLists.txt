@@ -4,7 +4,7 @@ IF (WIN32)
   add_executable(${PROGNAME} WIN32 hugin_stitch_project.cpp hugin_stitch_project_rc.rc)
 ELSEIF(APPLE)
   set( PROGNAME HuginStitchProject )
-  set( MACOSX_BUNDLE_ICON_FILE Hugin.icns )
+  set( MACOSX_BUNDLE_ICON_FILE ../hugin/Hugin.icns )
 
   set( INFO_PLIST ${CMAKE_MODULE_PATH}/HuginBundleInfoPTO.plist.in)
   set( MACOSX_BUNDLE_TYPE_ROLE Viewer )
