@@ -543,7 +543,8 @@ bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDet
                             // range adaption
                             double minVal = 0;
                             double maxVal;
-                            if (aImageInfo.getPixelType() == std::string("FLOAT") || aImageInfo.getPixelType() == std::string("DOUBLE"))
+                            const bool isDouble = aImageInfo.getPixelType() == std::string("FLOAT") || aImageInfo.getPixelType() == std::string("DOUBLE");
+                            if (isDouble)
                             {
                                 vigra::FindMinMax<float> minmax;   // init functor
                                 vigra::inspectImage(vigra::srcImageRange(*rgbImage, vigra::RGBToGrayAccessor<vigra::RGBValue<double> >()), minmax);
@@ -561,7 +562,13 @@ bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDet
                                 TRACE_IMG("Rescale range...");
                                 if (!range255)
                                 {
-                                    vigra_ext::applyMapping(vigra::srcImageRange(*rgbImage), vigra::destImage(*rgbImage), minVal, maxVal, 0);
+                                    int mapping = 0;
+                                    if (isDouble && iPanoDetector._panoramaInfoCopy.getImage(ioImgInfo._number).getResponseType() == HuginBase::BaseSrcPanoImage::RESPONSE_LINEAR)
+                                    {
+                                        // switch to log mapping for double/float images with linear response type
+                                        mapping = 1;
+                                    };
+                                    vigra_ext::applyMapping(vigra::srcImageRange(*rgbImage), vigra::destImage(*rgbImage), minVal, maxVal, mapping);
                                 };
                                 range255 = true;
                             }
